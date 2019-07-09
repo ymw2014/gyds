@@ -1,56 +1,56 @@
 filedo:
-  uploadPath: localhost:9092
-  upload: C:/web/fly/uploaded_files/
+  uploadPath: localhost:9091
+  upload: C:/web/hzcy/uploaded_files/
 logging:
   level:
     root: info
-    com.fly: debug
-    com.fly.**.dao: debug
+    com.palmble: debug
+    com.palmble.**.dao: debug
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/gyds?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/hzcy-shop?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
-    password: root
+    password: M2d59ef9fe$
 
     initialSize: 10
     minIdle: 10
     maxActive: 30
-    # 閰嶇疆鑾峰彇杩炴帴绛夊緟瓒呮椂鐨勬椂闂�
+    # 配置获取连接等待超时的时间
     maxWait: 60000
-    # 閰嶇疆闂撮殧澶氫箙鎵嶈繘琛屼竴娆℃娴嬶紝妫�娴嬮渶瑕佸叧闂殑绌洪棽杩炴帴锛屽崟浣嶆槸姣
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
     timeBetweenEvictionRunsMillis: 60000
-    # 閰嶇疆涓�涓繛鎺ュ湪姹犱腑鏈�灏忕敓瀛樼殑鏃堕棿锛屽崟浣嶆槸姣
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
     minEvictableIdleTimeMillis: 30000
     validationQuery: select 'x'
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
-    # 鎵撳紑PSCache锛屽苟涓旀寚瀹氭瘡涓繛鎺ヤ笂PSCache鐨勫ぇ灏�
+    # 打开PSCache，并且指定每个连接上PSCache的大小
     poolPreparedStatements: true
     maxPoolPreparedStatementPerConnectionSize: 20
-    # 閰嶇疆鐩戞帶缁熻鎷︽埅鐨刦ilters锛屽幓鎺夊悗鐩戞帶鐣岄潰sql鏃犳硶缁熻锛�'wall'鐢ㄤ簬闃茬伀澧�
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
     filters: stat,wall,slf4j
-    # 閫氳繃connectProperties灞炴�ф潵鎵撳紑mergeSql鍔熻兘锛涙參SQL璁板綍
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-    # 鍚堝苟澶氫釜DruidDataSource鐨勭洃鎺ф暟鎹�
+    # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
   redis:
     host: 127.0.0.1
     port: 6379
     password: M2d59ef9fe$
-    # 杩炴帴瓒呮椂鏃堕棿锛堟绉掞級
+    # 连接超时时间（毫秒）
     timeout: 10000
     jedis:
       pool:
-        # 杩炴帴姹犱腑鐨勬渶澶х┖闂茶繛鎺�
+        # 连接池中的最大空闲连接
         max-idle: 8
-        # 杩炴帴姹犱腑鐨勬渶灏忕┖闂茶繛鎺otifyUrl
+        # 连接池中的最小空闲连接notifyUrl
         min-idle: 10
-        # 杩炴帴姹犳渶澶ц繛鎺ユ暟锛堜娇鐢ㄨ礋鍊艰〃绀烘病鏈夐檺鍒讹級
+        # 连接池最大连接数（使用负值表示没有限制）
         max-active: 100
-        # 杩炴帴姹犳渶澶ч樆濉炵瓑寰呮椂闂达紙浣跨敤璐熷�艰〃绀烘病鏈夐檺鍒讹級
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1
     database: 6
 
