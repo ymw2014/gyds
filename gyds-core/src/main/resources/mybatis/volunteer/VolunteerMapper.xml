@@ -42,6 +42,7 @@
 		  		  <if test="county != null and county != ''"> and county = #{county} </if>
 		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
 		  		   <if test="createTime != null and createTime != ''"> and create_Time = #{createTime} </if>
+		  		   <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

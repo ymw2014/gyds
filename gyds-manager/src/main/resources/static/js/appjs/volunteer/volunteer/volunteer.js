@@ -39,7 +39,8 @@ function load() {
 								limit: params.limit,
 								offset:params.offset,
 								volunteerName:$('#searchName').val(),
-					            telephone:$('#searchPhone').val()
+					            telephone:$('#searchPhone').val(),
+					            auditStatus:$('#searchStatus').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
