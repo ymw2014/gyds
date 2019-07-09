@@ -1,5 +1,5 @@
 
-var prefix = "/member/member"
+var prefix = "/volunteer/volunteer"
 $(function() {
 	load();
 });
@@ -43,7 +43,7 @@ function load() {
 						// pageSize, pageNumber, searchText, sortName,
 						// sortOrder.
 						// 返回false将会终止请求
-						columns : [// src="/files/7da67300-00e3-4514-a8b2-3437aa5aa93e.jpg"
+						columns : [
 								{
 									checkbox : true
 								},/*
@@ -52,36 +52,16 @@ function load() {
 									title : '自增编号' 
 								},*/
 																{
-									field : 'name', 
-									title : '用户名称' 
-								},
-								{
+									field : 'volunteerName', 
+									title : '志愿者名称' 
+								},/*
+																{
+									field : 'memId', 
+									title : '' 
+								},*/
+																{
 									field : 'teamName', 
 									title : '所属团队名称' 
-								},
-																{
-									field : 'sex', 
-									title : '性别' ,
-									formatter : function(value, row, index) {
-										if (value = '1') {
-											return '男';
-										} else if (value = '0'){
-											return '女';
-										}
-									}
-								},
-																{
-									field : 'headImg', 
-									title : '用户头像' ,
-									formatter : function(value, row, index) {
-										
-											return '<img src="' + value + '"  style="width:47px;">';
-										
-									}
-								},
-																{
-									field : 'age', 
-									title : '年龄' 
 								},
 																{
 									field : 'address', 
@@ -92,55 +72,59 @@ function load() {
 									title : '电话' 
 								},
 																{
-									field : 'loginNo', 
-									title : '登录账号' 
-								},/*
-																{
-									field : 'password', 
-									title : '登录密码' 
-								},*//*
-																{
-									field : 'teamId', 
-									title : '所属团队编号' 
-								},*/
-																{
-									field : 'account', 
-									title : '账户余额' 
+									field : 'sex', 
+									title : '性别' ,
+									formatter : function(value, row, index) {
+										if (value == '1') {
+											return '女'
+										} 
+										return '男';
+									}
 								},
 																{
-									field : 'redEnvelopeIncome', 
-									title : '红包收益' 
+									field : 'age', 
+									title : '年龄' 
 								},
 																{
-									field : 'platformIntegral', 
-									title : '平台积分' 
+									field : 'volunteerNumber', 
+									title : '志愿者编号' 
 								},
+																{
+									field : 'cardNo', 
+									title : '身份证号' 
+								},
+																{
+									field : 'sharesNumber', 
+									title : '转发次数' 
+								},
+																{
+									field : 'commentNumber', 
+									title : '评论量' 
+								},
+																{
+									field : 'clickNumber', 
+									title : '点击量' 
+								},
+																{
+									field : 'actNumber', 
+									title : '参与活动次数' 
+								},
+																{
+									field : 'level', 
+									title : '志愿者等级' 
+								},
+
 								{
 									field : 'province', 
 									title : '省' 
 								},
-								{
+																{
 									field : 'city', 
 									title : '市' 
 								},
 																{
 									field : 'county', 
 									title : '县' 
-								},
-															/*	{
-									field : 'regioncode', 
-									title : '所属区域编号' 
-								},*/
-																{
-									field : 'isIdentification', 
-									title : '是否实名认证',
-									formatter : function(value, row, index) {
-										if (value == '1') {
-											return '是';
-										} else {
-											return '否';
-										}
-									}
 								},
 																{
 									title : '操作',

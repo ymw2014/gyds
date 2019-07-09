@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.volunteer.dao.VolunteerDao">
+
+	<select id="get" resultType="com.fly.volunteer.domain.VolunteerDO">
+		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,
+		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
+		`card_no`,`shares_number`,`comment_number`,`click_number`,
+		`act_number`,`level`,`province`,`city`,`county`,`regionCode` 
+		from volunteer v
+		left join team t on v.team_id = t.id where v.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.volunteer.domain.VolunteerDO">
+		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,
+		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
+		`card_no`,`shares_number`,`comment_number`,`click_number`,
+		`act_number`,`level`,`province`,`city`,`county`,`regionCode` 
+		from volunteer v
+		left join team t on v.team_id = t.id
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="volunteerName != null and volunteerName != ''"> and volunteer_name = #{volunteerName} </if>
+		  		  <if test="memId != null and memId != ''"> and mem_id = #{memId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="address != null and address != ''"> and address = #{address} </if>
+		  		  <if test="telephone != null and telephone != ''"> and telephone = #{telephone} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
+		  		  <if test="volunteerNumber != null and volunteerNumber != ''"> and volunteer_number = #{volunteerNumber} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="sharesNumber != null and sharesNumber != ''"> and shares_number = #{sharesNumber} </if>
+		  		  <if test="commentNumber != null and commentNumber != ''"> and comment_number = #{commentNumber} </if>
+		  		  <if test="clickNumber != null and clickNumber != ''"> and click_number = #{clickNumber} </if>
+		  		  <if test="actNumber != null and actNumber != ''"> and act_number = #{actNumber} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="county != null and county != ''"> and county = #{county} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from volunteer
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="volunteerName != null and volunteerName != ''"> and volunteer_name = #{volunteerName} </if>
+		  		  <if test="memId != null and memId != ''"> and mem_id = #{memId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="address != null and address != ''"> and address = #{address} </if>
+		  		  <if test="telephone != null and telephone != ''"> and telephone = #{telephone} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
+		  		  <if test="volunteerNumber != null and volunteerNumber != ''"> and volunteer_number = #{volunteerNumber} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="sharesNumber != null and sharesNumber != ''"> and shares_number = #{sharesNumber} </if>
+		  		  <if test="commentNumber != null and commentNumber != ''"> and comment_number = #{commentNumber} </if>
+		  		  <if test="clickNumber != null and clickNumber != ''"> and click_number = #{clickNumber} </if>
+		  		  <if test="actNumber != null and actNumber != ''"> and act_number = #{actNumber} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="county != null and county != ''"> and county = #{county} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.volunteer.domain.VolunteerDO" useGeneratedKeys="true" keyProperty="id">
+		insert into volunteer
+		(
+			`volunteer_name`, 
+			`mem_id`, 
+			`team_id`, 
+			`address`, 
+			`telephone`, 
+			`sex`, 
+			`age`, 
+			`volunteer_number`, 
+			`card_no`, 
+			`shares_number`, 
+			`comment_number`, 
+			`click_number`, 
+			`act_number`, 
+			`level`, 
+			`province`, 
+			`city`, 
+			`county`, 
+			`regionCode`
+		)
+		values
+		(
+			#{volunteerName}, 
+			#{memId}, 
+			#{teamId}, 
+			#{address}, 
+			#{telephone}, 
+			#{sex}, 
+			#{age}, 
+			#{volunteerNumber}, 
+			#{cardNo}, 
+			#{sharesNumber}, 
+			#{commentNumber}, 
+			#{clickNumber}, 
+			#{actNumber}, 
+			#{level}, 
+			#{province}, 
+			#{city}, 
+			#{county}, 
+			#{regioncode}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.volunteer.domain.VolunteerDO">
+		update volunteer 
+		<set>
+			<if test="volunteerName != null">`volunteer_name` = #{volunteerName}, </if>
+			<if test="memId != null">`mem_id` = #{memId}, </if>
+			<if test="teamId != null">`team_id` = #{teamId}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="telephone != null">`telephone` = #{telephone}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="age != null">`age` = #{age}, </if>
+			<if test="volunteerNumber != null">`volunteer_number` = #{volunteerNumber}, </if>
+			<if test="cardNo != null">`card_no` = #{cardNo}, </if>
+			<if test="sharesNumber != null">`shares_number` = #{sharesNumber}, </if>
+			<if test="commentNumber != null">`comment_number` = #{commentNumber}, </if>
+			<if test="clickNumber != null">`click_number` = #{clickNumber}, </if>
+			<if test="actNumber != null">`act_number` = #{actNumber}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="province != null">`province` = #{province}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="county != null">`county` = #{county}, </if>
+			<if test="regioncode != null">`regionCode` = #{regioncode}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from volunteer where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from volunteer where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

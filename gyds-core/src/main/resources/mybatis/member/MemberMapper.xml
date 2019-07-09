@@ -4,11 +4,17 @@
 <mapper namespace="com.fly.member.dao.MemberDao">
 
 	<select id="get" resultType="com.fly.member.domain.MemberDO">
-		select `id`,`name`,`sex`,`head_img`,`age`,`address`,`telephone`,`login_no`,`password`,`team_id`,`account`,`red_envelope_income`,`platform_integral`,`county`,`city`,`regionCode`,`province`,`is_identification` from member where id = #{value}
+		select m.`id`,`name`,`sex`,`head_img`,`age`,`address`,`telephone`,`login_no`,`password`,`team_id`,
+		`account`,`red_envelope_income`,`platform_integral`,`county`,`city`,`regionCode`,`province`,
+		`is_identification`, t.team_name team_name from member m
+		left join team t on m.team_id = t.id where m.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.member.domain.MemberDO">
-		select `id`,`name`,`sex`,`head_img`,`age`,`address`,`telephone`,`login_no`,`password`,`team_id`,`account`,`red_envelope_income`,`platform_integral`,`county`,`city`,`regionCode`,`province`,`is_identification` from member
+		select m.`id`,`name`,`sex`,`head_img`,`age`,`address`,`telephone`,`login_no`,`password`,`team_id`,
+		`account`,`red_envelope_income`,`platform_integral`,`county`,`city`,`regionCode`,`province`,
+		`is_identification`, t.team_name team_name from member m
+		left join team t on m.team_id = t.id
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
