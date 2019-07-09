@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.system.dao.RegionDao">
+
+	<select id="get" resultType="com.fly.domain.RegionDO">
+		select `region_code`,`region_name`,`region_level`,`parent_region_code`,region_type from cux_region where region_code = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.domain.RegionDO">
+		select `region_code`,`region_name`,`region_level`,`parent_region_code`,region_type from cux_region
+        <where>  
+		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="regionName != null and regionName != ''"> and region_name = #{regionName} </if>
+		  		  <if test="regionLevel != null and regionLevel != ''"> and region_level = #{regionLevel} </if>
+		  		  <if test="parentRegionCode != null and parentRegionCode != ''"> and parent_region_code = #{parentRegionCode} </if>
+		  		  <if test="regionType != null and regionType != ''"> and region_type = #{regionType} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by region_code asc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from cux_region
+		 <where>  
+		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="regionName != null and regionName != ''"> and region_name = #{regionName} </if>
+		  		  <if test="regionLevel != null and regionLevel != ''"> and region_level = #{regionLevel} </if>
+		  		  <if test="parentRegionCode != null and parentRegionCode != ''"> and parent_region_code = #{parentRegionCode} </if>
+		  		  <if test="regionType != null and regionType != ''"> and region_type = #{regionType} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.domain.RegionDO">
+		insert into cux_region
+		(
+			`region_code`, 
+			`region_name`, 
+			`region_level`, 
+			`parent_region_code`,
+			`region_type`
+		)
+		values
+		(
+			#{regionCode}, 
+			#{regionName}, 
+			#{regionLevel}, 
+			#{parentRegionCode},
+			#{regionType}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.domain.RegionDO">
+		update cux_region 
+		<set>
+			<if test="regionName != null">`region_name` = #{regionName}, </if>
+			<if test="regionLevel != null">`region_level` = #{regionLevel}, </if>
+			<if test="parentRegionCode != null">`parent_region_code` = #{parentRegionCode}</if>
+			<if test="regionType != null">`region_type` = #{regionType}</if>
+		</set>
+		where region_code = #{regionCode}
+	</update>
+	
+	<delete id="remove">
+		delete from cux_region where region_code = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from cux_region where region_code in 
+		<foreach item="regionCode" collection="array" open="(" separator="," close=")">
+			#{regionCode}
+		</foreach>
+	</delete>
+	
+	<select id="regionIdByList" resultType="com.fly.domain.RegionDO">
+		SELECT t3.region_code, t3.region_name,t3.region_level, t3.parent_region_code,t3.region_type FROM (
+
+              SELECT t1.region_code, t1.region_name,t1.region_level, t1.parent_region_code,t1.region_type,
+
+              IF(FIND_IN_SET(parent_region_code, @pids) > 0, @pids := CONCAT(@pids, ',', region_code), 0) AS ischild
+
+              FROM (
+
+                   SELECT * FROM cux_region t  ORDER BY parent_region_code
+
+                  ) t1, 
+
+                 (SELECT @pids := #{pids}) t2
+
+             ) t3 WHERE ischild != 0  
+         
+         
+	
+	</select>
+	
+		
+	<select id="getRegionUserNumber" resultType="int">
+		select count(*) from sys_user where dept_id = #{value}
+	</select>
+
+</mapper>

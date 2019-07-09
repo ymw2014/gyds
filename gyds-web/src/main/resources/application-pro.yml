@@ -1,0 +1,70 @@
+filedo:
+  uploadPath: localhost:9092
+  upload: C:/web/fly/uploaded_files/
+logging:
+  level:
+    root: info
+    com.fly: debug
+    com.fly.**.dao: debug
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/gyds?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: root
+
+    initialSize: 10
+    minIdle: 10
+    maxActive: 30
+    # 閰嶇疆鑾峰彇杩炴帴绛夊緟瓒呮椂鐨勬椂闂�
+    maxWait: 60000
+    # 閰嶇疆闂撮殧澶氫箙鎵嶈繘琛屼竴娆℃娴嬶紝妫�娴嬮渶瑕佸叧闂殑绌洪棽杩炴帴锛屽崟浣嶆槸姣
+    timeBetweenEvictionRunsMillis: 60000
+    # 閰嶇疆涓�涓繛鎺ュ湪姹犱腑鏈�灏忕敓瀛樼殑鏃堕棿锛屽崟浣嶆槸姣
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 鎵撳紑PSCache锛屽苟涓旀寚瀹氭瘡涓繛鎺ヤ笂PSCache鐨勫ぇ灏�
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 閰嶇疆鐩戞帶缁熻鎷︽埅鐨刦ilters锛屽幓鎺夊悗鐩戞帶鐣岄潰sql鏃犳硶缁熻锛�'wall'鐢ㄤ簬闃茬伀澧�
+    filters: stat,wall,slf4j
+    # 閫氳繃connectProperties灞炴�ф潵鎵撳紑mergeSql鍔熻兘锛涙參SQL璁板綍
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 鍚堝苟澶氫釜DruidDataSource鐨勭洃鎺ф暟鎹�
+    #useGlobalDataSourceStat: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: M2d59ef9fe$
+    # 杩炴帴瓒呮椂鏃堕棿锛堟绉掞級
+    timeout: 10000
+    jedis:
+      pool:
+        # 杩炴帴姹犱腑鐨勬渶澶х┖闂茶繛鎺�
+        max-idle: 8
+        # 杩炴帴姹犱腑鐨勬渶灏忕┖闂茶繛鎺otifyUrl
+        min-idle: 10
+        # 杩炴帴姹犳渶澶ц繛鎺ユ暟锛堜娇鐢ㄨ礋鍊艰〃绀烘病鏈夐檺鍒讹級
+        max-active: 100
+        # 杩炴帴姹犳渶澶ч樆濉炵瓑寰呮椂闂达紙浣跨敤璐熷�艰〃绀烘病鏈夐檺鍒讹級
+        max-wait: -1
+    database: 6
+
+wx:
+  appid: wx7041f7df1c9e66c2
+  secret: afb64d47c9062ab4c47fb34546b22cb5
+  backUrl: http://hezhong.65g.cn/auth/callback
+#  appid: wx4334431741b35429
+#  secret: 2c2f47e624eed7043be7cc55f1fbb428
+#  backUrl: http://pzmkfs.natappfree.cc/auth/callback
+const:
+  APPID : wx7041f7df1c9e66c2
+  MCHID: 1441549702
+  KEY: nT77Y44C7M5Y7v74zo7fT66h65MugBZz
+  APPSECRET: afb64d47c9062ab4c47fb34546b22cb5
+  notifyUrl: http://hezhong.65g.cn/pay/notify
+  keyPath: C:/web/hzcy/apiclient/apiclient_cert.p12

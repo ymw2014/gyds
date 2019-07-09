@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"><head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">上级部门：</label>
+								<div class="col-sm-8">
+									<input id="parentId" name="parentId" th:value="${pId}"
+										class="form-control hidden" type="text">
+								</div>
+								<div class="col-sm-8">
+									<input id="pName" name="pName" th:value="${pName}"
+										class="form-control" type="text" readonly>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">部门名称：</label>
+								<div class="col-sm-8">
+									<input id="name" name="name" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">排序：</label>
+								  <div class="input-group spinner">
+								    <input type="text" id="orderNum" name="orderNum"  class="form-control" value="42">
+								    <div class="input-group-btn-vertical" >
+								      <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+								      <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+								    </div>
+								  </div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">状态：</label>
+								<label class="checkbox-inline">
+							      <input type="radio" name="delFlag" id="delFlag1" 
+							         value="1" checked>正常
+							   </label>
+							   <label class="checkbox-inline">
+							      <input type="radio" name="delFlag" id="delFlag2" 
+							         value="0"> 禁用
+							   </label>
+								<!-- <div class="col-sm-8">
+									<input id="delFlag" name="delFlag" class="form-control"
+										type="text">
+								</div> -->
+							</div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/system/sysDept/add.js">
+	</script>
+	<script type="text/javascript">
+	(function ($) {  
+		  $('.spinner .btn:first-of-type').on('click', function() {  
+		    $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);  
+		  });  
+		  $('.spinner .btn:last-of-type').on('click', function() {  
+		    $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);  
+		  });  
+		})(jQuery);  
+	</script>
+</body>
+</html>

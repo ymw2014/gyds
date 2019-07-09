@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.news.dao.InfoDao">
+
+	<select id="get" resultType="com.fly.news.domain.InfoDO">
+		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,n.content,n.author,n.title,n.id from new_info n left join team t on n.team_id = t.id where n.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.news.domain.InfoDO">
+		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,n.content,n.author,n.title,n.id from new_info n left join team t on n.team_id = t.id
+        <where>  
+		  		  <if test="isDel != null and isDel != ''"> and n.is_del = #{isDel} </if>
+		  		  <if test="isRedPeper != null and isRedPeper != ''"> and n.is_red_peper = #{isRedPeper} </if>
+		  		  <if test="isTop != null and isTop != ''"> and n.is_top = #{isTop} </if>
+		  		  <if test="type != null and type != ''"> and n.type = #{type} </if>
+		  		  <if test="numberOfShares != null and numberOfShares != ''"> and n.number_of_shares = #{numberOfShares} </if>
+		  		  <if test="criticismOfCount != null and criticismOfCount != ''"> and n.criticism_of_count = #{criticismOfCount} </if>
+		  		  <if test="numberOfLikes != null and numberOfLikes != ''"> and n.number_of_likes = #{numberOfLikes} </if>
+		  		  <if test="level != null and level != ''"> and n.level = #{level} </if>
+		  		  <if test="rewardMax != null and rewardMax != ''"> and n.reward_max = #{rewardMax} </if>
+		  		  <if test="rewardNumOfPeople != null and rewardNumOfPeople != ''"> and n.reward_num_of_people = #{rewardNumOfPeople} </if>
+		  		  <if test="rewardCount != null and rewardCount != ''"> and n.reward_count = #{rewardCount} </if>
+		  		  <if test="rewardPrice != null and rewardPrice != ''"> and n.reward_price = #{rewardPrice} </if>
+		  		  <if test="pymentEndTime != null and pymentEndTime != ''"> and n.pyment_end_time = #{pymentEndTime} </if>
+		  		  <if test="pymentStartTime != null and pymentStartTime != ''"> and n.pyment_start_time = #{pymentStartTime} </if>
+		  		  <if test="paymentCriterion != null and paymentCriterion != ''"> and n.payment_criterion = #{paymentCriterion} </if>
+		  		  <if test="paymentDuration != null and paymentDuration != ''"> and n.payment_duration = #{paymentDuration} </if>
+		  		  <if test="paymentTop != null and paymentTop != ''"> and n.payment_top = #{paymentTop} </if>
+		  		  <if test="redPeperCount != null and redPeperCount != ''"> and n.red_peper_count = #{redPeperCount} </if>
+		  		  <if test="redPeper != null and redPeper != ''"> and n.red_peper = #{redPeper} </if>
+		  		  <if test="createTime != null and createTime != ''"> and n.create_time = #{createTime} </if>
+		  		  <if test="titleImg != null and titleImg != ''"> and n.title_img = #{titleImg} </if>
+		  		  <if test="source != null and source != ''"> and n.source = #{source} </if>
+		  		  <if test="publicTime != null and publicTime != ''"> and n.public_time = #{publicTime} </if>
+		  		  <if test="status != null and status != ''"> and n.status = #{status} </if>
+		  		  <if test="teamId != null and teamId != ''"> and n.team_id = #{teamId} </if>
+		  		  <if test="introduction != null and introduction != ''"> and n.introduction = #{introduction} </if>
+		  		  <if test="content != null and content != ''"> and n.content = #{content} </if>
+		  		  <if test="author != null and author != ''"> and n.author = #{author} </if>
+		  		  <if test="title != null and title != ''"> and n.title = #{title} </if>
+		  		  <if test="id != null and id != ''"> and n.id = #{id} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from new_info
+		 <where>  
+		  		  <if test="isDel != null and isDel != ''"> and is_del = #{isDel} </if>
+		  		  <if test="isRedPeper != null and isRedPeper != ''"> and is_red_peper = #{isRedPeper} </if>
+		  		  <if test="isTop != null and isTop != ''"> and is_top = #{isTop} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="numberOfShares != null and numberOfShares != ''"> and number_of_shares = #{numberOfShares} </if>
+		  		  <if test="criticismOfCount != null and criticismOfCount != ''"> and criticism_of_count = #{criticismOfCount} </if>
+		  		  <if test="numberOfLikes != null and numberOfLikes != ''"> and number_of_likes = #{numberOfLikes} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="rewardMax != null and rewardMax != ''"> and reward_max = #{rewardMax} </if>
+		  		  <if test="rewardNumOfPeople != null and rewardNumOfPeople != ''"> and reward_num_of_people = #{rewardNumOfPeople} </if>
+		  		  <if test="rewardCount != null and rewardCount != ''"> and reward_count = #{rewardCount} </if>
+		  		  <if test="rewardPrice != null and rewardPrice != ''"> and reward_price = #{rewardPrice} </if>
+		  		  <if test="pymentEndTime != null and pymentEndTime != ''"> and pyment_end_time = #{pymentEndTime} </if>
+		  		  <if test="pymentStartTime != null and pymentStartTime != ''"> and pyment_start_time = #{pymentStartTime} </if>
+		  		  <if test="paymentCriterion != null and paymentCriterion != ''"> and payment_criterion = #{paymentCriterion} </if>
+		  		  <if test="paymentDuration != null and paymentDuration != ''"> and payment_duration = #{paymentDuration} </if>
+		  		  <if test="paymentTop != null and paymentTop != ''"> and payment_top = #{paymentTop} </if>
+		  		  <if test="redPeperCount != null and redPeperCount != ''"> and red_peper_count = #{redPeperCount} </if>
+		  		  <if test="redPeper != null and redPeper != ''"> and red_peper = #{redPeper} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="titleImg != null and titleImg != ''"> and title_img = #{titleImg} </if>
+		  		  <if test="source != null and source != ''"> and source = #{source} </if>
+		  		  <if test="publicTime != null and publicTime != ''"> and public_time = #{publicTime} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="introduction != null and introduction != ''"> and introduction = #{introduction} </if>
+		  		  <if test="content != null and content != ''"> and content = #{content} </if>
+		  		  <if test="author != null and author != ''"> and author = #{author} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.news.domain.InfoDO" useGeneratedKeys="true" keyProperty="id">
+		insert into new_info
+		(
+			`is_del`, 
+			`is_red_peper`, 
+			`is_top`, 
+			`type`, 
+			`number_of_shares`, 
+			`criticism_of_count`, 
+			`number_of_likes`, 
+			`level`, 
+			`reward_max`, 
+			`reward_num_of_people`, 
+			`reward_count`, 
+			`reward_price`, 
+			`pyment_end_time`, 
+			`pyment_start_time`, 
+			`payment_criterion`, 
+			`payment_duration`, 
+			`payment_top`, 
+			`red_peper_count`, 
+			`red_peper`, 
+			`create_time`, 
+			`title_img`, 
+			`source`, 
+			`public_time`, 
+			`status`, 
+			`team_id`, 
+			`introduction`, 
+			`content`, 
+			`author`, 
+			`title` 
+		)
+		values
+		(
+			#{isDel}, 
+			#{isRedPeper}, 
+			#{isTop}, 
+			#{type}, 
+			#{numberOfShares}, 
+			#{criticismOfCount}, 
+			#{numberOfLikes}, 
+			#{level}, 
+			#{rewardMax}, 
+			#{rewardNumOfPeople}, 
+			#{rewardCount}, 
+			#{rewardPrice}, 
+			#{pymentEndTime}, 
+			#{pymentStartTime}, 
+			#{paymentCriterion}, 
+			#{paymentDuration}, 
+			#{paymentTop}, 
+			#{redPeperCount}, 
+			#{redPeper}, 
+			#{createTime}, 
+			#{titleImg}, 
+			#{source}, 
+			#{publicTime}, 
+			#{status}, 
+			#{teamId}, 
+			#{introduction}, 
+			#{content}, 
+			#{author}, 
+			#{title}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.news.domain.InfoDO">
+		update new_info 
+		<set>
+			<if test="isDel != null">`is_del` = #{isDel}, </if>
+			<if test="isRedPeper != null">`is_red_peper` = #{isRedPeper}, </if>
+			<if test="isTop != null">`is_top` = #{isTop}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="numberOfShares != null">`number_of_shares` = #{numberOfShares}, </if>
+			<if test="criticismOfCount != null">`criticism_of_count` = #{criticismOfCount}, </if>
+			<if test="numberOfLikes != null">`number_of_likes` = #{numberOfLikes}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="rewardMax != null">`reward_max` = #{rewardMax}, </if>
+			<if test="rewardNumOfPeople != null">`reward_num_of_people` = #{rewardNumOfPeople}, </if>
+			<if test="rewardCount != null">`reward_count` = #{rewardCount}, </if>
+			<if test="rewardPrice != null">`reward_price` = #{rewardPrice}, </if>
+			<if test="pymentEndTime != null">`pyment_end_time` = #{pymentEndTime}, </if>
+			<if test="pymentStartTime != null">`pyment_start_time` = #{pymentStartTime}, </if>
+			<if test="paymentCriterion != null">`payment_criterion` = #{paymentCriterion}, </if>
+			<if test="paymentDuration != null">`payment_duration` = #{paymentDuration}, </if>
+			<if test="paymentTop != null">`payment_top` = #{paymentTop}, </if>
+			<if test="redPeperCount != null">`red_peper_count` = #{redPeperCount}, </if>
+			<if test="redPeper != null">`red_peper` = #{redPeper}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="titleImg != null">`title_img` = #{titleImg}, </if>
+			<if test="source != null">`source` = #{source}, </if>
+			<if test="publicTime != null">`public_time` = #{publicTime}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="teamId != null">`team_id` = #{teamId}, </if>
+			<if test="introduction != null">`introduction` = #{introduction}, </if>
+			<if test="content != null">`content` = #{content}, </if>
+			<if test="author != null">`author` = #{author}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from new_info where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from new_info where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

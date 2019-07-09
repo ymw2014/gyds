@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.news.dao.RewardInfoDao">
+
+	<select id="get" resultType="com.fly.news.domain.RewardInfoDO">
+		select `create_time`,`reward_price`,`news_id`,`member_id`,`id` from new_reward_info where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.news.domain.RewardInfoDO">
+		select `create_time`,`reward_price`,`news_id`,`member_id`,`id` from new_reward_info
+        <where>  
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="rewardPrice != null and rewardPrice != ''"> and reward_price = #{rewardPrice} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from new_reward_info
+		 <where>  
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="rewardPrice != null and rewardPrice != ''"> and reward_price = #{rewardPrice} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.news.domain.RewardInfoDO" useGeneratedKeys="true" keyProperty="id">
+		insert into new_reward_info
+		(
+			`create_time`, 
+			`reward_price`, 
+			`news_id`, 
+			`member_id`, 
+		)
+		values
+		(
+			#{createTime}, 
+			#{rewardPrice}, 
+			#{newsId}, 
+			#{memberId}, 
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.news.domain.RewardInfoDO">
+		update new_reward_info 
+		<set>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="rewardPrice != null">`reward_price` = #{rewardPrice}, </if>
+			<if test="newsId != null">`news_id` = #{newsId}, </if>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from new_reward_info where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from new_reward_info where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.team.dao.TeamDao">
+
+	<select id="get" resultType="com.fly.team.domain.TeamDO">
+		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code` from team 
+		where
+		id = #{value}
+	</select>
+	<select id="getByTeamCode" resultType="com.fly.team.domain.TeamDO">
+		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code` from team 
+		where
+		team_code = #{teamCode}
+	</select>
+
+	<select id="list" resultType="com.fly.team.domain.TeamDO">
+		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code` from team
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="teamName != null and teamName != ''"> and team_name = #{teamName} </if>
+		  		  <if test="colonelName != null and colonelName != ''"> and colonel_name = #{colonelName} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamType != null and teamType != ''"> and team_type = #{teamType} </if>
+		  		  <if test="teamCode != null and teamCode != ''"> and team_code = #{teamCode} </if>
+		  		  <if test="teamTitleImg != null and teamTitleImg != ''"> and team_title_img = #{teamTitleImg} </if>
+		  		  <if test="teamImg != null and teamImg != ''"> and team_img = #{teamImg} </if>
+		  		  <if test="regCode != null and regCode != ''"> and reg_code = #{regCode} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from team
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="teamName != null and teamName != ''"> and team_name = #{teamName} </if>
+		  		  <if test="colonelName != null and colonelName != ''"> and colonel_name = #{colonelName} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamType != null and teamType != ''"> and team_type = #{teamType} </if>
+		  		  <if test="teamCode != null and teamCode != ''"> and team_code = #{teamCode} </if>
+		  		  <if test="teamTitleImg != null and teamTitleImg != ''"> and team_title_img = #{teamTitleImg} </if>
+		  		  <if test="teamImg != null and teamImg != ''"> and team_img = #{teamImg} </if>
+		  		  <if test="regCode != null and regCode != ''"> and reg_code = #{regCode} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.team.domain.TeamDO" useGeneratedKeys="true" keyProperty="id">
+		insert into team
+		(
+			`team_name`, 
+			`colonel_name`, 
+			`user_id`, 
+			`team_type`, 
+			`team_code`, 
+			`team_title_img`, 
+			`team_img`, 
+			`reg_code`
+		)
+		values
+		(
+			#{teamName}, 
+			#{colonelName}, 
+			#{userId}, 
+			#{teamType}, 
+			#{teamCode}, 
+			#{teamTitleImg}, 
+			#{teamImg}, 
+			#{regCode}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.team.domain.TeamDO">
+		update team 
+		<set>
+			<if test="teamName != null">`team_name` = #{teamName}, </if>
+			<if test="colonelName != null">`colonel_name` = #{colonelName}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="teamType != null">`team_type` = #{teamType}, </if>
+			<if test="teamCode != null">`team_code` = #{teamCode}, </if>
+			<if test="teamTitleImg != null">`team_title_img` = #{teamTitleImg}, </if>
+			<if test="teamImg != null">`team_img` = #{teamImg}, </if>
+			<if test="regCode != null">`reg_code` = #{regCode}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from team where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from team where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<select id="getTeamUserNumber" resultType="int">
+		select count(*) from sys_user where dept_id = #{value}
+	</select>
+</mapper>
