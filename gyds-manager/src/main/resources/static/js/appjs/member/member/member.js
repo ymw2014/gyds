@@ -43,25 +43,37 @@ function load() {
 						// pageSize, pageNumber, searchText, sortName,
 						// sortOrder.
 						// 返回false将会终止请求
-						columns : [
+						columns : [// src="/files/7da67300-00e3-4514-a8b2-3437aa5aa93e.jpg"
 								{
 									checkbox : true
-								},
+								},/*
 																{
 									field : 'id', 
 									title : '自增编号' 
-								},
+								},*/
 																{
 									field : 'name', 
 									title : '用户名称' 
 								},
 																{
 									field : 'sex', 
-									title : '性别' 
+									title : '性别' ,
+									formatter : function(value, row, index) {
+										if (value = '1') {
+											return '男';
+										} else if (value = '0'){
+											return '女';
+										}
+									}
 								},
 																{
 									field : 'headImg', 
-									title : '用户头像' 
+									title : '用户头像' ,
+									formatter : function(value, row, index) {
+										
+											return '<img src="' + value + '"  style="width:47px;">';
+										
+									}
 								},
 																{
 									field : 'age', 
@@ -78,15 +90,15 @@ function load() {
 																{
 									field : 'loginNo', 
 									title : '登录账号' 
-								},
+								},/*
 																{
 									field : 'password', 
 									title : '登录密码' 
-								},
+								},*//*
 																{
 									field : 'teamId', 
 									title : '所属团队编号' 
-								},
+								},*/
 																{
 									field : 'account', 
 									title : '账户余额' 
@@ -99,25 +111,32 @@ function load() {
 									field : 'platformIntegral', 
 									title : '平台积分' 
 								},
-																{
-									field : 'county', 
-									title : '县' 
+								{
+									field : 'province', 
+									title : '省' 
 								},
-																{
+								{
 									field : 'city', 
 									title : '市' 
 								},
 																{
+									field : 'county', 
+									title : '县' 
+								},
+															/*	{
 									field : 'regioncode', 
 									title : '所属区域编号' 
-								},
-																{
-									field : 'province', 
-									title : '省' 
-								},
+								},*/
 																{
 									field : 'isIdentification', 
-									title : '是否实名认证0：否1：是' 
+									title : '是否实名认证',
+									formatter : function(value, row, index) {
+										if (value == '1') {
+											return '是';
+										} else {
+											return '否';
+										}
+									}
 								},
 																{
 									title : '操作',
