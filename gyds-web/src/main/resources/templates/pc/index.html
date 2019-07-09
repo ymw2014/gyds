@@ -5,8 +5,8 @@
 		<title>公益打赏</title>
 		<link rel="stylesheet" type="text/css" href="../pc/css/index.css"/>
 		<link rel="stylesheet" type="text/css" href="../pc/css/lunbo.css"/>
-		<script src="js/jquery-3.1.1.js"></script>
-		<script src="js/lunbo.js"></script>
+		<script src="../pc/js/jquery-3.1.1.js"></script>
+		<script src="../pc/js/lunbo.js"></script>
 	</head>
 <body>
 	<!-- 头部 -->
@@ -17,8 +17,8 @@
 			</div>
 			<div class="header-center">
 				<input type="text" list="sexlist" placeholder="--全国--">
-				<datalist id="sexlist" >
-					<option th:each="area,userStat : ${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
+				<datalist id="sexlist">
+					<option th:each="area: ${areaList}" th:value="${area.regionName}"></option>
 				</datalist>
 			</div>
 			<div class="header-img">

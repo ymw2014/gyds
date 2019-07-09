@@ -68,7 +68,7 @@ input::-webkit-calendar-picker-indicator{
 	color:#fff;
 	font-size:16px;
 }
-/*登录成功的样式*/
+/*鐧诲綍鎴愬姛鐨勬牱寮�*/
  .loginOk{
 	 width:176px;
 	 height: 64px;
@@ -222,7 +222,7 @@ nav a{
 	margin-top:36px;
 	position: absolute;
 }
-/*地图样式*/
+/*鍦板浘鏍峰紡*/
 .gps_txt{
 	width: 229px;
 	height:470px;

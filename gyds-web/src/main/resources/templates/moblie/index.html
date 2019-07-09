@@ -20,7 +20,7 @@
 			<div class="header-center">
 				<input type="text" list="sexlist" placeholder="-- 全国 --">
 				<datalist id="sexlist" >
-					<option th:each="area,userStat : ${areaList}"></option>
+					<option th:each="area: ${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
 				</datalist>
 			</div>
 			<div class="header-loginimg">
