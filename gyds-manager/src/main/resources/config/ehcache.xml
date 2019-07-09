@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="false">
+    <diskStore path="java.io.tmpdir/Tmp_EhCache"/>
+    <defaultCache eternal="false" maxElementsInMemory="1000"
+                  overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+                  timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU"/>
+    <cache name="user" eternal="false" maxElementsInMemory="10000"
+           overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+           timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"/>
+</ehcache>
+        <!--maxElementsInMemory ：cache 中最多可以存放的元素的数量-->
+        <!--如果放入cache中的元素超过这个数值，有两种情况：
+        1、若overflowToDisk的属性值为true，会将cache中多出的元素放入磁盘文件中。
+        2、若overflowToDisk的属性值为false，会根据memoryStoreEvictionPolicy的策略替换cache中原有的元素。-->
+       <!-- overflowToDisk：boolean类型，默认为false。
+        当内存里面的缓存已经达到预设的上限时是否允许将按驱除策略驱除的元素保存在硬盘上，
+        默认是LRU（最近最少使用）。当指定为false的时候表示缓存信息不会保存到磁盘上，只会保存在内存中。
+        该属性现在已经废弃，推荐使用cache元素的子元素persistence来代替，
+        如：<persistence strategy=”localTempSwap”/>。-->

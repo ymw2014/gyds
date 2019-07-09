@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div style="padding: 10px;">
+	<div class="tabs-container">
+		<form class="form-config" id="signupForm">
+			<input id="id" name="id" th:value="${setup.id}"  type="hidden">
+			<div class="tabs-container">
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">网站配置</a></li>
+					<li class=""><a data-toggle="tab" href="#tab-2"	aria-expanded="false">抽奖配置</a></li>
+					<li class=""><a data-toggle="tab" href="#tab-3"	aria-expanded="false">关于我们</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="panel-body">
+							<div class="col-sm-6">
+							<div class="form-group">
+								<label class=" control-label">平台客服电话</label>
+									<input id="serviceTelephone" name="serviceTelephone"  class="form-control" th:value="${setup.serviceTelephone}" type="text">
+							</div>
+							<div class="form-group">
+								<label class="control-label">客服微信二维码</label>
+								<input id="img" name="serviceImg" class="form-control" type="hidden"/>
+								<div>
+									<img width="100px" height="90px"  id="img4"th:src="${setup.serviceImg}"/>
+									<button type="button" class="layui-btn" id="file">
+										<i class="fa fa-cloud"></i>上传图片
+									</button>
+								</div>
+							</div>
+							<!--<div class="form-group">-->
+								<!--<label class=" control-label">购物一元赠送积分值<span class="text-muted">(输入1即在平台消费1元赠送1积分)</span></label>-->
+									<!--<input id="integralRebate" name="integralRebate" oninput="clearNoNum2(this)"  class="form-control" th:value="${setup.integralRebate}" type="text">-->
+							<!--</div>-->
+							<!--<div class="form-group">
+								<label class=" control-label">提现手续费比例<span class="text-muted"></span></label>
+									<input id="cashCharge" name="cashCharge" oninput="clearNoNum(this)" th:value="${setup.cashCharge}"  class="form-control" type="text">
+							</div>-->
+								<div class="form-group">
+									<label class=" control-label">商家保证金(提现保留额)<span class="text-muted"></span></label>
+									<input id="sellerBaseBalance" name="sellerBaseBalance" oninput="clearNoNum(this)" th:value="${setup.sellerBaseBalance}"  class="form-control" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="tab-2" class="tab-pane">
+						<div class="panel-body">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="control-label">抽奖是否开启</label>
+									<div >
+										<label class="radio-inline"> <input type="radio"
+																			th:field="*{setup.prizeIsStart}" name="prizeIsStart" value="1" /> 开启
+										</label> <label class="radio-inline"> <input type="radio"
+																					 th:field="*{setup.prizeIsStart}" name="prizeIsStart" value="2" /> 关闭
+									</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class=" control-label">活动时间:</label>
+									<div class="layui-input-inline" style="width: 100px;">
+										<input type="text" id="prizeStartTime" name="prizeStartTime"  th:value="${#dates.format(setup.prizeStartTime,'yyyy-MM-dd')}" autocomplete="off" class="layui-input">
+									</div>---
+									<div class="layui-input-inline" style="width: 100px;">
+										<input type="text" id="prizeEndTime" name="prizeEndTime" th:value=" ${#dates.format(setup.prizeEndTime,'yyyy-MM-dd')}"  autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class=" control-label">新用户可抽奖次数</label>
+									<input id="prizeNumberOfDay" name="prizeNumberOfDay" oninput="clearNoNum1(this)"  class="form-control" th:value="${setup.prizeNumberOfDay}" type="text">
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div id="tab-3" class="tab-pane">
+						<div class="panel-body">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="col-sm-3 ">关于我们：</label>
+									<input id="aboutUsContent" name="aboutUsContent" type="hidden">
+									<div class="col-sm-11">
+										<div class="ibox-content no-padding">
+											<div id="content_sn"  class="summernote" th:utext="${setup.aboutUsContent}"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-8 col-sm-offset-3">
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+								<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/sys/setup/edit.js">
+	</script>
+	<script>
+        layui.use('upload', function() {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem : '#file', //绑定元素
+                url : '/common/sysFile/upload', //上传接口
+                size : 1000,
+                accept : 'file',
+                done : function(r) {
+                    var fileName = r.fileName;
+                    $("#img").val(fileName);
+                    $("#img4").attr("src",fileName);
+                },
+                error : function(r) {
+                    layer.msg(r.msg);
+                }
+            });
+
+        });
+
+	</script>
+</body>
+</html>
