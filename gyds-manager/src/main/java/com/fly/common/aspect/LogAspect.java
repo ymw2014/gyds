@@ -41,6 +41,7 @@ public class LogAspect {
 
     @Autowired
     LogService logService;
+    
 
     //AOP
     //定义切点--功能权限更新
