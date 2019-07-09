@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.volunteer.dao.VolunteerDao">
 
 	<select id="get" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select `id`,`volunteer_name`,`mem_id`,`team_id`,`address`,`telephone`,`sex`,`age`,`volunteer_number`,`card_no`,`shares_number`,`comment_number`,`click_number`,`act_number`,`level` from volunteer where id = #{value}
+		select `id`,`volunteer_name`,`mem_id`,`team_id`,`address`,`telephone`,`sex`,`age`,`volunteer_number`,`card_no`,`shares_number`,`comment_number`,`click_number`,`act_number`,`level`,`province`,`city`,`county`,`regionCode` from volunteer where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select `id`,`volunteer_name`,`mem_id`,`team_id`,`address`,`telephone`,`sex`,`age`,`volunteer_number`,`card_no`,`shares_number`,`comment_number`,`click_number`,`act_number`,`level` from volunteer
+		select `id`,`volunteer_name`,`mem_id`,`team_id`,`address`,`telephone`,`sex`,`age`,`volunteer_number`,`card_no`,`shares_number`,`comment_number`,`click_number`,`act_number`,`level`,`province`,`city`,`county`,`regionCode` from volunteer
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="volunteerName != null and volunteerName != ''"> and volunteer_name = #{volunteerName} </if>
@@ -25,6 +25,10 @@
 		  		  <if test="clickNumber != null and clickNumber != ''"> and click_number = #{clickNumber} </if>
 		  		  <if test="actNumber != null and actNumber != ''"> and act_number = #{actNumber} </if>
 		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="county != null and county != ''"> and county = #{county} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -57,6 +61,10 @@
 		  		  <if test="clickNumber != null and clickNumber != ''"> and click_number = #{clickNumber} </if>
 		  		  <if test="actNumber != null and actNumber != ''"> and act_number = #{actNumber} </if>
 		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="county != null and county != ''"> and county = #{county} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
 		  		</where>
 	</select>
 	 
@@ -76,7 +84,11 @@
 			`comment_number`, 
 			`click_number`, 
 			`act_number`, 
-			`level`
+			`level`, 
+			`province`, 
+			`city`, 
+			`county`, 
+			`regionCode`
 		)
 		values
 		(
@@ -93,7 +105,11 @@
 			#{commentNumber}, 
 			#{clickNumber}, 
 			#{actNumber}, 
-			#{level}
+			#{level}, 
+			#{province}, 
+			#{city}, 
+			#{county}, 
+			#{regioncode}
 		)
 	</insert>
 	 
@@ -113,7 +129,11 @@
 			<if test="commentNumber != null">`comment_number` = #{commentNumber}, </if>
 			<if test="clickNumber != null">`click_number` = #{clickNumber}, </if>
 			<if test="actNumber != null">`act_number` = #{actNumber}, </if>
-			<if test="level != null">`level` = #{level}</if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="province != null">`province` = #{province}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="county != null">`county` = #{county}, </if>
+			<if test="regioncode != null">`regionCode` = #{regioncode}</if>
 		</set>
 		where id = #{id}
 	</update>

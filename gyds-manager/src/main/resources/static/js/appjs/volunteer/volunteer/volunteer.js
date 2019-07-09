@@ -113,6 +113,19 @@ function load() {
 									field : 'level', 
 									title : '志愿者等级' 
 								},
+
+								{
+									field : 'province', 
+									title : '省' 
+								},
+																{
+									field : 'city', 
+									title : '市' 
+								},
+																{
+									field : 'county', 
+									title : '县' 
+								},
 																{
 									title : '操作',
 									field : 'id',

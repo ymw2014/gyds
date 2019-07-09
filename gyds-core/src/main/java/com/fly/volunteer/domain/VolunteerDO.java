@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  * @author WangYanke
  * @email 15638836857@163.com
- * @date 2019-07-09 13:42:20
+ * @date 2019-07-09 15:08:21
  */
 public class VolunteerDO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -45,6 +45,14 @@ public class VolunteerDO implements Serializable {
 	private Integer actNumber;
 	//志愿者等级
 	private Integer level;
+	//省
+	private String province;
+	//市
+	private String city;
+	//县
+	private String county;
+	//所属区域编号
+	private Integer regioncode;
 
 	/**
 	 * 设置：自增编号
@@ -225,5 +233,53 @@ public class VolunteerDO implements Serializable {
 	 */
 	public Integer getLevel() {
 		return level;
+	}
+	/**
+	 * 设置：省
+	 */
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	/**
+	 * 获取：省
+	 */
+	public String getProvince() {
+		return province;
+	}
+	/**
+	 * 设置：市
+	 */
+	public void setCity(String city) {
+		this.city = city;
+	}
+	/**
+	 * 获取：市
+	 */
+	public String getCity() {
+		return city;
+	}
+	/**
+	 * 设置：县
+	 */
+	public void setCounty(String county) {
+		this.county = county;
+	}
+	/**
+	 * 获取：县
+	 */
+	public String getCounty() {
+		return county;
+	}
+	/**
+	 * 设置：所属区域编号
+	 */
+	public void setRegioncode(Integer regioncode) {
+		this.regioncode = regioncode;
+	}
+	/**
+	 * 获取：所属区域编号
+	 */
+	public Integer getRegioncode() {
+		return regioncode;
 	}
 }
