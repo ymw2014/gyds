@@ -16,12 +16,14 @@
 		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,
 		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
 		`card_no`,`shares_number`,`comment_number`,`click_number`,
-		`act_number`,`level`,`province`,`city`,`county`,`regionCode` 
+		`act_number`,`level`,`province`,`city`,`county`,`regionCode`,
+		audit_status,
+		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime
 		from volunteer v
 		left join team t on v.team_id = t.id
         <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="volunteerName != null and volunteerName != ''"> and volunteer_name = #{volunteerName} </if>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>     
+		  		  <if test="volunteerName != null and volunteerName != ''"> and volunteer_name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
 		  		  <if test="memId != null and memId != ''"> and mem_id = #{memId} </if>
 		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
 		  		  <if test="address != null and address != ''"> and address = #{address} </if>
@@ -39,6 +41,7 @@
 		  		  <if test="city != null and city != ''"> and city = #{city} </if>
 		  		  <if test="county != null and county != ''"> and county = #{county} </if>
 		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
+		  		   <if test="createTime != null and createTime != ''"> and create_Time = #{createTime} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

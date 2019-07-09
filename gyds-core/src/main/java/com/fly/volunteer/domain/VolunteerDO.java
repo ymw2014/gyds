@@ -56,8 +56,24 @@ public class VolunteerDO implements Serializable {
 	//所属区域编号
 	private Integer regioncode;
 
+	private String createTime;
+	
+	private int auditStatus;
 	
 	
+	
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	public int getAuditStatus() {
+		return auditStatus;
+	}
+	public void setAuditStatus(int auditStatus) {
+		this.auditStatus = auditStatus;
+	}
 	public String getTeamName() {
 		return teamName;
 	}

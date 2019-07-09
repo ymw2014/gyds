@@ -2,6 +2,11 @@
 var prefix = "/volunteer/volunteer"
 $(function() {
 	load();
+	
+	$('#datetimepicker2').datetimepicker({
+        format: 'YYYY-MM-DD hh:mm:ss',
+        locale: moment.locale('zh-cn')
+    });
 });
 
 function load() {
@@ -32,9 +37,9 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset
-					           // name:$('#searchName').val(),
-					           // username:$('#searchName').val()
+								offset:params.offset,
+								volunteerName:$('#searchName').val(),
+					            telephone:$('#searchPhone').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -126,7 +131,21 @@ function load() {
 									field : 'county', 
 									title : '县' 
 								},
-																{
+								{
+									field : 'auditStatus',
+									title : '审核状态',
+									formatter : function(value, row, index) {
+										if (value == '1') {
+											return '已审核';
+										}
+										return '未审核' ;
+									}
+								},
+								{
+									field : 'createTime',
+									title : '入团时间'
+								},
+								{
 									title : '操作',
 									field : 'id',
 									align : 'center',

@@ -17,7 +17,7 @@
 		left join team t on m.team_id = t.id
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="name != null and name != ''"> and name like  CONCAT('%',CONCAT(#{name},'%')) </if>
 		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
 		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
 		  		  <if test="age != null and age != ''"> and age = #{age} </if>
