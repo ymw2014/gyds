@@ -35,6 +35,8 @@ public class MemberDO implements Serializable {
 	private String password;
 	//所属团队编号
 	private Integer teamId;
+	
+	private String teamName;
 	//账户余额
 	private BigDecimal account;
 	//红包收益
@@ -52,6 +54,14 @@ public class MemberDO implements Serializable {
 	//是否实名认证0：否1：是
 	private Integer isIdentification;
 
+	
+	
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 	/**
 	 * 设置：自增编号
 	 */

@@ -23,6 +23,8 @@ public class VolunteerDO implements Serializable {
 	private Long memId;
 	//所属团队编号
 	private Integer teamId;
+	//所属团队名称
+	private String teamName;
 	//家庭住址
 	private String address;
 	//电话
@@ -54,6 +56,14 @@ public class VolunteerDO implements Serializable {
 	//所属区域编号
 	private Integer regioncode;
 
+	
+	
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 	/**
 	 * 设置：自增编号
 	 */

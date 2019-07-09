@@ -60,8 +60,8 @@ function load() {
 									title : '' 
 								},*/
 																{
-									field : 'teamId', 
-									title : '所属团队编号' 
+									field : 'teamName', 
+									title : '所属团队名称' 
 								},
 																{
 									field : 'address', 

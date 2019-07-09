@@ -55,6 +55,10 @@ function load() {
 									field : 'name', 
 									title : '用户名称' 
 								},
+								{
+									field : 'teamName', 
+									title : '所属团队名称' 
+								},
 																{
 									field : 'sex', 
 									title : '性别' ,

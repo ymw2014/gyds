@@ -8,7 +8,12 @@
 	</select>
 
 	<select id="list" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select `id`,`volunteer_name`,`mem_id`,`team_id`,`address`,`telephone`,`sex`,`age`,`volunteer_number`,`card_no`,`shares_number`,`comment_number`,`click_number`,`act_number`,`level`,`province`,`city`,`county`,`regionCode` from volunteer
+		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,
+		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
+		`card_no`,`shares_number`,`comment_number`,`click_number`,
+		`act_number`,`level`,`province`,`city`,`county`,`regionCode` 
+		from volunteer v
+		left join team t on v.team_id = t.id
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="volunteerName != null and volunteerName != ''"> and volunteer_name = #{volunteerName} </if>
