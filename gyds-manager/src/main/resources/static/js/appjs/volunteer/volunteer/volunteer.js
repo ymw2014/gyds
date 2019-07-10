@@ -40,7 +40,9 @@ function load() {
 								offset:params.offset,
 								volunteerName:$('#searchName').val(),
 					            telephone:$('#searchPhone').val(),
-					            auditStatus:$('#searchStatus').val()
+					            auditStatus:$('#searchStatus').val(),
+					            startTime:$('#startTime').val(),
+					            endTime:$('#endTime').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -166,6 +168,12 @@ function load() {
 					});
 }
 function reLoad() {
+	var startTime = $('#startTime').val()
+	var endTime = $('#endTime').val()
+	if (startTime > endTime) {
+		layer.msg("开始时间不能大于结束时间");
+		return;
+	}
 	$('#exampleTable').bootstrapTable('refresh');
 }
 function add() {

@@ -20,12 +20,7 @@
 						<div class="columns pull-right">
 							<button class="btn btn-success" onclick="reLoad()">查询</button>
 						</div>
-						<!-- <div  class="columns pull-right col-md-2" id='datetimepicker2'>
-			                <input type='text' class="form-control" />
-			                <span class="input-group-addon">
-			                    <span class="glyphicon glyphicon-calendar"></span>
-			                </span>
-			            </div> -->
+			            
 			            
 						<div class="columns pull-right col-md-2">
 							<input id="searchName" type="text" class="form-control"
@@ -45,6 +40,14 @@
 								<option value='0'>未审核</option>
 							</select>
 						</div>
+			            <div  class="columns pull-right col-md-2">
+			                <input type="text" class="laydate-icon layer-date form-control" id="endTime" name="endTime"   placeholder="请选择入团结束时间"
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" />
+			            </div>
+						<div  class="columns pull-right col-md-2">
+			                <input type="text" class="laydate-icon layer-date form-control" id="startTime" name="startTime"   placeholder="请选择入团开始时间"
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" />
+			            </div>
 						
 					</div>
 					<table id="exampleTable" data-mobile-responsive="true">
