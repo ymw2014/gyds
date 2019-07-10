@@ -4,17 +4,18 @@
 <mapper namespace="com.fly.activity.dao.ActivityDao">
 
 	<select id="get" resultType="com.fly.activity.domain.ActivityDO">
-		select a.id,a.act_intro,a.act_title,a.act_content,a.member_id,a.status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id where a.id = #{value}
+		select a.id,a.act_intro,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id where a.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.activity.domain.ActivityDO">
-        select a.id,a.act_intro,a.act_title,a.act_content,a.member_id,a.status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
+        select a.id,a.act_intro,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
 		  		  <if test="actIntro != null and actIntro != ''"> and a.act_intro = #{actIntro} </if>
 		  		  <if test="actTitle != null and actTitle != ''"> and a.act_title = #{actTitle} </if>
 		  		  <if test="actContent != null and actContent != ''"> and a.act_content = #{actContent} </if>
 		  		  <if test="status != null and status != ''">and a.status = #{status}</if>
+		  		  <if test="examineStatus != null and examineStatus != ''">and a.examine_status = #{examineStatus}</if>
 		  		  <if test="actPrice != null and actPrice != ''"> and a.act_price = #{actPrice} </if>
 		  		  <if test="actTitleImg != null and actTitleImg != ''"> and a.act_title_img = #{actTitleImg} </if>
 		  		  <if test="actTypeId != null and actTypeId != ''"> and a.act_type_id = #{actTypeId} </if>
@@ -50,7 +51,8 @@
 		  		  <if test="actTitle != null and actTitle != ''"> and act_title = #{actTitle} </if>
 		  		  <if test="actContent != null and actContent != ''"> and act_content = #{actContent} </if>
 		  		  <if test="actPrice != null and actPrice != ''"> and act_price = #{actPrice} </if>
-		  		  <if test="status != null and status != ''">and a.status = #{status}</if>
+		  		  <if test="status != null and status != ''">and status = #{status}</if>
+		  		  <if test="examineStatus != null and examineStatus != ''">and examine_status = #{examineStatus}</if>
 		  		  <if test="actTitleImg != null and actTitleImg != ''"> and act_title_img = #{actTitleImg} </if>
 		  		  <if test="actTypeId != null and actTypeId != ''"> and act_type_id = #{actTypeId} </if>
 		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
@@ -71,6 +73,7 @@
 		insert into activity
 		(	
 			`status`,
+			`examine_status`,
 			`member_id`,
 			`act_intro`, 
 			`act_title`, 
@@ -93,6 +96,7 @@
 		values
 		(	
 			#{status},
+			#{examineStatus},
 			#{memberId},
 			#{actIntro}, 
 			#{actTitle}, 
@@ -122,6 +126,7 @@
 			<if test="actContent != null">`act_content` = #{actContent}, </if>
 			<if test="actPrice != null">`act_price` = #{actPrice}, </if>
 			<if test="status != null"> `status` = #{status},</if>
+			<if test="examineStatus != null"> `examine_status` = #{examineStatus},</if>
 			<if test="actTitleImg != null">`act_title_img` = #{actTitleImg}, </if>
 			<if test="actTypeId != null">`act_type_id` = #{actTypeId}, </if>
 			<if test="startTime != null">`start_time` = #{startTime}, </if>
