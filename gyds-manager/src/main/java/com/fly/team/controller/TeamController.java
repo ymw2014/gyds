@@ -1,5 +1,6 @@
 package com.fly.team.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.domain.RegionDO;
 import com.fly.system.service.RegionService;
+import com.fly.team.dao.TeamTypeDao;
 import com.fly.team.domain.TeamDO;
+import com.fly.team.domain.TypeDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
@@ -39,6 +42,9 @@ public class TeamController {
 	
 	@Autowired
 	private RegionService regionService;
+	
+	@Autowired
+	private TeamTypeDao typeDao;
 	
 	@GetMapping()
 	@RequiresPermissions("team:team:team")
@@ -68,7 +74,17 @@ public class TeamController {
 	@RequiresPermissions("team:team:edit")
 	String edit(@PathVariable("id") Integer id,Model model){
 		TeamDO team = teamService.get(id);
+		String imgStr = team.getTeamImg();
+		String[] img = imgStr.split(",");
+		List<String> imgList = new ArrayList<String>();
+		for(int i =0;i<img.length;i++) {
+			imgList.add(img[i]);
+		}
+		
+		List<TypeDO> type = typeDao.list1();
+		model.addAttribute("type", type);
 		model.addAttribute("team", team);
+		model.addAttribute("imgList",imgList);
 	    return "team/team/edit";
 	}
 	

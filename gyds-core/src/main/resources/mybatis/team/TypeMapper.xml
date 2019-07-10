@@ -28,6 +28,27 @@
 			limit #{offset}, #{limit}
 		</if>
 	</select>
+	<select id="list1" resultType="com.fly.team.domain.TypeDO">
+		select `id`,`type_name`,`is_charge`,`price`,`create_time` from team_type
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="typeName != null and typeName != ''"> and type_name = #{typeName} </if>
+		  		  <if test="isCharge != null and isCharge != ''"> and is_charge = #{isCharge} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
 	
  	<select id="count" resultType="int">
 		select count(*) from team_type

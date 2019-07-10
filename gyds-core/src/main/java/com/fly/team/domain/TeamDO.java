@@ -25,6 +25,8 @@ public class TeamDO implements Serializable {
 	private Integer userId;
 	//团队类型
 	private Integer teamType;
+	//团队类型名称
+	private String typeName;
 	//团队编号
 	private Integer teamCode;
 	//团队封面图
@@ -33,7 +35,38 @@ public class TeamDO implements Serializable {
 	private String teamImg;
 	//地区Code
 	private Integer regCode;
-
+	//地区
+	private String regionName;
+	//状态
+	private Integer status;
+	//备注
+	private String remark;
+	
+	
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+	public String getRegionName() {
+		return regionName;
+	}
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
 	/**
 	 * 设置：自增编号
 	 */

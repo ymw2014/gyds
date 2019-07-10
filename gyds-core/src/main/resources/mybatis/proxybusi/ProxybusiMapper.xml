@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.proxybusi.dao.ProxybusiDao">
+
+	<select id="get" resultType="com.fly.proxybusi.domain.ProxybusiDO">
+		select `id`,`name`,`status`,`level`,`audit_time`,`create_time`,`audit_status`,`region_level`,`member_id`,`audit_result`,`audit_opinion`, proxy_addr from proxybusi where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.proxybusi.domain.ProxybusiDO">
+		select p.`id`,p.`name`,`status`,`level`,`audit_status`,`region_level`,`member_id`, proxy_addr,
+		`audit_result`,`audit_opinion`,
+		m.age,m.city,m.county,m.`name` memberName,m.province,m.telephone,
+		DATE_FORMAT(audit_time,'%Y-%m-%d %H:%i:%s') auditTime,
+		DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') createTime
+		from proxybusi p
+		left join member m on p.member_id = m.id
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="auditTime != null and auditTime != ''"> and audit_time = #{auditTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus} </if>
+		  		  <if test="regionLevel != null and regionLevel != ''"> and region_level = #{regionLevel} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from proxybusi
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="auditTime != null and auditTime != ''"> and audit_time = #{auditTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus} </if>
+		  		  <if test="regionLevel != null and regionLevel != ''"> and region_level = #{regionLevel} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.proxybusi.domain.ProxybusiDO" useGeneratedKeys="true" keyProperty="id">
+		insert into proxybusi
+		(
+			`name`, 
+			`status`, 
+			`level`, 
+			`audit_time`, 
+			`create_time`, 
+			`audit_status`, 
+			`region_level`, 
+			`member_id`,
+			`audit_result`,
+			`audit_opinion`,
+			proxy_addr
+		)
+		values
+		(
+			#{name}, 
+			#{status}, 
+			#{level}, 
+			#{auditTime}, 
+			#{createTime}, 
+			#{auditStatus}, 
+			#{regionLevel}, 
+			#{memberId},
+			#{auditResult},
+			#{auditOpinion},
+			#{proxyAddr}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.proxybusi.domain.ProxybusiDO">
+		update proxybusi 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="auditTime != null">`audit_time` = #{auditTime}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="auditStatus != null">`audit_status` = #{auditStatus}, </if>
+			<if test="regionLevel != null">`region_level` = #{regionLevel}, </if>
+			<if test="memberId != null">`member_id` = #{memberId},</if>
+			<if test="auditResult != null">`audit_result` = #{auditResult},</if>
+			<if test="auditOpinion != null">`audit_opinion` = #{auditOpinion}</if>
+			<if test="proxyAddr != null">`proxy_addr` = #{proxyAddr}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from proxybusi where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from proxybusi where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

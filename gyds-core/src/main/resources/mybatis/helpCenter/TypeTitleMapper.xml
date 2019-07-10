@@ -36,14 +36,6 @@
 		  		  <if test="creatTime != null and creatTime != ''"> and creat_time = #{creatTime} </if>
 		  		  <if test="isDel != null and isDel != ''"> and is_del = #{isDel} </if>
 		  		</where>
-        <choose>
-            <when test="sort != null and sort.trim() != ''">
-                order by ${sort} ${order}
-            </when>
-			<otherwise>
-                order by id desc
-			</otherwise>
-        </choose>
 	</select>
 	
  	<select id="count" resultType="int">

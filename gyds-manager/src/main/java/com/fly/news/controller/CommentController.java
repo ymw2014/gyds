@@ -50,6 +50,7 @@ public class CommentController {
 		List<CommentDO> commentList = commentService.list(query);
 		int total = commentService.count(query);
 		PageUtils pageUtils = new PageUtils(commentList, total);
+		params.put("newsId", "");
 		return pageUtils;
 	}
 	
