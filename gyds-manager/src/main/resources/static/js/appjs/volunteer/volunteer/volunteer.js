@@ -59,9 +59,18 @@ function load() {
 									field : 'id', 
 									title : '自增编号' 
 								},*/
-																{
+								{
 									field : 'volunteerName', 
 									title : '志愿者名称' 
+								},
+								{
+									field : 'headImg', 
+									title : '头像' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '"  style="width:47px;">';
+									
+									}
 								},/*
 																{
 									field : 'memId', 

@@ -4,7 +4,7 @@
 <mapper namespace="com.fly.volunteer.dao.VolunteerDao">
 
 	<select id="get" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,
+		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,head_img,
 		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
 		`card_no`,`shares_number`,`comment_number`,`click_number`,
 		`act_number`,`level`,`province`,`city`,`county`,`regionCode` 
@@ -13,7 +13,7 @@
 	</select>
 
 	<select id="list" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,
+		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,head_img,
 		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
 		`card_no`,`shares_number`,`comment_number`,`click_number`,
 		`act_number`,`level`,`province`,`city`,`county`,`regionCode`,
@@ -43,7 +43,7 @@
 		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
 		  		   <if test="createTime != null and createTime != ''"> and create_Time = #{createTime} </if>
 		  		   <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus} </if>
-		  		   <if test="startTime != null and startTime != ''"> and create_Time <![CDATA[>=]]> #{startTime} </if>
+		  		   <if test="startTime != null and startTime != ''"> and create_Time <![CDATA[>=]]>#{startTime} </if>
 		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
 		  		</where>
         <choose>
@@ -104,7 +104,8 @@
 			`province`, 
 			`city`, 
 			`county`, 
-			`regionCode`
+			`regionCode`,
+			head_img
 		)
 		values
 		(
@@ -125,7 +126,8 @@
 			#{province}, 
 			#{city}, 
 			#{county}, 
-			#{regioncode}
+			#{regioncode},
+			#{headImg}
 		)
 	</insert>
 	 
@@ -150,6 +152,7 @@
 			<if test="city != null">`city` = #{city}, </if>
 			<if test="county != null">`county` = #{county}, </if>
 			<if test="regioncode != null">`regionCode` = #{regioncode}</if>
+			<if test="headImg != null">`head_img` = #{headImg}</if>
 		</set>
 		where id = #{id}
 	</update>

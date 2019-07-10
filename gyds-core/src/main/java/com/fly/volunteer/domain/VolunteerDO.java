@@ -60,8 +60,15 @@ public class VolunteerDO implements Serializable {
 	
 	private int auditStatus;
 	
+	private String headImg;
 	
 	
+	public String getHeadImg() {
+		return headImg;
+	}
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
 	public String getCreateTime() {
 		return createTime;
 	}
