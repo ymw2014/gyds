@@ -11,45 +11,48 @@
 						<form class="form-horizontal m-t" id="signupForm">
 						<input id="id" name="id" th:value="${comment.id}"  type="hidden">
 							<div class="form-group">	
-								<label class="col-sm-3 control-label">评论新闻编号：</label>
+								<label class="col-sm-3 control-label">评论新闻：</label>
 								<div class="col-sm-8">
-									<input id="newsId" name="newsId" th:value="${comment.newsId}" class="form-control" type="text">
+									<input id="newsId" readonly="readonly" th:value="${comment.title}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
-								<label class="col-sm-3 control-label">用户编号：</label>
+								<label class="col-sm-3 control-label">用户名：</label>
 								<div class="col-sm-8">
-									<input id="memberId" name="memberId" th:value="${comment.memberId}" class="form-control" type="text">
+									<input id="memberId" readonly="readonly" th:value="${comment.name}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">评论内容：</label>
 								<div class="col-sm-8">
-									<input id="criticismContent" name="criticismContent" th:value="${comment.criticismContent}" class="form-control" type="text">
+									<input id="criticismContent" readonly="readonly" th:value="${comment.criticismContent}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
-								<label class="col-sm-3 control-label">是否置顶0：否1：是 2：申请中：</label>
+								<label class="col-sm-3 control-label">是否置顶：</label>
 								<div class="col-sm-8">
-									<input id="isTop" name="isTop" th:value="${comment.isTop}" class="form-control" type="text">
+								<label class="radio-inline" >
+										<input type="radio"  value="0" th:attr ="checked=${0 == comment.isTop?true:false}" name="isTop" >否
+									</label>
+									<label class="radio-inline" >
+										<input type="radio"  value="1" th:attr ="checked=${1 == comment.isTop?true:false}" name="isTop" >是
+									</label>
+									<label class="radio-inline" >
+										<input type="radio"  value="2" th:attr ="checked=${2 == comment.isTop?true:false}" name="isTop" >申请中
+									</label>
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">评论时间：</label>
 								<div class="col-sm-8">
-									<input id="createTime" name="createTime" th:value="${comment.createTime}" class="form-control" type="text">
-								</div>
+                                    <input type="text" class="laydate-icon layer-date form-control" id="createTime"   th:value="${comment.createTime}==null?null:${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm:ss')}" 
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss' editable:false})" style="background-color: #fff;" readonly/>
+                                </div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">评论被赞次数：</label>
 								<div class="col-sm-8">
-									<input id="numberOfLikes" name="numberOfLikes" th:value="${comment.numberOfLikes}" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">父级id：</label>
-								<div class="col-sm-8">
-									<input id="prenId" name="prenId" th:value="${comment.prenId}" class="form-control" type="text">
+									<input id="numberOfLikes" readonly="readonly" th:value="${comment.numberOfLikes}" class="form-control" type="text">
 								</div>
 							</div>
 																					<div class="form-group">

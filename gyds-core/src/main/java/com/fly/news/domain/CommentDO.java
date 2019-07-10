@@ -19,8 +19,12 @@ public class CommentDO implements Serializable {
 	private Integer id;
 	//评论新闻编号
 	private Integer newsId;
+	//评论新闻
+	private String title;
 	//用户编号
 	private Integer memberId;
+	//用户名
+	private String name;
 	//评论内容
 	private String criticismContent;
 	//是否置顶0：否1：是 2：申请中
@@ -31,7 +35,20 @@ public class CommentDO implements Serializable {
 	private Integer numberOfLikes;
 	//父级id
 	private Integer prenId;
-
+	
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	/**
 	 * 设置：自增编号
 	 */

@@ -66,8 +66,10 @@ public class InfoDO implements Serializable {
 	private Integer status;
 	//新闻发布团队
 	private Integer teamId;
+	
 	//团队名称
 	private String teamName;
+
 	//简介
 	private String introduction;
 	//新闻内容
@@ -86,6 +88,7 @@ public class InfoDO implements Serializable {
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
+
 	/**
 	 * 设置：是否删除0：否1：是
 	 */

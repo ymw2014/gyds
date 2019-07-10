@@ -62,10 +62,12 @@ function load() {
 								},
 																{
 									field : 'teamName', 
+
 									title : '发布团队' 
 								},
 								
 																{
+
 									field : 'isTop', 
 									title : '是否置顶',
 									formatter: function (value, index){
@@ -79,7 +81,7 @@ function load() {
 											return "申请中"
 										}
 									}
-								},
+							   },
 																{
 									field : 'rewardMax', 
 									title : '打赏总额度' 
@@ -97,10 +99,6 @@ function load() {
 									title : '打赏总金额' 
 								},
 																{
-									field : 'paymentCriterion', 
-									title : '付费基数' 
-								},
-																{
 									field : 'paymentDuration', 
 									title : '置顶时长' 
 								},
@@ -116,6 +114,7 @@ function load() {
 																{
 									field : 'status', 
 									title : '状态',
+									align : 'center',
 									formatter: function (value,row,index){
 										if(value == 0){
 											var s= '<a class="btn btn-success btn-sm"'+s_status_h+' href="#" title=""  mce_href="#" ><span class="" onclick="status('+row.id+',1)">未发布</span></a>'
@@ -126,12 +125,14 @@ function load() {
 											return s;
 										}
 									}
-								},
+																},
+																
 																{
 									title : '操作',
 									field : 'id',
 									width : '200',
 									align : 'center',
+									width : '260px',
 									formatter : function(value, row, index) {
 										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
 												+ row.id
@@ -141,7 +142,7 @@ function load() {
 												+ '\')"><i class="fa fa-remove"></i></a> ';
 										var s= '<a class="btn btn-success btn-sm"'+s_audit_h+' href="#" title=""  mce_href="#" ><span class="" onclick="audit('+row.id+')">置顶审核</span></a>'
 										
-										var c= '<a class="btn btn-success btn-sm"'+s_comAudit_h+' href="#" title=""  mce_href="#" ><span class="" onclick="commentAudit('+row.id+')">评论审核</span></a>'
+										var c= '<a class="btn btn-success btn-sm"'+s_comList_h+' href="#" title=""  mce_href="#" ><span class="" onclick="commentList('+row.id+')">评论列表</span></a>'
 										
 										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
 												+ row.id
@@ -184,14 +185,14 @@ function audit(id) {
 		content : prefix + '/audit/' + id // iframe的url
 	});
 }
-function commentAudit(id) {
+function commentList(id) {
 	layer.open({
 		type : 2,
-		title : '审核',
+		title : '评论列表',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
-		content : '/news/comment/audit/' + id // iframe的url
+		area : [ '1000px', '620px' ],
+		content : '/news/comment/comList/' + id // iframe的url
 	});
 }
 function remove(id) {

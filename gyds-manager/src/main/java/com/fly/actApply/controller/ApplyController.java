@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fly.actApply.domain.ApplyDO;
-import com.fly.actApply.service.ApplyService;
+import com.fly.activity.domain.ApplyDO;
+import com.fly.activity.service.ApplyService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;

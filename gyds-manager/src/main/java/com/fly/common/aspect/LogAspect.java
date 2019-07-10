@@ -1,7 +1,5 @@
 package com.fly.common.aspect;
 
-
-
 import com.fly.common.annotation.Log;
 import com.fly.common.service.LogService;
 import com.fly.domain.LogDO;
@@ -41,6 +39,7 @@ public class LogAspect {
 
     @Autowired
     LogService logService;
+    
 
     //AOP
     //定义切点--功能权限更新

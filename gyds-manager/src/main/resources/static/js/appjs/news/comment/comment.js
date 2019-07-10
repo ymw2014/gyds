@@ -48,16 +48,12 @@ function load() {
 									checkbox : true
 								},
 																{
-									field : 'id', 
-									title : '自增编号' 
+									field : 'title', 
+									title : '评论新闻' 
 								},
 																{
-									field : 'newsId', 
-									title : '评论新闻编号' 
-								},
-																{
-									field : 'memberId', 
-									title : '用户编号' 
+									field : 'name', 
+									title : '用户命' 
 								},
 																{
 									field : 'criticismContent', 
@@ -65,7 +61,18 @@ function load() {
 								},
 																{
 									field : 'isTop', 
-									title : '是否置顶0：否1：是 2：申请中' 
+									title : '是否置顶',
+									formatter: function (value, index){
+										if(value == 0){
+											return "否"
+										}
+										if(value == 1){
+											return "是"
+										}
+										if(value == 2){
+											return "申请中"
+										}
+									}
 								},
 																{
 									field : 'createTime', 
@@ -74,10 +81,6 @@ function load() {
 																{
 									field : 'numberOfLikes', 
 									title : '评论被赞次数' 
-								},
-																{
-									field : 'prenId', 
-									title : '父级id' 
 								},
 																{
 									title : '操作',

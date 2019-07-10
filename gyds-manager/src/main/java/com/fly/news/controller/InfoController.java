@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fly.domain.UserDO;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
@@ -40,6 +39,7 @@ public class InfoController {
 	private InfoService infoService;
 	@Autowired
 	private TeamDao teamDao;
+
 	@GetMapping()
 	@RequiresPermissions("news:info:info")
 	String Info(){
@@ -60,6 +60,7 @@ public class InfoController {
 	
 	@GetMapping("/add")
 	@RequiresPermissions("news:info:add")
+
 	String add(Model model){
 		UserDO user = ShiroUtils.getUser();
 		TeamDO teamDO = teamDao.getByTeamCode(user.getDeptId());
@@ -74,6 +75,7 @@ public class InfoController {
 		model.addAttribute("info", info);
 	    return "news/info/edit";
 	}
+
 	@GetMapping("/audit/{id}")
 	@RequiresPermissions("news:info:audit")
 	String audit(@PathVariable("id") Integer id,Model model){
@@ -81,6 +83,7 @@ public class InfoController {
 		model.addAttribute("info", info);
 	    return "news/info/audit";
 	}
+
 	
 	/**
 	 * 保存

@@ -33,7 +33,7 @@ import com.fly.utils.R;
 public class CommentController {
 	@Autowired
 	private CommentService commentService;
-	
+	private Integer id ;
 	@GetMapping()
 	@RequiresPermissions("news:comment:comment")
 	String Comment(){
@@ -44,6 +44,7 @@ public class CommentController {
 	@GetMapping("/list")
 	@RequiresPermissions("news:comment:comment")
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		params.put("newsId", id);
 		//查询列表数据
         Query query = new Query(params);
 		List<CommentDO> commentList = commentService.list(query);
@@ -66,11 +67,10 @@ public class CommentController {
 	    return "news/comment/edit";
 	}
 	
-	@GetMapping("/audit/{id}")
-	@RequiresPermissions("news:comment:audit")
-	String audit(@PathVariable("id") Integer id,Model model){
-		CommentDO comment = commentService.get(id);
-		model.addAttribute("comment", comment);
+	@GetMapping("/comList/{id}")
+	@RequiresPermissions("news:comment:comList")
+	String audit(@PathVariable("id") Integer id){
+		this.id=id;
 	    return "news/comment/comment";
 	}
 	

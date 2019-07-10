@@ -52,7 +52,7 @@
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">创建日期：</label>
 							<div class="col-sm-8">
-                                    <input type="text" class="laydate-icon layer-date form-control" id="createTime" name="createTime"  th:value="${info.createTime}==null?null:${#dates.format(info.createTime,'yyyy-MM-dd HH:mm:ss')}" 
+                                    <input type="text" class="laydate-icon layer-date form-control" id="createTime"   th:value="${info.createTime}==null?null:${#dates.format(info.createTime,'yyyy-MM-dd HH:mm:ss')}" 
                                              onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss' editable:false})" style="background-color: #fff;" readonly/>
                                 </div>
 							</div>
@@ -113,19 +113,19 @@
 							<div class="form-group">	
 								<label class="col-sm-3 control-label">转发次数：</label>
 								<div class="col-sm-8">
-									<input id="numberOfShares" name="numberOfShares" th:value="${info.numberOfShares}" class="form-control" type="text" readonly="readonly">
+									<input id="numberOfShares"  th:value="${info.numberOfShares}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">评论次数：</label>
 								<div class="col-sm-8">
-									<input id="criticismOfCount" name="criticismOfCount" th:value="${info.criticismOfCount}" class="form-control" type="text" readonly="readonly">
+									<input id="criticismOfCount"  th:value="${info.criticismOfCount}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">文章被赞次数：</label>
 								<div class="col-sm-8">
-									<input id="numberOfLikes" name="numberOfLikes" th:value="${info.numberOfLikes}" class="form-control" type="text" readonly="readonly">
+									<input id="numberOfLikes"  th:value="${info.numberOfLikes}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<!-- <div class="form-group">	
@@ -137,61 +137,61 @@
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">打赏人数：</label>
 								<div class="col-sm-8">
-									<input id="rewardNumOfPeople" name="rewardNumOfPeople" th:value="${info.rewardNumOfPeople}" class="form-control" type="text" readonly="readonly">
+									<input id="rewardNumOfPeople"  th:value="${info.rewardNumOfPeople}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">打赏次数：</label>
 								<div class="col-sm-8">
-									<input id="rewardCount" name="rewardCount" th:value="${info.rewardCount}" class="form-control" type="text" readonly="readonly">
+									<input id="rewardCount"  th:value="${info.rewardCount}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">打赏总金额：</label>
 								<div class="col-sm-8">
-									<input id="rewardPrice" name="rewardPrice" th:value="${info.rewardPrice}" class="form-control" type="text" readonly="readonly">
+									<input id="rewardPrice"  th:value="${info.rewardPrice}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">置顶开始时间：</label>
 								<div class="col-sm-8">
-									<input id="pymentStartTime" name="pymentStartTime" th:value="${info.pymentStartTime}" class="form-control" type="text" readonly="readonly">
+									<input id="pymentStartTime"  th:value="${info.pymentStartTime}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div> 
 														 <div class="form-group">	
 								<label class="col-sm-3 control-label">置顶结束时间：</label>
 								<div class="col-sm-8">
-									<input id="pymentEndTime" name="pymentEndTime" th:value="${info.pymentEndTime}" class="form-control" type="text" readonly="readonly">
+									<input id="pymentEndTime"  th:value="${info.pymentEndTime}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														 <div class="form-group">	
 								<label class="col-sm-3 control-label">付费基数（用来竞价置顶）：</label>
 								<div class="col-sm-8">
-									<input id="paymentCriterion" name="paymentCriterion" th:value="${info.paymentCriterion}" class="form-control" type="text" readonly="readonly">
+									<input id="paymentCriterion"  th:value="${info.paymentCriterion}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div> 
 														 <div class="form-group">	
 								<label class="col-sm-3 control-label">置顶付费时长：</label>
 								<div class="col-sm-8">
-									<input id="paymentDuration" name="paymentDuration" th:value="${info.paymentDuration}" class="form-control" type="text"  readonly="readonly">
+									<input id="paymentDuration"  th:value="${info.paymentDuration}" class="form-control" type="text"  readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">置顶付费：</label>
 								<div class="col-sm-8">
-									<input id="paymentTop" name="paymentTop" th:value="${info.paymentTop}" class="form-control" type="text" readonly="readonly">
+									<input id="paymentTop"  th:value="${info.paymentTop}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">红包个数：</label>
 								<div class="col-sm-8">
-									<input id="redPeperCount" name="redPeperCount" th:value="${info.redPeperCount}" class="form-control" type="text" readonly="readonly">
+									<input id="redPeperCount"  th:value="${info.redPeperCount}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">红包：</label>
 								<div class="col-sm-8">
-									<input id="redPeper" name="redPeper" th:value="${info.redPeper}" class="form-control" type="text" readonly="readonly">
+									<input id="redPeper"  th:value="${info.redPeper}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 																												<div class="form-group">

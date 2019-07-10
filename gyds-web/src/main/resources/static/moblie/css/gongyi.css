@@ -1,0 +1,209 @@
+.gycent{
+	width: 95%;
+	margin:0 auto;
+	overflow: hidden;
+	margin-top:40px;
+}
+.gycent h4{
+	font-size: 48px;
+}
+.gycent1{
+	line-height:72px;
+	
+}
+.gycent1>a{
+	display:balock;
+	text-align: center;
+	float: right;
+	background:#dd1230;
+	color:#fff;
+	width: 106px;line-height: 41px;
+	margin-top:16px;
+	border-radius:8px;
+	font-size:22px;
+}
+.gycent1>img{
+	width: 47px;
+	height: 47px;
+	border-radius: 50%;
+	margin-top:12px;
+	margin-left:15px;
+	margin-right:23px;
+	float: left;
+}
+.gycent2 >p{
+	margin-top:20px;
+}
+.gycent2 >img{
+	margin-top:20px;
+	width: 100%;
+}
+.gycent3{
+ margin-top:20px;
+ text-align: center;
+}
+.gycent3 span{
+ display: block;
+ width: 100%;
+ text-align: center;
+ margin-bottom:20px;
+}
+.gycent3 a{
+	display: block;
+	width: 240px;
+	height: 73px;
+	background:#ef462b;
+	margin: 0 auto;
+	color:#fff;
+	font-size:30px;
+}
+.gycent4{
+	width: 512px;
+	margin:0 auto;
+	margin-top:20px;
+	overflow: hidden;
+	text-align: center;
+}
+.gycent4 img{
+	width: 56px;
+	height: 56px;
+	float: left;
+	margin-top:16px;
+	margin-left:16px;
+}
+.gycent4 a{
+	display: block;
+	width: 100%;
+	line-height: 30px;
+	font-size: 22px;
+	color:#999;
+}
+.gybut{
+	width: 100%;
+	overflow: hidden;
+}
+.gybut div{
+	width: 33.33%;
+	float: left;
+	text-align: center;
+	font-size:26px;
+	height: 48px;
+	line-height: 48px;
+}
+.gybut div>img{
+	width: 48px;
+	height: 48px;
+}
+.gyimg{
+	width: 95%;
+	margin: 0 auto;
+	margin-top:20px;
+}
+.gyimg img{
+	width: 100%;
+	margin-top:20px;
+}
+.listpl-2{
+	width: 95%;
+	margin:0 auto;
+	height: 101px;
+	overflow: hidden;
+	margin-top:60px;
+}
+.listpl-2-1{
+	width: 60px;
+	height: 60px;
+	float: left;
+}
+.listpl-2-1>img{
+	width: 100%;
+	height: 100%;
+}
+.listpl-2-2 textarea{
+	width: 570px;
+	height: 96px;
+	margin-left:5px;
+	float: left;
+}
+.listpl-2-2 a{
+	width:75px;
+	display: block;
+	background:red;
+	height:100px;
+	float: left;
+	text-align: center;
+	line-height:100px;
+	color:#fff;
+}
+.listpl-3{
+	width:95%;
+	margin: 0 auto;
+	line-height:50px;
+	font-size: 20px;
+	overflow: hidden;
+}
+.listpl-3 p{
+	float: left;
+}
+.listpl-4 {
+	width:95%;
+	margin:0 auto;
+	overflow: hidden;
+}
+.listpl-4>img{
+	width:50px;
+	height: 50px;
+	float: left;
+}
+.listpl-4>div{
+	width:628px;
+	float: right;
+	padding-bottom:20px;
+}
+.listpl-4>a{
+	width: 100%;
+	height: 40px;
+	line-height:40px;
+	text-align: center;
+	background:#f0f0f0;
+	float: left;
+	color:#b0b2af;
+}
+.listpl-5{
+	width: 95%;
+	text-align: center;
+	line-height:50px;
+	background:#f0f0f0;
+	margin:0 auto;
+	margin-bottom:10px;
+}
+.listpl-5 a{
+	color:#adadaf;
+	font-size:14px;
+}
+.pl{
+	width: 100%;
+	height:93px;
+	position:fixed;
+	bottom:0;
+	background:#f8f8f8;
+}
+.pl div{
+	width:95%;
+	margin:0 auto;
+	height: 55px;
+	margin-top:17px;
+}
+.pl div>input{
+	width: 475px;
+	height: 50px;
+	border-radius:30px;
+	outline:none;
+	font-size:28px;
+	padding-left:10px;
+	float: left;
+}
+.pl div>a>img{
+	margin-left:30px;
+	margin-top:10px;
+}

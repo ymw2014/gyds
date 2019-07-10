@@ -19,7 +19,7 @@ public interface TeamDao {
 	TeamDO get(Integer id);
 	
 	TeamDO getByTeamCode(Integer teamCode);
-	
+
 	List<TeamDO> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
