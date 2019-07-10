@@ -1,12 +1,7 @@
 
-var prefix = "/volunteer/volunteer"
+var prefix = "/proxybusi/proxybusi"
 $(function() {
 	load();
-	
-	$('#datetimepicker2').datetimepicker({
-        format: 'YYYY-MM-DD hh:mm:ss',
-        locale: moment.locale('zh-cn')
-    });
 });
 
 function load() {
@@ -38,11 +33,8 @@ function load() {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
 								offset:params.offset,
-								volunteerName:$('#searchName').val(),
-					            telephone:$('#searchPhone').val(),
-					            auditStatus:$('#searchStatus').val(),
-					            startTime:$('#startTime').val(),
-					            endTime:$('#endTime').val()
+								telephone:$('#searchTelePhone').val(),
+					            auditStatus:$('#searchStatus').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -58,104 +50,92 @@ function load() {
 																{
 									field : 'id', 
 									title : '自增编号' 
-								},*/
+								},
+									*/	
 								{
-									field : 'volunteerName', 
-									title : '志愿者名称' 
+									field : 'memberName', 
+									title : '姓名' 
 								},
 								{
-									field : 'headImg', 
-									title : '头像' ,
-									formatter : function(value, row, index) {
-										
-										return '<img src="' + value + '"  style="width:47px;">';
-									
-									}
-								},/*
-																{
-									field : 'memId', 
-									title : '' 
-								},*/
-																{
-									field : 'teamName', 
-									title : '所属团队名称' 
-								},
-																{
-									field : 'address', 
-									title : '家庭住址' 
-								},
-																{
-									field : 'telephone', 
-									title : '电话' 
-								},
-																{
-									field : 'sex', 
-									title : '性别' ,
-									formatter : function(value, row, index) {
-										if (value == '1') {
-											return '女'
-										} 
-										return '男';
-									}
-								},
-																{
 									field : 'age', 
 									title : '年龄' 
 								},
-																{
-									field : 'volunteerNumber', 
-									title : '志愿者编号' 
+								{
+									field : 'telephone', 
+									title : '手机号' 
 								},
-																{
-									field : 'cardNo', 
-									title : '身份证号' 
+								{
+									field : 'name', 
+									title : '代理商名称' 
 								},
-																{
-									field : 'sharesNumber', 
-									title : '转发次数' 
+								{
+									field : 'proxyAddr', 
+									title : '代理商地址' 
 								},
-																{
-									field : 'commentNumber', 
-									title : '评论量' 
-								},
-																{
-									field : 'clickNumber', 
-									title : '点击量' 
-								},
-																{
-									field : 'actNumber', 
-									title : '参与活动次数' 
+								{
+									field : 'status', 
+									title : '状态' 
 								},
 																{
 									field : 'level', 
-									title : '志愿者等级' 
-								},
-
-								{
-									field : 'province', 
-									title : '省' 
+									title : '商家等级' 
 								},
 																{
-									field : 'city', 
-									title : '市' 
+									field : 'auditTime', 
+									title : '审核时间' 
 								},
 																{
-									field : 'county', 
-									title : '县' 
+									field : 'createTime', 
+									title : '入团时间' 
 								},
 								{
-									field : 'auditStatus',
-									title : '审核状态',
+									field : 'auditStatus', 
+									title : '审核状态' ,
 									formatter : function(value, row, index) {
 										if (value == '1') {
-											return '已审核';
+											return "已审核";
+										} else if (value == '0') {
+											return "未审核";
 										}
-										return '未审核' ;
+										
 									}
 								},
 								{
-									field : 'createTime',
-									title : '入团时间'
+									field : 'auditResult', 
+									title : '审核结果' ,
+									formatter : function(value, row, index) {
+										if (value == '1') {
+											return "通过";
+										} else if (value == '2') {
+											return "驳回";
+										}
+										
+									}
+								},
+								{
+									field : 'auditOpinion', 
+									title : '审核意见' 
+								},
+																{
+									field : 'regionLevel', 
+									title : '代理级别' 
+								},/*
+									m.age,m.city,m.county,m.`name` memberName,m.province,m.telephone							{
+									field : 'memberId', 
+									title : '' 
+								},
+									*/	
+								{
+									field : 'county', 
+									title : '所在县' 
+								},
+								{
+									field : 'city', 
+									title : '所在城市' 
+								},
+								{
+									field : 'province', 
+									title : '所在省份' 
 								},
 								{
 									title : '操作',
@@ -168,21 +148,18 @@ function load() {
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
+										var f = '<a class="btn btn-success btn-sm" href="#" title="审核"  mce_href="#" onclick="audit(\''
 												+ row.id
 												+ '\')"><i class="fa fa-key"></i></a> ';
-										return e + d ;
+										if (row.auditStatus == '1') {
+											return e + d;
+										}
+										return e + d + f;
 									}
 								} ]
 					});
 }
 function reLoad() {
-	var startTime = $('#startTime').val()
-	var endTime = $('#endTime').val()
-	if (startTime > endTime) {
-		layer.msg("开始时间不能大于结束时间");
-		return;
-	}
 	$('#exampleTable').bootstrapTable('refresh');
 }
 function add() {
@@ -203,6 +180,16 @@ function edit(id) {
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
 		content : prefix + '/edit/' + id // iframe的url
+	});
+}
+function audit(id) {
+	layer.open({
+		type : 2,
+		title : '审核',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '800px', '500px' ],
+		content : prefix + '/audit/' + id // iframe的url
 	});
 }
 function remove(id) {
