@@ -19,7 +19,7 @@ public interface TeamTypeDao {
 	TypeDO get(Integer id);
 	
 	List<TypeDO> list(Map<String,Object> map);
-	
+	List<TypeDO> list1();
 	int count(Map<String,Object> map);
 	
 	int save(TypeDO type);

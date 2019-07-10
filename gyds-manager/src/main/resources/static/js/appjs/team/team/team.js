@@ -47,9 +47,9 @@ function load() {
 								{
 									checkbox : true
 								},
-																{
+								{
 									field : 'id', 
-									title : '自增编号' 
+									title : '团队编号' 
 								},
 																{
 									field : 'teamName', 
@@ -60,27 +60,11 @@ function load() {
 									title : '团长名称' 
 								},
 																{
-									field : 'userId', 
-									title : '用户ID' 
-								},
-																{
-									field : 'teamType', 
+									field : 'typeName', 
 									title : '团队类型' 
 								},
 																{
-									field : 'teamCode', 
-									title : '团队编号' 
-								},
-																{
-									field : 'teamTitleImg', 
-									title : '团队封面图' 
-								},
-																{
-									field : 'teamImg', 
-									title : '团队图片，多张以逗号分隔' 
-								},
-																{
-									field : 'regCode', 
+									field : 'regionName', 
 									title : '地区Code' 
 								},
 																{
