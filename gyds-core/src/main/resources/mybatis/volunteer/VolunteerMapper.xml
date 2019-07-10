@@ -43,6 +43,8 @@
 		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
 		  		   <if test="createTime != null and createTime != ''"> and create_Time = #{createTime} </if>
 		  		   <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus} </if>
+		  		   <if test="startTime != null and startTime != ''"> and create_Time <![CDATA[>=]]> #{startTime} </if>
+		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
