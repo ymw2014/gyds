@@ -1,5 +1,5 @@
 
-var prefix = "/proxybusi/proxybusi"
+var prefix = "/points/points"
 $(function() {
 	load();
 });
@@ -32,9 +32,9 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset,
-								telephone:$('#searchTelePhone').val(),
-					            auditStatus:$('#searchStatus').val()
+								offset:params.offset
+					           // name:$('#searchName').val(),
+					           // username:$('#searchName').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -46,98 +46,52 @@ function load() {
 						columns : [
 								{
 									checkbox : true
-								},/*
+								},/*m.name name,m.telephone, m.address 
 																{
 									field : 'id', 
-									title : '自增编号' 
-								},
-									*/	
+									title : '' 
+								},*/
 								{
-									field : 'memberName', 
-									title : '姓名' 
-								},
-								{
-									field : 'age', 
-									title : '年龄' 
+									field : 'name', 
+									title : '会员姓名' 
 								},
 								{
 									field : 'telephone', 
-									title : '手机号' 
+									title : '会员电话' 
 								},
 								{
-									field : 'name', 
-									title : '代理商名称' 
+									field : 'address', 
+									title : '会员地址' 
 								},
 								{
-									field : 'proxyAddr', 
-									title : '代理商地址' 
+									field : 'orderId', 
+									title : '订单号' 
 								},
 								{
-									field : 'status', 
-									title : '状态' 
+									field : 'payType', 
+									title : '支付类型' 
 								},
 																{
-									field : 'level', 
-									title : '商家等级' 
-								},
-																{
-									field : 'auditTime', 
-									title : '审核时间' 
+									field : 'orderStatus', 
+									title : '订单状态' 
 								},
 																{
 									field : 'createTime', 
-									title : '入团时间' 
-								},
-								{
-									field : 'auditStatus', 
-									title : '审核状态' ,
-									formatter : function(value, row, index) {
-										if (value == '1') {
-											return "已审核";
-										} else if (value == '0') {
-											return "未审核";
-										}
-										
-									}
-								},
-								{
-									field : 'auditResult', 
-									title : '审核结果' ,
-									formatter : function(value, row, index) {
-										if (value == '1') {
-											return "通过";
-										} else if (value == '2') {
-											return "驳回";
-										}
-										
-									}
-								},
-								{
-									field : 'auditOpinion', 
-									title : '审核意见' 
+									title : '提交时间' 
 								},
 																{
-									field : 'regionLevel', 
-									title : '代理级别' 
+									field : 'pointsType', 
+									title : '积分类型' 
+								},
+																{
+									field : 'money', 
+									title : '金额' 
 								},/*
-									m.age,m.city,m.county,m.`name` memberName,m.province,m.telephone							{
+																{
 									field : 'memberId', 
-									title : '' 
-								},
-									*/	
-								{
-									field : 'county', 
-									title : '所在县' 
-								},
-								{
-									field : 'city', 
-									title : '所在城市' 
-								},
-								{
-									field : 'province', 
-									title : '所在省份' 
-								},
-								{
+									title : '会员id' 
+								},*/
+																{
 									title : '操作',
 									field : 'id',
 									align : 'center',
@@ -148,13 +102,10 @@ function load() {
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f = '<a class="btn btn-success btn-sm'+s_audit_h+'" href="#" title="审核"  mce_href="#" onclick="audit(\''
+										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
 												+ row.id
 												+ '\')"><i class="fa fa-key"></i></a> ';
-										if (row.auditStatus == '1') {
-											return e + d;
-										}
-										return e + d + f;
+										return e + d ;
 									}
 								} ]
 					});
@@ -180,16 +131,6 @@ function edit(id) {
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
 		content : prefix + '/edit/' + id // iframe的url
-	});
-}
-function audit(id) {
-	layer.open({
-		type : 2,
-		title : '审核',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '500px' ],
-		content : prefix + '/audit/' + id // iframe的url
 	});
 }
 function remove(id) {
