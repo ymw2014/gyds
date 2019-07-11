@@ -42,7 +42,8 @@ function load() {
 					            telephone:$('#searchPhone').val(),
 					            auditStatus:$('#searchStatus').val(),
 					            startTime:$('#startTime').val(),
-					            endTime:$('#endTime').val()
+					            endTime:$('#endTime').val(),
+					            teamId:$('#teamId').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -111,22 +112,6 @@ function load() {
 									title : '身份证号' 
 								},
 																{
-									field : 'sharesNumber', 
-									title : '转发次数' 
-								},
-																{
-									field : 'commentNumber', 
-									title : '评论量' 
-								},
-																{
-									field : 'clickNumber', 
-									title : '点击量' 
-								},
-																{
-									field : 'actNumber', 
-									title : '参与活动次数' 
-								},
-																{
 									field : 'level', 
 									title : '志愿者等级' 
 								},
@@ -150,7 +135,12 @@ function load() {
 										if (value == '1') {
 											return '已审核';
 										}
-										return '未审核' ;
+										if(value == '0'){
+											return '未审核' ;
+										}
+										if(value == '2'){
+											return '审核不通过' ;
+										}
 									}
 								},
 								{
@@ -165,13 +155,23 @@ function load() {
 										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
 												+ row.id
 												+ '\')"><i class="fa fa-edit"></i></a> ';
-										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
-												+ row.id
-												+ '\')"><i class="fa fa-remove"></i></a> ';
+										var  d = '';
+										var  u ='';
+										if($('#teamId').val()==null){
+											d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
+											+ row.id
+											+ '\')"><i class="fa fa-remove"></i></a> ';
+											if(row.auditStatus!=1&&row.auditStatus!=2){
+												u ='<a class="btn btn-success btn-sm"'+s_audit_h+' href="#" title=""  mce_href="#" ><span class="" onclick="audit('+row.id+')">审核</span></a>';
+												}
+										}
+										
 										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
 												+ row.id
 												+ '\')"><i class="fa fa-key"></i></a> ';
-										return e + d ;
+										
+										
+										return e + d + u;
 									}
 								} ]
 					});
@@ -198,11 +198,21 @@ function add() {
 function edit(id) {
 	layer.open({
 		type : 2,
-		title : '编辑',
+		title : '查看详情',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
 		content : prefix + '/edit/' + id // iframe的url
+	});
+}
+function audit(id) {
+	layer.open({
+		type : 2,
+		title : '审核',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '800px', '520px' ],
+		content : prefix + '/audit/' + id // iframe的url
 	});
 }
 function remove(id) {

@@ -65,7 +65,26 @@ function load() {
 								},
 																{
 									field : 'regionName', 
-									title : '地区Code' 
+									title : '地区' 
+								},
+								{
+									field : 'status', 
+									title : '状态',
+									formatter: function (value, index){
+										if (value == 0) {
+											return '申请中';
+										}
+										if (value == 1) {
+											return '通过';
+										}
+										if (value == 2) {
+											return '已拒绝';
+										}
+									}
+								},
+								{
+									field : 'remark', 
+									title : '备注' 
 								},
 																{
 									title : '操作',
@@ -78,10 +97,16 @@ function load() {
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-												+ row.id
-												+ '\')"><i class="fa fa-key"></i></a> ';
-										return e + d ;
+										var f ='';
+										if(row.status!=1&&row.status!=2){
+											f = '<a class="btn btn-success btn-sm '+s_audit_h+'" href="#" title="审核"  mce_href="#" onclick="audit(\''
+											+ row.id
+											+ '\')"><i class="fa fa-key"></i></a> ';
+										}
+										var u ='<a class="btn btn-success btn-sm"'+s_memberList_h+' href="#" title=""  mce_href="#" ><span class="" onclick="memberList('+row.id+')">成员列表</span></a>'
+										var o ='<a class="btn btn-success btn-sm"'+s_applyMember_h+' href="#" title=""  mce_href="#" ><span class="" onclick="applyMember('+row.id+')">申请列表</span></a>'; 
+										
+										return e + d + f + u + o;
 									}
 								} ]
 					});
@@ -102,13 +127,25 @@ function add() {
 function edit(id) {
 	layer.open({
 		type : 2,
-		title : '编辑',
+		title : '详情',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
+
+function memberList(id) {
+	layer.open({
+		type : 2,
+		title : '成员列表',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '1000px', '620px' ],
+		content : '/volunteer/volunteer/memberList/' + id // iframe的url
+	});
+}
+
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]
@@ -131,7 +168,28 @@ function remove(id) {
 	})
 }
 
-function resetPwd(id) {
+function audit(id) {
+	layer.open({
+		type : 2,
+		title : '审核',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '800px', '520px' ],
+		content : prefix + '/audit/' + id // iframe的url
+	});
+	
+}
+applyMember
+function applyMember(id) {
+	layer.open({
+		type : 2,
+		title : '审核',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '1000px', '620px' ],
+		content : '/team/apply/applyMember/' + id // iframe的url
+	});
+	
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组

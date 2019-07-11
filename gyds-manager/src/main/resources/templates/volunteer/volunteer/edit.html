@@ -13,7 +13,7 @@
 							<div class="form-group">	
 								<label class="col-sm-3 control-label">志愿者名称：</label>
 								<div class="col-sm-8">
-									<input id="volunteerName" name="volunteerName" th:value="${volunteer.volunteerName}" class="form-control" type="text">
+									<input id="volunteerName" readonly="readonly" th:value="${volunteer.volunteerName}" class="form-control" type="text">
 								</div>
 							</div><!-- 
 														<div class="form-group">	
@@ -25,38 +25,29 @@
 							<div class="form-group">	
 								<label class="col-sm-3 control-label">用户头像：</label>
 								<div class="col-sm-8">
-									<div>
-									    <a href="javascript:;" class="btn btn-primary btn-sm jqfivefile" type="button">
-									        <span id="imgUpload_name_img">上传图片</span><span id="progress_img"></span>
-									        <input id="imgUpload_img" type="file"  title="上传图片" name="file" accept="image/*" data-url="/common/sysFile/upload" />
-									    </a>
 									    <div id="imgsbox_img" class="imgsbox">
 										    <div class="imgbox">
-												<div class="removePic" onclick="removePic(this,'/banner/imgDel')">×</div>
 												<img th:src="${volunteer.headImg}">
 											</div>
 									    </div>
-									    
-									</div>
-			                    	<span class="help-block m-b-none text-danger">支持:jpg、jpeg、png； 尺寸：宽1927*高460px；大小：限5M内</span>
 			                    </div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">所属团队名称：</label>
 								<div class="col-sm-8">
-									<input id="teamId" name="teamId" th:value="${volunteer.teamName}" class="form-control" type="text" readonly="readonly">
+									<input id="teamId"  th:value="${volunteer.teamName}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">家庭住址：</label>
 								<div class="col-sm-8">
-									<input id="address" name="address" th:value="${volunteer.address}" class="form-control" type="text">
+									<input id="address" readonly="readonly" th:value="${volunteer.address}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">电话：</label>
 								<div class="col-sm-8">
-									<input id="telephone" name="telephone" th:value="${volunteer.telephone}" class="form-control" type="text">
+									<input id="telephone" readonly="readonly" th:value="${volunteer.telephone}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
@@ -64,10 +55,10 @@
 								<div class="col-sm-8">
 									<!-- <input id="sex" name="sex" th:value="${volunteer.sex}" class="form-control" type="text"> -->
 									<label class="radio-inline"> <input
-									th:field="*{volunteer.sex}" type="radio" name="sex" value="1" />
+									th:field="*{volunteer.sex}" type="radio"  value="1" disabled="disabled"/>
 									女
 								</label> <label class="radio-inline"> <input
-									th:field="*{volunteer.sex}" type="radio" name="sex" value="0" />
+									th:field="*{volunteer.sex}" type="radio"  value="0" disabled="disabled"/>
 									男
 								</label>
 								</div>
@@ -75,67 +66,81 @@
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">年龄：</label>
 								<div class="col-sm-8">
-									<input id="age" name="age" th:value="${volunteer.age}" class="form-control" type="text">
+									<input id="age" disabled="disabled" th:value="${volunteer.age}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">志愿者编号：</label>
 								<div class="col-sm-8">
-									<input id="volunteerNumber" name="volunteerNumber" th:value="${volunteer.volunteerNumber}" class="form-control" type="text">
+									<input id="volunteerNumber" disabled="disabled" th:value="${volunteer.volunteerNumber}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">身份证号：</label>
 								<div class="col-sm-8">
-									<input id="cardNo" name="cardNo" th:value="${volunteer.cardNo}" class="form-control" type="text" readonly="readonly">
+									<input id="cardNo" disabled="disabled" th:value="${volunteer.cardNo}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">转发次数：</label>
 								<div class="col-sm-8">
-									<input id="sharesNumber" name="sharesNumber" th:value="${volunteer.sharesNumber}" class="form-control" type="text">
+									<input id="sharesNumber" disabled="disabled" th:value="${volunteer.sharesNumber}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">评论量：</label>
 								<div class="col-sm-8">
-									<input id="commentNumber" name="commentNumber" th:value="${volunteer.commentNumber}" class="form-control" type="text">
+									<input id="commentNumber" disabled="disabled" th:value="${volunteer.commentNumber}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">点击量：</label>
 								<div class="col-sm-8">
-									<input id="clickNumber" name="clickNumber" th:value="${volunteer.clickNumber}" class="form-control" type="text">
+									<input id="clickNumber" disabled="disabled" th:value="${volunteer.clickNumber}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">参与活动次数：</label>
 								<div class="col-sm-8">
-									<input id="actNumber" name="actNumber" th:value="${volunteer.actNumber}" class="form-control" type="text">
+									<input id="actNumber" disabled="disabled" th:value="${volunteer.actNumber}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">志愿者等级：</label>
 								<div class="col-sm-8">
-									<input id="level" name="level" th:value="${volunteer.level}" class="form-control" type="text" readonly="readonly">
+									<input id="level" disabled="disabled" th:value="${volunteer.level}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">	
 								<label class="col-sm-3 control-label">省：</label>
 								<div class="col-sm-8">
-									<input id="province" name="province" th:value="${volunteer.province}" class="form-control" type="text">
+									<input id="province" readonly="readonly" th:value="${volunteer.province}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">市：</label>
 								<div class="col-sm-8">
-									<input id="city" name="city" th:value="${volunteer.city}" class="form-control" type="text">
+									<input id="city" readonly="readonly" th:value="${volunteer.city}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">县：</label>
 								<div class="col-sm-8">
-									<input id="county" name="county" th:value="${volunteer.county}" class="form-control" type="text">
+									<input id="county" readonly="readonly" th:value="${volunteer.county}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">状态：</label>
+								<div class="col-sm-8">
+								<label class="radio-inline" >
+										<input type="radio"  value="0" th:attr ="checked=${0 == volunteer.auditStatus?true:false}"  disabled="disabled">未审核
+									</label>
+									<label class="radio-inline" >
+										<input type="radio"  value="1" th:attr ="checked=${1 == volunteer.auditStatus?true:false}" disabled="disabled">已审核
+									</label>
+									<label class="radio-inline" >
+										<input type="radio"   value="2" th:attr ="checked=${2 == volunteer.auditStatus?true:false}" disabled="disabled">审核不通过
+									</label>
 								</div>
 							</div>
 																					<div class="form-group">

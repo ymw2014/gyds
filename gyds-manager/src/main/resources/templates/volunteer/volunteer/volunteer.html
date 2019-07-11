@@ -30,7 +30,7 @@
 							<input id="searchPhone" type="text" class="form-control"
 								placeholder="电话">
 						</div>
-						
+						<input type="hidden" id="teamId" th:value="${teamId}">
 						<div class="columns pull-right col-md-2 ">
 							<!-- <input id="searchPhone" type="text" class="form-control"
 								placeholder="电话"> -->
@@ -62,11 +62,17 @@
 				var s_edit_h = 'hidden';
 				var s_remove_h = 'hidden';
 				var s_resetPwd_h = 'hidden';
+				var s_audit_h = 'hidden';
 			</script>
 		</div>
 		<div shiro:hasPermission="volunteer:volunteer:edit">
 			<script type="text/javascript">
 				s_edit_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="volunteer:volunteer:audit">
+			<script type="text/javascript">
+			var s_audit_h = '';
 			</script>
 		</div>
 		<div shiro:hasPermission="volunteer:volunteer:remove">

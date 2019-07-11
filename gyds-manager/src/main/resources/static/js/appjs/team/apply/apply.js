@@ -1,5 +1,5 @@
 
-var prefix = "/activity/activity"
+var prefix = "/team/apply"
 $(function() {
 	load();
 });
@@ -32,7 +32,8 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset
+								offset:params.offset,
+								applyTeamId:$('#teamId').val()
 					           // name:$('#searchName').val(),
 					           // username:$('#searchName').val()
 							};
@@ -47,99 +48,52 @@ function load() {
 								{
 									checkbox : true
 								},
-								{
-									field : 'actTitle', 
-									title : '活动名称' 
+																{
+									field : 'teamName', 
+									title : '申请团名' 
 								},
 																{
-									field : 'actIntro', 
-									title : '活动简介' 
-								},
-								{
-									field : 'name', 
-									title : '发布人' 
+									field : 'volunteerName', 
+									title : '志愿者姓名' 
 								},
 																{
-									field : 'actContent', 
-									title : '活动详情' 
-								},
-								{
-									field : 'status',
+									field : 'status', 
 									title : '状态',
 									formatter: function (value, index){
-										if (value == 0) {
-											return '未审核';
+										if(0 == value){
+											return '申请中';
 										}
-										if (value == 1) {
-											return '报名中';
+										if(1 == value){
+											return '申请成功';
 										}
-										if (value == 2) {
-											return '进行中';
-										}
-										if (value == 3) {
-											return '已结束';
-										}
-										if (value == 4) {
+										if(2 == value){
 											return '已拒绝';
 										}
-									}	
+									}
 								},
 																{
-									field : 'actPrice', 
-									title : '活动报名费用' 
-								},
-																{
-									field : 'typeName', 
-									title : '活动类型' 
-								},
-																{
-									field : 'startTime', 
-									title : '报名开始时间' 
-								},
-																{
-									field : 'endTime', 
-									title : '报名截止时间' 
-								},
-																{
-									field : 'createTime', 
-									title : '活动创建时间' 
-								},
-																{
-									field : 'ticketCount', 
-									title : '门票数量' 
-								},
-																{
-									field : 'actType', 
-									title : '票种' ,
-									formatter: function (value, index) {
-										if (value == 0) {
-											return '免费';
-										}
-										if (value == 1) {
-											return '付费';
-										}
-									}	
+									field : 'applyTeamTime', 
+									title : '申请时间' 
 								},
 																{
 									title : '操作',
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
-										var e='<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
+										var i = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="编辑" onclick="info(\''
 										+ row.id
 										+ '\')"><i class="fa fa-edit"></i></a> ';
-										var f = '';
-										if(row.status!=3&&row.status!=4){
-											f = '<a class="btn btn-success btn-sm"'+s_audit_h+' href="#" title="审核"  mce_href="#" onclick="resetPwd(\''
-											+ row.id
-											+ '\')"><i class="fa fa-key"></i></a> ';
-										}
+										
+										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
+												+ row.id
+												+ '\')"><i class="fa fa-edit"></i></a> ';
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var u='<a class="btn btn-success btn-sm"'+s_auditUser_h+' href="#" title=""  mce_href="#" ><span class="" onclick="auditUser('+row.id+')">报名审核</span></a>';
-										//var u = '<a class="btn btn-success btn-sm"'+s_auditUser_h+' href="#" title=""  mce_href="#" ><i class="fa fa-eye"></i></a> ';
-										return e + d + f + u ;
+										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
+												+ row.id
+												+ '\')"><i class="fa fa-key"></i></a> ';
+										return i + o ;
 									}
 								} ]
 					});
@@ -167,6 +121,16 @@ function edit(id) {
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
+function info(id) {
+	layer.open({
+		type : 2,
+		title : '详情',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '800px', '520px' ],
+		content : '/volunteer/volunteer/edit/' + id // iframe的url
+	});
+}
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]
@@ -190,26 +154,6 @@ function remove(id) {
 }
 
 function resetPwd(id) {
-	layer.open({
-		type : 2,
-		title : '审核',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
-		content : prefix + '/audit/' + id // iframe的url
-	});
-}
-
-function auditUser(id) {
-	layer.open({
-		type : 2,
-		title : '审核报名人员',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '620px' ],
-		content : '/actApply/apply/auditList/'+ id // iframe的url
-	});
-	
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
