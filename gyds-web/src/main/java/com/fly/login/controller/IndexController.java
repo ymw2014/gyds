@@ -1,6 +1,5 @@
 package com.fly.login.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +20,8 @@ import com.fly.system.servicce.RegionService;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.JudgeIsMoblieUtil;
-import com.fly.utils.Query;
+import com.fly.volunteer.domain.VolunteerDO;
+import com.fly.volunteer.service.VolunteerService;
 
 @Controller
 public class IndexController {
@@ -33,6 +33,8 @@ public class IndexController {
 	private TeamService teamService;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private VolunteerService volunteerService;
 
 	
 	/**
@@ -61,9 +63,10 @@ public class IndexController {
 		
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
-		params.put("regionType",1);//
+		params.put("auditStatus",1);//
 		
-		
+		List<VolunteerDO> voluntList = volunteerService.list(params);
+		model.addAttribute("voluntList", voluntList);//志愿者
 		String isMoblie = "/pc/index";
 		if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {//判断是否为手机
 			isMoblie= "/moblie/index";

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.sys.dao.SetupDao">
+
+	<select id="get" resultType="com.fly.sys.domain.SetupDO">
+		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail` from sys_setup where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.sys.domain.SetupDO">
+		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail` from sys_setup
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="redPacketExtract != null and redPacketExtract != ''"> and red_packet_extract = #{redPacketExtract} </if>
+		  		  <if test="teamExtract != null and teamExtract != ''"> and team_extract = #{teamExtract} </if>
+		  		  <if test="areaExtract != null and areaExtract != ''"> and area_extract = #{areaExtract} </if>
+		  		  <if test="cityExtract != null and cityExtract != ''"> and city_extract = #{cityExtract} </if>
+		  		  <if test="provinceExtract != null and provinceExtract != ''"> and province_extract = #{provinceExtract} </if>
+		  		  <if test="headExtract != null and headExtract != ''"> and head_extract = #{headExtract} </if>
+		  		  <if test="corporateName != null and corporateName != ''"> and corporate_name = #{corporateName} </if>
+		  		  <if test="officialAccountImg != null and officialAccountImg != ''"> and official_account_img = #{officialAccountImg} </if>
+		  		  <if test="logo != null and logo != ''"> and logo = #{logo} </if>
+		  		  <if test="preparationNo != null and preparationNo != ''"> and preparation_no = #{preparationNo} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="keywords != null and keywords != ''"> and keywords = #{keywords} </if>
+		  		  <if test="serviceTelephone != null and serviceTelephone != ''"> and service_telephone = #{serviceTelephone} </if>
+		  		  <if test="copyrightInto != null and copyrightInto != ''"> and copyright_into = #{copyrightInto} </if>
+		  		  <if test="messageLogin != null and messageLogin != ''"> and message_login = #{messageLogin} </if>
+		  		  <if test="messagePassword != null and messagePassword != ''"> and message_password = #{messagePassword} </if>
+		  		  <if test="payLogin != null and payLogin != ''"> and pay_login = #{payLogin} </if>
+		  		  <if test="payPassword != null and payPassword != ''"> and pay_password = #{payPassword} </if>
+		  		  <if test="advertMin != null and advertMin != ''"> and advert_min = #{advertMin} </if>
+		  		  <if test="advertMax != null and advertMax != ''"> and advert_max = #{advertMax} </if>
+		  		  <if test="withdrawalFee != null and withdrawalFee != ''"> and withdrawal_fee = #{withdrawalFee} </if>
+		  		  <if test="punchTheClockIntegral != null and punchTheClockIntegral != ''"> and punch_the_clock_integral = #{punchTheClockIntegral} </if>
+		  		  <if test="rechargeIntegral != null and rechargeIntegral != ''"> and recharge_integral = #{rechargeIntegral} </if>
+		  		  <if test="provincialBail != null and provincialBail != ''"> and provincial_bail = #{provincialBail} </if>
+		  		  <if test="cityBail != null and cityBail != ''"> and city_bail = #{cityBail} </if>
+		  		  <if test="areaBail != null and areaBail != ''"> and area_bail = #{areaBail} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from sys_setup
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="redPacketExtract != null and redPacketExtract != ''"> and red_packet_extract = #{redPacketExtract} </if>
+		  		  <if test="teamExtract != null and teamExtract != ''"> and team_extract = #{teamExtract} </if>
+		  		  <if test="areaExtract != null and areaExtract != ''"> and area_extract = #{areaExtract} </if>
+		  		  <if test="cityExtract != null and cityExtract != ''"> and city_extract = #{cityExtract} </if>
+		  		  <if test="provinceExtract != null and provinceExtract != ''"> and province_extract = #{provinceExtract} </if>
+		  		  <if test="headExtract != null and headExtract != ''"> and head_extract = #{headExtract} </if>
+		  		  <if test="corporateName != null and corporateName != ''"> and corporate_name = #{corporateName} </if>
+		  		  <if test="officialAccountImg != null and officialAccountImg != ''"> and official_account_img = #{officialAccountImg} </if>
+		  		  <if test="logo != null and logo != ''"> and logo = #{logo} </if>
+		  		  <if test="preparationNo != null and preparationNo != ''"> and preparation_no = #{preparationNo} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="keywords != null and keywords != ''"> and keywords = #{keywords} </if>
+		  		  <if test="serviceTelephone != null and serviceTelephone != ''"> and service_telephone = #{serviceTelephone} </if>
+		  		  <if test="copyrightInto != null and copyrightInto != ''"> and copyright_into = #{copyrightInto} </if>
+		  		  <if test="messageLogin != null and messageLogin != ''"> and message_login = #{messageLogin} </if>
+		  		  <if test="messagePassword != null and messagePassword != ''"> and message_password = #{messagePassword} </if>
+		  		  <if test="payLogin != null and payLogin != ''"> and pay_login = #{payLogin} </if>
+		  		  <if test="payPassword != null and payPassword != ''"> and pay_password = #{payPassword} </if>
+		  		  <if test="advertMin != null and advertMin != ''"> and advert_min = #{advertMin} </if>
+		  		  <if test="advertMax != null and advertMax != ''"> and advert_max = #{advertMax} </if>
+		  		  <if test="withdrawalFee != null and withdrawalFee != ''"> and withdrawal_fee = #{withdrawalFee} </if>
+		  		  <if test="punchTheClockIntegral != null and punchTheClockIntegral != ''"> and punch_the_clock_integral = #{punchTheClockIntegral} </if>
+		  		  <if test="rechargeIntegral != null and rechargeIntegral != ''"> and recharge_integral = #{rechargeIntegral} </if>
+		  		  <if test="provincialBail != null and provincialBail != ''"> and provincial_bail = #{provincialBail} </if>
+		  		  <if test="cityBail != null and cityBail != ''"> and city_bail = #{cityBail} </if>
+		  		  <if test="areaBail != null and areaBail != ''"> and area_bail = #{areaBail} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.sys.domain.SetupDO" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_setup
+		(
+			`red_packet_extract`, 
+			`team_extract`, 
+			`area_extract`, 
+			`city_extract`, 
+			`province_extract`, 
+			`head_extract`, 
+			`corporate_name`, 
+			`official_account_img`, 
+			`logo`, 
+			`preparation_no`, 
+			`title`, 
+			`keywords`, 
+			`service_telephone`, 
+			`copyright_into`, 
+			`message_login`, 
+			`message_password`, 
+			`pay_login`, 
+			`pay_password`, 
+			`advert_min`, 
+			`advert_max`, 
+			`withdrawal_fee`, 
+			`punch_the_clock_integral`, 
+			`recharge_integral`, 
+			`provincial_bail`, 
+			`city_bail`, 
+			`area_bail`
+		)
+		values
+		(
+			#{redPacketExtract}, 
+			#{teamExtract}, 
+			#{areaExtract}, 
+			#{cityExtract}, 
+			#{provinceExtract}, 
+			#{headExtract}, 
+			#{corporateName}, 
+			#{officialAccountImg}, 
+			#{logo}, 
+			#{preparationNo}, 
+			#{title}, 
+			#{keywords}, 
+			#{serviceTelephone}, 
+			#{copyrightInto}, 
+			#{messageLogin}, 
+			#{messagePassword}, 
+			#{payLogin}, 
+			#{payPassword}, 
+			#{advertMin}, 
+			#{advertMax}, 
+			#{withdrawalFee}, 
+			#{punchTheClockIntegral}, 
+			#{rechargeIntegral}, 
+			#{provincialBail}, 
+			#{cityBail}, 
+			#{areaBail}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.sys.domain.SetupDO">
+		update sys_setup 
+		<set>
+			<if test="redPacketExtract != null">`red_packet_extract` = #{redPacketExtract}, </if>
+			<if test="teamExtract != null">`team_extract` = #{teamExtract}, </if>
+			<if test="areaExtract != null">`area_extract` = #{areaExtract}, </if>
+			<if test="cityExtract != null">`city_extract` = #{cityExtract}, </if>
+			<if test="provinceExtract != null">`province_extract` = #{provinceExtract}, </if>
+			<if test="headExtract != null">`head_extract` = #{headExtract}, </if>
+			<if test="corporateName != null">`corporate_name` = #{corporateName}, </if>
+			<if test="officialAccountImg != null">`official_account_img` = #{officialAccountImg}, </if>
+			<if test="logo != null">`logo` = #{logo}, </if>
+			<if test="preparationNo != null">`preparation_no` = #{preparationNo}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="keywords != null">`keywords` = #{keywords}, </if>
+			<if test="serviceTelephone != null">`service_telephone` = #{serviceTelephone}, </if>
+			<if test="copyrightInto != null">`copyright_into` = #{copyrightInto}, </if>
+			<if test="messageLogin != null">`message_login` = #{messageLogin}, </if>
+			<if test="messagePassword != null">`message_password` = #{messagePassword}, </if>
+			<if test="payLogin != null">`pay_login` = #{payLogin}, </if>
+			<if test="payPassword != null">`pay_password` = #{payPassword}, </if>
+			<if test="advertMin != null">`advert_min` = #{advertMin}, </if>
+			<if test="advertMax != null">`advert_max` = #{advertMax}, </if>
+			<if test="withdrawalFee != null">`withdrawal_fee` = #{withdrawalFee}, </if>
+			<if test="punchTheClockIntegral != null">`punch_the_clock_integral` = #{punchTheClockIntegral}, </if>
+			<if test="rechargeIntegral != null">`recharge_integral` = #{rechargeIntegral}, </if>
+			<if test="provincialBail != null">`provincial_bail` = #{provincialBail}, </if>
+			<if test="cityBail != null">`city_bail` = #{cityBail}, </if>
+			<if test="areaBail != null">`area_bail` = #{areaBail}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from sys_setup where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from sys_setup where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
