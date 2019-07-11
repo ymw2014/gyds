@@ -135,4 +135,26 @@ public class ActivityController {
 		return R.ok();
 	}
 	
+	
+	/**
+	 * 删除
+	 */
+	@PostMapping( "/examine")
+	@ResponseBody
+	@RequiresPermissions("activity:activity:examine")
+	public R examine(Integer id,Integer status){
+		ActivityDO activity = activityService.get(id);
+		activity.setExamineStatus(status);
+		if(status==1) {
+			activity.setNumberOfCollection(0);//收藏次数
+			activity.setNumberOfShares(0);//分享次数
+			activity.setNumberOfPreviews(0);//预览次数
+			activity.setNumberOfApplicants(0);//报名人数
+		}
+		if(activityService.update(activity)>0) {
+			return R.ok();
+		}
+		return R.error();
+	}
+	
 }

@@ -60,33 +60,8 @@ function load() {
 									title : '发布人' 
 								},
 																{
-									field : 'actContent', 
-									title : '活动详情' 
-								},
-								{
-									field : 'status',
-									title : '状态',
-									formatter: function (value, index){
-										if (value == 0) {
-											return '未审核';
-										}
-										if (value == 1) {
-											return '报名中';
-										}
-										if (value == 2) {
-											return '进行中';
-										}
-										if (value == 3) {
-											return '已结束';
-										}
-										if (value == 4) {
-											return '已拒绝';
-										}
-									}	
-								},
-																{
 									field : 'actPrice', 
-									title : '活动报名费用' 
+									title : '报名费用' 
 								},
 																{
 									field : 'typeName', 
@@ -108,7 +83,7 @@ function load() {
 									field : 'ticketCount', 
 									title : '门票数量' 
 								},
-																{
+								{
 									field : 'actType', 
 									title : '票种' ,
 									formatter: function (value, index) {
@@ -117,6 +92,38 @@ function load() {
 										}
 										if (value == 1) {
 											return '付费';
+										}
+									}	
+								},
+								{
+									field : 'status',
+									title : '活动状态',
+									formatter: function (value, index){
+										if (value == 1) {
+											return '<span class="label label-warning">报名中</span>';
+										}
+										if (value == 2) {
+											return '<span class="label label-primary">进行中</span>';
+										}
+										if (value == 3) {
+											return '<span class="label label-danger">已结束</span>';
+										}
+										
+									}	
+								},
+								{
+									field : 'examineStatus',
+									title : '审核状态',
+									formatter: function (value,row, index){
+										if (value == 0) {
+											return '<a class="label label-success '+s_examine_h+'" onclick="examineStatus('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger '+s_examine_h+'" onclick="examineStatus('+row.id+',2)" >拒绝</a>';
+										}
+										if (value == 1) {
+											return '<span style="color:green;">已审核</span>';
+										}
+										if (value == 2) {
+											return '<span style="color:red;">已拒绝</span>';
 										}
 									}	
 								},
@@ -137,7 +144,7 @@ function load() {
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var u='<a class="btn btn-success btn-sm"'+s_auditUser_h+' href="#" title=""  mce_href="#" ><span class="" onclick="auditUser('+row.id+')">报名审核</span></a>';
+										var u='<a class="btn btn-success btn-sm"'+s_auditUser_h+' href="#" title=""  mce_href="#" ><span class="" onclick="auditUser('+row.id+')">报名详情</span></a>'
 										//var u = '<a class="btn btn-success btn-sm"'+s_auditUser_h+' href="#" title=""  mce_href="#" ><i class="fa fa-eye"></i></a> ';
 										return e + d + f + u ;
 									}
@@ -245,3 +252,28 @@ function batchRemove() {
 
 	});
 }
+
+function examineStatus(id,status) {
+	console.log(id);
+	layer.confirm('确定要审核改活动吗？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : prefix+"/examine",
+			type : "post",
+			data : {
+				'id' : id,
+				'status':status
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
+}
+

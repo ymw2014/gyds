@@ -137,9 +137,6 @@
 							<div class="form-group">	
 								<label class="col-sm-3 control-label">状态：</label>
 								<div class="col-sm-8">
-								<label class="radio-inline" >
-										<input type="radio"  value="0" th:attr ="checked=${0 == activity.status?true:false}" name="status">未审核
-									</label>
 									<label class="radio-inline" >
 										<input type="radio"  value="1" th:attr ="checked=${1 == activity.status?true:false}" name="status">报名中
 									</label>
@@ -148,9 +145,6 @@
 									</label>
 									<label class="radio-inline" >
 										<input type="radio"  value="3" th:attr ="checked=${3 == activity.status?true:false}" name="status">已结束
-									</label>
-									<label class="radio-inline" >
-										<input type="radio"  value="4" th:attr ="checked=${4 == activity.status?true:false}" name="status">已拒绝
 									</label>
 								</div>
 							</div>

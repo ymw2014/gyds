@@ -36,8 +36,10 @@ public class ActivityDO implements Serializable {
 	private Long actTypeId;
 	//活动类型
 	private String typeName;
-	//状态
+	//活动状态
 	private Integer status;
+	//审核状态
+	private Integer examineStatus;
 	//报名开始时间
 	private Date startTime;
 	//报名截止时间
@@ -273,5 +275,12 @@ public class ActivityDO implements Serializable {
 	 */
 	public Integer getApplicantsNumMax() {
 		return applicantsNumMax;
+	}
+	
+	public Integer getExamineStatus() {
+		return examineStatus;
+	}
+	public void setExamineStatus(Integer examineStatus) {
+		this.examineStatus = examineStatus;
 	}
 }
