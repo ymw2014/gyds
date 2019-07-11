@@ -9,10 +9,10 @@
 				<div class="ibox-body">
 					<div class="fixed-table-toolbar">
 						<div class="columns pull-left">
-							<button shiro:hasPermission="proxybusi:proxybusi:add" type="button" class="btn  btn-primary" onclick="add()">
+							<button shiro:hasPermission="points:points:add" type="button" class="btn  btn-primary" onclick="add()">
 								<i class="fa fa-plus" aria-hidden="true"></i>添加
 							</button>
-							<button shiro:hasPermission="proxybusi:proxybusi:batchRemove" type="button" class="btn  btn-danger"
+							<button shiro:hasPermission="points:points:batchRemove" type="button" class="btn  btn-danger"
 								onclick="batchRemove()">
 								<i class="fa fa-trash" aria-hidden="true"></i>删除
 							</button>
@@ -20,16 +20,9 @@
 						<div class="columns pull-right">
 							<button class="btn btn-success" onclick="reLoad()">查询</button>
 						</div>
-						<div class="columns pull-right col-md-2">
-							<input id="searchTelePhone" type="text" class="form-control"
-								placeholder="手机号">
-						</div>
-						<div class="columns pull-right col-md-2">
-							<select id="searchStatus" class="form-control">
-								<option value=''>请选择审核状态</option>
-								<option value='1'>已审核</option>
-								<option value='0'>未审核</option>
-							</select>
+						<div class="columns pull-right col-md-2 nopadding">
+							<input id="searchName" type="text" class="form-control"
+								placeholder="">
 						</div>
 					</div>
 					<table id="exampleTable" data-mobile-responsive="true">
@@ -44,31 +37,25 @@
 				var s_edit_h = 'hidden';
 				var s_remove_h = 'hidden';
 				var s_resetPwd_h = 'hidden';
-				var s_audit_h = 'hidden';
 			</script>
 		</div>
-		<div shiro:hasPermission="proxybusi:proxybusi:edit">
+		<div shiro:hasPermission="points:points:edit">
 			<script type="text/javascript">
 				s_edit_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="proxybusi:proxybusi:audit">
-			<script type="text/javascript">
-				var s_audit_h = '';
-			</script>
-		</div>
-		<div shiro:hasPermission="proxybusi:proxybusi:remove">
+		<div shiro:hasPermission="points:points:remove">
 			<script type="text/javascript">
 				var s_remove_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="proxybusi:proxybusi:resetPwd">
+		<div shiro:hasPermission="points:points:resetPwd">
 			<script type="text/javascript">
 				var s_resetPwd_h = '';
 			</script>
 		</div>
 	</div>
 	<div th:include="include :: footer"></div>
-	<script type="text/javascript" src="/js/appjs/proxybusi/proxybusi/proxybusi.js"></script>
+	<script type="text/javascript" src="/js/appjs/points/points/points.js"></script>
 </body>
 </html>

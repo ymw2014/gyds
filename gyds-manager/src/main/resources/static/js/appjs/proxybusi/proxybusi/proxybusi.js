@@ -148,7 +148,7 @@ function load() {
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f = '<a class="btn btn-success btn-sm" href="#" title="审核"  mce_href="#" onclick="audit(\''
+										var f = '<a class="btn btn-success btn-sm'+s_audit_h+'" href="#" title="审核"  mce_href="#" onclick="audit(\''
 												+ row.id
 												+ '\')"><i class="fa fa-key"></i></a> ';
 										if (row.auditStatus == '1') {

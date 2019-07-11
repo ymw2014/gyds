@@ -71,7 +71,7 @@ public class ProxybusiController {
 	}
 	
 	@GetMapping("/audit/{id}")
-	@RequiresPermissions("proxybusi:proxybusi:edit")
+	@RequiresPermissions("proxybusi:proxybusi:audit")
 	String audit(@PathVariable("id") Long id,Model model){
 		ProxybusiDO proxybusi = proxybusiService.get(id);
 		model.addAttribute("proxybusi", proxybusi);

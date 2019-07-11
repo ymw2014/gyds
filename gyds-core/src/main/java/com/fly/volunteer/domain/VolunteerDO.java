@@ -62,7 +62,22 @@ public class VolunteerDO implements Serializable {
 	
 	private String headImg;
 	
+	private String remark;
+		
+	private String appTeamTime;
 	
+	public String getAppTeamTime() {
+		return appTeamTime;
+	}
+	public void setAppTeamTime(String appTeamTime) {
+		this.appTeamTime = appTeamTime;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public String getHeadImg() {
 		return headImg;
 	}

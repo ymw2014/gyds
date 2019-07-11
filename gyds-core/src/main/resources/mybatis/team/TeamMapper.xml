@@ -10,7 +10,7 @@
 		t.id = #{value}
 	</select>
 	<select id="getByTeamCode" resultType="com.fly.team.domain.TeamDO">
-		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code` from team 
+		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code`,`status`,`remark` from team 
 		where
 		id = #{value}
 	</select>
@@ -69,7 +69,9 @@ cux_region r on t.reg_code = r.region_code
 			`team_code`, 
 			`team_title_img`, 
 			`team_img`, 
-			`reg_code`
+			`reg_code`,
+			`status`,
+			`remark`
 		)
 		values
 		(
@@ -80,7 +82,9 @@ cux_region r on t.reg_code = r.region_code
 			#{teamCode}, 
 			#{teamTitleImg}, 
 			#{teamImg}, 
-			#{regCode}
+			#{regCode},
+			#{status},
+			#{remark}
 		)
 	</insert>
 	 
@@ -94,7 +98,9 @@ cux_region r on t.reg_code = r.region_code
 			<if test="teamCode != null">`team_code` = #{teamCode}, </if>
 			<if test="teamTitleImg != null">`team_title_img` = #{teamTitleImg}, </if>
 			<if test="teamImg != null">`team_img` = #{teamImg}, </if>
-			<if test="regCode != null">`reg_code` = #{regCode}</if>
+			<if test="regCode != null">`reg_code` = #{regCode},</if>
+			<if test="status != null">`status` = #{status},</if>
+			<if test="remark != null">`remark` = #{remark}</if>
 		</set>
 		where id = #{id}
 	</update>

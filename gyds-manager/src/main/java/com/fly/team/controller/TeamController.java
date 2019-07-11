@@ -24,6 +24,8 @@ import com.fly.team.service.TeamService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
+import com.fly.volunteer.domain.VolunteerDO;
+import com.fly.volunteer.service.VolunteerService;
 
 
 /**
@@ -45,6 +47,9 @@ public class TeamController {
 	
 	@Autowired
 	private TeamTypeDao typeDao;
+	
+	@Autowired
+	private VolunteerService volunteerService;
 	
 	@GetMapping()
 	@RequiresPermissions("team:team:team")
@@ -87,7 +92,23 @@ public class TeamController {
 		model.addAttribute("imgList",imgList);
 	    return "team/team/edit";
 	}
-	
+	@GetMapping("/audit/{id}")
+	@RequiresPermissions("team:team:audit")
+	String audit(@PathVariable("id") Integer id,Model model){
+		TeamDO team = teamService.get(id);
+		String imgStr = team.getTeamImg();
+		String[] img = imgStr.split(",");
+		List<String> imgList = new ArrayList<String>();
+		for(int i =0;i<img.length;i++) {
+			imgList.add(img[i]);
+		}
+		
+		List<TypeDO> type = typeDao.list1();
+		model.addAttribute("type", type);
+		model.addAttribute("team", team);
+		model.addAttribute("imgList",imgList);
+	    return "team/team/audit";
+	}
 	/**
 	 * 保存
 	 */
