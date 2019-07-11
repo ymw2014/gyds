@@ -1,5 +1,5 @@
 
-var prefix = "/team/team"
+var prefix = "/team/apply"
 $(function() {
 	load();
 });
@@ -32,7 +32,8 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset
+								offset:params.offset,
+								applyTeamId:$('#teamId').val()
 					           // name:$('#searchName').val(),
 					           // username:$('#searchName').val()
 							};
@@ -47,66 +48,52 @@ function load() {
 								{
 									checkbox : true
 								},
-								{
-									field : 'id', 
-									title : '团队编号' 
-								},
 																{
 									field : 'teamName', 
-									title : '团队名称' 
+									title : '申请团名' 
 								},
 																{
-									field : 'colonelName', 
-									title : '团长名称' 
+									field : 'volunteerName', 
+									title : '志愿者姓名' 
 								},
 																{
-									field : 'typeName', 
-									title : '团队类型' 
-								},
-																{
-									field : 'regionName', 
-									title : '地区' 
-								},
-								{
 									field : 'status', 
 									title : '状态',
 									formatter: function (value, index){
-										if (value == 0) {
+										if(0 == value){
 											return '申请中';
 										}
-										if (value == 1) {
-											return '通过';
+										if(1 == value){
+											return '申请成功';
 										}
-										if (value == 2) {
+										if(2 == value){
 											return '已拒绝';
 										}
 									}
 								},
-								{
-									field : 'remark', 
-									title : '备注' 
+																{
+									field : 'applyTeamTime', 
+									title : '申请时间' 
 								},
 																{
 									title : '操作',
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
+										var i = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="编辑" onclick="info(\''
+										+ row.id
+										+ '\')"><i class="fa fa-edit"></i></a> ';
+										
 										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
 												+ row.id
 												+ '\')"><i class="fa fa-edit"></i></a> ';
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f ='';
-										if(row.status!=1&&row.status!=2){
-											f = '<a class="btn btn-success btn-sm '+s_audit_h+'" href="#" title="审核"  mce_href="#" onclick="audit(\''
-											+ row.id
-											+ '\')"><i class="fa fa-key"></i></a> ';
-										}
-										var u ='<a class="btn btn-success btn-sm"'+s_memberList_h+' href="#" title=""  mce_href="#" ><span class="" onclick="memberList('+row.id+')">成员列表</span></a>'
-										var o ='<a class="btn btn-success btn-sm"'+s_applyMember_h+' href="#" title=""  mce_href="#" ><span class="" onclick="applyMember('+row.id+')">申请列表</span></a>'; 
-										
-										return e + d + f + u + o;
+										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
+												+ row.id
+												+ '\')"><i class="fa fa-key"></i></a> ';
+										return i + o ;
 									}
 								} ]
 					});
@@ -127,25 +114,23 @@ function add() {
 function edit(id) {
 	layer.open({
 		type : 2,
-		title : '详情',
+		title : '编辑',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
-
-function memberList(id) {
+function info(id) {
 	layer.open({
 		type : 2,
-		title : '成员列表',
+		title : '详情',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '620px' ],
-		content : '/volunteer/volunteer/memberList/' + id // iframe的url
+		area : [ '800px', '520px' ],
+		content : '/volunteer/volunteer/edit/' + id // iframe的url
 	});
 }
-
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]
@@ -168,28 +153,7 @@ function remove(id) {
 	})
 }
 
-function audit(id) {
-	layer.open({
-		type : 2,
-		title : '审核',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
-		content : prefix + '/audit/' + id // iframe的url
-	});
-	
-}
-applyMember
-function applyMember(id) {
-	layer.open({
-		type : 2,
-		title : '审核',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '620px' ],
-		content : '/team/apply/applyMember/' + id // iframe的url
-	});
-	
+function resetPwd(id) {
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组

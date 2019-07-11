@@ -7,7 +7,8 @@
 		select v.id,`volunteer_name`,`mem_id`, t.team_name teamName,head_img,
 		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
 		`card_no`,`shares_number`,`comment_number`,`click_number`,
-		`act_number`,`level`,`province`,`city`,`county`,`regionCode` 
+		audit_status,
+		`act_number`,`level`,`province`,`city`,`county`,`regionCode` ,v.remark
 		from volunteer v
 		left join team t on v.team_id = t.id where v.id = #{value}
 	</select>
@@ -18,7 +19,7 @@
 		`card_no`,`shares_number`,`comment_number`,`click_number`,
 		`act_number`,`level`,`province`,`city`,`county`,`regionCode`,
 		audit_status,
-		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime
+		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime,v.remark
 		from volunteer v
 		left join team t on v.team_id = t.id
         <where>  
@@ -105,7 +106,8 @@
 			`city`, 
 			`county`, 
 			`regionCode`,
-			head_img
+			head_img,
+			`remark`
 		)
 		values
 		(
@@ -127,7 +129,8 @@
 			#{city}, 
 			#{county}, 
 			#{regioncode},
-			#{headImg}
+			#{headImg},
+			#{remark}
 		)
 	</insert>
 	 
@@ -151,8 +154,11 @@
 			<if test="province != null">`province` = #{province}, </if>
 			<if test="city != null">`city` = #{city}, </if>
 			<if test="county != null">`county` = #{county}, </if>
-			<if test="regioncode != null">`regionCode` = #{regioncode}</if>
-			<if test="headImg != null">`head_img` = #{headImg}</if>
+			<if test="regioncode != null">`regionCode` = #{regioncode},</if>
+			<if test="headImg != null">`head_img` = #{headImg},</if>
+			<if test="remark != null">`remark` = #{remark},</if>
+			<if test="auditStatus != null">`audit_status` = #{auditStatus},</if>
+			<if test="appTeamTime != null">`app_team_time` = #{appTeamTime}</if>
 		</set>
 		where id = #{id}
 	</update>

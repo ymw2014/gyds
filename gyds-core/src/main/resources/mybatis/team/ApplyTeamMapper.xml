@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.team.dao.ApplyTeamDao">
+
+	<select id="get" resultType="com.fly.team.domain.ApplyTeamDO">
+		select ta.id,ta.apply_team_id,t.team_name,ta.zyz_id,v.volunteer_name,ta.status,ta.apply_team_time from team_apply ta left join team t on ta.apply_team_id = t.id left join volunteer v on ta.zyz_id = v.id where ta.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.team.domain.ApplyTeamDO">
+		select ta.id,ta.apply_team_id,t.team_name,ta.zyz_id,v.volunteer_name,ta.status,ta.apply_team_time from team_apply ta left join team t on ta.apply_team_id = t.id left join volunteer v on ta.zyz_id = v.id
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="applyTeamId != null and applyTeamId != ''"> and apply_team_id = #{applyTeamId} </if>
+		  		  <if test="zyzId != null and zyzId != ''"> and zyz_id = #{zyzId} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="applyTeamTime != null and applyTeamTime != ''"> and apply_team_time = #{applyTeamTime} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from team_apply
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="applyTeamId != null and applyTeamId != ''"> and apply_team_id = #{applyTeamId} </if>
+		  		  <if test="zyzId != null and zyzId != ''"> and zyz_id = #{zyzId} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="applyTeamTime != null and applyTeamTime != ''"> and apply_team_time = #{applyTeamTime} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.team.domain.ApplyTeamDO" useGeneratedKeys="true" keyProperty="id">
+		insert into team_apply
+		(
+			`apply_team_id`, 
+			`zyz_id`, 
+			`status`, 
+			`apply_team_time`
+		)
+		values
+		(
+			#{applyTeamId}, 
+			#{zyzId}, 
+			#{status}, 
+			#{applyTeamTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.team.domain.ApplyTeamDO">
+		update team_apply 
+		<set>
+			<if test="applyTeamId != null">`apply_team_id` = #{applyTeamId}, </if>
+			<if test="zyzId != null">`zyz_id` = #{zyzId}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="applyTeamTime != null">`apply_team_time` = #{applyTeamTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from team_apply where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from team_apply where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

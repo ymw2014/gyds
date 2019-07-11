@@ -65,6 +65,19 @@ public class VolunteerController {
 		model.addAttribute("volunteer", volunteer);
 	    return "volunteer/volunteer/edit";
 	}
+	@GetMapping("/audit/{id}")
+	@RequiresPermissions("volunteer:volunteer:audit")
+	String audit(@PathVariable("id") Long id,Model model){
+		VolunteerDO volunteer = volunteerService.get(id);
+		model.addAttribute("volunteer", volunteer);
+	    return "volunteer/volunteer/audit";
+	}
+	@GetMapping("/memberList/{id}")
+	@RequiresPermissions("volunteer:volunteer:memberList")
+	String memberList(@PathVariable("id") Long id,Model model){
+		model.addAttribute("teamId", id);
+	    return "volunteer/volunteer/volunteer";
+	}
 	
 	/**
 	 * 保存

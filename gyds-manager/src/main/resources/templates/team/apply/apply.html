@@ -9,10 +9,10 @@
 				<div class="ibox-body">
 					<div class="fixed-table-toolbar">
 						<div class="columns pull-left">
-							<button shiro:hasPermission="team:team:add" type="button" class="btn  btn-primary" onclick="add()">
+							<button shiro:hasPermission="team:apply:add" type="button" class="btn  btn-primary" onclick="add()">
 								<i class="fa fa-plus" aria-hidden="true"></i>添加
 							</button>
-							<button shiro:hasPermission="team:team:batchRemove" type="button" class="btn  btn-danger"
+							<button shiro:hasPermission="team:apply:batchRemove" type="button" class="btn  btn-danger"
 								onclick="batchRemove()">
 								<i class="fa fa-trash" aria-hidden="true"></i>删除
 							</button>
@@ -20,6 +20,7 @@
 						<div class="columns pull-right">
 							<button class="btn btn-success" onclick="reLoad()">查询</button>
 						</div>
+						<input type="hidden" id="teamId" th:value="${teamId}">
 						<div class="columns pull-right col-md-2 nopadding">
 							<input id="searchName" type="text" class="form-control"
 								placeholder="">
@@ -37,39 +38,37 @@
 				var s_edit_h = 'hidden';
 				var s_remove_h = 'hidden';
 				var s_resetPwd_h = 'hidden';
+				var s_info_h = 'hidden';
 				var s_audit_h = 'hidden';
-				var s_memberList_h = 'hidden';
-				var s_applyMember_h = 'hidden';
 			</script>
 		</div>
-		<div shiro:hasPermission="team:team:edit">
+		<div shiro:hasPermission="volunteer:volunteer:edit">
+			<script type="text/javascript">
+				var s_info_h ='';
+			</script>
+		</div>
+		<div shiro:hasPermission="team:apply:edit">
 			<script type="text/javascript">
 				s_edit_h = '';
-				s_memberList_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="team:team:remove">
+		<div shiro:hasPermission="team:apply:audit">
+			<script type="text/javascript">
+			    var s_audit_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="team:apply:remove">
 			<script type="text/javascript">
 				var s_remove_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="team:team:resetPwd">
+		<div shiro:hasPermission="team:apply:resetPwd">
 			<script type="text/javascript">
 				var s_resetPwd_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="team:team:audit">
-			<script type="text/javascript">
-				var s_audit_h = '';
-			</script>
-		</div>
-		<div shiro:hasPermission="team:apply:apply">
-			<script type="text/javascript">
-				var s_applyMember_h = '';
-			</script>
-		</div>
 	</div>
 	<div th:include="include :: footer"></div>
-	<script type="text/javascript" src="/js/appjs/team/team/team.js"></script>
+	<script type="text/javascript" src="/js/appjs/team/apply/apply.js"></script>
 </body>
 </html>
