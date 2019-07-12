@@ -2,6 +2,7 @@ package com.fly.helpCenter.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 
@@ -23,7 +24,16 @@ public class TypeTitleDO implements Serializable {
 	private Date creatTime;
 	//0:未删除 1:删除
 	private Integer isDel;
+	
+	private List<CenterDO> center;
 
+	
+	public List<CenterDO> getCenter() {
+		return center;
+	}
+	public void setCenter(List<CenterDO> center) {
+		this.center = center;
+	}
 	/**
 	 * 设置：
 	 */

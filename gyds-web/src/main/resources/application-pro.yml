@@ -12,7 +12,8 @@ spring:
     #url: jdbc:mysql://47.93.201.132:3306/hzcy-shop?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
     #username: root
     #password: root
-    url: jdbc:mysql://127.0.0.1:3306/gyds?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
+    #url: jdbc:mysql://127.0.0.1:3306/gyds?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://192.168.124.101:3306/gyds?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
     password: root
     initialSize: 1
