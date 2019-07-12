@@ -73,7 +73,7 @@
 							<div class="col-sm-4">
 								<div class="form-group">
 									<label class=" control-label">广告基数最低值<span class="text-muted">(基数用于计算广告位价格最低值标准):</span></label>
-										<input id="advertMin" name="advertMin" th:value="${setup.advertMax}"  oninput="clearNoNum2(this)"  class="form-control input-sm"  type="text">
+										<input id="advertMin" name="advertMin" th:value="${setup.advertMin}"  oninput="clearNoNum2(this)"  class="form-control input-sm"  type="text">
 								</div>
 								<div class="form-group">
 									<label class=" control-label">广告基数最高值<span class="text-muted">(基数用于计算广告位价格最低值标准):</span></label>
@@ -160,10 +160,6 @@
 										<input id="rechargeIntegral" name="rechargeIntegral" th:value="${setup.rechargeIntegral}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
 								</div>
 								<div class="form-group">
-									<label class=" control-label">县级代理保证金<span class="text-muted">:</span></label>
-										<input id="areaBail" name="areaBail" th:value="${setup.areaBail}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
-								</div>
-								<div class="form-group">
 									<label class=" control-label">体现手续费<span class="text-muted">:</span></label>
 										<input id="withdrawalFee" name="withdrawalFee" th:value="${setup.withdrawalFee}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
 								</div>
@@ -197,6 +193,27 @@
                     var fileName = r.fileName;
                     $("#img").val(fileName);
                     $("#img4").attr("src",fileName);
+                },
+                error : function(r) {
+                    layer.msg(r.msg);
+                }
+            });
+            
+        });
+        
+        layui.use('upload', function() {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem : '#file1', //绑定元素
+                url : '/common/sysFile/upload', //上传接口
+                size : 1000,
+                accept : 'file',
+                done : function(r) {
+                    var fileName = r.fileName;
+                    $("#img1").val(fileName);
+                    $("#img5").attr("src",fileName);
                 },
                 error : function(r) {
                     layer.msg(r.msg);

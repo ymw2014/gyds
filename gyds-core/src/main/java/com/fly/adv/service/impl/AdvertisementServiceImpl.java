@@ -1,4 +1,4 @@
-package com.fly.advertisement.service.impl;
+package com.fly.adv.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-import com.fly.advertisement.dao.AdvertisementDao;
-import com.fly.advertisement.domain.AdvertisementDO;
-import com.fly.advertisement.service.AdvertisementService;
+import com.fly.adv.dao.AdvertisementDao;
+import com.fly.adv.domain.AdvertisementDO;
+import com.fly.adv.service.AdvertisementService;
 
 
 
