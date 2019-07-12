@@ -1,5 +1,6 @@
 
-var prefix = "/team/team"
+var prefix = "/order/order";
+var url = $('#url').val();
 $(function() {
 	load();
 });
@@ -7,9 +8,11 @@ $(function() {
 function load() {
 	$('#exampleTable')
 			.bootstrapTable(
-					{
+					
+					{	
+						
 						method : 'get', // 服务器数据的请求方式 get or post
-						url : prefix + "/list", // 服务器数据的加载地址
+						url : prefix + url, // 服务器数据的加载地址
 					//	showRefresh : true,
 					//	showToggle : true,
 					//	showColumns : true,
@@ -47,44 +50,115 @@ function load() {
 								{
 									checkbox : true
 								},
-								{
-									field : 'id', 
+																
+																{
+									field : 'orderNumber', 
+									title : '订单编号' 
+								},
+																{
+									field : 'userId', 
+									title : '用户编号' 
+								},
+																{
+									field : 'teamId', 
 									title : '团队编号' 
 								},
 																{
-									field : 'teamName', 
-									title : '团队名称' 
+									field : 'businessTime', 
+									title : '下单时间' 
 								},
 																{
-									field : 'colonelName', 
-									title : '团长名称' 
-								},
-																{
-									field : 'typeName', 
-									title : '团队类型' 
-								},
-																{
-									field : 'regionName', 
-									title : '地区' 
-								},
-								{
-									field : 'status', 
-									title : '状态',
+									field : 'orderType', 
+									title : '订单类型',
 									formatter: function (value, index){
-										if (value == 0) {
-											return '申请中';
+										if(value == 1){
+											return '收入'
 										}
-										if (value == 1) {
-											return '通过';
-										}
-										if (value == 2) {
-											return '已拒绝';
+										if(value == 2){
+											return '支出'
 										}
 									}
 								},
-								{
-									field : 'remark', 
-									title : '备注' 
+																{
+									field : 'examineUser', 
+									title : '审核人' 
+								},
+																{
+									field : 'examineStatus', 
+									title : '审核状态 ',
+									formatter: function (value, index){
+										if(value == 0){
+											return '已完成'
+										}
+										if(value == 1){
+											return '待审核'
+										}
+										if(value == 2){
+											return '已拒绝'
+										}
+									}
+								},
+																{
+									field : 'remake', 
+									title : '备注信息' 
+								},
+																{
+									field : 'cashUpType', 
+									title : '充值类型',
+									formatter: function (value, index){
+										if(value == 0){
+											return '支付宝'
+										}
+										if(value == 1){
+											return '微信'
+										}
+										if(value == 2){
+											return '其他'
+										}
+									}
+								},
+																{
+									field : 'cashOutType', 
+									title : '提现类型' ,
+									formatter: function (value, index){
+										if(value == 0){
+											return '支付宝'
+										}
+										if(value == 1){
+											return '微信'
+										}
+										if(value == 2){
+											return '其他'
+										}
+									}
+								},
+																{
+									field : 'expIncType', 
+									title : '类型',
+									formatter: function (value, index){
+										if(value == 0){
+											return '提现'
+										}
+										if(value == 1){
+											return '充值'
+										}
+										if(value == 2){
+											return '打赏'
+										}
+										if(value == 3){
+											return '红包'
+										}
+										if(value == 4){
+											return '广告费用'
+										}
+										if(value == 5){
+											return '商城支付'
+										}
+									}
+								},
+																{
+									field : 'price', 
+									title : '金额' 
 								},
 																{
 									title : '操作',
@@ -97,20 +171,25 @@ function load() {
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f ='';
-										if(row.status!=1&&row.status!=2){
-											f = '<a class="btn btn-success btn-sm '+s_audit_h+'" href="#" title="审核"  mce_href="#" onclick="audit(\''
-											+ row.id
-											+ '\')"><i class="fa fa-key"></i></a> ';
-										}
-										var u ='<a class="btn btn-success btn-sm"'+s_memberList_h+' href="#" title=""  mce_href="#" ><span class="" onclick="memberList('+row.id+')">成员列表</span></a>'
-										var o ='<a class="btn btn-success btn-sm"'+s_applyMember_h+' href="#" title=""  mce_href="#" ><span class="" onclick="applyMember('+row.id+')">申请列表</span></a>'; 
-										
-										return e + d + f + u + o;
+										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
+												+ row.id
+												+ '\')"><i class="fa fa-key"></i></a> ';
+										return e + d ;
 									}
-								} ]
-					});
+								}],onLoadSuccess : function(){  //加载成功时执行  
+									if(url != '/listCashUp'){
+									     $('#exampleTable').bootstrapTable('hideColumn', 'cashUpType');
+									}
+								if(url != '/listCashOut'){
+									     $('#exampleTable').bootstrapTable('hideColumn', 'cashOutType');
+									 	 $('#exampleTable').bootstrapTable('hideColumn', 'examineStatus');
+									 	$('#exampleTable').bootstrapTable('hideColumn', 'examineUser');
+									}
+										}
+					}
+			);
 }
+	
 function reLoad() {
 	$('#exampleTable').bootstrapTable('refresh');
 }
@@ -127,25 +206,13 @@ function add() {
 function edit(id) {
 	layer.open({
 		type : 2,
-		title : '详情',
+		title : '编辑',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
-
-function memberList(id) {
-	layer.open({
-		type : 2,
-		title : '成员列表',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '620px' ],
-		content : '/volunteer/volunteer/memberList/' + id // iframe的url
-	});
-}
-
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]
@@ -168,27 +235,7 @@ function remove(id) {
 	})
 }
 
-function audit(id) {
-	layer.open({
-		type : 2,
-		title : '审核',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
-		content : prefix + '/audit/' + id // iframe的url
-	});
-	
-}
-function applyMember(id) {
-	layer.open({
-		type : 2,
-		title : '审核',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '620px' ],
-		content : '/team/apply/applyMember/' + id // iframe的url
-	});
-	
+function resetPwd(id) {
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组

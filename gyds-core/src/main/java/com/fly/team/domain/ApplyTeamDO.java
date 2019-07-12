@@ -16,7 +16,7 @@ public class ApplyTeamDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//自增主键
-	private Integer id;
+	private Long id;
 	//申请团id
 	private Integer applyTeamId;
 	//申请团名称
@@ -24,7 +24,7 @@ public class ApplyTeamDO implements Serializable {
 	//志愿者姓名
 	private String volunteerName;
 	//志愿者id
-	private Integer zyzId;
+	private Long zyzId;
 	//状态 0:申请中 1:申请成功 2 :已拒绝
 	private Integer status;
 	//
@@ -45,13 +45,13 @@ public class ApplyTeamDO implements Serializable {
 	/**
 	 * 设置：自增主键
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**
 	 * 获取：自增主键
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 	/**
@@ -69,13 +69,13 @@ public class ApplyTeamDO implements Serializable {
 	/**
 	 * 设置：志愿者id
 	 */
-	public void setZyzId(Integer zyzId) {
+	public void setZyzId(Long zyzId) {
 		this.zyzId = zyzId;
 	}
 	/**
 	 * 获取：志愿者id
 	 */
-	public Integer getZyzId() {
+	public Long getZyzId() {
 		return zyzId;
 	}
 	/**

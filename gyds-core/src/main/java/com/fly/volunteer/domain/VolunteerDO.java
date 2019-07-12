@@ -64,13 +64,15 @@ public class VolunteerDO implements Serializable {
 	
 	private String remark;
 		
-	private String appTeamTime;
+	private Date enterTeamTime;
 	
-	public String getAppTeamTime() {
-		return appTeamTime;
+	
+	
+	public Date getEnterTeamTime() {
+		return enterTeamTime;
 	}
-	public void setAppTeamTime(String appTeamTime) {
-		this.appTeamTime = appTeamTime;
+	public void setEnterTeamTime(Date enterTeamTime) {
+		this.enterTeamTime = enterTeamTime;
 	}
 	public String getRemark() {
 		return remark;

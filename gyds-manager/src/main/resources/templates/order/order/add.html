@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">订单编号：</label>
+								<div class="col-sm-8">
+									<input id="orderNumber" name="orderNumber" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">用户编号：</label>
+								<div class="col-sm-8">
+									<input id="userId" name="userId" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">团队编号：</label>
+								<div class="col-sm-8">
+									<input id="teamId" name="teamId" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">下单时间：</label>
+								<div class="col-sm-8">
+									<input id="businessTime" name="businessTime" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">订单类型1:收入 2：支出 ：</label>
+								<div class="col-sm-8">
+									<input id="orderType" name="orderType" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">是否删除0：否1：是：</label>
+								<div class="col-sm-8">
+									<input id="isDel" name="isDel" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">审核人：</label>
+								<div class="col-sm-8">
+									<input id="examineUser" name="examineUser" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">审核状态 1:已完成 2：待审核 3：已拒绝：</label>
+								<div class="col-sm-8">
+									<input id="examineStatus" name="examineStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">备注信息：</label>
+								<div class="col-sm-8">
+									<input id="remake" name="remake" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">等级：</label>
+								<div class="col-sm-8">
+									<input id="level" name="level" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">充值类型0:支付宝 1:微信 2:其他：</label>
+								<div class="col-sm-8">
+									<input id="cashUpType" name="cashUpType" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">提现类型0:支付宝 1:微信 2:其他：</label>
+								<div class="col-sm-8">
+									<input id="cashOutType" name="cashOutType" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">类型:0:提现 1:充值 2:打赏 3:红包 4:广告费用 5:商城支付：</label>
+								<div class="col-sm-8">
+									<input id="expIncType" name="expIncType" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">金额：</label>
+								<div class="col-sm-8">
+									<input id="price" name="price" class="form-control" type="text">
+								</div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/order/order/add.js">
+	</script>
+</body>
+</html>

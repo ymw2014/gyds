@@ -1,5 +1,6 @@
 package com.fly.team.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,8 @@ import com.fly.team.service.ApplyTeamService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
+import com.fly.volunteer.domain.VolunteerDO;
+import com.fly.volunteer.service.VolunteerService;
 
 /**
  * 入团申请表
@@ -33,7 +36,8 @@ import com.fly.utils.R;
 public class ApplyTeamController {
 	@Autowired
 	private ApplyTeamService applyService;
-	
+	@Autowired
+	private VolunteerService volunteerService;
 	@GetMapping()
 	@RequiresPermissions("team:apply:apply")
 	String Apply(){
@@ -117,6 +121,23 @@ public class ApplyTeamController {
 	public R remove(@RequestParam("ids[]") Integer[] ids){
 		applyService.batchRemove(ids);
 		return R.ok();
+	}
+	@PostMapping( "/examine")
+	@ResponseBody
+	@RequiresPermissions("team:apply:examine")
+	public R examine(Integer id,Integer status){
+		ApplyTeamDO apply = applyService.get(id);
+		apply.setStatus(status);
+		if(status.equals(1)) {
+			VolunteerDO volunteer = new VolunteerDO();
+			volunteer.setEnterTeamTime(new Date());
+			volunteer.setId(apply.getZyzId());
+			volunteerService.update(volunteer);
+		}
+		if(applyService.update(apply)>0) {
+			return R.ok();
+		}
+		return R.error();
 	}
 	
 }

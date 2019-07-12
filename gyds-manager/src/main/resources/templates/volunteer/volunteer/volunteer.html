@@ -59,15 +59,16 @@
 	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
 		<div>
 			<script type="text/javascript">
-				var s_edit_h = 'hidden';
+				var s_info_h = 'hidden';
 				var s_remove_h = 'hidden';
 				var s_resetPwd_h = 'hidden';
 				var s_audit_h = 'hidden';
+				var s_quitTeam_h = 'hidden';
 			</script>
 		</div>
-		<div shiro:hasPermission="volunteer:volunteer:edit">
+		<div shiro:hasPermission="volunteer:volunteer:info">
 			<script type="text/javascript">
-				s_edit_h = '';
+					s_info_h = '';
 			</script>
 		</div>
 		<div shiro:hasPermission="volunteer:volunteer:audit">
@@ -83,6 +84,11 @@
 		<div shiro:hasPermission="volunteer:volunteer:resetPwd">
 			<script type="text/javascript">
 				var s_resetPwd_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="volunteer:volunteer:quitTeam">
+			<script type="text/javascript">
+				var s_quitTeam_h = '';
 			</script>
 		</div>
 	</div>

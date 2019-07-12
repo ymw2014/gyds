@@ -152,12 +152,12 @@ function load() {
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
-										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
+										var e = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="详情" onclick="edit(\''
 												+ row.id
 												+ '\')"><i class="fa fa-edit"></i></a> ';
 										var  d = '';
 										var  u ='';
-										if($('#teamId').val()==null){
+										if($('#teamId').val()==""){
 											d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 											+ row.id
 											+ '\')"><i class="fa fa-remove"></i></a> ';
@@ -166,12 +166,9 @@ function load() {
 												}
 										}
 										
-										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-												+ row.id
-												+ '\')"><i class="fa fa-key"></i></a> ';
+										var q ='<a class="btn btn-success btn-sm"'+s_quitTeam_h+' href="#" title=""  mce_href="#" ><span class="" onclick="quitTeam('+row.id+')">请离</span></a>'
 										
-										
-										return e + d + u;
+										return e + d + u + q;
 									}
 								} ]
 					});
@@ -196,14 +193,7 @@ function add() {
 	});
 }
 function edit(id) {
-	layer.open({
-		type : 2,
-		title : '查看详情',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
-		content : prefix + '/edit/' + id // iframe的url
-	});
+	
 }
 function audit(id) {
 	layer.open({
@@ -237,7 +227,26 @@ function remove(id) {
 	})
 }
 
-function resetPwd(id) {
+function quitTeam(id) {
+	layer.confirm('确定要请离团队？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : prefix+"/quitTeam",
+			type : "post",
+			data : {
+				'id' : id
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组

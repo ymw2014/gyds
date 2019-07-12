@@ -158,7 +158,7 @@
 			<if test="headImg != null">`head_img` = #{headImg},</if>
 			<if test="remark != null">`remark` = #{remark},</if>
 			<if test="auditStatus != null">`audit_status` = #{auditStatus},</if>
-			<if test="appTeamTime != null">`app_team_time` = #{appTeamTime}</if>
+			<if test="enterTeamTime != null">`enter_team_time` = #{enterTeamTime}</if>
 		</set>
 		where id = #{id}
 	</update>

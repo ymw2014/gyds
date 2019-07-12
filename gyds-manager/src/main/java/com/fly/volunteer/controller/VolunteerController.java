@@ -59,7 +59,7 @@ public class VolunteerController {
 	}
 
 	@GetMapping("/edit/{id}")
-	@RequiresPermissions("volunteer:volunteer:edit")
+	@RequiresPermissions("volunteer:volunteer:info")
 	String edit(@PathVariable("id") Long id,Model model){
 		VolunteerDO volunteer = volunteerService.get(id);
 		model.addAttribute("volunteer", volunteer);
@@ -96,7 +96,7 @@ public class VolunteerController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	@RequiresPermissions("volunteer:volunteer:edit")
+	@RequiresPermissions("volunteer:volunteer:info")
 	public R update( VolunteerDO volunteer){
 		volunteerService.update(volunteer);
 		return R.ok();
@@ -110,6 +110,18 @@ public class VolunteerController {
 	@RequiresPermissions("volunteer:volunteer:remove")
 	public R remove( Long id){
 		if(volunteerService.remove(id)>0){
+		return R.ok();
+		}
+		return R.error();
+	}
+	@PostMapping( "/quitTeam")
+	@ResponseBody
+	@RequiresPermissions("volunteer:volunteer:quitTeam")
+	public R quitTeam( Long id){
+		VolunteerDO volunteer = new VolunteerDO();
+		volunteer.setTeamId(0);
+		volunteer.setId(id);
+		if(volunteerService.update(volunteer)>0){
 		return R.ok();
 		}
 		return R.error();

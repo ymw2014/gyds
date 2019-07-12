@@ -75,25 +75,40 @@ function load() {
 									field : 'applyTeamTime', 
 									title : '申请时间' 
 								},
+								{
+									field : 'status',
+									title : '审核',
+									align : 'center',
+									formatter: function (value,row, index){
+										if (value == 0) {
+											return '<a class="label label-success '+s_examine_h+'" onclick="examineStatus('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger '+s_examine_h+'" onclick="examineStatus('+row.id+',2)" >拒绝</a>';
+										}
+										if (value == 1) {
+											return '<span style="color:green;">已通过</span>';
+										}
+										if (value == 2) {
+											return '<span style="color:red;">已拒绝</span>';
+										}
+									}	
+								},
 																{
 									title : '操作',
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
-										var i = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="编辑" onclick="info(\''
+										var i = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="详情" onclick="info(\''
 										+ row.id
 										+ '\')"><i class="fa fa-edit"></i></a> ';
 										
-										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
-												+ row.id
-												+ '\')"><i class="fa fa-edit"></i></a> ';
+										
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
 										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
 												+ row.id
 												+ '\')"><i class="fa fa-key"></i></a> ';
-										return i + o ;
+										return i;
 									}
 								} ]
 					});
@@ -130,6 +145,29 @@ function info(id) {
 		area : [ '800px', '520px' ],
 		content : '/volunteer/volunteer/edit/' + id // iframe的url
 	});
+}
+function examineStatus(id,status) {
+	console.log(id);
+	layer.confirm('确定要审核吗？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : prefix+"/examine",
+			type : "post",
+			data : {
+				'id' : id,
+				'status':status
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
 }
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
