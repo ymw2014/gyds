@@ -81,6 +81,7 @@ function load() {
 								},
 																{
 									field : 'showEndTime', 
+									sortable : true,
 									title : '展现结束时间' 
 								},
 																{
