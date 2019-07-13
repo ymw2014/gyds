@@ -4,15 +4,16 @@
 <mapper namespace="com.fly.helpCenter.dao.CenterDao">
 
 	<select id="get" resultType="com.fly.helpCenter.domain.CenterDO">
-		select h.id,h.member_id,u.name,h.title,h.help_type_id,t.help_title,h.content,h.status,h.del_time,h.update_time,h.public_time,h.creat_time,h.del,h.level,h.district_id from help_center h left join help_type_title t on h.help_type_id = t.id left join sys_user u on h.member_id = u.user_id where h.id = #{value}
+		select h.id,h.member_id,u.name,h.title,h.url,h.help_type_id,t.help_title,h.content,h.status,h.del_time,h.update_time,h.public_time,h.creat_time,h.del,h.level,h.district_id from help_center h left join help_type_title t on h.help_type_id = t.id left join sys_user u on h.member_id = u.user_id where h.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.helpCenter.domain.CenterDO">
-		select h.id,h.member_id,u.name,h.title,h.help_type_id,t.help_title,h.content,h.status,h.del_time,h.update_time,h.public_time,h.creat_time,h.del,h.level,h.district_id from help_center h left join help_type_title t on h.help_type_id = t.id left join sys_user u on h.member_id = u.user_id
+		select h.id,h.member_id,u.name,h.title,h.url,h.help_type_id,t.help_title,h.content,h.status,h.del_time,h.update_time,h.public_time,h.creat_time,h.del,h.level,h.district_id from help_center h left join help_type_title t on h.help_type_id = t.id left join sys_user u on h.member_id = u.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and h.id = #{id} </if>
 		  		  <if test="memberId != null and memberId != ''"> and h.member_id = #{memberId} </if>
 		  		  <if test="title != null and title != ''"> and h.title = #{title} </if>
+		  		  <if test="url != null and url != ''"> and h.url = #{url} </if>
 		  		  <if test="helpTypeId != null and helpTypeId != ''"> and h.help_type_id = #{helpTypeId} </if>
 		  		  <if test="content != null and content != ''"> and h.content = #{content} </if>
 		  		  <if test="status != null"> and h.status = #{status} </if>
@@ -43,6 +44,7 @@
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
 		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="url != null and url != ''"> and h.url = #{url} </if>
 		  		  <if test="helpTypeId != null and helpTypeId != ''"> and help_type_id = #{helpTypeId} </if>
 		  		  <if test="content != null and content != ''"> and content = #{content} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
@@ -61,6 +63,7 @@
 		(
 			`member_id`, 
 			`title`, 
+			`url`,
 			`help_type_id`, 
 			`content`, 
 			`status`, 
@@ -76,6 +79,7 @@
 		(
 			#{memberId}, 
 			#{title}, 
+			#{url},
 			#{helpTypeId}, 
 			#{content}, 
 			#{status}, 
@@ -94,6 +98,7 @@
 		<set>
 			<if test="memberId != null">`member_id` = #{memberId}, </if>
 			<if test="title != null">`title` = #{title}, </if>
+			<if test="url != null">`url` = #{url}, </if>
 			<if test="helpTypeId != null">`help_type_id` = #{helpTypeId}, </if>
 			<if test="content != null">`content` = #{content}, </if>
 			<if test="status != null">`status` = #{status}, </if>
