@@ -28,7 +28,7 @@ cux_region r on t.reg_code = r.region_code
 		  		  <if test="teamTitleImg != null and teamTitleImg != ''"> and t.team_title_img = #{teamTitleImg} </if>
 		  		  <if test="teamImg != null and teamImg != ''"> and t.team_img = #{teamImg} </if>
 		  		  <if test="regCode != null and regCode != ''"> and t.reg_code = #{regCode} </if>
-		  		   <if test="status != null and status != ''"> and t.status = #{status} </if>
+		  		   <if test="status != null"> and t.status = #{status} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -55,7 +55,7 @@ cux_region r on t.reg_code = r.region_code
 		  		  <if test="teamTitleImg != null and teamTitleImg != ''"> and team_title_img = #{teamTitleImg} </if>
 		  		  <if test="teamImg != null and teamImg != ''"> and team_img = #{teamImg} </if>
 		  		  <if test="regCode != null and regCode != ''"> and reg_code = #{regCode} </if>
-		  		  <if test="status != null and status != ''"> and t.status = #{status} </if>
+		  		  <if test="status != null"> and t.status = #{status} </if>
 		  		</where>
 	</select>
 	 

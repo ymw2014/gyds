@@ -56,7 +56,30 @@ public class TeamController {
 	String Team(){
 	    return "team/team/team";
 	}
-	
+	@GetMapping("/info/{id}")
+	@RequiresPermissions("team:volunteer:info")
+	String edit(@PathVariable("id") Long id,Model model){
+		VolunteerDO volunteer = volunteerService.get(id);
+		model.addAttribute("volunteer", volunteer);
+	    return "team/volunteer/info";
+	}
+	@GetMapping("/listVolunteer/{id}")
+	@RequiresPermissions("team:volunteer:volunteer")
+	String Volunteer(@PathVariable("id") Long id,Model model){
+		model.addAttribute("teamId", id);
+	    return "team/volunteer/volunteer";
+	}
+	@ResponseBody
+	@GetMapping("/listVol")
+	@RequiresPermissions("team:volunteer:volunteer")
+	public PageUtils listVol(@RequestParam Map<String, Object> params){
+		//查询列表数据
+        Query query = new Query(params);
+		List<VolunteerDO> volunteerList = volunteerService.list(query);
+		int total = volunteerService.count(query);
+		PageUtils pageUtils = new PageUtils(volunteerList, total);
+		return pageUtils;
+	}
 	@ResponseBody
 	@GetMapping("/list")
 	@RequiresPermissions("team:team:team")
@@ -170,6 +193,18 @@ public class TeamController {
 	public R remove(@RequestParam("ids[]") Integer[] ids){
 		teamService.batchRemove(ids);
 		return R.ok();
+	}
+	@PostMapping( "/quitTeam")
+	@ResponseBody
+	@RequiresPermissions("team:volunteer:quitTeam")
+	public R quitTeam(Long id){
+		VolunteerDO volunteer = new VolunteerDO();
+		volunteer.setTeamId(0);
+		volunteer.setId(id);
+		if(volunteerService.update(volunteer)>0){
+		return R.ok();
+		}
+		return R.error();
 	}
 	
 }

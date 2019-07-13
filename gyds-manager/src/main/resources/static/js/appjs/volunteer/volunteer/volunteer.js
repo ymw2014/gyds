@@ -146,7 +146,7 @@ function load() {
 								{
 									field : 'createTime',
 									title : '入团时间'
-								},
+								}/*,
 								{
 									title : '操作',
 									field : 'id',
@@ -170,7 +170,7 @@ function load() {
 										
 										return e + d + u + q;
 									}
-								} ]
+								} */]
 					});
 }
 function reLoad() {

@@ -97,13 +97,13 @@
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
 					<img th:src="${act.actTitleImg}" alt="">
-						<span th:text="${act.actTitle}"></span>
-						<p th:text="${act.actIntro}"></p>
-						<rem>
-							<span th:text="${act.actType==0}?'免费':'收费'"></span>
-							<span th:text="${act.numberOfApplicants}+人已报名"></span>
-						</rem>
-			</div>
+					<span th:text="${act.actTitle}"></span>
+					<p th:text="${act.actIntro}"></p>
+					<rem>
+						<span th:text="${act.actType==0}?'免费':'收费'"></span>
+						<span th:text="${act.numberOfApplicants}+人已报名"></span>
+					</rem>
+				</div>
 			</div>
 		</div>
 		<div class="zhiyuan">
@@ -124,12 +124,11 @@
 			<div class="tongjitxt" style="width:95%;">
 				<i></i>志愿者<span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
 			</div>
-		<div class="tuanduiCen" >
+			<div class="tuanduiCen" >
 				<figure th:each="team: ${teamList}">
 					<img th:src="${team.teamTitleImg}" alt="">
 					<figcaption th:text="${team.teamName}"></figcaption>
 				</figure>
-		</div>
 			</div>
 		</div>
 		<div class="guanggao">

@@ -13,7 +13,7 @@
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="typeName != null and typeName != ''"> and type_name = #{typeName} </if>
-		  		  <if test="isDel != null and isDel != ''"> and is_del = #{isDel} </if>
+		  		  <if test="isDel != null"> and is_del = #{isDel} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -33,7 +33,7 @@
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="typeName != null and typeName != ''"> and type_name = #{typeName} </if>
-		  		  <if test="isDel != null and isDel != ''"> and is_del = #{isDel} </if>
+		  		  <if test="isDel != null"> and is_del = #{isDel} </if>
 		  		</where>
 	</select>
  	<select id="count" resultType="int">

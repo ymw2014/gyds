@@ -44,9 +44,16 @@ public class ApplyTeamController {
 	    return "team/apply/apply";
 	}
 	
+	@GetMapping("/info/{id}")
+	@RequiresPermissions("team:apply:info")
+	String edit(@PathVariable("id") Long id,Model model){
+		VolunteerDO volunteer = volunteerService.get(id);
+		model.addAttribute("volunteer", volunteer);
+	    return "team/volunteer/info";
+	}
+	
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("team:apply:apply")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
@@ -131,6 +138,7 @@ public class ApplyTeamController {
 		if(status.equals(1)) {
 			VolunteerDO volunteer = new VolunteerDO();
 			volunteer.setEnterTeamTime(new Date());
+			volunteer.setTeamId(apply.getApplyTeamId());
 			volunteer.setId(apply.getZyzId());
 			volunteerService.update(volunteer);
 		}

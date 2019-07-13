@@ -159,7 +159,7 @@ public class OrderController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	@RequiresPermissions("order:order:edit")
+	@RequiresPermissions("order:order:audit")
 	public R update( OrderDO order){
 		orderService.update(order);
 		return R.ok();

@@ -56,12 +56,12 @@ function load() {
 									title : '订单编号' 
 								},
 																{
-									field : 'userId', 
-									title : '用户编号' 
+									field : 'name', 
+									title : '用户姓名' 
 								},
 																{
-									field : 'teamId', 
-									title : '团队编号' 
+									field : 'teamName', 
+									title : '团队名称' 
 								},
 																{
 									field : 'businessTime', 
@@ -80,23 +80,8 @@ function load() {
 									}
 								},
 																{
-									field : 'examineUser', 
+									field : 'username', 
 									title : '审核人' 
-								},
-																{
-									field : 'examineStatus', 
-									title : '审核状态 ',
-									formatter: function (value, index){
-										if(value == 0){
-											return '已完成'
-										}
-										if(value == 1){
-											return '待审核'
-										}
-										if(value == 2){
-											return '已拒绝'
-										}
-									}
 								},
 																{
 									field : 'remake', 
@@ -165,16 +150,17 @@ function load() {
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
-										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
-												+ row.id
-												+ '\')"><i class="fa fa-edit"></i></a> ';
-										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
-												+ row.id
-												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-												+ row.id
-												+ '\')"><i class="fa fa-key"></i></a> ';
-										return e + d ;
+										if (row.examineStatus == 2) {
+											return '<a class="label label-success '+s_audit_h+'" onclick="audit('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger '+s_audit_h+'" onclick="audit('+row.id+',3)" >拒绝</a>';
+										}
+										if (row.examineStatus == 1) {
+											return '<span style="color:green;">已完成</span>';
+										}
+										if (row.examineStatus == 3) {
+											return '<span style="color:red;">已拒绝</span>';
+										}
+										
 									}
 								}],onLoadSuccess : function(){  //加载成功时执行  
 									if(url != '/listCashUp'){
@@ -182,8 +168,8 @@ function load() {
 									}
 								if(url != '/listCashOut'){
 									     $('#exampleTable').bootstrapTable('hideColumn', 'cashOutType');
-									 	 $('#exampleTable').bootstrapTable('hideColumn', 'examineStatus');
-									 	$('#exampleTable').bootstrapTable('hideColumn', 'examineUser');
+									 	$('#exampleTable').bootstrapTable('hideColumn', 'username');
+									 	$('#exampleTable').bootstrapTable('hideColumn', 'id');
 									}
 										}
 					}
@@ -235,7 +221,27 @@ function remove(id) {
 	})
 }
 
-function resetPwd(id) {
+function audit(id,status) {
+	layer.confirm('确定要审核吗？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : prefix+"/update",
+			type : "post",
+			data : {
+				'id' : id,
+				'examineStatus':status
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组

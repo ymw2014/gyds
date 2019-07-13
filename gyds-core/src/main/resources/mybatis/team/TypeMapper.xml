@@ -12,7 +12,7 @@
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="typeName != null and typeName != ''"> and type_name = #{typeName} </if>
-		  		  <if test="isCharge != null and isCharge != ''"> and is_charge = #{isCharge} </if>
+		  		  <if test="isCharge != null"> and is_charge = #{isCharge} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		</where>
@@ -33,7 +33,7 @@
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="typeName != null and typeName != ''"> and type_name = #{typeName} </if>
-		  		  <if test="isCharge != null and isCharge != ''"> and is_charge = #{isCharge} </if>
+		  		  <if test="isCharge != null"> and is_charge = #{isCharge} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		</where>
@@ -55,7 +55,7 @@
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="typeName != null and typeName != ''"> and type_name = #{typeName} </if>
-		  		  <if test="isCharge != null and isCharge != ''"> and is_charge = #{isCharge} </if>
+		  		  <if test="isCharge != null"> and is_charge = #{isCharge} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		</where>

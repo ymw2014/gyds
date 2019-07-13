@@ -42,10 +42,14 @@
 				var s_applyMember_h = 'hidden';
 			</script>
 		</div>
+		<div shiro:hasPermission="team:volunteer:volunteer">
+			<script type="text/javascript">
+			    var s_volunteer_h = '';
+			</script>
+		</div>
 		<div shiro:hasPermission="team:team:edit">
 			<script type="text/javascript">
 				s_edit_h = '';
-				s_memberList_h = '';
 			</script>
 		</div>
 		<div shiro:hasPermission="team:team:remove">
