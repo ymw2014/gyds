@@ -42,19 +42,17 @@
 		  <div class="swiper-container">
 		    <div class="swiper-wrapper">
 		      <div class="swiper-slide" th:each="newInfo: ${newList}">
-					<img  th:src="${newInfo.titleImg}" alt="">
+					<a href="#"><img  th:src="${newInfo.titleImg}" alt=""></a>
 			   </div>
 			</div>
 		    </div>
-		  </div>
 		  <div class="pagination"></div>
 		</div>
 		<!-- 结束 -->
 		<div class="tongji">
 			<div class="tongji1">
 				<div class="tongjitxt">
-					<i style="float: left;"></i>咨询动态 <span><img src="images/xuanze.jpg" alt=""></span>
-					<a href="#" style="float: right;font-size: 15px">更多+</a>
+					<i></i>咨询动态 <span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
 				</div>
 				<ul>
 					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a href="#" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
@@ -94,7 +92,7 @@
 		<!-- 活动报名 -->
 		<div class="baoming">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>活动报名<span><img src="images/xuanze.jpg" alt=""></span>
+				<i></i>活动报名<span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
@@ -110,8 +108,7 @@
 		</div>
 		<div class="zhiyuan">
 			<div class="tongjitxt" style="width:95%;">
-				<i style="float: left;"></i>志愿者<span><img src="images/xuanze.jpg" alt=""></span>
-				<a href="#" style="float: right;font-size: 15px">更多+</a>
+				<i></i>志愿者<span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
@@ -125,12 +122,7 @@
 		</div>
 		<div class="tuandui index_td">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>志愿者<span><img src="images/xuanze.jpg" alt=""></span>
-			</div>
-			<div class="tuanduiCen">
-			<div class="secant_txt">
-				<h3 style="float: left;"><i></i>团队展示</h3>
-				<a href="#" style="float: right;">更多+</a>
+				<i></i>志愿者<span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
 			</div>
 		<div class="tuanduiCen" >
 				<figure th:each="team: ${teamList}">
