@@ -141,7 +141,7 @@ function load() {
 											return '否';
 										}
 									}
-								},
+								}/*,
 																{
 									title : '操作',
 									field : 'id',
@@ -158,7 +158,7 @@ function load() {
 												+ '\')"><i class="fa fa-key"></i></a> ';
 										return e + d ;
 									}
-								} ]
+								} */]
 					});
 }
 function reLoad() {

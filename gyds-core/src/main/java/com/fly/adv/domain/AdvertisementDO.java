@@ -36,6 +36,8 @@ public class AdvertisementDO implements Serializable {
 	private Date showEndTime;
 	//费用(人均费用基数)
 	private BigDecimal perCapitaCost;
+	//排序展示
+	private String sort;
 
 	/**
 	 * 设置：
@@ -152,4 +154,12 @@ public class AdvertisementDO implements Serializable {
 	public BigDecimal getPerCapitaCost() {
 		return perCapitaCost;
 	}
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+	
+	
 }

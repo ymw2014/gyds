@@ -38,7 +38,7 @@ public class ProxybusiDO implements Serializable {
 	//会员所在城市
 	private String city;
 	//会员所在县
-	private String country;
+	private String county;
 	//会员姓名
 	private String memberName;
 	//会员省
@@ -84,11 +84,11 @@ public class ProxybusiDO implements Serializable {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getCountry() {
-		return country;
+	public String getCounty() {
+		return county;
 	}
-	public void setCountry(String country) {
-		this.country = country;
+	public void setCounty(String county) {
+		this.county = county;
 	}
 	public String getMemberName() {
 		return memberName;

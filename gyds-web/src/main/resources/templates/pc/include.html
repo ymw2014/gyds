@@ -52,39 +52,9 @@
 <div th:fragment="footer">
 	<footer>
 		<div class="bot">
-			<ul>
-				<h4>新手指南</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-				<li><a href="#">新手指南3</a></li>
-				<li><a href="#">新手指南4</a></li>
-			</ul>
-			<ul>
-				<h4>民生相关</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-				<li><a href="#">新手指南3</a></li>
-				<li><a href="#">新手指南4</a></li>
-			</ul>
-			<ul>
-				<h4>民生聚焦</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-				<li><a href="#">新手指南3</a></li>
-				<li><a href="#">新手指南4</a></li>
-			</ul>
-			<ul>
-				<h4>民生关注</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-
-			</ul>
-			<ul>
-				<h4>民生咨询</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-				<li><a href="#">新手指南3</a></li>
-				<li><a href="#">新手指南4</a></li>
+			<ul th:each="cente: ${centerList}">
+				<h4 th:text="${cente.helpTitle}"></h4>
+				<li th:each="center: ${cente.center}"><a th:href="${center.url}"  th:text="${center.content}"></a></li>
 			</ul>
 			<figure>
 				<img src="images/26.jpg" alt="">

@@ -76,31 +76,19 @@ function load() {
 									field : 'status', 
 									title : '状态' 
 								},
-																{
+								{
 									field : 'level', 
 									title : '商家等级' 
 								},
-																{
+								{
 									field : 'auditTime', 
 									title : '审核时间' 
 								},
-																{
+								{
 									field : 'createTime', 
 									title : '入团时间' 
 								},
-								{
-									field : 'auditStatus', 
-									title : '审核状态' ,
-									formatter : function(value, row, index) {
-										if (value == '1') {
-											return "已审核";
-										} else if (value == '0') {
-											return "未审核";
-										}
-										
-									}
-								},
-								{
+								/*{
 									field : 'auditResult', 
 									title : '审核结果' ,
 									formatter : function(value, row, index) {
@@ -115,8 +103,8 @@ function load() {
 								{
 									field : 'auditOpinion', 
 									title : '审核意见' 
-								},
-																{
+								},*/
+								{
 									field : 'regionLevel', 
 									title : '代理级别' 
 								},/*
@@ -138,6 +126,23 @@ function load() {
 									title : '所在省份' 
 								},
 								{
+									field : 'auditStatus', 
+									title : '审核状态' ,
+									formatter: function (value,row, index){
+										if (value == 0) {
+											return '<a class="label label-success '+s_audit_h+'" onclick="audit('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger '+s_audit_h+'" onclick="audit('+row.id+',2)" >拒绝</a>';
+										}
+										if (value == 1) {
+											return '<span style="color:green;">已审核</span>';
+										}
+										if (value == 2) {
+											return '<span style="color:red;">已拒绝</span>';
+										}
+									}	
+								}
+								/*,
+								{
 									title : '操作',
 									field : 'id',
 									align : 'center',
@@ -156,7 +161,7 @@ function load() {
 										}
 										return e + d + f;
 									}
-								} ]
+								} */]
 					});
 }
 function reLoad() {
@@ -179,19 +184,61 @@ function edit(id) {
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
-		content : prefix + '/edit/' + id // iframe的url
+		content : prefix + '/edit/' + id// iframe的url
 	});
 }
-function audit(id) {
-	layer.open({
-		type : 2,
-		title : '审核',
-		maxmin : true,
-		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '500px' ],
-		content : prefix + '/audit/' + id // iframe的url
-	});
+function audit(id,status) {
+	if (status == '2') {
+		reject(id,status);
+	} else {
+		accept(id,status);
+	}
 }
+
+function reject(id,status) {
+	layer.confirm('确定要拒绝该申请吗？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : prefix+"/update",
+			type : "post",
+			data : {
+				'id' : id,
+				'auditStatus' : status
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
+}
+
+function accept(id,status) {
+		$.ajax({
+			url : prefix+"/update",
+			type : "post",
+			data : {
+				'id' : id,
+				'auditStatus' : status
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+}
+function resetPwd(id) {
+}
+
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]
@@ -212,9 +259,6 @@ function remove(id) {
 			}
 		});
 	})
-}
-
-function resetPwd(id) {
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
