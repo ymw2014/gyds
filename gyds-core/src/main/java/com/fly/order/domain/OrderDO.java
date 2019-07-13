@@ -22,8 +22,12 @@ public class OrderDO implements Serializable {
 	private String orderNumber;
 	//用户编号
 	private Integer userId;
+	//用户名
+	private String name;
 	//团队编号
 	private Integer teamId;
+	//团名称
+	private String teamName;
 	//下单时间
 	private Date businessTime;
 	//订单类型1:收入 2：支出 
@@ -32,6 +36,8 @@ public class OrderDO implements Serializable {
 	private Integer isDel;
 	//审核人
 	private Integer examineUser;
+	//审核人名称
+	private String username;
 	//审核状态 1:已完成 2：待审核 3：已拒绝
 	private Integer examineStatus;
 	//备注信息
@@ -46,7 +52,25 @@ public class OrderDO implements Serializable {
 	private Integer expIncType;
 	//金额
 	private BigDecimal price;
-
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	/**
 	 * 设置：自增编号
 	 */

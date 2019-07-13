@@ -35,27 +35,14 @@
 	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
 		<div>
 			<script type="text/javascript">
-				var s_edit_h = 'hidden';
-				var s_remove_h = 'hidden';
-				var s_resetPwd_h = 'hidden';
+				var s_audit_h = 'hidden';
 			</script>
 		</div>
-		<div shiro:hasPermission="order:order:edit">
+		<div shiro:hasPermission="order:order:audit">
 			<script type="text/javascript">
-				s_edit_h = '';
+					s_audit_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="order:order:remove">
-			<script type="text/javascript">
-				var s_remove_h = '';
-			</script>
-		</div>
-		<div shiro:hasPermission="order:order:resetPwd">
-			<script type="text/javascript">
-				var s_resetPwd_h = '';
-			</script>
-		</div>
-	</div>
 	<div th:include="include :: footer"></div>
 	<script type="text/javascript" src="/js/appjs/order/order/order.js"></script>
 </body>

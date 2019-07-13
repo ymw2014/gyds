@@ -103,7 +103,7 @@ function load() {
 											+ row.id
 											+ '\')"><i class="fa fa-key"></i></a> ';
 										}
-										var u ='<a class="btn btn-success btn-sm"'+s_memberList_h+' href="#" title=""  mce_href="#" ><span class="" onclick="memberList('+row.id+')">成员列表</span></a>'
+										var u ='<a class="btn btn-success btn-sm"'+s_volunteer_h+' href="#" title=""  mce_href="#" ><span class="" onclick="listVolunteer('+row.id+')">成员列表</span></a>'
 										var o ='<a class="btn btn-success btn-sm"'+s_applyMember_h+' href="#" title=""  mce_href="#" ><span class="" onclick="applyMember('+row.id+')">申请列表</span></a>'; 
 										
 										return e + d + f + u + o;
@@ -135,14 +135,14 @@ function edit(id) {
 	});
 }
 
-function memberList(id) {
+function listVolunteer(id) {
 	layer.open({
 		type : 2,
 		title : '成员列表',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '620px' ],
-		content : '/volunteer/volunteer/memberList/' + id // iframe的url
+		area : [ '1000px', '720px' ],
+		content : prefix +'/listVolunteer/' + id // iframe的url
 	});
 }
 

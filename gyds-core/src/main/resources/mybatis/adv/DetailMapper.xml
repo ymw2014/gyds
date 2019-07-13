@@ -19,7 +19,7 @@
 		  		  <if test="advImg != null and advImg != ''"> and adv_img = #{advImg} </if>
 		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
 		  		  <if test="showEndTime != null and showEndTime != ''"> and show_end_time = #{showEndTime} </if>
-		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="status != null"> and status = #{status} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -46,7 +46,7 @@
 		  		  <if test="advImg != null and advImg != ''"> and adv_img = #{advImg} </if>
 		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
 		  		  <if test="showEndTime != null and showEndTime != ''"> and show_end_time = #{showEndTime} </if>
-		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="status != null"> and status = #{status} </if>
 		  		</where>
 	</select>
 	 

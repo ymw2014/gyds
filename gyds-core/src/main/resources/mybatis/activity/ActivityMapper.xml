@@ -14,8 +14,8 @@
 		  		  <if test="actIntro != null and actIntro != ''"> and a.act_intro = #{actIntro} </if>
 		  		  <if test="actTitle != null and actTitle != ''"> and a.act_title = #{actTitle} </if>
 		  		  <if test="actContent != null and actContent != ''"> and a.act_content = #{actContent} </if>
-		  		  <if test="status != null and status != ''">and a.status = #{status}</if>
-		  		  <if test="examineStatus != null and examineStatus != ''">and a.examine_status = #{examineStatus}</if>
+		  		  <if test="status != null">and a.status = #{status}</if>
+		  		  <if test="examineStatus != null">and a.examine_status = #{examineStatus}</if>
 		  		  <if test="actPrice != null and actPrice != ''"> and a.act_price = #{actPrice} </if>
 		  		  <if test="actTitleImg != null and actTitleImg != ''"> and a.act_title_img = #{actTitleImg} </if>
 		  		  <if test="actTypeId != null and actTypeId != ''"> and a.act_type_id = #{actTypeId} </if>
@@ -23,7 +23,7 @@
 		  		  <if test="endTime != null and endTime != ''"> and a.end_time = #{endTime} </if>
 		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
 		  		  <if test="ticketCount != null and ticketCount != ''"> and a.ticket_count = #{ticketCount} </if>
-		  		  <if test="actType != null and actType != ''"> and a.act_type = #{actType} </if>
+		  		  <if test="actType != null"> and a.act_type = #{actType} </if>
 		  		  <if test="restrictions != null and restrictions != ''"> and a.restrictions = #{restrictions} </if>
 		  		  <if test="numberOfShares != null and numberOfShares != ''"> and a.number_of_shares = #{numberOfShares} </if>
 		  		  <if test="numberOfCollection != null and numberOfcollection != ''"> and a.number_of_collection = #{numberOfCollection} </if>
@@ -51,15 +51,15 @@
 		  		  <if test="actTitle != null and actTitle != ''"> and act_title = #{actTitle} </if>
 		  		  <if test="actContent != null and actContent != ''"> and act_content = #{actContent} </if>
 		  		  <if test="actPrice != null and actPrice != ''"> and act_price = #{actPrice} </if>
-		  		  <if test="status != null and status != ''">and status = #{status}</if>
-		  		  <if test="examineStatus != null and examineStatus != ''">and examine_status = #{examineStatus}</if>
+		  		  <if test="status != null">and status = #{status}</if>
+		  		  <if test="examineStatus != null">and examine_status = #{examineStatus}</if>
 		  		  <if test="actTitleImg != null and actTitleImg != ''"> and act_title_img = #{actTitleImg} </if>
 		  		  <if test="actTypeId != null and actTypeId != ''"> and act_type_id = #{actTypeId} </if>
 		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
 		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="ticketCount != null and ticketCount != ''"> and ticket_count = #{ticketCount} </if>
-		  		  <if test="actType != null and actType != ''"> and act_type = #{actType} </if>
+		  		  <if test="actType != null"> and act_type = #{actType} </if>
 		  		  <if test="restrictions != null and restrictions != ''"> and restrictions = #{restrictions} </if>
 		  		  <if test="numberOfShares != null and numberOfShares != ''"> and number_of_shares = #{numberOfShares} </if>
 		  		  <if test="numberOfCollection != null and numberOfCollection != ''"> and number_of_collection = #{numberOfCollection} </if>

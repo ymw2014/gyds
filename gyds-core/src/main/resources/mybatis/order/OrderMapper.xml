@@ -15,14 +15,14 @@
 		  		  <if test="userId != null and userId != ''"> and g.user_id = #{userId} </if>
 		  		  <if test="teamId != null and teamId != ''"> and g.team_id = #{teamId} </if>
 		  		  <if test="businessTime != null and businessTime != ''"> and g.business_time = #{businessTime} </if>
-		  		  <if test="orderType != null and orderType != ''"> and g.order_type = #{orderType} </if>
-		  		  <if test="isDel != null and isDel != ''"> and g.is_del = #{isDel} </if>
+		  		  <if test="orderType != null"> and g.order_type = #{orderType} </if>
+		  		  <if test="isDel != null"> and g.is_del = #{isDel} </if>
 		  		  <if test="examineUser != null and examineUser != ''"> and g.Examine_user = #{examineUser} </if>
-		  		  <if test="examineStatus != null and examineStatus != ''"> and g.Examine_status = #{examineStatus} </if>
+		  		  <if test="examineStatus != null"> and g.Examine_status = #{examineStatus} </if>
 		  		  <if test="remake != null and remake != ''"> and g.remake = #{remake} </if>
 		  		  <if test="level != null and level != ''"> and g.level = #{level} </if>
-		  		  <if test="cashUpType != null and cashUpType != ''"> and g.cash_up_type = #{cashUpType} </if>
-		  		  <if test="cashOutType != null and cashOutType != ''"> and g.cash_out_type = #{cashOutType} </if>
+		  		  <if test="cashUpType != null"> and g.cash_up_type = #{cashUpType} </if>
+		  		  <if test="cashOutType != null"> and g.cash_out_type = #{cashOutType} </if>
 		  		  <if test="expIncType != null "> and g.exp_inc_Type = #{expIncType} </if>
 		  		  <if test="price != null and price != ''"> and g.price = #{price} </if>
 		  		</where>
@@ -47,15 +47,15 @@
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
 		  		  <if test="businessTime != null and businessTime != ''"> and business_time = #{businessTime} </if>
-		  		  <if test="orderType != null and orderType != ''"> and order_type = #{orderType} </if>
-		  		  <if test="isDel != null and isDel != ''"> and is_del = #{isDel} </if>
+		  		  <if test="orderType != null"> and order_type = #{orderType} </if>
+		  		  <if test="isDel != null"> and is_del = #{isDel} </if>
 		  		  <if test="examineUser != null and examineUser != ''"> and Examine_user = #{examineUser} </if>
-		  		  <if test="examineStatus != null and examineStatus != ''"> and Examine_status = #{examineStatus} </if>
+		  		  <if test="examineStatus != null"> and Examine_status = #{examineStatus} </if>
 		  		  <if test="remake != null and remake != ''"> and remake = #{remake} </if>
 		  		  <if test="level != null and level != ''"> and level = #{level} </if>
-		  		  <if test="cashUpType != null and cashUpType != ''"> and cash_up_type = #{cashUpType} </if>
-		  		  <if test="cashOutType != null and cashOutType != ''"> and cash_out_type = #{cashOutType} </if>
-		  		  <if test="expIncType != null and expIncType != ''"> and exp_inc_Type = #{expIncType} </if>
+		  		  <if test="cashUpType != null"> and cash_up_type = #{cashUpType} </if>
+		  		  <if test="cashOutType != null"> and cash_out_type = #{cashOutType} </if>
+		  		  <if test="expIncType != null"> and exp_inc_Type = #{expIncType} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
 		  		</where>
 	</select>

@@ -15,7 +15,7 @@
 		  		  <if test="actId != null and actId != ''"> and a.act_id = #{actId} </if>
 		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
 		  		  <if test="examine != null and examine != ''"> and a.examine = #{examine} </if>
-		  		  <if test="status != null and status != ''"> and a.status = #{status} </if>
+		  		  <if test="status != null"> and a.status = #{status} </if>
 		  		  <if test="reasonForRefusal != null and reasonForRefusal != ''"> and a.reason_for_refusal = #{reasonForRefusal} </if>
 		  		</where>
         <choose>
@@ -39,7 +39,7 @@
 		  		  <if test="actId != null and actId != ''"> and act_id = #{actId} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="examine != null and examine != ''"> and examine = #{examine} </if>
-		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="status != null"> and status = #{status} </if>
 		  		  <if test="reasonForRefusal != null and reasonForRefusal != ''"> and reason_for_refusal = #{reasonForRefusal} </if>
 		  		</where>
 	</select>

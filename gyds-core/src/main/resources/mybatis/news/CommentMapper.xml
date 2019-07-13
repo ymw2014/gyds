@@ -15,7 +15,7 @@ select nc.id,nc.news_id,ni.title,nc.member_id,m.name,nc.criticism_content,nc.is_
 		  		  <if test="newsId != null and newsId != ''"> and nc.news_id = #{newsId} </if>
 		  		  <if test="memberId != null and memberId != ''"> and nc.member_id = #{memberId} </if>
 		  		  <if test="criticismContent != null and criticismContent != ''"> and nc.criticism_content = #{criticismContent} </if>
-		  		  <if test="isTop != null and isTop != ''"> and nc.is_top = #{isTop} </if>
+		  		  <if test="isTop != null"> and nc.is_top = #{isTop} </if>
 		  		  <if test="createTime != null and createTime != ''"> and nc.create_time = #{createTime} </if>
 		  		  <if test="numberOfLikes != null and numberOfLikes != ''"> and nc.number_of_likes = #{numberOfLikes} </if>
 		  		  <if test="prenId != null and prenId != ''"> and nc.pren_id = #{prenId} </if>
@@ -40,7 +40,7 @@ select nc.id,nc.news_id,ni.title,nc.member_id,m.name,nc.criticism_content,nc.is_
 		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
 		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
 		  		  <if test="criticismContent != null and criticismContent != ''"> and criticism_content = #{criticismContent} </if>
-		  		  <if test="isTop != null and isTop != ''"> and is_top = #{isTop} </if>
+		  		  <if test="isTop != null"> and is_top = #{isTop} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="numberOfLikes != null and numberOfLikes != ''"> and number_of_likes = #{numberOfLikes} </if>
 		  		  <if test="prenId != null and prenId != ''"> and pren_id = #{prenId} </if>
