@@ -11,8 +11,8 @@
 		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,n.content,n.author,n.title,n.id from new_info n left join team t on n.team_id = t.id
         <where>  
 		  		  <if test="isDel != null and isDel != ''"> and n.is_del = #{isDel} </if>
-		  		  <if test="isRedPeper != null"> and n.is_red_peper = #{isRedPeper} </if>
-		  		  <if test="isTop != null"> and n.is_top = #{isTop} </if>
+		  		  <if test="isRedPeper != null and isRedPeper != ''"> and n.is_red_peper = #{isRedPeper} </if>
+		  		  <if test="isTop != null and isTop!= ''"> and n.is_top = #{isTop} </if>
 		  		  <if test="type != null and type != ''"> and n.type = #{type} </if>
 		  		  <if test="numberOfShares != null and numberOfShares != ''"> and n.number_of_shares = #{numberOfShares} </if>
 		  		  <if test="criticismOfCount != null and criticismOfCount != ''"> and n.criticism_of_count = #{criticismOfCount} </if>
@@ -33,13 +33,15 @@
 		  		  <if test="titleImg != null and titleImg != ''"> and n.title_img = #{titleImg} </if>
 		  		  <if test="source != null and source != ''"> and n.source = #{source} </if>
 		  		  <if test="publicTime != null and publicTime != ''"> and n.public_time = #{publicTime} </if>
-		  		  <if test="status != null"> and n.status = #{status} </if>
+		  		  <if test="status != null and status != ''"> and n.status = #{status} </if>
 		  		  <if test="teamId != null and teamId != ''"> and n.team_id = #{teamId} </if>
 		  		  <if test="introduction != null and introduction != ''"> and n.introduction = #{introduction} </if>
 		  		  <if test="content != null and content != ''"> and n.content = #{content} </if>
 		  		  <if test="author != null and author != ''"> and n.author = #{author} </if>
 		  		  <if test="title != null and title != ''"> and n.title = #{title} </if>
 		  		  <if test="id != null and id != ''"> and n.id = #{id} </if>
+ 				  <if test="startTime != null and startTime != ''"> AND n.create_time &gt;= #{startTime}</if>
+				  <if test="endTime != null and endTime != ''">AND n.create_time &lt;= #{endTime}</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -57,9 +59,9 @@
  	<select id="count" resultType="int">
 		select count(*) from new_info
 		 <where>  
-		  		  <if test="isDel != null"> and is_del = #{isDel} </if>
-		  		  <if test="isRedPeper != null"> and is_red_peper = #{isRedPeper} </if>
-		  		  <if test="isTop != null"> and is_top = #{isTop} </if>
+		  		  <if test="isDel != null and isDel != ''"> and is_del = #{isDel} </if>
+		  		  <if test="isRedPeper != null and isRedPeper != ''"> and is_red_peper = #{isRedPeper} </if>
+		  		  <if test="isTop != null and isTop != ''"> and is_top = #{isTop} </if>
 		  		  <if test="type != null and type != ''"> and type = #{type} </if>
 		  		  <if test="numberOfShares != null and numberOfShares != ''"> and number_of_shares = #{numberOfShares} </if>
 		  		  <if test="criticismOfCount != null and criticismOfCount != ''"> and criticism_of_count = #{criticismOfCount} </if>
@@ -80,13 +82,16 @@
 		  		  <if test="titleImg != null and titleImg != ''"> and title_img = #{titleImg} </if>
 		  		  <if test="source != null and source != ''"> and source = #{source} </if>
 		  		  <if test="publicTime != null and publicTime != ''"> and public_time = #{publicTime} </if>
-		  		  <if test="status != null"> and status = #{status} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
 		  		  <if test="introduction != null and introduction != ''"> and introduction = #{introduction} </if>
 		  		  <if test="content != null and content != ''"> and content = #{content} </if>
 		  		  <if test="author != null and author != ''"> and author = #{author} </if>
 		  		  <if test="title != null and title != ''"> and title = #{title} </if>
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+            		and create_time between #{startTime} and #{endTime}
+ 					</if>
 		  		</where>
 	</select>
 	 

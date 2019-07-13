@@ -21,9 +21,32 @@
 							<button class="btn btn-success" onclick="reLoad()">查询</button>
 						</div>
 						<div class="columns pull-right col-md-2 nopadding">
-							<input id="searchName" type="text" class="form-control"
-								placeholder="">
+							<input id="title" type="text" class="form-control"
+								placeholder="请输入资讯标题">
 						</div>
+						<div class="columns pull-right col-md-2 ">
+							<select id="status" class="form-control">
+								<option value=''>请选择发布状态</option>
+								<option value='1'>已发布</option>
+								<option value='0'>未发布</option>
+							</select>
+						</div>
+						<div class="columns pull-right col-md-2 ">
+							<select id="top" class="form-control">
+								<option value=''>请选择置顶状态</option>
+								<option value='2'>申请中</option>
+								<option value='1'>是</option>
+								<option value='0'>否</option>
+							</select>
+						</div>
+						<div  class="columns pull-right col-md-2">
+			                <input type="text" class="laydate-icon form-control" id="endTime" name="endTime"   placeholder="请选择资讯创建结束时间"
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" style="background-color: #fff;" />
+			            </div>
+						<div  class="columns pull-right col-md-2">
+			                <input type="text" class="laydate-icon  form-control" id="startTime" name="startTime"   placeholder="请选择资讯创建开始时间"
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" style="background-color: #fff;" />
+			            </div>
 					</div>
 					<table id="exampleTable" data-mobile-responsive="true">
 					</table>

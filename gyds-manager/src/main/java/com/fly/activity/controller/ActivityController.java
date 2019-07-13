@@ -111,6 +111,15 @@ public class ActivityController {
 		activityService.update(activity);
 		return R.ok();
 	}
+	@ResponseBody
+	@RequestMapping("/upStatus")
+	public R upStatus(ActivityDO activity){
+		if(activityService.update(activity)>0){
+			return R.ok();
+			}
+			return R.error();
+		
+	}
 	
 	/**
 	 * 删除
