@@ -23,6 +23,8 @@ public class CenterDO implements Serializable {
 	private String name;
 	//标题
 	private String title;
+	//链接地址
+	private String url;
 	//类型
 	private Long helpTypeId;
 	//类型名称
@@ -216,4 +218,11 @@ public class CenterDO implements Serializable {
 	public Integer getDistrictId() {
 		return districtId;
 	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
 }
