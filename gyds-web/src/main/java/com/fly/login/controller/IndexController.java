@@ -57,6 +57,7 @@ public class IndexController {
 	 */
 	@RequestMapping("/")
 	public String indexValidate(@RequestParam Map<String,Object> params, HttpServletRequest request,Model model) {
+		Object areaId = params.get("areaId");
 		if(params.get("areaId")!=null) {
 			params.put("parentRegionCode", params.get("areaId"));
 		}else {
@@ -98,17 +99,18 @@ public class IndexController {
 		}
 		model.addAttribute("centerList", list2);
 		List<AdvertisementDO> dataList=new ArrayList<AdvertisementDO>();
-		if(params.get("areaId")!=null) {
-			RegionDO region = regionService.get(Integer.parseInt(params.get("areaId").toString()));
+		if(areaId!=null) {
+			RegionDO region = regionService.get(Integer.parseInt(areaId.toString()));
 			params.put("positionNum", 1);
 			params.put("regionCode", region.getRegionCode());//所选择区域首页广告
     		List<AdvertisementDO> allList = advertisementService.list(params);
-			switch(region.getRegionLevel()){ 
+    		Integer size=allList.size();
+			switch(region.getRegionLevel()){  
 		    case 0:  //全国
 	    		if(allList.size()>=5) {
 	    			dataList=allList;
 	    		}else {
-	    			for (int i = 0; i < (5-allList.size()); i++) {
+	    			for (int i = 0; i < (5-size); i++) {
 	    				AdvertisementDO adv=new AdvertisementDO();
 	    				allList.add(adv);//广告位不足五个添加广告展示位
 					}
@@ -119,7 +121,7 @@ public class IndexController {
 	    		if(allList.size()>=4) {//省级代理四个广告位
 	    			dataList=allList;
 	    		}else {
-	    			for (int i = 0; i < (4-allList.size()); i++) {
+	    			for (int i = 0; i < (4-size); i++) {
 	    				AdvertisementDO adv=new AdvertisementDO();
 	    				allList.add(adv);//广告位不足四个添加广告展示位
 					}
@@ -149,17 +151,19 @@ public class IndexController {
 		    	if(allList.size()>=2) {//县级代理两个广告位
 	    			dataList=allList;
 	    		}else {
-	    			for (int i = 0; i < (2-allList.size()); i++) {
+	    			for (int i = 0; i < (2-size); i++) {
 	    				AdvertisementDO adv=new AdvertisementDO();
 	    				allList.add(adv);//广告位不足两个添加广告展示位
 					}
 	    		}
-		    	
 	    		RegionDO cityRegion = regionService.get(region.getParentRegionCode());
 	    		params.put("regionCode", cityRegion.getRegionCode());//市级代理首页广告
 	    		AdvertisementDO advs = advertisementService.list(params)==null?new AdvertisementDO():advertisementService.list(params).get(0);
 	    		allList.add(advs);
 	    		params.put("regionCode", cityRegion.getParentRegionCode());//省级代理首页广告
+	    		allList.add(advertisementService.list(params)==null?new AdvertisementDO():advertisementService.list(params).get(0));
+	    		RegionDO pubRegion = regionService.get(cityRegion.getParentRegionCode());
+	    		params.put("regionCode", pubRegion.getParentRegionCode());//平台首页广告
 	    		allList.add(advertisementService.list(params)==null?new AdvertisementDO():advertisementService.list(params).get(0));
 	    		dataList=allList;
 		    	break;
@@ -167,6 +171,11 @@ public class IndexController {
 		    	;
 		}
 		}
+		model.addAttribute("adv1", dataList.get(0));
+		model.addAttribute("adv2", dataList.get(1));
+		model.addAttribute("adv3", dataList.get(2));
+		model.addAttribute("adv4", dataList.get(3));
+		model.addAttribute("adv5", dataList.get(4));
 		String isMoblie = "/pc/index";
 		if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {//判断是否为手机
 			isMoblie= "/moblie/index";
