@@ -41,11 +41,11 @@
 							</select>
 						</div>
 			            <div  class="columns pull-right col-md-2">
-			                <input type="text" class="laydate-icon form-control" id="endTime" name="endTime"   placeholder="请选择入团结束时间"
+			                <input type="text" class="laydate-icon form-control" id="endTime" name="endTime"   placeholder="请选择申请结束时间"
                                              onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" />
 			            </div>
 						<div  class="columns pull-right col-md-2">
-			                <input type="text" class="laydate-icon  form-control" id="startTime" name="startTime"   placeholder="请选择入团开始时间"
+			                <input type="text" class="laydate-icon  form-control" id="startTime" name="startTime"   placeholder="请选择申请开始时间"
                                              onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" />
 			            </div>
 						
@@ -71,7 +71,7 @@
 					s_info_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="volunteer:volunteer:audit">
+		<div shiro:hasPermission="volunteer:volunteer:info">
 			<script type="text/javascript">
 			var s_audit_h = '';
 			</script>
