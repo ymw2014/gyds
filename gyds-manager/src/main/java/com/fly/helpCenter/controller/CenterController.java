@@ -44,7 +44,9 @@ public class CenterController {
 	private TypeTitleDao typeTitleDao;
 	@GetMapping()
 	@RequiresPermissions("helpCenter:center:center")
-	String Center(){
+	String Center(Model model){
+		List<TypeTitleDO> typeTitleList = typeTitleDao.list1();
+		model.addAttribute("list",typeTitleList);
 	    return "helpCenter/center/center";
 	}
 	

@@ -20,7 +20,7 @@ select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team
 cux_region r on t.reg_code = r.region_code
         <where>  
 		  		  <if test="id != null and id != ''"> and t.id = #{id} </if>
-		  		  <if test="teamName != null and teamName != ''"> and t.team_name = #{teamName} </if>
+		  		  <if test="teamName != null and teamName != ''"> and t.team_name like concat('%',#{teamName},'%')</if>
 		  		  <if test="colonelName != null and colonelName != ''"> and t.colonel_name = #{colonelName} </if>
 		  		  <if test="userId != null and userId != ''"> and t.user_id = #{userId} </if>
 		  		  <if test="teamType != null and teamType != ''"> and t.team_type = #{teamType} </if>
@@ -28,7 +28,7 @@ cux_region r on t.reg_code = r.region_code
 		  		  <if test="teamTitleImg != null and teamTitleImg != ''"> and t.team_title_img = #{teamTitleImg} </if>
 		  		  <if test="teamImg != null and teamImg != ''"> and t.team_img = #{teamImg} </if>
 		  		  <if test="regCode != null and regCode != ''"> and t.reg_code = #{regCode} </if>
-		  		   <if test="status != null"> and t.status = #{status} </if>
+		  		   <if test="status != null and status !=''"> and t.status = #{status} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -47,7 +47,7 @@ cux_region r on t.reg_code = r.region_code
 		select count(*) from team
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="teamName != null and teamName != ''"> and team_name = #{teamName} </if>
+		  		  <if test="teamName != null and teamName != ''"> and team_name like concat('%',#{teamName},'%')</if>
 		  		  <if test="colonelName != null and colonelName != ''"> and colonel_name = #{colonelName} </if>
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="teamType != null and teamType != ''"> and team_type = #{teamType} </if>
@@ -55,7 +55,7 @@ cux_region r on t.reg_code = r.region_code
 		  		  <if test="teamTitleImg != null and teamTitleImg != ''"> and team_title_img = #{teamTitleImg} </if>
 		  		  <if test="teamImg != null and teamImg != ''"> and team_img = #{teamImg} </if>
 		  		  <if test="regCode != null and regCode != ''"> and reg_code = #{regCode} </if>
-		  		  <if test="status != null"> and t.status = #{status} </if>
+		  		  <if test="status != null and status !=''"> and status = #{status} </if>
 		  		</where>
 	</select>
 	 

@@ -29,7 +29,6 @@
 		  		  <if test="paymentTop != null and paymentTop != ''"> and n.payment_top = #{paymentTop} </if>
 		  		  <if test="redPeperCount != null and redPeperCount != ''"> and n.red_peper_count = #{redPeperCount} </if>
 		  		  <if test="redPeper != null and redPeper != ''"> and n.red_peper = #{redPeper} </if>
-		  		  <if test="createTime != null and createTime != ''"> and n.create_time = #{createTime} </if>
 		  		  <if test="titleImg != null and titleImg != ''"> and n.title_img = #{titleImg} </if>
 		  		  <if test="source != null and source != ''"> and n.source = #{source} </if>
 		  		  <if test="publicTime != null and publicTime != ''"> and n.public_time = #{publicTime} </if>
@@ -38,7 +37,7 @@
 		  		  <if test="introduction != null and introduction != ''"> and n.introduction = #{introduction} </if>
 		  		  <if test="content != null and content != ''"> and n.content = #{content} </if>
 		  		  <if test="author != null and author != ''"> and n.author = #{author} </if>
-		  		  <if test="title != null and title != ''"> and n.title = #{title} </if>
+		  		  <if test="title != null and title != ''"> and n.title like concat('%',#{title},'%')  </if>
 		  		  <if test="id != null and id != ''"> and n.id = #{id} </if>
  				  <if test="startTime != null and startTime != ''"> AND n.create_time &gt;= #{startTime}</if>
 				  <if test="endTime != null and endTime != ''">AND n.create_time &lt;= #{endTime}</if>
@@ -78,7 +77,6 @@
 		  		  <if test="paymentTop != null and paymentTop != ''"> and payment_top = #{paymentTop} </if>
 		  		  <if test="redPeperCount != null and redPeperCount != ''"> and red_peper_count = #{redPeperCount} </if>
 		  		  <if test="redPeper != null and redPeper != ''"> and red_peper = #{redPeper} </if>
-		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="titleImg != null and titleImg != ''"> and title_img = #{titleImg} </if>
 		  		  <if test="source != null and source != ''"> and source = #{source} </if>
 		  		  <if test="publicTime != null and publicTime != ''"> and public_time = #{publicTime} </if>
@@ -87,11 +85,10 @@
 		  		  <if test="introduction != null and introduction != ''"> and introduction = #{introduction} </if>
 		  		  <if test="content != null and content != ''"> and content = #{content} </if>
 		  		  <if test="author != null and author != ''"> and author = #{author} </if>
-		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="title != null and title != ''"> and title like concat('%',#{title},'%')  </if>
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
-            		and create_time between #{startTime} and #{endTime}
- 					</if>
+		  		 <if test="startTime != null and startTime != ''"> AND create_time &gt;= #{startTime}</if>
+				  <if test="endTime != null and endTime != ''">AND create_time &lt;= #{endTime}</if>
 		  		</where>
 	</select>
 	 

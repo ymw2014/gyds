@@ -68,13 +68,12 @@ public class IndexController {
 		params.clear();
 		params.put("status", 1);
 		params.put("isDel", 0);
+		params.put("offset", 0);
+		params.put("limit", 10);
+		//优先置顶排序,
+		params.put("sort","n.is_top desc,n.public_time desc");
 		List<InfoDO> newList = infoService.list(params);
-		if (newList.size() < 10) {
-			model.addAttribute("newList", newList);//新闻资讯status
-		} else {
-			List<InfoDO> subList = newList.subList(0, 10); //展示前10条
-			model.addAttribute("newList", subList);//新闻资讯status
-		}
+		model.addAttribute("newList", newList);//新闻资讯status
 		params.clear();
 		params.put("examineStatus",1);
 		List<ActivityDO> actList = activityService.list(params);//活动
