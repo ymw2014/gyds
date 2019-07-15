@@ -35,7 +35,6 @@ function load() {
 								offset:params.offset,
 								volunteerName:$('#searchName').val(),
 					            telephone:$('#searchPhone').val(),
-					            auditStatus:$('#searchStatus').val(),
 					            startTime:$('#startTime').val(),
 					            endTime:$('#endTime').val(),
 					            teamId:$('#teamId').val()

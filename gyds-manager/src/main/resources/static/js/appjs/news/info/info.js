@@ -32,7 +32,12 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset
+								offset:params.offset,
+								status:$('#status').val(),
+								title:$('#title').val(),
+								isTop:$('#top').val(),
+								startTime:$('#startTime').val(),
+								endTime:$('#endTime').val()
 					           // name:$('#searchName').val(),
 					           // username:$('#searchName').val()
 							};
@@ -153,6 +158,12 @@ function load() {
 					});
 }
 function reLoad() {
+	var startTime = $('#startTime').val()
+	var endTime = $('#endTime').val()
+	if (startTime > endTime) {
+		layer.msg("开始时间不能大于结束时间");
+		return;
+	}
 	$('#exampleTable').bootstrapTable('refresh');
 }
 function add() {
