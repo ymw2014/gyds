@@ -140,7 +140,6 @@ public class RegionController extends BaseController {
 			params.put("pids", user.getDeptId());
 			tree=regionService.getRegionTree(params);
 		}
-		System.out.println(regionService.getAllTeamByUserRole());
 		return tree;
 	}
 	

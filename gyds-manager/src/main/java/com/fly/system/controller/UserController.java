@@ -48,7 +48,8 @@ public class UserController extends BaseController {
 	@ResponseBody
 	PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
-		List<Integer> ids = regionService.getTeamAndAreaByUserRole();
+		params.put("pids", ShiroUtils.getUser().getDeptId());
+		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
 		params.put("ids", ids);
 		Query query = new Query(params);
 		List<UserDO> sysUserList = userService.list(query);

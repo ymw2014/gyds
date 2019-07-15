@@ -88,7 +88,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         //设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        shiroFilterFactoryBean.setLoginUrl("/login");//设置默认跳转页面
+        shiroFilterFactoryBean.setLoginUrl("/");//设置默认跳转页面
         shiroFilterFactoryBean.setSuccessUrl("/index");//设置成功跳转页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -96,10 +96,14 @@ public class ShiroConfig {
          * 设置过滤文件 路径
          */
         filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/admin","anon");
         filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/pc/**", "anon");
+        filterChainDefinitionMap.put("/moblie/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("**/img/**", "anon");
         filterChainDefinitionMap.put("/docs/**", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/upload/**", "anon");

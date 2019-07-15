@@ -39,7 +39,7 @@ public class LoginController extends BaseController {
 	MenuService menuService;
 	@Autowired
 	FileService fileService;
-	@GetMapping({ "/", "" })
+	@GetMapping({ "/admin", "" })
 	String welcome(Model model) {
 
 		return "redirect:/login";//redirect  重定向
