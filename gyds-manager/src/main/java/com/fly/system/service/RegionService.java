@@ -76,11 +76,11 @@ public interface RegionService {
 	/**
 	 * 获取登录用户权限下所有团队编号
 	 */
-	List<Integer> getAllTeamByUserRole();
+	List<Integer> getAllTeamByUserRole(Map<String,Object> params);
 	
 	/**
 	 * 获取登录用户权限下所有区域及团队编号
 	 * @return
 	 */
-	List<Integer> getTeamAndAreaByUserRole();
+	List<Integer> getTeamAndAreaByUserRole(Map<String,Object> params);
 }
