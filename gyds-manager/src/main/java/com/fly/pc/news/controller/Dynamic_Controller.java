@@ -27,7 +27,9 @@ public class Dynamic_Controller {
 				 dynamic.setMemberId(user.getUserId()); 
 			 }
 			dynamic.setTranspondType((Integer) params.get("reType"));
-			dynamicService.save(dynamic);
+			if(dynamicService.save(dynamic)>0){
+				
+			}
 			break;
 		case 2:
 			

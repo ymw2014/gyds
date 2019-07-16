@@ -77,7 +77,6 @@ public class NewsInfoController {
 	@ResponseBody
 	public R likes(DynamicDO dynamic) {
 		UserDO user = null; 
-		 dynamic.setCreatTime(new Date());
 		 dynamic.setType(1);
 		 user = ShiroUtils.getUser();
 		 if(user!=null) {
