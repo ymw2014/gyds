@@ -46,6 +46,8 @@
 		  		   <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus}</if>
 		  		   <if test="startTime != null and startTime != ''"> and create_Time <![CDATA[>=]]>#{startTime} </if>
 		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
+		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND enter_team_time &gt;= #{startEntTeamTime}</if>
+				  <if test="endEntTeamTime != null and endEntTeamTime != ''">AND enter_team_time &lt;= #{endEntTeamTime}</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

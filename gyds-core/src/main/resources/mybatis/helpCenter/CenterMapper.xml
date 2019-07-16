@@ -12,18 +12,19 @@
         <where>  
 		  		  <if test="id != null and id != ''"> and h.id = #{id} </if>
 		  		  <if test="memberId != null and memberId != ''"> and h.member_id = #{memberId} </if>
-		  		  <if test="title != null and title != ''"> and h.title = #{title} </if>
+		  		  <if test="title != null and title != ''"> and h.title like concat('%',#{title},'%')</if>
 		  		  <if test="url != null and url != ''"> and h.url = #{url} </if>
 		  		  <if test="helpTypeId != null and helpTypeId != ''"> and h.help_type_id = #{helpTypeId} </if>
 		  		  <if test="content != null and content != ''"> and h.content = #{content} </if>
-		  		  <if test="status != null"> and h.status = #{status} </if>
+		  		  <if test="status != null and status != ''"> and h.status = #{status} </if>
 		  		  <if test="delTime != null and delTime != ''"> and h.del_time = #{delTime} </if>
 		  		  <if test="updateTime != null and updateTime != ''"> and h.update_time = #{updateTime} </if>
 		  		  <if test="publicTime != null and publicTime != ''"> and h.public_time = #{publicTime} </if>
-		  		  <if test="creatTime != null and creatTime != ''"> and h.creat_time = #{creatTime} </if>
-		  		  <if test="del != null"> and h.del = #{del} </if>
+		  		  <if test="del != null and del != ''"> and h.del = #{del} </if>
 		  		  <if test="level != null and level != ''"> and h.level = #{level} </if>
 		  		  <if test="districtId != null and districtId != ''"> and h.district_id = #{districtId} </if>
+		  			<if test="startTime != null and startTime != ''"> AND h.creat_time &gt;= #{startTime}</if>
+				  <if test="endTime != null and endTime != ''">AND h.creat_time &lt;= #{endTime}</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -43,7 +44,7 @@
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
-		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="title != null and title != ''"> and title like concat('%',#{title},'%')</if>
 		  		  <if test="url != null and url != ''"> and h.url = #{url} </if>
 		  		  <if test="helpTypeId != null and helpTypeId != ''"> and help_type_id = #{helpTypeId} </if>
 		  		  <if test="content != null and content != ''"> and content = #{content} </if>
@@ -52,9 +53,11 @@
 		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
 		  		  <if test="publicTime != null and publicTime != ''"> and public_time = #{publicTime} </if>
 		  		  <if test="creatTime != null and creatTime != ''"> and creat_time = #{creatTime} </if>
-		  		  <if test="del != null"> and del = #{del} </if>
+		  		  <if test="del != null and del!= ''"> and del = #{del} </if>
 		  		  <if test="level != null and level != ''"> and level = #{level} </if>
 		  		  <if test="districtId != null and districtId != ''"> and district_id = #{districtId} </if>
+		  		  <if test="startTime != null and startTime != ''"> AND creat_time &gt;= #{startTime}</if>
+				  <if test="endTime != null and endTime != ''">AND creat_time &lt;= #{endTime}</if>
 		  		</where>
 	</select>
 	 

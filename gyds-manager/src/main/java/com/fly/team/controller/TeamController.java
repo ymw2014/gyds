@@ -53,7 +53,9 @@ public class TeamController {
 	
 	@GetMapping()
 	@RequiresPermissions("team:team:team")
-	String Team(){
+	String Team(Model model){
+		List<TypeDO> type = typeDao.list1();
+		model.addAttribute("type", type);
 	    return "team/team/team";
 	}
 	@GetMapping("/info/{id}")
