@@ -3,6 +3,7 @@ package com.fly.volunteer.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,16 @@ public class VolunteerController {
 	@RequiresPermissions("volunteer:volunteer:volunteer")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
+		String startTime = (String)params.get("startTime");
+		if (!StringUtils.isEmpty(startTime)) {
+			startTime += " 00:00:00";
+			params.put("startTime", startTime);
+		}
+		String endTime = (String)params.get("endTime");
+		if (!StringUtils.isEmpty(endTime)) {
+			endTime += " 23:59:59";
+			params.put("endTime", endTime);
+		}
         Query query = new Query(params);
 		List<VolunteerDO> volunteerList = volunteerService.list(query);
 		int total = volunteerService.count(query);
