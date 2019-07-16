@@ -29,6 +29,13 @@ cux_region r on t.reg_code = r.region_code
 		  		  <if test="teamImg != null and teamImg != ''"> and t.team_img = #{teamImg} </if>
 		  		  <if test="regCode != null and regCode != ''"> and t.reg_code = #{regCode} </if>
 		  		   <if test="status != null and status !=''"> and t.status = #{status} </if>
+		  		   <if test="ids != null and ids.size > 0">
+		  		  	and
+		  		  	t.id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

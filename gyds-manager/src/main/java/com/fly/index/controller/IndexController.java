@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -57,35 +59,44 @@ public class IndexController {
 	 */
 	@RequestMapping("/")
 	public String indexValidate(@RequestParam Map<String,Object> params, HttpServletRequest request,Model model) {
-		params.put("areaId", 0);
-		Object areaId = params.get("areaId");
+		//params.put("areaId", 0);
+		String code = request.getParameter("areaId");
+		Integer areaId = 0;
+		if (!StringUtils.isEmpty(code)) {
+			areaId = Integer.valueOf(request.getParameter("areaId"));
+		}
+		//Object areaId = params.get("areaId");
 		if(params.get("areaId")!=null) {
 			params.put("parentRegionCode", params.get("areaId"));
 		}else {
+			areaId=0;
 			params.put("parentRegionCode",0);
 		}
+		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);//全国包含的省
+		params.put("pids", areaId);
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
 		params.clear();
 		params.put("status", 1);
 		params.put("isDel", 0);
+		params.put("offset", 0);
+		params.put("limit", 10);
+		params.put("ids", ids);
 		List<InfoDO> newList = infoService.list(params);
-		if (newList.size() < 10) {
-			model.addAttribute("newList", newList);//新闻资讯status
-		} else {
-			List<InfoDO> subList = newList.subList(0, 10); //展示前10条
-			model.addAttribute("newList", subList);//新闻资讯status
-		}
+		model.addAttribute("newList", newList);//新闻资讯status
 		params.clear();
 		params.put("examineStatus",1);
+		params.put("pids", areaId);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		params.clear();
 		
+		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
 		params.put("auditStatus",1);//
-		
+		params.put("ids", ids);
 		List<VolunteerDO> voluntList = volunteerService.list(params);
 		int count = volunteerService.count(null);
 		model.addAttribute("voluntList", voluntList);//志愿者
@@ -159,13 +170,13 @@ public class IndexController {
 	    		}
 	    		RegionDO cityRegion = regionService.get(region.getParentRegionCode());
 	    		params.put("regionCode", cityRegion.getRegionCode());//市级代理首页广告
-	    		AdvertisementDO advs = advertisementService.list(params)==null?new AdvertisementDO():advertisementService.list(params).get(0);
+	    		AdvertisementDO advs = advertisementService.list(params).size()==0?new AdvertisementDO():advertisementService.list(params).get(0);
 	    		allList.add(advs);
 	    		params.put("regionCode", cityRegion.getParentRegionCode());//省级代理首页广告
-	    		allList.add(advertisementService.list(params)==null?new AdvertisementDO():advertisementService.list(params).get(0));
+	    		allList.add(advertisementService.list(params).size()==0?new AdvertisementDO():advertisementService.list(params).get(0));
 	    		RegionDO pubRegion = regionService.get(cityRegion.getParentRegionCode());
 	    		params.put("regionCode", pubRegion.getParentRegionCode());//平台首页广告
-	    		allList.add(advertisementService.list(params)==null?new AdvertisementDO():advertisementService.list(params).get(0));
+	    		allList.add(advertisementService.list(params).size()==0?new AdvertisementDO():advertisementService.list(params).get(0));
 	    		dataList=allList;
 		    	break;
 		    default:  
@@ -184,7 +195,7 @@ public class IndexController {
 		return isMoblie;
 	}
 
-
+	
 
 	
 }

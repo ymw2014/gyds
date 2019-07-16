@@ -48,6 +48,13 @@
 		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
 		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND enter_team_time &gt;= #{startEntTeamTime}</if>
 				  <if test="endEntTeamTime != null and endEntTeamTime != ''">AND enter_team_time &lt;= #{endEntTeamTime}</if>
+				  <if test="ids != null and ids.size > 0">
+		  		  	and
+		  		  	v.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

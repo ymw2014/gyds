@@ -14,7 +14,8 @@
 	<!-- 导航 -->
      <!-- 广告 -->
 	 <div class="guangao">
-		 <a><img  th:src="${adv1.advImg}" alt=""> </a>
+		 <!-- <a><img  th:src="${adv1.advImg}" alt=""> </a> -->
+		 <a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a>
 	 </div>
 	 <!-- 内容 -->
 	 <div class="main">
@@ -49,7 +50,7 @@
 	</div>
 	<!-- 广告 -->
 	<div class="guangao">
-		<a><img  th:src="${adv2.advImg}" alt=""> </a>
+		<a href=""><img  th:src="${adv2.advImg==''}?'/pc/images/tp2.jpg':${adv2.advImg}" alt=""> </a>
 	</div>
 	<!-- 地图 -->
 	<div class="gps">
@@ -124,7 +125,7 @@
 	</div>
 	<!-- 广告 -->
 	<div class="guangao">
-			 <a><img  th:src="${adv5.advImg}" alt=""> </a>
+			 <a href=""><img  th:src="${adv5.advImg==''}?'/pc/images/tp2.jpg':${adv5.advImg}" alt=""> </a>
 	</div>
 	<!-- 底部 -->
 	<div th:replace="pc/include :: footer"></div>
