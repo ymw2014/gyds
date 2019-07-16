@@ -15,7 +15,8 @@ import java.util.Date;
  */
 public class InfoDO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+	//序号
+	private Integer i;
 	//是否删除0：否1：是
 	private Integer isDel;
 	//是否有红包0：否1：是
@@ -82,6 +83,12 @@ public class InfoDO implements Serializable {
 	private Long id;
 	
 	
+	public Integer getI() {
+		return i;
+	}
+	public void setI(Integer i) {
+		this.i = i;
+	}
 	public String getTeamName() {
 		return teamName;
 	}

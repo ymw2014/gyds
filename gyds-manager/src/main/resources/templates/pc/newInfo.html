@@ -11,7 +11,7 @@
 		<link rel="stylesheet" th:href ="@{/pc/css/ziyunlist.css}">
 		<link rel="stylesheet" th:href ="@{/pc/css/css1.css}">
 		<link rel="stylesheet" th:href ="@{/pc/css/css2.css}" >
-	</head>
+		</head>
 	<body>
 		<div th:replace="pc/include :: header"></div>
 		<!-- 导航 -->
@@ -32,6 +32,7 @@
 					<!-- <p>您所在的位置：首页>青少年马术教学试骑体验</p> -->
 				</div>
 				<div class="listcontLH">
+					<input type="hidden" id="infoId" th:value="${info.id}">
 					<h4 th:text="${info.title}"></h4>
 					<p >
 						<span th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"></span>&nbsp;
@@ -44,10 +45,10 @@
 					</div>
 					  <div class="xqfenxing" style="margin: 0 auto; width: 400px;margin-top:40px;">
 					  	<span>分享至</span>
-					  	<a href="#"><img th:src="@{/pc/images/conter_26.jpg}" alt=""></a>
-					  	<a href="#"><img th:src="@{/pc/images/conter_28.jpg}" alt=""></a>
-					  	<a href="#"><img th:src="@{/pc/images/conter_30.jpg}" alt=""></a>
-					  	<a href="#"><img th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
+					  	<a href="javascript:;" th:onclick="share(1)"><img th:src="@{/pc/images/conter_26.jpg}" alt="" ></a>
+					  	<a href="javascript:;" th:onclick="share(2)"><img th:src="@{/pc/images/conter_28.jpg}" alt=""></a>
+					  	<a href="javascript:;" th:onclick="share(3)"><img th:src="@{/pc/images/conter_30.jpg}" alt=""></a>
+					  	<a href="javascript:;" th:onclick="share(4)"><img th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
 					  </div>
 				</div>			
 			</div>
@@ -59,7 +60,7 @@
 					<p>求关注</p>
 				</div>
 				<ul th:each="news:${newsList}">
-					<li>·<a th:text="${news.title}" th:href="@{/news/info/{id}(id=${news.id})}"></a></li>
+					<li>·<a th:text="${news.title}" th:href="@{/pc/news/info/{id}(id=${news.id})}"></a></li>
 					
 				</ul>
 			</div>
@@ -73,8 +74,8 @@
 				<div class="listcontpm">
 					<div class="zixunbut">
 						<h3>点击排名</h3>
-						<ul th:each="likeNews:${newsLike}">
-							<li><i th:text="${likeNews.i}"></i><a href="#" th:text="${likeNews.title}">关于公益救济性捐款税前扣除政策</a></li>
+						<ul>
+							<li th:each="likeNews,iterStat:${newsLike}"><i th:text="${iterStat.count}"></i><a href="#" th:text="${likeNews.title}"></a></li>
 							
 						</ul>
 					</div>
@@ -218,7 +219,7 @@
 				<script th:src="@{/pc/js/js1.js}"></script>
 			</div>
 			<div class="listzz">
-				<div><img th:src="@{/pc/images/listzz_03.jpg}" alt="">9896</div>
+				<div><img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞" th:text="${info.numberOfLikes}" th:onclick="like()" ></div>
 				<div><img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶</div>
 				<div><img th:src="@{/pc/images/listcc_07.jpg}" alt="">发放中</div>	
 			</div>
@@ -318,4 +319,52 @@
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript">
+	function share(reType){
+		para={"newsId":$('#infoId').val(),"transpondType":reType};
+		$.ajax({
+			cache : true,
+			type : "GET",
+			url : "/pc/news/share",
+			data : para,
+			async : true,
+			error : function(request) {
+				alert("点赞失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					alert("点赞成功");
+					history.go(0);
+				} else {
+					alert(data.msg);
+				}
+
+			}
+		});
+	}
+	function like(){
+		para={"newsId":$('#infoId').val()};
+		$.ajax({
+			cache : true,
+			type : "GET",
+			url : "/pc/news/likes",
+			data : para,
+			async : true,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					var anElement = $("#someElement");
+					anElement.attr("src","/pc/images/listzz_04.jpg");
+					//parent.layer.msg("操作成功");
+					//history.go(0);
+				} else {
+					//parent.layer.alert(data.msg)
+				}
+
+			}
+		});
+	}
+	</script>
 </html>

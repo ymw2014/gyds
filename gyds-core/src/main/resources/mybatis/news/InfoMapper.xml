@@ -205,5 +205,15 @@
 			#{id}
 		</foreach>
 	</delete>
-
+	<update id="update" parameterType="java.util.HashMap">
+		update new_info 
+		<set>
+			<if test="numberOfShares == 1">number_of_shares = number_of_shares+1, </if>
+			<if test="criticismOfCount == 2">criticism_of_count = criticismOfCount+1, </if>
+			<if test="numberOfLikes == 3">number_of_likes = numberOfLikes+1, </if>
+			<if test="rewardNumOfPeople == 4">reward_num_of_people = rewardNumOfPeople+1, </if>
+			<if test="rewardCount == 5">reward_count = rewardCount+1, </if>
+		</set>
+		where id = #{id}
+	</update>
 </mapper>
