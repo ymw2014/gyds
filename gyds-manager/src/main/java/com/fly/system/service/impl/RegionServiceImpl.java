@@ -105,13 +105,16 @@ public class RegionServiceImpl implements RegionService {
 	@Override
 	public List<Integer> getAllTeamByUserRole(Map<String,Object> params) {
 		List<RegionDO> RegionDOs =new ArrayList<>();
-		if(ShiroUtils.getUser().getDeptId()==0) {
-			RegionDOs = regionDao.list(params);
+		String pids = String.valueOf(params.get("pids"));
+		if(Integer.valueOf(pids) == 0) {
+			RegionDOs = regionDao.list(null);
 		}else {
-			params.put("pids", ShiroUtils.getUser().getDeptId());
+			params.put("pids", params.get("pids"));
 			RegionDOs = regionDao.regionIdByList(params);
-			RegionDO regionDO = regionDao.get(ShiroUtils.getUser().getDeptId());
-			RegionDOs.add(regionDO);
+			/*
+			 * RegionDO regionDO = regionDao.get(ShiroUtils.getUser().getDeptId());
+			 * RegionDOs.add(regionDO);
+			 */
 		}
 		List<Integer> list=new ArrayList<>();
 		for (RegionDO sysRegion : RegionDOs) {
@@ -136,6 +139,29 @@ public class RegionServiceImpl implements RegionService {
 		List<Integer> list=new ArrayList<>();
 		for (RegionDO sysRegion : RegionDOs) {
 			list.add(sysRegion.getRegionCode());
+		}
+		return list;
+	}
+
+	@Override
+	public List<Integer> getAllCode(Map<String,Object> params) {
+		List<RegionDO> RegionDOs =new ArrayList<>();
+		String pids = String.valueOf(params.get("pids"));
+		if(Integer.valueOf(pids) == 0) {
+			RegionDOs = regionDao.list(null);
+		}else {
+			params.put("pids", params.get("pids"));
+			RegionDOs = regionDao.regionIdByList(params);
+			/*
+			 * RegionDO regionDO = regionDao.get(ShiroUtils.getUser().getDeptId());
+			 * RegionDOs.add(regionDO);
+			 */
+		}
+		List<Integer> list=new ArrayList<>();
+		for (RegionDO sysRegion : RegionDOs) {
+			if(sysRegion.getRegionType()==1) {
+				list.add(sysRegion.getRegionCode());
+			}
 		}
 		return list;
 	}
