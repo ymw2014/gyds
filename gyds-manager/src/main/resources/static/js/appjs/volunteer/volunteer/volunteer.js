@@ -177,9 +177,11 @@ function load() {
 function reLoad() {
 	var startTime = $('#startTime').val()
 	var endTime = $('#endTime').val()
-	if (startTime > endTime) {
-		layer.msg("开始时间不能大于结束时间");
-		return;
+	if (startTime != '' && endTime != '') {
+		if (startTime > endTime) {
+			layer.msg("开始时间不能大于结束时间");
+			return;
+		}
 	}
 	$('#exampleTable').bootstrapTable('refresh');
 }
