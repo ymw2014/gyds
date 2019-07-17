@@ -68,6 +68,7 @@ public class IndexController {
 		model.addAttribute("areaList", areaList);//全国包含的省
 		params.clear();
 		params.put("status", 1);
+	
 		params.put("isDel", 0);
 		List<InfoDO> newList = infoService.list(params);
 		if (newList.size() < 10) {

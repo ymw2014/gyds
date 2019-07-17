@@ -321,7 +321,7 @@
 	</body>
 	<script type="text/javascript">
 	function share(reType){
-		para={"newsId":$('#infoId').val(),"transpondType":reType};
+		para={"newsId":$('#infoId').val(),"trType":reType};
 		$.ajax({
 			cache : true,
 			type : "GET",
@@ -329,11 +329,11 @@
 			data : para,
 			async : true,
 			error : function(request) {
-				alert("点赞失败");
+				alert("分享失败");
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					alert("点赞成功");
+					alert("分享成功");
 					history.go(0);
 				} else {
 					alert(data.msg);

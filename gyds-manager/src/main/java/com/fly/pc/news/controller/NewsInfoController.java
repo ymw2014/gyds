@@ -14,18 +14,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.domain.UserDO;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.InfoDO;
+import com.fly.news.domain.MapVoDo;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
 import com.fly.system.utils.ShiroUtils;
 
 @Controller
 @RequestMapping("/pc/news/")
-public class NewsInfoController {
+public class NewsInfoController extends BaseDynamicController{
 	@Autowired
 	private InfoService infoService;
 	@Autowired
@@ -56,36 +58,23 @@ public class NewsInfoController {
 		model.addAttribute("info", info);
 		return "/pc/newInfo";
 	}
+	//文章分享
 	@RequestMapping(value="/share",method=RequestMethod.GET)
 	@ResponseBody
-	public R shareNewInfoLog(DynamicDO dynamic) {
-		UserDO user = null; 
-		 dynamic.setCreatTime(new Date());
-		 dynamic.setType(0);
-		 user = ShiroUtils.getUser();
-		 if(user!=null) {
-			 dynamic.setMemberId(user.getUserId()); 
-		 }
-		 if(dynamicService.save(dynamic)>0){
+	public R shareNewInfoLog(@RequestParam Map<String,Object> para) {
+		if(dynamic(para,1)==1){
 				return R.ok();
 			}
 			return R.error();
 			
 	}
-	
+	//文章点赞
 	@RequestMapping(value="/likes",method=RequestMethod.GET)
 	@ResponseBody
-	public R likes(DynamicDO dynamic) {
-		UserDO user = null; 
-		 dynamic.setType(1);
-		 user = ShiroUtils.getUser();
-		 if(user!=null) {
-			 dynamic.setMemberId(user.getUserId()); 
-		 }
-		 if(dynamicService.save(dynamic)>0){
+	public R likes(Map<String,Object> params) {
+		if(dynamic(params,1)==0){
 				return R.ok();
 			}
 			return R.error();
-			
-	}
+}
 }

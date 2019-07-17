@@ -99,12 +99,8 @@
 			`is_red_peper`, 
 			`is_top`, 
 			`type`, 
-			`number_of_shares`, 
-			`criticism_of_count`, 
-			`number_of_likes`, 
 			`level`, 
 			`reward_max`, 
-			`reward_num_of_people`, 
 			`reward_count`, 
 			`reward_price`, 
 			`pyment_end_time`, 
@@ -112,7 +108,6 @@
 			`payment_criterion`, 
 			`payment_duration`, 
 			`payment_top`, 
-			`red_peper_count`, 
 			`red_peper`, 
 			`create_time`, 
 			`title_img`, 
@@ -131,13 +126,8 @@
 			#{isRedPeper}, 
 			#{isTop}, 
 			#{type}, 
-			#{numberOfShares}, 
-			#{criticismOfCount}, 
-			#{numberOfLikes}, 
 			#{level}, 
 			#{rewardMax}, 
-			#{rewardNumOfPeople}, 
-			#{rewardCount}, 
 			#{rewardPrice}, 
 			#{pymentEndTime}, 
 			#{pymentStartTime}, 
@@ -205,15 +195,14 @@
 			#{id}
 		</foreach>
 	</delete>
-	<update id="update" parameterType="java.util.HashMap">
+	<update id="updateDynamic" parameterType="java.util.Map">
 		update new_info 
 		<set>
 			<if test="numberOfShares == 1">number_of_shares = number_of_shares+1, </if>
 			<if test="criticismOfCount == 2">criticism_of_count = criticismOfCount+1, </if>
 			<if test="numberOfLikes == 3">number_of_likes = numberOfLikes+1, </if>
-			<if test="rewardNumOfPeople == 4">reward_num_of_people = rewardNumOfPeople+1, </if>
-			<if test="rewardCount == 5">reward_count = rewardCount+1, </if>
+			<if test="rewardCount == 4">reward_count = rewardCount+1, </if>
 		</set>
-		where id = #{id}
+		where id = #{newsId}
 	</update>
 </mapper>
