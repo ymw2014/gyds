@@ -58,32 +58,24 @@
 					<span th:text="${info.author}"></span>
 					<p>求关注</p>
 				</div>
-				<ul>
-					<li th:text="">·<a href="#">关于公益救济性捐赠税前扣除政策及</a></li>
+				<ul th:each="news:${newsList}">
+					<li>·<a th:text="${news.title}" th:href="@{/news/info/{id}(id=${news.id})}"></a></li>
 					
 				</ul>
 			</div>
 			<div class="listcontRI">
-				<a href="#"><img src="images/zyz_03.jpg" alt=""></a>
-				<a href="#"><img src="images/zyz_06.jpg" alt=""></a>
-				<a href="#"><img src="images/zyz_09.jpg" alt=""></a>
-				<a href="#"><img src="images/zyz_12.jpg" alt=""></a>
-				<a href="#"><img src="images/zyz_15.jpg" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_03.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_06.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_09.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_12.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_15.jpg}" alt=""></a>
 				<!-- 右侧排名 -->
 				<div class="listcontpm">
 					<div class="zixunbut">
 						<h3>点击排名</h3>
-						<ul>
-							<li><i>1</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>2</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>3</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>4</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>5</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>6</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>7</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>8</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>9</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
-							<li><i>10</i><a href="#">关于公益救济性捐款税前扣除政策</a></li>
+						<ul th:each="likeNews:${newsLike}">
+							<li><i th:text="${likeNews.i}"></i><a href="#" th:text="${likeNews.title}">关于公益救济性捐款税前扣除政策</a></li>
+							
 						</ul>
 					</div>
 				</div>
@@ -94,7 +86,7 @@
 			<!-- 左2 -->
 			<div class="listcontL1">
 				<div class="listcontL1-1 modal__trigger" data-modal="#modal">
-					<img src="images/dashang.png" alt="">打赏
+					<img th:src="@{/pc/images/dashang.png}" alt="">打赏
 				</div>
 				<div class="listcontL1-2">
 					<p>已有10人打赏</p>
@@ -128,7 +120,7 @@
 							<div style="width: 600px;background:#fff;height: 260px;">
 								<div class="hbcen">
 									<div class="hbcen1">
-										<img src="images/touxiang5.png" alt="">
+										<img th:src="@{pc/images/touxiang5.png}" alt="">
 										<p style="font-size:20px;line-height:30px;">打赏门户的红包</p>
 										<p style="color:#b8b8b8;font-size:16px;line-height:40px;">恭喜发财，大吉大利</p>
 										<span><rem style="font-size:36px; color:#ef472a;">17.77 </rem>元</span>
@@ -226,9 +218,9 @@
 				<script th:src="@{/pc/js/js1.js}"></script>
 			</div>
 			<div class="listzz">
-				<div><img src="images/listzz_03.jpg" alt="">9896</div>
-				<div><img src="images/listzs_05.jpg" alt="">已置顶</div>
-				<div><img src="images/listcc_07.jpg" alt="">发放中</div>	
+				<div><img th:src="@{/pc/images/listzz_03.jpg}" alt="">9896</div>
+				<div><img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶</div>
+				<div><img th:src="@{/pc/images/listcc_07.jpg}" alt="">发放中</div>	
 			</div>
 			<!-- 左3 评论 -->
 			<div class="listpl">

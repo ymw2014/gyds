@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.news.dao.DynamicDao">
+
+	<select id="get" resultType="com.fly.news.domain.DynamicDO">
+		select `id`,`news_id`,`member_id`,`transpond_type`,`type`,`creat_time` from new_dynamic where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.news.domain.DynamicDO">
+		select `id`,`news_id`,`member_id`,`transpond_type`,`type`,`creat_time` from new_dynamic
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="transpondType != null and transpondType != ''"> and transpond_type = #{transpondType} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="creatTime != null and creatTime != ''"> and creat_time = #{creatTime} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from new_dynamic
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="transpondType != null and transpondType != ''"> and transpond_type = #{transpondType} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="creatTime != null and creatTime != ''"> and creat_time = #{creatTime} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.news.domain.DynamicDO" useGeneratedKeys="true" keyProperty="id">
+		insert into new_dynamic
+		(
+			`news_id`, 
+			`member_id`, 
+			`transpond_type`, 
+			`type`, 
+			`creat_time`
+		)
+		values
+		(
+			#{newsId}, 
+			#{memberId}, 
+			#{transpondType}, 
+			#{type}, 
+			#{creatTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.news.domain.DynamicDO">
+		update new_dynamic 
+		<set>
+			<if test="newsId != null">`news_id` = #{newsId}, </if>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+			<if test="transpondType != null">`transpond_type` = #{transpondType}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="creatTime != null">`creat_time` = #{creatTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from new_dynamic where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from new_dynamic where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+</mapper>
