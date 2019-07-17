@@ -41,6 +41,13 @@
 		  		  <if test="id != null and id != ''"> and n.id = #{id} </if>
  				  <if test="startTime != null and startTime != ''"> AND n.create_time &gt;= #{startTime}</if>
 				  <if test="endTime != null and endTime != ''">AND n.create_time &lt;= #{endTime}</if>
+				  <if test="ids != null and ids.size > 0">
+		  		  	and
+		  		  	n.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -195,6 +202,7 @@
 			#{id}
 		</foreach>
 	</delete>
+
 	<update id="updateDynamic" parameterType="java.util.Map">
 		update new_info 
 		<set>
@@ -205,4 +213,6 @@
 		</set>
 		where id = #{newsId}
 	</update>
+
+
 </mapper>

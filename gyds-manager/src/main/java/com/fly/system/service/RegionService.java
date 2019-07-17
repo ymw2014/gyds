@@ -83,4 +83,5 @@ public interface RegionService {
 	 * @return
 	 */
 	List<Integer> getTeamAndAreaByUserRole(Map<String,Object> params);
+	
 }

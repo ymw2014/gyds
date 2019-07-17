@@ -72,9 +72,11 @@ public class NewsInfoController extends BaseDynamicController{
 	@RequestMapping(value="/likes",method=RequestMethod.GET)
 	@ResponseBody
 	public R likes(Map<String,Object> params) {
-		if(dynamic(params,1)==0){
+		if(dynamic(params,1)==1){
 				return R.ok();
 			}
 			return R.error();
+	}
 }
-}
+
+

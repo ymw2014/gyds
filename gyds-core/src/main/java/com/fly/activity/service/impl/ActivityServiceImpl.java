@@ -3,12 +3,17 @@ package com.fly.activity.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.fly.activity.dao.ActivityDao;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
+import com.fly.member.dao.MemberDao;
+import com.fly.member.domain.MemberDO;
 
 
 
@@ -16,6 +21,8 @@ import com.fly.activity.service.ActivityService;
 public class ActivityServiceImpl implements ActivityService {
 	@Autowired
 	private ActivityDao activityDao;
+	@Autowired
+	private MemberDao memberDao;
 	
 	@Override
 	public ActivityDO get(Integer id){
@@ -24,6 +31,9 @@ public class ActivityServiceImpl implements ActivityService {
 	
 	@Override
 	public List<ActivityDO> list(Map<String, Object> map){
+		List<Long> list = memberDao.list(map).stream().map(MemberDO::getId).collect(Collectors.toList());
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("ids", list);
 		return activityDao.list(map);
 	}
 	

@@ -105,13 +105,16 @@ public class RegionServiceImpl implements RegionService {
 	@Override
 	public List<Integer> getAllTeamByUserRole(Map<String,Object> params) {
 		List<RegionDO> RegionDOs =new ArrayList<>();
-		if(ShiroUtils.getUser().getDeptId()==0) {
-			RegionDOs = regionDao.list(params);
+		String pids = String.valueOf(params.get("pids"));
+		if(Integer.valueOf(pids) == 0) {
+			RegionDOs = regionDao.list(null);
 		}else {
-			params.put("pids", ShiroUtils.getUser().getDeptId());
+			params.put("pids", params.get("pids"));
 			RegionDOs = regionDao.regionIdByList(params);
-			RegionDO regionDO = regionDao.get(ShiroUtils.getUser().getDeptId());
-			RegionDOs.add(regionDO);
+			/*
+			 * RegionDO regionDO = regionDao.get(ShiroUtils.getUser().getDeptId());
+			 * RegionDOs.add(regionDO);
+			 */
 		}
 		List<Integer> list=new ArrayList<>();
 		for (RegionDO sysRegion : RegionDOs) {
@@ -139,5 +142,6 @@ public class RegionServiceImpl implements RegionService {
 		}
 		return list;
 	}
+
 	
 }
