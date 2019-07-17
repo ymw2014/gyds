@@ -84,9 +84,4 @@ public interface RegionService {
 	 */
 	List<Integer> getTeamAndAreaByUserRole(Map<String,Object> params);
 	
-	/**
-	 * 根据区域级别查询下级所有区域编号
-	 * @return
-	 */
-	List<Integer> getAllCode(Map<String,Object> params);
 }
