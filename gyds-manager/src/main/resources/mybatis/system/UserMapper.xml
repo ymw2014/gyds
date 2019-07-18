@@ -4,17 +4,21 @@
 <mapper namespace="com.fly.system.dao.UserDao">
 
 	<select id="get" resultType="com.fly.domain.UserDO">
-		select `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district` from sys_user where user_id = #{value}
+		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user where user_id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.domain.UserDO">
-		select `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district` from sys_user
+		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user
         <where>  
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="username != null and username != ''"> and username = #{username} </if>
-		  		  <if test="name != null and name != ''"> and name like CONCAT('%',#{name},'%')  </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="nikeName != null and nikeName != ''"> and nike_name = #{nikeName} </if>
 		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
+		  		  <if test="account != null and account != ''"> and account = #{account} </if>
+		  		  <if test="platformIntegral != null and platformIntegral != ''"> and platform_integral = #{platformIntegral} </if>
 		  		  <if test="email != null and email != ''"> and email = #{email} </if>
 		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
@@ -29,6 +33,14 @@
 		  		  <if test="province != null and province != ''"> and province = #{province} </if>
 		  		  <if test="city != null and city != ''"> and city = #{city} </if>
 		  		  <if test="district != null and district != ''"> and district = #{district} </if>
+		  		  <if test="isIdentification != null and isIdentification != ''"> and is_identification = #{isIdentification} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="cardFrontImg != null and cardFrontImg != ''"> and card_front_img = #{cardFrontImg} </if>
+		  		  <if test="cardBackImg != null and cardBackImg != ''"> and card_back_img = #{cardBackImg} </if>
+		  		  <if test="nation != null and nation != ''"> and nation = #{nation} </if>
+		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
+		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
 		  		  <if test="ids != null and ids.size > 0">
 		  		  	and
 		  		  	dept_id in 
@@ -55,9 +67,13 @@
 		 <where>  
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="username != null and username != ''"> and username = #{username} </if>
-		  		  <if test="name != null and name != ''"> and name like CONCAT('%',#{name},'%') </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="nikeName != null and nikeName != ''"> and nike_name = #{nikeName} </if>
 		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
+		  		  <if test="account != null and account != ''"> and account = #{account} </if>
+		  		  <if test="platformIntegral != null and platformIntegral != ''"> and platform_integral = #{platformIntegral} </if>
 		  		  <if test="email != null and email != ''"> and email = #{email} </if>
 		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
@@ -72,6 +88,14 @@
 		  		  <if test="province != null and province != ''"> and province = #{province} </if>
 		  		  <if test="city != null and city != ''"> and city = #{city} </if>
 		  		  <if test="district != null and district != ''"> and district = #{district} </if>
+		  		  <if test="isIdentification != null and isIdentification != ''"> and is_identification = #{isIdentification} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="cardFrontImg != null and cardFrontImg != ''"> and card_front_img = #{cardFrontImg} </if>
+		  		  <if test="cardBackImg != null and cardBackImg != ''"> and card_back_img = #{cardBackImg} </if>
+		  		  <if test="nation != null and nation != ''"> and nation = #{nation} </if>
+		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
+		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
 		  		  <if test="ids != null and ids.size > 0">
 		  		  	and
 		  		  	dept_id in 
@@ -88,7 +112,11 @@
 			`username`, 
 			`name`, 
 			`password`, 
+			`nike_name`, 
 			`dept_id`, 
+			`head_img`, 
+			`account`, 
+			`platform_integral`, 
 			`email`, 
 			`mobile`, 
 			`status`, 
@@ -102,14 +130,26 @@
 			`hobby`, 
 			`province`, 
 			`city`, 
-			`district`
+			`district`, 
+			`is_identification`, 
+			`card_no`, 
+			`card_front_img`, 
+			`card_back_img`, 
+			`nation`, 
+			`region_code`, 
+			`political_status`, 
+			`is_manage`
 		)
 		values
 		(
 			#{username}, 
 			#{name}, 
 			#{password}, 
+			#{nikeName}, 
 			#{deptId}, 
+			#{headImg}, 
+			#{account}, 
+			#{platformIntegral}, 
 			#{email}, 
 			#{mobile}, 
 			#{status}, 
@@ -123,7 +163,15 @@
 			#{hobby}, 
 			#{province}, 
 			#{city}, 
-			#{district}
+			#{district}, 
+			#{isIdentification}, 
+			#{cardNo}, 
+			#{cardFrontImg}, 
+			#{cardBackImg}, 
+			#{nation}, 
+			#{regionCode}, 
+			#{politicalStatus}, 
+			#{isManage}
 		)
 	</insert>
 	 
@@ -133,7 +181,11 @@
 			<if test="username != null">`username` = #{username}, </if>
 			<if test="name != null">`name` = #{name}, </if>
 			<if test="password != null">`password` = #{password}, </if>
+			<if test="nikeName != null">`nike_name` = #{nikeName}, </if>
 			<if test="deptId != null">`dept_id` = #{deptId}, </if>
+			<if test="headImg != null">`head_img` = #{headImg}, </if>
+			<if test="account != null">`account` = #{account}, </if>
+			<if test="platformIntegral != null">`platform_integral` = #{platformIntegral}, </if>
 			<if test="email != null">`email` = #{email}, </if>
 			<if test="mobile != null">`mobile` = #{mobile}, </if>
 			<if test="status != null">`status` = #{status}, </if>
@@ -147,7 +199,15 @@
 			<if test="hobby != null">`hobby` = #{hobby}, </if>
 			<if test="province != null">`province` = #{province}, </if>
 			<if test="city != null">`city` = #{city}, </if>
-			<if test="district != null">`district` = #{district}</if>
+			<if test="district != null">`district` = #{district}, </if>
+			<if test="isIdentification != null">`is_identification` = #{isIdentification}, </if>
+			<if test="cardNo != null">`card_no` = #{cardNo}, </if>
+			<if test="cardFrontImg != null">`card_front_img` = #{cardFrontImg}, </if>
+			<if test="cardBackImg != null">`card_back_img` = #{cardBackImg}, </if>
+			<if test="nation != null">`nation` = #{nation}, </if>
+			<if test="regionCode != null">`region_code` = #{regionCode}, </if>
+			<if test="politicalStatus != null">`political_status` = #{politicalStatus}, </if>
+			<if test="isManage != null">`is_manage` = #{isManage}</if>
 		</set>
 		where user_id = #{userId}
 	</update>
@@ -163,7 +223,4 @@
 		</foreach>
 	</delete>
 
-	<select id="listAllDept" resultType="long">
-				select DISTINCT dept_id from sys_user
-	</select>
 </mapper>

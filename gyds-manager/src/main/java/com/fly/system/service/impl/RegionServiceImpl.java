@@ -111,10 +111,10 @@ public class RegionServiceImpl implements RegionService {
 		}else {
 			params.put("pids", params.get("pids"));
 			RegionDOs = regionDao.regionIdByList(params);
-			/*
-			 * RegionDO regionDO = regionDao.get(ShiroUtils.getUser().getDeptId());
-			 * RegionDOs.add(regionDO);
-			 */
+			
+			  /*RegionDO regionDO = regionDao.get(ShiroUtils.getUser().getDeptId());
+			  RegionDOs.add(regionDO);*/
+			 
 		}
 		List<Integer> list=new ArrayList<>();
 		for (RegionDO sysRegion : RegionDOs) {

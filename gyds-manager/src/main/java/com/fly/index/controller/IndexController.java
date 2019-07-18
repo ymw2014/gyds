@@ -154,7 +154,7 @@ public class IndexController {
 		    	
 	    		RegionDO proRegion = regionService.get(region.getParentRegionCode());
 	    		params.put("regionCode", proRegion.getRegionCode());//所选择区域首页广告
-	    		allList.add(advertisementService.list(params).get(0));
+	    		allList.add(advertisementService.list(params).size()==0?new AdvertisementDO():advertisementService.list(params).get(0));
 	    		params.put("regionCode", proRegion.getParentRegionCode());//所选择区域首页广告
 	    		allList.add(advertisementService.list(params).get(0));
 	    		dataList=allList;

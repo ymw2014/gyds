@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.sys.dao.SetupDao">
 
 	<select id="get" resultType="com.fly.sys.domain.SetupDO">
-		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail` from sys_setup where id = #{value}
+		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail` from sys_setup where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.sys.domain.SetupDO">
-		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail` from sys_setup
+		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail` from sys_setup
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="redPacketExtract != null and redPacketExtract != ''"> and red_packet_extract = #{redPacketExtract} </if>
@@ -31,6 +31,8 @@
 		  		  <if test="payPassword != null and payPassword != ''"> and pay_password = #{payPassword} </if>
 		  		  <if test="advertMin != null and advertMin != ''"> and advert_min = #{advertMin} </if>
 		  		  <if test="advertMax != null and advertMax != ''"> and advert_max = #{advertMax} </if>
+		  		  <if test="stickTopMin != null and stickTopMin != ''"> and stick_top_min = #{stickTopMin} </if>
+		  		  <if test="stickTopMax != null and stickTopMax != ''"> and stick_top_max = #{stickTopMax} </if>
 		  		  <if test="withdrawalFee != null and withdrawalFee != ''"> and withdrawal_fee = #{withdrawalFee} </if>
 		  		  <if test="punchTheClockIntegral != null and punchTheClockIntegral != ''"> and punch_the_clock_integral = #{punchTheClockIntegral} </if>
 		  		  <if test="rechargeIntegral != null and rechargeIntegral != ''"> and recharge_integral = #{rechargeIntegral} </if>
@@ -75,6 +77,8 @@
 		  		  <if test="payPassword != null and payPassword != ''"> and pay_password = #{payPassword} </if>
 		  		  <if test="advertMin != null and advertMin != ''"> and advert_min = #{advertMin} </if>
 		  		  <if test="advertMax != null and advertMax != ''"> and advert_max = #{advertMax} </if>
+		  		  <if test="stickTopMin != null and stickTopMin != ''"> and stick_top_min = #{stickTopMin} </if>
+		  		  <if test="stickTopMax != null and stickTopMax != ''"> and stick_top_max = #{stickTopMax} </if>
 		  		  <if test="withdrawalFee != null and withdrawalFee != ''"> and withdrawal_fee = #{withdrawalFee} </if>
 		  		  <if test="punchTheClockIntegral != null and punchTheClockIntegral != ''"> and punch_the_clock_integral = #{punchTheClockIntegral} </if>
 		  		  <if test="rechargeIntegral != null and rechargeIntegral != ''"> and recharge_integral = #{rechargeIntegral} </if>
@@ -107,6 +111,8 @@
 			`pay_password`, 
 			`advert_min`, 
 			`advert_max`, 
+			`stick_top_min`, 
+			`stick_top_max`, 
 			`withdrawal_fee`, 
 			`punch_the_clock_integral`, 
 			`recharge_integral`, 
@@ -135,7 +141,9 @@
 			#{payLogin}, 
 			#{payPassword}, 
 			#{advertMin}, 
-			#{advertMax}, 
+			#{advertMax},
+			#{stickTopMin}, 
+			#{stickTopMax},  
 			#{withdrawalFee}, 
 			#{punchTheClockIntegral}, 
 			#{rechargeIntegral}, 
@@ -168,6 +176,8 @@
 			<if test="payPassword != null">`pay_password` = #{payPassword}, </if>
 			<if test="advertMin != null">`advert_min` = #{advertMin}, </if>
 			<if test="advertMax != null">`advert_max` = #{advertMax}, </if>
+			<if test="stickTopMin != null">`stick_top_min` = #{stickTopMin}, </if>
+			<if test="stickTopMax != null">`stick_top_max` = #{stickTopMax}, </if>
 			<if test="withdrawalFee != null">`withdrawal_fee` = #{withdrawalFee}, </if>
 			<if test="punchTheClockIntegral != null">`punch_the_clock_integral` = #{punchTheClockIntegral}, </if>
 			<if test="rechargeIntegral != null">`recharge_integral` = #{rechargeIntegral}, </if>

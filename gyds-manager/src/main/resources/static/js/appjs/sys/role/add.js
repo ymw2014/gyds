@@ -31,6 +31,7 @@ function getMenuTreeData() {
 	});
 }
 function loadMenuTree(menuTree) {
+	console.log(menuTree);
 	$('#menuTree').jstree({
 		'core' : {
 			'data' : menuTree
