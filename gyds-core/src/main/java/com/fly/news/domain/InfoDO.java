@@ -81,8 +81,15 @@ public class InfoDO implements Serializable {
 	private String title;
 	//自增编号
 	private Long id;
+	//置顶区域
+	private Integer topRegion;
 	
-	
+	public Integer getTopRegion() {
+		return topRegion;
+	}
+	public void setTopRegion(Integer topRegion) {
+		this.topRegion = topRegion;
+	}
 	public Integer getI() {
 		return i;
 	}
