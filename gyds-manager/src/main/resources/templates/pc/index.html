@@ -43,7 +43,7 @@
 				 <!-- <h4>2018顶新公益基金会奖学金申请正式启动</h4>
 				 <span>顶新明日朝阳奖学金”是由顶新公益基金会设立，为成绩优异、家境清贫、品德端正的大学生为成绩优异、家境清贫、品德端正的大学生...</span> -->
 				 <ul>
-					 <li th:each="newInfo: ${newList}"><a href="pc/index/zixun" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><span th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></span></li>
+					 <li th:each="newInfo: ${newList}"><a th:href="@{/pc/news/info(id=${newInfo.id})}" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><span th:text="${#dates.format(newInfo.publicTime, 'MM-dd')}"></span></li>
 				 </ul> 
 			 </div> 
 		 </div>

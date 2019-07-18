@@ -3,8 +3,11 @@ package com.fly.system.service.impl;
 import com.fly.domain.MenuDO;
 import com.fly.domain.Tree;
 import com.fly.system.dao.MenuDao;
+import com.fly.system.dao.RoleDao;
 import com.fly.system.dao.RoleMenuDao;
+import com.fly.system.dao.UserRoleDao;
 import com.fly.system.service.MenuService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.BuildTree;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,8 @@ public class MenuServiceImpl implements MenuService {
 	MenuDao menuMapper;
 	@Autowired
 	RoleMenuDao roleMenuMapper;
+	@Autowired
+	UserRoleDao userRoleMapper;
 
 	/**
 	 * @param
@@ -80,23 +85,27 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public Tree <MenuDO> getTree() {
+	public List<Tree<MenuDO>> getTree() {
 		List<Tree <MenuDO>> trees = new ArrayList<Tree <MenuDO>>();
+		System.out.println(ShiroUtils.getUser().getRoleIds());
 		List<MenuDO> menuDOs = menuMapper.list(new HashMap<>(16));
 		for (MenuDO sysMenuDO : menuDOs) {
 			Tree <MenuDO> tree = new Tree <MenuDO>();
 			tree.setId(sysMenuDO.getMenuId().toString());
 			tree.setParentId(sysMenuDO.getParentId().toString());
 			tree.setText(sysMenuDO.getName());
+			Map<String, Object> state = new HashMap<>(16);
+			//state.put("disabled", true);
+			tree.setState(state);
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Tree <MenuDO> t = BuildTree.build(trees,0);
+		List<Tree<MenuDO>> t = BuildTree.buildList(trees, "0");
 		return t;
 	}
 
 	@Override
-	public Tree <MenuDO> getTree(Long id) {
+	public List<Tree<MenuDO>> getTree(Long id) {
 		// 根据roleId查询权限
 		List<MenuDO> menus = menuMapper.list(new HashMap<String, Object>(16));
 		List<Long> menuIds = roleMenuMapper.listMenuIdByRoleId(id);
@@ -124,7 +133,7 @@ public class MenuServiceImpl implements MenuService {
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Tree <MenuDO> t = BuildTree.build(trees,0);
+		 List<Tree<MenuDO>> t = BuildTree.buildList(trees, "0");
 		return t;
 	}
 
@@ -158,6 +167,64 @@ public class MenuServiceImpl implements MenuService {
 		// 默认顶级菜单为０，根据数据库实际情况调整
 		List<Tree <MenuDO>> list = BuildTree.buildList(trees, "0");
 		return list;
+	}
+
+	@Override
+	public List<Tree<MenuDO>> getRoleTree() {
+		List<MenuDO> menus = menuMapper.list(new HashMap<String, Object>(16));//获取所有的菜单
+		List<Long> roles = userRoleMapper.listRoleId(ShiroUtils.getUserId());//获取用户所有权限ID
+		List<Long> menuIds=new ArrayList<>();
+		for (Long role :roles) {//将用户所拥有所有角色的菜单编号管理
+			menuIds.addAll(roleMenuMapper.listMenuIdByRoleId(role));
+		}
+		List<Tree <MenuDO>> trees = new ArrayList<Tree <MenuDO>>();
+		for (MenuDO menu : menus) {
+			if (menuIds.contains(menu.getMenuId())) {
+				Tree <MenuDO> tree = new Tree <MenuDO>();
+				tree.setId(menu.getMenuId().toString());
+				tree.setParentId(menu.getParentId().toString());
+				tree.setText(menu.getName());
+				Map<String, Object> state = new HashMap<>(16);
+				//state.put("disabled", true);
+				tree.setState(state);
+				trees.add(tree);
+			}
+		}
+		 List<Tree<MenuDO>> t = BuildTree.buildList(trees, "0");
+		return t;
+	}
+
+	@Override
+	public List<Tree<MenuDO>> getRoleTree(Long id) {
+		List<Long> roles = userRoleMapper.listRoleId(ShiroUtils.getUserId());//获取用户所有权限ID
+		List<Long> menuIds=new ArrayList<>();
+		List<Long> ruloMenus = roleMenuMapper.listMenuIdByRoleId(id);
+		for (Long role :roles) {//将用户所拥有所有角色的菜单编号管理
+			menuIds.addAll(roleMenuMapper.listMenuIdByRoleId(role));
+		}
+		List<Tree <MenuDO>> trees = new ArrayList<Tree <MenuDO>>();
+		List<MenuDO> menuDOs = menuMapper.list(new HashMap<String, Object>(16));
+		for (MenuDO sysMenuDO : menuDOs) {
+			if (menuIds.contains(sysMenuDO.getMenuId())) {
+				Tree <MenuDO> tree = new Tree <MenuDO>();
+				tree.setId(sysMenuDO.getMenuId().toString());
+				tree.setParentId(sysMenuDO.getParentId().toString());
+				tree.setText(sysMenuDO.getName());
+				Map<String, Object> state = new HashMap<>(16);
+				Long menuId = sysMenuDO.getMenuId();
+				if (ruloMenus.contains(menuId)) {
+					state.put("selected", true);
+				} else {
+					state.put("selected", false);
+				}
+				tree.setState(state);
+				trees.add(tree);
+			}
+			
+		}
+		// 默认顶级菜单为０，根据数据库实际情况调整
+		 List<Tree<MenuDO>> t = BuildTree.buildList(trees, "0");
+		return t;
 	}
 
 }

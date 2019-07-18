@@ -1,17 +1,22 @@
 package com.fly.pc.news.controller;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.news.dao.InfoDao;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.RewardInfoService;
+import com.fly.order.domain.OrderDO;
+import com.fly.order.service.OrderService;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 
 
@@ -24,7 +29,10 @@ public class BaseDynamicController {
 	private InfoDao infoDao;
 	@Autowired
 	RewardInfoService rewardInfoService;
-	
+	@Autowired
+	private RegionService regionService;
+	@Autowired
+	private OrderService orderService;
 	//入参 params:newsId(文章id)retype(转发类型)rewardPrice(打赏金额)
 	public Integer dynamic(Map<String,Object> params,Integer type) {
 		Integer i =0;
@@ -60,7 +68,7 @@ public class BaseDynamicController {
 			 dynamic.setMemberId(user.getUserId()); 
 		 }
 		if(dynamicService.save(dynamic)>0){
-			params.put("numberOfShares",3);
+			params.put("numberOfLikes",3);
 			infoDao.updateDynamic(params);
 			i=1;
 		}
@@ -68,13 +76,13 @@ public class BaseDynamicController {
 		//打赏
 		case 3:
 			rewardInfoDO = new RewardInfoDO();
-			rewardInfoDO.setNewsId((Integer) params.get("newsId"));
-			rewardInfoDO.setRewardPrice((BigDecimal) params.get("rewardPrice"));
+			rewardInfoDO.setNewsId(Integer.valueOf(params.get("newsId").toString()));
+			rewardInfoDO.setRewardPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())));
 			if(user!=null) {
 				 dynamic.setMemberId(user.getUserId()); 
 			 }
 			if(rewardInfoService.save(rewardInfoDO)>0) {
-				params.put("numberOfShares",4);
+				params.put("rewardCount",4);
 				infoDao.updateDynamic(params);
 				i=1;
 			}
@@ -95,5 +103,30 @@ public class BaseDynamicController {
 			return i;
 			
 	}
-
+	
+	public Integer upRegCode(Integer code) {
+		RegionDO region = regionService.get(code);
+		Integer parCode = region.getParentRegionCode();
+		return parCode;
+	}
+	
+	public Integer creadOrder(Map<String,Object> params) {
+		Integer i =0;
+		OrderDO order = new OrderDO();
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user!=null) {
+			order.setUserId(Integer.valueOf(user.getUserId().toString())); 
+		 }
+		order.setOrderType(Integer.valueOf(params.get("orderType").toString()));
+		order.setOrderNumber(new Date().getTime()+"");
+		order.setExpIncType(Integer.valueOf(params.get("expIncType").toString()));
+		order.setPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())));
+		order.setIsDel(0);
+		//产生订单
+		if(orderService.save(order)>0){
+			return i=1;
+		}
+		return i;
+	}
 }

@@ -3,8 +3,10 @@ package com.fly.system.controller;
 import com.fly.common.annotation.Log;
 import com.fly.common.controller.BaseController;
 import com.fly.domain.MenuDO;
+import com.fly.domain.RoleDO;
 import com.fly.domain.Tree;
 import com.fly.system.service.MenuService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.Constant;
 import com.fly.utils.R;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -115,15 +119,28 @@ public class MenuController extends BaseController {
 
 	@GetMapping("/tree")
 	@ResponseBody
-	Tree<MenuDO> tree() {
-		Tree <MenuDO> tree = menuService.getTree();
+	List<Tree<MenuDO>> tree() {
+		List<Tree<MenuDO>> tree = new ArrayList<Tree<MenuDO>>();
+		System.out.println(ShiroUtils.getUserId());
+		if(ShiroUtils.getUserId()==1) {//超管加载所有权限列表
+			tree = menuService.getTree();
+		}else {//非超管,只加载自己仅有的权限菜单
+			tree = menuService.getRoleTree();
+		}
+		
 		return tree;
 	}
 
 	@GetMapping("/tree/{roleId}")
 	@ResponseBody
-	Tree<MenuDO> tree(@PathVariable("roleId") Long roleId) {
-		Tree<MenuDO> tree = menuService.getTree(roleId);
+	List<Tree<MenuDO>> tree(@PathVariable("roleId") Long roleId) {
+		List<Tree<MenuDO>> tree = menuService.getTree(roleId);
+		if(ShiroUtils.getUserId()==1) {//超管加载所有权限列表
+			tree = menuService.getTree(roleId);
+		}else {//非超管,只加载自己仅有的权限菜单
+			tree = menuService.getRoleTree(roleId);
+		}
+		
 		return tree;
 	}
 }

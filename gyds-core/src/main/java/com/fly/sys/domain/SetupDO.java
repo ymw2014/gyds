@@ -2,7 +2,6 @@ package com.fly.sys.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 
@@ -58,6 +57,11 @@ public class SetupDO implements Serializable {
 	private BigDecimal advertMin;
 	//广告基数最高标准
 	private BigDecimal advertMax;
+	//置顶最低标准
+	private BigDecimal stickTopMin;
+	//置顶基数最高标准
+	private BigDecimal stickTopMax;
+	
 	//
 	private BigDecimal withdrawalFee;
 	//签到送积分
@@ -322,6 +326,19 @@ public class SetupDO implements Serializable {
 	 */
 	public BigDecimal getAdvertMax() {
 		return advertMax;
+	}
+	
+	public BigDecimal getStickTopMin() {
+		return stickTopMin;
+	}
+	public void setStickTopMin(BigDecimal stickTopMin) {
+		this.stickTopMin = stickTopMin;
+	}
+	public BigDecimal getStickTopMax() {
+		return stickTopMax;
+	}
+	public void setStickTopMax(BigDecimal stickTopMax) {
+		this.stickTopMax = stickTopMax;
 	}
 	/**
 	 * 设置：

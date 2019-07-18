@@ -1,5 +1,5 @@
 
-var prefix = "/adv/advertisement"
+var prefix = "/news/price"
 $(function() {
 	load();
 });
@@ -25,8 +25,6 @@ function load() {
 						// //发送到服务器的数据编码类型
 						pageSize : 10, // 如果设置了分页，每页数据条数
 						pageNumber : 1, // 如果设置了分布，首页页码
-						sortOrder:'desc',
-						sortName:'show_end_time',
 						//search : true, // 是否显示搜索框
 						showColumns : false, // 是否显示内容下拉框（选择显示的列）
 						sidePagination : "server", // 设置在哪里进行分页，可选值为"client" 或者 "server"
@@ -34,9 +32,7 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset,
-								sort:params.sort,
-								order:params.order
+								offset:params.offset
 					           // name:$('#searchName').val(),
 					           // username:$('#searchName').val()
 							};
@@ -53,43 +49,15 @@ function load() {
 								},
 																{
 									field : 'id', 
-									title : '编号' 
+									title : '自增编号' 
 								},
 																{
-									field : 'createTime', 
-									title : '创建时间' 
+									field : 'regionCode', 
+									title : '置顶区域' 
 								},
 																{
-									field : 'positionNum', 
-									title : '位置' ,
-									formatter: function (item, index) {
-										console.log(item);
-				                            if (item === 1) {
-				                                return '<span class="label label-primary">首页</span>';
-				                            }
-				                            if (item === 2) {
-				                                return '<span class="label label-success">资讯列表页</span>';
-				                            }
-				                            if (item === 3) {
-				                                return '<span class="label label-info">资讯详情页</span>';
-				                            }
-				                            if (item === 4) {
-				                                return '<span class="label label-danger">活动报名页</span>';
-				                            }
-				                            if (item === 5) {
-				                                return '<span class="label label-inverse">团队详情页</span>';
-				                            }
-				                            if (item === 6) {
-				                                return '<span class="label label-primary">志愿者详情页</span>';
-				                            }
-				                            if (item === 7) {
-				                                return '<span class="label label-warning">签到页</span>';
-				                            }
-				                        }
-								},
-														{
-									field : 'perCapitaCost', 
-									title : '费用(人均费用基数)' 
+									field : 'priceOfDay', 
+									title : '价格' 
 								},
 																{
 									title : '操作',

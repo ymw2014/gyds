@@ -81,6 +81,7 @@ public class IndexController {
 		params.put("offset", 0);
 		params.put("limit", 10);
 		params.put("ids", ids);
+		params.put("sort","n.is_top desc,n.public_time desc");
 		List<InfoDO> newList = infoService.list(params);
 		model.addAttribute("newList", newList);//新闻资讯status
 		params.clear();
@@ -181,6 +182,7 @@ public class IndexController {
 		    	;
 		}
 		}
+		model.addAttribute("areaId", areaId);
 		model.addAttribute("adv1", dataList.get(0));
 		model.addAttribute("adv2", dataList.get(1));
 		model.addAttribute("adv3", dataList.get(2));

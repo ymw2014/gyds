@@ -43,17 +43,15 @@
 	<insert id="save" parameterType="com.fly.news.domain.RewardInfoDO" useGeneratedKeys="true" keyProperty="id">
 		insert into new_reward_info
 		(
-			`create_time`, 
 			`reward_price`, 
 			`news_id`, 
-			`member_id`, 
+			`member_id`
 		)
 		values
 		(
-			#{createTime}, 
 			#{rewardPrice}, 
 			#{newsId}, 
-			#{memberId}, 
+			#{memberId}
 		)
 	</insert>
 	 

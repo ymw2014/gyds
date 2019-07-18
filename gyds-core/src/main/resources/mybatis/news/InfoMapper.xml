@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.news.dao.InfoDao">
 
 	<select id="get" resultType="com.fly.news.domain.InfoDO">
-		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,n.content,n.author,n.title,n.id from new_info n left join team t on n.team_id = t.id where n.id = #{value}
+		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,n.content,n.author,n.title,n.id,n.top_region from new_info n left join team t on n.team_id = t.id where n.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.news.domain.InfoDO">
-		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,n.content,n.author,n.title,n.id from new_info n left join team t on n.team_id = t.id
+		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,n.content,n.author,n.title,n.id,n.top_region from new_info n left join team t on n.team_id = t.id
         <where>  
 		  		  <if test="isDel != null and isDel != ''"> and n.is_del = #{isDel} </if>
 		  		  <if test="isRedPeper != null and isRedPeper != ''"> and n.is_red_peper = #{isRedPeper} </if>
@@ -41,6 +41,7 @@
 		  		  <if test="id != null and id != ''"> and n.id = #{id} </if>
  				  <if test="startTime != null and startTime != ''"> AND n.create_time &gt;= #{startTime}</if>
 				  <if test="endTime != null and endTime != ''">AND n.create_time &lt;= #{endTime}</if>
+				  <if test="topRegion != null and topRegion != ''">AND n.top_region = #{topRegion}</if>
 				  <if test="ids != null and ids.size > 0">
 		  		  	and
 		  		  	n.team_id in 
@@ -96,6 +97,7 @@
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		 <if test="startTime != null and startTime != ''"> AND create_time &gt;= #{startTime}</if>
 				  <if test="endTime != null and endTime != ''">AND create_time &lt;= #{endTime}</if>
+				  <if test="topRegion != null and topRegion != ''">AND top_region = #{topRegion}</if>
 		  		</where>
 	</select>
 	 
@@ -125,7 +127,8 @@
 			`introduction`, 
 			`content`, 
 			`author`, 
-			`title` 
+			`title`,
+			`top_region`
 		)
 		values
 		(
@@ -152,7 +155,8 @@
 			#{introduction}, 
 			#{content}, 
 			#{author}, 
-			#{title}
+			#{title},
+			#{topRegion}
 		)
 	</insert>
 	 
@@ -188,6 +192,7 @@
 			<if test="content != null">`content` = #{content}, </if>
 			<if test="author != null">`author` = #{author}, </if>
 			<if test="title != null">`title` = #{title}, </if>
+			<if test="topRegion != null">`top_region` = #{topRegion},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -207,9 +212,9 @@
 		update new_info 
 		<set>
 			<if test="numberOfShares == 1">number_of_shares = number_of_shares+1, </if>
-			<if test="criticismOfCount == 2">criticism_of_count = criticismOfCount+1, </if>
-			<if test="numberOfLikes == 3">number_of_likes = numberOfLikes+1, </if>
-			<if test="rewardCount == 4">reward_count = rewardCount+1, </if>
+			<if test="criticismOfCount == 2">criticism_of_count = criticism_of_count+1, </if>
+			<if test="numberOfLikes == 3">number_of_likes = number_of_likes+1, </if>
+			<if test="rewardCount == 4">reward_count = reward_count+1 </if>
 		</set>
 		where id = #{newsId}
 	</update>

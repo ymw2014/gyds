@@ -14,7 +14,7 @@
 		  		  <if test="advName != null and advName != ''"> and adv_name = #{advName} </if>
 		  		  <if test="url != null and url != ''"> and url = #{url} </if>
 		  		  <if test="advImg != null and advImg != ''"> and adv_img = #{advImg} </if>
-		  		  <if test="regionCode != null and regionCode!=''"> and region_code = #{regionCode} </if>
+		  		  <if test="regionCode != null"> and region_code = #{regionCode} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="positionNum != null and positionNum != ''"> and position_num = #{positionNum} </if>
 		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
