@@ -13,6 +13,8 @@ import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.RewardInfoService;
 import com.fly.system.utils.ShiroUtils;
+
+
 @Controller
 public class BaseDynamicController {
 	

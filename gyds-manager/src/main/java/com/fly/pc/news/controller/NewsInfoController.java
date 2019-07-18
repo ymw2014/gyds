@@ -1,13 +1,9 @@
 package com.fly.pc.news.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
-import com.fly.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.domain.UserDO;
-import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.InfoDO;
-import com.fly.news.domain.MapVoDo;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
-import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.R;
+
+
 
 @Controller
 @RequestMapping("/pc/news/")
