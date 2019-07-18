@@ -2,6 +2,7 @@ package com.fly.news.dao;
 
 import com.fly.news.domain.InfoDO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +30,6 @@ public interface InfoDao {
 	int remove(Integer id);
 	
 	int batchRemove(Integer[] ids);
+	
+	int updateDynamic(Map<String, Object> map);
 }

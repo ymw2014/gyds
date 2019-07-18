@@ -83,6 +83,7 @@ public class IndexController {
 		params.put("offset", 0);
 		params.put("limit", 10);
 		params.put("ids", ids);
+		params.put("sort","n.is_top desc,n.public_time desc");
 		List<InfoDO> newList = infoService.list(params);
 		model.addAttribute("newList", newList);//新闻资讯status
 		params.clear();
@@ -154,7 +155,7 @@ public class IndexController {
 		    	
 	    		RegionDO proRegion = regionService.get(region.getParentRegionCode());
 	    		params.put("regionCode", proRegion.getRegionCode());//所选择区域首页广告
-	    		allList.add(advertisementService.list(params).size()==0?new AdvertisementDO():advertisementService.list(params).get(0));
+	    		allList.add(advertisementService.list(params).get(0));
 	    		params.put("regionCode", proRegion.getParentRegionCode());//所选择区域首页广告
 	    		allList.add(advertisementService.list(params).get(0));
 	    		dataList=allList;
@@ -183,6 +184,7 @@ public class IndexController {
 		    	;
 		}
 		}
+		model.addAttribute("areaId", areaId);
 		model.addAttribute("adv1", dataList.get(0));
 		model.addAttribute("adv2", dataList.get(1));
 		model.addAttribute("adv3", dataList.get(2));

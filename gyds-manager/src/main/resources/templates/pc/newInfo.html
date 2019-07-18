@@ -11,6 +11,7 @@
 		<link rel="stylesheet" th:href ="@{/pc/css/ziyunlist.css}">
 		<link rel="stylesheet" th:href ="@{/pc/css/css1.css}">
 		<link rel="stylesheet" th:href ="@{/pc/css/css2.css}" >
+		<link href="/css/layui.css" rel="stylesheet">
 		</head>
 	<body>
 		<div th:replace="pc/include :: header"></div>
@@ -55,12 +56,12 @@
 			<!-- 右1 -->
 			<div class="listcontR">
 				<div class="xqrightTop" style="width:254px;">
-					<img th:src="@{/pc/images/touxiang%2082.png}" alt="">
-					<span th:text="${info.author}"></span>
+					<img th:src="@{${team.teamTitleImg}}" alt="">
+					<span th:text="${team.teamName}"></span>
 					<p>求关注</p>
 				</div>
-				<ul th:each="news:${newsList}">
-					<li>·<a th:text="${news.title}" th:href="@{/pc/news/info/{id}(id=${news.id})}"></a></li>
+				<ul>
+					<li th:each="news:${newsList}">·<a th:text="${news.title}" th:href="@{/pc/news/info/{id}(id=${news.id})}"></a></li>
 					
 				</ul>
 			</div>
@@ -73,9 +74,9 @@
 				<!-- 右侧排名 -->
 				<div class="listcontpm">
 					<div class="zixunbut">
-						<h3>点击排名</h3>
+						<h3>推荐</h3>
 						<ul>
-							<li th:each="likeNews,iterStat:${newsLike}"><i th:text="${iterStat.count}"></i><a href="#" th:text="${likeNews.title}"></a></li>
+							<li th:each="newsTop,iterStat:${newsTop}"><i th:text="${iterStat.count}"></i><a href="#" th:text="${newsTop.title}"></a></li>
 							
 						</ul>
 					</div>
@@ -86,11 +87,12 @@
 			
 			<!-- 左2 -->
 			<div class="listcontL1">
-				<div class="listcontL1-1 modal__trigger" data-modal="#modal">
-					<img th:src="@{/pc/images/dashang.png}" alt="">打赏
+				<div class="listcontL1-1 modal__trigger" data-modal="#modal" th:onclick="reward()">
+					<img th:src="@{/pc/images/dashang.png}" alt="" th:onclick="reward()">打赏
 				</div>
 				<div class="listcontL1-2">
-					<p>已有10人打赏</p>
+					<p>已
+					有10人打赏</p>
 				</div>
 				<div class="listcontL1-3">
 					<img src="images/wan1.jpg" alt="">
@@ -112,112 +114,7 @@
 					<img src="images/wan1.jpg" alt="">
 				</div>
 			</div>
-			<!-- 红包 -->
-			<div id="modal" class="modal modal__bg" role="dialog" aria-hidden="true" style="background:rgba(0,0,0,0.9);">
-				<div class="modal__dialog" style="width: 600px;">
-					<div class="modal__content">
-						<div style="width: 600px;background:#fff;position: fixed;">
-							<div class="hbtop"></div>
-							<div style="width: 600px;background:#fff;height: 260px;">
-								<div class="hbcen">
-									<div class="hbcen1">
-										<img th:src="@{pc/images/touxiang5.png}" alt="">
-										<p style="font-size:20px;line-height:30px;">打赏门户的红包</p>
-										<p style="color:#b8b8b8;font-size:16px;line-height:40px;">恭喜发财，大吉大利</p>
-										<span><rem style="font-size:36px; color:#ef472a;">17.77 </rem>元</span>
-									</div>
-								</div>
-							</div>
-							<div style="width: 100%;line-height: 40px;background:#ebebeb;">
-								<p style="margin-left:10px;">已领取3/8个,共150.00元</p>
-							</div>
-						</div>
-						<div class="lingqu">
-							<div class="hblq">
-								<div class="hblq1">
-									<img src="images/touxiang5.png" alt="">
-									<div>
-										<span>苏小宁</span>
-										<p>今天 10:00:28</p>
-									</div>
-									<p>18.66元</p>
-								</div>
-							</div>
-							<div class="hblq">
-								<div class="hblq1">
-									<img src="images/touxiang5.png" alt="">
-									<div>
-										<span>苏小宁</span>
-										<p>今天 10:00:28</p>
-									</div>
-									<p>18.66元</p>
-								</div>
-							</div>
-							<div class="hblq">
-								<div class="hblq1">
-									<img src="images/touxiang5.png" alt="">
-									<div>
-										<span>苏小宁</span>
-										<p>今天 10:00:28</p>
-									</div>
-									<p>18.66元</p>
-								</div>
-							</div>
-							<div class="hblq">
-								<div class="hblq1">
-									<img src="images/touxiang5.png" alt="">
-									<div>
-										<span>苏小宁</span>
-										<p>今天 10:00:28</p>
-									</div>
-									<p>18.66元</p>
-								</div>
-							</div>
-							<div class="hblq">
-								<div class="hblq1">
-									<img src="images/touxiang5.png" alt="">
-									<div>
-										<span>苏小宁</span>
-										<p>今天 10:00:28</p>
-									</div>
-									<p>18.66元</p>
-								</div>
-							</div>
-							<div class="hblq">
-								<div class="hblq1">
-									<img src="images/touxiang5.png" alt="">
-									<div>
-										<span>苏小宁</span>
-										<p>今天 10:00:28</p>
-									</div>
-									<p>18.66元</p>
-								</div>
-							</div>
-							<div class="hblq">
-							<div class="hblq1">
-								<img src="images/touxiang5.png" alt="">
-								<div>
-									<span>苏小宁</span>
-									<p>今天 10:00:28</p>
-								</div>
-								<p>18.66元</p>
-							</div>
-						</div>
-						</div>				
-						<div class="butt">
-							<button>我的红包</button>
-							<button>发红包</button>
-						</div>
-						<a href="" class="modal__close demo-close">
-							<svg class="" viewBox="0 0 24 24">
-								<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
-								<path d="M0 0h24v24h-24z" fill="none" />
-							</svg>
-						</a>
-					</div>
-				</div>
-				<script th:src="@{/pc/js/js1.js}"></script>
-			</div>
+			
 			<div class="listzz">
 				<div><img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞" th:text="${info.numberOfLikes}" th:onclick="like()" ></div>
 				<div><img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶</div>
@@ -319,9 +216,12 @@
 			</div>
 		</div>
 	</body>
+	<script src="/js/plugins/layer/layer.js"></script>
+	<script src="/js/layui.js"></script>
+	<script src="/js/plugins/layer/laydate/laydate.js"></script>
 	<script type="text/javascript">
 	function share(reType){
-		para={"newsId":$('#infoId').val(),"transpondType":reType};
+		para={"newsId":$('#infoId').val(),"trType":reType};
 		$.ajax({
 			cache : true,
 			type : "GET",
@@ -329,11 +229,11 @@
 			data : para,
 			async : true,
 			error : function(request) {
-				alert("点赞失败");
+				alert("分享失败");
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					alert("点赞成功");
+					alert("分享成功");
 					history.go(0);
 				} else {
 					alert(data.msg);
@@ -365,6 +265,35 @@
 
 			}
 		});
+	}
+	function reward(){
+		var para= {};
+		layer.prompt({title: '输入打赏金额(单位:元)，并确认', formType: 3}, function(som, index){
+			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som};
+			  $.ajax({
+					cache : true,
+					type : "POST",
+					url : "/pc/news/reward",
+					data : para,
+					async : true,
+					error : function(request) {
+						layer.msg('打赏失败！您打赏的：'+ som +'已原路退回您的账户');
+					},
+					success : function(data) {
+						if (data.code == 0) {
+							layer.msg('打赏完毕！您打赏啦：'+ som);
+							history.go(0);
+						} else {
+							alert(data.msg);
+						}
+
+					}
+				});
+			  layer.close(index);
+			});
+		 
+		
+		
 	}
 	</script>
 </html>
