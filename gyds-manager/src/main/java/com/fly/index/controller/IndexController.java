@@ -26,7 +26,6 @@ import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
 import com.fly.system.service.RegionService;
-import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.volunteer.domain.VolunteerDO;
