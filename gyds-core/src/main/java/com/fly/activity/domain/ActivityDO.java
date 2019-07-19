@@ -65,6 +65,14 @@ public class ActivityDO implements Serializable {
 	//拒绝理由
 	private String reasonForRefusal;
 	
+	private String createTimeStr;
+	
+	public String getCreateTimeStr() {
+		return createTimeStr;
+	}
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
 	public String getReasonForRefusal() {
 		return reasonForRefusal;
 	}

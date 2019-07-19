@@ -84,6 +84,14 @@ public class InfoDO implements Serializable {
 	//置顶区域
 	private Integer topRegion;
 	
+	private String createTimeStr;
+	
+	public String getCreateTimeStr() {
+		return createTimeStr;
+	}
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
 	public Integer getTopRegion() {
 		return topRegion;
 	}

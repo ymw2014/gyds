@@ -112,12 +112,12 @@
 	<div class="tuandui">
 		<div class="secant_txt">
 			<h3><i></i>团队展示</h3>
-			<a href="#">更多+</a>
+			<a href="/pc/teamList">更多+</a>
 		</div>
 		<div class="tuanduiImg">
 			<div th:each="team: ${teamList}">
 				<figure>
-					<a href="#"><img th:src="${team.teamTitleImg}" alt=""></a>
+					<a href="/pc/teamDetail"><img th:src="${team.teamTitleImg}" alt=""></a>
 					<figcaption><p th:text="${team.teamName}"></p></figcaption>
 				</figure>
 			</div>

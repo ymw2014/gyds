@@ -4,7 +4,11 @@
 <mapper namespace="com.fly.activity.dao.ActivityDao">
 
 	<select id="get" resultType="com.fly.activity.domain.ActivityDO">
-		select a.id,a.act_intro,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id where a.id = #{value}
+		select a.id,a.act_intro,a.act_title,a.act_content,a.member_id,
+		a.status,a.examine_status,u.name,a.act_price,a.act_title_img,
+		a.act_type_id,t.type_name,a.start_time,a.end_time,
+		DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
+		a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id where a.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.activity.domain.ActivityDO">
