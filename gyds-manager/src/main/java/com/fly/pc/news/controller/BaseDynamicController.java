@@ -2,6 +2,8 @@ package com.fly.pc.news.controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.news.dao.InfoDao;
 import com.fly.news.domain.DynamicDO;
+import com.fly.news.domain.InfoDO;
 import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.RewardInfoService;
@@ -63,7 +66,7 @@ public class BaseDynamicController {
 		case 2:
 			 	dynamic = new DynamicDO();
 				dynamic.setType(1);
-				dynamic.setNewsId((Long) params.get("newsId"));
+				dynamic.setNewsId(Long.parseLong(params.get("newsId")+""));
 			if(user!=null) {
 			 dynamic.setMemberId(user.getUserId()); 
 		 }
@@ -129,4 +132,49 @@ public class BaseDynamicController {
 		}
 		return i;
 	}
+	//入参:params id (资讯id)
+	public Integer is_likes(Integer id) {
+		Map<String, Object> params  = new HashMap<String, Object>();
+		Integer i = 0 ;
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user!=null) {
+			Long userId =  user.getUserId();
+			params.put("memberId", user);
+			params.put("type", 1);
+			params.put("newsId", id);
+			List<DynamicDO> dyn = dynamicService.list(params);
+			if(dyn.size()>0) {
+				//1:已点赞
+				i=1;
+			}else {
+				//2:未点赞
+				i=2;
+			}
+		 }
+		//如果返回0表示未登录或无此用户
+		return i;
+	}
+	//入参:params id (资讯id)
+		public Integer is_top(Integer id) {
+			Map<String, Object> params  = new HashMap<String, Object>();
+			Integer i = 0 ;
+			UserDO user = null; 
+			user = ShiroUtils.getUser();
+			if(user!=null) {
+				Long userId =  user.getUserId();
+				params.put("isTop", 1);
+				params.put("id", id);
+				List<InfoDO> info = infoDao.list(params);
+				if(info.size()>0) {
+					//1:已置顶
+					i=1;
+				}else {
+					//2:未置顶
+					i=2;
+				}
+			 }
+			//如果返回0表示未登录或无此用户
+			return i;
+		}
 }

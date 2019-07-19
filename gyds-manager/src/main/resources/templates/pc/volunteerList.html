@@ -109,18 +109,13 @@
 function orderSort(val,obj){
 		 var aData = $(obj).attr('data_id')
 		 $.ajax({
-	            //请求方式
 	            type : "POST",
-	            //请求的媒体类型
 	            dataType: "json",
-	            //请求地址
 	            url : "/pc/volunteerList",
-	            //数据，json字符串
 	            data : {
 	            	'sort': val,
 	            	'order': aData
 	            },
-	            //请求成功
 	            success : function(result) {
 	            },
 	        });

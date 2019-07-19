@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">	
+								<label class="col-sm-2 control-label">置顶天数(单位:天)：<span class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input  id="topDay" name="topDay" onblur="count()" class="form-control" value="0" placeholder="清输入置顶天数(单位:天)" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-2 control-label">置顶地区：<span class="text-danger">*</span></label>
+								<div class="col-sm-8" >
+									<label class="radio-inline" >
+										<input type="radio" onchange="count()"  th:value="${region}"  name="region">本平台
+									</label>
+									<label class="radio-inline" >
+										<input type="radio" onchange="count()" th:value="${proRegion}"  name="region">本省
+									</label>
+									<label class="radio-inline" >
+										<input type="radio" onchange="count()" th:value="${cityRegion}"  name="region">本市
+									</label>
+									<label class="radio-inline" >
+										<input type="radio"  onchange="count()" th:value="${areaRegion}"  name="region">本县(区)
+									</label>
+									<label class="radio-inline" >
+										<input type="radio"  onchange="count()" th:value="${teamRegion}"  name="region">本团
+									</label>
+								</div>
+							</div>
+							<div class="form-group" >	
+								<label class="col-sm-2 control-label">费用：<span class="text-danger"></span></label>
+								<div id="countMon"></div>
+							</div>
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary" onclick="save()">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript">
+	function save() {
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/topInfo",
+			data : $('#signupForm').serialize(),// 你的formid
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					parent.layer.msg("操作成功");
+					///history.go(0);
+					var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+					parent.layer.close(index);
+
+				} else {
+					parent.layer.alert(data.msg)
+				}
+
+			}
+		});
+
+	}
+	
+	function count(){
+		var params = {};
+		params = {"topDay":$('#topDay').val(),"regionCode":$('input:radio:checked').val()};
+		if($('#topDay').val()!=null&&$('#topDay').val()!=''&&$('#topDay').val()!=0){
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/count",
+			data : params,// 你的formid
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+					$('#countMon').empty();
+					var a ='<div class="col-sm-8"><input class="form-control" value = '+data.count+' type="text"></div>';
+					$('#countMon').append(a);
+			}
+		});
+		}else{
+			parent.layer.alert("请填写天数");
+		}
+	}
+	
+	
+	
+	</script>
+</body>
+
+</html>

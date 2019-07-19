@@ -116,8 +116,12 @@
 			</div>
 			
 			<div class="listzz">
-				<div><img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞" th:text="${info.numberOfLikes}" th:onclick="like()" ></div>
-				<div><img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶</div>
+				<div th:if=" ${isLike} eq '0'"><img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞" th:text="${info.numberOfLikes}"></div>
+				<div th:if=" ${isLike} eq '1'"><img th:src="@{/pc/images/listzz_04.jpg}" alt="点赞" th:text="${info.numberOfLikes}"></div>
+				<div th:if=" ${isLike} eq '2'"><img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞" th:text="${info.numberOfLikes}" th:onclick="like()" id="like"></div>
+				<!-- <div th:if=" ${isTop} eq '0'"><img th:src="@{/pc/images/listzs_06.jpg}" alt="">未置顶</div>
+				<div th:if=" ${isTop} eq '1'"><img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶</div> -->
+				<div th:if=" ${isTop} eq '0'"><img th:src="@{/pc/images/listzs_05.jpg}" alt="" th:onclick="topNew()" id="top">未置顶</div>
 				<div><img th:src="@{/pc/images/listcc_07.jpg}" alt="">发放中</div>	
 			</div>
 			<!-- 左3 评论 -->
@@ -255,8 +259,7 @@
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					var anElement = $("#someElement");
-					anElement.attr("src","/pc/images/listzz_04.jpg");
+					$("#like").attr("src","/pc/images/listzz_04.jpg");
 					//parent.layer.msg("操作成功");
 					//history.go(0);
 				} else {
@@ -291,9 +294,18 @@
 				});
 			  layer.close(index);
 			});
-		 
-		
-		
+	}
+	function topNew(){
+		var id = $('#infoId').val();
+		layer.open({
+			type : 2,
+			title : '置顶',
+			maxmin : true,
+			shadeClose : false, // 点击遮罩关闭层
+			area : [ '1000px', '620px' ],
+			content : '/pc/news/top/' + id // iframe的url
+		});
+	
 	}
 	</script>
 </html>

@@ -4,7 +4,13 @@
 <mapper namespace="com.fly.news.dao.InfoDao">
 
 	<select id="get" resultType="com.fly.news.domain.InfoDO">
-		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,n.content,n.author,n.title,n.id,n.top_region from new_info n left join team t on n.team_id = t.id where n.id = #{value}
+		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,
+		n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,
+		n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,
+		n.payment_duration,n.payment_top,n.red_peper_count,n.red_peper,
+		DATE_FORMAT(n.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
+		n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,
+		n.content,n.author,n.title,n.id,n.top_region from new_info n left join team t on n.team_id = t.id where n.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.news.domain.InfoDO">
