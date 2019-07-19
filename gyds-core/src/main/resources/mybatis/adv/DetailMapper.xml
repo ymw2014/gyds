@@ -4,14 +4,14 @@
 <mapper namespace="com.fly.adv.dao.DetailDao">
 
 	<select id="get" resultType="com.fly.adv.domain.DetailDO">
-		select `id`,`memeber_id`,`position_num`,`region_code`,`adv_url`,`create_time`,`adv_img`,`show_start_time`,`show_end_time`,`status` from adv_detail where id = #{value}
+		select `id`,`user_id`,`position_num`,`region_code`,`adv_url`,`create_time`,`adv_img`,`show_start_time`,`show_end_time`,`price`,`status` from adv_detail where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.adv.domain.DetailDO">
-		select `id`,`memeber_id`,`position_num`,`region_code`,`adv_url`,`create_time`,`adv_img`,`show_start_time`,`show_end_time`,`status` from adv_detail
+		select `id`,`user_id`,`position_num`,`region_code`,`adv_url`,`create_time`,`adv_img`,`show_start_time`,`show_end_time`,`price`,`status` from adv_detail
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="memeberId != null and memeberId != ''"> and memeber_id = #{memeberId} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="positionNum != null and positionNum != ''"> and position_num = #{positionNum} </if>
 		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
 		  		  <if test="advUrl != null and advUrl != ''"> and adv_url = #{advUrl} </if>
@@ -19,7 +19,8 @@
 		  		  <if test="advImg != null and advImg != ''"> and adv_img = #{advImg} </if>
 		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
 		  		  <if test="showEndTime != null and showEndTime != ''"> and show_end_time = #{showEndTime} </if>
-		  		  <if test="status != null"> and status = #{status} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -38,7 +39,7 @@
 		select count(*) from adv_detail
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="memeberId != null and memeberId != ''"> and memeber_id = #{memeberId} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="positionNum != null and positionNum != ''"> and position_num = #{positionNum} </if>
 		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
 		  		  <if test="advUrl != null and advUrl != ''"> and adv_url = #{advUrl} </if>
@@ -46,7 +47,8 @@
 		  		  <if test="advImg != null and advImg != ''"> and adv_img = #{advImg} </if>
 		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
 		  		  <if test="showEndTime != null and showEndTime != ''"> and show_end_time = #{showEndTime} </if>
-		  		  <if test="status != null"> and status = #{status} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		</where>
 	</select>
 	 
@@ -54,7 +56,7 @@
 		insert into adv_detail
 		(
 			`id`, 
-			`memeber_id`, 
+			`user_id`, 
 			`position_num`, 
 			`region_code`, 
 			`adv_url`, 
@@ -62,12 +64,13 @@
 			`adv_img`, 
 			`show_start_time`, 
 			`show_end_time`, 
+			`price`, 
 			`status`
 		)
 		values
 		(
 			#{id}, 
-			#{memeberId}, 
+			#{userId}, 
 			#{positionNum}, 
 			#{regionCode}, 
 			#{advUrl}, 
@@ -75,6 +78,7 @@
 			#{advImg}, 
 			#{showStartTime}, 
 			#{showEndTime}, 
+			#{price}, 
 			#{status}
 		)
 	</insert>
@@ -82,7 +86,7 @@
 	<update id="update" parameterType="com.fly.adv.domain.DetailDO">
 		update adv_detail 
 		<set>
-			<if test="memeberId != null">`memeber_id` = #{memeberId}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
 			<if test="positionNum != null">`position_num` = #{positionNum}, </if>
 			<if test="regionCode != null">`region_code` = #{regionCode}, </if>
 			<if test="advUrl != null">`adv_url` = #{advUrl}, </if>
@@ -90,6 +94,7 @@
 			<if test="advImg != null">`adv_img` = #{advImg}, </if>
 			<if test="showStartTime != null">`show_start_time` = #{showStartTime}, </if>
 			<if test="showEndTime != null">`show_end_time` = #{showEndTime}, </if>
+			<if test="price != null">`price` = #{price}, </if>
 			<if test="status != null">`status` = #{status}</if>
 		</set>
 		where id = #{id}

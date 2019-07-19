@@ -56,40 +56,38 @@ function load() {
 									title : '编号' 
 								},
 																{
-									field : 'advName', 
-									title : '广告名称' 
-								},
-																{
-									field : 'url', 
-									title : '广告外链接' 
-								},
-																{
-									field : 'advImg', 
-									title : '广告图片' 
-								},
-																{
-									field : 'regionCode', 
-									title : '区域编码' 
-								},
-																{
 									field : 'createTime', 
 									title : '创建时间' 
 								},
 																{
 									field : 'positionNum', 
-									title : '位置编号' 
+									title : '位置' ,
+									formatter: function (item, index) {
+										console.log(item);
+				                            if (item === 1) {
+				                                return '<span class="label label-primary">首页</span>';
+				                            }
+				                            if (item === 2) {
+				                                return '<span class="label label-success">资讯列表页</span>';
+				                            }
+				                            if (item === 3) {
+				                                return '<span class="label label-info">资讯详情页</span>';
+				                            }
+				                            if (item === 4) {
+				                                return '<span class="label label-danger">活动报名页</span>';
+				                            }
+				                            if (item === 5) {
+				                                return '<span class="label label-inverse">团队详情页</span>';
+				                            }
+				                            if (item === 6) {
+				                                return '<span class="label label-primary">志愿者详情页</span>';
+				                            }
+				                            if (item === 7) {
+				                                return '<span class="label label-warning">签到页</span>';
+				                            }
+				                        }
 								},
-																{
-									field : 'showStartTime', 
-									sortable : true,
-									title : '展示开始时间' 
-								},
-																{
-									field : 'showEndTime', 
-									sortable : true,
-									title : '展现结束时间' 
-								},
-																{
+														{
 									field : 'perCapitaCost', 
 									title : '费用(人均费用基数)' 
 								},

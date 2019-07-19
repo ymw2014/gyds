@@ -95,11 +95,11 @@
 	<div class="zhiyuan">
 		<div class="secant_txt">
 			<h3><i></i>志愿者</h3>
-			<a href="#">更多+</a>
+			<a href="/pc/volunteerList">更多+</a>
 		</div>
 		<div class="zhiyuanImg">
 			<div th:each="volunt: ${voluntList}">
-				<a href=""><img th:src="${volunt.headImg}" alt=""></a>
+				<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
 				<p th:text="${volunt.volunteerName}"></p>
 			</div>
 		</div>
@@ -144,6 +144,12 @@ function _area(){
 	console.log($("#area").val());
 	window.location.href = "/?areaId="+$("#area").val();
 }
+
+function volunteerList(){
+	alert(1111)
+	window.location.href = "/volunteer/list"
+}
+
 </script>
 </body>
 </html>

@@ -22,6 +22,7 @@ import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -51,6 +52,7 @@ public class AdvertisementController extends BaseController{
 	@GetMapping("/list")
 	@RequiresPermissions("adv:advertisement:advertisement")
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		params.put("regionCode", ShiroUtils.getUser().getDeptId());
 		//查询列表数据
         Query query = new Query(params);
 		List<AdvertisementDO> advertisementList = advertisementService.list(query);
@@ -102,6 +104,9 @@ public class AdvertisementController extends BaseController{
 		    	r=validateSwitch(dataList,advertisement,advertisement.getPositionNum(),3);
 		    	break;
 		    case 3:  //县管理员
+		    	r=validateSwitch(dataList,advertisement,advertisement.getPositionNum(),2);
+		    	break;
+		    case 4:  //团管理员
 		    	r=validateSwitch(dataList,advertisement,advertisement.getPositionNum(),2);
 		    	break;
 		    default:  

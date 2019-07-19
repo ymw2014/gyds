@@ -30,7 +30,7 @@
 		  		  <if test="numberOfPreviews != null and numberOfpreviews != ''"> and a.number_of_previews = #{numberOfPreviews} </if>
 		  		  <if test="numberOfApplicants != null and numberOfApplicants != ''"> and a.number_of_applicants = #{numberOfApplicants} </if>
 		  		  <if test="applicantsNumMax != null and applicantsNumMax != ''"> and a.applicants_num_max = #{applicantsNumMax} </if>
-		  		  <if test="ids != null and ids.size > 0">
+		  		  <if test="ids != null and ids.size() > 0">
 		  		  	and
 		  		  	a.member_id in 
 		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">

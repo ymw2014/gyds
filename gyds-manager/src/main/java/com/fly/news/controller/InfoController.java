@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fly.domain.UserDO;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
@@ -39,6 +40,9 @@ public class InfoController {
 	private InfoService infoService;
 	@Autowired
 	private TeamDao teamDao;
+	
+	@Autowired
+	private RegionService regionService;
 
 	@GetMapping()
 	@RequiresPermissions("news:info:info")
@@ -50,6 +54,10 @@ public class InfoController {
 	@GetMapping("/list")
 	@RequiresPermissions("news:info:info")
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		// 查询列表数据
+		params.put("pids", ShiroUtils.getUser().getDeptId());
+		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
+		params.put("ids", ids);
 		//查询列表数据
         Query query = new Query(params);
 		List<InfoDO> infoList = infoService.list(query);

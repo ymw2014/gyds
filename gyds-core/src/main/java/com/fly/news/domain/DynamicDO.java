@@ -27,7 +27,16 @@ public class DynamicDO implements Serializable {
 	private Integer type;
 	//创建时间
 	private Date creatTime;
+	//类型:1:新闻 2:活动
+	private int actType;
+	
 
+	public int getActType() {
+		return actType;
+	}
+	public void setActType(int actType) {
+		this.actType = actType;
+	}
 	/**
 	 * 设置：自增编号
 	 */

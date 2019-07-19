@@ -14,9 +14,9 @@ public interface MenuService {
 
 	List<Tree <MenuDO>> listMenuTree(Long id);
 
-	Tree <MenuDO> getTree();
+	List<Tree<MenuDO>> getTree();
 
-	Tree <MenuDO> getTree(Long id);
+	List<Tree<MenuDO>> getTree(Long id);
 
 	List<MenuDO> list(Map <String, Object> params);
 
@@ -29,4 +29,7 @@ public interface MenuService {
 	MenuDO get(Long id);
 
 	Set<String> listPerms(Long userId);
+
+	List<Tree<MenuDO>> getRoleTree();
+	List<Tree<MenuDO>> getRoleTree(Long userId);
 }

@@ -31,12 +31,28 @@ public class CommentDO implements Serializable {
 	private Integer isTop;
 	//评论时间
 	private Date createTime;
+	
+	private String  createTimeStr;
 	//评论被赞次数
 	private Integer numberOfLikes;
 	//父级id
 	private Integer prenId;
+	//新闻封面
+	private String titleImg;
 	
 	
+	public String getCreateTimeStr() {
+		return createTimeStr;
+	}
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
+	public String getTitleImg() {
+		return titleImg;
+	}
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
 	public String getTitle() {
 		return title;
 	}

@@ -19,6 +19,7 @@ import com.fly.activity.dao.TypeDao;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.domain.TypeDO;
 import com.fly.activity.service.ActivityService;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
@@ -41,6 +42,8 @@ public class ActivityController {
 	private ActivityService activityService;
 	@Autowired
 	private TypeDao typeDao;
+	@Autowired
+	private RegionService regionService;
 	@GetMapping()
 	@RequiresPermissions("activity:activity:activity")
 	String Activity(){
@@ -52,6 +55,9 @@ public class ActivityController {
 	@RequiresPermissions("activity:activity:activity")
 	
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		params.put("pids", ShiroUtils.getUser().getDeptId());
+		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
+		params.put("ids", ids);
 		//查询列表数据
         Query query = new Query(params);
 		List<ActivityDO> activityList = activityService.list(query);

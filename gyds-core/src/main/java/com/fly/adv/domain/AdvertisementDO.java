@@ -34,10 +34,7 @@ public class AdvertisementDO implements Serializable {
 	private Date showStartTime;
 	//展现结束时间
 	private Date showEndTime;
-	//费用(人均费用基数)
-	private BigDecimal perCapitaCost;
-	//排序展示
-	private String sort;
+
 
 	/**
 	 * 设置：
@@ -145,21 +142,7 @@ public class AdvertisementDO implements Serializable {
 	/**
 	 * 设置：费用(人均费用基数)
 	 */
-	public void setPerCapitaCost(BigDecimal perCapitaCost) {
-		this.perCapitaCost = perCapitaCost;
-	}
-	/**
-	 * 获取：费用(人均费用基数)
-	 */
-	public BigDecimal getPerCapitaCost() {
-		return perCapitaCost;
-	}
-	public String getSort() {
-		return sort;
-	}
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
+
 	
 	
 }

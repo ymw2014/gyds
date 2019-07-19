@@ -1,12 +1,13 @@
 package com.fly.news.dao;
 
-import com.fly.news.domain.InfoDO;
 
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.fly.news.domain.InfoDO;
 
 /**
  * 

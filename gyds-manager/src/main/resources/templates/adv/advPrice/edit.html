@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="id" name="id" th:value="${advPrice.id}"  type="hidden">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">区域编号：</label>
+								<div class="col-sm-8">
+									<input id="regionCode" name="regionCode" th:value="${advPrice.regionCode}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">展现位置：</label>
+								<div class="col-sm-8">
+									<input id="positionNum" name="positionNum" th:value="${advPrice.positionNum}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">序号：</label>
+								<div class="col-sm-8">
+									<input id="sort" name="sort" th:value="${advPrice.sort}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">价格/天：</label>
+								<div class="col-sm-8">
+									<input id="price" name="price" th:value="${advPrice.price}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input id="createTime" name="createTime" th:value="${advPrice.createTime}" class="form-control" type="text">
+								</div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/adv/advPrice/edit.js">
+	</script>
+</body>
+</html>

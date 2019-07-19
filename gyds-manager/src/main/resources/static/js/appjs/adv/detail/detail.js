@@ -52,24 +52,24 @@ function load() {
 									title : '' 
 								},
 																{
-									field : 'memeberId', 
-									title : '' 
+									field : 'userId', 
+									title : '用户编号' 
 								},
 																{
 									field : 'positionNum', 
-									title : '' 
+									title : '广告位置' 
 								},
 																{
 									field : 'regionCode', 
-									title : '' 
+									title : '发布区域' 
 								},
 																{
 									field : 'advUrl', 
-									title : '' 
+									title : '广告链接' 
 								},
 																{
 									field : 'createTime', 
-									title : '' 
+									title : '提交时间' 
 								},
 																{
 									field : 'advImg', 
@@ -77,15 +77,19 @@ function load() {
 								},
 																{
 									field : 'showStartTime', 
-									title : '' 
+									title : '开始时间' 
 								},
 																{
 									field : 'showEndTime', 
-									title : '' 
+									title : '结束时间' 
+								},
+																{
+									field : 'price', 
+									title : '价格:(按照展现时间计算总价=每天*上架天数)' 
 								},
 																{
 									field : 'status', 
-									title : '处理状态 0:未处理 1:已处理' 
+									title : '处理状态 0未审核1:已审核2:已拒绝' 
 								},
 																{
 									title : '操作',

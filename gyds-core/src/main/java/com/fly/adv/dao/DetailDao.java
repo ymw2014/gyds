@@ -8,10 +8,10 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 
+ * 广告记录
  * @author WangYanke
  * @email 15638836857@163.com
- * @date 2019-07-12 11:20:03
+ * @date 2019-07-19 15:16:53
  */
 @Mapper
 public interface DetailDao {

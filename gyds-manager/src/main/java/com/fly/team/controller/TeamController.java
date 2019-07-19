@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.domain.RegionDO;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamTypeDao;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.domain.TypeDO;
@@ -86,6 +87,9 @@ public class TeamController {
 	@GetMapping("/list")
 	@RequiresPermissions("team:team:team")
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		params.put("pids", ShiroUtils.getUser().getDeptId());
+		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
+		params.put("ids", ids);
 		//查询列表数据
         Query query = new Query(params);
 		List<TeamDO> teamList = teamService.list(query);
