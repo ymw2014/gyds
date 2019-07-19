@@ -1,5 +1,6 @@
 package com.fly.pc.news.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fly.news.dao.PriceDao;
 import com.fly.news.domain.InfoDO;
+import com.fly.news.domain.PriceDO;
 import com.fly.news.service.InfoService;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
@@ -24,6 +28,8 @@ public class NewsInfoController extends BaseDynamicController{
 	private InfoService infoService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private PriceDao priceDao;
 	
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id,Model model) {
@@ -95,7 +101,7 @@ public class NewsInfoController extends BaseDynamicController{
 		Integer t = is_likes(id);
 		//0:未登录 1:置顶 2: 未置顶
 		model.addAttribute("isTop", t);
-		
+
 		model.addAttribute("newsTop", newsTop);
 		model.addAttribute("team", teamDO);
 		model.addAttribute("newsList", infoList);
@@ -108,57 +114,72 @@ public class NewsInfoController extends BaseDynamicController{
 	@ResponseBody
 	public R shareNewInfoLog(@RequestParam Map<String,Object> para) {
 		if(dynamic(para,1)==1){
-				return R.ok();
-			}
-			return R.error();
-			
+			return R.ok();
+		}
+		return R.error();
+
 	}
 	//文章点赞
 	@RequestMapping(value="/likes",method=RequestMethod.GET)
 	@ResponseBody
 	public R likes(@RequestParam Map<String,Object> params) {
 		if(dynamic(params,2)==1){
-				return R.ok();
-			}
-			return R.error();
+			return R.ok();
+		}
+		return R.error();
 	}
 	//打赏
-		@RequestMapping(value="/reward",method=RequestMethod.POST)
-		@ResponseBody
-		public R reward(@RequestParam Map<String,Object> params) {
-			//产生订单
-			if(creadOrder(params)>0){
+	@RequestMapping(value="/reward",method=RequestMethod.POST)
+	@ResponseBody
+	public R reward(@RequestParam Map<String,Object> params) {
+		//产生订单
+		if(creadOrder(params)>0){
 			//记录+1
 			if(dynamic(params,3)==1){
-					return R.ok();
-				}
+				return R.ok();
 			}
-				return R.error();
 		}
-		//置顶
-				@RequestMapping(value="/top/{id}",method=RequestMethod.GET)
-				public String top(@PathVariable("id") Integer id,Model model) {
-					InfoDO info = infoService.get(id);
-					Integer code = upRegCode(info.getTeamId());
-					model.addAttribute("teamRegion", code);
-					code = upRegCode(code);
-					model.addAttribute("areaRegion", code);
-					code = upRegCode(code);
-					model.addAttribute("cityRegion", code);
-					code = upRegCode(code);
-					model.addAttribute("proRegion", code);
-					code = upRegCode(code);
-					model.addAttribute("region", code);
-					return "/pc/top";
-				}
-				
+		return R.error();
+	}
+	//置顶
+	@RequestMapping(value="/top/{id}",method=RequestMethod.GET)
+	public String top(@PathVariable("id") Integer id,Model model) {
+		InfoDO info = infoService.get(id);
+		Integer code = info.getTeamId();
+		model.addAttribute("teamRegion", code);
+		code = upRegCode(code);
+		model.addAttribute("areaRegion", code);
+		code = upRegCode(code);
+		model.addAttribute("cityRegion", code);
+		code = upRegCode(code);
+		model.addAttribute("proRegion", code);
+		code = upRegCode(code);
+		model.addAttribute("region", code);
+		return "/pc/top";
+	}
+
 	@RequestMapping(value="/topInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public R comTopInfo(@RequestParam Map<String,Object> params) {
+
 		if(1>0){
 			return R.ok();
 		}
 		return R.error();
+	}
+	@RequestMapping(value="/count",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, BigDecimal> count(@RequestParam Map<String,Object> params) {
+		BigDecimal count = null;
+		List<PriceDO> pri = priceDao.list(params);
+		BigDecimal mon = pri.get(0).getPriceOfDay();
+		BigDecimal day = BigDecimal.valueOf(Long.parseLong(params.get("topDay").toString())) ;
+		if(mon!=null) {
+			count = mon.multiply(day);
+		}
+		Map<String,BigDecimal> map = new HashMap<String,BigDecimal>();
+		map.put("count", count);
+		return map;
 	}
 }
 
