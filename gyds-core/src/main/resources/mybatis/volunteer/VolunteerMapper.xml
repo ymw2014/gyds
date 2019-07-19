@@ -55,14 +55,6 @@
 				            #{item}       
 				    </foreach> 
 		  		  </if>
-		  		  
-		  		  <if test="regionCodeS != null and regionCodeS.size() > 0">
-		  		  	and
-		  		  	v.regionCode in 
-		  		   	<foreach collection="regionCodeS" index="index" item="item" open="(" separator="," close=")">
-				            #{item}       
-				    </foreach> 
-		  		  </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
