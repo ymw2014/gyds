@@ -14,57 +14,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.adv.domain.DetailDO;
-import com.fly.adv.service.DetailService;
+import com.fly.adv.domain.AdvPriceDO;
+import com.fly.adv.service.AdvPriceService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
 
-
 /**
- * 广告记录
+ * 广告价格配置表
  * 
  * @author WangYanke
  * @email 15638836857@163.com
- * @date 2019-07-19 15:16:53
+ * @date 2019-07-19 15:27:07
  */
  
 @Controller
-@RequestMapping("/adv/detail")
-public class DetailController {
+@RequestMapping("/adv/advPrice")
+public class AdvPriceController {
 	@Autowired
-	private DetailService detailService;
+	private AdvPriceService advPriceService;
 	
 	@GetMapping()
-	@RequiresPermissions("adv:detail:detail")
-	String Detail(){
-	    return "adv/detail/detail";
+	@RequiresPermissions("adv:advPrice:advPrice")
+	String AdvPrice(){
+	    return "adv/advPrice/advPrice";
 	}
 	
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("adv:detail:detail")
+	@RequiresPermissions("adv:advPrice:advPrice")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
-		List<DetailDO> detailList = detailService.list(query);
-		int total = detailService.count(query);
-		PageUtils pageUtils = new PageUtils(detailList, total);
+		List<AdvPriceDO> advPriceList = advPriceService.list(query);
+		int total = advPriceService.count(query);
+		PageUtils pageUtils = new PageUtils(advPriceList, total);
 		return pageUtils;
 	}
 	
 	@GetMapping("/add")
-	@RequiresPermissions("adv:detail:add")
+	@RequiresPermissions("adv:advPrice:add")
 	String add(){
-	    return "adv/detail/add";
+	    return "adv/advPrice/add";
 	}
 
 	@GetMapping("/edit/{id}")
-	@RequiresPermissions("adv:detail:edit")
+	@RequiresPermissions("adv:advPrice:edit")
 	String edit(@PathVariable("id") Integer id,Model model){
-		DetailDO detail = detailService.get(id);
-		model.addAttribute("detail", detail);
-	    return "adv/detail/edit";
+		AdvPriceDO advPrice = advPriceService.get(id);
+		model.addAttribute("advPrice", advPrice);
+	    return "adv/advPrice/edit";
 	}
 	
 	/**
@@ -72,9 +71,9 @@ public class DetailController {
 	 */
 	@ResponseBody
 	@PostMapping("/save")
-	@RequiresPermissions("adv:detail:add")
-	public R save( DetailDO detail){
-		if(detailService.save(detail)>0){
+	@RequiresPermissions("adv:advPrice:add")
+	public R save( AdvPriceDO advPrice){
+		if(advPriceService.save(advPrice)>0){
 			return R.ok();
 		}
 		return R.error();
@@ -84,9 +83,9 @@ public class DetailController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	@RequiresPermissions("adv:detail:edit")
-	public R update( DetailDO detail){
-		detailService.update(detail);
+	@RequiresPermissions("adv:advPrice:edit")
+	public R update( AdvPriceDO advPrice){
+		advPriceService.update(advPrice);
 		return R.ok();
 	}
 	
@@ -95,9 +94,9 @@ public class DetailController {
 	 */
 	@PostMapping( "/remove")
 	@ResponseBody
-	@RequiresPermissions("adv:detail:remove")
+	@RequiresPermissions("adv:advPrice:remove")
 	public R remove( Integer id){
-		if(detailService.remove(id)>0){
+		if(advPriceService.remove(id)>0){
 		return R.ok();
 		}
 		return R.error();
@@ -108,9 +107,9 @@ public class DetailController {
 	 */
 	@PostMapping( "/batchRemove")
 	@ResponseBody
-	@RequiresPermissions("adv:detail:batchRemove")
+	@RequiresPermissions("adv:advPrice:batchRemove")
 	public R remove(@RequestParam("ids[]") Integer[] ids){
-		detailService.batchRemove(ids);
+		advPriceService.batchRemove(ids);
 		return R.ok();
 	}
 	

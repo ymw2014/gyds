@@ -1,5 +1,5 @@
 
-var prefix = "/adv/detail"
+var prefix = "/adv/advPrice"
 $(function() {
 	load();
 });
@@ -52,44 +52,24 @@ function load() {
 									title : '' 
 								},
 																{
-									field : 'userId', 
-									title : '用户编号' 
+									field : 'regionCode', 
+									title : '区域编号' 
 								},
 																{
 									field : 'positionNum', 
-									title : '广告位置' 
+									title : '展现位置' 
 								},
 																{
-									field : 'regionCode', 
-									title : '发布区域' 
-								},
-																{
-									field : 'advUrl', 
-									title : '广告链接' 
-								},
-																{
-									field : 'createTime', 
-									title : '提交时间' 
-								},
-																{
-									field : 'advImg', 
-									title : '图片' 
-								},
-																{
-									field : 'showStartTime', 
-									title : '开始时间' 
-								},
-																{
-									field : 'showEndTime', 
-									title : '结束时间' 
+									field : 'sort', 
+									title : '序号' 
 								},
 																{
 									field : 'price', 
-									title : '价格:(按照展现时间计算总价=每天*上架天数)' 
+									title : '价格/天' 
 								},
 																{
-									field : 'status', 
-									title : '处理状态 0未审核1:已审核2:已拒绝' 
+									field : 'createTime', 
+									title : '创建时间' 
 								},
 																{
 									title : '操作',

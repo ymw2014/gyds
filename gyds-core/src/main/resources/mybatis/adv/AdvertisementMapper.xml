@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.adv.dao.AdvertisementDao">
 
 	<select id="get" resultType="com.fly.adv.domain.AdvertisementDO">
-		select `id`,`adv_name`,`url`,`adv_img`,`region_code`,`create_time`,`position_num`,`show_start_time`,`show_end_time`,`per_capita_cost` from advertisement where id = #{value}
+		select `id`,`adv_name`,`url`,`adv_img`,`region_code`,`create_time`,`position_num`,`show_start_time`,`show_end_time` from advertisement where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.adv.domain.AdvertisementDO">
-		select `id`,`adv_name`,`url`,`adv_img`,`region_code`,`create_time`,`position_num`,`show_start_time`,`show_end_time`,`per_capita_cost` from advertisement
+		select `id`,`adv_name`,`url`,`adv_img`,`region_code`,`create_time`,`position_num`,`show_start_time`,`show_end_time` from advertisement
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="advName != null and advName != ''"> and adv_name = #{advName} </if>
@@ -19,7 +19,6 @@
 		  		  <if test="positionNum != null and positionNum != ''"> and position_num = #{positionNum} </if>
 		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
 		  		  <if test="showEndTime != null and showEndTime != ''"> and show_end_time = #{showEndTime} </if>
-		  		  <if test="perCapitaCost != null and perCapitaCost != ''"> and per_capita_cost = #{perCapitaCost} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -61,8 +60,7 @@
 			`create_time`, 
 			`position_num`, 
 			`show_start_time`, 
-			`show_end_time`, 
-			`per_capita_cost`
+			`show_end_time`
 		)
 		values
 		(
@@ -74,8 +72,7 @@
 			#{createTime}, 
 			#{positionNum}, 
 			#{showStartTime}, 
-			#{showEndTime}, 
-			#{perCapitaCost}
+			#{showEndTime} 
 		)
 	</insert>
 	 
@@ -89,8 +86,7 @@
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="positionNum != null">`position_num` = #{positionNum}, </if>
 			<if test="showStartTime != null">`show_start_time` = #{showStartTime}, </if>
-			<if test="showEndTime != null">`show_end_time` = #{showEndTime}, </if>
-			<if test="perCapitaCost != null">`per_capita_cost` = #{perCapitaCost}</if>
+			<if test="showEndTime != null">`show_end_time` = #{showEndTime}</if>
 		</set>
 		where id = #{id}
 	</update>

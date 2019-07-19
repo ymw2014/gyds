@@ -1,6 +1,6 @@
 package com.fly.adv.dao;
 
-import com.fly.adv.domain.DetailDO;
+import com.fly.adv.domain.AdvPriceDO;
 
 import java.util.List;
 import java.util.Map;
@@ -8,23 +8,23 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 广告记录
+ * 广告价格配置表
  * @author WangYanke
  * @email 15638836857@163.com
- * @date 2019-07-19 15:16:53
+ * @date 2019-07-19 15:27:07
  */
 @Mapper
-public interface DetailDao {
+public interface AdvPriceDao {
 
-	DetailDO get(Integer id);
+	AdvPriceDO get(Integer id);
 	
-	List<DetailDO> list(Map<String,Object> map);
+	List<AdvPriceDO> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 	
-	int save(DetailDO detail);
+	int save(AdvPriceDO advPrice);
 	
-	int update(DetailDO detail);
+	int update(AdvPriceDO advPrice);
 	
 	int remove(Integer id);
 	
