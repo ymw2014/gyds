@@ -110,11 +110,9 @@
 			</div>
 			<div class="gps_img1">
 				<div id="container1" >
-					<div th:each="team : ${teamList}">
 						<div class="lun1" >
-							<img th:src="${team.teamTitleImg}" alt="">
+							<img th:each="team : ${teamList}" th:src="${team.teamTitleImg}" alt="">
 						</div>
-					</div>
 					  <button class="left1"></button>
 					  <button class="right1"></button>
 					  <div class="bo1">
