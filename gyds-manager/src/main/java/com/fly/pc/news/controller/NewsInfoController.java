@@ -1,14 +1,9 @@
 package com.fly.pc.news.controller;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
-import com.fly.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,18 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.domain.UserDO;
-import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.InfoDO;
-import com.fly.news.domain.MapVoDo;
-import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
-import com.fly.order.domain.OrderDO;
-import com.fly.order.service.OrderService;
-import com.fly.system.service.RegionService;
-import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.R;
 
 @Controller
 @RequestMapping("/pc/news/")
@@ -38,8 +26,6 @@ public class NewsInfoController extends BaseDynamicController{
 	private InfoService infoService;
 	@Autowired
 	private TeamService teamService;
-	@Autowired
-	private OrderService orderService;
 	
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id,Model model) {
@@ -103,6 +89,15 @@ public class NewsInfoController extends BaseDynamicController{
 		params.put("topRegion", code+"");
 		params.put("sort","n.is_top desc,n.public_time desc");
 		newsTop.addAll(infoService.list(params));
+		//是否点赞
+		Integer l = is_likes(id);
+		//0:未登录 1:点赞 2: 未点赞
+		model.addAttribute("isLike", l);
+		//是否置顶
+		Integer t = is_likes(id);
+		//0:未登录 1:置顶 2: 未置顶
+		model.addAttribute("isTop", t);
+		
 		model.addAttribute("newsTop", newsTop);
 		model.addAttribute("team", teamDO);
 		model.addAttribute("newsList", infoList);
@@ -124,7 +119,7 @@ public class NewsInfoController extends BaseDynamicController{
 	@RequestMapping(value="/likes",method=RequestMethod.GET)
 	@ResponseBody
 	public R likes(@RequestParam Map<String,Object> params) {
-		if(dynamic(params,1)==1){
+		if(dynamic(params,2)==1){
 				return R.ok();
 			}
 			return R.error();
@@ -142,6 +137,31 @@ public class NewsInfoController extends BaseDynamicController{
 			}
 				return R.error();
 		}
+		//置顶
+				@RequestMapping(value="/top/{id}",method=RequestMethod.GET)
+				public String top(@PathVariable("id") Integer id,Model model) {
+					InfoDO info = infoService.get(id);
+					Integer code = upRegCode(info.getTeamId());
+					model.addAttribute("teamRegion", code);
+					code = upRegCode(code);
+					model.addAttribute("areaRegion", code);
+					code = upRegCode(code);
+					model.addAttribute("cityRegion", code);
+					code = upRegCode(code);
+					model.addAttribute("proRegion", code);
+					code = upRegCode(code);
+					model.addAttribute("region", code);
+					return "/pc/top";
+				}
+				
+	@RequestMapping(value="/topInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public R comTopInfo(@RequestParam Map<String,Object> params) {
+		if(1>0){
+			return R.ok();
+		}
+		return R.error();
+	}
 }
 
 
