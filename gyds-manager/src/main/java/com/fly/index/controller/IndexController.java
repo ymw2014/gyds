@@ -84,7 +84,7 @@ public class IndexController {
 		model.addAttribute("newList", newList);//新闻资讯status
 		params.clear();
 		params.put("examineStatus",1);
-		params.put("pids", areaId);
+		params.put("ids", ids);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		params.clear();

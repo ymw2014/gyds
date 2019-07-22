@@ -20,7 +20,7 @@
 			<div class="wzshenfen">
 				<p>地区：<span>全部</span></p>
 				<ul>
-					<li th:each="area : ${areaList}"><a th:href=" '/pc/volunteerList?regionCode=' + ${area.regionCode}"  th:text="${area.regionName}"></a></li>
+					<li th:each="area : ${areaList}" th:onclick="'query('+${area.regionCode}+')'" th:text="${area.regionName}"></li>
 				</ul>
 				<div class="butnn"><img src="images/baoming03.png" alt=""></div>
 			</div>	
@@ -41,29 +41,17 @@
 			<div class="xiangxi">
 				<ul class="zyz">
 					<li  onclick="orderSort('act_number',this)" data_id="desc">参与活动次数<img src="images/baoming03.png" alt="">
-						<!-- <ul>
-							<li><a href="">1</a></li>
-						</ul> -->
 					</li>
 					<li  onclick="orderSort('click_number',this)" data_id="desc">点击量<img src="images/baoming03.png" alt="">
-						<!-- <ul>
-							<li><a href="">1</a></li>
-						</ul> -->
 					</li>
 					<li onclick="orderSort('comment_number',this)" data_id="desc">评论量<img src="images/baoming03.png" alt="">
-						<!-- <ul>
-							<li><a href="">1</a></li>
-						</ul> -->
 					</li>
 					<li onclick="orderSort('shares_number',this)" data_id="desc">转发量<img src="images/baoming03.png" alt="">
-						<!-- <ul>
-							<li><a href="">1</a></li>
-						</ul> -->
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div class="zyzhti">
+		<div class="zyzhti" id="zyzhti">
 			<figure th:each="volunt : ${voluntList}">
 				<a href=""><img th:src="${volunt.headImg}" alt=""></a>
 				<figcaption>
@@ -84,6 +72,7 @@
 	</body>
 </html>
 <script>
+var regionCode = '';
    $(function(){
     var i=0;
     $(".butnn").click(function(){
@@ -102,24 +91,83 @@
 	});
 	
 	 $(":radio").click(function(){
-		 window.location.href = "/pc/volunteerList?sex="+$(this).val();
-	});
-	 
-})
-function orderSort(val,obj){
-		 var aData = $(obj).attr('data_id')
 		 $.ajax({
 	            type : "POST",
 	            dataType: "json",
-	            url : "/pc/volunteerList",
+	            url : "/pc/volunteerList/query",
 	            data : {
-	            	'sort': val,
-	            	'order': aData
+	            	'sex': $(this).val(),
+	            	'regionCode': regionCode
 	            },
 	            success : function(result) {
+	            	var voluntList = result.voluntList;
+	            	$("#zyzhti").html('');
+	            	var html = info(voluntList);
+	            	$("#zyzhti").append(html);
 	            },
 	        });
-		 $(obj).attr('data_id','asc')
-		 
-	 }
+	});
+	 
+})
+
+
+function orderSort(val,obj){
+	 var aData = $(obj).attr('data_id')
+	 $.ajax({
+            type : "POST",
+            dataType: "json",
+            url : "/pc/volunteerList/query",
+            data : {
+            	'sort': val,
+            	'order': aData,
+            	'regionCode': regionCode
+            },
+            success : function(result) {
+            	var voluntList = result.voluntList;
+            	$("#zyzhti").html('');
+            	var html = info(voluntList);
+            	$("#zyzhti").append(html);
+            	$(obj).attr('data_id','asc');
+            },
+     });
+}
+
+   
+function query(regionCode) {
+	regionCode = regionCode;
+	 $.ajax({
+         type : "POST",
+         dataType: "json",
+         url : "/pc/volunteerList/query",
+         data : {
+         	'regionCode': regionCode
+         },
+         success : function(result) {
+         	var voluntList = result.voluntList;
+         	$("#zyzhti").html('');
+         	var html = info(voluntList);
+         	$("#zyzhti").append(html);
+         }
+  });
+}
+   
+function getQueryString(name){
+      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+      if(r!=null)return  unescape(r[2]); return null;
+}
+
+function info(value) {
+	var html = '';
+	$.each(value, function (n, value) {
+		html += '<figure>' + 
+					'<a href=""><img src=" ' + value.headImg + '" alt=""></a>' +
+			    		'<figcaption>' +
+							'<span>'+ value.volunteerName + '</span>' +
+							'<p>团队：'+ value.teamName + '</p>' +
+						'</figcaption>' +
+				'</figure>';
+	})
+	return html;
+}
 </script>

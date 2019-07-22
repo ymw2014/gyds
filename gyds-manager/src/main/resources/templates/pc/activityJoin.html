@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<script src="js/jquery-3.1.1.js"></script>
+		<link rel="stylesheet" href="css/activity.css">
+		<link rel="stylesheet" href="css/content.css">
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div th:replace="pc/include :: header"></div>
+		<div class="content">
+			<div class="conTxt">
+				<p>您所在的位置：首页>青少年马术教学试骑体验</p>
+			</div>
+			<div class="conBox">
+				<div class="conBox1">
+					<img th:src="${activity.actTitleImg}" alt="">
+				</div>
+				<div class="conBox2">
+					<div class="conBox2-1">
+						<h4 th:text="${activity.actTitle}"></h4>
+						<p>
+							<img src="images/conter_09.jpg" alt=""> 1W+
+							<img src="images/conter_06.jpg" alt=""> 85 
+							<img src="images/conter_12.jpg" alt=""> 69
+						</p>
+					</div>
+					<div class="conBox2-2">
+						<div class="conBox2-2-1">
+							<ul>
+								<li th:text=" '地点：' + ${activity.actAddr}"></li>
+								<li th:text=" '时间：' + ${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></li>
+								<li class="comli"><span style="float:left;">价格：</span><a href="#" class="comimg" th:text="${activity.actType == '0'} ? '付费': ${activity.actPrice}"></a></li>
+								<li>数量：
+									<button class="jian">-</button>
+									<input type="text" class="shu" value="1">
+									<button class="jia">+</button>
+									<span>(每人仅限两张)</span>
+								</li>
+							</ul>
+							<div class="zaixian">
+								<img src="images/zaixian.png" alt=""><span>我要报名</span>
+							</div>
+							<div class="zaixian1">
+								<img src="images/myshouc.png" alt="">我要收藏
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 活动详情 -->
+				<div class="xqtop">
+					<span class="xqtop1">活动详情</span>
+					<span th:text=" '已报名 ' + ${activity.numberOfApplicants}"></span>
+				</div>
+				<div class="xqcon">
+					<div th:utext="${activity.actContent}"></div>
+					<div class="xqfenxing">
+						<span>分享至</span>
+						<a href="#"><img src="images/conter_26.jpg" alt=""></a>
+						<a href="#"><img src="images/conter_28.jpg" alt=""></a>
+						<a href="#"><img src="images/conter_30.jpg" alt=""></a>
+						<a href="#"><img src="images/conter_33.jpg" alt=""></a>
+					</div>
+				</div>
+				<!-- 右侧 -->
+				<div class="xqright">
+					<div class="xqrightTop">
+						<img src="images/touxiang%2082.png" alt="">
+						<span>风影电影</span>
+						<p>求关注</p>
+					</div>
+					<div class="xqrightCon">
+						<a href="#" class="xqrightCimg"><img src="images/conter_19.jpg" alt=""></a>
+						<p><a href="">2019老板必修课《总裁五项修炼》- 商业时代创业....</a></p>
+						<span>进行中<rem>￥99起</rem></span>
+					</div>
+					<div class="xqrightCon">
+						<a href="#" class="xqrightCimg"><img src="images/conter_19.jpg" alt=""></a>
+						<p><a href="">2019老板必修课《总裁五项修炼》- 商业时代创业....</a></p>
+						<span>进行中<rem>￥99起</rem></span>
+					</div>
+					<div class="xqrightCon">
+						<a href="#" class="xqrightCimg"><img src="images/conter_19.jpg" alt=""></a>
+						<p><a href="">2019老板必修课《总裁五项修炼》- 商业时代创业....</a></p>
+						<span>进行中<rem>￥99起</rem></span>
+					</div>
+					<div class="xqrightCon">
+						<a href="#" class="xqrightCimg"><img src="images/conter_19.jpg" alt=""></a>
+						<p><a href="">2019老板必修课《总裁五项修炼》- 商业时代创业....</a></p>
+						<span>进行中<rem>￥99起</rem></span>
+					</div>
+				</div>
+				<div class="xqrightBtn">
+					<a href="#"><img src="images/zyz_03.jpg" alt=""></a>
+					<a href="#"><img src="images/zyz_06.jpg" alt=""></a>
+					<a href="#"><img src="images/zyz_09.jpg" alt=""></a>
+					<a href="#"><img src="images/zyz_12.jpg" alt=""></a>
+					<a href="#"><img src="images/zyz_15.jpg" alt=""></a>
+				</div>
+				<div class="xqfooter">
+					已报名<span th:text=" '(' + ${activity.numberOfApplicants} + ')'"></span>
+				</div>
+				<div class="xqname">
+					<figure th:each=" vounlteer : ${volunteerList}">
+						<img th:src="${vounlteer.img}" alt="">
+						<figcaption>
+							<span th:text="${vounlteer.name}"></span>
+							<p th:text="${vounlteer.time}"></p>
+						</figcaption>
+					</figure>
+					<a href="#">展开更多报名 <img src="images/conter_40.jpg" alt=""></a>
+				</div>
+		</div>
+		<!-- 底部 -->
+		<div th:replace="pc/include :: footer"></div>
+	</body>
+</html>
+<script>
+	$(".comli a").click(function(){
+		$(this).addClass("comimg").siblings().removeClass("comimg")
+	})
+	var r=$(".shu");
+	$(".jia").click(function(){
+		r.val(parseInt(r.val())+1)
+		if(r.val()>2){
+		r.val(parseInt(r.val())-1);
+		}
+	})
+	$(".jian").click(function(){
+		r.val(parseInt(r.val())-1)
+		if(r.val()<=0){
+        r.val(parseInt(r.val())+1);
+       }
+	})
+	$(".shu").keyup(function(){
+    var c=$(this);
+    if(/[^\d]/.test(c.val())){
+        var amount=c.val().replace(/[^\d]/g,'');
+        $(this).val(amount);
+    }
+
+});
+</script>

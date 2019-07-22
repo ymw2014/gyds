@@ -65,8 +65,40 @@ public class ActivityDO implements Serializable {
 	//拒绝理由
 	private String reasonForRefusal;
 	
-	private String createTimeStr;
+	private String createTimeStr; 
 	
+	private String endTimeStr;
+	
+	private String startTimeStr;
+	
+	public String getEndTimeStr() {
+		return endTimeStr;
+	}
+	public void setEndTimeStr(String endTimeStr) {
+		this.endTimeStr = endTimeStr;
+	}
+	public String getStartTimeStr() {
+		return startTimeStr;
+	}
+	public void setStartTimeStr(String startTimeStr) {
+		this.startTimeStr = startTimeStr;
+	}
+	private int teamId;
+	
+	private String actAddr;
+	
+	public String getActAddr() {
+		return actAddr;
+	}
+	public void setActAddr(String actAddr) {
+		this.actAddr = actAddr;
+	}
+	public int getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(int teamId) {
+		this.teamId = teamId;
+	}
 	public String getCreateTimeStr() {
 		return createTimeStr;
 	}
