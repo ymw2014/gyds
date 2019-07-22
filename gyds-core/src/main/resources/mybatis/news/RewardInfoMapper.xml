@@ -29,6 +29,31 @@
 		</if>
 	</select>
 	
+	<select id="list1" resultType="com.fly.news.domain.RewardInfoDO">
+		select create_time,reward_price,news_id, member_id,id from new_reward_info
+        <where>  
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="rewardPrice != null and rewardPrice != ''"> and reward_price = #{rewardPrice} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		</where>
+		  		<if test="group != null and group != ''">
+				group by ${group}
+			    </if>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
  	<select id="count" resultType="int">
 		select count(*) from new_reward_info
 		 <where>  
@@ -58,7 +83,6 @@
 	<update id="update" parameterType="com.fly.news.domain.RewardInfoDO">
 		update new_reward_info 
 		<set>
-			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="rewardPrice != null">`reward_price` = #{rewardPrice}, </if>
 			<if test="newsId != null">`news_id` = #{newsId}, </if>
 			<if test="memberId != null">`member_id` = #{memberId}, </if>

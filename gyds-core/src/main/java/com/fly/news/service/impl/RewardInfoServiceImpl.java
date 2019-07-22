@@ -51,5 +51,6 @@ public class RewardInfoServiceImpl implements RewardInfoService {
 	public int batchRemove(Integer[] ids){
 		return rewardInfoDao.batchRemove(ids);
 	}
+
 	
 }

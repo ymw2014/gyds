@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
 import com.fly.domain.RegionDO;
@@ -108,7 +109,7 @@ public class PcVolunteerController {
 	}
 	
 	/**
-	   *    转发，收藏，点赞 信息
+	 * 转发，收藏，点赞 信息
 	 * @param type 
 	 * @param id 会员id
 	 * @return
@@ -145,5 +146,37 @@ public class PcVolunteerController {
 		}
 		
 		return dynamicList;
+	}
+	
+	
+	/**
+	 * 进入页面后，执行的地区查询，
+	 * 性别，参与活动次数，点击量评论，转发查询
+	 */
+	@ResponseBody
+	@RequestMapping("volunteerList/query")
+	public String query(@RequestParam Map<String,Object> params, HttpServletRequest request, 
+			Model model,String sort, String order, HttpServletResponse response) {
+		params.clear();
+		String areaId = request.getParameter("regionCode");
+		String sex = request.getParameter("sex");
+		params.clear();
+		
+		if (StringUtils.isEmpty(areaId)) {
+			areaId = "0";
+		}
+		
+		params.put("pids", areaId);
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		
+		params.put("auditStatus",1);//
+		params.put("sex",sex);
+		params.put("sort", sort);
+		params.put("order", order);
+		params.put("ids", ids);
+		List<VolunteerDO> voluntList = volunteerService.list(params);
+		JSONObject dataInfo = new JSONObject();
+		dataInfo.put("voluntList", voluntList);
+		return dataInfo.toString();
 	}
 }

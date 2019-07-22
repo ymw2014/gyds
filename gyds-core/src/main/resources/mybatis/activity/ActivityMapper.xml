@@ -4,15 +4,17 @@
 <mapper namespace="com.fly.activity.dao.ActivityDao">
 
 	<select id="get" resultType="com.fly.activity.domain.ActivityDO">
-		select a.id,a.act_intro,a.act_title,a.act_content,a.member_id,
+		select a.id,a.act_intro,act_addr,a.act_title,a.act_content,a.member_id,
 		a.status,a.examine_status,u.name,a.act_price,a.act_title_img,
 		a.act_type_id,t.type_name,a.start_time,a.end_time,
 		DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
+		DATE_FORMAT(a.start_time,'%Y-%m-%d %H:%i:%s') startTimeStr,
+		DATE_FORMAT(a.end_time,'%Y-%m-%d %H:%i:%s') endTimeStr,
 		a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id where a.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.activity.domain.ActivityDO">
-        select a.id,a.act_intro,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
+        select a.id,a.act_intro,act_addr,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
 		  		  <if test="actIntro != null and actIntro != ''"> and a.act_intro = #{actIntro} </if>
@@ -27,16 +29,17 @@
 		  		  <if test="endTime != null and endTime != ''"> and a.end_time = #{endTime} </if>
 		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
 		  		  <if test="ticketCount != null and ticketCount != ''"> and a.ticket_count = #{ticketCount} </if>
-		  		  <if test="actType != null"> and a.act_type = #{actType} </if>
+		  		  <if test="actType != null and actType != ''"> and a.act_type = #{actType} </if>
 		  		  <if test="restrictions != null and restrictions != ''"> and a.restrictions = #{restrictions} </if>
 		  		  <if test="numberOfShares != null and numberOfShares != ''"> and a.number_of_shares = #{numberOfShares} </if>
 		  		  <if test="numberOfCollection != null and numberOfcollection != ''"> and a.number_of_collection = #{numberOfCollection} </if>
 		  		  <if test="numberOfPreviews != null and numberOfpreviews != ''"> and a.number_of_previews = #{numberOfPreviews} </if>
 		  		  <if test="numberOfApplicants != null and numberOfApplicants != ''"> and a.number_of_applicants = #{numberOfApplicants} </if>
 		  		  <if test="applicantsNumMax != null and applicantsNumMax != ''"> and a.applicants_num_max = #{applicantsNumMax} </if>
+		  		  <if test="teamId != null and teamId != ''"> and a.team_id = #{teamId} </if>
 		  		  <if test="ids != null and ids.size() > 0">
 		  		  	and
-		  		  	a.member_id in 
+		  		  	a.team_id in 
 		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
 				            #{item}       
 				    </foreach> 

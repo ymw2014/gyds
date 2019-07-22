@@ -72,12 +72,12 @@
 	<div class="secant">
 		<div class="secant_txt">
 			<h3><i></i>报名活动</h3>
-			<a href="#">更多+</a>
+			<a href="/pc/activityList">更多+</a>
 		</div>
 		<div class="secant_cent">
 			<div th:each="act: ${actList}">
 				<figure>
-					<a href="#"><img th:src="${act.actTitleImg}" alt=""></a>
+					<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<figcaption>
 						<h4><a href="#" th:text="${act.actTitle}"></a></h4>
 						<p th:text="${act.actIntro}"></p>
