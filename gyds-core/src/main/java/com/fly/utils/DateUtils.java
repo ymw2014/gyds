@@ -12,15 +12,17 @@ import java.util.Date;
  * 日期处理
  */
 public class DateUtils {
-    private final static Logger logger = LoggerFactory.getLogger(DateUtils.class);
-    /**
-     * 时间格式(yyyy-MM-dd)
-     */
-    public final static String DATE_PATTERN = "yyyy-MM-dd";
-    /**
-     * 时间格式(yyyy-MM-dd HH:mm:ss)
-     */
-    public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+	private final static Logger logger = LoggerFactory.getLogger(DateUtils.class);
+	private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	/**
+	 * 时间格式(yyyy-MM-dd)
+	 */
+	public final static String DATE_PATTERN = "yyyy-MM-dd";
+	/**
+	 * 时间格式(yyyy-MM-dd HH:mm:ss)
+	 */
+	public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
 
     public static String format(Date date) {
         return format(date, DATE_PATTERN);
@@ -116,4 +118,5 @@ public class DateUtils {
     	                 }
     	                 return cnt;
     	     }
+
 }

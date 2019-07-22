@@ -15,11 +15,13 @@ import java.util.Date;
  */
 public class AdvPriceDO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	//
 	private Integer id;
 	//区域编号
 	private Integer regionCode;
+	//区域编号
+	private String regionName;
 	//展现位置
 	private Integer positionNum;
 	//序号
@@ -101,4 +103,11 @@ public class AdvPriceDO implements Serializable {
 	public Date getCreateTime() {
 		return createTime;
 	}
+	public String getRegionName() {
+		return regionName;
+	}
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+	
 }

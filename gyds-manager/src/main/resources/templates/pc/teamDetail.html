@@ -10,53 +10,7 @@
 	</head>
 <body>
 	<!-- 头部 -->
-	<header>
-		<div class="header-top">
-			<div class="header-left">
-				<img src="images/logo.png" alt="">
-			</div>
-			<div class="header-center">
-				<input type="text" list="sexlist" placeholder="--全国--">
-				<datalist id="sexlist">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-				</datalist>
-			</div>
-			<div class="header-img">
-				<img src="images/gongyi.png" alt="">
-			</div>
-			<div class="header-login" style="display: none;">
-				<a href="#">登录</a>
-				<a href="#">注册</a>
-			</div>
-			<div class="loginOk">
-				<div class="loginOkImg">
-					<img src="" alt="">
-				</div>
-				<div class="loginname">
-					<p>小暖8886</p>
-					<span>普通用户</span>
-				</div>
-				
-			</div>
-		</div>
-	</header>
-	<!-- 导航 -->
-	<nav>
-		<div>
-			<ul>
-				<li><a href="#">网站首页</a></li>
-				<li><a href="#">咨询动态</a></li>
-				<li><a href="#">活动报名</a></li>
-				<li><a href="#">志愿者</a></li>
-				<li><a href="#">团队展示</a></li>
-				<li><a href="#">关于我们</a></li>
-				<li><a href="#">联系我们</a></li>
-			</ul>
-		</div>
-	</nav>
+	<div th:replace="pc/include :: header"></div>
      <!-- 广告 -->
 	 <div class="guangao">
 		 <img src="images/tp2.jpg" alt=""> 
@@ -66,19 +20,14 @@
 		<div class="main_img">
 			<div id="container">
 				<div class="lun">
-					<img src="images/lunbo1_03.jpg" alt="">
-					<img src="" alt="">
-					<img src="" alt="">
-					<img src="images/lunbo1_03.jpg" alt="">
+					<img th:each="newInfo: ${newList}" th:src="${newInfo.titleImg}" alt="">
 				</div>
 				  <button class="left"><</button>
 				  <button class="right"></button>
 				  <div class="bo">
-					  <p>2018顶新公益基金会奖学金申请正式启动</p>
+					  <!-- <p >2018顶新公益基金会奖学金申请正式启动</p> -->
 					 <ul class="list">
-						  <li class="select"></li>
-						  <li></li>
-						  <li></li>
+						   <li th:each="new: ${newList}" class="select"></li>
 					 </ul> 
 				  </div>
 		     </div>
@@ -196,65 +145,7 @@
 			 <img src="images/tp2.jpg" alt=""> 
 	</div>
 	<!-- 底部 -->
-	<footer>
-		<div class="bot">
-			<ul>
-				<h4>新手指南</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-				<li><a href="#">新手指南3</a></li>
-				<li><a href="#">新手指南4</a></li>
-			</ul>
-			<ul>
-				<h4>民生相关</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-				<li><a href="#">新手指南3</a></li>
-				<li><a href="#">新手指南4</a></li>
-			</ul>
-			<ul>
-				<h4>民生聚焦</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-				<li><a href="#">新手指南3</a></li>
-				<li><a href="#">新手指南4</a></li>
-			</ul>
-			<ul>
-				<h4>民生关注</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-
-			</ul>
-			<ul>
-				<h4>民生咨询</h4>
-				<li><a href="#">新手指南1</a></li>
-				<li><a href="#">新手指南2</a></li>
-				<li><a href="#">新手指南3</a></li>
-				<li><a href="#">新手指南4</a></li>
-			</ul>
-			<figure>
-				<img src="images/26.jpg" alt="">
-				<figcaption>微信公众号</figcaption>
-			</figure>
-		</div>
-		<div class="foter">
-			<h4><img src="images/xian_03.jpg" alt="">&nbsp;&nbsp;友情链接&nbsp;&nbsp;<img src="images/xian_03.jpg" alt=""></h4>
-			<ul>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-				<li><a href="">网易公益</a></li>
-			</ul>
-		</div>
-	</footer>
+	<div th:replace="pc/include :: footer"></div>
 	<!-- 备案 -->
 	<div class="beian">
 		<div class="beian1">

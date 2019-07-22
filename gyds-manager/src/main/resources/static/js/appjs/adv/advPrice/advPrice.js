@@ -52,12 +52,33 @@ function load() {
 									title : '' 
 								},
 																{
-									field : 'regionCode', 
-									title : '区域编号' 
+									field : 'regionName', 
+									title : '范围' 
 								},
 																{
 									field : 'positionNum', 
-									title : '展现位置' 
+									title : '展现位置' ,
+									formatter: function (item, index) {
+										console.log(item);
+				                            if (item === 1||item === 2) {
+				                                return '<span class="label label-primary">首页</span>&nbsp;<span class="label label-success">资讯列表页</span>';
+				                            }
+				                            if (item === 3) {
+				                                return '<span class="label label-info">资讯详情页</span>';
+				                            }
+				                            if (item === 4) {
+				                                return '<span class="label label-danger">活动报名页</span>';
+				                            }
+				                            if (item === 5) {
+				                                return '<span class="label label-inverse">团队详情页</span>';
+				                            }
+				                            if (item === 6) {
+				                                return '<span class="label label-primary">志愿者详情页</span>';
+				                            }
+				                            if (item === 7) {
+				                                return '<span class="label label-warning">签到页</span>';
+				                            }
+				                        }
 								},
 																{
 									field : 'sort', 
