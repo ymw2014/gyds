@@ -89,6 +89,7 @@ public class LoginController extends BaseController {
 	@ResponseBody
 	R ajaxLogin(String username, String password, String verify, HttpServletRequest request) {
 		//String inputVerify=verify;
+		R r=new R();
 		password = MD5Utils.encrypt(username, password);
 		String katha= ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);//(String)request.getSession().getAttribute("vifityCode");
         if(!katha.equals(verify)){
@@ -101,7 +102,13 @@ public class LoginController extends BaseController {
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			//3、执行登录方法
 			subject.login(token);
-			return R.ok();//登录成功
+			UserDO user = (UserDO)subject.getPrincipal();
+			if(user.getIsManage()==1) {
+				r.put("url", "/index");
+			}else {
+				r.put("url", "/");
+			}
+			return r;//登录成功
 		}catch (UnknownAccountException e){//用户名不存在
 			return R.error(e.getMessage());
 		} catch (IncorrectCredentialsException e) {//密码错误

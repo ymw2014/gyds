@@ -1,6 +1,6 @@
 package com.fly.index.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,24 +12,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
 import com.fly.adv.domain.AdvertisementDO;
-import com.fly.adv.service.AdvertisementService;
 import com.fly.domain.RegionDO;
-import com.fly.helpCenter.domain.CenterDO;
+import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
-import com.fly.helpCenter.service.CenterService;
-import com.fly.helpCenter.service.TypeTitleService;
 import com.fly.index.service.IndexService;
 import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.index.utils.ShowPosition;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
+import com.fly.sys.domain.SetupDO;
+import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.JSONUtils;
+import com.fly.utils.R;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -47,6 +50,9 @@ public class IndexController {
 	private VolunteerService volunteerService;
 	@Autowired
 	private IndexService indexService;
+	
+	@Autowired
+	private SetupService setupService;
 
 	
 	/**
@@ -110,12 +116,24 @@ public class IndexController {
 		model.addAttribute("adv5", dataList.get(4));
 		String isMoblie = "/pc/index";
 		if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {//判断是否为手机
-			isMoblie= "/moblie/index";
+			isMoblie= "/mobile/index";
 		}
 		return isMoblie;
 	}
-
 	
-
-	
+	@RequestMapping("/pc/setup")
+	@ResponseBody
+	public R getSetup() {
+		SetupDO setup = setupService.list(new HashMap<>(16)).get(0);
+		Map<String, Object> map = JSONUtils.jsonToMap(JSONUtils.beanToJson(setup));
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			map.put("name", user.getName());
+			map.put("head_img", user.getHeadImg());
+		}
+		R r=new R();
+		r.put("code", 0);
+		r.put("sucess", map);
+		return r;
+	}
 }

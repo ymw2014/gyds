@@ -5,12 +5,12 @@
 		<title></title>
 		<meta name="viewport" content="width=750">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<script type="text/javascript" src="../moblie/js/jquery-1.10.1.min.js"></script>
-		<script type="text/javascript" src="../moblie/js/mobile-util.js"></script>
-		<script type="text/javascript" src="../moblie/js/idangerous.swiper.scrollbar-2.1.js"></script>
-		<link rel="stylesheet" href="../moblie/css/index.css">
-		<link rel="stylesheet" href="../moblie/css/lunbo.css">
-		<link rel="stylesheet" href="../moblie/dist/idangerous.swiper.css">
+		<script type="text/javascript" src="../mobile/js/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src="../mobile/js/mobile-util.js"></script>
+		<script type="text/javascript" src="../mobile/js/idangerous.swiper.scrollbar-2.1.js"></script>
+		<link rel="stylesheet" href="../mobile/css/index.css">
+		<link rel="stylesheet" href="../mobile/css/lunbo.css">
+		<link rel="stylesheet" href="../mobile/dist/idangerous.swiper.css">
 	</head>
 	<body> 
 		<header>
@@ -35,7 +35,8 @@
 			<a href="#">团队展示</a>
 		</div>
 		<div class="guanggao">
-			<img src="images/tp2.jpg" alt="">
+			<a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a>
+			<!-- <img src="images/tp2.jpg" alt=""> -->
 		</div>
 		<!-- 轮播 -->
 		<div class="device">
@@ -52,7 +53,7 @@
 		<div class="tongji">
 			<div class="tongji1">
 				<div class="tongjitxt">
-					<i></i>咨询动态 <span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
+					<i></i>咨询动态 <span><a href="#"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 				</div>
 				<ul>
 					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a href="#" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
@@ -61,7 +62,8 @@
 			</div>
 		</div>
 		<div class="guanggao">
-			<img src="images/tp2.jpg" alt="">
+			<a href=""><img  th:src="${adv2.advImg==''}?'/pc/images/tp2.jpg':${adv2.advImg}" alt=""> </a>
+			<!-- <img src="images/tp2.jpg" alt=""> -->
 		</div>
 		<!-- 志愿服务数据统计 -->
 		<div class="tongji">
@@ -92,7 +94,7 @@
 		<!-- 活动报名 -->
 		<div class="baoming">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>活动报名<span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
+				<i></i>活动报名<span><a href="#"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
@@ -106,9 +108,13 @@
 				</div>
 			</div>
 		</div>
+		<div class="guanggao">
+			<a href=""><img  th:src="${adv3.advImg==''}?'/pc/images/tp2.jpg':${adv3.advImg}" alt=""> </a>
+			<!-- <img src="images/tp2.jpg" alt=""> -->
+		</div>
 		<div class="zhiyuan">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>志愿者<span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
+				<i></i>志愿者<span><a href="#"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
@@ -118,11 +124,12 @@
 			</div>
 		</div>
 		<div class="guanggao">
-			<img src="images/tp2.jpg" alt="">
+			<a href=""><img  th:src="${adv4.advImg==''}?'/pc/images/tp2.jpg':${adv4.advImg}" alt=""> </a>
+			<!-- <img src="images/tp2.jpg" alt=""> -->
 		</div>
 		<div class="tuandui index_td">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>志愿者<span><a href="#"><img src="../moblie/images/xuanze.jpg" alt=""></a></span>
+				<i></i>志愿者<span><a href="#"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="tuanduiCen" >
 				<figure th:each="team: ${teamList}">
@@ -132,7 +139,8 @@
 			</div>
 		</div>
 		<div class="guanggao">
-			<img src="images/tp2.jpg" alt="">
+			<a href=""><img  th:src="${adv5.advImg==''}?'/pc/images/tp2.jpg':${adv5.advImg}" alt=""> </a>
+			<!-- <img src="images/tp2.jpg" alt=""> -->
 		</div>
 		<div class="footer">
 			<ul th:each="cente: ${centerList}">
@@ -149,7 +157,7 @@
 		</div>
 	</body>
 </html>
-<script src="../moblie/dist/idangerous.swiper.min.js"></script>
+<script src="../mobile/dist/idangerous.swiper.min.js"></script>
 <script>
 	  var mySwiper = new Swiper('.swiper-container',{
 		pagination: '.pagination',

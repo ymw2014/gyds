@@ -3,7 +3,7 @@
 	<header>
 		<div class="header-top">
 			<div class="header-left">
-				<img src="../pc/images/logo.png" alt="">
+				<img id="logo" src="../pc/images/logo.png" alt="">
 			</div>
 			<div class="header-center">
 				<!-- <input type="text" list="sexlist" placeholder="--全国--">
@@ -23,10 +23,10 @@
 			</div>
 			<div class="loginOk">
 				<div class="loginOkImg">
-					<img src="" alt="">
+					<img id="headImg" src="" alt="">
 				</div>
 				<div class="loginname">
-					<p>小暖8886</p>
+					<p id="userName"></p>
 					<span>普通用户</span>
 				</div>
 				
@@ -57,7 +57,7 @@
 				<li th:each="center: ${cente.center}"><a th:href="${center.url}"  th:text="${center.content}"></a></li>
 			</ul>
 			<figure>
-				<img src="images/26.jpg" alt="">
+				<img id="official_account_img" src="" alt="">
 				<figcaption>微信公众号</figcaption>
 			</figure>
 		</div>
@@ -82,11 +82,12 @@
 	<!-- 备案 -->
 	<div class="beian">
 		<div class="beian1">
-			<span style="float: left;">©公益打赏平台 版权所有</span>
-			<span style="float: right;">京ICP备12048184号  技术支持：景安网络</span>
+			<span style="float: left;" id="copyright_into"></span>
+			<span style="float: right;" id="preparation_no"></span>
 		</div>
 	</div>
 </div>
+
 
 
 

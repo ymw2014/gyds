@@ -145,7 +145,7 @@
                     var index = layer.load(1, {
                         shade: [0.1,'#fff'] //0.1透明度的白色背景
                     });
-                    parent.location.href = '/index';
+                    parent.location.href = r.url;
                 } else if(r.status==500){
                      layer.msg(r.message);
                      self.find(".check-tips").text(r.message);

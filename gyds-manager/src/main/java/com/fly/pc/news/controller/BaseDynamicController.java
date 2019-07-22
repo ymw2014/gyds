@@ -140,7 +140,7 @@ public class BaseDynamicController {
 		user = ShiroUtils.getUser();
 		if(user!=null) {
 			Long userId =  user.getUserId();
-			params.put("memberId", user);
+			params.put("memberId", userId);
 			params.put("type", 1);
 			params.put("newsId", id);
 			List<DynamicDO> dyn = dynamicService.list(params);
