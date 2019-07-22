@@ -3,7 +3,9 @@ package com.fly.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -23,7 +25,10 @@ public class DateUtils {
     public static String format(Date date) {
         return format(date, DATE_PATTERN);
     }
-
+    public static Date parse(String date) {
+        return parse(date, DATE_PATTERN);
+    }
+    
     public static String format(Date date, String pattern) {
         if (date != null) {
             SimpleDateFormat df = new SimpleDateFormat(pattern);
@@ -31,7 +36,17 @@ public class DateUtils {
         }
         return null;
     }
-
+    public static Date parse(String date, String pattern) {
+        if (date != null&&date!="") {
+            SimpleDateFormat df = new SimpleDateFormat(pattern);
+            try {
+				return df.parse(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+        }
+        return null;
+    }
     /**
      * 计算距离现在多久，非精确
      *
@@ -88,4 +103,17 @@ public class DateUtils {
         r += "前";
         return r;
     }
+    /*
+     * 计算开始结束相差时间
+     */
+    public static int  longOfTwoDate(Date first,Date second) throws ParseException{
+    	                 Calendar calendar = Calendar.getInstance();
+    	                 calendar.setTime(first);
+    	                 int cnt = 0;
+    	                 while(calendar.getTime().compareTo(second)!=0){
+    	                     calendar.add(Calendar.DATE, 1);
+    	                    cnt++;
+    	                 }
+    	                 return cnt;
+    	     }
 }

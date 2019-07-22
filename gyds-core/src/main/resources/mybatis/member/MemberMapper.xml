@@ -41,6 +41,13 @@
 				            #{item}       
 				    </foreach> 
 		  		  </if>
+		  		  <if test="userId != null and userId.size > 0">
+		  		  	and
+		  		  	m.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

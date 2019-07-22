@@ -112,26 +112,41 @@ public class BaseDynamicController {
 		Integer parCode = region.getParentRegionCode();
 		return parCode;
 	}
-	
+	//创建订单
 	public Integer creadOrder(Map<String,Object> params) {
-		Integer i =0;
+		Integer i =-1;
 		OrderDO order = new OrderDO();
 		UserDO user = null; 
 		user = ShiroUtils.getUser();
 		if(user!=null) {
 			order.setUserId(Integer.valueOf(user.getUserId().toString())); 
 		 }
-		order.setOrderType(Integer.valueOf(params.get("orderType").toString()));
-		order.setOrderNumber(new Date().getTime()+"");
-		order.setExpIncType(Integer.valueOf(params.get("expIncType").toString()));
-		order.setPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())));
+		if(params.get("orderType")!=null) {
+			order.setOrderType(Integer.valueOf(params.get("orderType").toString()));
+		}if(params.get("expIncType")!=null) {
+			order.setExpIncType(Integer.valueOf(params.get("expIncType").toString()));
+		}
+		if(params.get("price")!=null) {
+			order.setPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())));
+		}
+		if(params.get("examineStatus")!=null) {
+			order.setExamineStatus(Integer.valueOf(params.get("examineStatus").toString()));
+		}
+		if(params.get("cashUpType")!=null) {
+			order.setCashUpType(Integer.valueOf(params.get("cashUpType").toString()));
+		}
+		if(params.get("cashOutType")!=null) {
+			order.setCashOutType(Integer.valueOf(params.get("cashOutType").toString()));
+		}
 		order.setIsDel(0);
+		order.setOrderNumber(new Date().getTime()+"");
 		//产生订单
 		if(orderService.save(order)>0){
-			return i=1;
+			i=order.getId();
 		}
 		return i;
 	}
+	//是否点赞
 	//入参:params id (资讯id)
 	public Integer is_likes(Integer id) {
 		Map<String, Object> params  = new HashMap<String, Object>();
@@ -140,7 +155,7 @@ public class BaseDynamicController {
 		user = ShiroUtils.getUser();
 		if(user!=null) {
 			Long userId =  user.getUserId();
-			params.put("memberId", user);
+			params.put("memberId", userId);
 			params.put("type", 1);
 			params.put("newsId", id);
 			List<DynamicDO> dyn = dynamicService.list(params);
@@ -155,14 +170,11 @@ public class BaseDynamicController {
 		//如果返回0表示未登录或无此用户
 		return i;
 	}
+	//是否置顶
 	//入参:params id (资讯id)
 		public Integer is_top(Integer id) {
 			Map<String, Object> params  = new HashMap<String, Object>();
-			Integer i = 0 ;
-			UserDO user = null; 
-			user = ShiroUtils.getUser();
-			if(user!=null) {
-				Long userId =  user.getUserId();
+				Integer i = 0 ;
 				params.put("isTop", 1);
 				params.put("id", id);
 				List<InfoDO> info = infoDao.list(params);
@@ -173,7 +185,6 @@ public class BaseDynamicController {
 					//2:未置顶
 					i=2;
 				}
-			 }
 			//如果返回0表示未登录或无此用户
 			return i;
 		}

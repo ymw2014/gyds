@@ -19,6 +19,7 @@ public interface RewardInfoDao {
 	RewardInfoDO get(Integer id);
 	
 	List<RewardInfoDO> list(Map<String,Object> map);
+	List<RewardInfoDO> list1(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 	
