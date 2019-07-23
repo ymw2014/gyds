@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.guestlog.dao.GuestlogDao">
+
+	<select id="get" resultType="com.fly.guestlog.domain.GuestlogDO">
+		select `id`,`guest_id`,`guest_headImg`,`guest_name`,`user_id`,`user_headImg`,`user_name`,`guest_type`,`guest_time` from guestlog where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.guestlog.domain.GuestlogDO">
+		select `id`,`guest_id`,`guest_headImg`,`guest_name`,`user_id`,`user_headImg`,`user_name`,`guest_type`,
+		`guest_time` ,
+		DATE_FORMAT(guest_time,'%Y-%m-%d %H:%i:%s') guestTimeStr,
+		from guestlog
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="guestId != null and guestId != ''"> and guest_id = #{guestId} </if>
+		  		  <if test="guestHeadimg != null and guestHeadimg != ''"> and guest_headImg = #{guestHeadimg} </if>
+		  		  <if test="guestName != null and guestName != ''"> and guest_name = #{guestName} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="userHeadimg != null and userHeadimg != ''"> and user_headImg = #{userHeadimg} </if>
+		  		  <if test="userName != null and userName != ''"> and user_name = #{userName} </if>
+		  		  <if test="guestType != null and guestType != ''"> and guest_type = #{guestType} </if>
+		  		  <if test="guestTime != null and guestTime != ''"> and guest_time = #{guestTime} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from guestlog
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="guestId != null and guestId != ''"> and guest_id = #{guestId} </if>
+		  		  <if test="guestHeadimg != null and guestHeadimg != ''"> and guest_headImg = #{guestHeadimg} </if>
+		  		  <if test="guestName != null and guestName != ''"> and guest_name = #{guestName} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="userHeadimg != null and userHeadimg != ''"> and user_headImg = #{userHeadimg} </if>
+		  		  <if test="userName != null and userName != ''"> and user_name = #{userName} </if>
+		  		  <if test="guestType != null and guestType != ''"> and guest_type = #{guestType} </if>
+		  		  <if test="guestTime != null and guestTime != ''"> and guest_time = #{guestTime} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.guestlog.domain.GuestlogDO" useGeneratedKeys="true" keyProperty="id">
+		insert into guestlog
+		(
+			`guest_id`, 
+			`guest_headImg`, 
+			`guest_name`, 
+			`user_id`, 
+			`user_headImg`, 
+			`user_name`, 
+			`guest_type`, 
+			`guest_time`
+		)
+		values
+		(
+			#{guestId}, 
+			#{guestHeadimg}, 
+			#{guestName}, 
+			#{userId}, 
+			#{userHeadimg}, 
+			#{userName}, 
+			#{guestType}, 
+			#{guestTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.guestlog.domain.GuestlogDO">
+		update guestlog 
+		<set>
+			<if test="guestId != null">`guest_id` = #{guestId}, </if>
+			<if test="guestHeadimg != null">`guest_headImg` = #{guestHeadimg}, </if>
+			<if test="guestName != null">`guest_name` = #{guestName}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="userHeadimg != null">`user_headImg` = #{userHeadimg}, </if>
+			<if test="userName != null">`user_name` = #{userName}, </if>
+			<if test="guestType != null">`guest_type` = #{guestType}, </if>
+			<if test="guestTime != null">`guest_time` = #{guestTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from guestlog where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from guestlog where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

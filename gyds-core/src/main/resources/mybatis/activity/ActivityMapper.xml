@@ -20,8 +20,8 @@
 		  		  <if test="actIntro != null and actIntro != ''"> and a.act_intro = #{actIntro} </if>
 		  		  <if test="actTitle != null and actTitle != ''"> and a.act_title = #{actTitle} </if>
 		  		  <if test="actContent != null and actContent != ''"> and a.act_content = #{actContent} </if>
-		  		  <if test="status != null">and a.status = #{status}</if>
-		  		  <if test="examineStatus != null">and a.examine_status = #{examineStatus}</if>
+		  		  <if test="status != null and status != ''">and a.status = #{status}</if>
+		  		  <if test="examineStatus != null  and examineStatus != ''">and a.examine_status = #{examineStatus}</if>
 		  		  <if test="actPrice != null and actPrice != ''"> and a.act_price = #{actPrice} </if>
 		  		  <if test="actTitleImg != null and actTitleImg != ''"> and a.act_title_img = #{actTitleImg} </if>
 		  		  <if test="actTypeId != null and actTypeId != ''"> and a.act_type_id = #{actTypeId} </if>
