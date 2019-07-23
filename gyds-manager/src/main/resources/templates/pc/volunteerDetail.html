@@ -178,25 +178,25 @@
 				<a href="#"><img src="images/zyz_12.jpg" alt=""></a>
 				<a href="#"><img src="images/zyz_15.jpg" alt=""></a>
 				<div class="volDetaimg">
-					<div class="volxk1">TA浏览的 <span>更多></span> </div>
+					<div class="volxk1">TA浏览的 <span></span> </div>
 					<div style="overflow: hidden;">
-						<figure>
-							<a href=""><img src="images/geren.jpg" alt=""></a>
+						<figure th:each="zyz : ${zyzList}">
+							<a href=""><img th:src="${zyz.userHeadImg}" alt=""></a>
 							<figcaption>
-								<span>小暖暖</span>
-								<p>刚刚</p>
+								<span th:text="${zyz.userName}"></span>
+								<p th:text="${zyz.guestTimeStr}"></p>
 							</figcaption>
 						</figure>
 					</div>
 				</div>
 				<div class="volDetaimg">
-					<div class="volxk1">TA的访客 <span>更多></span> </div>
+					<div class="volxk1">TA的访客 <span></span> </div>
 					<div style="overflow: hidden;">
-						<figure>
-							<a href=""><img src="images/geren.jpg" alt=""></a>
+						<figure th:each="gues : ${guestList}">
+							<a href=""><img th:src="${gues.userHeadImg}" alt=""></a>
 							<figcaption>
-								<span>小暖暖</span>
-								<p>刚刚</p>
+								<span th:text="${gues.userName}"></span>
+								<p th:text="${gues.guestTimeStr}"></p>
 							</figcaption>
 						</figure>
 					</div>

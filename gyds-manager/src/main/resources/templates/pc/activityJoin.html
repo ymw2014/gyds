@@ -18,6 +18,8 @@
 			<div class="conBox">
 				<div class="conBox1">
 					<img th:src="${activity.actTitleImg}" alt="">
+					<input type="hidden" th:value="${actId}"  id="actId"/>
+					<input type="hidden" th:value="${applyId}"  id="applyId"/>
 				</div>
 				<div class="conBox2">
 					<div class="conBox2-1">
@@ -42,7 +44,20 @@
 								</li>
 							</ul>
 							<div class="zaixian">
-								<img src="images/zaixian.png" alt=""><span>我要报名</span>
+								<div th:switch="${applyStatus}">
+									<p th:case="'0'">
+										<img src="images/zaixian.png" alt="" ><span onclick="apply('1')">取消报名</span>
+									</p>
+									<p th:case="'1'">
+										<img src="images/zaixian.png" alt="" ><span onclick="">已报名</span>
+									</p>
+									<p th:case="'2'">
+										<img src="images/zaixian.png" alt="" ><span onclick="">已拒绝</span>
+									</p>
+									<p th:case="'4'">
+										<img src="images/zaixian.png" alt="" ><span onclick="apply('2')">我要报名</span>
+									</p>
+								</div>
 							</div>
 							<div class="zaixian1">
 								<img src="images/myshouc.png" alt="">我要收藏
@@ -137,11 +152,34 @@
        }
 	})
 	$(".shu").keyup(function(){
-    var c=$(this);
-    if(/[^\d]/.test(c.val())){
-        var amount=c.val().replace(/[^\d]/g,'');
-        $(this).val(amount);
-    }
-
-});
+	    var c=$(this);
+	    if(/[^\d]/.test(c.val())){
+	        var amount=c.val().replace(/[^\d]/g,'');
+	        $(this).val(amount);
+	    }
+	});
+	
+	function apply(type) {
+		$.ajax({
+            type : "POST",
+            dataType: "json",
+            url : "/pc/activity/apply",
+            data : {
+            	'type': type,
+            	'actId': $("#actId").val(),
+            	'applyId': $("#applyId").val()
+            },
+            success : function(result) {
+            	var status = result.status;
+            	if (status == 1) {
+            		alert("操作成功")
+            		history.go(0)
+            	} else if (status == 2){
+            		alert("您还不是志愿者，不能报名活动")
+            	} else {
+            		alert("操作失败")
+            	}
+            },
+        });
+	}
 </script>
