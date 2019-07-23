@@ -19,6 +19,7 @@ import com.fly.news.service.DynamicService;
 import com.fly.news.service.RewardInfoService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
+import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 
@@ -36,6 +37,9 @@ public class BaseDynamicController {
 	private RegionService regionService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private UserDao userMapper;
+	 
 	//入参 params:newsId(文章id)retype(转发类型)rewardPrice(打赏金额)
 	public Integer dynamic(Map<String,Object> params,Integer type) {
 		Integer i =0;
@@ -67,6 +71,7 @@ public class BaseDynamicController {
 			 	dynamic = new DynamicDO();
 				dynamic.setType(1);
 				dynamic.setNewsId(Long.parseLong(params.get("newsId")+""));
+				dynamic.setActType(1);
 			if(user!=null) {
 			 dynamic.setMemberId(user.getUserId()); 
 		 }
@@ -90,16 +95,6 @@ public class BaseDynamicController {
 				i=1;
 			}
 			break;
-		case 4:
-			
-			break;
-		case 5:
-			
-			break;
-		case 6:
-	
-			break;
-	
 		default:
 			break;
 		}
@@ -186,6 +181,29 @@ public class BaseDynamicController {
 					i=2;
 				}
 			//如果返回0表示未登录或无此用户
+			return i;
+		}
+		public synchronized Integer deductMoney(Map<String,Object> params) {
+			Integer i = 2;
+			UserDO user = null; 
+			user = ShiroUtils.getUser();
+			if(user!=null) {
+				BigDecimal price = BigDecimal.valueOf(Long.parseLong(params.get("price").toString()));
+				BigDecimal account = user.getAccount();
+				if(account!=null&&price!=null) {
+					//结果 :-1 小于,0 等于,1 大于
+					 i =account.compareTo(price);
+					if(-1==i) {
+						return i;
+					}else {
+						BigDecimal account1 = account.subtract(price);
+						user.setAccount(account1);
+						return userMapper.update(user);
+					}
+					
+				}
+			}
+			
 			return i;
 		}
 }

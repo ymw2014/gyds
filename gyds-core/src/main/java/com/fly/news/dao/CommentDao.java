@@ -19,7 +19,7 @@ public interface CommentDao {
 	CommentDO get(Integer id);
 	
 	List<CommentDO> list(Map<String,Object> map);
-	
+	List<CommentDO> list1(Map<String,Object> map);
 	int count(Map<String,Object> map);
 	
 	int save(CommentDO comment);

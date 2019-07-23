@@ -11,7 +11,7 @@
 		select `id`,`region_code`,`price_of_day` from top_price
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="regionCode != null"> and region_code = #{regionCode} </if>
 		  		  <if test="priceOfDay != null and priceOfDay != ''"> and price_of_day = #{priceOfDay} </if>
 		  		</where>
         <choose>
@@ -31,7 +31,7 @@
 		select count(*) from top_price
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="regionCode != null"> and region_code = #{regionCode} </if>
 		  		  <if test="priceOfDay != null and priceOfDay != ''"> and price_of_day = #{priceOfDay} </if>
 		  		</where>
 	</select>

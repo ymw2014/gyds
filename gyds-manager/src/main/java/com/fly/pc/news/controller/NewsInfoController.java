@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.fly.domain.UserDO;
 import com.fly.news.dao.CommentDao;
 import com.fly.news.dao.PriceDao;
@@ -52,7 +54,8 @@ public class NewsInfoController extends BaseDynamicController{
 	private CommentDao commentDao;
 	@Autowired
 	private TopDao topDao;
-
+	
+	
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id,Model model) {
 		InfoDO info = infoService.get(id);
@@ -138,6 +141,17 @@ public class NewsInfoController extends BaseDynamicController{
 		params.put("offset", 0);
 		params.put("limit",15);
 		List<UserDO> user = userMapper.list(params);
+		
+		//评论 默认时间顺序
+		params.clear();
+		params.put("newsId", id);
+		params.put("sort", "create_time desc");
+		List<CommentDO> comm = commentDao.list(params);
+		
+		//评论人数
+		model.addAttribute("commCount",comm.size());
+		//评论默认时间排序
+		model.addAttribute("comm",comm);
 		//打赏人数
 		model.addAttribute("reCountUser",re.size());
 		//打赏用户
@@ -174,17 +188,22 @@ public class NewsInfoController extends BaseDynamicController{
 		return R.error();
 	}
 	//打赏
+	//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 	@RequestMapping(value="/reward",method=RequestMethod.POST)
 	@ResponseBody
 	public R reward(@RequestParam Map<String,Object> params) {
-		//产生订单
-		if(creadOrder(params)>0){
-			//记录+1
-			if(dynamic(params,3)==1){
-				return R.ok();
+		Integer i = null;
+		i = deductMoney(params);
+		if(i==1) {
+			//产生订单
+			if(creadOrder(params)>0){
+				//记录+1
+				if(dynamic(params,3)==1){
+					return R.ok();
+				}
 			}
 		}
-		return R.error();
+		return R.error(i+"");
 	}
 	//置顶
 	@RequestMapping(value="/top/{id}",method=RequestMethod.GET)
@@ -204,8 +223,8 @@ public class NewsInfoController extends BaseDynamicController{
 		return "/pc/top";
 	}
 	//置顶提交
-	@RequestMapping(value="/topInfo",method=RequestMethod.POST)
 	@ResponseBody
+	@PostMapping("/topInfo")
 	public R comTopInfo(@RequestParam Map<String,Object> params) {
 		TopDO top = new TopDO();
 		UserDO user = null; 
@@ -223,6 +242,7 @@ public class NewsInfoController extends BaseDynamicController{
 			top.setTopPrice(cost);
 			top.setTopStartTime(DateUtils.parse(params.get("topStartTime").toString()));
 			top.setTopEndTime(DateUtils.parse(params.get("topEndTime").toString()));
+			top.setRegionCode(Integer.valueOf(params.get("regionCode").toString()));
 			user = ShiroUtils.getUser();
 			if(user!=null) {
 				top.setUserId(Long.parseLong(user.getUserId().toString())); 
@@ -258,7 +278,7 @@ public class NewsInfoController extends BaseDynamicController{
 		return map;
 	}
 
-	//置顶
+	//红包
 	@RequestMapping(value="/red",method=RequestMethod.GET)
 	public String red(Model model) {
 
@@ -266,12 +286,24 @@ public class NewsInfoController extends BaseDynamicController{
 	}
 
 	//评论
-	@RequestMapping(value="/comment",method=RequestMethod.POST)
 	@ResponseBody
-	public R comment(@RequestParam CommentDO comment) {
-
-		if(commentDao.save(comment)>0) {
-			return R.ok();
+	@PostMapping("/comment")
+	public R comment(@RequestParam Map<String,Object> params) {
+		CommentDO comment = new CommentDO();
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user!=null) {
+			comment.setNewsId(Integer.valueOf(params.get("newsId").toString()));
+			comment.setMemberId(Integer.valueOf(user.getUserId().toString()));
+			String criticismContentparams= params.get("criticismContent").toString();
+			if(criticismContentparams!=null && criticismContentparams!="") {
+				comment.setCriticismContent(criticismContentparams.trim());
+				if(commentDao.save(comment)>0) {
+					return R.ok();
+				}
+			}
+		}else {
+			return R.error("0");
 		}
 		return R.error();
 	}

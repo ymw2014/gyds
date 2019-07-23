@@ -2,16 +2,14 @@ package com.fly.pc.volunteer.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +22,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
 import com.fly.domain.RegionDO;
+import com.fly.domain.UserDO;
+import com.fly.guestlog.domain.GuestlogDO;
+import com.fly.guestlog.service.GuestlogService;
 import com.fly.news.domain.CommentDO;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.InfoDO;
@@ -31,6 +32,7 @@ import com.fly.news.service.CommentService;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -51,6 +53,8 @@ public class PcVolunteerController {
 	private InfoService infoService;
 	@Autowired
 	private ActivityService activityService;
+	@Autowired
+	private GuestlogService logService;
 
 	@RequestMapping("volunteerList")
 	public String volunteer(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -89,12 +93,44 @@ public class PcVolunteerController {
 	 */
 	@RequestMapping("volunteerDetail")
 	public String volunteerDetail(@RequestParam Map<String,Object> params, Long id, Model model) {
+		UserDO user = ShiroUtils.getUser();
+		VolunteerDO volunteer = volunteerService.get(user.getUserId());
 		VolunteerDO volunteerDO = volunteerService.get(id);
+		if (volunteer != null) {//当前用户必须是志愿者才记录
+			//添加访客记录
+			GuestlogDO log = new GuestlogDO();
+			log.setGuestId(volunteer.getId().intValue());
+			log.setGuestHeadimg(volunteer.getHeadImg());
+			log.setGuestName(user.getName());
+			log.setUserId(id.intValue());
+			log.setUserHeadimg(volunteerDO.getHeadImg());
+			log.setUserName(volunteerDO.getVolunteerName());
+			log.setGuestTime(new Date());
+			log.setGuestType(1);
+			logService.save(log);
+		}
+		
+		
 		String region = volunteerDO.getProvince() + " " + volunteerDO.getCity();
 		volunteerDO.setProvince(region);
 		params.clear();
 		params.put("memberId",id);
 		List<CommentDO> comment = commentService.list(params);
+		
+		params.clear();
+		if (volunteer != null) {
+			params.put("guestId", volunteer.getId());
+			//params.put("guestType", 1);
+			List<GuestlogDO> guestLogList = logService.list(params);
+			model.addAttribute("zyzList",guestLogList);
+			params.clear();
+			params.put("userId", volunteer.getId());
+			//params.put("guestType", 2);
+			List<GuestlogDO> guestList = logService.list(params);//At访客
+			params.clear();
+			model.addAttribute("guestList",guestList);
+		}
+		
 		
 		model.addAttribute("commentList",comment);//评论信息
 		model.addAttribute("volunteer",volunteerDO);//志愿者信息

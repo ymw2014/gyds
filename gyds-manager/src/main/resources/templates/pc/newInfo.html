@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" type="text/css" th:href ="@{/pc/css/index.css}" />
-		<script th:src="@{/pc/js/jquery-3.1.1.js}" ></script>
-		<link rel="stylesheet" th:href ="@{/pc/css/activity.css}">
-		<link rel="stylesheet" th:href ="@{/pc/css/content.css}" >
-		<link rel="stylesheet" th:href ="@{/pc/css/listcont.css}" >
-		<link rel="stylesheet" th:href ="@{/pc/css/ziyunlist.css}">
-		<link rel="stylesheet" th:href ="@{/pc/css/css1.css}">
-		<link rel="stylesheet" th:href ="@{/pc/css/css2.css}" >
-		<link href="/css/layui.css" rel="stylesheet">
-		</head>
-	<body>
-		<div th:replace="pc/include :: header"></div>
-		<!-- 导航 -->
-		<!-- <div class="navTwo">
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}" />
+<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+<link rel="stylesheet" th:href="@{/pc/css/activity.css}">
+<link rel="stylesheet" th:href="@{/pc/css/content.css}">
+<link rel="stylesheet" th:href="@{/pc/css/listcont.css}">
+<link rel="stylesheet" th:href="@{/pc/css/ziyunlist.css}">
+<link rel="stylesheet" th:href="@{/pc/css/css1.css}">
+<link rel="stylesheet" th:href="@{/pc/css/css2.css}">
+<link href="/css/layui.css" rel="stylesheet">
+</head>
+<body>
+	<div th:replace="pc/include :: header"></div>
+	<!-- 导航 -->
+	<!-- <div class="navTwo">
 			<div class="navTwoCen">
 				<div><a href="#">网站首页</a></div>
 				<div><a href="#">动态咨询</a></div>
@@ -25,188 +25,164 @@
 				<div><a href="#">团队活动</a></div>	
 			</div>
 		</div> -->
-		<!-- 文字内容 -->
-		<div class="listcont">
+	<!-- 文字内容 -->
+	<div class="listcont">
 		<!-- 	左1 -->
-			<div class="listcontL">
-				<div class="listcontLtxt">
-					<!-- <p>您所在的位置：首页>青少年马术教学试骑体验</p> -->
-				</div>
-				<div class="listcontLH">
-					<input type="hidden" id="infoId" th:value="${info.id}">
-					<h4 th:text="${info.title}"></h4>
-					<p >
-						<span th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"></span>&nbsp;
-						<span th:text="'来  源 : '+${info.source}"></span>&nbsp;
-						<span th:text="'作  者 : '+${info.author}"></span>
-					</p>
-				</div>
-				<div style="margin-top:40px;" class="listcontLC">
-					<div th:utext="${info.content}">
-					</div>
-					  <div class="xqfenxing" style="margin: 0 auto; width: 400px;margin-top:40px;">
-					  	<span>分享至</span>
-					  	<a href="javascript:;" th:onclick="share(1)"><img th:src="@{/pc/images/conter_26.jpg}" alt="" ></a>
-					  	<a href="javascript:;" th:onclick="share(2)"><img th:src="@{/pc/images/conter_28.jpg}" alt=""></a>
-					  	<a href="javascript:;" th:onclick="share(3)"><img th:src="@{/pc/images/conter_30.jpg}" alt=""></a>
-					  	<a href="javascript:;" th:onclick="share(4)"><img th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
-					  </div>
-				</div>			
+		<div class="listcontL">
+			<div class="listcontLtxt">
+				<!-- <p>您所在的位置：首页>青少年马术教学试骑体验</p> -->
 			</div>
-			<!-- 右1 -->
-			<div class="listcontR">
-				<div class="xqrightTop" style="width:254px;">
-					<img th:src="@{${team.teamTitleImg}}" alt="">
-					<span th:text="${team.teamName}"></span>
-					<p>求关注</p>
-				</div>
-				<ul>
-					<li th:each="news:${newsList}">·<a th:text="${news.title}" th:href="@{/pc/news/info/{id}(id=${news.id})}"></a></li>
-					
-				</ul>
+			<div class="listcontLH">
+				<input type="hidden" id="infoId" th:value="${info.id}">
+				<h4 th:text="${info.title}"></h4>
+				<p>
+					<span
+						th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"></span>&nbsp;
+					<span th:text="'来  源 : '+${info.source}"></span>&nbsp; <span
+						th:text="'作  者 : '+${info.author}"></span>
+				</p>
 			</div>
-			<div class="listcontRI">
-				<a href="#"><img th:src="@{/pc/images/zyz_03.jpg}" alt=""></a>
-				<a href="#"><img th:src="@{/pc/images/zyz_06.jpg}" alt=""></a>
-				<a href="#"><img th:src="@{/pc/images/zyz_09.jpg}" alt=""></a>
-				<a href="#"><img th:src="@{/pc/images/zyz_12.jpg}" alt=""></a>
-				<a href="#"><img th:src="@{/pc/images/zyz_15.jpg}" alt=""></a>
-				<!-- 右侧排名 -->
-				<div class="listcontpm">
-					<div class="zixunbut">
-						<h3>推荐</h3>
-						<ul>
-							<li th:each="newsTop,iterStat:${newsTop}"><i th:text="${iterStat.count}"></i><a href="#" th:text="${newsTop.title}"></a></li>
-							
-						</ul>
-					</div>
+			<div style="margin-top: 40px;" class="listcontLC">
+				<div th:utext="${info.content}"></div>
+				<div class="xqfenxing"
+					style="margin: 0 auto; width: 400px; margin-top: 40px;">
+					<span>分享至</span> <a href="javascript:;" th:onclick="share(1)"><img
+						th:src="@{/pc/images/conter_26.jpg}" alt=""></a> <a
+						href="javascript:;" th:onclick="share(2)"><img
+						th:src="@{/pc/images/conter_28.jpg}" alt=""></a> <a
+						href="javascript:;" th:onclick="share(3)"><img
+						th:src="@{/pc/images/conter_30.jpg}" alt=""></a> <a
+						href="javascript:;" th:onclick="share(4)"><img
+						th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
 				</div>
 			</div>
-			<!-- 右侧排名 -->
+		</div>
+		<!-- 右1 -->
+		<div class="listcontR">
+			<div class="xqrightTop" style="width: 254px;">
+				<img th:src="@{${team.teamTitleImg}}" alt=""> <span
+					th:text="${team.teamName}"></span>
+				<p>求关注</p>
+			</div>
+			<ul>
+				<li th:each="news:${newsList}">·<a th:text="${news.title}"
+					th:href="@{/pc/news/info/(id=${news.id})}"></a></li>
 
-			
-			<!-- 左2 -->
-			<div class="listcontL1">
-				<div class="listcontL1-1 modal__trigger" data-modal="#modal" th:onclick="reward()">
-					<img th:src="@{/pc/images/dashang.png}" alt="" th:onclick="reward()">打赏
-				</div>
-				<div class="listcontL1-2">
-					<p th:text="${'已有'+reCountUser+'人打赏'}"></p>
-				</div>
-				<div class="listcontL1-3">
-					<img th:each="user:${user}" th:src="${user.headImg}" alt="">
-				</div>
-			</div>
-			
-			<div class="listzz">
-				<div th:if=" ${isLike} eq '0'"><img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞" th:text="${info.numberOfLikes}"></div>
-				<div th:if=" ${isLike} eq '1'"><img th:src="@{/pc/images/listzz_04.jpg}" alt="点赞" th:text="${info.numberOfLikes}"></div>
-				<div th:if=" ${isLike} eq '2'"><img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞" th:text="${info.numberOfLikes}" th:onclick="like()" id="like"></div>
-				<div th:if=" ${isTop} eq '0'"><img th:src="@{/pc/images/listzs_06.jpg}" alt="">未置顶</div>
-				<div th:if=" ${isTop} eq '1'"><img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶</div> 
-				<div th:if=" ${isTop} eq '2'"><img th:src="@{/pc/images/listzs_05.jpg}" alt="" th:onclick="topNew()" id="top">未置顶</div>
-				<div><img class="" th:src="@{/pc/images/listcc_07.jpg}" alt="" th:onclick="">发放中</div>	
-			</div>
-			<!-- 左3 评论 -->
-			<div class="listpl">
-				<div class="listpl-1">
-					<p>网友评论 <span>文明上网理性发言，请遵守新闻评论服务协议</span><rem>2条评论</rem> </p>
-				</div>
-				<div class="listpl-2">
-					<div class="listpl-2-1">
-						<img src="images/touxiang 82.png" alt="">
-					</div>
-					<div class="listpl-2-2">
-						<textarea placeholder="说两句吧..." id="comm">
-						</textarea>
-						<a href="javascript:;" onclick="comment()">发表</a>
-					</div>
-				</div>
-			</div>
-			<!-- 左4 全部评论 -->
-			 <div class="listL-4">
-				 <p>全部评价</p>
-				 <span>
-					 <a href="#">最新</a>/
-					 <a href="#">最热</a>
-				 </span>
-			 </div>
-			 <div class="listL-5">
-				 <div class="listL-5-1">
-					 <img th:src="@{/pc/images/touxiang 82.png}" alt="">
-				 </div>
-				 <div class="listL-5-2">
-					 <p>今昔<span>6分钟前</span><rem>举报</rem></p>
-					  <p style="color:#4b4b4b;">在网络扇框黑色粉色衣服随风公司法在网络扇框黑色粉色衣服随风公司法</p>
-				 </div>
-			 </div>
-			 <div class="listbutt">
-				 <button>查看更多评论</button> 
-			 </div>
-			 
-			<!-- 推荐 -->
-			<div style="width: 783px;float: left;">
-				<!-- 开始 -->
-				 <div class="zixunbox">
-					<div class="zixuncent1" style="height: 120px;">
-						<img src="images/aaa4.jpg" alt="">
-					</div>
-					<div class="zixuncent2" style="width: 540px;"> 
-						<p>就说中美经贸磋商未来经在北京举行。中方在这些原则问题上不能让步
-						中方在这些原则问题上不能让步</p>
-					</div>
-					<div class="zixuncent3" style="width: 540px;">
-						<p style="float: left;">
-							<img src="images/list_15.jpg" alt="" style="width:40px; height:13px;margin-top:5px;"><span>环球网</span>
-							<img src="images/list_03.jpg" alt="" style="width:23px; height:23px;"><span>小暖暖 17分钟前</span>
-							<img src="images/list_09.jpg" alt="">
-							<img src="images/list_06.jpg" alt="">
-						</p>
-						<p style="float:right;">
-							<img src="images/list_12.jpg" alt=""><span>(23)</span>
-							<img src="images/list03.jpg" alt="" style="width: 19px;height: 22px;"><span>(23)</span>
-							<img src="images/list06.jpg" alt=""><span>(23)</span>
-						</p>
-					</div>
-				</div>
-				<!-- 结束 -->
-				<div class="zixunbox">
-					<div class="zixuncent1" style="height: 120px;">
-						<img src="images/aaa4.jpg" alt="">
-					</div>
-					<div class="zixuncent2" style="width: 540px;"> 
-						<p>就说中美经贸磋商未来经在北京举行。中方在这些原则问题上不能让步
-						中方在这些原则问题上不能让步</p>
-					</div>
-					<div class="zixuncent3" style="width: 540px;">
-						<p style="float: left;">
-							<img src="images/list_15.jpg" alt="" style="width:40px; height:13px;margin-top:5px;"><span>环球网</span>
-							<img src="images/list_03.jpg" alt="" style="width:23px; height:23px;"><span>小暖暖 17分钟前</span>
-							<img src="images/list_09.jpg" alt="">
-							<img src="images/list_06.jpg" alt="">
-						</p>
-						<p style="float:right;">
-							<img src="images/list_12.jpg" alt=""><span>(23)</span>
-							<img src="images/list03.jpg" alt="" style="width: 19px;height: 22px;"><span>(23)</span>
-							<img src="images/list06.jpg" alt=""><span>(23)</span>
-						</p>
-					</div>
+			</ul>
+		</div>
+		<div class="listcontRI">
+			<a href="#"><img th:src="@{/pc/images/zyz_03.jpg}" alt=""></a>
+			<a href="#"><img th:src="@{/pc/images/zyz_06.jpg}" alt=""></a>
+			<a href="#"><img th:src="@{/pc/images/zyz_09.jpg}" alt=""></a>
+			<a href="#"><img th:src="@{/pc/images/zyz_12.jpg}" alt=""></a>
+			<a href="#"><img th:src="@{/pc/images/zyz_15.jpg}" alt=""></a>
+			<!-- 右侧排名 -->
+			<div class="listcontpm">
+				<div class="zixunbut">
+					<h3>推荐</h3>
+					<ul>
+						<li th:each="newsTop,iterStat:${newsTop}"><i
+							th:text="${iterStat.count}"></i><a
+							th:href="@{/pc/news/info(id=${newsTop.id})}"
+							th:text="${newsTop.title}"></a></li>
+
+					</ul>
 				</div>
 			</div>
 		</div>
-		<div th:replace="pc/include :: footer"></div>
-		<!-- 备案 -->
-		<div class="beian">
-			<div class="beian1">
-				<span style="float: left;">©公益打赏平台 版权所有</span>
-				<span style="float: right;">京ICP备12048184号  技术支持：景安网络</span>
+		<!-- 右侧排名 -->
+
+
+		<!-- 左2 -->
+		<div class="listcontL1">
+			<div class="listcontL1-1 modal__trigger" data-modal="#modal"
+				th:onclick="reward()">
+				<img th:src="@{/pc/images/dashang.png}" alt="" th:onclick="reward()">打赏
+			</div>
+			<div class="listcontL1-2">
+				<p th:text="${'已有'+reCountUser+'人打赏'}"></p>
+			</div>
+			<div class="listcontL1-3">
+				<img th:each="user:${user}" th:src="${user.headImg}" alt="">
 			</div>
 		</div>
-	</body>
-	<script src="/js/plugins/layer/layer.js"></script>
-	<script src="/js/layui.js"></script>
-	<script src="/js/plugins/layer/laydate/laydate.js"></script>
-	<script type="text/javascript">
+
+		<div class="listzz">
+			<div th:if=" ${isLike} eq '0'">
+				<img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞"
+					th:text="${info.numberOfLikes}">
+			</div>
+			<div th:if=" ${isLike} eq '1'">
+				<img th:src="@{/pc/images/listzz_04.jpg}" alt="点赞"
+					th:text="${info.numberOfLikes}">
+			</div>
+			<div th:if=" ${isLike} eq '2'">
+				<img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞"
+					th:text="${info.numberOfLikes}" th:onclick="like()" id="like">
+			</div>
+			<div th:if=" ${isTop} eq '0'">
+				<img th:src="@{/pc/images/listzs_06.jpg}" alt="">未置顶
+			</div>
+			<div th:if=" ${isTop} eq '1'">
+				<img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶
+			</div>
+			<div th:if=" ${isTop} eq '2'">
+				<img th:src="@{/pc/images/listzs_05.jpg}" alt=""
+					th:onclick="topNew()" id="top">未置顶
+			</div>
+			<div>
+				<img class="" th:src="@{/pc/images/listcc_07.jpg}" alt=""
+					th:onclick="">发放中
+			</div>
+		</div>
+		<!-- 左3 评论 -->
+		<div class="listpl">
+			<div class="listpl-1">
+				<p>
+					网友评论 <span>文明上网理性发言，请遵守新闻评论服务协议</span>
+					<rem th:text="${commCount+'条评论'}">2条评论</rem>
+				</p>
+			</div>
+			<div class="listpl-2">
+				<div class="listpl-2-1">
+					<img src="images/touxiang 82.png" alt="">
+				</div>
+				<div class="listpl-2-2">
+					<textarea placeholder="说两句吧..." id="comm"></textarea>
+					<a href="javascript:;" onclick="comment()">发表</a>
+				</div>
+			</div>
+		</div>
+		<!-- 左4 全部评论 -->
+		<div class="listL-4">
+			<p>全部评价</p>
+		</div>
+		<div class="listL-5" th:each="comm : ${comm}">
+			<div class="listL-5-1">
+				<img th:src="${comm.headImg}" alt="">
+			</div>
+			<div class="listL-5-2">
+				<p th:text="${comm.name}">
+					<span th:text="${comm.createTimeStr}"></span>
+					<rem>举报</rem>
+				</p>
+				<p style="color: #4b4b4b;" th:text="${comm.criticismContent}"></p>
+			</div>
+		</div>
+	</div>
+	<div th:replace="pc/include :: footer"></div>
+	<!-- 备案 -->
+	<div class="beian">
+		<div class="beian1">
+			<span style="float: left;">©公益打赏平台 版权所有</span> <span
+				style="float: right;">京ICP备12048184号 技术支持：景安网络</span>
+		</div>
+	</div>
+</body>
+<script src="/js/plugins/layer/layer.js"></script>
+<script src="/js/layui.js"></script>
+<script src="/js/plugins/layer/laydate/laydate.js"></script>
+<script type="text/javascript">
 	function share(reType){
 		para={"newsId":$('#infoId').val(),"trType":reType};
 		$.ajax({
@@ -238,15 +214,14 @@
 			data : para,
 			async : true,
 			error : function(request) {
-				alert("Connection error");
+				parent.layer.alert("点赞失败");
 			},
 			success : function(data) {
 				if (data.code == 0) {
 					$("#like").attr("src","/pc/images/listzz_04.jpg");
-					//parent.layer.msg("操作成功");
-					//history.go(0);
+					history.go(0);
 				} else {
-					//parent.layer.alert(data.msg)
+					parent.layer.alert(data.msg)
 				}
 
 			}
@@ -257,20 +232,32 @@
 		layer.prompt({title: '输入打赏金额(单位:元)，并确认', formType: 3}, function(som, index){
 			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som};
 			  $.ajax({
-					cache : true,
 					type : "POST",
 					url : "/pc/news/reward",
 					data : para,
-					async : true,
 					error : function(request) {
-						layer.msg('打赏失败！您打赏的：'+ som +'已原路退回您的账户');
+						layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
 					},
 					success : function(data) {
 						if (data.code == 0) {
-							layer.msg('打赏完毕！您打赏啦：'+ som);
 							history.go(0);
 						} else {
-							alert(data.msg);
+							if(data.msg == -1){
+							layer.msg('打赏失败！您打赏的余额不足');
+							}else if(data.msg == 0){
+							layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
+							}else if(data.msg == 2){
+								layer.confirm('您未登录请问是否跳转登录页面？', {
+									  btn: ['是','否'] //按钮
+									}, function(){
+										window.location.href = "/admin";
+									}, function(){
+									  layer.msg('打赏是需要登陆的', {
+									    time: 20000, //20s后自动关闭
+									    btn: ['知道了']
+									  });
+									});
+							}
 						}
 
 					}
@@ -282,7 +269,7 @@
 		var id = $('#infoId').val();
 		layer.open({
 			type : 2,
-			title : '置顶',
+			title : '申请置顶',
 			maxmin : true,
 			shadeClose : false, // 点击遮罩关闭层
 			area : [ '1000px', '620px' ],
@@ -302,22 +289,35 @@
 		});
 	}
 	function comment(){
-		para={"criticismContent":$('#comm').text()};
+		var comment={};
+		comment={"criticismContent":$('#comm').val(),"newsId":$('#infoId').val()};
 		$.ajax({
-			cache : true,
-			type : "GET",
+			type : "POST",
 			url : "/pc/news/comment",
-			data : para,
-			async : true,
+			data : comment,
+			dataType:"json",
 			error : function(request) {
-				alert("Connection error");
+				 layer.msg("请求失败");
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					parent.layer.msg("发表成功");
-					history.go(0);
+						history.go(0);
 				} else {
-					parent.layer.alert(data.msg)
+					if(data.msg==0){
+						layer.confirm('您未登录请问是否跳转登录页面？', {
+							  btn: ['是','否'] //按钮
+							}, function(){
+								window.location.href = "/admin";
+							}, function(){
+							  layer.msg('发言是需要登陆的', {
+							    time: 20000, //20s后自动关闭
+							    btn: ['知道了']
+							  });
+							});
+					
+					}else if(data.code == 1){
+						layer.msg("发表失败");
+					}
 				}
 
 			}

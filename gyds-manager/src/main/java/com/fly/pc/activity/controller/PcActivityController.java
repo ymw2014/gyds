@@ -1,6 +1,7 @@
 package com.fly.pc.activity.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
 import com.fly.domain.RegionDO;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -92,7 +94,7 @@ public class PcActivityController {
 		params.put("actId", id);
 		List<ApplyDO> list = applyService.list(params);
 		List<Long> idList = list.stream().map(ApplyDO :: getZyzId).collect(Collectors.toList());
-		if (!CollectionUtils.isEmpty(idList)) {
+		if (!CollectionUtils.isEmpty(idList)) {//查询已报名的
 			params.clear();
 			params.put("idList", idList);
 			List<VolunteerDO> volunteerList = volunteerService.list(params);
@@ -106,6 +108,56 @@ public class PcActivityController {
 			}
 			model.addAttribute("volunteerList", infoList);
 		}
+		//查询报名状态
+		params.clear();
+		Long zyzId = ShiroUtils.getUserId();//通过shiro 获取用户信息   ShiroUtils.getUserId()
+		params.put("actId", id);
+		params.put("zyzId", zyzId);
+		List<ApplyDO> ApplyDO = applyService.list(params);
+		Integer applyStatus = 0;//待审核
+		if (!CollectionUtils.isEmpty(ApplyDO)) {
+			Integer status = ApplyDO.get(0).getStatus();
+			if (status == 1) {//审核通过
+				applyStatus = 1;
+			} else if (status == 2) {//审核拒绝
+				applyStatus = 2;
+			}
+			model.addAttribute("applyId", ApplyDO.get(0).getId());
+		} else {
+			applyStatus = 4;
+		}
+		model.addAttribute("applyStatus", applyStatus);
+		model.addAttribute("actId", id);
 		return "pc/activityJoin";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("activity/apply")
+	public String apply(Integer type, Long actId, Long applyId) {
+		int status = 0;
+		try {
+			if (type == 1) {
+				status = applyService.remove(applyId);
+			} else {
+				VolunteerDO volunteerDO = volunteerService.get(ShiroUtils.getUserId());
+				if (volunteerDO == null) {
+					JSONObject dataInfo = new JSONObject();
+					dataInfo.put("status", "2");
+					return dataInfo.toString();
+				}
+				ApplyDO apply = new ApplyDO();
+				apply.setActId(actId);
+				apply.setCreateTime(new Date());
+				apply.setStatus(0);
+				apply.setZyzId(ShiroUtils.getUserId());//通过shiro 获取用户信息
+				status = applyService.save(apply);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JSONObject dataInfo = new JSONObject();
+		dataInfo.put("status", status);
+		return dataInfo.toString();
 	}
 }
