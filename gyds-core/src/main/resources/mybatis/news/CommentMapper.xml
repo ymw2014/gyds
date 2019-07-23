@@ -9,8 +9,8 @@
 	</select>
 
 	<select id="list" resultType="com.fly.news.domain.CommentDO">
-select nc.id,nc.news_id,ni.title,ni.title_img,nc.member_id,m.name,nc.criticism_content,nc.is_top,nc.create_time,
-DATE_FORMAT(nc.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,nc.number_of_likes,nc.pren_id from new_comment nc left join new_info ni on nc.news_id = ni.id left join member m on nc.member_id = m.id        
+select nc.id,nc.news_id,ni.title,ni.title_img,nc.member_id,m.name,m.head_img,nc.criticism_content,nc.is_top,nc.create_time,
+DATE_FORMAT(nc.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,nc.number_of_likes,nc.pren_id from new_comment nc left join new_info ni on nc.news_id = ni.id left join sys_user m on nc.member_id = m.user_id        
 				<where>  
 		  		  <if test="id != null and id != ''"> and nc.id = #{id} </if>
 		  		  <if test="newsId != null and newsId != ''"> and nc.news_id = #{newsId} </if>
@@ -33,6 +33,7 @@ DATE_FORMAT(nc.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,nc.number_of_likes
 			limit #{offset}, #{limit}
 		</if>
 	</select>
+	
 	
  	<select id="count" resultType="int">
 		select count(*) from new_comment

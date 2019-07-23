@@ -19,6 +19,7 @@
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="ordernumber != null and ordernumber != ''"> and orderNumber = #{ordernumber} </if>
 		  		  <if test="topDay != null and topDay != ''"> and top_day = #{topDay} </if>
+		  		  <if test="regionCode != null">and region_code = #{regionCode}</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -45,6 +46,7 @@
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="ordernumber != null and ordernumber != ''"> and orderNumber = #{ordernumber} </if>
 		  		  <if test="topDay != null and topDay != ''"> and top_day = #{topDay} </if>
+		  		  <if test="regionCode != null">and region_code = #{regionCode}</if>
 		  		</where>
 	</select>
 	 

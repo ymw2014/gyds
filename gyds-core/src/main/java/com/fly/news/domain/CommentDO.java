@@ -25,6 +25,8 @@ public class CommentDO implements Serializable {
 	private Integer memberId;
 	//用户名
 	private String name;
+	//用户头像
+	private String headImg;
 	//评论内容
 	private String criticismContent;
 	//是否置顶0：否1：是 2：申请中
@@ -41,6 +43,12 @@ public class CommentDO implements Serializable {
 	private String titleImg;
 	
 	
+	public String getHeadImg() {
+		return headImg;
+	}
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
 	public String getCreateTimeStr() {
 		return createTimeStr;
 	}
