@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.fly.adv.domain.AdvertisementDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
+import com.fly.utils.R;
 
 /**
  * 
@@ -29,12 +30,13 @@ public interface IndexService {
 	List<TypeTitleDO> getFooterCenter();
 	
 	/**
-	 * 获取非首页广告展示信息
+	 *	 获取非首页广告展示信息
 	 * @param teamId 团队编号
 	 * @param positionNum  加载内容广告的页面(3:资讯详情页4:活动报名页5:签到页6:志愿者详情页7:团队详情页)
 	 * @return
 	 */
-	List<AdvertisementDO> getCenterAdvList(Integer teamId,Integer positionNum);
+	List<AdvertisementDO> getCenterAdvList(Integer teamId,Integer positionNum); 
+	
 	
 
 }
