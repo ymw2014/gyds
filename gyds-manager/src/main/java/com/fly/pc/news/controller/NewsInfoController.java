@@ -169,14 +169,17 @@ public class NewsInfoController extends BaseDynamicController{
 		model.addAttribute("newsLike",newsLike);
 		//新闻详情
 		model.addAttribute("info", info);
-		return "/pc/newInfo";
+		return "pc/newInfo";
 	}
 	//文章分享
 	@RequestMapping(value="/share",method=RequestMethod.GET)
 	@ResponseBody
 	public R shareNewInfoLog(@RequestParam Map<String,Object> para) {
-		if(dynamic(para,1)==1){
+		Integer i = dynamic(para,1);
+		if(i==1){
 			return R.ok();
+		}else if(i==2) {
+			return R.ok("积分+1");
 		}
 		return R.error();
 
@@ -223,7 +226,7 @@ public class NewsInfoController extends BaseDynamicController{
 		code = upRegCode(code);
 		model.addAttribute("region", code);
 		model.addAttribute("newsId", id);
-		return "/pc/top";
+		return "pc/top";
 	}
 	//置顶提交
 	@ResponseBody
@@ -285,7 +288,7 @@ public class NewsInfoController extends BaseDynamicController{
 	@RequestMapping(value="/red",method=RequestMethod.GET)
 	public String red(Model model) {
 
-		return "/pc/redPacket";
+		return "pc/redPacket";
 	}
 
 	//评论
@@ -317,7 +320,7 @@ public class NewsInfoController extends BaseDynamicController{
 			List<InfoDO> infoList = infoService.list(params);
 			model.addAttribute("newsList", infoList);
 		
-		return "/pc/newsList";
+		return "pc/newsList";
 	}
 }
 

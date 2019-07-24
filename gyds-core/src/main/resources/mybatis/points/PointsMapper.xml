@@ -21,6 +21,8 @@
 		  		  <if test="pointsType != null and pointsType != ''"> and points_type = #{pointsType} </if>
 		  		  <if test="money != null and money != ''"> and money = #{money} </if>
 		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="startTime != null and startTime != ''"> AND create_time &gt;= #{startTime}</if>
+				  <if test="endTime != null and endTime != ''">AND create_time &lt;= #{endTime}</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
