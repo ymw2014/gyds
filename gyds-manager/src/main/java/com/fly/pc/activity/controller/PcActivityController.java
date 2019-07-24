@@ -24,6 +24,7 @@ import com.fly.activity.domain.ApplyDO;
 import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
 import com.fly.domain.RegionDO;
+import com.fly.domain.UserDO;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -56,6 +57,12 @@ public class PcActivityController {
 		params.clear();
 		params.put("examineStatus",1);
 		params.put("pids", areaId);
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		if (CollectionUtils.isEmpty(ids)) {
+			ids.add(-1);
+		}
+		params.clear();
+		params.put("ids", ids);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		model.addAttribute("areaList", areaList);
@@ -74,6 +81,9 @@ public class PcActivityController {
 		}
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		if (CollectionUtils.isEmpty(ids)) {
+			ids.add(-1);
+		}
 		params.clear();
 		params.put("examineStatus",1);
 		params.put("ids", ids);
@@ -90,11 +100,13 @@ public class PcActivityController {
 			Model model) {
 		ActivityDO activityDO = activityService.get(id);
 		model.addAttribute("activity", activityDO);
+		
+		//查询已报名的人数
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("actId", id);
 		List<ApplyDO> list = applyService.list(params);
 		List<Long> idList = list.stream().map(ApplyDO :: getZyzId).collect(Collectors.toList());
-		if (!CollectionUtils.isEmpty(idList)) {//查询已报名的
+		if (!CollectionUtils.isEmpty(idList)) {
 			params.clear();
 			params.put("idList", idList);
 			List<VolunteerDO> volunteerList = volunteerService.list(params);
@@ -108,26 +120,45 @@ public class PcActivityController {
 			}
 			model.addAttribute("volunteerList", infoList);
 		}
+		
+		
 		//查询报名状态
 		params.clear();
-		Long zyzId = ShiroUtils.getUserId();//通过shiro 获取用户信息   ShiroUtils.getUserId()
-		params.put("actId", id);
-		params.put("zyzId", zyzId);
-		List<ApplyDO> ApplyDO = applyService.list(params);
-		Integer applyStatus = 0;//待审核
-		if (!CollectionUtils.isEmpty(ApplyDO)) {
-			Integer status = ApplyDO.get(0).getStatus();
-			if (status == 1) {//审核通过
-				applyStatus = 1;
-			} else if (status == 2) {//审核拒绝
-				applyStatus = 2;
-			}
-			model.addAttribute("applyId", ApplyDO.get(0).getId());
-		} else {
-			applyStatus = 4;
+		Integer applyStatus = 4;
+		UserDO user = ShiroUtils.getUser();
+		if (user == null) {//没用登录可以浏览活动详情
+			model.addAttribute("applyStatus", applyStatus);
+			return "pc/activityJoin";
 		}
+		
+		params.clear();
+		params.put("userId", user.getUserId());
+		List<VolunteerDO> list2 = volunteerService.list(params);
+		if (CollectionUtils.isEmpty(list2)) {//不是志愿者
+			model.addAttribute("applyStatus", applyStatus);
+			return "pc/activityJoin";
+		}
+		
+		params.clear();
+		params.put("actId", id);
+		params.put("zyzId", list2.get(0).getId());
+		List<ApplyDO> ApplyDO = applyService.list(params);
+		if (CollectionUtils.isEmpty(ApplyDO)) {//还没有报名
+			model.addAttribute("applyStatus", applyStatus);
+			return "pc/activityJoin";
+		}
+		
+		
+		Integer status = ApplyDO.get(0).getStatus();
+		if (status == 1) {//审核通过
+			applyStatus = 1;
+		} else if (status == 2) {//审核拒绝
+			applyStatus = 2;
+		} else {//待审核
+			applyStatus = 0;
+		}
+		model.addAttribute("applyId", ApplyDO.get(0).getId());
 		model.addAttribute("applyStatus", applyStatus);
-		model.addAttribute("actId", id);
 		return "pc/activityJoin";
 	}
 	
@@ -135,15 +166,31 @@ public class PcActivityController {
 	@ResponseBody
 	@RequestMapping("activity/apply")
 	public String apply(Integer type, Long actId, Long applyId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		JSONObject dataInfo = new JSONObject();
+		UserDO user = ShiroUtils.getUser();
+		if (user == null) {
+			dataInfo.put("status", "2");//还没登录
+			return dataInfo.toString();
+		}
+		
+		params.clear();
+		params.put("userId", user.getUserId());
+		List<VolunteerDO> list2 = volunteerService.list(params);
+		if (CollectionUtils.isEmpty(list2)) {
+			dataInfo.put("status", "3");//还不是志愿者
+			return dataInfo.toString();
+		}
+		
 		int status = 0;
 		try {
 			if (type == 1) {
 				status = applyService.remove(applyId);
 			} else {
-				VolunteerDO volunteerDO = volunteerService.get(ShiroUtils.getUserId());
-				if (volunteerDO == null) {
-					JSONObject dataInfo = new JSONObject();
-					dataInfo.put("status", "2");
+				ActivityDO activityDO = activityService.get(actId.intValue());
+				Integer num = activityDO.getNumberOfApplicants();
+				if (num ++ > activityDO.getApplicantsNumMax()) {
+					dataInfo.put("status", "4");//报名人数已满
 					return dataInfo.toString();
 				}
 				ApplyDO apply = new ApplyDO();
@@ -152,11 +199,13 @@ public class PcActivityController {
 				apply.setStatus(0);
 				apply.setZyzId(ShiroUtils.getUserId());//通过shiro 获取用户信息
 				status = applyService.save(apply);
+				activityDO.setNumberOfApplicants(num ++);
+				activityService.update(activityDO);
 			}
 		} catch (Exception e) {
+			status = 5;
 			e.printStackTrace();
 		}
-		JSONObject dataInfo = new JSONObject();
 		dataInfo.put("status", status);
 		return dataInfo.toString();
 	}

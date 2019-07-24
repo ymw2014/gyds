@@ -18,17 +18,17 @@
 			<div class="conBox">
 				<div class="conBox1">
 					<img th:src="${activity.actTitleImg}" alt="">
-					<input type="hidden" th:value="${actId}"  id="actId"/>
+					<input type="hidden" th:value="${activity.id}"  id="actId"/>
 					<input type="hidden" th:value="${applyId}"  id="applyId"/>
 				</div>
 				<div class="conBox2">
 					<div class="conBox2-1">
 						<h4 th:text="${activity.actTitle}"></h4>
-						<p>
+						<!-- <p>
 							<img src="images/conter_09.jpg" alt=""> 1W+
 							<img src="images/conter_06.jpg" alt=""> 85 
 							<img src="images/conter_12.jpg" alt=""> 69
-						</p>
+						</p> -->
 					</div>
 					<div class="conBox2-2">
 						<div class="conBox2-2-1">
@@ -36,12 +36,12 @@
 								<li th:text=" '地点：' + ${activity.actAddr}"></li>
 								<li th:text=" '时间：' + ${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></li>
 								<li class="comli"><span style="float:left;">价格：</span><a href="#" class="comimg" th:text="${activity.actType == '0'} ? '付费': ${activity.actPrice}"></a></li>
-								<li>数量：
+								<!-- <li>数量：
 									<button class="jian">-</button>
 									<input type="text" class="shu" value="1">
 									<button class="jia">+</button>
 									<span>(每人仅限两张)</span>
-								</li>
+								</li> -->
 							</ul>
 							<div class="zaixian">
 								<div th:switch="${applyStatus}">
@@ -121,19 +121,22 @@
 				</div>
 				<div class="xqname">
 					<figure th:each=" vounlteer : ${volunteerList}">
-						<img th:src="${vounlteer.img}" alt="">
+						<img th:src="${vounlteer.img}" alt="" style="width: 100%;">
 						<figcaption>
 							<span th:text="${vounlteer.name}"></span>
 							<p th:text="${vounlteer.time}"></p>
 						</figcaption>
 					</figure>
-					<a href="#">展开更多报名 <img src="images/conter_40.jpg" alt=""></a>
+					<!-- <a href="#">展开更多报名 <img src="images/conter_40.jpg" alt=""></a> -->
 				</div>
 		</div>
 		<!-- 底部 -->
 		<div th:replace="pc/include :: footer"></div>
 	</body>
 </html>
+<script src="/js/plugins/layer/layer.js"></script>
+<script src="/js/layui.js"></script>
+<script src="/js/plugins/layer/laydate/laydate.js"></script>
 <script>
 	$(".comli a").click(function(){
 		$(this).addClass("comimg").siblings().removeClass("comimg")
@@ -172,14 +175,18 @@
             success : function(result) {
             	var status = result.status;
             	if (status == 1) {
-            		alert("操作成功")
+            		parent.layer.msg("操作成功");
             		history.go(0)
             	} else if (status == 2){
-            		alert("您还不是志愿者，不能报名活动")
+            		parent.layer.msg("您还没登录，请先登录");
+            	} else if (status == 3){
+            		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+            	} else if (status == 3){
+            		parent.layer.msg("报名失败，报名人数已满");
             	} else {
-            		alert("操作失败")
+            		parent.layer.msg("操作失败");
             	}
-            },
+            }
         });
 	}
 </script>

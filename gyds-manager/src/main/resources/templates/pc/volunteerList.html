@@ -16,6 +16,10 @@
 		<div class="weizhi">
 			<div class="wztwo">
 				<p>您所在的位置：首页 > 志愿者</p>
+				<input type="hidden" value="" id="code"/>
+				<input type="hidden" value="" id="sex"/>
+				<input type="hidden" value="" id="sort"/>
+				<input type="hidden" value="" id="order"/>
 			</div>
 			<div class="wzshenfen">
 				<p>地区：<span>全部</span></p>
@@ -53,7 +57,7 @@
 		</div>
 		<div class="zyzhti" id="zyzhti">
 			<figure th:each="volunt : ${voluntList}">
-				<a href=""><img th:src="${volunt.headImg}" alt=""></a>
+				<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
 				<figcaption>
 					<span th:text="${volunt.volunteerName}"></span>
 					<p th:text="'团队：'    +  ${volunt.teamName}" ></p>
@@ -91,13 +95,16 @@ var regionCode = '';
 	});
 	
 	 $(":radio").click(function(){
+		 $("#sex").val($(this).val())
 		 $.ajax({
 	            type : "POST",
 	            dataType: "json",
 	            url : "/pc/volunteerList/query",
 	            data : {
 	            	'sex': $(this).val(),
-	            	'regionCode': regionCode
+	            	'regionCode': $("#code").val(),
+	            	'sort':$("#sort").val(),
+	            	'order' : $("#order").val()
 	            },
 	            success : function(result) {
 	            	var voluntList = result.voluntList;
@@ -113,6 +120,8 @@ var regionCode = '';
 
 function orderSort(val,obj){
 	 var aData = $(obj).attr('data_id')
+	 $("#sort").val(val);
+	 $("#order").val(aData);
 	 $.ajax({
             type : "POST",
             dataType: "json",
@@ -120,7 +129,8 @@ function orderSort(val,obj){
             data : {
             	'sort': val,
             	'order': aData,
-            	'regionCode': regionCode
+            	'sex': $("#sex").val(),
+            	'regionCode': $("#code").val()
             },
             success : function(result) {
             	var voluntList = result.voluntList;
@@ -135,6 +145,7 @@ function orderSort(val,obj){
    
 function query(regionCode) {
 	regionCode = regionCode;
+	$("#code").val(regionCode);
 	 $.ajax({
          type : "POST",
          dataType: "json",
@@ -147,6 +158,7 @@ function query(regionCode) {
          	$("#zyzhti").html('');
          	var html = info(voluntList);
          	$("#zyzhti").append(html);
+        	$("input[type='radio']").removeAttr('checked');
          }
   });
 }
