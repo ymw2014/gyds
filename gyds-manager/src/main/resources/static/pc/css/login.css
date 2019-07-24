@@ -1,0 +1,97 @@
+.wyylogin{
+	width:1200px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.wyylogin1{
+	width:100%;
+	float: left;
+	margin:68px 0px;
+}
+.wyylogin1>img{
+	width: 710px;
+	height: 500px;
+	float: left;
+}
+.wyylogin2{
+	width: 489px;
+	height:499px;
+	float: left;
+	border:1px solid #e5e5e5;
+	border-left: none;
+}
+.wyylogin2-1{
+	width:370px;
+	margin-left:55px;
+}
+.wyylogin2-1>ul{
+	overflow: hidden;
+}
+.wyylogin2-1>ul>li{
+	width: 50%;
+	line-height:64px;
+	float: left;
+	text-align: center;
+	font-size:18px;
+	font-weight:600;
+}
+.gaoliang{
+	color:#c01b25;
+	border-bottom:2px solid #c01b25;
+}
+.gaoliang-1>form>input{
+	width:326px;
+	line-height:38px;
+	border:1px solid #bfbfbf;
+	padding-left:36px;
+	margin-top:30px;
+	border-radius:5px;
+}
+.gaoliang-1>form>div>a{
+	line-height:60px;
+}
+.gaoliang-1 div>input{
+	width: 100%;
+	height:38px;
+	line-height:38px;
+	background:#c01b25;
+	border: none;
+	border-radius:5px;
+	color:#fff;
+}
+.gaoliang-1{
+	display:none;
+}
+.kuaijiedl{
+	width: 100%;
+	overflow: hidden;
+}
+.kuaijiedl>a{
+	display:inline-block;
+	width: 33.33%;
+	float: left;
+	margin-top:30px;
+}
+.yanzheng{
+	width:206px !important;
+	line-height:38px;
+	border:1px solid #bfbfbf;
+	padding-left:36px;
+	margin-top:30px;
+	border-radius:5px;
+}
+.yanzhengtup>img{
+	float: right;
+	margin-top:30px;
+}
+.yanzhengtup1{
+	display: inline-block;
+	width:108px !important;
+	line-height:38px;
+	float: right;
+	margin-top: 30px;
+    text-align: center;
+	border:1px solid #dcdfe6;
+	border-radius:5px;
+	color:#606266;
+}

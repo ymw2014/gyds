@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>公益打赏</title>
+<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/pc/css/login.css}">
+<link th:href="@{/css/layui.css}" rel="stylesheet">
+	<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+	<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+	<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+	<script th:src="@{/js/plugins/layer/layer.js}"></script>
+	<script th:src="@{/js/layui.js}"></script>
+	<script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+</head>
+<body>
+	<!-- 头部 -->
+	<div th:replace="pc/include :: header"></div>
+	<div class="wyylogin">
+		<div class="wyylogin1">
+			<img th:src="@{/pc/images/aixin.jpg}" alt="">
+			<div class="wyylogin2">
+				<div class="wyylogin2-1">
+					<ul>
+						<li class="gaoliang">账号登录</li>
+						<li>微信登录</li>
+					</ul>
+					<div class="gaoliang-1" style="display: block;">
+						<form id="signupForm" >
+							<input type="text" name="username" placeholder="请输入账号" value="admin" class="shoujihao"
+								style="background: url(images/shouji.jpg) no-repeat; background-position: 10px 9px;">
+							<input type="password" name="password" placeholder="请输入登录密码"  value="123456"
+								style="background: url(images/mimasuio.jpg) no-repeat; background-position: 10px 9px;">
+							<label>
+								<input type="text" name="verify" placeholder="请输入图片验证码" style="background:url(images/kujiedl_06.jpg) no-repeat;background-position:10px 9px;" class="yanzheng">
+								<a href="javaScript:;" class="yanzhengtup "><img class="verifyimg reloadverify" style="height: 40px;width:100px;" src="/pc/images/kujiedl_03.jpg" alt=""></a>
+							</label>
+							<div style="overflow: hidden;">
+								<a href="#" style="float: right; color: #a7a7a7;">忘记密码？</a>
+							</div>
+							<div>
+								<input  type="button" id="login" value="立即登录">
+							</div>
+						</form>
+						<div class="kuaijiedl">
+							<a href=""> <img src="images/dlxinlang.jpg" alt="">
+							</a> <a href="" style="text-align: center;"> <img
+								src="images/dlqq.jpg" alt="">
+							</a> <a href="" style="text-align: right;"> <img
+								src="images/dlwx.jpg" alt="">
+							</a>
+						</div>
+					</div>
+					<div class="gaoliang-1">
+						<!-- <form action="" method="">
+							<input type="text" placeholder="请输入手机号码" onblur='upperCase()'
+								class="shoujihao"
+								style="background: url(images/shouji.jpg) no-repeat; background-position: 10px 9px;">
+							<label> <input type="text" placeholder="请输入图片验证码"
+								style="background: url(images/kujiedl_06.jpg) no-repeat; background-position: 10px 9px;"
+								class="yanzheng"> <a href="#" class="yanzhengtup"><img
+									src="images/kujiedl_03.jpg" alt=""></a>
+							</label> <label> <input type="text" placeholder="请输入图片验证码"
+								style="background: url(images/kujiedl_06.jpg) no-repeat; background-position: 10px 9px;"
+								class="yanzheng"> <a href="#" class="yanzhengtup1">获取验证码</a>
+							</label>
+
+							<div style="overflow: hidden;">
+								<a href="#" style="float: left; color: #59abff;">注册账户</a> <a
+									href="#" style="float: right; color: #a7a7a7;">忘记密码？</a>
+							</div>
+							<div>
+								<input type="button" value="立即登录">
+							</div>
+						</form> -->
+						<div class="kuaijiedl">
+							<a href=""> <img src="images/dlxinlang.jpg" alt="">
+							</a> <a href="" style="text-align: center;"> <img
+								src="images/dlqq.jpg" alt="">
+							</a> <a href="" style="text-align: right;"> <img
+								src="images/dlwx.jpg" alt="">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 底部 -->
+	<div th:replace="pc/include :: footer"></div>
+	<!-- 备案 -->
+	<div class="beian">
+		<div class="beian1">
+			<span style="float: left;">©公益打赏平台 版权所有</span> <span
+				style="float: right;">京ICP备12048184号 技术支持：景安网络</span>
+		</div>
+	</div>
+</body>
+</html>
+<script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
+<script>
+	$("#area").hide();
+	var cttx = window.location.protocol + "//" + window.location.host;
+	$('.verifyimg').attr('src',
+			cttx + '/vifityCodeController/getVerify?xxx=' + Math.random());
+
+	$(document).ajaxStart(function() {
+		console.log("denglu");
+		$("#login").val('登 录 中...').attr("disabled", true);
+	}).ajaxStop(function() {
+		$("#login").val('登 录').attr("disabled", false);
+	}).ready(function() {
+		$("#login").on('click', function() {
+			console.log(123456);
+			$("#signupForm").submit();
+		});
+		validateRule();
+	});
+
+	function login() {
+		var self = $(this);
+		$.ajax({
+			type : "POST",
+			url : ctx + "login",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					var index = layer.load(1, {
+						shade : [ 0.1, '#fff' ]
+					//0.1透明度的白色背景
+					});
+					window.location.href = r.url;
+				} else if (r.status == 500) {
+					layer.msg(r.message);
+					self.find(".check-tips").text(r.message);
+					//刷新验证码
+					$(".reloadverify").click();
+				} else {
+					layer.msg(r.msg);
+					self.find(".check-tips").text(r.msg);
+					//刷新验证码
+					$(".reloadverify").click();
+				}
+			},
+		});
+	}
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			login();
+		}
+	});
+	function validateRule() {
+
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#signupForm").validate({
+			rules : {
+				username : {
+					required : true
+				},
+				password : {
+					required : true
+				},
+				verify : {
+					required : true
+				}
+			},
+			messages : {
+				username : {
+					required : icon + "请输入您的用户名",
+				},
+				password : {
+					required : icon + "请输入您的密码",
+				},
+				verify : {
+					required : icon + "请输入验证码",
+				}
+			}
+		})
+	}
+
+	//刷新验证码
+	var verifyimg = $(".verifyimg").attr("src");
+	$(".reloadverify").click(
+			function() {
+				console.log(verifyimg);
+				if (verifyimg.indexOf('?') > 0) {
+					$(".verifyimg").attr("src",
+							verifyimg + '&random=' + Math.random());
+				} else {
+					$(".verifyimg").attr(
+							"src",
+							verifyimg.replace(/\?.*$/, '') + '?'
+									+ Math.random());
+				}
+			});
+
+	function upperCase() {
+		var shouji = $(".shoujihao").val();
+		if (!(/^1[34578]\d{9}$/.test(shouji))) {
+			alert("手机号码输入有误,请重填");
+			return false;
+		}
+	}
+	$(".wyylogin2-1 li").click(function() {
+		$(this).addClass("gaoliang").siblings("li").removeClass("gaoliang");
+		var index = $(this).index();
+		$('.gaoliang-1').hide().eq($(this).index()).show();
+	})
+</script>
+

@@ -114,9 +114,9 @@ public class IndexController {
 		model.addAttribute("adv3", dataList.get(2));
 		model.addAttribute("adv4", dataList.get(3));
 		model.addAttribute("adv5", dataList.get(4));
-		String isMoblie = "/pc/index";
+		String isMoblie = "pc/index";
 		if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {//判断是否为手机
-			isMoblie= "/mobile/index";
+			isMoblie= "mobile/index";
 		}
 		return isMoblie;
 	}

@@ -68,7 +68,7 @@ input::-webkit-calendar-picker-indicator{
 	color:#fff;
 	font-size:16px;
 }
-/*鐧诲綍鎴愬姛鐨勬牱寮�*/
+/*登录成功的样式*/
  .loginOk{
 	 width:176px;
 	 height: 64px;
@@ -222,7 +222,7 @@ nav a{
 	margin-top:36px;
 	position: absolute;
 }
-/*鍦板浘鏍峰紡*/
+/*地图样式*/
 .gps_txt{
 	width: 229px;
 	height:470px;
@@ -456,7 +456,7 @@ footer{
 }
 .beian1 span{
 	line-height:44px;
-	color:#fff;
+	color: #b5b5b5;
 	font-size:14px;
 }
 .gps_txt1{
