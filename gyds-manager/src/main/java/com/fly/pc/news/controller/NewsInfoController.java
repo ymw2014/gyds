@@ -31,10 +31,12 @@ import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
 import com.fly.system.dao.UserDao;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.DateUtils;
+import com.fly.utils.Query;
 import com.fly.utils.R;
 
 @Controller
@@ -54,8 +56,9 @@ public class NewsInfoController extends BaseDynamicController{
 	private CommentDao commentDao;
 	@Autowired
 	private TopDao topDao;
-	
-	
+	@Autowired
+	private RegionService regionService;
+
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id,Model model) {
 		InfoDO info = infoService.get(id);
@@ -141,13 +144,13 @@ public class NewsInfoController extends BaseDynamicController{
 		params.put("offset", 0);
 		params.put("limit",15);
 		List<UserDO> user = userMapper.list(params);
-		
+
 		//评论 默认时间顺序
 		params.clear();
 		params.put("newsId", id);
 		params.put("sort", "create_time desc");
 		List<CommentDO> comm = commentDao.list(params);
-		
+
 		//评论人数
 		model.addAttribute("commCount",comm.size());
 		//评论默认时间排序
@@ -289,23 +292,32 @@ public class NewsInfoController extends BaseDynamicController{
 	@ResponseBody
 	@PostMapping("/comment")
 	public R comment(@RequestParam Map<String,Object> params) {
-		CommentDO comment = new CommentDO();
-		UserDO user = null; 
-		user = ShiroUtils.getUser();
-		if(user!=null) {
-			comment.setNewsId(Integer.valueOf(params.get("newsId").toString()));
-			comment.setMemberId(Integer.valueOf(user.getUserId().toString()));
-			String criticismContentparams= params.get("criticismContent").toString();
-			if(criticismContentparams!=null && criticismContentparams!="") {
-				comment.setCriticismContent(criticismContentparams.trim());
-				if(commentDao.save(comment)>0) {
-					return R.ok();
-				}
+		Integer i =creadComm(params);
+		if(i == 1) {
+			if(dynamic(params,4)==1){
+				return R.ok();
 			}
-		}else {
+		}else if(i==0){
 			return R.error("0");
 		}
 		return R.error();
+	}
+	
+	@RequestMapping("/infoList")
+	public String newInfoList(@RequestParam Integer areaId,Model model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		// 查询列表数据
+			params.put("pids",areaId);
+			List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
+			params.put("ids", ids);
+			params.put("status", 1);
+			params.put("isDel", 0);
+			params.put("sort","n.is_top desc,n.public_time desc");
+			//查询列表数据
+			List<InfoDO> infoList = infoService.list(params);
+			model.addAttribute("newsList", infoList);
+		
+		return "/pc/newsList";
 	}
 }
 

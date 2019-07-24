@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}"/>
+		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+		<link rel="stylesheet" th:href="@{/pc/css/activity.css}">
+		<link rel="stylesheet" th:href="@{/pc/css/ziyunlist.css}">
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div th:replace="pc/include :: header"></div>
+		<!-- 导航 -->
+		<!-- <div class="navTwo">
+			<div class="navTwoCen">
+				<div><a href="#">网站首页</a></div>
+				<div><a href="#">动态咨询</a></div>
+				<div><a href="#">活动报名</a></div>
+				<div><a href="#">志愿者</a></div>
+				<div><a href="#">团队活动</a></div>	
+			</div>
+		</div> -->
+		<div class="zixunlist">
+			<!-- <div style="width: 1200px;margin:0 auto;line-height:70px; font-size:14px;color:#aaaaaa;">
+				您所在的位置：首页>公益互助>公益>政策法规
+			</div> -->
+			<div class="zixunlogin">
+				<a href=""><img th:src="@{/pc/images/tp2.jpg}" alt=""></a>
+			</div>
+		 <!-- 主题内容 -->
+			<div class="zixuncent">
+				<!-- 从这开始循环 -->
+				<div class="zixunbox" th:each="info:${newsList}">
+					<div class="zixuncent1">
+						<img th:src=${info.titleImg} alt="">
+					</div>
+					<div class="zixuncent2"> 
+						<p th:text="${info.title}"></p>
+					</div>
+					<div class="zixuncent3">
+						<p style="float: left;">
+							<img th:src="${info.teamTitleImg}" alt="" style="width:23px; height:23px;"><span th:text="${info.teamName}"></span><span th:text="${#dates.format(info.publicTime,'yyyy-MM-dd')}"></span>
+							<div th:if=" ${info.isTop} eq '1'">
+							<img th:src="@{/pc/images/list_09.jpg}" alt="">
+							</div>
+							 <div th:if=" ${info.isRedPeper} eq '1'">
+							<img th:src="@{/pc/images/list_06.jpg}" alt="">
+							 </div> 
+						</p>
+						<p style="float:right;">
+							<img th:src="@{/pc/images/list_12.jpg}" alt=""><span th:text="${info.criticismOfCount}"></span>
+							<img th:src="@{/pc/images/list03.jpg}" alt="" style="width: 19px;height: 22px;"><span th:text="${info.numberOfLikes}"></span>
+							<img th:src="@{/pc/images/list06.jpg}" alt=""><span th:text="${info.numberOfShares}"></span>
+						</p>
+					</div>
+				</div>
+				<!-- 循环结束 -->
+			</div>
+			<!-- 右侧 -->
+			<div class="zixunright">
+				<div class="zixunrimg">
+				<a href="#"><img th:src="@{/pc/images/zyz_03.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_06.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_09.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_12.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_15.jpg}" alt=""></a>
+				</div>
+				<!-- <div class="zixunbut">
+					<h3>点击排名</h3>
+					<ul>
+						<li th:each="newsTop,iterStat:${newsTop}"><i
+							th:text="${iterStat.count}"></i><a
+							th:href="@{/pc/news/info(id=${newsTop.id})}"
+							th:text="${newsTop.title}"></a></li>
+					</ul>
+					
+				</div> -->
+			</div>
+		</div>
+		<div class="xuanfu">
+			<a href="#" class="xfcl">红包</a>
+			<a href="#">推荐</a>
+			<a href="#">公益人物</a>
+			<a href="#">公益资讯</a>
+		</div>
+		<div th:replace="pc/include :: footer"></div>
+		<!-- 备案 -->
+		<div class="beian">
+			<div class="beian1">
+				<span style="float: left;">©公益打赏平台 版权所有</span>
+				<span style="float: right;">京ICP备12048184号  技术支持：景安网络</span>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	$(".xuanfu a").click(function(){
+		 $(this).addClass("xfcl").siblings("a").removeClass("xfcl")
+	})
+</script>
