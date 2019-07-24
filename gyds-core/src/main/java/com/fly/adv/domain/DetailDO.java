@@ -19,7 +19,7 @@ public class DetailDO implements Serializable {
 	//
 	private Integer id;
 	//用户编号
-	private Integer userId;
+	private Long userId;
 	//广告位置
 	private Integer positionNum;
 	//发布区域
@@ -54,13 +54,13 @@ public class DetailDO implements Serializable {
 	/**
 	 * 设置：用户编号
 	 */
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	/**
 	 * 获取：用户编号
 	 */
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 	/**
