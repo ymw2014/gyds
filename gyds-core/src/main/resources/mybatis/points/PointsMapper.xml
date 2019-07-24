@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.points.dao.PointsDao">
 
 	<select id="get" resultType="com.fly.points.domain.PointsDO">
-		select `id`,`order_id`,`pay_type`,`order_status`,`create_time`,`points_type`,`money`,`member_id` from points where id = #{value}
+		select `id`,`order_id`,`pay_type`,`order_status`,`create_time`,`points_type`,`money`,`member_id`,`integral` from points where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.points.domain.PointsDO">
-		select p.id,`order_id`,`pay_type`,`order_status`,`create_time`,`points_type`,`money`,
+		select p.id,`order_id`,`pay_type`,`order_status`,`create_time`,`points_type`,`money`,`integral`,
 		m.name name,m.telephone, m.address 
 		from points p
 		left join member m on p.member_id = m.id

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.news.dao.CommentDao;
 import com.fly.news.dao.InfoDao;
+import com.fly.news.domain.CommentDO;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.domain.RewardInfoDO;
@@ -22,6 +24,7 @@ import com.fly.order.service.OrderService;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.R;
 
 
 @Controller
@@ -39,8 +42,11 @@ public class BaseDynamicController {
 	private OrderService orderService;
 	@Autowired
 	private UserDao userMapper;
+	@Autowired
+	private CommentDao commentDao;
 	 
-	//入参 params:newsId(文章id)retype(转发类型)rewardPrice(打赏金额)
+	//记录+1
+	//入参 params:newsId(文章id)trtype(转发类型)rewardPrice(打赏金额)  type:1 分享 2点赞 3 打赏 4评论
 	public Integer dynamic(Map<String,Object> params,Integer type) {
 		Integer i =0;
 		UserDO user = null; 
@@ -59,11 +65,14 @@ public class BaseDynamicController {
 			 }
 			//1:微信 2:QQ空间 3:QQ 4:微博
 			dynamic.setTranspondType(Integer.valueOf(params.get("trType")+""));
+			dynamic.setCreatTime(new Date());
 			if(dynamicService.save(dynamic)>0){
 				//1:分享次数2: 评论次数3:文章点赞次数4:打赏次数
 				params.put("numberOfShares",1);
-				infoDao.updateDynamic(params);
-				i=1;
+				i=infoDao.updateDynamic(params);
+				if(i>0) {
+					
+				}
 			}
 			break;
 		//文章 点赞
@@ -75,10 +84,10 @@ public class BaseDynamicController {
 			if(user!=null) {
 			 dynamic.setMemberId(user.getUserId()); 
 		 }
+			dynamic.setCreatTime(new Date());
 		if(dynamicService.save(dynamic)>0){
 			params.put("numberOfLikes",3);
-			infoDao.updateDynamic(params);
-			i=1;
+			i=infoDao.updateDynamic(params);
 		}
 			break;
 		//打赏
@@ -89,12 +98,17 @@ public class BaseDynamicController {
 			if(user!=null) {
 				 dynamic.setMemberId(user.getUserId()); 
 			 }
+			dynamic.setCreatTime(new Date());
 			if(rewardInfoService.save(rewardInfoDO)>0) {
 				params.put("rewardCount",4);
-				infoDao.updateDynamic(params);
-				i=1;
+				i=infoDao.updateDynamic(params);
 			}
 			break;
+		//评论
+		case 4:
+				params.put("criticismOfCount",2);
+				i=infoDao.updateDynamic(params);
+			
 		default:
 			break;
 		}
@@ -135,6 +149,7 @@ public class BaseDynamicController {
 		}
 		order.setIsDel(0);
 		order.setOrderNumber(new Date().getTime()+"");
+		order.setBusinessTime(new Date());
 		//产生订单
 		if(orderService.save(order)>0){
 			i=order.getId();
@@ -197,13 +212,37 @@ public class BaseDynamicController {
 						return i;
 					}else {
 						BigDecimal account1 = account.subtract(price);
-						user.setAccount(account1);
-						return userMapper.update(user);
+						UserDO u = new UserDO();
+						u.setUserId(user.getUserId());
+						u.setAccount(account1);
+						return userMapper.update(u);
 					}
 					
 				}
 			}
 			
 			return i;
+		}
+		public Integer creadComm(Map<String,Object> params) {
+			Integer i = 0;
+			CommentDO comment = new CommentDO();
+			UserDO user = null; 
+			user = ShiroUtils.getUser();
+			if(user!=null) {
+				comment.setNewsId(Integer.valueOf(params.get("newsId").toString()));
+				comment.setMemberId(Integer.valueOf(user.getUserId().toString()));
+				String criticismContentparams= params.get("criticismContent").toString();
+				comment.setCreateTime(new Date());
+				if(criticismContentparams!=null && criticismContentparams!="") {
+					comment.setCriticismContent(criticismContentparams.trim());
+					if(commentDao.save(comment)>0) {
+						return i=1;
+					}
+				}
+			}else {
+				return i;
+			}
+			return i=-1; 
+			
 		}
 }

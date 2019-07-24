@@ -39,8 +39,16 @@ public class PointsDO implements Serializable {
 	private String telephone;
 	//会员地址
 	private String address;
+	//积分
+	private Integer integral;
 	
 	
+	public Integer getIntegral() {
+		return integral;
+	}
+	public void setIntegral(Integer integral) {
+		this.integral = integral;
+	}
 	public String getName() {
 		return name;
 	}

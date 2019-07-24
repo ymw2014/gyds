@@ -70,6 +70,8 @@ public class InfoDO implements Serializable {
 	
 	//团队名称
 	private String teamName;
+	//团队图片
+	private String teamTitleImg;
 
 	//简介
 	private String introduction;
@@ -86,6 +88,12 @@ public class InfoDO implements Serializable {
 	
 	private String createTimeStr;
 	
+	public String getTeamTitleImg() {
+		return teamTitleImg;
+	}
+	public void setTeamTitleImg(String teamTitleImg) {
+		this.teamTitleImg = teamTitleImg;
+	}
 	public String getCreateTimeStr() {
 		return createTimeStr;
 	}
