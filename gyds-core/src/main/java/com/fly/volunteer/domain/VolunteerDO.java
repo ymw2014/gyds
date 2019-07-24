@@ -20,7 +20,7 @@ public class VolunteerDO implements Serializable {
 	//志愿者名称
 	private String volunteerName;
 	//
-	private Long memId;
+	private Long userId;
 	//所属团队编号
 	private Integer teamId;
 	//所属团队名称
@@ -131,14 +131,14 @@ public class VolunteerDO implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setMemId(Long memId) {
-		this.memId = memId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Long getMemId() {
-		return memId;
+	public Long getUserId() {
+		return userId;
 	}
 	/**
 	 * 设置：所属团队编号

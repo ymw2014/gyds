@@ -46,9 +46,9 @@
 							<li>转发量 <span th:text="${volunteer.sharesNumber}"></span></li>
 						</ul>
 					</div>
-					<div class="volxk1">TA的相框 <span>更多></span> </div>
+					<div class="volxk1">TA的相框 <span></span> </div>
 					<div class="volxk">
-						<a href=""><img src="images/aaa3.jpg" alt=""></a>
+						<a href="" th:each="photo : ${photolist}"><img th:src="${photo.imgUrl}" alt=""></a>
 					</div>
 				</div>
 			</div>
