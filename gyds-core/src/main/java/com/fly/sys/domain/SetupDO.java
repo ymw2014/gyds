@@ -64,10 +64,10 @@ public class SetupDO implements Serializable {
 	
 	//
 	private BigDecimal withdrawalFee;
-	//签到送积分
+	//签到 转发 评论 点赞 送积分
 	private Integer punchTheClockIntegral;
-	//充值送积分比例
-	private BigDecimal rechargeIntegral;
+	//活动参与积分
+	private Integer rechargeIntegral;
 	//省代理保证金
 	private BigDecimal provincialBail;
 	//市代理保证金
@@ -367,13 +367,13 @@ public class SetupDO implements Serializable {
 	/**
 	 * 设置：充值送积分比例
 	 */
-	public void setRechargeIntegral(BigDecimal rechargeIntegral) {
+	public void setRechargeIntegral(Integer rechargeIntegral) {
 		this.rechargeIntegral = rechargeIntegral;
 	}
 	/**
 	 * 获取：充值送积分比例
 	 */
-	public BigDecimal getRechargeIntegral() {
+	public Integer getRechargeIntegral() {
 		return rechargeIntegral;
 	}
 	/**

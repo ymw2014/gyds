@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+import com.fly.domain.UserDO;
 import com.fly.points.dao.PointsDao;
 import com.fly.points.domain.PointsDO;
 import com.fly.points.service.PointsService;

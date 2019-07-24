@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.news.dao.CommentDao;
 import com.fly.news.dao.InfoDao;
+import com.fly.news.domain.CommentDO;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.domain.RewardInfoDO;
@@ -19,14 +21,20 @@ import com.fly.news.service.DynamicService;
 import com.fly.news.service.RewardInfoService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
+import com.fly.points.dao.PointsDao;
+import com.fly.points.domain.PointsDO;
+import com.fly.points.service.PointsService;
+import com.fly.sys.dao.SetupDao;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.DateUtils;
+import com.fly.utils.R;
 
 
 @Controller
 public class BaseDynamicController {
-	
+
 	@Autowired
 	private DynamicService dynamicService;
 	@Autowired
@@ -39,69 +47,91 @@ public class BaseDynamicController {
 	private OrderService orderService;
 	@Autowired
 	private UserDao userMapper;
-	 
-	//入参 params:newsId(文章id)retype(转发类型)rewardPrice(打赏金额)
+	@Autowired
+	private CommentDao commentDao;
+	@Autowired
+	private PointsDao pointsDao;
+	@Autowired
+	private SetupDao setupDao;
+
+
+	//记录+1
+	//入参 params:newsId(文章id)trtype(转发类型)rewardPrice(打赏金额)  type:1 分享 2点赞 3 打赏 4评论
 	public Integer dynamic(Map<String,Object> params,Integer type) {
 		Integer i =0;
 		UserDO user = null; 
+		PointsDO points = new PointsDO();
 		user = ShiroUtils.getUser();
 		DynamicDO dynamic = new DynamicDO();
 		RewardInfoDO rewardInfoDO = new RewardInfoDO();
 		switch (type) {
 		//文章 分享
 		case 1:
-			 dynamic = new DynamicDO();
-			 //0:转发 1:点赞 2:收藏
+			dynamic = new DynamicDO();
+			//0:转发 1:点赞 2:收藏
 			dynamic.setType(0);
 			dynamic.setNewsId(Long.parseLong(params.get("newsId")+"") );
 			if(user!=null) {
-				 dynamic.setMemberId(user.getUserId()); 
-			 }
+				dynamic.setMemberId(user.getUserId()); 
+			}
 			//1:微信 2:QQ空间 3:QQ 4:微博
 			dynamic.setTranspondType(Integer.valueOf(params.get("trType")+""));
+			dynamic.setCreatTime(new Date());
 			if(dynamicService.save(dynamic)>0){
 				//1:分享次数2: 评论次数3:文章点赞次数4:打赏次数
 				params.put("numberOfShares",1);
-				infoDao.updateDynamic(params);
-				i=1;
+				i=infoDao.updateDynamic(params);
+				if(i>0) {
+					points = new PointsDO();
+					points.setMemberId(user.getUserId());
+					points.setCreateTime(new Date());
+					points.setPointsType(type);
+					points.setIntegral(setupDao.get(1).getPunchTheClockIntegral());
+					i=addPoints(points);
+				}
 			}
 			break;
-		//文章 点赞
+			//文章 点赞
 		case 2:
-			 	dynamic = new DynamicDO();
-				dynamic.setType(1);
-				dynamic.setNewsId(Long.parseLong(params.get("newsId")+""));
-				dynamic.setActType(1);
+			dynamic = new DynamicDO();
+			dynamic.setType(1);
+			dynamic.setNewsId(Long.parseLong(params.get("newsId")+""));
+			dynamic.setActType(1);
 			if(user!=null) {
-			 dynamic.setMemberId(user.getUserId()); 
-		 }
-		if(dynamicService.save(dynamic)>0){
-			params.put("numberOfLikes",3);
-			infoDao.updateDynamic(params);
-			i=1;
-		}
+				dynamic.setMemberId(user.getUserId()); 
+			}
+			dynamic.setCreatTime(new Date());
+			if(dynamicService.save(dynamic)>0){
+				params.put("numberOfLikes",3);
+				i=infoDao.updateDynamic(params);
+			}
 			break;
-		//打赏
+			//打赏
 		case 3:
 			rewardInfoDO = new RewardInfoDO();
 			rewardInfoDO.setNewsId(Integer.valueOf(params.get("newsId").toString()));
 			rewardInfoDO.setRewardPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())));
 			if(user!=null) {
-				 dynamic.setMemberId(user.getUserId()); 
-			 }
+				dynamic.setMemberId(user.getUserId()); 
+			}
+			dynamic.setCreatTime(new Date());
 			if(rewardInfoService.save(rewardInfoDO)>0) {
 				params.put("rewardCount",4);
-				infoDao.updateDynamic(params);
-				i=1;
+				i=infoDao.updateDynamic(params);
 			}
 			break;
+			//评论
+		case 4:
+			params.put("criticismOfCount",2);
+			i=infoDao.updateDynamic(params);
+
 		default:
 			break;
 		}
-			return i;
-			
+		return i;
+
 	}
-	
+
 	public Integer upRegCode(Integer code) {
 		RegionDO region = regionService.get(code);
 		Integer parCode = region.getParentRegionCode();
@@ -115,7 +145,7 @@ public class BaseDynamicController {
 		user = ShiroUtils.getUser();
 		if(user!=null) {
 			order.setUserId(Integer.valueOf(user.getUserId().toString())); 
-		 }
+		}
 		if(params.get("orderType")!=null) {
 			order.setOrderType(Integer.valueOf(params.get("orderType").toString()));
 		}if(params.get("expIncType")!=null) {
@@ -135,6 +165,7 @@ public class BaseDynamicController {
 		}
 		order.setIsDel(0);
 		order.setOrderNumber(new Date().getTime()+"");
+		order.setBusinessTime(new Date());
 		//产生订单
 		if(orderService.save(order)>0){
 			i=order.getId();
@@ -161,49 +192,97 @@ public class BaseDynamicController {
 				//2:未点赞
 				i=2;
 			}
-		 }
+		}
 		//如果返回0表示未登录或无此用户
 		return i;
 	}
 	//是否置顶
 	//入参:params id (资讯id)
-		public Integer is_top(Integer id) {
-			Map<String, Object> params  = new HashMap<String, Object>();
-				Integer i = 0 ;
-				params.put("isTop", 1);
-				params.put("id", id);
-				List<InfoDO> info = infoDao.list(params);
-				if(info.size()>0) {
-					//1:已置顶
-					i=1;
-				}else {
-					//2:未置顶
-					i=2;
-				}
-			//如果返回0表示未登录或无此用户
-			return i;
+	public Integer is_top(Integer id) {
+		Map<String, Object> params  = new HashMap<String, Object>();
+		Integer i = 0 ;
+		params.put("isTop", 1);
+		params.put("id", id);
+		List<InfoDO> info = infoDao.list(params);
+		if(info.size()>0) {
+			//1:已置顶
+			i=1;
+		}else {
+			//2:未置顶
+			i=2;
 		}
-		public synchronized Integer deductMoney(Map<String,Object> params) {
-			Integer i = 2;
-			UserDO user = null; 
-			user = ShiroUtils.getUser();
-			if(user!=null) {
-				BigDecimal price = BigDecimal.valueOf(Long.parseLong(params.get("price").toString()));
-				BigDecimal account = user.getAccount();
-				if(account!=null&&price!=null) {
-					//结果 :-1 小于,0 等于,1 大于
-					 i =account.compareTo(price);
-					if(-1==i) {
-						return i;
-					}else {
-						BigDecimal account1 = account.subtract(price);
-						user.setAccount(account1);
-						return userMapper.update(user);
-					}
-					
+		//如果返回0表示未登录或无此用户
+		return i;
+	}
+	public synchronized Integer deductMoney(Map<String,Object> params) {
+		Integer i = 2;
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user!=null) {
+			BigDecimal price = BigDecimal.valueOf(Long.parseLong(params.get("price").toString()));
+			BigDecimal account = user.getAccount();
+			if(account!=null&&price!=null) {
+				//结果 :-1 小于,0 等于,1 大于
+				i =account.compareTo(price);
+				if(-1==i) {
+					return i;
+				}else {
+					BigDecimal account1 = account.subtract(price);
+					UserDO u = new UserDO();
+					u.setUserId(user.getUserId());
+					u.setAccount(account1);
+					return userMapper.update(u);
+				}
+
+			}
+		}
+
+		return i;
+	}
+	//创建评论
+	public Integer creadComm(Map<String,Object> params) {
+		Integer i = 0;
+		CommentDO comment = new CommentDO();
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user!=null) {
+			comment.setNewsId(Integer.valueOf(params.get("newsId").toString()));
+			comment.setMemberId(Integer.valueOf(user.getUserId().toString()));
+			String criticismContentparams= params.get("criticismContent").toString();
+			comment.setCreateTime(new Date());
+			if(criticismContentparams!=null && criticismContentparams!="") {
+				comment.setCriticismContent(criticismContentparams.trim());
+				if(commentDao.save(comment)>0) {
+					return i=1;
 				}
 			}
-			
+		}else {
 			return i;
 		}
+		return i=-1; 
+
+	}
+	public Integer addPoints(PointsDO Points) {
+		Integer i = 1;
+		Date startTime = DateUtils.weeHours(new Date(), 0);
+		Date endTime = DateUtils.weeHours(new Date(), 1);
+		Integer integral = 0;
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("memberId", Points.getMemberId());
+		params.put("startTime", startTime);
+		params.put("endTime", endTime);
+		List<PointsDO> userpoints=pointsDao.list(params);
+		if(userpoints!=null &&userpoints.size()>0) {
+			for(PointsDO pointsDO: userpoints) {
+				integral+=pointsDO.getIntegral();
+			}
+		} 
+		if(integral<10) {
+			Points.setIntegral(integral);
+			if(pointsDao.save(Points)>0) {
+				return i=2;
+			}
+		}
+		return i ;
+	}
 }

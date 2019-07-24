@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ import com.fly.news.domain.InfoDO;
 import com.fly.news.service.CommentService;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
+import com.fly.photo.domain.PhotoDO;
+import com.fly.photo.service.PhotoService;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -55,6 +58,8 @@ public class PcVolunteerController {
 	private ActivityService activityService;
 	@Autowired
 	private GuestlogService logService;
+	@Autowired
+	private PhotoService PhotoService;
 
 	@RequestMapping("volunteerList")
 	public String volunteer(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -73,6 +78,9 @@ public class PcVolunteerController {
 		
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		if (CollectionUtils.isEmpty(ids)) {
+			ids.add(-1);
+		}
 		
 		params.put("auditStatus",1);//
 		params.put("sex",sex);
@@ -109,7 +117,9 @@ public class PcVolunteerController {
 			log.setGuestType(1);
 			logService.save(log);
 		}
-		
+		params.clear();
+		params.put("memberId", user.getUserId());
+		List<PhotoDO> photolist = PhotoService.list(params);
 		
 		String region = volunteerDO.getProvince() + " " + volunteerDO.getCity();
 		volunteerDO.setProvince(region);
@@ -134,6 +144,7 @@ public class PcVolunteerController {
 		
 		model.addAttribute("commentList",comment);//评论信息
 		model.addAttribute("volunteer",volunteerDO);//志愿者信息
+		model.addAttribute("photolist",photolist);//相册
 		params.clear();
 		List<Map<String, Object>> shares = getInfo(0, id);
 		List<Map<String, Object>> likes = getInfo(1, id);
@@ -204,7 +215,9 @@ public class PcVolunteerController {
 		
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
-		
+		if (CollectionUtils.isEmpty(ids)) {
+			ids.add(-1);
+		}
 		params.put("auditStatus",1);//
 		params.put("sex",sex);
 		params.put("sort", sort);

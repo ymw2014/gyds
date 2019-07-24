@@ -60,13 +60,13 @@
 			<div class="gps_img1">
 				<div id="container1" >
 						<div class="lun1" >
-							<img th:each="team : ${teamList}" th:src="${team.teamTitleImg}" alt="">
+							<img th:each="newInfo: ${newList}" th:src="${newInfo.titleImg}" alt="">
 						</div>
 					  <button class="left1"></button>
 					  <button class="right1"></button>
 					  <div class="bo1">
 						 <ul class="list1">
-							  <li th:each="team : ${teamList}" class="select"></li>
+							  <li th:each="newInfo: ${newList}"class="select"></li>
 						 </ul> 
 					  </div>
 				 </div>
@@ -130,7 +130,7 @@
 	<!-- 志愿者 -->
 	<div class="zhiyuan">
 		<div class="secant_txt">
-			<h3><i></i>报名活动</h3>
+			<h3><i></i>志愿者</h3>
 			<a href="#">更多+</a>
 		</div>
 		<div class="zhiyuanImg">
