@@ -176,29 +176,40 @@ public class NewsInfoController extends BaseDynamicController{
 	@ResponseBody
 	public R shareNewInfoLog(@RequestParam Map<String,Object> para) {
 		Integer i = dynamic(para,1);
-		if(i==1){
-			return R.ok();
-		}else if(i==2) {
-			return R.ok("积分+1");
+		R r=new R();
+		if(i==1){//不加积分
+			r.put("code", 0);
+		}else if(i==2) {//积分加1
+			r.put("code", 2);
+			r.put("msg", "积分+1");
+		}else {
+			return R.error();
 		}
-		return R.error();
+		return r;
 
 	}
 	//文章点赞
 	@RequestMapping(value="/likes",method=RequestMethod.GET)
 	@ResponseBody
 	public R likes(@RequestParam Map<String,Object> params) {
-		if(dynamic(params,2)==1){
-			return R.ok();
+		Integer i = dynamic(params,2);
+		R r=new R();
+		if(i==1){
+			r.put("code", 0);
+		}else if(i==2) {//积分加1
+			r.put("code", 2);
+			r.put("msg", "积分+1");
+		}else {
+			return R.error();
 		}
-		return R.error();
+		return r;
 	}
 	//打赏
 	//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 	@RequestMapping(value="/reward",method=RequestMethod.POST)
 	@ResponseBody
 	public R reward(@RequestParam Map<String,Object> params) {
-		Integer i = null;
+ 		Integer i = null;
 		i = deductMoney(params);
 		if(i==1) {
 			//产生订单
@@ -211,6 +222,24 @@ public class NewsInfoController extends BaseDynamicController{
 		}
 		return R.error(i+"");
 	}
+	//红包
+		//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
+		@RequestMapping(value="/redPacket",method=RequestMethod.POST)
+		@ResponseBody
+		public R redPacket(@RequestParam Map<String,Object> params) {
+	 		Integer i = null;
+			i = deductMoney(params);
+			if(i==1) {
+				//产生订单
+				if(creadOrder(params)>0){
+					//记录+1
+					if(dynamic(params,3)==1){
+						return R.ok();
+					}
+				}
+			}
+			return R.error(i+"");
+		}
 	//置顶
 	@RequestMapping(value="/top/{id}",method=RequestMethod.GET)
 	public String top(@PathVariable("id") Integer id,Model model) {
@@ -296,18 +325,23 @@ public class NewsInfoController extends BaseDynamicController{
 	@PostMapping("/comment")
 	public R comment(@RequestParam Map<String,Object> params) {
 		Integer i =creadComm(params);
+		R r=new R();
 		if(i == 1) {
-			if(dynamic(params,4)==1){
-				return R.ok();
+			Integer c = dynamic(params,4);
+			if(c==1){
+				r.put("code", 0);
+			}else if(c==2) {
+				r.put("code", 2);
+				r.put("msg", "积分+1");
 			}
 		}else if(i==0){
 			return R.error("0");
 		}
-		return R.error();
+		return r;
 	}
 	
 	@RequestMapping("/infoList")
-	public String newInfoList(@RequestParam Integer areaId,Model model) {
+	public String newInfoList(@RequestParam Integer areaId,Integer flag,Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
 			params.put("pids",areaId);

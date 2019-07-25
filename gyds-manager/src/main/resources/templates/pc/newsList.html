@@ -33,10 +33,10 @@
 				<!-- 从这开始循环 -->
 				<div class="zixunbox" th:each="info:${newsList}">
 					<div class="zixuncent1">
-						<img th:src=${info.titleImg} alt="">
+						<a th:href="@{/pc/news/info(id=${info.id})}"><img th:src=${info.titleImg} alt=""></a>
 					</div>
 					<div class="zixuncent2"> 
-						<a th:href="@{/pc/news/info(id=${info.id})}"><p th:text="${info.title}"></p></a>
+						 <p th:text="${info.title}"></p>
 					</div>
 					<div class="zixuncent3">
 						<p style="float: left;">

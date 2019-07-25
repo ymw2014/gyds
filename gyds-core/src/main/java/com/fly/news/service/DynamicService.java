@@ -26,6 +26,8 @@ public interface DynamicService {
 	
 	int remove(Integer id);
 	
+	int removeCall(DynamicDO dynamic);
+	
 	int batchRemove(Integer[] ids);
 	/**
 	 * 	获取关注团队的关联信息

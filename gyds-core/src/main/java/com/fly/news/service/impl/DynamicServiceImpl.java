@@ -46,7 +46,10 @@ public class DynamicServiceImpl implements DynamicService {
 	public int remove(Integer id){
 		return dynamicDao.remove(id);
 	}
-	
+	@Override
+	public int removeCall(DynamicDO dynamic){
+		return dynamicDao.removeCall(dynamic);
+	}
 	@Override
 	public int batchRemove(Integer[] ids){
 		return dynamicDao.batchRemove(ids);
