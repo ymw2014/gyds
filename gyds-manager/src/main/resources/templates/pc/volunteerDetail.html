@@ -83,10 +83,9 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li th:onclick="'dynamic(' + ${comment.newsId} + ', '1')'"><img src="images/sc.png" alt="">&nbsp;转发</li>
-										<!-- <li><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li> -->    
-										<li><img src="images/pinglun.jpg" alt="">&nbsp;评论</li>
-										<li><img src="images/dianzan.jpg" alt="">&nbsp;赞</li>
+										<li th:onclick="'share('+ ${comment.newsId}+', 1, 1)'" ><img src="images/sc.png" alt="">&nbsp;转发</li>
+										<li><a th:href="'/pc/news/info?id='+ ${comment.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
+										<li th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" ><img src="images/dianzan.jpg" alt="">&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -107,10 +106,10 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li th:if=" ${dynamic.actType} eq '2'"><img src="images/sc.png" alt="">&nbsp;收藏</li>
-										<li><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
-										<li th:if=" ${dynamic.actType} eq '1'"><img src="images/pinglun.jpg" alt="">&nbsp;评论</li>
-										<li th:if=" ${dynamic.actType} eq '1'"><img src="images/dianzan.jpg" alt="">&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType} eq '2'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" ><img src="images/sc.png" alt="">&nbsp;收藏</li>
+										<li  th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+')'"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
+										<li th:if=" ${dynamic.actType} eq '1'"><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
+										<li th:if=" ${dynamic.actType} eq '1'"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'"><img src="images/dianzan.jpg" alt="">&nbsp;点赞</li>
 									</ul>
 								</div>
 							</div>
@@ -131,10 +130,8 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li><img src="images/sc.png" alt="">&nbsp;收藏</li>
-										<li><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
-										<!-- <li><img src="images/pinglun.jpg" alt="">&nbsp;评论</li>
-										<li><img src="images/dianzan.jpg" alt="">&nbsp;赞</li> -->
+										<li th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" ><img src="images/sc.png" alt="" >&nbsp;收藏</li>
+										<li th:onclick="'share('+${dynamic.newsId}+',2, 2)'"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
 									</ul>
 								</div>
 							</div>
@@ -156,10 +153,9 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<!-- <li><img src="images/sc.png" alt="">&nbsp;收藏</li> -->
-										<li><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
-										<li><img src="images/pinglun.jpg" alt="">&nbsp;评论</li>
-										<li><img src="images/dianzan.jpg" alt="">&nbsp;赞</li>
+										<li th:onclick="'share('+${dynamic.newsId}+',1, 1)'" ><img src="images/sc.png" alt="">&nbsp;转发</li>
+										<li><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
+										<li th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" ><img src="images/dianzan.jpg" alt="">&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -206,10 +202,92 @@
 		<div th:replace="pc/include :: footer"></div>
 	</body>
 </html>
+<script src="/js/plugins/layer/layer.js"></script>
+<script src="/js/layui.js"></script>
+<script src="/js/plugins/layer/laydate/laydate.js"></script>
 <script>
 	$(".volc li").click(function(){
 		$(this).addClass("volcolor").siblings().removeClass("volcolor");
 		var index = $(this).index();
 		$('.tobqihuan>div').hide().eq($(this).index()).show();
 	})
+	
+	function likes(newsId, type, newtype) {
+		$.ajax({
+            type : "get",
+            dataType: "json",
+            url : '/pc/news/likes',
+            data : {
+            	'newsId': newsId,
+            	'type': type
+            },
+            success : function(result) {
+            	var code = result.code;
+            	if (code == 0) {
+            		parent.layer.msg("操作成功");
+            	} else if (status == 2){
+            		parent.layer.msg("您还没登录，请先登录");
+            	} 
+            }
+        });
+	}
+	/* function share(newsId, type, newtype) {
+		$.ajax({
+            type : "get",
+            dataType: "json",
+            url : "/pc/news/share",
+            data : {
+            	'newsId': newsId,
+            	'type': type
+            },
+            success : function(result) {
+            	var code = result.code;
+            	if (code == 0) {
+            		parent.layer.msg("操作成功");
+            	} else if (status == 2){
+            		parent.layer.msg("您还没登录，请先登录");
+            	} 
+            }
+        });
+	} */
+	
+	function share(newsId, type, newtype) {
+		var actType = '';
+		var type = '';
+		if (newtype == 1) {
+			actType = '1';
+			type = '1';
+		} else {
+			actType = '2';
+			type = '6';
+		}
+		layer.open({
+			type : 2,
+			title : '分享',
+			maxmin : true,
+			shadeClose : false, // 点击遮罩关闭层
+			area : [ '300px', '200px' ],
+			content : '/pc/activity/share/' + actType + '/' + type + '/' + newsId// iframe的url
+		});
+	}
+	function collection(actId, type, newtype) {
+		$.ajax({
+            type : "get",
+            dataType: "json",
+            url : "/pc/activity/collect",
+            data : {
+            	'actId': actId
+            },
+            success : function(result) {
+            	var code = result.code;
+            	if (code == 0) {
+            		parent.layer.msg("操作失败");
+            	} else if (code == 1){
+            		parent.layer.msg("操作成功");
+            	} else if (code == 3) {
+            		parent.layer.msg("您还没登录，请先登录");
+            	}
+            }
+        });
+	}
 </script>
