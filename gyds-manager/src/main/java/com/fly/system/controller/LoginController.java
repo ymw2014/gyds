@@ -64,7 +64,12 @@ public class LoginController extends BaseController {
 			model.addAttribute("picUrl","/img/photo_s.jpg");
 		}
 		model.addAttribute("username", userDO.getUsername());
-		return "index_v1";
+		if(userDO.getIsManage()==1) {
+			return "index_v1";
+		}else {
+			return "redirect:/";
+		}
+		
 	}
 
 	/**
@@ -73,7 +78,7 @@ public class LoginController extends BaseController {
 	 */
 	@GetMapping("/login")
 	String login() {
-		return "login";
+		return "pc/login";
 	}
 
 	/**
@@ -102,12 +107,8 @@ public class LoginController extends BaseController {
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			//3、执行登录方法
 			subject.login(token);
-			UserDO user = (UserDO)subject.getPrincipal();
-			if(user.getIsManage()==1) {
-				r.put("url", "/index");
-			}else {
-				r.put("url", "/");
-			}
+			//UserDO user = (UserDO)subject.getPrincipal();
+			r.put("url", "/");
 			return r;//登录成功
 		}catch (UnknownAccountException e){//用户名不存在
 			return R.error(e.getMessage());

@@ -10,7 +10,7 @@
 	<select id="list" resultType="com.fly.guestlog.domain.GuestlogDO">
 		select `id`,`guest_id`,`guest_headImg`,`guest_name`,`user_id`,`user_headImg`,`user_name`,`guest_type`,
 		`guest_time` ,
-		DATE_FORMAT(guest_time,'%Y-%m-%d %H:%i:%s') guestTimeStr,
+		DATE_FORMAT(guest_time,'%Y-%m-%d %H:%i:%s') guestTimeStr
 		from guestlog
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>

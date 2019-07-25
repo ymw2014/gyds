@@ -1,5 +1,5 @@
 filedo:
-  uploadPath: /var/uploaded_files/
+  uploadPath: D:/var/uploaded_files/
 logging:
   level:
     root: info
