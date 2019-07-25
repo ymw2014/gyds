@@ -78,6 +78,13 @@
 		delete from new_dynamic where id = #{value}
 	</delete>
 	
+	<delete id="removeCall" parameterType="com.fly.news.domain.DynamicDO">
+		delete from new_dynamic 
+		<where>
+		<if test="newsId != null">and `news_id` = #{newsId}, </if>
+			<if test="memberId != null">and `member_id` = #{memberId} </if>
+		</where> 
+	</delete>
 	<delete id="batchRemove">
 		delete from new_dynamic where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">

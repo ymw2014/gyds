@@ -56,17 +56,17 @@ public class BaseDynamicController {
 	private SetupDao setupDao;
 	@Autowired
 	private ActivityDao activityDao;
-	
-/**
- * 
- * @param 
- * @title 		记录+1
- * @return   0:+1失败          1:+1成功            2:表示+1成功&&积分+1       3:获取不到当前用户
- * @param   newsId(文章id)  actId(活动id)   trtype(转发类型)    rewardPrice(打赏金额)  
- * @param	type:新闻(1 分享 2点赞 3 打赏 4评论) 活动(5 关注 6分享)
- * @return
- */
-	
+
+	/**
+	 * 
+	 * @param 
+	 * @title 		记录+1
+	 * @return   0:+1失败          1:+1成功            2:表示+1成功&&积分+1       3:获取不到当前用户
+	 * @param   newsId(文章id)  actId(活动id)   trtype(转发类型)    rewardPrice(打赏金额)  
+	 * @param	type:新闻(1 分享 2点赞 3 打赏 4评论) 活动(5 关注 6分享)
+	 * @return
+	 */
+
 	public Integer dynamic(Map<String,Object> params,Integer type) {
 		Integer i =0;
 		UserDO user = null; 
@@ -173,7 +173,7 @@ public class BaseDynamicController {
 				i=activityDao.updateActDynamic(params);
 			}
 			break;
-			
+
 		case 6:	
 			dynamic = new DynamicDO();
 			//0:转发 1:点赞 2:收藏
@@ -200,16 +200,50 @@ public class BaseDynamicController {
 					}
 				}
 			}
-			
-			
+
+
 			break;
 		default:
 			break;
 		}
 		return i;
-
 	}
+	/**
+	 * 
+	 * @param 
+	 * @title 		记录-1
+	 * @return   0:-1失败          1:-1成功      
+	 * @param   newsId(文章id)  actId(活动id)      
+	 * @param	
+	 * @return
+	 */
 
+	public Integer dynamicCall(Map<String,Object> params,Integer type) {
+		Integer i =0;
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		DynamicDO dynamic = new DynamicDO();
+		switch (type) {
+		//取消关注	
+		case 1:
+			dynamic = new DynamicDO();
+			if(user==null&&params.get("actId")==null) {
+				return i;
+			}
+			dynamic.setNewsId(Long.parseLong(params.get("actId")+""));
+			dynamic.setMemberId(user.getUserId()); 
+			if(dynamicService.removeCall(dynamic)>0){
+				//1分享 2关注 3 预览 4报名
+				params.put("numberOfCollection",2);
+				i=activityDao.ActDynamicCall(params);
+			}
+			break;
+		default:
+			break;
+		}
+		return i;
+	}
+	
 	public Integer upRegCode(Integer code) {
 		RegionDO region = regionService.get(code);
 		Integer parCode = region.getParentRegionCode();

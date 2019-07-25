@@ -26,5 +26,7 @@ public interface DynamicService {
 	
 	int remove(Integer id);
 	
+	int removeCall(DynamicDO dynamic);
+	
 	int batchRemove(Integer[] ids);
 }

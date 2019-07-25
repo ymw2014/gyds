@@ -29,5 +29,7 @@ public interface DynamicDao {
 	
 	int remove(Integer id);
 	
+	int removeCall(DynamicDO dynamic);
+	
 	int batchRemove(Integer[] ids);
 }

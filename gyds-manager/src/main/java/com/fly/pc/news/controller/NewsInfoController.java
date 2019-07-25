@@ -222,6 +222,24 @@ public class NewsInfoController extends BaseDynamicController{
 		}
 		return R.error(i+"");
 	}
+	//红包
+		//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
+		@RequestMapping(value="/redPacket",method=RequestMethod.POST)
+		@ResponseBody
+		public R redPacket(@RequestParam Map<String,Object> params) {
+	 		Integer i = null;
+			i = deductMoney(params);
+			if(i==1) {
+				//产生订单
+				if(creadOrder(params)>0){
+					//记录+1
+					if(dynamic(params,3)==1){
+						return R.ok();
+					}
+				}
+			}
+			return R.error(i+"");
+		}
 	//置顶
 	@RequestMapping(value="/top/{id}",method=RequestMethod.GET)
 	public String top(@PathVariable("id") Integer id,Model model) {
@@ -323,7 +341,7 @@ public class NewsInfoController extends BaseDynamicController{
 	}
 	
 	@RequestMapping("/infoList")
-	public String newInfoList(@RequestParam Integer areaId,Model model) {
+	public String newInfoList(@RequestParam Integer areaId,Integer flag,Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
 			params.put("pids",areaId);
