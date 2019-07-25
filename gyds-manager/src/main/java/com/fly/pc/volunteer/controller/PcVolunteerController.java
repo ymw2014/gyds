@@ -102,45 +102,49 @@ public class PcVolunteerController {
 	@RequestMapping("volunteerDetail")
 	public String volunteerDetail(@RequestParam Map<String,Object> params, Long id, Model model) {
 		UserDO user = ShiroUtils.getUser();
-		VolunteerDO volunteer = volunteerService.get(user.getUserId());
 		VolunteerDO volunteerDO = volunteerService.get(id);
-		if (volunteer != null) {//当前用户必须是志愿者才记录
-			//添加访客记录
-			GuestlogDO log = new GuestlogDO();
-			log.setGuestId(volunteer.getId().intValue());
-			log.setGuestHeadimg(volunteer.getHeadImg());
-			log.setGuestName(user.getName());
-			log.setUserId(id.intValue());
-			log.setUserHeadimg(volunteerDO.getHeadImg());
-			log.setUserName(volunteerDO.getVolunteerName());
-			log.setGuestTime(new Date());
-			log.setGuestType(1);
-			logService.save(log);
+		if (user != null) {//当前用户必须是志愿者才记录
+			params.clear();
+			params.put("userId", user.getUserId());
+			List<VolunteerDO> volunteer = volunteerService.list(params);
+			if (!CollectionUtils.isEmpty(volunteer)) {
+				//添加访客记录
+				GuestlogDO log = new GuestlogDO();
+				log.setGuestId(volunteer.get(0).getId().intValue());
+				log.setGuestHeadimg(volunteer.get(0).getHeadImg());
+				log.setGuestName(user.getName());
+				log.setUserId(id.intValue());
+				log.setUserHeadimg(volunteerDO.getHeadImg());
+				log.setUserName(volunteerDO.getVolunteerName());
+				log.setGuestTime(new Date());
+				log.setGuestType(1);
+				logService.save(log);
+				
+				
+			}
 		}
+		
 		params.clear();
-		params.put("memberId", user.getUserId());
+		params.put("guestId", id);
+		//params.put("guestType", 1);
+		List<GuestlogDO> guestLogList = logService.list(params);
+		model.addAttribute("zyzList",guestLogList);
+		params.clear();
+		params.put("userId", id);
+		//params.put("guestType", 2);
+		List<GuestlogDO> guestList = logService.list(params);//At访客
+		model.addAttribute("guestList",guestList);
+		
+		
+		params.clear();
+		params.put("memberId", volunteerDO.getUserId());
 		List<PhotoDO> photolist = PhotoService.list(params);
 		
 		String region = volunteerDO.getProvince() + " " + volunteerDO.getCity();
 		volunteerDO.setProvince(region);
 		params.clear();
-		params.put("memberId",id);
+		params.put("memberId",volunteerDO.getUserId());
 		List<CommentDO> comment = commentService.list(params);
-		
-		params.clear();
-		if (volunteer != null) {
-			params.put("guestId", volunteer.getId());
-			//params.put("guestType", 1);
-			List<GuestlogDO> guestLogList = logService.list(params);
-			model.addAttribute("zyzList",guestLogList);
-			params.clear();
-			params.put("userId", volunteer.getId());
-			//params.put("guestType", 2);
-			List<GuestlogDO> guestList = logService.list(params);//At访客
-			params.clear();
-			model.addAttribute("guestList",guestList);
-		}
-		
 		
 		model.addAttribute("commentList",comment);//评论信息
 		model.addAttribute("volunteer",volunteerDO);//志愿者信息
