@@ -51,5 +51,29 @@ public class DynamicServiceImpl implements DynamicService {
 	public int batchRemove(Integer[] ids){
 		return dynamicDao.batchRemove(ids);
 	}
+
+	@Override
+	public List<Map<String, Object>> dyTeamList(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return dynamicDao.dyTeamList(params);
+	}
+
+	@Override
+	public List<Map<String, Object>> dyActList(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return dynamicDao.dyActList(params);
+	}
+
+	@Override
+	public List<Map<String, Object>> dyNewList(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return dynamicDao.dyNewList(params);
+	}
+
+	@Override
+	public List<Map<String, Object>> dyVoluList(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return dynamicDao.dyVoluList(params);
+	}
 	
 }

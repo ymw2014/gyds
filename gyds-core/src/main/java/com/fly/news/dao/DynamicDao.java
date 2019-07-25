@@ -30,4 +30,12 @@ public interface DynamicDao {
 	int remove(Integer id);
 	
 	int batchRemove(Integer[] ids);
+	
+	List<Map<String, Object>>dyTeamList(Map<String,Object> params);
+	
+	List<Map<String, Object>>dyActList(Map<String,Object> params);
+	
+	List<Map<String, Object>>dyNewList(Map<String,Object> params);
+	
+	List<Map<String, Object>>dyVoluList(Map<String,Object> params);
 }

@@ -5,6 +5,8 @@ import com.fly.exception.utils.RRException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,6 +31,21 @@ public class ShiroUtils {
     public static Subject getSubjct() {
         return SecurityUtils.getSubject();
     }
+    
+    /**
+     *  	切换身份，登录后，动态更改subject的用户属性
+     * @param userInfo
+     */
+    public static void setUser(UserDO userDO) {
+    	Subject subject = SecurityUtils.getSubject();
+    	PrincipalCollection principalCollection = subject.getPrincipals(); 
+    	String realmName = principalCollection.getRealmNames().iterator().next();
+    	PrincipalCollection newPrincipalCollection = 
+    			new SimplePrincipalCollection(userDO, realmName);
+    	subject.runAs(newPrincipalCollection);
+    }
+
+
 
     /**
      * 获取去用户信息
