@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>公益打赏</title>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/lunbo.css"/>
+		<script src="/pc/js/jquery-3.1.1.js"></script>
+		<script src="/pc/js/lunbo.js"></script>
+	</head>
+<body>
+<input type="hidden" th:value="${actType}" id="actType"/>
+<input type="hidden" th:value="${type}" id="type"/>
+<input type="hidden" th:value="${newsId}" id="newsId"/>
+<div class="xqfenxing"
+	style="margin: 0 auto; width: 400px; margin-top: 40px;">
+	<span>分享至</span> <a href="javascript:;" th:onclick="'share(1)'"><img
+		th:src="@{/pc/images/conter_26.jpg}" alt=""></a> <a
+		href="javascript:;" th:onclick="share(2)"><img
+		th:src="@{/pc/images/conter_28.jpg}" alt=""></a> <a
+		href="javascript:;" th:onclick="share(3)"><img
+		th:src="@{/pc/images/conter_30.jpg}" alt=""></a> <a
+		href="javascript:;" th:onclick="share(4)"><img
+		th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
+</div>
+
+
+</body>
+<script src="/js/plugins/layer/layer.js"></script>
+<script src="/js/layui.js"></script>
+<script src="/js/plugins/layer/laydate/laydate.js"></script>
+<script>
+function share(reType){
+	var actType = $('#actType').val();
+	if (actType ==  1) {
+		para={
+				"newsId":$('#newsId').val(),
+				"trType":reType,
+				"type" : $("#Type").val()
+		};
+	} else {
+		para={
+				"actId":$('#newsId').val(),
+				"trType":reType,
+				"type" : $("#Type").val()
+		};
+	}
+	$.ajax({
+		cache : true,
+		type : "GET",
+		url : "/pc/news/share",
+		data : para,
+		async : true,
+		error : function(request) {
+			alert("分享失败");
+		},
+		success : function(data) {
+			if (data.code == 0) {
+				alert("分享成功");
+				history.go(0);
+			} else if(data.code == 2){
+				alert(data.msg);
+			}else{
+				alert(data.msg);
+			}
+
+		}
+	});
+}
+
+</script>
+</html>

@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +26,7 @@ import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -32,7 +34,7 @@ import com.fly.volunteer.service.VolunteerService;
 
 @Controller
 @RequestMapping("/pc/")
-public class PcActivityController {
+public class PcActivityController extends BaseDynamicController{
 	
 	@Autowired
 	private RegionService regionService;
@@ -208,5 +210,23 @@ public class PcActivityController {
 		}
 		dataInfo.put("status", status);
 		return dataInfo.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping("activity/collect")
+	public String collect(@RequestParam Map<String,Object> params) {
+		JSONObject dataInfo = new JSONObject();
+		Integer integer = dynamic(params, 5);
+		dataInfo.put("code", integer);
+		return dataInfo.toString();
+	}
+	
+	@RequestMapping("activity/share/{actType}/{type}/{newsId}")
+	public String share(@PathVariable("actType") String actType, @PathVariable("type") String type,
+			@PathVariable("newsId") String newsId, Model model) {
+		model.addAttribute("actType", actType);
+		model.addAttribute("type", type);
+		model.addAttribute("newsId", newsId);
+		return "pc/share";
 	}
 }

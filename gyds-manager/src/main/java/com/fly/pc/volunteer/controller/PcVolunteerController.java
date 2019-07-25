@@ -2,10 +2,13 @@ package com.fly.pc.volunteer.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -145,14 +148,16 @@ public class PcVolunteerController {
 		params.clear();
 		params.put("memberId",volunteerDO.getUserId());
 		List<CommentDO> comment = commentService.list(params);
-		
-		model.addAttribute("commentList",comment);//评论信息
+		ArrayList<CommentDO> newComment = comment.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() ->
+		new TreeSet<>(Comparator.comparing(CommentDO::getNewsId))), ArrayList::new));
+	
+		model.addAttribute("commentList",newComment);//评论信息
 		model.addAttribute("volunteer",volunteerDO);//志愿者信息
 		model.addAttribute("photolist",photolist);//相册
 		params.clear();
-		List<Map<String, Object>> shares = getInfo(0, id);
-		List<Map<String, Object>> likes = getInfo(1, id);
-		List<Map<String, Object>> collect = getInfo(2, id);
+		List<Map<String, Object>> shares = getInfo(0, volunteerDO.getUserId());
+		List<Map<String, Object>> likes = getInfo(1, volunteerDO.getUserId());
+		List<Map<String, Object>> collect = getInfo(2, volunteerDO.getUserId());
 		model.addAttribute("sharesList",shares);//转发
 		model.addAttribute("likesList",likes);//点赞
 		model.addAttribute("collectList",collect);//收藏
@@ -181,6 +186,7 @@ public class PcVolunteerController {
 					info.put("title", infoDO.getTitle());
 					info.put("img", infoDO.getTitleImg());
 					info.put("actType", 1);
+					info.put("newsId", infoDO.getId());
 					dynamicList.add(info);
 				}
 			} else if (actType != null && actType == 2){
@@ -191,6 +197,7 @@ public class PcVolunteerController {
 					info.put("title", activityDO.getActTitle());
 					info.put("img", activityDO.getActTitleImg());
 					info.put("actType", 2);
+					info.put("newsId", activityDO.getId());
 					dynamicList.add(info);
 				}
 			}
