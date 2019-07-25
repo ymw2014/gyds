@@ -21,8 +21,8 @@
 		  		  <if test="pointsType != null and pointsType != ''"> and points_type = #{pointsType} </if>
 		  		  <if test="money != null and money != ''"> and money = #{money} </if>
 		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
-		  		  <if test="startTime != null and startTime != ''"> AND create_time &gt;= #{startTime}</if>
-				  <if test="endTime != null and endTime != ''">AND create_time &lt;= #{endTime}</if>
+		  		  <if test="startTime != null"> AND create_time &gt;= #{startTime}</if>
+				  <if test="endTime != null">AND create_time &lt;= #{endTime}</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -60,7 +60,8 @@
 			`create_time`, 
 			`points_type`, 
 			`money`, 
-			`member_id`
+			`member_id`,
+			`integral`
 		)
 		values
 		(
@@ -70,7 +71,8 @@
 			#{createTime}, 
 			#{pointsType}, 
 			#{money}, 
-			#{memberId}
+			#{memberId},
+			#{integral}
 		)
 	</insert>
 	 
@@ -84,6 +86,7 @@
 			<if test="pointsType != null">`points_type` = #{pointsType}, </if>
 			<if test="money != null">`money` = #{money}, </if>
 			<if test="memberId != null">`member_id` = #{memberId}</if>
+			<if test="integral!=null">`integral` = #{integral}</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.fly.activity.dao.ActivityDao;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.news.dao.CommentDao;
@@ -53,10 +54,19 @@ public class BaseDynamicController {
 	private PointsDao pointsDao;
 	@Autowired
 	private SetupDao setupDao;
-
-
-	//记录+1
-	//入参 params:newsId(文章id)trtype(转发类型)rewardPrice(打赏金额)  type:1 分享 2点赞 3 打赏 4评论
+	@Autowired
+	private ActivityDao activityDao;
+	
+/**
+ * 
+ * @param 
+ * @title 		记录+1
+ * @return   0:+1失败          1:+1成功            2:表示+1成功&&积分+1       3:获取不到当前用户
+ * @param   newsId(文章id)  actId(活动id)   trtype(转发类型)    rewardPrice(打赏金额)  
+ * @param	type:新闻(1 分享 2点赞 3 打赏 4评论) 活动(5 关注 6分享)
+ * @return
+ */
+	
 	public Integer dynamic(Map<String,Object> params,Integer type) {
 		Integer i =0;
 		UserDO user = null; 
@@ -77,17 +87,19 @@ public class BaseDynamicController {
 			//1:微信 2:QQ空间 3:QQ 4:微博
 			dynamic.setTranspondType(Integer.valueOf(params.get("trType")+""));
 			dynamic.setCreatTime(new Date());
+			dynamic.setActType(1);
 			if(dynamicService.save(dynamic)>0){
 				//1:分享次数2: 评论次数3:文章点赞次数4:打赏次数
 				params.put("numberOfShares",1);
 				i=infoDao.updateDynamic(params);
 				if(i>0) {
-					points = new PointsDO();
-					points.setMemberId(user.getUserId());
-					points.setCreateTime(new Date());
-					points.setPointsType(type);
-					points.setIntegral(setupDao.get(1).getPunchTheClockIntegral());
-					i=addPoints(points);
+					if(user!=null) {
+						points = new PointsDO();
+						points.setMemberId(user.getUserId());
+						points.setCreateTime(new Date());
+						points.setPointsType(type);
+						i=addPoints(points);
+					}
 				}
 			}
 			break;
@@ -104,6 +116,15 @@ public class BaseDynamicController {
 			if(dynamicService.save(dynamic)>0){
 				params.put("numberOfLikes",3);
 				i=infoDao.updateDynamic(params);
+				if(i>0) {
+					if(user!=null) {
+						points = new PointsDO();
+						points.setMemberId(user.getUserId());
+						points.setCreateTime(new Date());
+						points.setPointsType(type);
+						i=addPoints(points);
+					}
+				}
 			}
 			break;
 			//打赏
@@ -111,6 +132,7 @@ public class BaseDynamicController {
 			rewardInfoDO = new RewardInfoDO();
 			rewardInfoDO.setNewsId(Integer.valueOf(params.get("newsId").toString()));
 			rewardInfoDO.setRewardPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())));
+			dynamic.setActType(1);
 			if(user!=null) {
 				dynamic.setMemberId(user.getUserId()); 
 			}
@@ -124,7 +146,63 @@ public class BaseDynamicController {
 		case 4:
 			params.put("criticismOfCount",2);
 			i=infoDao.updateDynamic(params);
-
+			if(i>0) {
+				if(user!=null) {
+					points = new PointsDO();
+					points.setMemberId(user.getUserId());
+					points.setCreateTime(new Date());
+					points.setPointsType(type);
+					i=addPoints(points);
+				}
+			}
+			break;
+			//活动关注	
+		case 5:
+			dynamic = new DynamicDO();
+			dynamic.setType(2);
+			dynamic.setNewsId(Long.parseLong(params.get("actId")+""));
+			dynamic.setActType(2);
+			if(user==null) {
+				return 3;
+			}
+			dynamic.setMemberId(user.getUserId()); 
+			dynamic.setCreatTime(new Date());
+			if(dynamicService.save(dynamic)>0){
+				//1分享 2关注 3 预览 4报名
+				params.put("numberOfCollection",2);
+				i=activityDao.updateActDynamic(params);
+			}
+			break;
+			
+		case 6:	
+			dynamic = new DynamicDO();
+			//0:转发 1:点赞 2:收藏
+			dynamic.setType(0);
+			dynamic.setNewsId(Long.parseLong(params.get("actId")+"") );
+			if(user!=null) {
+				dynamic.setMemberId(user.getUserId()); 
+			}
+			//1:微信 2:QQ空间 3:QQ 4:微博
+			dynamic.setTranspondType(Integer.valueOf(params.get("trType")+""));
+			dynamic.setCreatTime(new Date());
+			dynamic.setActType(2);
+			if(dynamicService.save(dynamic)>0){
+				//1:分享次数2: 评论次数3:文章点赞次数4:打赏次数
+				params.put("numberOfShares",1);
+				i=infoDao.updateDynamic(params);
+				if(i>0) {
+					if(user!=null) {
+						points = new PointsDO();
+						points.setMemberId(user.getUserId());
+						points.setCreateTime(new Date());
+						points.setPointsType(type);
+						i=addPoints(points);
+					}
+				}
+			}
+			
+			
+			break;
 		default:
 			break;
 		}
@@ -214,10 +292,13 @@ public class BaseDynamicController {
 		//如果返回0表示未登录或无此用户
 		return i;
 	}
+	//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 	public synchronized Integer deductMoney(Map<String,Object> params) {
 		Integer i = 2;
+		Long userId = null; 
 		UserDO user = null; 
-		user = ShiroUtils.getUser();
+		userId = ShiroUtils.getUserId();
+		user = userMapper.get(userId);
 		if(user!=null) {
 			BigDecimal price = BigDecimal.valueOf(Long.parseLong(params.get("price").toString()));
 			BigDecimal account = user.getAccount();
@@ -234,6 +315,8 @@ public class BaseDynamicController {
 					return userMapper.update(u);
 				}
 
+			}else {
+				return i=-1;
 			}
 		}
 
@@ -262,6 +345,7 @@ public class BaseDynamicController {
 		return i=-1; 
 
 	}
+	//加积分
 	public Integer addPoints(PointsDO Points) {
 		Integer i = 1;
 		Date startTime = DateUtils.weeHours(new Date(), 0);
@@ -278,7 +362,7 @@ public class BaseDynamicController {
 			}
 		} 
 		if(integral<10) {
-			Points.setIntegral(integral);
+			Points.setIntegral(setupDao.get(1).getPunchTheClockIntegral());
 			if(pointsDao.save(Points)>0) {
 				return i=2;
 			}

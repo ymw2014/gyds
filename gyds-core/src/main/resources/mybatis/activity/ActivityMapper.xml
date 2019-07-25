@@ -169,5 +169,15 @@
 			#{id}
 		</foreach>
 	</delete>
-
+	
+	<update id="updateActDynamic" parameterType="java.util.Map">
+		update activity 
+		<set>
+			<if test="numberOfShares == 1">`number_of_shares` = number_of_shares+1, </if>
+			<if test="numberOfCollection == 2">`number_of_collection` = number_of_collection+1, </if>
+			<if test="numberOfPreviews == 3">`number_of_previews` = number_of_previews+1, </if>
+			<if test="numberOfApplicants == 4">`number_of_applicants` = number_of_applicants+1</if>
+		</set>
+		where id = #{id}
+	</update>
 </mapper>

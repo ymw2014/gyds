@@ -198,7 +198,9 @@
 				if (data.code == 0) {
 					alert("分享成功");
 					history.go(0);
-				} else {
+				} else if(data.code == 2){
+					alert(data.msg);
+				}else{
 					alert(data.msg);
 				}
 
@@ -220,7 +222,9 @@
 				if (data.code == 0) {
 					$("#like").attr("src","/pc/images/listzz_04.jpg");
 					history.go(0);
-				} else {
+				} else if(data.code == 2){
+					alert(data.msg);
+				}else {
 					parent.layer.alert(data.msg)
 				}
 
@@ -243,7 +247,7 @@
 							history.go(0);
 						} else {
 							if(data.msg == -1){
-							layer.msg('打赏失败！您打赏的余额不足');
+							layer.msg('打赏失败！您的余额不足');
 							}else if(data.msg == 0){
 							layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
 							}else if(data.msg == 2){
@@ -302,7 +306,10 @@
 			success : function(data) {
 				if (data.code == 0) {
 						history.go(0);
-				} else {
+				} else if(data.code == 2){
+					alert(data.msg);
+					history.go(0);
+				}else {
 					if(data.msg==0){
 						layer.confirm('您未登录请问是否跳转登录页面？', {
 							  btn: ['是','否'] //按钮

@@ -28,4 +28,6 @@ public interface ActivityDao {
 	int remove(Integer id);
 	
 	int batchRemove(Integer[] ids);
+	
+	int updateActDynamic(Map<String,Object> map);
 }
