@@ -38,6 +38,7 @@ import com.fly.news.service.InfoService;
 import com.fly.photo.domain.PhotoDO;
 import com.fly.photo.service.PhotoService;
 import com.fly.system.service.RegionService;
+import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
@@ -63,6 +64,8 @@ public class PcVolunteerController {
 	private GuestlogService logService;
 	@Autowired
 	private PhotoService PhotoService;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping("volunteerList")
 	public String volunteer(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -106,6 +109,10 @@ public class PcVolunteerController {
 	public String volunteerDetail(@RequestParam Map<String,Object> params, Long id, Model model) {
 		UserDO user = ShiroUtils.getUser();
 		VolunteerDO volunteerDO = volunteerService.get(id);
+		if (volunteerDO.getUserId() != null) {
+			UserDO userDO = userService.get(volunteerDO.getUserId());
+			model.addAttribute("isReal",userDO.getIsIdentification());
+		}
 		if (user != null) {//当前用户必须是志愿者才记录
 			params.clear();
 			params.put("userId", user.getUserId());
@@ -140,27 +147,32 @@ public class PcVolunteerController {
 		
 		
 		params.clear();
-		params.put("memberId", volunteerDO.getUserId());
-		List<PhotoDO> photolist = PhotoService.list(params);
+		if (volunteerDO.getUserId() != null) {
+			params.put("memberId", volunteerDO.getUserId());
+			List<PhotoDO> photolist = PhotoService.list(params);
+			model.addAttribute("photolist",photolist);//相册
+		}
 		
 		String region = volunteerDO.getProvince() + " " + volunteerDO.getCity();
 		volunteerDO.setProvince(region);
 		params.clear();
-		params.put("memberId",volunteerDO.getUserId());
-		List<CommentDO> comment = commentService.list(params);
-		ArrayList<CommentDO> newComment = comment.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() ->
-		new TreeSet<>(Comparator.comparing(CommentDO::getNewsId))), ArrayList::new));
-	
-		model.addAttribute("commentList",newComment);//评论信息
+		if (volunteerDO.getUserId() != null) {
+			params.put("memberId",volunteerDO.getUserId());
+			List<CommentDO> comment = commentService.list(params);
+			ArrayList<CommentDO> newComment = comment.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() ->
+			new TreeSet<>(Comparator.comparing(CommentDO::getNewsId))), ArrayList::new));
+			model.addAttribute("commentList",newComment);//评论信息
+		}
 		model.addAttribute("volunteer",volunteerDO);//志愿者信息
-		model.addAttribute("photolist",photolist);//相册
 		params.clear();
-		List<Map<String, Object>> shares = getInfo(0, volunteerDO.getUserId());
-		List<Map<String, Object>> likes = getInfo(1, volunteerDO.getUserId());
-		List<Map<String, Object>> collect = getInfo(2, volunteerDO.getUserId());
-		model.addAttribute("sharesList",shares);//转发
-		model.addAttribute("likesList",likes);//点赞
-		model.addAttribute("collectList",collect);//收藏
+		if (volunteerDO.getUserId() != null) {
+			List<Map<String, Object>> shares = getInfo(0, volunteerDO.getUserId());
+			List<Map<String, Object>> likes = getInfo(1, volunteerDO.getUserId());
+			List<Map<String, Object>> collect = getInfo(2, volunteerDO.getUserId());
+			model.addAttribute("sharesList",shares);//转发
+			model.addAttribute("likesList",likes);//点赞
+			model.addAttribute("collectList",collect);//收藏
+		}
 		return "pc/volunteerDetail";
 	}
 	

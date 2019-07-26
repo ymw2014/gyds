@@ -46,21 +46,29 @@
 							<div class="zaixian">
 								<div th:switch="${applyStatus}">
 									<p th:case="'0'">
-										<img src="images/zaixian.png" alt="" ><span onclick="apply('1')">取消报名</span>
+										<img src="images/zaixian.png" alt="" ><span onclick="apply('1')" style="cursor:pointer">取消报名</span>
 									</p>
 									<p th:case="'1'">
-										<img src="images/zaixian.png" alt="" ><span onclick="">已报名</span>
+										<img src="images/zaixian.png" alt="" ><span style="cursor:not-allowed">已报名</span>
 									</p>
 									<p th:case="'2'">
-										<img src="images/zaixian.png" alt="" ><span onclick="">已拒绝</span>
+										<img src="images/zaixian.png" alt="" ><span style="cursor:not-allowed">已拒绝</span>
 									</p>
 									<p th:case="'4'">
-										<img src="images/zaixian.png" alt="" ><span onclick="apply('2')">我要报名</span>
+										<img src="images/zaixian.png" alt="" ><span onclick="apply('2')" style="cursor:pointer">我要报名</span>
 									</p>
 								</div>
 							</div>
 							<div class="zaixian1">
-								<li th:onclick="'collection('+${activity.id}+',5, 2)'" ><img src="images/myshouc.png" alt="">我要收藏</li>
+								<div th:switch="${collectStatus}">
+									<p th:case="'1'">
+										<li th:onclick="'collection('+${activity.id}+',5, 2)'" >
+										<img src="images/myshouc.png" alt="" ><span style="cursor:pointer">我要收藏</span></li>
+									</p>
+									<p th:case="'2'">
+										<img src="images/myshouc.png" alt="" style="cursor:not-allowed"><span style="cursor:not-allowed">已收藏</span>
+									</p>
+								</div>
 							</div> 
 						</div>
 					</div>
@@ -74,11 +82,15 @@
 				<div class="xqcon">
 					<div th:utext="${activity.actContent}"></div>
 					<div class="xqfenxing">
-						<span>分享至</span>
-						<a href="#"><img src="images/conter_26.jpg" alt=""></a>
-						<a href="#"><img src="images/conter_28.jpg" alt=""></a>
-						<a href="#"><img src="images/conter_30.jpg" alt=""></a>
-						<a href="#"><img src="images/conter_33.jpg" alt=""></a>
+						<span>分享至</span> 
+						<a href="javascript:;" th:onclick="'share(1)'"><img
+							th:src="@{/pc/images/conter_26.jpg}" alt=""></a> 
+						<a href="javascript:;" th:onclick="share(2)"><img
+							th:src="@{/pc/images/conter_28.jpg}" alt=""></a> 
+						<a href="javascript:;" th:onclick="share(3)"><img
+							th:src="@{/pc/images/conter_30.jpg}" alt=""></a> 
+						<a href="javascript:;" th:onclick="share(4)"><img
+							th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
 					</div>
 				</div>
 				<!-- 右侧 -->
@@ -209,5 +221,35 @@
             	}
             }
         });
+	}
+	
+	
+	function share(reType){
+		para={
+				"actId":$('#actId').val(),
+				"trType":reType,
+				"type" : 2
+		};
+		$.ajax({
+			cache : true,
+			type : "GET",
+			url : "/pc/news/share",
+			data : para,
+			async : true,
+			error : function(request) {
+				alert("分享失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					alert("分享成功");
+					history.go(0);
+				} else if(data.code == 2){
+					alert(data.msg);
+				}else{
+					alert(data.msg);
+				}
+
+			}
+		});
 	}
 </script>
