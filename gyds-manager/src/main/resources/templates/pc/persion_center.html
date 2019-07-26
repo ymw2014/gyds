@@ -1,119 +1,128 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/personal.css}"/>
-		<link rel="stylesheet" th:href="@{/pc/css/index.css}">
-		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
-	</head>
-	<body>
-		<!-- 头部 -->
-		<header>
-			<div class="header_top">
-				<div>
-					<img src="images/post_03.jpg" alt="">
-				</div>
-				<!-- 头部导航 -->
-				<nav>
-					<div class="btn active">
-						<a href="index.html">首页</a>
-					</div>
-					<div class="btn">
-						<a href="index.html">账户设置 <img src="images/aaa2.jpg" alt=""></a>
-						<ul>
-							<li><a href="#">1</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">1</a></li>
-						</ul>
-					</div>
-					<div class="btn">
-						<a href="index.html">评价 <img src="images/aaa2.jpg" alt=""></a>
-						<ul>
-							<li><a href="#">1</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">1</a></li>
-						</ul>
-					</div>
-					<div class="btn">
-						<a href="index.html">消息</a>
-					</div>
-				</nav>
+<head th:replace="pc/include :: head"></head>
+<body>
+	<!-- 头部 -->
+	<header>
+		<div class="header_top">
+
+			<div style="cursor: pointer;">
+				<img id="home" src="images/post_03.jpg" alt="">
 			</div>
-		</header>
-		<!-- 主体 -->
-		<div class="box">
-			<!-- 主体左侧导航 -->
-			<div class="NavLeft">
-					<dl>
-						<dt>新闻管理</dt>
-						<dt><a href="/pc/collect"  data-index="1" target="iframe0">关注中心</a></dt>
-						<dt><a href=""  data-index="2" target="iframe0">财务明细</a></dt>
-						<!-- <dt>相册管理</dt>
+
+			<!-- 头部导航 -->
+			<nav>
+				<div class="btn active">
+					<a href="index.html">首页</a>
+				</div>
+				<div class="btn">
+					<a href="index.html">账户设置 <img src="images/aaa2.jpg" alt=""></a>
+					<ul>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+					</ul>
+				</div>
+				<div class="btn">
+					<a href="index.html">评价 <img src="images/aaa2.jpg" alt=""></a>
+					<ul>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+					</ul>
+				</div>
+				<div class="btn">
+					<a href="index.html">消息</a>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<!-- 主体 -->
+	<div class="box">
+		<!-- 主体左侧导航 -->
+		<div class="NavLeft">
+			<dl>
+				
+				<dt>新闻管理</dt>
+				<dd><a href="/pc/newAdd" data-index="1" target="iframe0">新闻发布</a></dd>
+				<dt>
+					<a href="/pc/collect" data-index="1" target="iframe0">关注中心</a>
+				</dt>
+				<dt >
+				<!-- shiro:hasPermission="caiwu:caiwu:list" -->
+					<a href="/pc/getFinancial" data-index="2" target="iframe0">财务明细</a>
+				</dt>
+				<!-- <dt>相册管理</dt>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd> -->
 
-						<dt>我的参团</dt>
-						<!-- <dd>二级菜单</dd>
+				<dt>我的参团</dt>
+				<!-- <dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd> -->
-						
-						<dt>申请建团</dt>
-						<dt>志愿者申请</dt>
-						<!-- <dd>二级菜单</dd>
+
+				<dt>申请建团</dt>
+				<dt>代理商申请</dt>
+				<dt><a href="/pc/voApply" data-index="1" target="iframe0">志愿者申请</a></dt>
+				<!-- <dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd> -->
-						
-						<dt>新闻管理</dt>
-						<dd>新闻发布</dd>
-						
-						
-						<dt>我的签到</dt>
-						<!-- <dd>二级菜单</dd>
+
+				<dt>新闻管理</dt>
+				<dd>新闻发布</dd>
+
+
+				<dt>我的签到</dt>
+				<!-- <dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd>
 						<dd>二级菜单</dd> -->
-						<dt>基本设置</dt>
-						<dd>实名认证</dd>
-						<dd>账户安全</dd>
-						<dd>志愿者证书</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-					</dl>	
-			</div>
-			<!-- 右侧主内容 -->
-			<div class="boxRight">
-				<iframe class="J_iframe" name="iframe0" width="100%" height="100%"
-                    th:src="@{/pc/persion_main}"  frameborder="0" scrolling="no" data-id="persion_center.html"
-                    seamless></iframe>
-           <!-- @{/chart/graph_echarts.html}-->
-	
-			</div>
-			
+				<dt>基本设置</dt>
+				<dd><a href="/pc/attestation" data-index="1" target="iframe0">实名认证</a></dd>
+				<dd>账户安全</dd>
+				<dd>志愿者证书</dd>
+				<dd>二级菜单</dd>
+				<dd>二级菜单</dd>
+			</dl>
 		</div>
-		<div th:replace="pc/include :: footer"></div>
-	</body>
+		<!-- 右侧主内容 -->
+		<div class="boxRight">
+			<iframe class="J_iframe" name="iframe0" width="100%" height="100%"
+				th:src="@{/pc/persion_main}" frameborder="0" scrolling="no"
+				data-id="persion_center.html" seamless></iframe>
+			<!-- @{/chart/graph_echarts.html}-->
+
+		</div>
+
+	</div>
+	<div th:replace="pc/include :: footer"></div>
+</body>
 </html>
 <script>
-	$(".btn").mouseover(function(){
-		 $(this).children("ul").show();
+	$(".btn").mouseover(function() {
+		$(this).children("ul").show();
 	});
-	$(".btn").mouseout(function(){
-		 $(this).children("ul").hide();
+	$(".btn").mouseout(function() {
+		$(this).children("ul").hide();
 	})
-	$('dt').click(function () {
-		if($(this).nextUntil('dt','dd').is(':visible')){
-			$(this).nextUntil('dt','dd').slideUp()
-		}else{
-			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
-		}
+	$('dt').click(
+			function() {
+				if ($(this).nextUntil('dt', 'dd').is(':visible')) {
+					$(this).nextUntil('dt', 'dd').slideUp()
+				} else {
+					$(this).siblings('dd').slideUp().end()
+							.nextUntil('dt', 'dd').slideToggle();
+				}
+			})
+	$("#home").click(function() {
+		window.location.href = "/";
 	})
 </script>

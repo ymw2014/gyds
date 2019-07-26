@@ -164,7 +164,13 @@ public class PcActivityController extends BaseDynamicController{
 		return "pc/activityJoin";
 	}
 	
-	
+	/**
+	 * 
+	 * @param type 1：取消报名 2：报名申请
+	 * @param actId 活动编号
+	 * @param applyId 活动报名编号
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("activity/apply")
 	public String apply(Integer type, Long actId, Long applyId) {
@@ -208,7 +214,7 @@ public class PcActivityController extends BaseDynamicController{
 			status = 5;
 			e.printStackTrace();
 		}
-		dataInfo.put("status", status);
+		dataInfo.put("status", status);//
 		return dataInfo.toString();
 	}
 	

@@ -53,6 +53,9 @@ public class OrderDO implements Serializable {
 	//金额
 	private BigDecimal price;
 	
+	//创建时间
+	private Date createTime;
+	
 	public String getName() {
 		return name;
 	}
@@ -250,5 +253,11 @@ public class OrderDO implements Serializable {
 	 */
 	public BigDecimal getPrice() {
 		return price;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 }

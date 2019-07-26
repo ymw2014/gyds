@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/personal.css}"/>
-		<link rel="stylesheet" th:href="@{/pc/css/index.css}">
-		<link rel="stylesheet" th:href="@{/pc/css/guzhunaws.css}">
-		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
-		<style>
-		   .biaodan2-1{
-				display: none;
-			}
-		</style>
+	<head th:replace="pc/include :: head">
 	</head>
 	<body>
 		<div class="boxRight" style="background:#fff;width: 1006px;height: 925px;margin-top:0;">
@@ -34,11 +23,11 @@
 							<h4>郑州志愿者联盟</h4>
 							<div>
 								<ul>
-									<li>团队类型<span th:text="${team.type_name}">事业单位</span></li>
+									<li>团队类型<span th:text="${team.type_name}"></span></li>
 									<li>所在地区<span>河南省郑州市</span></li>
-									<li>志愿者总数 <span th:text="${team.v_renshu}">5555</span></li>
-									<li>发布活动 <span th:text="${team.act_count}">565</span></li>
-									<li>发布咨询 <span th:text="${team.new_count}">565</span></li>
+									<li>志愿者总数 <span th:text="${team.v_renshu}"></span></li>
+									<li>发布活动 <span th:text="${team.act_count}"></span></li>
+									<li>发布咨询 <span th:text="${team.new_count}"></span></li>
 								</ul>
 							</div>
 							<p th:text="${team.remark}"></p>
@@ -52,7 +41,7 @@
 							<p>据说中美经贸磋商未来将在北京举行</p>
 							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd hh:MM:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd hh:MM:ss')}"></span></div>
 							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count+'人报名'}"></span>
-							<a href="#" class="anniiu">立即报名</a>
+							<a href="javaScript:;" onclick="apply(2)" class="anniiu">立即报名</a>
 					</div>
 				</div>
 				  <!-- 新闻 -->
@@ -102,5 +91,33 @@
 	$(".wyy-gz>div").click(function(){
 		$(this).addClass("redborder").siblings("div").removeClass("redborder")
 	})
+	
+	function apply(type) {
+		$.ajax({
+            type : "POST",
+            dataType: "json",
+            url : "/pc/activity/apply",
+            data : {
+            	'type': type,
+            	'actId': $("#actId").val(),
+            	'applyId': $("#applyId").val()
+            },
+            success : function(result) {
+            	var status = result.status;
+            	if (status == 1) {
+            		parent.layer.msg("操作成功");
+            		history.go(0)
+            	} else if (status == 2){
+            		parent.layer.msg("您还没登录，请先登录");
+            	} else if (status == 3){
+            		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+            	} else if (status == 3){
+            		parent.layer.msg("报名失败，报名人数已满");
+            	} else {
+            		parent.layer.msg("操作失败");
+            	}
+            }
+        });
+	}
 
 </script>

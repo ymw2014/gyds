@@ -11,8 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fly.common.controller.BaseController;
+import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.index.utils.OrderType;
 import com.fly.news.service.DynamicService;
+import com.fly.order.domain.OrderDO;
+import com.fly.order.service.OrderService;
+import com.fly.points.domain.PointsDO;
+import com.fly.points.service.PointsService;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.service.TeamService;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -25,9 +32,12 @@ public class PersionController extends BaseController{
 	private TeamService teamService;
 	@Autowired
 	private VolunteerService volunteerService;
-	
 	@Autowired
 	private DynamicService dynamicService;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private RegionService regionService;
 	
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter(Model model) {
@@ -38,6 +48,11 @@ public class PersionController extends BaseController{
 		return "pc/persion_center";
 	}
 	
+	/**
+	 * 个人中心首页
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/pc/persion_main")
 	String main(Model model) {
 		UserDO user = ShiroUtils.getUser();
@@ -51,6 +66,11 @@ public class PersionController extends BaseController{
 		return "pc/persion_main";
 	}
 	
+	/**
+	 * 我的关注
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/pc/collect")
 	public String getCollect(Model model) {
 		Map<String, Object> params=new HashMap<>(16);
@@ -65,4 +85,76 @@ public class PersionController extends BaseController{
 		model.addAttribute("voList", voList);
 		return "pc/collect";
 	}
+	
+	/**
+	 * 财务明细
+	 * @return 
+	 */
+	@RequestMapping("/pc/getFinancial")
+	public String getFinancialDetails(Model model) {//类型:0:提现 1:充值 2:打赏 3:红包 4:广告费用 5:置顶
+		Map<String, Object> params=new HashMap<>(16);
+		params.put("userId", getUserId());
+		List<OrderDO> allList = orderService.list(params);
+		params.put("expIncType", OrderType.CHONG_ZHI);
+		List<OrderDO> czList = orderService.list(params);
+		params.put("expIncType", OrderType.TI_XIAN);
+		List<OrderDO> txList = orderService.list(params);
+		params.put("expIncType", OrderType.DA_SHANG);
+		List<OrderDO> dsList = orderService.list(params);
+		params.put("expIncType", OrderType.HONG_BAO);
+		List<OrderDO> hbList = orderService.list(params);
+		params.put("expIncType", OrderType.GUANG_GAO);
+		List<OrderDO> ggList = orderService.list(params);
+		params.put("expIncType", OrderType.ZHI_DING);
+		List<OrderDO> zdList = orderService.list(params);
+		model.addAttribute("allList", allList);
+		model.addAttribute("czList", czList);
+		model.addAttribute("txList", txList);
+		model.addAttribute("dsList", dsList);
+		model.addAttribute("hbList", hbList);
+		model.addAttribute("ggList", ggList);
+		model.addAttribute("zdList", zdList);
+		return "pc/caiwu_details";
+	}
+	
+	/**
+	 * 志愿者申请
+	 * @return 
+	 */
+	@RequestMapping("/pc/voApply")
+	private String voApply(Model model) {
+		UserDO user = getUser();
+		if(user.getIsIdentification()==0) {//未实名认证
+			model.addAttribute("message", "您还未进行实名认证!请先进行实名认证,感谢您的参与!");
+			return "pc/message";
+		}
+		model.addAttribute("user", user);
+		return "pc/vo_apply";
+
+	}
+	
+	/**
+	 * 实名认证
+	 * @return 
+	 */
+	@RequestMapping("/pc/attestation")
+	public String realNameAuthentication(Model model) {
+		UserDO user = getUser();
+		Map<String, Object> map=new HashMap<>(16);
+		map.put("parentRegionCode", 0);
+		List<RegionDO> areaList = regionService.list(map);
+		model.addAttribute("areaList", areaList);
+		model.addAttribute("user", user);
+		return "pc/attestation";
+	}
+	
+	
+	@RequestMapping("/pc/newAdd")
+	public String newsAdd(Model model) {
+		
+		return "pc/news_add";
+
+	}
+	
+	
 }

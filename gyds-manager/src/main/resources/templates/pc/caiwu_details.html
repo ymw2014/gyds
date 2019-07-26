@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head th:replace="pc/include :: head">
+	<body>
+		<div class="boxRight" style="background:#fff;width: 1006px;height: 925px;margin-top:0;">
+				<div class="cwmx">
+					<h4>财务明细</h4>
+				</div>
+				<div class="caiwumx">
+					<ul>
+						<li class="luse"><a href="javaScript:;">全部记录</a></li>
+						<li><a href="javaScript:;">充值明细</a></li>
+						<li><a href="javaScript:;">体现明细</a></li>
+						<li><a href="javaScript:;">打赏明细</a></li>
+						<li><a href="javaScript:;">红包明细</a></li>
+						<!-- <li><a href="#">广告明细</a></li>
+						<li><a href="#">置顶明细</a></li> -->
+					</ul>
+				</div>
+				<div class="biaodan">
+					<div class="biaodan1" >
+						<ul>
+							<li>发生时间</li>
+							<li>类型</li>
+							<li>金额</li>
+							<li>状态</li>
+						</ul>
+					</div>
+					<div class="biaodan2">
+						<div class="biaodan2-1" style="display: block;">
+							<ul th:each="order: ${allList}">
+								<li  th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}">2019/7/15 14:26</li>
+								<li th:switch="${order.expIncType}">
+									<p th:case="'0'">提现</p>
+									<p th:case="'1'">充值</p>
+									<p th:case="'5'">置顶</p>
+									<p th:case="'2'">打赏 </p>
+									<p th:case="'4'">广告费用 </p>
+									<p th:case="'3'">红包 </p>
+								</li>
+								<li th:text="${order.price}">200</li>
+								<li>成功</li>
+							</ul>
+							<div class="zanwijili" th:if="${allList==''}">
+								暂无记录
+							</div>
+							<!-- <ul>
+								<li>2019/7/15 14:26</li>
+								<li>充值</li>
+								<li>200</li>
+								<li style="color:#c01b25;">领取失败</li>
+							</ul> -->
+						</div>
+						<div class="biaodan2-1" onclick="action('123')">
+							<ul th:each="order: ${czList}">
+								<li  th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}">2019/7/15 14:26</li>
+								<li th:switch="${order.expIncType}">
+									<p th:case="'0'">提现</p>
+									<p th:case="'1'">充值</p>
+									<p th:case="'5'">置顶</p>
+									<p th:case="'2'">打赏 </p>
+									<p th:case="'4'">广告费用 </p>
+									<p th:case="'3'">红包 </p>
+								</li>
+								<li th:text="${order.price}">200</li>
+								<li>成功</li>
+							</ul>
+							<div class="zanwijili" th:if="${czList==''}">
+								暂无记录
+							</div>
+						</div>
+						<div class="biaodan2-1">
+							<ul th:each="order: ${txList}">
+								<li  th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}">2019/7/15 14:26</li>
+								<li th:switch="${order.expIncType}">
+									<p th:case="'0'">提现</p>
+									<p th:case="'1'">充值</p>
+									<p th:case="'5'">置顶</p>
+									<p th:case="'2'">打赏 </p>
+									<p th:case="'4'">广告费用 </p>
+									<p th:case="'3'">红包 </p>
+								</li>
+								<li th:text="${order.price}">200</li>
+								<li>成功</li>
+							</ul>
+							<div class="zanwijili" th:if="${txList==''}">
+								暂无记录
+							</div>
+						</div>
+						<div class="biaodan2-1">
+							<ul th:each="order: ${dsList}">
+								<li  th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}">2019/7/15 14:26</li>
+								<li th:switch="${order.expIncType}">
+									<p th:case="'0'">提现</p>
+									<p th:case="'1'">充值</p>
+									<p th:case="'5'">置顶</p>
+									<p th:case="'2'">打赏 </p>
+									<p th:case="'4'">广告费用 </p>
+									<p th:case="'3'">红包 </p>
+								</li>
+								<li th:text="${order.price}">200</li>
+								<li>成功</li>
+							</ul>
+							<div class="zanwijili" th:if="${dsList==''}">
+								暂无记录
+							</div>
+						</div>
+						<div class="biaodan2-1">
+							<ul th:each="order: ${hbList}">
+								<li  th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}">2019/7/15 14:26</li>
+								<li th:switch="${order.expIncType}">
+									<p th:case="'0'">提现</p>
+									<p th:case="'1'">充值</p>
+									<p th:case="'5'">置顶</p>
+									<p th:case="'2'">打赏 </p>
+									<p th:case="'4'">广告费用 </p>
+									<p th:case="'3'">红包 </p>
+								</li>
+								<li th:text="${order.price}">200</li>
+								<li>成功</li>
+							</ul>
+							<div class="zanwijili" th:if="${hbList==''}">
+								暂无记录
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>
+<script>
+	$(".btn").mouseover(function(){
+		 $(this).children("ul").show();
+	});
+	$(".btn").mouseout(function(){
+		 $(this).children("ul").hide();
+	})
+	$('dt').click(function () {
+		if($(this).nextUntil('dt','dd').is(':visible')){
+			$(this).nextUntil('dt','dd').slideUp()
+		}else{
+			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
+		}
+	});
+	$('.caiwumx li').click(function() {
+		$(this).addClass("luse").siblings("li").removeClass("luse")
+		var index = $(this).index();
+		$('.biaodan2>div').hide().eq($(this).index()).show();
+	})
+
+</script>
