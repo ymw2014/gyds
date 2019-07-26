@@ -62,8 +62,8 @@ public class BaseDynamicController {
 	 * @param 
 	 * @title 		记录+1
 	 * @return   0:+1失败          1:+1成功            2:表示+1成功&&积分+1       3:获取不到当前用户
-	 * @param   newsId(文章id)  actId(活动id)   trtype(转发类型)    rewardPrice(打赏金额)  
-	 * @param	type:新闻(1 分享 2点赞 3 打赏 4评论) 活动(5 关注 6分享)
+	 * @param   newsId(文章id)  actId(活动id)   teamId(团队Id)   trtype(转发类型)    rewardPrice(打赏金额)  
+	 * @param	type:新闻(1 分享 2点赞 3 打赏 4评论) 活动(5 关注 6分享)团队(7关注)
 	 * @return
 	 */
 
@@ -200,8 +200,20 @@ public class BaseDynamicController {
 					}
 				}
 			}
-
-
+			break;
+			//关注团队
+		case 7:
+			dynamic = new DynamicDO();
+			//0:转发 1:点赞 2:收藏
+			dynamic.setType(2);
+			dynamic.setNewsId(Long.parseLong(params.get("teamId")+"") );
+			if(user==null) {
+				return 3;
+			}
+			dynamic.setMemberId(user.getUserId()); 
+			dynamic.setCreatTime(new Date());
+			dynamic.setActType(3);
+			i = dynamicService.save(dynamic);
 			break;
 		default:
 			break;
@@ -243,7 +255,7 @@ public class BaseDynamicController {
 		}
 		return i;
 	}
-	
+
 	public Integer upRegCode(Integer code) {
 		RegionDO region = regionService.get(code);
 		Integer parCode = region.getParentRegionCode();
@@ -284,6 +296,32 @@ public class BaseDynamicController {
 		}
 		return i;
 	}
+	
+	
+	public Integer is_attention(Integer id) {
+		Map<String, Object> params  = new HashMap<String, Object>();
+		Integer i = 0 ;
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user!=null) {
+			Long userId =  user.getUserId();
+			params.put("memberId", userId);
+			params.put("type", 2);
+			params.put("newsId", id);
+			params.put("actType",3);
+			List<DynamicDO> dyn = dynamicService.list(params);
+			if(dyn.size()>0) {
+				//1:已关注
+				i=1;
+			}else {
+				//2:未关注
+				i=2;
+			}
+		}
+		//如果返回0表示未登录或无此用户
+		return i;
+	
+	}
 	//是否点赞
 	//入参:params id (资讯id)
 	public Integer is_likes(Integer id) {
@@ -296,6 +334,7 @@ public class BaseDynamicController {
 			params.put("memberId", userId);
 			params.put("type", 1);
 			params.put("newsId", id);
+			params.put("actType",1);
 			List<DynamicDO> dyn = dynamicService.list(params);
 			if(dyn.size()>0) {
 				//1:已点赞
@@ -331,7 +370,11 @@ public class BaseDynamicController {
 		Integer i = 2;
 		Long userId = null; 
 		UserDO user = null; 
-		userId = ShiroUtils.getUserId();
+		try {
+			userId = ShiroUtils.getUserId();
+		} catch (Exception e) {
+			return i;
+		}
 		user = userMapper.get(userId);
 		if(user!=null) {
 			BigDecimal price = BigDecimal.valueOf(Long.parseLong(params.get("price").toString()));

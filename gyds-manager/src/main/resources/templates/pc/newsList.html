@@ -79,10 +79,9 @@
 			</div>
 		</div>
 		<div class="xuanfu">
-			<a href="#" class="xfcl">红包</a>
-			<a href="#">推荐</a>
-			<a href="#">公益人物</a>
-			<a href="#">公益资讯</a>
+			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=1)}" >红包</a>
+			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=2)}">最热</a>
+			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">置顶</a>
 		</div>
 		<div th:replace="pc/include :: footer"></div>
 		<!-- 备案 -->
