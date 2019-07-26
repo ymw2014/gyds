@@ -26,6 +26,8 @@ import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.news.domain.DynamicDO;
+import com.fly.news.service.DynamicService;
 import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
@@ -44,6 +46,8 @@ public class PcActivityController extends BaseDynamicController{
 	private ApplyService applyService;
 	@Autowired
 	private VolunteerService volunteerService;
+	@Autowired
+	private DynamicService dynamicService;
 
 	@RequestMapping("activityList")
 	public String list(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -57,7 +61,6 @@ public class PcActivityController extends BaseDynamicController{
 			areaId = "0";
 		}
 		params.clear();
-		params.put("examineStatus",1);
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
 		if (CollectionUtils.isEmpty(ids)) {
@@ -65,6 +68,7 @@ public class PcActivityController extends BaseDynamicController{
 		}
 		params.clear();
 		params.put("ids", ids);
+		params.put("examineStatus",1);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		model.addAttribute("areaList", areaList);
@@ -124,13 +128,28 @@ public class PcActivityController extends BaseDynamicController{
 		}
 		
 		
+		
 		//查询报名状态
 		params.clear();
 		Integer applyStatus = 4;
 		UserDO user = ShiroUtils.getUser();
 		if (user == null) {//没用登录可以浏览活动详情
 			model.addAttribute("applyStatus", applyStatus);
+			model.addAttribute("collectStatus", 1);//未收藏
 			return "pc/activityJoin";
+		}
+		
+		
+		//收藏状态
+		params.clear();
+		params.put("memberId", user.getUserId());
+		params.put("actType", 2);
+		params.put("newsId", id);
+		List<DynamicDO> dynamic = dynamicService.list(params);
+		if (CollectionUtils.isEmpty(dynamic)) {
+			model.addAttribute("collectStatus", 1);//未收藏
+		} else {
+			model.addAttribute("collectStatus", 2);//已收藏
 		}
 		
 		params.clear();
@@ -150,15 +169,11 @@ public class PcActivityController extends BaseDynamicController{
 			return "pc/activityJoin";
 		}
 		
+		//1:审核通过 2:审核拒绝0:待审核
+		applyStatus = ApplyDO.get(0).getStatus();
 		
-		Integer status = ApplyDO.get(0).getStatus();
-		if (status == 1) {//审核通过
-			applyStatus = 1;
-		} else if (status == 2) {//审核拒绝
-			applyStatus = 2;
-		} else {//待审核
-			applyStatus = 0;
-		}
+		
+		
 		model.addAttribute("applyId", ApplyDO.get(0).getId());
 		model.addAttribute("applyStatus", applyStatus);
 		return "pc/activityJoin";
@@ -208,7 +223,9 @@ public class PcActivityController extends BaseDynamicController{
 				apply.setZyzId(ShiroUtils.getUserId());//通过shiro 获取用户信息
 				status = applyService.save(apply);
 				activityDO.setNumberOfApplicants(num ++);
-				activityService.update(activityDO);
+				if (status > 0) {
+					activityService.update(activityDO);
+				}
 			}
 		} catch (Exception e) {
 			status = 5;

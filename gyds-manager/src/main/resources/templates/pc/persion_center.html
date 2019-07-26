@@ -42,51 +42,37 @@
 		<!-- 主体左侧导航 -->
 		<div class="NavLeft">
 			<dl>
-				
+
 				<dt>新闻管理</dt>
-				<dd><a href="/pc/newAdd" data-index="1" target="iframe0">新闻发布</a></dd>
+				<dd>
+					<a href="/pc/newAdd" data-index="1" target="iframe0">新闻发布</a>
+				</dd>
 				<dt>
 					<a href="/pc/collect" data-index="1" target="iframe0">关注中心</a>
 				</dt>
-				<dt >
-				<!-- shiro:hasPermission="caiwu:caiwu:list" -->
+				<dt>
+					<!-- shiro:hasPermission="caiwu:caiwu:list" -->
 					<a href="/pc/getFinancial" data-index="2" target="iframe0">财务明细</a>
 				</dt>
-				<!-- <dt>相册管理</dt>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd> -->
-
 				<dt>我的参团</dt>
-				<!-- <dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd> -->
 
-				<dt>申请建团</dt>
-				<dt>代理商申请</dt>
-				<dt><a href="/pc/voApply" data-index="1" target="iframe0">志愿者申请</a></dt>
-				<!-- <dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd> -->
+				<dt>
+					<a href="/pc/voApply" data-index="1" target="iframe0">志愿者申请</a>
+				</dt>
 
-				<dt>新闻管理</dt>
-				<dd>新闻发布</dd>
+				<dt>
+					<a href="/pc/regTeam/createTeam" data-index="1" target="iframe0">申请建团</a>
+				</dt>
+				<dd>
+					<a href="/pc/proxybusi/show" data-index="3" target="iframe0">申请代理商</a>
+				</dd>
 
 
 				<dt>我的签到</dt>
-				<!-- <dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd> -->
 				<dt>基本设置</dt>
-				<dd><a href="/pc/attestation" data-index="1" target="iframe0">实名认证</a></dd>
+				<dd>
+					<a href="/pc/attestation" data-index="1" target="iframe0">实名认证</a>
+				</dd>
 				<dd>账户安全</dd>
 				<dd>志愿者证书</dd>
 				<dd>二级菜单</dd>
@@ -99,10 +85,9 @@
 				th:src="@{/pc/persion_main}" frameborder="0" scrolling="no"
 				data-id="persion_center.html" seamless></iframe>
 			<!-- @{/chart/graph_echarts.html}-->
-
 		</div>
-
 	</div>
+
 	<div th:replace="pc/include :: footer"></div>
 </body>
 </html>

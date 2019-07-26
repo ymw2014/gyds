@@ -62,7 +62,13 @@
 			<div class="xqrightTop" style="width: 254px;">
 				<img th:src="@{${team.teamTitleImg}}" alt=""> <span
 					th:text="${team.teamName}"></span>
-				<p>求关注</p>
+					<input type="hidden" th:value="${team.id}" id="teamId">
+					<div th:if=" ${is_attention} eq '0'">
+				<a href="javascript:;"><p id="guanzhu">求关注</p></a>
+					</div>
+					<div th:if=" ${is_attention} eq '2'">
+				<a href="javascript:;" onclick="attention()"><p id="guanzhu">求关注</p></a>
+					</div>
 			</div>
 			<ul>
 				<li th:each="news:${newsList}">·<a th:text="${news.title}"
@@ -434,6 +440,28 @@
 					}else if(data.code == 1){
 						layer.msg("发表失败");
 					}
+				}
+
+			}
+		});
+	}
+	function attention(){
+		var teamId = $('#teamId').val();
+		var para = {"teamId":teamId};
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/attention",
+			data : para,
+			error : function(request) {
+				parent.layer.alert("关注失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#guanzhu").remove();
+				} else if (data.code == 1) {
+					window.location.href = "/admin";
+				} else{
+					parent.layer.alert(data.msg)
 				}
 
 			}

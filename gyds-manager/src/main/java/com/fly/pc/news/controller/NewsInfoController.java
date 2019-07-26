@@ -121,6 +121,9 @@ public class NewsInfoController extends BaseDynamicController{
 		params.put("topRegion", code+"");
 		params.put("sort","n.is_top desc,n.public_time desc");
 		newsTop.addAll(infoService.list(params));
+		//是否关注团队
+		Integer  a = is_attention(info.getTeamId());
+		model.addAttribute("is_attention", a);
 		//是否点过赞
 		Integer l = is_likes(id);
 		//0:未登录 1:点赞 2: 未点赞
@@ -341,7 +344,7 @@ public class NewsInfoController extends BaseDynamicController{
 	}
 	
 	@RequestMapping("/infoList")
-	public String newInfoList(@RequestParam Integer areaId,Integer flag,Model model) {
+	public String newInfoList(@RequestParam Integer areaId,@RequestParam Integer flag,Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
 			params.put("pids",areaId);
@@ -349,13 +352,37 @@ public class NewsInfoController extends BaseDynamicController{
 			params.put("ids", ids);
 			params.put("status", 1);
 			params.put("isDel", 0);
-			params.put("sort","n.is_top desc,n.public_time desc");
+			if(flag == 0) {
+				params.put("sort","n.is_top desc,n.public_time desc");
+			}else if(flag == 1){
+				params.put("sort","n.is_red_peper desc,n.public_time desc");
+			}else if(flag == 2){
+				params.put("sort","n.number_of_likes desc,n.public_time desc");
+			}
 			//查询列表数据
 			List<InfoDO> infoList = infoService.list(params);
 			model.addAttribute("newsList", infoList);
-		
+			model.addAttribute("areaId", areaId);
 		return "pc/newsList";
 	}
+	
+	
+		//关注团队
+		@ResponseBody
+		@PostMapping("/attention")
+		public R attention(@RequestParam Map<String,Object> params) {
+			Integer i = null;
+			i = dynamic(params,7);
+			R r=new R();
+			if(i==1) {
+				r.put("code", 0);
+			}else if(i==3){
+				r.put("code", 1);
+			}else {
+				return R.error("2");
+			}
+			return r;
+		}
 }
 
 
