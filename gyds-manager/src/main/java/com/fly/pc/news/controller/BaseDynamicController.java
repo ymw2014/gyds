@@ -169,6 +169,7 @@ public class BaseDynamicController {
 			dynamic.setCreatTime(new Date());
 			if(dynamicService.save(dynamic)>0){
 				//1分享 2关注 3 预览 4报名
+				params.put("id", params.get("actId"));
 				params.put("numberOfCollection",2);
 				i=activityDao.updateActDynamic(params);
 			}

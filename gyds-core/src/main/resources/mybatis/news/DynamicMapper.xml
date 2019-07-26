@@ -40,6 +40,7 @@
 		  		  <if test="transpondType != null and transpondType != ''"> and transpond_type = #{transpondType} </if>
 		  		  <if test="type != null and type != ''"> and type = #{type} </if>
 		  		  <if test="creatTime != null and creatTime != ''"> and creat_time = #{creatTime} </if>
+		  		  <if test="actType != null and actType != ''"> and act_type = #{actType} </if>
 		  		</where>
 	</select>
 	 
@@ -50,7 +51,8 @@
 			`member_id`, 
 			`transpond_type`, 
 			`type`, 
-			`creat_time`
+			`creat_time`,
+			act_type
 		)
 		values
 		(
@@ -58,7 +60,8 @@
 			#{memberId}, 
 			#{transpondType}, 
 			#{type}, 
-			#{creatTime}
+			#{creatTime},
+			#{actType}
 		)
 	</insert>
 	 
@@ -70,6 +73,7 @@
 			<if test="transpondType != null">`transpond_type` = #{transpondType}, </if>
 			<if test="type != null">`type` = #{type}, </if>
 			<if test="creatTime != null">`creat_time` = #{creatTime}</if>
+			<if test="actType != null and actType != ''"> and act_type = #{actType} </if>
 		</set>
 		where id = #{id}
 	</update>

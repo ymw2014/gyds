@@ -57,7 +57,6 @@ public class PcActivityController extends BaseDynamicController{
 			areaId = "0";
 		}
 		params.clear();
-		params.put("examineStatus",1);
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
 		if (CollectionUtils.isEmpty(ids)) {
@@ -65,6 +64,7 @@ public class PcActivityController extends BaseDynamicController{
 		}
 		params.clear();
 		params.put("ids", ids);
+		params.put("examineStatus",1);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		model.addAttribute("areaList", areaList);
@@ -202,7 +202,9 @@ public class PcActivityController extends BaseDynamicController{
 				apply.setZyzId(ShiroUtils.getUserId());//通过shiro 获取用户信息
 				status = applyService.save(apply);
 				activityDO.setNumberOfApplicants(num ++);
-				activityService.update(activityDO);
+				if (status > 0) {
+					activityService.update(activityDO);
+				}
 			}
 		} catch (Exception e) {
 			status = 5;

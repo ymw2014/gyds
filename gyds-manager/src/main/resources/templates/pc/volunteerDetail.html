@@ -85,7 +85,7 @@
 									<ul>
 										<li th:onclick="'share('+ ${comment.newsId}+', 1, 1)'" ><img src="images/sc.png" alt="">&nbsp;转发</li>
 										<li><a th:href="'/pc/news/info?id='+ ${comment.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" ><img src="images/dianzan.jpg" alt="">&nbsp;赞</li>
+										<li th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" ><img src="images/dianzan.jpg" alt="" id="like1">&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -109,7 +109,7 @@
 										<li th:if=" ${dynamic.actType} eq '2'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" ><img src="images/sc.png" alt="">&nbsp;收藏</li>
 										<li  th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+')'"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
 										<li th:if=" ${dynamic.actType} eq '1'"><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:if=" ${dynamic.actType} eq '1'"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'"><img src="images/dianzan.jpg" alt="">&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType} eq '1'"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'"><img src="images/dianzan.jpg" alt="" id="like2">&nbsp;点赞</li>
 									</ul>
 								</div>
 							</div>
@@ -155,7 +155,7 @@
 									<ul>
 										<li th:onclick="'share('+${dynamic.newsId}+',1, 1)'" ><img src="images/sc.png" alt="">&nbsp;转发</li>
 										<li><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" ><img src="images/dianzan.jpg" alt="">&nbsp;赞</li>
+										<li th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" ><img src="images/dianzan.jpg" alt="" id="like3">&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -222,34 +222,17 @@
             	'type': type
             },
             success : function(result) {
-            	var code = result.code;
-            	if (code == 0) {
-            		parent.layer.msg("操作成功");
-            	} else if (status == 2){
-            		parent.layer.msg("您还没登录，请先登录");
-            	} 
+            	if (result.code == 0) {
+					$("#like1").attr("src","/pc/images/listzz_04.jpg");
+					history.go(0);
+				} else if(result.code == 2){
+					alert(data.msg);
+				}else {
+					parent.layer.alert(data.msg)
+				}
             }
         });
 	}
-	/* function share(newsId, type, newtype) {
-		$.ajax({
-            type : "get",
-            dataType: "json",
-            url : "/pc/news/share",
-            data : {
-            	'newsId': newsId,
-            	'type': type
-            },
-            success : function(result) {
-            	var code = result.code;
-            	if (code == 0) {
-            		parent.layer.msg("操作成功");
-            	} else if (status == 2){
-            		parent.layer.msg("您还没登录，请先登录");
-            	} 
-            }
-        });
-	} */
 	
 	function share(newsId, type, newtype) {
 		var actType = '';
