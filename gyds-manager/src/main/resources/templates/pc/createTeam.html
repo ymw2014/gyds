@@ -3,12 +3,12 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="css/personal.css"/>
-		<link rel="stylesheet" href="css/index.css">
-		<link rel="stylesheet" href="css/cwmx.css">
-		<link rel="stylesheet" href="css/guzhunaws.css">
-		<link rel="stylesheet" href="css/jibenziliao.css">
-		<script src="js/jquery-3.1.1.js"></script>
+		<link rel="stylesheet" th:type="@{/pc/text/css}" th:href="@{/pc/css/personal.css}"/>
+		<link rel="stylesheet" th:href="@{/pc/css/index.css}">
+		<link rel="stylesheet" th:href="@{/pc/css/cwmx.css}">
+		<link rel="stylesheet" th:href="@{/pc/css/guzhunaws.css}">
+		<link rel="stylesheet" th:href="@{/pc/css/jibenziliao.css}">
+		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
 		<style>
 		  .yy-gz{
 			  display: none;
@@ -17,89 +17,6 @@
 	</head>
 	<body>
 		<!-- 头部 -->
-		<header>
-			<div class="header_top">
-				<div>
-					<img src="images/post_03.jpg" alt="">
-				</div>
-				<!-- 头部导航 -->
-				<nav>
-					<div class="btn active">
-						<a href="index.html">首页</a>
-					</div>
-					<div class="btn">
-						<a href="index.html">账户设置 <img src="images/aaa2.jpg" alt=""></a>
-						<ul>
-							<li><a href="#">1</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">1</a></li>
-						</ul>
-					</div>
-					<div class="btn">
-						<a href="index.html">评价 <img src="images/aaa2.jpg" alt=""></a>
-						<ul>
-							<li><a href="#">1</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">1</a></li>
-						</ul>
-					</div>
-					<div class="btn">
-						<a href="index.html">消息</a>
-					</div>
-				</nav>
-			</div>
-		</header>
-		<!-- 主体 -->
-		<div class="box">
-			<!-- 主体左侧导航 -->
-			<div class="NavLeft">
-					<dl>
-						<dt>新闻管理</dt>
-						<dd>新闻列表</dd>
-						<dd>发布新闻</dd>
-						<dd>待审核新闻</dd>
-						<dt>广告管理</dt>
-						<dd>广告列表</dd>
-						<dd>发布广告</dd>
-						<dt>相册管理</dt>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dt>我的参团</dt>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dt>申请建团</dt>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dt>活动中心</dt>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dt>消息中心</dt>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-
-						<dt>我的签到</dt>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-						<dd>二级菜单</dd>
-					</dl>	
-			</div>
 			<!-- 右侧主内容 -->
 			<div class="boxRight" style="background:#fff;width: 1006px;height: 925px;margin-top:0;">
 				<div class="cwmx">
@@ -120,27 +37,29 @@
 					</label>
 					<label>
 						<span>联系地址</span>
-						<select class="juzhu">
-							<option value ="">省</option>
+						<select class="juzhu" id="pro" onchange="byPro()">
+						<option value="0">省</option>
+							<option th:each ="area:${areaList}" th:value="${area.regionCode}"
+											th:text="${area.regionName}"></option>
 						</select>
-						<select class="juzhu">
+						<select class="juzhu" id="city" onchange="byCity()">
 							<option value ="">市</option>
 						</select>
-						<select class="juzhu">
+						<select class="juzhu" id ="area">
 							<option value ="">区/县</option>
 						</select>
 					</label>
 					<label>
 						<span>团队logo</span>
-						<img src="images/tianjiua_03.jpg" alt="" class="tdlogo">
+						<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo">
 						<input type="file" class="tuanduilogo" style="display: none;">
 					</label>
 					<label>
 						<span>团队照片</span>
-						<img src="images/tianjiua_03.jpg" alt="" class="tdlogo1">
-						<img src="images/tianjiua_03.jpg" alt="" class="tdlogo2">
-						<img src="images/tianjiua_03.jpg" alt="" class="tdlogo3">
-						<img src="images/tianjiua_03.jpg" alt="" class="tdlogo4">
+						<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1">
+						<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo2">
+						<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo3">
+						<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo4">
 						<input type="file" class="tuanduilogo1" style="display: none;">
 						<input type="file" class="tuanduilogo2" style="display: none;">
 						<input type="file" class="tuanduilogo3" style="display: none;">
@@ -155,7 +74,8 @@
 					<label>
 						<span>项目服务</span>
 						<select class="xmfw">
-							<option value ="">项目服务</option>
+							<option th:each ="type:${type}" th:value="${type.id}"
+											th:text="${type.typeName}"></option>
 						</select>
 					</label>
 					<label>
@@ -164,65 +84,6 @@
 				</form>
 			</div>
 		</div>
-		<footer>
-			<div class="bot">
-				<ul>
-					<h4>新手指南</h4>
-					<li><a href="#">新手指南1</a></li>
-					<li><a href="#">新手指南2</a></li>
-					<li><a href="#">新手指南3</a></li>
-					<li><a href="#">新手指南4</a></li>
-				</ul>
-				<ul>
-					<h4>民生相关</h4>
-					<li><a href="#">新手指南1</a></li>
-					<li><a href="#">新手指南2</a></li>
-					<li><a href="#">新手指南3</a></li>
-					<li><a href="#">新手指南4</a></li>
-				</ul>
-				<ul>
-					<h4>民生聚焦</h4>
-					<li><a href="#">新手指南1</a></li>
-					<li><a href="#">新手指南2</a></li>
-					<li><a href="#">新手指南3</a></li>
-					<li><a href="#">新手指南4</a></li>
-				</ul>
-				<ul>
-					<h4>民生关注</h4>
-					<li><a href="#">新手指南1</a></li>
-					<li><a href="#">新手指南2</a></li>
-		
-				</ul>
-				<ul>
-					<h4>民生咨询</h4>
-					<li><a href="#">新手指南1</a></li>
-					<li><a href="#">新手指南2</a></li>
-					<li><a href="#">新手指南3</a></li>
-					<li><a href="#">新手指南4</a></li>
-				</ul>
-				<figure>
-					<img src="images/26.jpg" alt="">
-					<figcaption>微信公众号</figcaption>
-				</figure>
-			</div>
-			<div class="foter">
-				<h4><img src="images/xian_03.jpg" alt="">&nbsp;&nbsp;友情链接&nbsp;&nbsp;<img src="images/xian_03.jpg" alt=""></h4>
-				<ul>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-					<li><a href="">网易公益</a></li>
-				</ul>
-			</div>
-		</footer>
 		<!-- 备案 -->
 		<div class="beian">
 			<div class="beian1">
@@ -231,21 +92,56 @@
 			</div>
 		</div>
 	</body> 
+	<script type="text/javascript">
+		function byPro(){
+			var area = $('#pro option:selected').val();
+			var para = {"area":area};
+			$.ajax({
+				type : "GET",
+				url : "/pc/regTeam/area",
+				data : para,
+				error : function(request) {
+					alert("请求异常");
+				},
+				success : function(data) {
+					if (data.code == 0) {
+						$("#city").empty();
+						$("#area").empty();
+						 $("#area").append($("<option/>").text("区/县").attr("value",""));
+						  $.each(data.regList, function(i, item){ 
+						   $("#city").append($("<option/>").text(item.regionName).attr("value",item.regionCode));
+						   }); 
+					}else{
+						alert("数据请求异常");
+					}
+				}
+			});
+		}
+		function byCity(){
+			var area = $('#city option:selected').val();
+			var para = {"area":area};
+			$.ajax({
+				type : "GET",
+				url : "/pc/regTeam/area",
+				data : para,
+				error : function(request) {
+					alert("请求异常");
+				},
+				success : function(data) {
+					if (data.code == 0) {
+						$("#area").empty();
+						  $.each(data.regList, function(i, item){ 
+						   $("#area").append($("<option/>").text(item.regionName).attr("value",item.regionCode));
+						   }); 
+					}else{
+						alert("数据请求异常");
+					}
+				}
+			});
+		}
+	</script>
 </html>
 <script>
-	$(".btn").mouseover(function(){
-		 $(this).children("ul").show();
-	});
-	$(".btn").mouseout(function(){
-		 $(this).children("ul").hide();
-	})
-	$('dt').click(function () {
-		if($(this).nextUntil('dt','dd').is(':visible')){
-			$(this).nextUntil('dt','dd').slideUp()
-		}else{
-			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
-		}
-	});
 	$(".tdlogo").click(function(){
 		$("tuanduilogo").click();
 	})
@@ -261,4 +157,5 @@
 	$(".tdlogo4").click(function(){
 		$("tuanduilogo4").click();
 	})
+	
 </script>

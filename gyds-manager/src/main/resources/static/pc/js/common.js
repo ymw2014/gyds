@@ -30,4 +30,50 @@ $(function(){
 
 		}
 	});
+	function byPro(){
+		var area = $('#pro option:selected').val();
+		var para = {"area":area};
+		$.ajax({
+			type : "GET",
+			url : "/pc/regTeam/area",
+			data : para,
+			error : function(request) {
+				alert("请求异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#city").empty();
+					$("#area").empty();
+					 $("#area").append($("<option/>").text("区/县").attr("value",""));
+					  $.each(data.regList, function(i, item){ 
+					   $("#city").append($("<option/>").text(item.regionName).attr("value",item.regionCode));
+					   }); 
+				}else{
+					alert("数据请求异常");
+				}
+			}
+		});
+	}
+	function byCity(){
+		var area = $('#city option:selected').val();
+		var para = {"area":area};
+		$.ajax({
+			type : "GET",
+			url : "/pc/regTeam/area",
+			data : para,
+			error : function(request) {
+				alert("请求异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#area").empty();
+					  $.each(data.regList, function(i, item){ 
+					   $("#area").append($("<option/>").text(item.regionName).attr("value",item.regionCode));
+					   }); 
+				}else{
+					alert("数据请求异常");
+				}
+			}
+		});
+	}
 })
