@@ -60,7 +60,7 @@
 								</div>
 							</div>
 							<div class="zaixian1">
-								<img src="images/myshouc.png" alt="">我要收藏
+								<li th:onclick="'collection('+${activity.id}+',5, 2)'" ><img src="images/myshouc.png" alt="">我要收藏</li>
 							</div> 
 						</div>
 					</div>
@@ -185,6 +185,27 @@
             		parent.layer.msg("报名失败，报名人数已满");
             	} else {
             		parent.layer.msg("操作失败");
+            	}
+            }
+        });
+	}
+	
+	function collection(actId, type, newtype) {
+		$.ajax({
+            type : "get",
+            dataType: "json",
+            url : "/pc/activity/collect",
+            data : {
+            	'actId': actId
+            },
+            success : function(result) {
+            	var code = result.code;
+            	if (code == 0) {
+            		parent.layer.msg("操作失败");
+            	} else if (code == 1){
+            		parent.layer.msg("操作成功");
+            	} else if (code == 3) {
+            		parent.layer.msg("您还没登录，请先登录");
             	}
             }
         });

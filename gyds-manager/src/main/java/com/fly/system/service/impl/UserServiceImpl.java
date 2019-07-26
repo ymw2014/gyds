@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     public UserDO get(Long id) {
         List<Long> roleIds = userRoleMapper.listRoleId(id);
         UserDO user = userMapper.get(id);
-        user.setDeptName(regiondao.get(user.getDeptId()).getRegionName());
+        user.setDeptName(regiondao.get(user.getRegionCode()).getRegionName());
         user.setRoleIds(roleIds);
         return user;
     }

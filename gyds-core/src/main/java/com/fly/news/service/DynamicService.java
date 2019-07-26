@@ -29,4 +29,29 @@ public interface DynamicService {
 	int removeCall(DynamicDO dynamic);
 	
 	int batchRemove(Integer[] ids);
+	/**
+	 * 	获取关注团队的关联信息
+	 * @param params
+	 * @return
+	 */
+	List<Map<String, Object>>dyTeamList(Map<String,Object> params);
+	
+	/**
+	 * 	获取关注活动的关联信息
+	 * @param params
+	 * @return
+	 */
+	List<Map<String, Object>>dyActList(Map<String,Object> params);
+	/**
+	 * 	获取关注新闻的关联信息
+	 * @param params
+	 * @return
+	 */
+	List<Map<String, Object>>dyNewList(Map<String,Object> params);
+	/**
+	 * 	获取关注志愿者的关联信息
+	 * @param params
+	 * @return
+	 */
+	List<Map<String, Object>>dyVoluList(Map<String,Object> params);
 }
