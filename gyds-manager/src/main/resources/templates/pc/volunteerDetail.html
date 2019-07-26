@@ -23,7 +23,8 @@
 						<img th:src="${volunteer.headImg}" alt="">
 					</div>
 					<div class="volDetadw">
-						<span>已实名</span>
+						<span th:if="${isReal} eq '0'">未实名</span>
+						<span th:if="${isReal} eq '1'">已实名</span>
 					</div>
 					<div class="volname">
 						<span style="font-size:22px;" th:text="${volunteer.volunteerName}"></span> <img src="images/xingbie2_03.png">
@@ -83,9 +84,9 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li th:onclick="'share('+ ${comment.newsId}+', 1, 1)'" ><img src="images/sc.png" alt="">&nbsp;转发</li>
-										<li><a th:href="'/pc/news/info?id='+ ${comment.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" ><img src="images/dianzan.jpg" alt="" id="like1">&nbsp;赞</li>
+										<li th:onclick="'share('+ ${comment.newsId}+', 1, 1)'" style="cursor:pointer"><img src="images/sc.png" alt="">&nbsp;转发</li>
+										<li><a th:href="'/pc/news/info?id='+ ${comment.newsId}" style="cursor:pointer"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
+										<li th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" id="like1">&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -106,10 +107,10 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li th:if=" ${dynamic.actType} eq '2'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" ><img src="images/sc.png" alt="">&nbsp;收藏</li>
-										<li  th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+')'"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
+										<li th:if=" ${dynamic.actType} eq '2'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img src="images/sc.png" alt="">&nbsp;收藏</li>
+										<li  th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+')'" style="cursor:pointer"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
 										<li th:if=" ${dynamic.actType} eq '1'"><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:if=" ${dynamic.actType} eq '1'"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'"><img src="images/dianzan.jpg" alt="" id="like2">&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType} eq '1'"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" id="like2">&nbsp;点赞</li>
 									</ul>
 								</div>
 							</div>
@@ -130,8 +131,8 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" ><img src="images/sc.png" alt="" >&nbsp;收藏</li>
-										<li th:onclick="'share('+${dynamic.newsId}+',2, 2)'"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
+										<li th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img src="images/sc.png" alt="" >&nbsp;收藏</li>
+										<li th:onclick="'share('+${dynamic.newsId}+',2, 2)'" style="cursor:pointer"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
 									</ul>
 								</div>
 							</div>
@@ -153,9 +154,9 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li th:onclick="'share('+${dynamic.newsId}+',1, 1)'" ><img src="images/sc.png" alt="">&nbsp;转发</li>
+										<li th:onclick="'share('+${dynamic.newsId}+',1, 1)'" style="cursor:pointer"><img src="images/sc.png" alt="">&nbsp;转发</li>
 										<li><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" ><img src="images/dianzan.jpg" alt="" id="like3">&nbsp;赞</li>
+										<li th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" id="like3">&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
