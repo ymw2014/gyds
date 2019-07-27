@@ -1,5 +1,6 @@
 package com.fly.pc.persion.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,19 +10,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
+import com.fly.news.domain.InfoDO;
 import com.fly.news.service.DynamicService;
+import com.fly.news.service.InfoService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
-import com.fly.points.domain.PointsDO;
-import com.fly.points.service.PointsService;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.service.TeamService;
+import com.fly.utils.R;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -38,6 +41,8 @@ public class PersionController extends BaseController{
 	private OrderService orderService;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private InfoService infoService;
 	
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter(Model model) {
@@ -151,9 +156,34 @@ public class PersionController extends BaseController{
 	
 	@RequestMapping("/pc/newAdd")
 	public String newsAdd(Model model) {
-		
 		return "pc/news_add";
-
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/pc/newSave")
+	public R newSave(InfoDO newInfo) {
+		UserDO user = getUser();
+		Map<String, Object> map=new HashMap<>();
+		map.put("userId", user.getUserId());
+		List<VolunteerDO> voList = volunteerService.list(map);
+		if(voList==null||voList.size()==0) {
+			return R.error("未找到志愿者信息");
+		}
+		newInfo.setIsDel(0);
+		newInfo.setIsTop(0);
+		newInfo.setNumberOfShares(0);
+		newInfo.setCriticismOfCount(0);
+		newInfo.setNumberOfLikes(0);
+		newInfo.setRewardCount(0);
+		newInfo.setStatus(0);
+		newInfo.setCreateTime(new Date());
+		newInfo.setTeamId(voList.get(0).getTeamId());
+		if(infoService.save(newInfo)>0) {
+			return R.ok();
+		}
+		return R.error();
+		
 	}
 	
 	
