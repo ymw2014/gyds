@@ -67,14 +67,12 @@
 		</style>
 	</head>
 	<body>
-		
-			<div class="boxRight" style="background:#fff;width: 1006px;height: 1150px;margin-top:0;" >
+			<div class="boxRight" style="background:#fff;width: 1006px;height: 1150px;margin-top:0;">
 				<div class="cwmx">
 					<h4>基本资料</h4>
 				</div>
 				<form action="" method="" class="biaodanyy" id="signupForm">
 					<input type="hidden"  th:value="${user.userId}" name="userId">
-					<input type="hidden"  th:value="${proxybusiDO.id}" name="id">
 				    <label>
 						<span>真实姓名</span>
 						<input type="text"  th:value="${user.name}" readonly="readonly">
@@ -85,45 +83,25 @@
 					</label>
 					<label>
 						<span>代理商名称</span>
-						<input type="text" id="name"  name="name">
+						<input type="text"  th:value="${proxybusiDO.name}" readonly="readonly">
 					</label>
 					<label>
 						<span>代理电话</span>
-						<input type="text" id="proxyTelephone"  name="proxyTelephone">
+						<input type="text"  th:value="${proxybusiDO.proxyTelephone}" readonly="readonly">
 					</label>
 					<label>
 						<span>代理级别</span>
-						<input type="radio" style="width:20px;" value="1" name="regionLevel" />省
-						<input type="radio" style="width:20px;margin-left: 20px" value="2" name="regionLevel" />市
-						<input type="radio" style="width:20px;margin-left: 20px" value="3" name="regionLevel" />县
+						<input type="text"  th:value="${proxybusiDO.regionLevel}" readonly="readonly">
 					</label>
 					<label>
-						<span style="margin-left: -147px;">代理地区</span>
-						<select class="juzhu" onchange="pronv()" id="pron" name="pronvice">
-							<option value ="">省</option>
-							<option th:each=" area : ${areaList}" th:value ="${area.regionCode}" th:text="${area.regionName}" ></option>
-						</select>
-						<select class="juzhu" onchange="cityQuery()" id="cityId" name="city">
-							<option value ="">市</option>
-						</select>
-						<select class="juzhu" name="country" id="count">
-							<option value ="">区/县</option>
-						</select>
+						<span>代理地区</span>
+						<input type="text"  th:value="${proxybusiDO.regionLevel}" readonly="readonly">
 					</label>
 					<label>
 						<span>代理详细地址</span>
-						<input type="text" id="proxyAddr" name="proxyAddr">
-					</label>
-					<label>
-						<input type="submit" value="提交申请" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 152px;border-radius:3px ;">
+						<input type="text" th:value="${proxybusiDO.proxyAddr}">
 					</label>
 				</form>
-				<div style="background:#fff;display: none"  id="info">
-					<div class="tijiaohou">
-						<img src="/pc/images/hsusus_03.jpg" alt="">
-						<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
-					</div>
-				</div>
 			</div>
 	</body> 
 </html>
@@ -142,6 +120,21 @@
 			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
 		}
 	});
+	$(function(){
+		 $(":radio").click(function(){
+			 var level = $(this).val()
+			 if (level == 1) {
+				 $("#cityId").hide();
+				 $("#count").hide();
+			 } else if (level == 2) {
+				 $("#cityId").show();
+				 $("#count").hide();
+			 } else {
+				 $("#cityId").show();
+				 $("#count").show();
+			 }
+		});
+	})	
 	function pronv() {
 		$.ajax({
             type : "post",
@@ -156,7 +149,7 @@
             	$("#cityId").html('');
             	var html = '<option value ="">市</option>';
             	$.each(areaList, function (n, value) {
-            		html += '<option value ="'+ value.regionCode + '">' + value.regionName + '</option>';
+            		html += '<option value =" '+ value.regionCode + '">' + value.regionName + '</option>';
             	});
             	$("#count").html('<option value ="">区/县</option>');
             	$("#cityId").append(html);
@@ -178,7 +171,7 @@
             	$("#count").html('');
             	var html = '<option value ="">区/县</option>';
             	$.each(areaList, function (n, value) {
-            		html += '<option value ="'+ value.regionCode + '">' + value.regionName + '</option>';
+            		html += '<option value =" '+ value.regionCode + '">' + value.regionName + '</option>';
             	});
             	$("#count").append(html);
             }
@@ -195,26 +188,30 @@
 		}
 	});
 	function update() {
-		$.ajax({
-			cache : true,
-			type : "POST",
-			url : "/pc/proxybusi/save",
-			data : $('#signupForm').serialize(),// 你的formid
-			async : false,
-			error : function(request) {
-				parent.layer.alert("Connection error");
-			},
-			success : function(data) {
-				if (data.code == 0) {
-					//parent.layer.msg("操作成功");
-					$("#signupForm").hide();
-					$("#info").show();
-				} else {
-					parent.layer.alert(data.msg)
+		layer.confirm('请确定所填写内容无误后点击确定提交？', {
+			btn : [ '确定', '取消' ]
+		}, function() {
+			$.ajax({
+				cache : true,
+				type : "POST",
+				url : "/pc/proxybusi/save",
+				data : $('#signupForm').serialize(),// 你的formid
+				async : false,
+				error : function(request) {
+					parent.layer.alert("Connection error");
+				},
+				success : function(data) {
+					if (data.code == 0) {
+						//parent.layer.msg("操作成功");
+						$("#form").hide();
+						$("#info").show();
+					} else {
+						parent.layer.alert(data.msg)
+					}
+	
 				}
-
-			}
-		});
+			});
+		})
 
 	}
 	function validateRule() {
