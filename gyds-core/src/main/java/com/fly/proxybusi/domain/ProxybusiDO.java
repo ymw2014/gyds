@@ -32,7 +32,7 @@ public class ProxybusiDO implements Serializable {
 	//代理级别（省，市，县）
 	private Integer regionLevel;
 	//
-	private Long memberId;
+	private Long userId;
 	//会员年龄
 	private int age;
 	//会员所在城市
@@ -52,8 +52,23 @@ public class ProxybusiDO implements Serializable {
 	
 	private String proxyAddr;
 	
+	private String proxyTelephone;
+	
+	private int  proxyRegion;
 	
 	
+	public String getProxyTelephone() {
+		return proxyTelephone;
+	}
+	public void setProxyTelephone(String proxyTelephone) {
+		this.proxyTelephone = proxyTelephone;
+	}
+	public int getProxyRegion() {
+		return proxyRegion;
+	}
+	public void setProxyRegion(int proxyRegion) {
+		this.proxyRegion = proxyRegion;
+	}
 	public String getProxyAddr() {
 		return proxyAddr;
 	}
@@ -207,13 +222,13 @@ public class ProxybusiDO implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setMemberId(Long memberId) {
-		this.memberId = memberId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Long getMemberId() {
-		return memberId;
+	public Long getUserId() {
+		return userId;
 	}
 }

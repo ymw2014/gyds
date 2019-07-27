@@ -29,6 +29,7 @@ cux_region r on t.reg_code = r.region_code
 		  		  <if test="teamImg != null and teamImg != ''"> and t.team_img = #{teamImg} </if>
 		  		  <if test="regCode != null and regCode != ''"> and t.reg_code = #{regCode} </if>
 		  		   <if test="status != null and status !=''"> and t.status = #{status} </if>
+		  		   <if test="colonelTel != null and colonelTel != ''">and t.colonel_tel = #{colonelTel}</if>
 		  		   <if test="ids != null and ids.size > 0">
 		  		  	and
 		  		  	t.id in 
@@ -63,6 +64,7 @@ cux_region r on t.reg_code = r.region_code
 		  		  <if test="teamImg != null and teamImg != ''"> and team_img = #{teamImg} </if>
 		  		  <if test="regCode != null and regCode != ''"> and reg_code = #{regCode} </if>
 		  		  <if test="status != null and status !=''"> and status = #{status} </if>
+		  		  <if test="colonelTel != null and colonelTel != ''">and colonel_tel = #{colonelTel}</if>
 		  		</where>
 	</select>
 	 
@@ -78,7 +80,8 @@ cux_region r on t.reg_code = r.region_code
 			`team_img`, 
 			`reg_code`,
 			`status`,
-			`remark`
+			`remark`,
+			`colonel_tel`
 		)
 		values
 		(
@@ -91,7 +94,8 @@ cux_region r on t.reg_code = r.region_code
 			#{teamImg}, 
 			#{regCode},
 			#{status},
-			#{remark}
+			#{remark},
+			#{colonelTel}
 		)
 	</insert>
 	 
@@ -107,7 +111,8 @@ cux_region r on t.reg_code = r.region_code
 			<if test="teamImg != null">`team_img` = #{teamImg}, </if>
 			<if test="regCode != null">`reg_code` = #{regCode},</if>
 			<if test="status != null">`status` = #{status},</if>
-			<if test="remark != null">`remark` = #{remark}</if>
+			<if test="remark != null">`remark` = #{remark},</if>
+			<if test="colonelTel != null">`colonel_tel` = #{colonelTel}</if>
 		</set>
 		where id = #{id}
 	</update>

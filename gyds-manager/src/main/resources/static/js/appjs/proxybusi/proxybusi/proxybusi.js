@@ -52,41 +52,47 @@ function load() {
 									title : '自增编号' 
 								},
 									*/	
-								{
+								/*{
 									field : 'memberName', 
 									title : '姓名' 
-								},
-								{
+								},*/
+								/*{
 									field : 'age', 
 									title : '年龄' 
-								},
-								{
-									field : 'telephone', 
-									title : '手机号' 
-								},
+								},*/
 								{
 									field : 'name', 
 									title : '代理商名称' 
 								},
 								{
+									field : 'proxyTelephone', 
+									title : '手机号' 
+								},
+								{
+									field : 'regionLevel', 
+									title : '代理级别' ,
+									formatter : function(value, row, index) {
+										if (value == '1') {
+											return "省";
+										} else if (value == '') {
+											return "市";
+										} else {
+											return "县";
+										}
+										
+									}
+								},
+								{
 									field : 'proxyAddr', 
-									title : '代理商地址' 
+									title : '代理地址' 
 								},
 								{
-									field : 'status', 
-									title : '状态' 
-								},
-								{
-									field : 'level', 
-									title : '商家等级' 
+									field : 'createTime', 
+									title : '申请时间' 
 								},
 								{
 									field : 'auditTime', 
 									title : '审核时间' 
-								},
-								{
-									field : 'createTime', 
-									title : '入团时间' 
 								},
 								/*{
 									field : 'auditResult', 
@@ -104,16 +110,8 @@ function load() {
 									field : 'auditOpinion', 
 									title : '审核意见' 
 								},*/
-								{
-									field : 'regionLevel', 
-									title : '代理级别' 
-								},/*
-									m.age,m.city,m.county,m.`name` memberName,m.province,m.telephone							{
-									field : 'memberId', 
-									title : '' 
-								},
-									*/	
-								{
+								
+								/*{
 									field : 'county', 
 									title : '所在县' 
 								},
@@ -124,7 +122,7 @@ function load() {
 								{
 									field : 'province', 
 									title : '所在省份' 
-								},
+								},*/
 								{
 									field : 'auditStatus', 
 									title : '审核状态' ,
