@@ -41,8 +41,23 @@ public class TeamDO implements Serializable {
 	private Integer status;
 	//备注
 	private String remark;
+	//手机
+	private String colonelTel;
+	//简介
+	private String teamIntroduce;
 	
-	
+	public String getTeamIntroduce() {
+		return teamIntroduce;
+	}
+	public void setTeamIntroduce(String teamIntroduce) {
+		this.teamIntroduce = teamIntroduce;
+	}
+	public String getColonelTel() {
+		return colonelTel;
+	}
+	public void setColonelTel(String colonelTel) {
+		this.colonelTel = colonelTel;
+	}
 	public Integer getStatus() {
 		return status;
 	}

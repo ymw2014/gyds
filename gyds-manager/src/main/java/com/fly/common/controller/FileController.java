@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -177,5 +179,31 @@ public class FileController extends BaseController {
 		return R.error();
 	}
 
+	@ResponseBody
+	@PostMapping("/uploads")
+	R uploads(@RequestParam("files") MultipartFile[] file, HttpServletRequest request) {
+		List<FileDO> list = new ArrayList<FileDO>();
+		if ("test".equals(getUsername())) {
+			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
+		}
+		if(file!=null && file.length>0) {
+			for (int i = 0; i < file.length; i++) {
+				String fileName = file[i].getOriginalFilename();
+				fileName = FileUtil.renameToUUID(fileName);
+				FileDO sysFile = new FileDO(FileType.fileType(fileName), "/files/" + fileName, new Date());
+				try {
+					FileUtil.uploadFile(file[i].getBytes(), bootdoConfig.getUploadPath(), fileName);
+				} catch (Exception e) {
+					return R.error();
+				}
+				if (sysFileService.save(sysFile) > 0) {
+					list.add(sysFile);
+				}
+			}
+			return R.ok().put("fileNameList",list);
+		}
+
+		return R.error();
+	}
 
 }

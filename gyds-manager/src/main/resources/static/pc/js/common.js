@@ -30,7 +30,9 @@ $(function(){
 
 		}
 	});
-	function byPro(){
+})
+
+function byPro(){
 		var area = $('#pro option:selected').val();
 		var para = {"area":area};
 		$.ajax({
@@ -53,7 +55,7 @@ $(function(){
 				}
 			}
 		});
-	}
+	};
 	function byCity(){
 		var area = $('#city option:selected').val();
 		var para = {"area":area};
@@ -76,4 +78,3 @@ $(function(){
 			}
 		});
 	}
-})
