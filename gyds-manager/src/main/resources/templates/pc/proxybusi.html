@@ -13,9 +13,9 @@
 		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
 		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
 		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
 		<script th:src="@{/js/plugins/layer/layer.js}"></script>
 		<script th:src="@{/js/layui.js}"></script>
-		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
 		<style>
 		  .yy-gz{
 			  display: none;
@@ -72,14 +72,14 @@
 				<div class="cwmx">
 					<h4>基本资料</h4>
 				</div>
-				<form action="" method="" class="biaodanyy">
+				<form action="" method="" class="biaodanyy" id="signupForm">
 				    <label>
 						<span>真实姓名</span>
-						<input type="text">
+						<input type="text" id="name" name="name">
 					</label>
 					<label>
 						<span>电话号码</span>
-						<input type="text">
+						<input type="text" id="telephone"  name="telephone">
 					</label>
 					<label>
 						<span>代理级别</span>
@@ -102,11 +102,11 @@
 					</label>
 					<label>
 						<span>详细地址</span>
-						<input type="text">
+						<input type="text" id="address" name="address">
 					</label>
 					<label>
 						<span>身份证号</span>
-						<input type="text">
+						<input type="text" id="cardNo" name="cardNo">
 					</label>
 					<label>
 						<span>优势介绍</span>
@@ -222,11 +222,7 @@
 		validateRule();
 	});
 
-	$.validator.addMethod("isMobile", function(value, element) {
-	    var length = value.length;
-	    var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
-	    return this.optional(element) || (length == 11 && mobile.test(value));
-	}, "请正确填写您的手机号码");
+	
 
 
 	$.validator.setDefaults({
@@ -260,7 +256,7 @@
 
 	}
 	function validateRule() {
-		var icon = "<i class='fa fa-times-circle'></i> ";
+		var icon = "<i class='fa fa-times-circle' ></i> ";
 		$("#signupForm").validate({
 			rules : {
 				name : {
@@ -268,17 +264,31 @@
 				},
 				telephone:{
 			        required:true,
-			        isMobile:true,
-			    }
+			        isMobile:true
+			    },
+				address:{
+					required:true
+				},
+				cardNo:{
+					required : true,
+					isIdCardNo:true
+				}
 			},
 			messages : {
 				name : {
-					required : icon + "请输入名字"
+					required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
 				},
 				telephone : {  
-			       required : "请输入手机号",  
-			       isMobile : "请正确填写手机号码"  
-			  	}
+			       required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+			       isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+			  	},
+			  	address:{
+					required:"<span style='color:red;margin-left:10px;'>请输入地址</span>"
+				},
+				cardNo:{
+					required : "<span style='color:red;margin-left:10px;'>请输入身份证</span>",
+					isIdCardNo:"<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
+				}
 			}
 		})
 	}
