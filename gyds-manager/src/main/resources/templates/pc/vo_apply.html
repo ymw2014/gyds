@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" type="text/css" href="css/personal.css"/>
-		<link rel="stylesheet" href="css/index.css">
-		<link rel="stylesheet" href="css/cwmx.css">
-		<link rel="stylesheet" href="css/guzhunaws.css">
-		<link rel="stylesheet" href="css/jibenziliao.css">
-		<script src="js/jquery-3.1.1.js"></script>
+	<head th:replace="pc/include :: head"></head>	
 		<style>
 		  .yy-gz{
 			  display: none;
@@ -58,78 +50,55 @@
 				margin-top:36px;
 			}
 		</style>
-	</head>
 	<body>
 		<!-- 头部 -->
 		<div class="boxRight" style="background:#fff;width: 1006px;height: 1125px;margin-top:0;">
 				<div class="cwmx">
 					<h4>基本资料</h4>
 				</div>
-				<form action="" method="" class="biaodanyy">
+				<form id="signupForm" class="biaodanyy">
 				    <label>
 						<span>真实姓名</span>
-						<input type="text">
+						<input type="text" th:value="${user.name}" readonly="readonly">
 					</label>
 					<label>
 						<span>电话号码</span>
-						<input type="text">
+						<input  type="text" th:value="${user.mobile}" readonly="readonly">
 					</label>
 					<label>
 						<span>联系地址</span>
-						<select class="juzhu">
-							<option value ="">省</option>
-						</select>
-						<select class="juzhu">
-							<option value ="">市</option>
-						</select>
-						<select class="juzhu">
-							<option value ="">区/县</option>
-						</select>
+						<input type="text" th:value="${user.province+'&nbsp;'+user.province+'&nbsp;'+user.district}" readonly="readonly">
 					</label>
 					<label>
 						<span>详细地址</span>
-						<input type="text">
+						<input type="text" th:value="${user.liveAddress}" readonly="readonly">
 					</label>
 					<label>
 						<span>身份证号</span>
-						<input type="text">
-					</label>
-					<label>
-						<span>优势介绍</span>
-						 <textarea name="" id="" cols="30" rows="10" style="width: 381px;height: 213px;resize:none;margin-top:20px;">
-							 
-						 </textarea>
+						<input type="text" th:value="${user.cardNo}" readonly="readonly">
 					</label>
 					<label>
 						<span>上传身份证</span>
 						 <div>
-							 <img src="images/shenfenzhang_06.jpg" alt="" class="sfz1">
+							 <img th:src="${user.cardFrontImg}" alt="" class="sfz1">
 							 <p>身份证正面</p>
-							 <input type="file" style="display: none;" id="sfz11">
 						 </div>
 						 <div>
-							 <img src="images/shenfenzhang_03.jpg" alt="" class="sfz2">
-							 <input type="file" style="display: none;"  id="sfz22">
+							 <img th:src="${user.cardBackImg}" alt="" class="sfz2">
 							 <p>身份证反面</p>
 						 </div>
 					</label>
 					<label>
-						<span>居住地区</span>
-						<select class="juzhu">
-							<option value ="">省</option>
-						</select>
-						<select class="juzhu">
-							<option value ="">市</option>
-						</select>
-						<select class="juzhu">
-							<option value ="">区/县</option>
-						</select>
+						<span>入团宣言</span>
+						 <textarea name="introduction" id="" cols="30" rows="10" style="width: 381px;height: 213px;resize:none;margin-top:20px;">
+							 
+						 </textarea>
 					</label>
 					<label>
-						<input type="submit" value="提交申请" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 100px;border-radius:3px ;">
+						<input type="button" id="save" value="提交申请" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 100px;border-radius:3px ;">
 					</label>
 				</form>
-				<div class="tijiaohou">
+				<div class="tijiaohou" id="message">
 					<img src="images/hsusus_03.jpg" alt="">
 					<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
 				</div>
@@ -150,10 +119,83 @@
 			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
 		}
 	});
-	// $(".sfz1").click(function(){
-	// 	$("#sfz11").click();
-	// });
-	// $(".sfz2").click(function(){
-	// 	$("#sfz22").click();
-	// })
+	
+	$().ready(function() {
+		$("#save").on('click', function() {
+			$("#signupForm").submit();
+		});
+	})
+
+	function save() {
+		$.ajax({
+			type : "POST",
+			url : "/pc/saveVoApply",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					$("#signupForm").hide();
+					$("#message").show();
+				} else {
+					layer.msg(r.msg);
+					$(".reloadverify").click();
+				}
+			},
+		});
+	}
+
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+		var icon = "<i class='fa fa-times-circle' ></i> ";
+		$("#signupForm")
+				.validate(
+						{
+							rules : {
+								name : {
+									required : true
+								},
+								mobile : {
+									required : true,
+									isMobile : true
+								},
+								liveAddress : {
+									required : true
+								},
+								cardNo : {
+									required : true,
+									isIdCardNo : true
+								},
+								email : {
+									required : true
+								}
+							},
+							messages : {
+								name : {
+									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+								},
+								mobile : {
+									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+									isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+								},
+								liveAddress : {
+									required : "<span style='color:red;margin-left:10px;'>请输入详细地址</span>"
+								},
+								cardNo : {
+									required : "<span style='color:red;margin-left:10px;'>请输入身份证</span>",
+									isIdCardNo : "<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
+								},
+								email : {
+									required : "<span style='color:red;margin-left:10px;'>请输入邮箱地址</span>"
+								}
+							}
+						})
+	}
+	
 </script>

@@ -22,6 +22,7 @@ import com.fly.news.service.InfoService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.system.service.RegionService;
+import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.service.TeamService;
 import com.fly.utils.R;
@@ -43,6 +44,9 @@ public class PersionController extends BaseController{
 	private RegionService regionService;
 	@Autowired
 	private InfoService infoService;
+	@Autowired
+	private UserService userService;
+
 	
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter(Model model) {
@@ -135,8 +139,35 @@ public class PersionController extends BaseController{
 		}
 		model.addAttribute("user", user);
 		return "pc/vo_apply";
-
 	}
+	
+	
+	/**
+	 *	志愿者申请提交
+	 * @return 
+	 */
+	@ResponseBody
+	@RequestMapping("/pc/saveVoApply")
+	public R saveVoApply(VolunteerDO vo) {
+		UserDO user = getUser();
+		int radomInt2 =(int)((Math.random()*9+1)*100000);
+		vo.setVolunteerNumber(user.getCardNo().substring(0, 8)+radomInt2);
+		vo.setCity(user.getCity());
+		vo.setUserId(user.getUserId());
+		vo.setCounty(user.getDistrict());
+		vo.setTelephone(user.getMobile());
+		vo.setProvince(user.getProvince());
+		vo.setVolunteerName(user.getName());
+		vo.setAuditStatus(0);
+		vo.setCreateTime(new Date());
+		vo.setHeadImg(user.getHeadImg());
+		vo.setSex(user.getSex());
+		if(volunteerService.save(vo)>0) {
+			return R.ok();
+		}
+		return R.error();
+	}
+	
 	
 	/**
 	 * 实名认证
@@ -146,11 +177,40 @@ public class PersionController extends BaseController{
 	public String realNameAuthentication(Model model) {
 		UserDO user = getUser();
 		Map<String, Object> map=new HashMap<>(16);
+		if(user.getIsIdentification()==-1) {//实名认证已提交
+			model.addAttribute("model", "实名认证");
+			model.addAttribute("message", "您的实名认证已经提交,请等待审核结果......");
+			return "pc/message";
+		}
+		if(user.getIsIdentification()==1) {//已实名认证
+			model.addAttribute("user",user);
+			return "pc/att_sucess";
+		}
 		map.put("parentRegionCode", 0);
 		List<RegionDO> areaList = regionService.list(map);
 		model.addAttribute("areaList", areaList);
 		model.addAttribute("user", user);
 		return "pc/attestation";
+	}
+	
+	/**
+	 *	实名认证提交
+	 * @return 
+	 */
+	@ResponseBody
+	@RequestMapping("/pc/realName")
+	public R realName(UserDO user,Model model) {
+		if(user.getCardFrontImg()==null||user.getCardFrontImg()=="") {
+			return R.error("身份证正面图不能为空");
+		}
+		if(user.getCardBackImg()==null||user.getCardBackImg()=="") {
+			return R.error("身份证正面图不能为空");
+		}
+		user.setIsIdentification(-1);
+		if(userService.updatePersonal(user)>0) {
+			return R.ok();
+		}
+		return R.error();
 	}
 	
 	

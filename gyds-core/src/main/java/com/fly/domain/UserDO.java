@@ -53,7 +53,7 @@ public class UserDO implements Serializable {
 	//角色
     private List<Long> roleIds;
 	//性别
-	private Long sex;
+	private Integer sex;
 	//出身日期
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
@@ -269,13 +269,13 @@ public class UserDO implements Serializable {
 	/**
 	 * 设置：性别
 	 */
-	public void setSex(Long sex) {
+	public void setSex(Integer sex) {
 		this.sex = sex;
 	}
 	/**
 	 * 获取：性别
 	 */
-	public Long getSex() {
+	public Integer getSex() {
 		return sex;
 	}
 	/**
