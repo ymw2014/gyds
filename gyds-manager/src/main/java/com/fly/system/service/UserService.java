@@ -15,6 +15,8 @@ import java.util.Set;
 @Service
 public interface UserService {
 	UserDO get(Long id);
+	
+	UserDO getUser(Long id);
 
 	List<UserDO> list(Map <String, Object> map);
 

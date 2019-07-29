@@ -153,7 +153,7 @@ public class ActivityController {
 	
 	
 	/**
-	 * 删除
+	 * 审核
 	 */
 	@PostMapping( "/examine")
 	@ResponseBody

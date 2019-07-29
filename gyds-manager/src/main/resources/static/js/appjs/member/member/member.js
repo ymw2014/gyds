@@ -46,26 +46,26 @@ function load() {
 						columns : [// src="/files/7da67300-00e3-4514-a8b2-3437aa5aa93e.jpg"
 								{
 									checkbox : true
-								},/*
+								},
 																{
-									field : 'id', 
-									title : '自增编号' 
-								},*/
+									field : 'userId', 
+									title : '用户编号' 
+								},
 																{
 									field : 'name', 
 									title : '用户名称' 
 								},
-								{
-									field : 'teamName', 
-									title : '所属团队名称' 
+																{
+									field : 'username', 
+									title : '登录账号' 
 								},
 																{
 									field : 'sex', 
 									title : '性别' ,
 									formatter : function(value, row, index) {
-										if (value = '1') {
+										if (value = '0') {
 											return '男';
-										} else if (value = '0'){
+										} else if (value = '1'){
 											return '女';
 										}
 									}
@@ -75,24 +75,52 @@ function load() {
 									title : '用户头像' ,
 									formatter : function(value, row, index) {
 										
-											return '<img src="' + value + '"  style="width:47px;">';
+											return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
 										
 									}
 								},
-																{
-									field : 'age', 
-									title : '年龄' 
+
+								{
+									field : 'cardFrontImg', 
+									title : '身份证正面' ,
+									formatter : function(value, row, index) {
+										
+											return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
+										
+									}
+								},
+
+								{
+									field : 'cardBackImg', 
+									title : '身份证背面' ,
+									formatter : function(value, row, index) {
+										
+											return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
+										
+									}
+								},
+								{
+									field : 'province', 
+									title : '省' 
+								},
+								{
+									field : 'city', 
+									title : '市' 
 								},
 																{
-									field : 'address', 
+									field : 'district', 
+									title : '县' 
+								},
+																{
+									field : 'liveAddress', 
 									title : '家庭住址' 
 								},
 																{
-									field : 'telephone', 
+									field : 'mobile', 
 									title : '电话' 
 								},
 																{
-									field : 'loginNo', 
+									field : 'username', 
 									title : '登录账号' 
 								},/*
 																{
@@ -115,18 +143,6 @@ function load() {
 									field : 'platformIntegral', 
 									title : '平台积分' 
 								},
-								{
-									field : 'province', 
-									title : '省' 
-								},
-								{
-									field : 'city', 
-									title : '市' 
-								},
-																{
-									field : 'county', 
-									title : '县' 
-								},
 															/*	{
 									field : 'regioncode', 
 									title : '所属区域编号' 
@@ -135,36 +151,34 @@ function load() {
 									field : 'isIdentification', 
 									title : '是否实名认证',
 									formatter : function(value, row, index) {
+										console.log(value)
 										if (value == '1') {
 											return '是';
-										} else {
+										} else
+										if (value == '-1') {
+											return '<span style="color:red;">待审核</span>';
+										}else {
 											return '否';
 										}
 									}
-								}/*,
+								},
 																{
 									title : '操作',
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
-										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
-												+ row.id
-												+ '\')"><i class="fa fa-edit"></i></a> ';
-										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
-												+ row.id
-												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-												+ row.id
-												+ '\')"><i class="fa fa-key"></i></a> ';
-										return e + d ;
+										if (row.isIdentification == "-1") {
+											return '<a class="label label-success '+s_examine_h+'" onclick="examineStatus('+row.userId+',1)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger '+s_examine_h+'" onclick="examineStatus('+row.userId+',2)" >拒绝</a>';
+										}
 									}
-								} */]
+								} ]
 					});
 }
 function reLoad() {
 	$('#exampleTable').bootstrapTable('refresh');
 }
-function add() {
+/*function add() {
 	layer.open({
 		type : 2,
 		title : '增加',
@@ -241,4 +255,71 @@ function batchRemove() {
 	}, function() {
 
 	});
+	
+}*/
+
+
+function showBigPic(obj,filepath) {
+	
+    //将文件路径传给img大图
+    document.getElementById('pre_view').src = filepath;
+    //获取大图div是否存在
+    var div = document.getElementById("bigPic");
+    if (!div) {
+        return;
+    }
+    //如果存在则展示
+    var ImgObj=new Image();
+    	ImgObj.src= filepath;
+    if(ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0))
+     {
+        document.getElementById("bigPic").style.display="block";
+     }else{
+    	 return;
+     }
+    //获取鼠标坐标
+    var e = event || window.event;
+   	var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+   	var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+  	var intX = e.pageX || e.clientX + scrollX;
+   	var intY = e.pageY || e.clientY + scrollY;
+    //var intX = window.event.clientX;
+    //var intY = window.event.clientY;
+    //设置大图左上角起点位置
+    div.style.left = intX +10+ "px";
+    div.style.top = intY - 150+"px";
+}
+
+function closeimg(){
+    document.getElementById("bigPic").style.display="none";
+}
+
+/**
+ * 实名认证审核
+ * @param id
+ * @param status
+ * @returns
+ */
+function examineStatus(id,status) {
+	console.log(id);
+	layer.confirm('确定要进行实名认证审核吗？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : prefix+"/examine",
+			type : "post",
+			data : {
+				'id' : id,
+				'status':status
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
 }

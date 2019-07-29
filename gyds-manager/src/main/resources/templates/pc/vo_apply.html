@@ -54,7 +54,7 @@
 		<!-- 头部 -->
 		<div class="boxRight" style="background:#fff;width: 1006px;height: 1125px;margin-top:0;">
 				<div class="cwmx">
-					<h4>基本资料</h4>
+					<h4>志愿者申请</h4>
 				</div>
 				<form id="signupForm" class="biaodanyy">
 				    <label>
@@ -98,7 +98,7 @@
 						<input type="button" id="save" value="提交申请" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 100px;border-radius:3px ;">
 					</label>
 				</form>
-				<div class="tijiaohou" id="message">
+				<div class="tijiaohou" id="message"  style="display: none">
 					<img src="images/hsusus_03.jpg" alt="">
 					<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
 				</div>
@@ -158,41 +158,13 @@
 				.validate(
 						{
 							rules : {
-								name : {
-									required : true
-								},
-								mobile : {
-									required : true,
-									isMobile : true
-								},
-								liveAddress : {
-									required : true
-								},
-								cardNo : {
-									required : true,
-									isIdCardNo : true
-								},
-								email : {
+								introduction : {
 									required : true
 								}
 							},
 							messages : {
-								name : {
-									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
-								},
-								mobile : {
-									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
-									isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
-								},
-								liveAddress : {
-									required : "<span style='color:red;margin-left:10px;'>请输入详细地址</span>"
-								},
-								cardNo : {
-									required : "<span style='color:red;margin-left:10px;'>请输入身份证</span>",
-									isIdCardNo : "<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
-								},
-								email : {
-									required : "<span style='color:red;margin-left:10px;'>请输入邮箱地址</span>"
+								introduction : {
+									required : "<span style='color:red;margin-left:10px;'>请填写入团宣言</span>"
 								}
 							}
 						})

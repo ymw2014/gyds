@@ -29,4 +29,6 @@ public interface VolunteerDao {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	List<VolunteerDO> isVolllist(Long userId);
 }
