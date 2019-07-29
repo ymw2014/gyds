@@ -56,7 +56,7 @@ public class VolunteerDO implements Serializable {
 	//所属区域编号
 	private Integer regioncode;
 
-	private String createTime;
+	private Date createTime;
 	
 	private int auditStatus;
 	
@@ -68,6 +68,7 @@ public class VolunteerDO implements Serializable {
 	//积分
 	private Integer integral;
 	
+	private String introduction;
 	
 	
 	
@@ -76,6 +77,12 @@ public class VolunteerDO implements Serializable {
 	}
 	public void setIntegral(Integer integral) {
 		this.integral = integral;
+	}
+	public String getIntroduction() {
+		return introduction;
+	}
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 	public Date getEnterTeamTime() {
 		return enterTeamTime;
@@ -95,10 +102,10 @@ public class VolunteerDO implements Serializable {
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
 	}
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	public int getAuditStatus() {

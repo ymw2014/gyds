@@ -1,139 +1,295 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" type="text/css" href="css/personal.css"/>
-		<link rel="stylesheet" href="css/index.css">
-		<link rel="stylesheet" href="css/cwmx.css">
-		<link rel="stylesheet" href="css/guzhunaws.css">
-		<link rel="stylesheet" href="css/jibenziliao.css">
-		<script src="js/jquery-3.1.1.js"></script>
-		<style>
-		  .yy-gz{
-			  display: none;
-		  }
-		  .biaodanyy>label>span {
-				display: inline-block;
-				width: 122px !important;
-				text-align: right;
-				font-size: 14px;
-				margin-right: 24px;
-				color: #666666;
-				float: left;
-				line-height: 60px;
-			}
-		  .biaodanyy>label {
-				display: block;
-				width: 840px !important;
-				margin-left: 50px;
-            }
-			.duoxianrt{
-				    width: 661px;
-					float: right;
-					margin-top: 20px;
-			}
-			.duoxianrt input{
-				margin-top:20px;
-			}
-			.tijiaohou{
-				width: 80%;
-				text-align: left;
-				float: right;
-				margin-top:50px;
-			}
-			.biaodanyy>label>div{
-				width:338px;
-				height: 211px;
-				float: left;
-				border:1px solid #f0f0f0;
-				margin-right:5px;
-				text-align: center;
-				font-size:16px;
-				color:#5c5c5c;
-			}
-			.biaodanyy>label>div>img{
-				width: 235px;
-				height: 138px;
-				margin-top:36px;
-			}
-		</style>
-	</head>
-	<body>
-		<!-- 头部 -->
-		<div class="boxRight" style="background:#fff;width: 1006px;height: 1125px;margin-top:0;">
-				<div class="cwmx">
-					<h4>基本资料</h4>
+<head th:replace="pc/include :: head"></head>
+<style>
+.yy-gz {
+	display: none;
+}
+
+.biaodanyy>label>span {
+	display: inline-block;
+	width: 122px !important;
+	text-align: right;
+	font-size: 14px;
+	margin-right: 24px;
+	color: #666666;
+	float: left;
+	line-height: 60px;
+}
+
+.biaodanyy>label {
+	display: block;
+	width: 840px !important;
+	margin-left: 50px;
+}
+
+.duoxianrt {
+	width: 661px;
+	float: right;
+	margin-top: 20px;
+}
+
+.duoxianrt input {
+	margin-top: 20px;
+}
+
+.tijiaohou {
+	width: 80%;
+	text-align: left;
+	float: right;
+	margin-top: 50px;
+}
+
+.biaodanyy>label>div {
+	width: 338px;
+	height: 211px;
+	float: left;
+	border: 1px solid #f0f0f0;
+	margin-right: 5px;
+	text-align: center;
+	font-size: 16px;
+	color: #5c5c5c;
+}
+
+.biaodanyy>label>div>img {
+	width: 235px;
+	height: 138px;
+	margin-top: 36px;
+}
+</style>
+<body>
+	<!-- 头部 -->
+	<div class="boxRight"
+		style="background: #fff; width: 1006px; height: 1125px; margin-top: 0;">
+		<div class="cwmx">
+			<h4>实名认证</h4>
+		</div>
+		<form id="signupForm" class="biaodanyy">
+			<input type="hidden" name="userId" th:value="${user.userId}">
+			<label> <span>真实姓名</span> <input name="name" type="text">
+			</label> <label> <span>身份证号</span> <input name="cardNo" type="text">
+			</label> <label> <span>上传身份证</span>
+				<div>
+					<img th:src="@{/pc/images/shenfenzheng_01.jpg}" id="img" alt=""
+						class="sfz1">
+					<p>身份证正面</p>
+					<input id="imgUrl" name="cardFrontImg" type="hidden" /> <input
+						type="file" name="file" style="display: none;" id="file">
 				</div>
-				<form action="" method="" class="biaodanyy">
-				    <label>
-						<span>真实姓名</span>
-						<input name="name" type="text">
-					</label>
-					<label>
-						<span>手机号码</span>
-						<input name="mobile" type="text">
-					</label>
-					<input name="regionCode" type="text">
-					<label>
-						<span>联系地址</span>
-						<select class="juzhu" onchange="changeProvince()">
-							<option value ="">省</option>
-							<option name="province" th:each="area:${areaList}" th:value ="${area.regionName}" th:text="${area.regionName}"></option>
-						</select>
-						<select name="city" class="juzhu" onchange="changeCity()">
-							<option value ="">市</option>
-						</select>
-						<select name="district" class="juzhu">
-							<option value ="">区/县</option>
-						</select>
-					</label>
-					<label>
-						<span>详细地址</span>
-						<input name="liveAddress" type="text">
-					</label>
-					<label>
-						<span>身份证号</span>
-						<input name="cardNo" type="text">
-					</label>
-					<label>
-						<span>上传身份证</span>
-						 <div>
-							 <img th:src="@{/pc/images/shenfenzheng_01.jpg}" alt="" class="sfz1">
-							 <p>身份证正面</p>
-							 <input type="file" style="display: none;" id="sfz11">
-						 </div>
-						 <div>
-							 <img th:src="@{/pc/images/shenfenzheng_02.jpg}" alt="" class="sfz2">
-							 <input type="file" style="display: none;"  id="sfz22">
-							 <p>身份证反面</p>
-						 </div>
-					</label>
-					<label>
-						<input type="submit" value="提交申请" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 100px;border-radius:3px ;">
-					</label>
-				</form>
-			</div>
-	</body> 
+			</label> <label>
+				<div>
+					<img th:src="@{/pc/images/shenfenzheng_02.jpg}" id="img1" alt=""
+						class="sfz2"> <input id="imgUrl1" name="cardBackImg"
+						type="hidden" /> <input type="file" name="file"
+						style="display: none;" id="file1">
+					<p>身份证反面</p>
+				</div>
+			</label> <label> <span>邮箱地址</span> <input name="email" type="text">
+			</label> <label> <span>手机号码</span> <input name="mobile" type="text">
+			</label> <label> <span>联系地址</span> <input name="province"
+				id="province" type="hidden"> <select class="juzhu" id="pron"
+				onchange="pronv()">
+
+					<option value="">省</option>
+					<option th:each="area:${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+			</select> <input name="city" id="city" type="hidden"> <select
+				class="juzhu" id="cityId" onchange="cityQuery()">
+					<option value="">市</option>
+			</select> <input name="district" id="district" type="hidden"> <select
+				id="xian" name="regionCode" onchange="cityDist()" class="juzhu">
+					<option value="">区/县</option>
+			</select>
+			</label> <label> <span>详细地址</span> <input name="liveAddress"
+				type="text">
+			</label> <label> <input type="button" id="save" value="提交申请"
+				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 100px; border-radius: 3px;">
+			</label>
+		</form>
+		<div class="tijiaohou" id="message" style="display: none">
+			<img src="images/hsusus_03.jpg" alt="">
+			<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
+		</div>
+	</div>
+</body>
 </html>
 <script>
-	$(".btn").mouseover(function(){
-		 $(this).children("ul").show();
+	$(".btn").mouseover(function() {
+		$(this).children("ul").show();
 	});
-	$(".btn").mouseout(function(){
-		 $(this).children("ul").hide();
+	$(".btn").mouseout(function() {
+		$(this).children("ul").hide();
 	})
-	$('dt').click(function () {
-		if($(this).nextUntil('dt','dd').is(':visible')){
-			$(this).nextUntil('dt','dd').slideUp()
-		}else{
-			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
+	$('dt').click(
+			function() {
+				if ($(this).nextUntil('dt', 'dd').is(':visible')) {
+					$(this).nextUntil('dt', 'dd').slideUp()
+				} else {
+					$(this).siblings('dd').slideUp().end()
+							.nextUntil('dt', 'dd').slideToggle();
+				}
+			});
+
+	layui.use('upload', function() {
+		var upload = layui.upload;
+
+		//执行实例
+		var uploadInst = upload.render({
+			elem : '#file', //绑定元素
+			url : '/common/sysFile/upload', //上传接口
+			size : 1000,
+			accept : 'file',
+			done : function(r) {
+				var fileName = r.fileName;
+				$("#imgUrl").val(fileName);
+				$("#img").attr("src", fileName);
+			},
+			error : function(r) {
+				layer.msg(r.msg);
+			}
+		});
+
+		//执行实例
+		var uploadInst = upload.render({
+			elem : '#file1', //绑定元素
+			url : '/common/sysFile/upload', //上传接口
+			size : 1000,
+			accept : 'file',
+			done : function(r) {
+				var fileName = r.fileName;
+				$("#imgUrl1").val(fileName);
+				$("#img1").attr("src", fileName);
+			},
+			error : function(r) {
+				layer.msg(r.msg);
+			}
+		});
+
+	});
+	//通过省编号获取市
+	function pronv() {
+		$("#province").val($("#pron").find("option:selected").text());
+		$.ajax({
+			type : "post",
+			dataType : "json",
+			url : "/pc/proxybusi/city",
+			data : {
+				'areaId' : $("#pron").val()
+			},
+			success : function(result) {
+				var areaList = result.areaList;
+				$("#cityId").html('');
+				var html = '<option value ="">市</option>';
+				$.each(areaList, function(n, value) {
+					html += '<option value =" '+ value.regionCode + '">'
+							+ value.regionName + '</option>';
+				});
+				$("#cityId").append(html);
+			}
+		});
+	}
+	//通过市编号获取县区
+	function cityQuery() {
+		$("#city").val($("#cityId").find("option:selected").text());
+		$.ajax({
+			type : "post",
+			dataType : "json",
+			url : "/pc/proxybusi/city",
+			data : {
+				'areaId' : $("#cityId").val()
+			},
+			success : function(result) {
+				var areaList = result.areaList;
+				$("#xian").html('');
+				var html = '<option value ="">区/县</option>';
+				$.each(areaList, function(n, value) {
+					html += '<option value =" '+ value.regionCode + '">'
+							+ value.regionName + '</option>';
+				});
+				$("#xian").append(html);
+			}
+		});
+	}
+
+	function cityDist() {
+		$("#district").val($("#xian").find("option:selected").text());
+	}
+
+	$().ready(function() {
+		$("#save").on('click', function() {
+			$("#signupForm").submit();
+		});
+	})
+
+	function save() {
+		$.ajax({
+			type : "POST",
+			url : "/pc/realName",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					$("#signupForm").hide();
+					$("#message").show();
+				} else {
+					layer.msg(r.msg);
+					$(".reloadverify").click();
+				}
+			},
+		});
+	}
+
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
 		}
 	});
-	// $(".sfz1").click(function(){
-	// 	$("#sfz11").click();
-	// });
-	// $(".sfz2").click(function(){
-	// 	$("#sfz22").click();
-	// })
+	function validateRule() {
+		var icon = "<i class='fa fa-times-circle' ></i> ";
+		$("#signupForm")
+				.validate(
+						{
+							rules : {
+								name : {
+									required : true
+								},
+								mobile : {
+									required : true,
+									isMobile : true
+								},
+								liveAddress : {
+									required : true
+								},
+								cardNo : {
+									required : true,
+									isIdCardNo : true
+								},
+								email : {
+									required : true
+								}
+							},
+							messages : {
+								name : {
+									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+								},
+								mobile : {
+									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+									isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+								},
+								liveAddress : {
+									required : "<span style='color:red;margin-left:10px;'>请输入详细地址</span>"
+								},
+								cardNo : {
+									required : "<span style='color:red;margin-left:10px;'>请输入身份证</span>",
+									isIdCardNo : "<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
+								},
+								email : {
+									required : "<span style='color:red;margin-left:10px;'>请输入邮箱地址</span>"
+								}
+							}
+						})
+	}
 </script>

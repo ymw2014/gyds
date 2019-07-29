@@ -8,7 +8,7 @@
 		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
 		`card_no`,`shares_number`,`comment_number`,`click_number`,
 		audit_status,
-		`act_number`,`level`,`province`,`city`,`county`,`regionCode` ,v.remark
+		`act_number`,`level`,`province`,`city`,`county`,`regionCode` ,v.remark,v.introduction
 		from volunteer v
 		left join team t on v.team_id = t.id where v.id = #{value}
 	</select>
@@ -19,7 +19,7 @@
 		`card_no`,`shares_number`,`comment_number`,`click_number`,
 		`act_number`,`level`,`province`,`city`,`county`,`regionCode`,
 		audit_status,
-		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime,v.remark
+		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime,v.remark,v.introduction
 		from volunteer v
 		left join team t on v.team_id = t.id
         <where>  
@@ -44,6 +44,7 @@
 		  		  <if test="regioncode != null and regioncode != ''"> and v.regionCode = #{regioncode} </if>
 		  		   <if test="createTime != null and createTime != ''"> and v.create_Time = #{createTime} </if>
 		  		   <if test="auditStatus != null and auditStatus != ''"> and v.audit_status = #{auditStatus}</if>
+		  		   <if test="introduction != null and introduction != ''"> and introduction <![CDATA[<=]]> #{introduction} </if>
 		  		   <if test="startTime != null and startTime != ''"> and v.create_Time <![CDATA[>=]]>#{startTime} </if>
 		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
 		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND v.enter_team_time &gt;= #{startEntTeamTime}</if>
@@ -118,7 +119,7 @@
 		insert into volunteer
 		(
 			`volunteer_name`, 
-			`mem_id`, 
+			`user_id`, 
 			`team_id`, 
 			`address`, 
 			`telephone`, 
@@ -136,12 +137,13 @@
 			`county`, 
 			`regionCode`,
 			head_img,
-			`remark`
+			`remark`,
+				`introduction`
 		)
 		values
 		(
 			#{volunteerName}, 
-			#{memId}, 
+			#{userId}, 
 			#{teamId}, 
 			#{address}, 
 			#{telephone}, 
@@ -159,7 +161,8 @@
 			#{county}, 
 			#{regioncode},
 			#{headImg},
-			#{remark}
+			#{remark},
+			#{introduction}
 		)
 	</insert>
 	 
@@ -167,7 +170,7 @@
 		update volunteer 
 		<set>
 			<if test="volunteerName != null">`volunteer_name` = #{volunteerName}, </if>
-			<if test="memId != null">`mem_id` = #{memId}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
 			<if test="teamId != null">`team_id` = #{teamId}, </if>
 			<if test="address != null">`address` = #{address}, </if>
 			<if test="telephone != null">`telephone` = #{telephone}, </if>
@@ -188,6 +191,7 @@
 			<if test="remark != null">`remark` = #{remark},</if>
 			<if test="auditStatus != null">`audit_status` = #{auditStatus},</if>
 			<if test="enterTeamTime != null">`enter_team_time` = #{enterTeamTime}</if>
+			<if test="introduction != null">`introduction` = #{introduction}</if>
 		</set>
 		where id = #{id}
 	</update>

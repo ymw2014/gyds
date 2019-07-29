@@ -69,23 +69,5 @@
 	</body> 
 </html>
 <script>
-	$(".btn").mouseover(function(){
-		 $(this).children("ul").show();
-	});
-	$(".btn").mouseout(function(){
-		 $(this).children("ul").hide();
-	})
-	$('dt').click(function () {
-		if($(this).nextUntil('dt','dd').is(':visible')){
-			$(this).nextUntil('dt','dd').slideUp()
-		}else{
-			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
-		}
-	});
-	// $(".sfz1").click(function(){
-	// 	$("#sfz11").click();
-	// });
-	// $(".sfz2").click(function(){
-	// 	$("#sfz22").click();
-	// })
+
 </script>
