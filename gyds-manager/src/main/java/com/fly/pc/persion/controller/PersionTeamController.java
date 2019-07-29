@@ -1,8 +1,10 @@
 package com.fly.pc.persion.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.dao.TeamDao;
 import com.fly.team.dao.TeamTypeDao;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.domain.TypeDO;
@@ -33,16 +36,40 @@ public class PersionTeamController {
 	private RegionService regionService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private TeamDao teamDao;
 	
 	@RequestMapping("/createTeam")
 	public String createTeam(Model model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		Long userId = ShiroUtils.getUserId(); 
+		params.put("status", 2);
+		params.put("userId", userId);
+		List<TeamDO> list = teamDao.is_apply(params);
+		if(list.size()>0) {
+			TeamDO team = list.get(0);
+			if(0 == team.getStatus()) {
+				model.addAttribute("message", "您已提交过建团申请,不可重复提交!请耐心等待!");
+				return "pc/message";
+			}else if(1 == team.getStatus()){
+				String imgStr = team.getTeamImg();
+				String[] img = imgStr.split(",");
+				List<String> imgList = new ArrayList<String>();
+				for(int i =0;i<img.length;i++) {
+					imgList.add(img[i]);
+				}
+				model.addAttribute("imgList", imgList);
+				model.addAttribute("team", team);
+				return "pc/teamInfo";
+			}
+		}
+		
 		List<TypeDO> type = typeDao.list1();
 		model.addAttribute("type", type);
-		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("parentRegionCode",0);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);//全国包含的省
-		return "/pc/createTeam";
+		return "pc/createTeam";
 	}
 	
 	@GetMapping("/area")
@@ -66,17 +93,29 @@ public class PersionTeamController {
 	@PostMapping("/savaTeam")
 	@ResponseBody
 	public R savaTeam(TeamDO team) {
-		R r = new R();
 		UserDO user = ShiroUtils.getUser();
 		if(user!=null) {
+			Integer id = randomCode(team.getRegCode());
+			team.setId(id);
+			team.setTeamIntroduce(team.getTeamIntroduce().trim());
 			team.setUserId(Integer.valueOf(user.getUserId().toString()));
 			team.setStatus(0);
-			teamService.save(team);
-			r.put("code", 0);
-			
+			if(teamService.save(team)>0);
+			return R.ok();
 		}
-		
-		return r;
+		return R.error();
+	}
+	public Integer randomCode(Integer regCode) {
+		Integer random =(int) (Math.random()*1000);
+		String strCode = regCode+""+random;
+		Integer code = Integer.valueOf(strCode);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id",code);
+		List<TeamDO> list = teamService.list(map);
+		if(list.size()>0) {
+			randomCode(regCode);
+		}
+		return code;
 	}
 
 }

@@ -229,5 +229,12 @@
 			#{userId}
 		</foreach>
 	</delete>
-
+	
+	<update id="updateIntegral" parameterType="java.util.Map">
+		update sys_user 
+		<set>
+			<if test="platformIntegral != null">`platform_integral` = platform_integral + #{platformIntegral}, </if>
+		</set>
+		where user_id = #{userId}
+	</update>
 </mapper>

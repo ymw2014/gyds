@@ -359,6 +359,7 @@
 					},
 					success : function(data) {
 						if (data.code == 0) {
+							alert("打赏成功");
 							history.go(0);
 						} else {
 							if(data.msg == -1){
@@ -420,6 +421,7 @@
 			},
 			success : function(data) {
 				if (data.code == 0) {
+						alert("发表成功");
 						history.go(0);
 				} else if(data.code == 2){
 					alert(data.msg);

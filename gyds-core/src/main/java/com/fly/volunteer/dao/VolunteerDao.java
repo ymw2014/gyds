@@ -29,4 +29,6 @@ public interface VolunteerDao {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	int updateVolunteer(Map<String,Object> map);
 }

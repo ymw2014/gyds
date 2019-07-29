@@ -45,7 +45,15 @@ public class TeamDO implements Serializable {
 	private String colonelTel;
 	//简介
 	private String teamIntroduce;
+	//积分
+	private Integer integral ; 
 	
+	public Integer getIntegral() {
+		return integral;
+	}
+	public void setIntegral(Integer integral) {
+		this.integral = integral;
+	}
 	public String getTeamIntroduce() {
 		return teamIntroduce;
 	}

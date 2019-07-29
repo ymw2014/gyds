@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" th:type="@{/pc/text/css}"
+	th:href="@{/pc/css/personal.css}" />
+<link rel="stylesheet" th:href="@{/pc/css/index.css}">
+<link rel="stylesheet" th:href="@{/pc/css/cwmx.css}">
+<link rel="stylesheet" th:href="@{/pc/css/guzhunaws.css}">
+<link rel="stylesheet" th:href="@{/pc/css/jibenziliao.css}">
+<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
+					<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
+					<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
+					<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+<style>
+.yy-gz {
+	display: none;
+}
+</style>
+
+<head th:replace="pc/include :: head"></head></head>
+
+<body>
+	<!-- 头部 -->
+	<!-- 右侧主内容 -->
+	<div class="boxRight"
+		style="background: #fff; width: 1006px; height: 925px; margin-top: 0;">
+		<div class="cwmx">
+			<h4>我要建团</h4>
+		</div>
+			<div class="">
+			<label> <span>团队名称</span>
+			</label> <span th:text="${team.teamName}"></span> </div>
+			<div class="">
+			<label> <span>团队负责人</span> 
+			</label> <span th:text="${team.colonelName}"></span></div>
+			<div class="">
+			<label> <span>负责人电话</span> 
+			</label> <span  th:text="${team.colonelTel}"></span></div>
+			<div class="">
+			<label> <span>联系地址</span> 
+			</label> <span th:text="${team.regionName}"></span> </div>
+			<div class="">
+			<label id="logo"> <span>团队logo</span> 
+			</label> <img
+				th:src="${team.teamTitleImg}" alt="" class="tdlogo"
+				id="img" style="height: 65px; width: 65px"> 
+			</div>
+			<div class="">
+			<label>  <span>团队照片</span>
+			</label> <img th:each="img : ${imgList}" th:src="${img}" alt="" class="tdlogo1" style="height: 65px; width: 65px">
+			</div>
+			<div class="">
+			<label>  <span>团队简介</span> 
+			</label> <span th:text="${team.teamIntroduce}"></span>
+			</div>
+			<div class="">
+			 <label>  <span>项目服务</span> 
+			 </label> <span th:text="${team.typeName}"></span>
+	</div>
+	</div>
+	<!-- 备案 -->
+	<div class="beian">
+		<div class="beian1">
+			<span style="float: left;">©公益打赏平台 版权所有</span> <span
+				style="float: right;">京ICP备12048184号 技术支持：景安网络</span>
+		</div>
+	</div>
+</body>
+</html>
