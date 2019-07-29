@@ -30,5 +30,7 @@ public interface UserDao {
 	int batchRemove(Long[] userIds);
 	
 	Long[] listAllDept();
+	
+	int updateIntegral(Map <String, Object> map);
 
 }

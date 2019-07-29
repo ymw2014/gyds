@@ -31,4 +31,5 @@ public interface VolunteerDao {
 	int batchRemove(Long[] ids);
 	
 	List<VolunteerDO> isVolllist(Long userId);
+	int updateVolunteer(Map<String,Object> map);
 }

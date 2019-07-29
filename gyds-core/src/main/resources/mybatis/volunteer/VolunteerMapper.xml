@@ -229,4 +229,13 @@
 		
 	</select>
 
+	
+	
+	<update id="updateVolunteer" parameterType="java.util.Map">
+		update volunteer 
+		<set>
+			<if test="integral != null">`integral` = integral + #{integral}</if>
+		</set>
+		where id = #{id}
+	</update>
 </mapper>

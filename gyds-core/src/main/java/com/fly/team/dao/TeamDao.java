@@ -35,4 +35,7 @@ public interface TeamDao {
 	int getDeptUserNumber(Long teamId);
 
 	int getRegionUserMember(Integer teamId);
+	
+	List<TeamDO> is_apply(Map<String,Object> map);
+	int updateIntegral(Map<String,Object> map);
 }

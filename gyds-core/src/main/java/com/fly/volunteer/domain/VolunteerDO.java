@@ -65,11 +65,19 @@ public class VolunteerDO implements Serializable {
 	private String remark;
 		
 	private Date enterTeamTime;
+	//积分
+	private Integer integral;
 	
 	private String introduction;
 	
 	
 	
+	public Integer getIntegral() {
+		return integral;
+	}
+	public void setIntegral(Integer integral) {
+		this.integral = integral;
+	}
 	public String getIntroduction() {
 		return introduction;
 	}

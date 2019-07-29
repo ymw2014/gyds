@@ -29,8 +29,12 @@ import com.fly.sys.dao.SetupDao;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.dao.TeamDao;
+import com.fly.team.domain.TeamDO;
 import com.fly.utils.DateUtils;
 import com.fly.utils.R;
+import com.fly.volunteer.dao.VolunteerDao;
+import com.fly.volunteer.domain.VolunteerDO;
 
 
 @Controller
@@ -56,7 +60,10 @@ public class BaseDynamicController {
 	private SetupDao setupDao;
 	@Autowired
 	private ActivityDao activityDao;
-
+	@Autowired
+	private TeamDao teamDao;
+	@Autowired
+	private VolunteerDao volunteerDao;
 	/**
 	 * 
 	 * @param 
@@ -297,8 +304,8 @@ public class BaseDynamicController {
 		}
 		return i;
 	}
-	
-	
+
+
 	public Integer is_attention(Integer id) {
 		Map<String, Object> params  = new HashMap<String, Object>();
 		Integer i = 0 ;
@@ -321,7 +328,7 @@ public class BaseDynamicController {
 		}
 		//如果返回0表示未登录或无此用户
 		return i;
-	
+
 	}
 	//是否点赞
 	//入参:params id (资讯id)
@@ -424,13 +431,14 @@ public class BaseDynamicController {
 
 	}
 	//加积分
-	public Integer addPoints(PointsDO Points) {
+	public synchronized Integer addPoints(PointsDO Points) {
 		Integer i = 1;
 		Date startTime = DateUtils.weeHours(new Date(), 0);
 		Date endTime = DateUtils.weeHours(new Date(), 1);
 		Integer integral = 0;
+		Long userId = Points.getMemberId();
 		Map<String,Object> params = new HashMap<String, Object>();
-		params.put("memberId", Points.getMemberId());
+		params.put("memberId", userId);
 		params.put("startTime", startTime);
 		params.put("endTime", endTime);
 		List<PointsDO> userpoints=pointsDao.list(params);
@@ -440,9 +448,31 @@ public class BaseDynamicController {
 			}
 		} 
 		if(integral<10) {
-			Points.setIntegral(setupDao.get(1).getPunchTheClockIntegral());
+			Integer sys_integral = setupDao.get(1).getPunchTheClockIntegral();
+			Points.setIntegral(sys_integral);
 			if(pointsDao.save(Points)>0) {
-				return i=2;
+				Map<String,Object> userIntegral = new HashMap<String, Object>();
+				userIntegral.put("userId", userId);
+				userIntegral.put("platformIntegral", sys_integral);
+				if(userMapper.updateIntegral(userIntegral)>0) {
+					Map<String,Object> volunteer = new HashMap<String, Object>();
+					volunteer.put("userId", userId);
+					List<VolunteerDO> volunteerList = volunteerDao.list(volunteer);
+					if(volunteerList!=null&&volunteerList.size()>0) {
+						Map<String,Object> volunteerIntegral = new HashMap<String, Object>();
+						volunteerIntegral.put("integral", sys_integral);
+						volunteerIntegral.put("id", volunteerList.get(0).getId());
+						if(volunteerDao.updateVolunteer(volunteerIntegral)>0) {
+							Map<String,Object> teamIntegral = new HashMap<String, Object>();
+							teamIntegral.put("integral", sys_integral);
+							teamIntegral.put("id", volunteerList.get(0).getTeamId());
+							if(teamDao.updateIntegral(teamIntegral)>0) {
+
+							}
+						}
+					}
+					return 2;
+				}
 			}
 		}
 		return i ;
