@@ -8,7 +8,10 @@ import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.HttpContextUtils;
 import com.fly.utils.IPUtils;
 import com.fly.utils.JSONUtils;
+
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -111,4 +114,5 @@ public class LogAspect {
         // 保存系统日志
         logService.save(sysLog);
     }
+   
 }

@@ -298,6 +298,7 @@ public class BaseDynamicController {
 		order.setIsDel(0);
 		order.setOrderNumber(new Date().getTime()+"");
 		order.setBusinessTime(new Date());
+		order.setExamineStatus(1);
 		//产生订单
 		if(orderService.save(order)>0){
 			i=order.getId();

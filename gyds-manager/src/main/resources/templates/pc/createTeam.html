@@ -74,7 +74,7 @@
 					<option th:each="type:${type}" th:value="${type.id}"
 						th:text="${type.typeName}"></option>
 			</select>
-			</label> <label> <input type="button" onclick="save()" value="提交"
+			</label> <label> <input type="button" id="save" onclick="save()" value="提交"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 30px; border-radius: 3px;">
 			</label> 
 		</form>
@@ -181,11 +181,9 @@
 	
 	function save() {
 		$.ajax({
-			cache : true,
 			type : "POST",
 			url : "/pc/regTeam/savaTeam",
 			data : $('#signupForm').serialize(),// 你的formid
-			async : false,
 			error : function(request) {
 				parent.layer.alert("Connection error");
 			},
@@ -202,12 +200,6 @@
 		});
 
 	};
-	
-	
-	
-	
-	
-	
 	layui.use('upload', function() {
 		  var upload = layui.upload;
 		  var multi = 1;
@@ -253,6 +245,69 @@
 		  });
 
 		 });
+	
+	$().ready(function() {
+		$("#save").on('click', function() {
+			$("#signupForm").submit();
+		});
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+		var icon = "<i class='fa fa-times-circle' ></i> ";
+		$("#signupForm")
+				.validate(
+						{
+							rules : {
+								teamName : {
+									required : true
+								},
+								colonelName : {
+									required : true
+									
+								},
+								colonelTel : {
+									required : true,
+									isMobile : true
+								},
+								regCode : {
+									required : true,
+								},
+								teamIntroduce : {
+									required : true
+								},
+								teamType : {
+									required : true
+								}
+							},
+							messages : {
+								teamName : {
+									required : "<span style='color:red;margin-left:10px;'>请输入团队名称</span>"
+								},
+								colonelName : {
+									required : "<span style='color:red;margin-left:10px;'>请输入负责人名称</span>"
+								},
+								colonelTel : {
+										required : "<span style='color:red;margin-left:10px;'>请输入负责人手机号</span>",
+										isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+								},
+								regCode : {
+									required : "<span style='color:red;margin-left:10px;'>请选择联系地址</span>",
+								},
+								teamIntroduce : {
+									required : "<span style='color:red;margin-left:10px;'>请输入团队简介</span>"
+								},
+								teamType : {
+									required : "<span style='color:red;margin-left:10px;'>请选择项目服务</span>"
+								}
+							}
+						})
+	}
 	</script>
 </html>
 <script>

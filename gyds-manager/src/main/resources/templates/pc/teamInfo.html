@@ -30,36 +30,25 @@
 		<div class="cwmx">
 			<h4>我要建团</h4>
 		</div>
-			<div class="">
-			<label> <span>团队名称</span>
-			</label> <span th:text="${team.teamName}"></span> </div>
-			<div class="">
-			<label> <span>团队负责人</span> 
-			</label> <span th:text="${team.colonelName}"></span></div>
-			<div class="">
-			<label> <span>负责人电话</span> 
-			</label> <span  th:text="${team.colonelTel}"></span></div>
-			<div class="">
-			<label> <span>联系地址</span> 
-			</label> <span th:text="${team.regionName}"></span> </div>
-			<div class="">
-			<label id="logo"> <span>团队logo</span> 
-			</label> <img
-				th:src="${team.teamTitleImg}" alt="" class="tdlogo"
-				id="img" style="height: 65px; width: 65px"> 
-			</div>
-			<div class="">
-			<label>  <span>团队照片</span>
-			</label> <img th:each="img : ${imgList}" th:src="${img}" alt="" class="tdlogo1" style="height: 65px; width: 65px">
-			</div>
-			<div class="">
-			<label>  <span>团队简介</span> 
-			</label> <span th:text="${team.teamIntroduce}"></span>
-			</div>
-			<div class="">
-			 <label>  <span>项目服务</span> 
-			 </label> <span th:text="${team.typeName}"></span>
-	</div>
+		<form action="" method="" class="biaodanyy biaodanyy1" id="signupForm">
+			<label> <span>团队名称</span> <input type="text" th:value="${team.teamName}" disabled="disabled">
+			</label> <label> <span>团队负责人</span> <input type="text" th:value="${team.colonelName}" disabled="disabled">
+			</label> <label> <span>负责人电话</span> <input type="text" th:value="${team.colonelTel}" disabled="disabled">
+			</label> <label> <span>联系地址</span>   <input  type="text" th:value="${team.regCode}" disabled="disabled">
+			</label> <label id="logo"> <span>团队logo</span> 
+			<img th:src="@{team.teamTitleImg}" alt="" class="tdlogo" style="height: 65px; width: 65px"> 
+			</label> 
+			<label> <span id="demo2">团队照片</span>
+				<img th:each ="img : ${imgList}" th:src="${img}" class="tdlogo1"
+						style="height: 65px; width: 65px" >
+			</label>
+
+			<label> <span>团队简介</span> <textarea th:text="${team.teamIntroduce}" id="" cols="30"
+					rows="10" disabled="disabled">
+						 </textarea>
+			</label> <label> <span>项目服务</span> <input  type="text" th:value="${team.teamType}" disabled="disabled">
+			</label>
+	</form>
 	</div>
 	<!-- 备案 -->
 	<div class="beian">
