@@ -53,10 +53,10 @@
 		<div class="tongji">
 			<div class="tongji1">
 				<div class="tongjitxt">
-					<i></i>咨询动态 <span><a href="#"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
+					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
 				</div>
 				<ul>
-					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a href="#" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
+					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id})}" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
 				</ul>
 				
 			</div>

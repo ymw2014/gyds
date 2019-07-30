@@ -4,23 +4,393 @@
 		<meta charset="utf-8">
 		<title></title>
 		<meta name="viewport" content="width=750">
-		<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
-		<script type="text/javascript" src="js/mobile-util.js"></script>
-		<link rel="stylesheet" href="css/index.css">
-		<link rel="stylesheet" href="css/HuaDongNav.css">
-		<link rel="stylesheet" href="css/zixun.css">
-		<script type="text/javascript" src="js/flexible.js"></script>
-		<script type="text/javascript" src="js/iscroll.js"></script>
-		<script type="text/javascript" src="js/navbarscroll.js"></script>
+			<link th:href="@{https://fonts.googleapis.com/css?family=Lato}" rel="stylesheet">
+		<meta name="viewport" content="width=device-width">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"/>
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/huodong.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/gongyi.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/zixun.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/css1.css}">
+		
+		<link rel="stylesheet" th:href="@{/mobile/css/css2.css}">
 	</head>
 	<body>
-		
-		<p>大概多少公司的</p>
+		<div class="header_txt">
+			<div class="headerleft">
+				<img src="images/qianwnag.png" alt="">
+			</div>
+			<div class="headercent">公益打赏</div>
+			<div class="headerright">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+			</div>
+		</div>
+		<div class="gycent">
+			<input type="hidden" id="infoId" th:value="${info.id}">
+			<h4 th:text="${info.title}"></h4>
+			<div class="gycent1"><span th:text="${info.source}"></span>&nbsp;<span th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"> </span>
+			<a th:if=" ${is_attention} eq '0'" href="/login" id="guanzhu">+关注</a>
+			<a th:if=" ${is_attention} eq '2'" href="javascript:;" id="guanzhu" onclick="attention()">+关注</a>
+			</div>
+			<div class="gycent2" th:utext="${info.content}">
+			</div>
+			<div class="gycent3">
+				<span>有您的支持是我们最大的动力</span>
+				<a href="" class="modal__trigger" onclick="reward()"><img src="" alt="" >打赏</a>
+				<p th:text="${'已有'+reCountUser+'人打赏'}"></p>
+			</div>
+			<!-- 红包 -->
+			<div id="modal" class="modal modal__bg" role="dialog" aria-hidden="true" style="background:rgba(0,0,0,0.9);">
+				<div class="modal__dialog" style="width: 600px;">
+					<div class="modal__content">
+						<div style="width: 600px;background:#fff;position: fixed;">
+							<div class="hbtop"></div>
+							<div style="width: 600px;background:#fff;height: 260px;">
+								<div class="hbcen">
+									<div class="hbcen1">
+										<img src="images/touxiang5.png" alt="">
+										<p style="font-size:20px;line-height:30px;">打赏门户的红包</p>
+										<p style="color:#b8b8b8;font-size:16px;line-height:40px;">恭喜发财，大吉大利</p>
+										<span><rem style="font-size:36px; color:#ef472a;">17.77 </rem>元</span>
+									</div>
+								</div>
+							</div>
+							<div style="width: 100%;line-height: 40px;background:#ebebeb;">
+								<p style="margin-left:10px;">已领取3/8个,共150.00元</p>
+							</div>
+						</div>
+						<div class="lingqu">
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+							<div class="hblq1">
+								<img src="images/touxiang5.png" alt="">
+								<div>
+									<span>苏小宁</span>
+									<p>今天 10:00:28</p>
+								</div>
+								<p>18.66元</p>
+							</div>
+						</div>
+						</div>				
+						<div class="butt">
+							<button>我的红包</button>
+							<button>发红包</button>
+						</div>
+						<a href="" class="modal__close demo-close">
+							<svg class="" viewBox="0 0 24 24">
+								<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
+								<path d="M0 0h24v24h-24z" fill="none" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+				<script type="text/javascript" th:src="@{/mobile/js/js1.js}"></script>
+			<div class="gycent4">
+				<div style="overflow: hidden;">
+					<img th:each="user:${user}" th:src="${user.headImg}" alt="">
+				</div>
+				<a href="javascript:;">加载更多</a>
+			</div>
+		</div>
+		<div class="gybut">
+			<div th:if=" ${isLike} eq '0'">
+				<img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞"
+					th:text="${info.numberOfLikes}">
+			</div>
+			<div th:if=" ${isLike} eq '1'">
+				<img th:src="@{/pc/images/listzz_04.jpg}" alt="点赞"
+					th:text="${info.numberOfLikes}">
+			</div>
+			<div th:if=" ${isLike} eq '2'">
+				<img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞"
+					th:text="${info.numberOfLikes}" th:onclick="like()" id="like">
+			</div>
+			<div th:if=" ${isTop} eq '0'">
+				<img th:src="@{/pc/images/listzs_06.jpg}" alt="">未置顶
+			</div>
+			<div th:if=" ${isTop} eq '1'">
+				<img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶
+			</div>
+			<div th:if=" ${isTop} eq '2'">
+				<img th:src="@{/pc/images/listzs_05.jpg}" alt=""
+					th:onclick="topNew()" id="top">未置顶
+			</div>
+			<div>
+				<img class="modal__trigger" data-modal="#modal"
+					th:src="@{/pc/images/listcc_07.jpg}" alt="" onclick="redPacket()"
+					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">发放中
+			</div>
+		</div>
+		<div class="gyimg">
+			<a href=""><img th:src="@{/mobile/images/qiandao_03.jpg}" alt=""></a>
+			<a href=""><img th:src="@{/mobile/images/qiandao_06.jpg}" alt=""></a>
+			<a href=""><img th:src="@{/mobile/images/qiandao_08.jpg}" alt=""></a>
+			<a href=""><img th:src="@{/mobile/images/qiandao_11.jpg}" alt=""></a>
+			<a href=""><img th:src="@{/mobile/images/qoandao_13.jpg}" alt=""></a>
+		</div>
+		<div class="listpl-2">
+			<div class="listpl-2-1">
+				<img src="images/touxiang5.png" alt="">
+			</div>
+			<div class="listpl-2-2">
+				<textarea placeholder="说两句吧..."  id="comm">
+				</textarea>
+				<a href="javascript:;" onclick="comment()">发表</a>
+			</div>
+		</div>
+		<div class="listpl-3">
+			<p>全部评论</p>
+		</div>
+		<div class="listpl-4">
+			<div  th:each="comm : ${comm}">
+			<img src="images/touxiang5.png" th:src="${comm.headImg}" alt="">
+			<div>
+				<span th:text="${comm.name +'  '+ #dates.format(comm.createTime, 'yyyy-MM-dd hh:mm')}">今夕 6分钟</span>
+				<p style="font-size:22px;" th:text="${comm.criticismContent}"></p>
+			</div>
+			<hr>
+			</div>
+			<a href="#">查看更多</a>
+		</div>
+		<div class="zixunnr" th:each="newsTop,iterStat:${newsTop}">
+			<div th:href="@{/pc/news/info(id=${newsTop.id})}">
+				<span th:text="${newsTop.title}"></span>
+				<p th:text="${newsTop.source +''+ #dates.format(newsTop.publicTime, 'yyyy-MM-dd hh:mm')}"></p>
+				<div th:if=" ${newsTop.isTop} eq '1'">
+				<img th:src="@{/pc/images/list_09.jpg}" alt="">
+				</div>
+				<div th:if=" ${newsTop.isRedPeper} eq '1'">
+				<img th:src="@{/pc/images/list_06.jpg}" alt="">
+				</div>
+			</div>
+			<a th:href="@{/pc/news/info(id=${newsTop.id})}"><img src="images/zixungg_20.jpg" alt=""></a>
+		</div>
+		<div class="listpl-5">
+			<a href="#">查看更多资讯</a>
+		</div>
+		<div th:replace="mobile/include :: footer"></div>
+		<div class="pl">
+			<div>
+				<input type="text" placeholder="随便说点什么...">
+				<a href=""><img th:src="@{/mobile/images/hdxq_27.jpg}" alt=""><span></span></a>
+				<a href=""><img th:src="@{/mobile/images/pinglun.png}" alt=""><span></span></a>
+				<a href=""><img th:src="@{/mobile/images/zhuanfa.png}" alt=""><span></span></a>
+			</div>
+		</div>
 	</body>
-</html>
-<script type="text/javascript">
-	$(function(){
-		$('.wrapper').navbarscroll();
+	<script src="/js/plugins/layer/layer.js"></script>
+	<script src="/js/layui.js"></script>
+	<script src="/js/plugins/layer/laydate/laydate.js"></script>
+	<script type="text/javascript">
+	function attention(){
+		var teamId = $('#teamId').val();
+		var para = {"teamId":teamId};
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/attention",
+			data : para,
+			error : function(request) {
+				parent.layer.alert("关注失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#guanzhu").remove();
+				} else if (data.code == 1) {
+					window.location.href = "/admin";
+				} else{
+					parent.layer.alert(data.msg)
+				}
+
+			}
+		});
+	}
+	function reward(){
+		var para= {};
+		layer.prompt({title: '输入打赏金额(单位:元)，并确认', formType: 3}, function(som, index){
+			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som};
+			  $.ajax({
+					type : "POST",
+					url : "/pc/news/reward",
+					data : para,
+					error : function(request) {
+						layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
+					},
+					success : function(data) {
+						if (data.code == 0) {
+							alert("打赏成功");
+							history.go(0);
+						} else {
+							if(data.msg == -1){
+							layer.msg('打赏失败！您的余额不足');
+							}else if(data.msg == 0){
+							layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
+							}else if(data.msg == 2){
+								layer.confirm('您未登录请问是否跳转登录页面？', {
+									  btn: ['是','否'] //按钮
+									}, function(){
+										window.location.href = "/admin";
+									}, function(){
+									  layer.msg('打赏是需要登陆的', {
+									    time: 20000, //20s后自动关闭
+									    btn: ['知道了']
+									  });
+									});
+							}
+						}
+
+					}
+				});
+			  layer.close(index);
+			});
+	}
+	function like(){
+		para={"newsId":$('#infoId').val()};
+		$.ajax({
+			cache : true,
+			type : "GET",
+			url : "/pc/news/likes",
+			data : para,
+			async : true,
+			error : function(request) {
+				parent.layer.alert("点赞失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#like").attr("src","/pc/images/listzz_04.jpg");
+					history.go(0);
+				} else if(data.code == 2){
+					alert(data.msg);
+				}else {
+					parent.layer.alert(data.msg)
+				}
+
+			}
+		});
+	}
+	function topNew(){
+		var id = $('#infoId').val();
+		layer.open({
+			type : 2,
+			title : '申请置顶',
+			maxmin : true,
+			shadeClose : false, // 点击遮罩关闭层
+			area : [ '1000px', '620px' ],
+			content : '/pc/news/top/' + id // iframe的url
+		});
+	
+	}
+	function redPacket(){
+		layer.prompt({title: '请输入红包金额,不少于10元，并确认', formType: 3}, function(red, index){
+			  layer.close(index);
+			  layer.prompt({title: '请输入发放数量，并确认', formType: 3}, function(count, index){
+			    layer.close(index);
+			    layer.msg('您发放啦：'+ red +'元红包!<br>数量：'+count+'个');
+			  });
+			});
 		
-	});
-</script>
+	}
+	function comment(){
+		var comment={};
+		comment={"criticismContent":$('#comm').val(),"newsId":$('#infoId').val()};
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/comment",
+			data : comment,
+			dataType:"json",
+			error : function(request) {
+				 layer.msg("请求失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+						alert("发表成功");
+						history.go(0);
+				} else if(data.code == 2){
+					alert(data.msg);
+					history.go(0);
+				}else {
+					if(data.msg==0){
+						layer.confirm('您未登录请问是否跳转登录页面？', {
+							  btn: ['是','否'] //按钮
+							}, function(){
+								window.location.href = "/admin";
+							}, function(){
+							  layer.msg('发言是需要登陆的', {
+							    time: 20000, //20s后自动关闭
+							    btn: ['知道了']
+							  });
+							});
+					
+					}else if(data.code == 1){
+						layer.msg("发表失败");
+					}
+				}
+
+			}
+		});
+	}
+	</script>
+</html>

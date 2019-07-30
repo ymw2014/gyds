@@ -90,12 +90,13 @@
 			<a href="/index">管理后台</a>
 
 		</div>
+		
 	</header>
 	<nav>
 		<div>
 			<ul>
 				<li><a href="/">网站首页</a></li>
-				<li><a href="/pc/news/info">咨询动态</a></li>
+				<li><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a></li>
 				<li><a href="/pc/activityList">活动报名</a></li>
 				<li><a href="/pc/volunteerList">志愿者</a></li>
 				<li><a href="/pc/teamList">团队展示</a></li>
@@ -105,7 +106,6 @@
 		</div>
 	</nav>
 </div>
-
 
 <div th:fragment="footer">
 	<footer>
