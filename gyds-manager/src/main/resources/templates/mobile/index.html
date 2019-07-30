@@ -5,17 +5,17 @@
 		<title></title>
 		<meta name="viewport" content="width=750">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<script type="text/javascript" src="../mobile/js/jquery-1.10.1.min.js"></script>
-		<script type="text/javascript" src="../mobile/js/mobile-util.js"></script>
-		<script type="text/javascript" src="../mobile/js/idangerous.swiper.scrollbar-2.1.js"></script>
-		<link rel="stylesheet" href="../mobile/css/index.css">
-		<link rel="stylesheet" href="../mobile/css/lunbo.css">
-		<link rel="stylesheet" href="../mobile/dist/idangerous.swiper.css">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/idangerous.swiper.scrollbar-2.1.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/lunbo.css}">
+		<link rel="stylesheet" th:href="@{/mobile/dist/idangerous.swiper.css}">
 	</head>
 	<body> 
 		<header>
 			<div class="login">
-				<img src="images/logo.png" alt="">
+				<img th:src="@{/mobile/images/logo.png}" alt="">
 			</div>
 			<div class="header-center">
 				<input type="text" list="sexlist" placeholder="-- 全国 --">
@@ -53,7 +53,7 @@
 		<div class="tongji">
 			<div class="tongji1">
 				<div class="tongjitxt">
-					<i></i>咨询动态 <span><a href="#"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
+					<i></i>咨询动态 <span><a href="#"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
 				</div>
 				<ul>
 					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a href="#" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
@@ -157,7 +157,7 @@
 		</div>
 	</body>
 </html>
-<script src="../mobile/dist/idangerous.swiper.min.js"></script>
+<script th:src="@{/mobile/dist/idangerous.swiper.min.js}"></script>
 <script>
 	  var mySwiper = new Swiper('.swiper-container',{
 		pagination: '.pagination',
