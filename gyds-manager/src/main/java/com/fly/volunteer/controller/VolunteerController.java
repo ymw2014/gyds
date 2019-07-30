@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -71,14 +72,14 @@ public class VolunteerController {
 
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("volunteer:volunteer:info")
-	String edit(@PathVariable("id") Long id,Model model){
+	String edit(@PathVariable("id") Integer id,Model model){
 		VolunteerDO volunteer = volunteerService.get(id);
 		model.addAttribute("volunteer", volunteer);
 	    return "volunteer/volunteer/edit";
 	}
 	@GetMapping("/audit/{id}")
 	@RequiresPermissions("volunteer:volunteer:audit")
-	String audit(@PathVariable("id") Long id,Model model){
+	String audit(@PathVariable("id") Integer id,Model model){
 		VolunteerDO volunteer = volunteerService.get(id);
 		model.addAttribute("volunteer", volunteer);
 	    return "volunteer/volunteer/audit";
@@ -129,11 +130,10 @@ public class VolunteerController {
 	@ResponseBody
 	@RequiresPermissions("volunteer:volunteer:quitTeam")
 	public R quitTeam( Long id){
-		VolunteerDO volunteer = new VolunteerDO();
-		volunteer.setTeamId(0);
-		volunteer.setId(id);
+		VolunteerDO volunteer = volunteerService.getVo(ShiroUtils.getUserId());
+		volunteer.setTeamId(-1);
 		if(volunteerService.update(volunteer)>0){
-		return R.ok();
+			return R.ok();
 		}
 		return R.error();
 	}

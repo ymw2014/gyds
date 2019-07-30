@@ -1,23 +1,25 @@
 package com.fly.system.controller;
 
-import com.fly.common.annotation.Log;
-import com.fly.common.controller.BaseController;
-import com.fly.domain.MenuDO;
-import com.fly.domain.RoleDO;
-import com.fly.domain.Tree;
-import com.fly.system.service.MenuService;
-import com.fly.system.utils.ShiroUtils;
-import com.fly.utils.Constant;
-import com.fly.utils.R;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.fly.common.annotation.Log;
+import com.fly.common.controller.BaseController;
+import com.fly.domain.MenuDO;
+import com.fly.domain.Tree;
+import com.fly.system.service.MenuService;
+import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.R;
 
 /**
  *
@@ -77,9 +79,6 @@ public class MenuController extends BaseController {
 	@PostMapping("/save")
 	@ResponseBody
 	R save(MenuDO menu) {
-		if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
 		if (menuService.save(menu) > 0) {
 			return R.ok();
 		} else {
@@ -92,9 +91,6 @@ public class MenuController extends BaseController {
 	@PostMapping("/update")
 	@ResponseBody
 	R update(MenuDO menu) {
-		if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
 		if (menuService.update(menu) > 0) {
 			return R.ok();
 		} else {
@@ -107,9 +103,6 @@ public class MenuController extends BaseController {
 	@PostMapping("/remove")
 	@ResponseBody
 	R remove(Long id) {
-		if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
 		if (menuService.remove(id) > 0) {
 			return R.ok();
 		} else {

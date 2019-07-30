@@ -1,7 +1,6 @@
 package com.fly.volunteer.service;
 
 import com.fly.volunteer.domain.VolunteerDO;
-
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import java.util.Map;
  */
 public interface VolunteerService {
 	
-	VolunteerDO get(Long id);
+	VolunteerDO get(Integer id);
 	
 	List<VolunteerDO> list(Map<String, Object> map);
 	
@@ -29,4 +28,13 @@ public interface VolunteerService {
 	int batchRemove(Long[] ids);
 
 	List<VolunteerDO> isVolllist(Long userId);
+	
+	/**
+	 * 	通过用户编号查询是否为志愿者
+	 * @param userId
+	 * @return
+	 */
+	boolean isVo(Long userId);
+	
+	VolunteerDO getVo(Long userId);
 }

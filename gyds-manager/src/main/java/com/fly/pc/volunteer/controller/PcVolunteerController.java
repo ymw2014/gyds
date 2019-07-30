@@ -106,7 +106,7 @@ public class PcVolunteerController {
 	 * @return
 	 */
 	@RequestMapping("volunteerDetail")
-	public String volunteerDetail(@RequestParam Map<String,Object> params, Long id, Model model) {
+	public String volunteerDetail(@RequestParam Map<String,Object> params, Integer id, Model model) {
 		UserDO user = ShiroUtils.getUser();
 		VolunteerDO volunteerDO = volunteerService.get(id);
 		if (volunteerDO.getUserId() != null) {

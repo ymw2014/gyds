@@ -4,7 +4,7 @@
 <mapper namespace="com.fly.volunteer.dao.VolunteerDao">
 
 	<select id="get" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select v.id,`volunteer_name`,v.user_id, t.team_name teamName,head_img,
+		select v.id,v.`volunteer_name`,v.user_id, t.team_name teamName,head_img,
 		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
 		`card_no`,`shares_number`,`comment_number`,`click_number`,
 		audit_status,
@@ -229,8 +229,16 @@
 		
 	</select>
 
-	
-	
+	<!-- 判断用户是否为志愿者 -->
+	<select id="isVo" resultType="com.fly.volunteer.domain.VolunteerDO">
+		SELECT v.* 
+		FROM volunteer v
+        <where>  
+		  		v.`user_id`=#{userId}  and v.`audit_status`=1
+		</where>
+      
+		
+	</select>
 	<update id="updateVolunteer" parameterType="java.util.Map">
 		update volunteer 
 		<set>

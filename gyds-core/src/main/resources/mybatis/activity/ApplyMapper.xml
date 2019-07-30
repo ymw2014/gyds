@@ -91,5 +91,13 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<!-- 通过志愿者编号获取报名信息 -->
+	<select id="isApply" resultType="com.fly.activity.domain.ApplyDO">
+			SELECT apply.* FROM act_apply apply	
+			<where>  
+		  		 apply.`zyz_id`=#{zyzId} and apply.`zyz_id`=#{actId} AND apply.`status`!=2
+		  	</where>
+	</select>
 
 </mapper>

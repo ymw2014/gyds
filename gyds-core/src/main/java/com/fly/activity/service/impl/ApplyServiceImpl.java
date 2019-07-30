@@ -53,5 +53,14 @@ public class ApplyServiceImpl implements ApplyService {
 	public int batchRemove(Long[] ids){
 		return applyDao.batchRemove(ids);
 	}
+
+	@Override
+	public ApplyDO getApply(Integer zyzId,Integer actId) {
+		applyDao.isApply(zyzId,actId);
+		return null;
+	}
+	
+	
+
 	
 }

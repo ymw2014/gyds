@@ -5,7 +5,7 @@ package com.fly.utils;
  */
 public class Constant {
     //演示系统账户
-    public static String DEMO_ACCOUNT = "test";
+    public static String ADMIN = "admin";
     //自动去除表前缀
     public static String AUTO_REOMVE_PRE = "true";
     //停止计划任务
