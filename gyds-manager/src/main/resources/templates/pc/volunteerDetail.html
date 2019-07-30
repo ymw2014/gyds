@@ -86,7 +86,9 @@
 									<ul>
 										<li th:onclick="'share('+ ${comment.newsId}+', 1, 1)'" style="cursor:pointer"><img src="images/sc.png" alt="">&nbsp;转发</li>
 										<li><a th:href="'/pc/news/info?id='+ ${comment.newsId}" style="cursor:pointer"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" id="like1">&nbsp;赞</li>
+										<li th:if=" ${comment.idClick} eq '0'" th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
+										<li th:if=" ${comment.idClick} eq '1'" ><img src="images/gongyitubiao_19.png" alt="" >&nbsp;赞</li>
+										<li th:if=" ${comment.idClick} eq '2'" th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -110,7 +112,10 @@
 										<li th:if=" ${dynamic.actType} eq '2'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img src="images/sc.png" alt="">&nbsp;收藏</li>
 										<li  th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+')'" style="cursor:pointer"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
 										<li th:if=" ${dynamic.actType} eq '1'"><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:if=" ${dynamic.actType} eq '1'"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" id="like2">&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType == '1'} && {dynamic.isClick == '0'}"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType == '1'} && {dynamic.isClick == '1'}"  ><img src="images/gongyitubiao_19.png" alt="" >&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType == '1'} && {dynamic.isClick == '2'}"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;点赞</li>
+									
 									</ul>
 								</div>
 							</div>
@@ -156,7 +161,13 @@
 									<ul>
 										<li th:onclick="'share('+${dynamic.newsId}+',1, 1)'" style="cursor:pointer"><img src="images/sc.png" alt="">&nbsp;转发</li>
 										<li><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" id="like3">&nbsp;赞</li>
+										<!-- <li th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li> -->
+										
+										
+										
+										<li th:if=" ${dynamic.isClick} eq '0'" th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
+										<li th:if=" ${dynamic.isClick} eq '1'" ><img src="images/gongyitubiao_19.png" alt="" >&nbsp;赞</li>
+										<li th:if=" ${dynamic.isClick} eq '2'" th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -178,7 +189,7 @@
 					<div class="volxk1">TA浏览的 <span></span> </div>
 					<div style="overflow: hidden;">
 						<figure th:each="zyz : ${zyzList}">
-							<a href=""><img th:src="${zyz.userHeadImg}" alt=""></a>
+							<a href=""><img th:src="${zyz.userHeadimg}" alt=""></a>
 							<figcaption>
 								<span th:text="${zyz.userName}"></span>
 								<p th:text="${zyz.guestTimeStr}"></p>
@@ -190,9 +201,9 @@
 					<div class="volxk1">TA的访客 <span></span> </div>
 					<div style="overflow: hidden;">
 						<figure th:each="gues : ${guestList}">
-							<a href=""><img th:src="${gues.userHeadImg}" alt=""></a>
+							<a href=""><img th:src="${gues.guestHeadimg}" alt=""></a>
 							<figcaption>
-								<span th:text="${gues.userName}"></span>
+								<span th:text="${gues.guestName}"></span>
 								<p th:text="${gues.guestTimeStr}"></p>
 							</figcaption>
 						</figure>
@@ -270,6 +281,8 @@
             		parent.layer.msg("操作成功");
             	} else if (code == 3) {
             		parent.layer.msg("您还没登录，请先登录");
+            	} else if(code == -1){
+            		parent.layer.msg("您已经收藏了");
             	}
             }
         });

@@ -34,6 +34,10 @@ public class OrderType {
 	 * 	支出
 	 */
 	public static final Integer ZHI_CHU = 2;
-	
+
+	 /**
+	  * 	代理商入驻
+	  */
+	public static final Integer DAI_LI_SHANG = 6;
 
 }

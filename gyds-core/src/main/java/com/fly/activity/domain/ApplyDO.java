@@ -18,7 +18,7 @@ public class ApplyDO implements Serializable {
 	//自增编号
 	private Long id;
 	//志愿者编号
-	private Long zyzId;
+	private Integer zyzId;
 	//志愿者名称
 	private String volunteerName;
 	//报名活动编号
@@ -70,13 +70,13 @@ public class ApplyDO implements Serializable {
 	/**
 	 * 设置：志愿者编号
 	 */
-	public void setZyzId(Long zyzId) {
+	public void setZyzId(Integer zyzId) {
 		this.zyzId = zyzId;
 	}
 	/**
 	 * 获取：志愿者编号
 	 */
-	public Long getZyzId() {
+	public Integer getZyzId() {
 		return zyzId;
 	}
 	/**

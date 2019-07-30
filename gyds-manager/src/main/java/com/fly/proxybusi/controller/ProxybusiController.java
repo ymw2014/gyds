@@ -1,15 +1,19 @@
 package com.fly.proxybusi.controller;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.domain.UserDO;
+import com.fly.index.utils.OrderType;
+import com.fly.order.domain.OrderDO;
+import com.fly.order.service.OrderService;
+import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
+import com.fly.system.service.UserService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -34,9 +45,13 @@ import com.fly.utils.R;
  
 @Controller
 @RequestMapping("/proxybusi/proxybusi")
-public class ProxybusiController {
+public class ProxybusiController extends BaseDynamicController{
 	@Autowired
 	private ProxybusiService proxybusiService;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping()
 	@RequiresPermissions("proxybusi:proxybusi:proxybusi")
@@ -94,12 +109,50 @@ public class ProxybusiController {
 	 * 修改
 	 */
 	@ResponseBody
+	@Transactional
 	@RequestMapping("/update")
 	@RequiresPermissions("proxybusi:proxybusi:edit")
-	public R update( ProxybusiDO proxybusi){
+	public synchronized R update( ProxybusiDO proxybusi){
+		Long userId = proxybusi.getUserId();
 		Integer auditStatus = proxybusi.getAuditStatus();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", userId);
+		params.put("orderType", 2);
+		params.put("expIncType", OrderType.DAI_LI_SHANG);
+		params.put("examineStatus", 2);
+		params.put("cashUpType", 2);
+		params.put("cashOutType", 2);
+		List<OrderDO> order = orderService.list(params);
 		if (auditStatus != null) {
 			proxybusi.setAuditTime(new Date(System.currentTimeMillis()));
+			if (auditStatus == 2) {//拒绝，
+				if (!CollectionUtils.isEmpty(order)) {
+					//入团保证金退还账户
+					BigDecimal price = order.get(0).getPrice();
+					UserDO userDO = userService.get(userId);
+					userDO.setAccount(userDO.getAccount().add(price));
+					userService.update(userDO);
+					//新增拒绝订单
+					params.clear();
+					params.put("orderType", 1);
+					params.put("expIncType", OrderType.DAI_LI_SHANG);
+					params.put("examineStatus", 3);
+					params.put("cashUpType", 2);
+					params.put("cashOutType", 2);
+					params.put("examineUser", ShiroUtils.getUserId());
+					params.put("price", price);
+					params.put("userId", userId);
+					creadOrder(params);
+				}
+			}
+			if (auditStatus == 1) {//审核通过，更新订单状态
+				if (!CollectionUtils.isEmpty(order)) {
+					 OrderDO orderDO = order.get(0);
+					 orderDO.setExamineStatus(1);
+					 orderDO.setExamineUser(ShiroUtils.getUserId().intValue());
+					 orderService.update(orderDO);
+				}
+			}
 		}
 		proxybusiService.update(proxybusi);
 		return R.ok();

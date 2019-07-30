@@ -128,8 +128,8 @@ function load() {
 									title : '审核状态' ,
 									formatter: function (value,row, index){
 										if (value == 0) {
-											return '<a class="label label-success '+s_audit_h+'" onclick="audit('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
-											'<a class="label label-danger '+s_audit_h+'" onclick="audit('+row.id+',2)" >拒绝</a>';
+											return '<a class="label label-success '+s_audit_h+'" onclick="audit('+row.id+','+row.userId+',1)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger '+s_audit_h+'" onclick="audit('+row.id+','+row.userId+',2)" >拒绝</a>';
 										}
 										if (value == 1) {
 											return '<span style="color:green;">已审核</span>';
@@ -185,15 +185,15 @@ function edit(id) {
 		content : prefix + '/edit/' + id// iframe的url
 	});
 }
-function audit(id,status) {
+function audit(id,userId,status) {
 	if (status == '2') {
-		reject(id,status);
+		reject(id,userId,status);
 	} else {
-		accept(id,status);
+		accept(id,userId,status);
 	}
 }
 
-function reject(id,status) {
+function reject(id,userId,status) {
 	layer.confirm('确定要拒绝该申请吗？', {
 		btn : [ '确定', '取消' ]
 	}, function() {
@@ -202,7 +202,8 @@ function reject(id,status) {
 			type : "post",
 			data : {
 				'id' : id,
-				'auditStatus' : status
+				'auditStatus' : status,
+				'userId':userId
 			},
 			success : function(r) {
 				if (r.code==0) {
@@ -216,13 +217,14 @@ function reject(id,status) {
 	})
 }
 
-function accept(id,status) {
+function accept(id,userId,status) {
 		$.ajax({
 			url : prefix+"/update",
 			type : "post",
 			data : {
 				'id' : id,
-				'auditStatus' : status
+				'auditStatus' : status,
+				'userId':userId
 			},
 			success : function(r) {
 				if (r.code==0) {

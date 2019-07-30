@@ -372,6 +372,7 @@ public class NewsInfoController extends BaseDynamicController{
 		@PostMapping("/attention")
 		public R attention(@RequestParam Map<String,Object> params) {
 			Integer i = null;
+			// 0:+1失败          1:+1成功            2:表示+1成功&&积分+1       3:获取不到当前用户
 			i = dynamic(params,7);
 			R r=new R();
 			if(i==1) {

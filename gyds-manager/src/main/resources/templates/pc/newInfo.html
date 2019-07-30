@@ -277,9 +277,8 @@
 				<img th:src="${comm.headImg}" alt="">
 			</div>
 			<div class="listL-5-2">
-				<p th:text="${comm.name}">
-					<span th:text="${comm.createTimeStr}"></span>
-					<rem>举报</rem>
+				<p th:utext="${comm.name + '<span >'+#dates.format(comm.createTime,'yyyy-MM-dd HH:mm')+'</span>'}">
+				
 				</p>
 				<p style="color: #4b4b4b;" th:text="${comm.criticismContent}"></p>
 			</div>

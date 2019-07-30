@@ -40,11 +40,11 @@
 					</div>
 					<div class="zixuncent3">
 						<p style="float: left;">
-							<img th:src="${info.teamTitleImg}" alt="" style="width:23px; height:23px;"><span th:text="${info.teamName}"></span><span th:text="${#dates.format(info.publicTime,'yyyy-MM-dd')}"></span>
+							<img th:src="${info.teamTitleImg}" alt="" style="width:23px; height:23px;"><span th:text="${info.source}"></span><span th:text="${info.teamName}"></span><span th:text="${#dates.format(info.publicTime,'yyyy-MM-dd')}"></span>
 							<div th:if=" ${info.isTop} eq '1'">
 							<img th:src="@{/pc/images/list_09.jpg}" alt="">
 							</div>
-							 <div th:if=" ${info.isRedPeper} eq '1'">
+							 <div th:if="${info.isRedPeper} eq '1'">
 							<img th:src="@{/pc/images/list_06.jpg}" alt="">
 							 </div> 
 						</p>

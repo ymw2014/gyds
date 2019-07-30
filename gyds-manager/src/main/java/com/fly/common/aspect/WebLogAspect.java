@@ -1,22 +1,23 @@
 package com.fly.common.aspect;
 
+import java.util.Arrays;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.resource.HttpResource;
 
 import com.fly.index.utils.JudgeIsMoblieUtil;
-import com.fly.utils.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.Arrays;
 
 /**
  * 控制器类日志
@@ -84,15 +85,25 @@ public class WebLogAspect {
 		return ob;
 	}
 
-	/*
-	 * @Around("execution(* com.fly.pc..*(..))") public Object
-	 * AfterExec(ProceedingJoinPoint pjp) throws Throwable{ Object ob =
-	 * pjp.proceed(); System.out.println(ob); HttpServletRequest request =
-	 * ((ServletRequestAttributes)
-	 * RequestContextHolder.getRequestAttributes()).getRequest(); String url="";
-	 * if(ob instanceof String) { if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {
-	 * url= "mobile"; String[] spli = ob.toString().split("/"); for (int i =1; i <
-	 * spli.length; i++) { url += "/"+spli[i]; return url; } } } return ob; }
-	 */
+	  @Around("execution(* com.fly.pc..*(..))") 
+	  public Object afterexec(ProceedingJoinPoint pjp) throws Throwable { 
+		  Object ob = pjp.proceed(); 
+		  System.out.println(ob); 
+		  HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
+		  String url="";
+		  if(ob instanceof String) {
+			  if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {
+				  url= "mobile"; 
+				  String[] spli = ob.toString().split("/"); 
+				  for (int i =1; i < spli.length; i++) { 
+					  url += "/"+spli[i]; 
+					  return url; 
+					  } 
+				  } 
+			  } 
+		  return ob; 
+		  }
+	  
+	 
 
 }
