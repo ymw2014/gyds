@@ -4,6 +4,9 @@
 <head th:include="include :: header"></head>
 <body class="gray-bg">
 	<div class="wrapper wrapper-content ">
+<div id="bigPic" style=" position:absolute;display:none;z-index:999;">
+<img src="" width="260px" id="pre_view"/><br />
+</div>
 		<div class="col-sm-12">
 			<div class="ibox">
 				<div class="ibox-body">
@@ -38,14 +41,14 @@
 	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
 		<div>
 			<script type="text/javascript">
-				var s_edit_h = 'hidden';
+				var s_examine_h = 'hidden';
 				var s_remove_h = 'hidden';
 				var s_resetPwd_h = 'hidden';
 			</script>
 		</div>
-		<div shiro:hasPermission="member:member:edit">
+		<div shiro:hasPermission="member:member:shenhe">
 			<script type="text/javascript">
-				s_edit_h = '';
+				s_examine_h = '';
 			</script>
 		</div>
 		<div shiro:hasPermission="member:member:remove">

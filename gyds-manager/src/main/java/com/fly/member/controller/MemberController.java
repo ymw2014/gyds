@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.member.domain.MemberDO;
-import com.fly.member.service.MemberService;
+import com.fly.activity.domain.ActivityDO;
+import com.fly.domain.UserDO;
+import com.fly.system.service.UserService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -32,7 +33,7 @@ import com.fly.utils.R;
 @RequestMapping("/member/member")
 public class MemberController {
 	@Autowired
-	private MemberService memberService;
+	private UserService userService;
 	
 	@GetMapping()
 	@RequiresPermissions("member:member:member")
@@ -46,8 +47,8 @@ public class MemberController {
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
-		List<MemberDO> memberList = memberService.list(query);
-		int total = memberService.count(query);
+		List<UserDO> memberList = userService.list(query);
+		int total = userService.count(query);
 		PageUtils pageUtils = new PageUtils(memberList, total);
 		return pageUtils;
 	}
@@ -61,7 +62,7 @@ public class MemberController {
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("member:member:edit")
 	String edit(@PathVariable("id") Long id,Model model){
-		MemberDO member = memberService.get(id);
+		UserDO member = userService.get(id);
 		model.addAttribute("member", member);
 	    return "member/member/edit";
 	}
@@ -72,8 +73,8 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("/save")
 	@RequiresPermissions("member:member:add")
-	public R save( MemberDO member){
-		if(memberService.save(member)>0){
+	public R save( UserDO member){
+		if(userService.save(member)>0){
 			return R.ok();
 		}
 		return R.error();
@@ -84,8 +85,8 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("member:member:edit")
-	public R update( MemberDO member){
-		memberService.update(member);
+	public R update( UserDO member){
+		userService.update(member);
 		return R.ok();
 	}
 	
@@ -96,21 +97,29 @@ public class MemberController {
 	@ResponseBody
 	@RequiresPermissions("member:member:remove")
 	public R remove( Long id){
-		if(memberService.remove(id)>0){
+		if(userService.remove(id)>0){
 		return R.ok();
 		}
 		return R.error();
 	}
 	
 	/**
-	 * 删除
+	 *	 实名认证审核
+	 * @param id
+	 * @param status
+	 * @return
 	 */
-	@PostMapping( "/batchRemove")
 	@ResponseBody
-	@RequiresPermissions("member:member:batchRemove")
-	public R remove(@RequestParam("ids[]") Long[] ids){
-		memberService.batchRemove(ids);
-		return R.ok();
+	@RequestMapping("/examine")
+	@RequiresPermissions("member:member:shenhe")
+	public R examine(Long id,Integer status) {
+		UserDO user = userService.getUser(id);
+		user.setIsIdentification(status);
+		if(userService.updatePersonal(user)>0){
+			return R.ok();
+		}
+		return R.error();
 	}
+	
 	
 }

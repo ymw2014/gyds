@@ -1,5 +1,6 @@
 package com.fly.pc.persion.controller;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.service.TeamService;
 import com.fly.utils.R;
+import com.fly.utils.xss.PublicUtils;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -133,9 +135,22 @@ public class PersionController extends BaseController{
 	@RequestMapping("/pc/voApply")
 	private String voApply(Model model) {
 		UserDO user = getUser();
-		if(user.getIsIdentification()==0) {//未实名认证
+		if(user.getIsIdentification()==null||user.getIsIdentification()==0) {//未实名认证
 			model.addAttribute("message", "您还未进行实名认证!请先进行实名认证,感谢您的参与!");
 			return "pc/message";
+		}
+		List<VolunteerDO> volist = volunteerService.isVolllist(user.getUserId());//查询是否已经是志愿者
+		if(volist!=null&&volist.size()>0) {
+			VolunteerDO vo = volist.get(0);
+			if(vo.getAuditStatus()==0) {
+				model.addAttribute("model", "志愿者申请");
+				model.addAttribute("message", "您的志愿者申请正在审核!!");
+				return "pc/message";
+			}
+			if(vo.getAuditStatus()==1) {//志愿者证件
+				model.addAttribute("vo", vo);
+				return "pc/vo_zhengjian";
+			}
 		}
 		model.addAttribute("user", user);
 		return "pc/vo_apply";
@@ -156,6 +171,8 @@ public class PersionController extends BaseController{
 		vo.setUserId(user.getUserId());
 		vo.setCounty(user.getDistrict());
 		vo.setTelephone(user.getMobile());
+		vo.setAge(PublicUtils.IdNOToAge(user.getCardNo()));
+		vo.setAddress(user.getLiveAddress());
 		vo.setProvince(user.getProvince());
 		vo.setVolunteerName(user.getName());
 		vo.setAuditStatus(0);
@@ -177,12 +194,12 @@ public class PersionController extends BaseController{
 	public String realNameAuthentication(Model model) {
 		UserDO user = getUser();
 		Map<String, Object> map=new HashMap<>(16);
-		if(user.getIsIdentification()==-1) {//实名认证已提交
+		if(user.getIsIdentification()!=null&&user.getIsIdentification()==-1) {//实名认证已提交
 			model.addAttribute("model", "实名认证");
 			model.addAttribute("message", "您的实名认证已经提交,请等待审核结果......");
 			return "pc/message";
 		}
-		if(user.getIsIdentification()==1) {//已实名认证
+		if(user.getIsIdentification()!=null&&user.getIsIdentification()==1) {//已实名认证
 			model.addAttribute("user",user);
 			return "pc/att_sucess";
 		}
@@ -200,6 +217,12 @@ public class PersionController extends BaseController{
 	@ResponseBody
 	@RequestMapping("/pc/realName")
 	public R realName(UserDO user,Model model) {
+		try {
+			user.setBirth(PublicUtils.IdNOToBirth(user.getCardNo()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		PublicUtils.IdNOToAge(user.getCardNo());
 		if(user.getCardFrontImg()==null||user.getCardFrontImg()=="") {
 			return R.error("身份证正面图不能为空");
 		}

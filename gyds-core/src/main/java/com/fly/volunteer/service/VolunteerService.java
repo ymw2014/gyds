@@ -27,4 +27,6 @@ public interface VolunteerService {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+
+	List<VolunteerDO> isVolllist(Long userId);
 }

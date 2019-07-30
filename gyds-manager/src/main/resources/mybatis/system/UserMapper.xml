@@ -101,7 +101,7 @@
 		  		  <if test="cardBackImg != null and cardBackImg != ''"> and card_back_img = #{cardBackImg} </if>
 		  		  <if test="nation != null and nation != ''"> and nation = #{nation} </if>
 		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
-		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
+		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus}</if>
 		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
 		  		  <if test="ids != null and ids.size > 0">
 		  		  	and

@@ -51,5 +51,10 @@ public class VolunteerServiceImpl implements VolunteerService {
 	public int batchRemove(Long[] ids){
 		return volunteerDao.batchRemove(ids);
 	}
+
+	@Override
+	public List<VolunteerDO> isVolllist(Long userId) {
+		return volunteerDao.isVolllist(userId);
+	}
 	
 }
