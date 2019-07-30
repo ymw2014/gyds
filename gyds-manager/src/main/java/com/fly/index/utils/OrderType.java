@@ -25,5 +25,9 @@ public class OrderType {
 	 * 	置顶
 	 */
 	public static final Integer ZHI_DING = 5;
+	/**
+	 * 	代理商入住
+	 */
+	public static final Integer DAI_LI_SHANG = 6;
 
 }

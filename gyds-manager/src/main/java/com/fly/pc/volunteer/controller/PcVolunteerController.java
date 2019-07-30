@@ -55,7 +55,7 @@ public class PcVolunteerController {
 	@Autowired
 	private CommentService commentService;
 	@Autowired
-	private DynamicService dynamicServoce;
+	private DynamicService dynamicService;
 	@Autowired
 	private InfoService infoService;
 	@Autowired
@@ -136,12 +136,12 @@ public class PcVolunteerController {
 		
 		params.clear();
 		params.put("guestId", id);
-		//params.put("guestType", 1);
+		//sparams.put("guestType", 2);
 		List<GuestlogDO> guestLogList = logService.list(params);
 		model.addAttribute("zyzList",guestLogList);
 		params.clear();
 		params.put("userId", id);
-		//params.put("guestType", 2);
+		//params.put("guestType", 1);
 		List<GuestlogDO> guestList = logService.list(params);//At访客
 		model.addAttribute("guestList",guestList);
 		
@@ -184,10 +184,10 @@ public class PcVolunteerController {
 	 */
 	public List<Map<String, Object>> getInfo(Integer type, Long id) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("type", type);
+		params.put("type", type + "");
 		params.put("memberId", id);
 		List<Map<String, Object>> dynamicList = new ArrayList<Map<String,Object>>();
-		List<DynamicDO> dynamic = dynamicServoce.list(params);
+		List<DynamicDO> dynamic = dynamicService.list(params);
 		for (DynamicDO bean : dynamic) {
 			Integer actType = bean.getActType();
 			if (actType != null && actType == 1) {
@@ -199,6 +199,22 @@ public class PcVolunteerController {
 					info.put("img", infoDO.getTitleImg());
 					info.put("actType", 1);
 					info.put("newsId", infoDO.getId());
+					UserDO user = ShiroUtils.getUser();
+					if (user != null) {
+						params.clear();
+						params.put("memberId", user.getUserId());
+						params.put("type", 1);
+						params.put("act_type", 1);
+						params.put("newsId", infoDO.getId());
+						List<DynamicDO> list = dynamicService.list(params);
+						if (!CollectionUtils.isEmpty(list)) {
+							info.put("isClick", 1);
+						} else {
+							info.put("isClick", 0);
+						}
+					}else {
+						info.put("isClick", 2);
+					}
 					dynamicList.add(info);
 				}
 			} else if (actType != null && actType == 2){

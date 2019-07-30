@@ -13,6 +13,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -117,8 +118,8 @@ public class PcActivityController extends BaseDynamicController{
 			params.put("idList", idList);
 			List<VolunteerDO> volunteerList = volunteerService.list(params);
 			List<Map<String,Object>> infoList = new ArrayList<Map<String,Object>>();
-			Map<String, Object> info = new HashMap<String, Object>();
-			for (int i = 0; i < list.size(); i++) {
+			for (int i = 0; i < volunteerList.size(); i++) {
+				Map<String, Object> info = new HashMap<String, Object>();
 				info.put("img", volunteerList.get(i).getHeadImg());
 				info.put("name", volunteerList.get(i).getVolunteerName());
 				info.put("time", list.get(i).getCreateTimeStr());
@@ -187,6 +188,7 @@ public class PcActivityController extends BaseDynamicController{
 	 * @return
 	 */
 	@ResponseBody
+	@Transactional
 	@RequestMapping("activity/apply")
 	public String apply(Integer type, Long actId, Long applyId) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -206,13 +208,15 @@ public class PcActivityController extends BaseDynamicController{
 		}
 		
 		int status = 0;
+		ActivityDO activityDO = activityService.get(actId.intValue());
+		Integer num = activityDO.getNumberOfApplicants();
 		try {
 			if (type == 1) {
 				status = applyService.remove(applyId);
+				activityDO.setNumberOfApplicants(--num);
+				activityService.update(activityDO);
 			} else {
-				ActivityDO activityDO = activityService.get(actId.intValue());
-				Integer num = activityDO.getNumberOfApplicants();
-				if (num ++ > activityDO.getApplicantsNumMax()) {
+				if (num++ > activityDO.getApplicantsNumMax()) {
 					dataInfo.put("status", "4");//报名人数已满
 					return dataInfo.toString();
 				}
@@ -220,9 +224,9 @@ public class PcActivityController extends BaseDynamicController{
 				apply.setActId(actId);
 				apply.setCreateTime(new Date());
 				apply.setStatus(0);
-				apply.setZyzId(ShiroUtils.getUserId());//通过shiro 获取用户信息
+				apply.setZyzId(list2.get(0).getId());
 				status = applyService.save(apply);
-				activityDO.setNumberOfApplicants(num ++);
+				activityDO.setNumberOfApplicants(num++);
 				if (status > 0) {
 					activityService.update(activityDO);
 				}
@@ -239,6 +243,20 @@ public class PcActivityController extends BaseDynamicController{
 	@RequestMapping("activity/collect")
 	public String collect(@RequestParam Map<String,Object> params) {
 		JSONObject dataInfo = new JSONObject();
+		UserDO user = ShiroUtils.getUser();
+		if (user == null) {
+			dataInfo.put("code", 3);
+			return dataInfo.toString();
+		}
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("memberId", user.getUserId());
+		param.put("type", 0);
+		param.put("act_type", 2);
+		List<DynamicDO> list = dynamicService.list(param);
+		if (!CollectionUtils.isEmpty(list)) {
+			dataInfo.put("code", -1);
+			return dataInfo.toString();
+		}
 		Integer integer = dynamic(params, 5);
 		dataInfo.put("code", integer);
 		return dataInfo.toString();
