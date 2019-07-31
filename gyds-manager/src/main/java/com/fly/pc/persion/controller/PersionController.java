@@ -39,8 +39,6 @@ public class PersionController extends BaseController{
 	@Autowired
 	private TeamService teamService;
 	@Autowired
-	private VolunteerService volunteerService;
-	@Autowired
 	private DynamicService dynamicService;
 	@Autowired
 	private OrderService orderService;
@@ -52,6 +50,8 @@ public class PersionController extends BaseController{
 	private UserService userService;
 	@Autowired
 	private ApplyService applyService;
+	@Autowired
+	private VolunteerService voService;
 
 	
 	@RequestMapping("/pc/personalCenter")
@@ -76,7 +76,7 @@ public class PersionController extends BaseController{
 		Map<String, Object> params=new HashMap<String, Object>(16);
 		model.addAttribute("user", user);
 		params.put("userId", user.getUserId());
-		List<VolunteerDO> voluntList = volunteerService.list(params);
+		List<VolunteerDO> voluntList = voService.list(params);
 		model.addAttribute("team",voluntList.size()==0?null: teamService.get(voluntList.get(0).getTeamId()));
 		return "pc/persion_main";
 	}
@@ -92,7 +92,7 @@ public class PersionController extends BaseController{
 		params.put("userId", getUserId());
 		List<Map<String, Object>> teamList = dynamicService.dyTeamList(params);//关注的团队
 		List<Map<String, Object>> actList = dynamicService.dyActList(params);//关注的活动
-		VolunteerDO vo = volunteerService.getVo(getUserId());
+		VolunteerDO vo =voService.getVo(getUserId());
 		for (Map<String, Object> map : actList) {//查找该用户是否已经报名该活动
 			if(vo!=null) {
 				ApplyDO apply = applyService.getApply(vo.getId(), Integer.parseInt(map.get("id").toString()));
@@ -159,13 +159,14 @@ public class PersionController extends BaseController{
 	 * @return 
 	 */
 	@RequestMapping("/pc/voApply")
-	private String voApply(Model model) {
+	public String voApply(Model model) {
 		UserDO user = getUser();
 		if(user.getIsIdentification()==null||user.getIsIdentification()!=1) {//未实名认证
 			model.addAttribute("message", "您还未进行实名认证!请先进行实名认证,感谢您的参与!");
 			return "pc/message";
 		}
-		List<VolunteerDO> volist = volunteerService.isVolllist(user.getUserId());//查询是否已经是志愿者
+		Long userId = user.getUserId();
+		List<VolunteerDO> volist = voService.isVolllist(userId);//查询是否已经是志愿者
 		if(volist!=null&&volist.size()>0) {
 			VolunteerDO vo = volist.get(0);
 			if(vo.getAuditStatus()==0) {
@@ -205,7 +206,7 @@ public class PersionController extends BaseController{
 		vo.setCreateTime(new Date());
 		vo.setHeadImg(user.getHeadImg());
 		vo.setSex(user.getSex());
-		if(volunteerService.save(vo)>0) {
+		if(voService.save(vo)>0) {
 			return R.ok();
 		}
 		return R.error();
@@ -275,7 +276,7 @@ public class PersionController extends BaseController{
 		UserDO user = getUser();
 		Map<String, Object> map=new HashMap<>();
 		map.put("userId", user.getUserId());
-		List<VolunteerDO> voList = volunteerService.list(map);
+		List<VolunteerDO> voList = voService.list(map);
 		if(voList==null||voList.size()==0) {
 			return R.error("未找到志愿者信息");
 		}

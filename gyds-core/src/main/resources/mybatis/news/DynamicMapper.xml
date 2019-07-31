@@ -116,7 +116,7 @@
 		(SELECT COUNT(apply.id) FROM act_apply apply WHERE act.`id`=apply.act_id ) AS baoming_count
 	 	FROM new_dynamic dy
 		LEFT JOIN activity act ON act.`id`=dy.`news_id`
-		WHERE dy.member_id=#{userId} AND dy.act_type=2 AND dy.type=2 AND act.`examine_status`=2
+		WHERE dy.member_id=#{userId} AND dy.act_type=2 AND dy.type=2 AND act.`examine_status`=1
 	</select>
 	
 	<!-- 获取关注新闻的关联信息-->
