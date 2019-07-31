@@ -75,6 +75,9 @@
 				<form action="" method="" class="biaodanyy" id="signupForm">
 					<input type="hidden"  th:value="${user.userId}" name="userId">
 					<input type="hidden"  th:value="${proxybusiDO.id}" name="id">
+					<input type="hidden"  th:value="${setupDO.cityBail}" id="ct">
+					<input type="hidden"  th:value="${setupDO.areaBail}" id="ar">
+					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
 				    <label>
 						<span>真实姓名</span>
 						<input type="text"  th:value="${user.name}" readonly="readonly">
@@ -93,12 +96,16 @@
 					</label>
 					<label>
 						<span>代理级别</span>
-						<input type="radio" style="width:20px;" value="1" name="regionLevel" />省
+						<input type="radio" style="width:20px;" value="1" name="regionLevel" checked="checked"/>省
 						<input type="radio" style="width:20px;margin-left: 20px" value="2" name="regionLevel" />市
 						<input type="radio" style="width:20px;margin-left: 20px" value="3" name="regionLevel" />县
 					</label>
 					<label>
-						<span style="margin-left: -147px;">代理地区</span>
+						<span style="margin-left: -147px;color:red">代理保证金</span>
+						<input type="text" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
+					</label>
+					<label>
+						<span>代理地区</span>
 						<select class="juzhu" onchange="pronv()" id="pron" name="pronvice">
 							<option value ="">省</option>
 							<option th:each=" area : ${areaList}" th:value ="${area.regionCode}" th:text="${area.regionName}" ></option>
@@ -142,6 +149,19 @@
 			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
 		}
 	});
+	
+	$(function(){
+		$(":radio").click(function(){
+			var level = $(this).val();
+			if (level == 1) {
+				$("#bail").val($("#pr").val())
+			} else if(level == 2){
+				$("#bail").val($("#ct").val())
+			} else{
+				$("#bail").val($("#ar").val())
+			}
+		})
+	})
 	function pronv() {
 		$.ajax({
             type : "post",

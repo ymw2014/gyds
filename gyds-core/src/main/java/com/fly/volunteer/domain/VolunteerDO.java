@@ -16,7 +16,7 @@ public class VolunteerDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//自增编号
-	private Long id;
+	private Integer id;
 	//志愿者名称
 	private String volunteerName;
 	//
@@ -123,13 +123,13 @@ public class VolunteerDO implements Serializable {
 	/**
 	 * 设置：自增编号
 	 */
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	/**
 	 * 获取：自增编号
 	 */
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 	/**

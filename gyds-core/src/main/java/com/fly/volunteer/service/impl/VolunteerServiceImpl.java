@@ -1,10 +1,10 @@
 package com.fly.volunteer.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fly.volunteer.dao.VolunteerDao;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -18,7 +18,7 @@ public class VolunteerServiceImpl implements VolunteerService {
 	private VolunteerDao volunteerDao;
 	
 	@Override
-	public VolunteerDO get(Long id){
+	public VolunteerDO get(Integer id){
 		return volunteerDao.get(id);
 	}
 	
@@ -55,6 +55,21 @@ public class VolunteerServiceImpl implements VolunteerService {
 	@Override
 	public List<VolunteerDO> isVolllist(Long userId) {
 		return volunteerDao.isVolllist(userId);
+	}
+	
+	@Override
+	public boolean isVo(Long userId) {
+		boolean flag=false;
+		flag=volunteerDao.isVo(userId).size()>0;
+		return flag;
+	}
+
+	@Override
+	public VolunteerDO getVo(Long userId) {
+		if(volunteerDao.isVo(userId).size()>0) {
+			return volunteerDao.isVo(userId).get(0);
+		}
+		return null;
 	}
 	
 }

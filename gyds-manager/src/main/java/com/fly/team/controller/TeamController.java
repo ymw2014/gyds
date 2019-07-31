@@ -61,7 +61,7 @@ public class TeamController {
 	}
 	@GetMapping("/info/{id}")
 	@RequiresPermissions("team:volunteer:info")
-	String edit(@PathVariable("id") Long id,Model model){
+	String info(@PathVariable("id") Integer id,Model model){
 		VolunteerDO volunteer = volunteerService.get(id);
 		model.addAttribute("volunteer", volunteer);
 	    return "team/volunteer/info";
@@ -203,12 +203,11 @@ public class TeamController {
 	@PostMapping( "/quitTeam")
 	@ResponseBody
 	@RequiresPermissions("team:volunteer:quitTeam")
-	public R quitTeam(Long id){
-		VolunteerDO volunteer = new VolunteerDO();
-		volunteer.setTeamId(0);
-		volunteer.setId(id);
+	public R quitTeam(Integer id){
+		VolunteerDO volunteer = volunteerService.getVo(ShiroUtils.getUserId());
+		volunteer.setTeamId(-1);
 		if(volunteerService.update(volunteer)>0){
-		return R.ok();
+			return R.ok();
 		}
 		return R.error();
 	}

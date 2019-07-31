@@ -55,7 +55,7 @@ public class PcVolunteerController {
 	@Autowired
 	private CommentService commentService;
 	@Autowired
-	private DynamicService dynamicServoce;
+	private DynamicService dynamicService;
 	@Autowired
 	private InfoService infoService;
 	@Autowired
@@ -106,7 +106,7 @@ public class PcVolunteerController {
 	 * @return
 	 */
 	@RequestMapping("volunteerDetail")
-	public String volunteerDetail(@RequestParam Map<String,Object> params, Long id, Model model) {
+	public String volunteerDetail(@RequestParam Map<String,Object> params, Integer id, Model model) {
 		UserDO user = ShiroUtils.getUser();
 		VolunteerDO volunteerDO = volunteerService.get(id);
 		if (volunteerDO.getUserId() != null) {
@@ -116,19 +116,22 @@ public class PcVolunteerController {
 		if (user != null) {//当前用户必须是志愿者才记录
 			params.clear();
 			params.put("userId", user.getUserId());
+			params.put("auditStatus", 1);
 			List<VolunteerDO> volunteer = volunteerService.list(params);
 			if (!CollectionUtils.isEmpty(volunteer)) {
 				//添加访客记录
-				GuestlogDO log = new GuestlogDO();
-				log.setGuestId(volunteer.get(0).getId().intValue());
-				log.setGuestHeadimg(volunteer.get(0).getHeadImg());
-				log.setGuestName(user.getName());
-				log.setUserId(id.intValue());
-				log.setUserHeadimg(volunteerDO.getHeadImg());
-				log.setUserName(volunteerDO.getVolunteerName());
-				log.setGuestTime(new Date());
-				log.setGuestType(1);
-				logService.save(log);
+				if (volunteer.get(0).getId() != id) {
+					GuestlogDO log = new GuestlogDO();
+					log.setGuestId(volunteer.get(0).getId().intValue());
+					log.setGuestHeadimg(volunteer.get(0).getHeadImg());
+					log.setGuestName(user.getName());
+					log.setUserId(id.intValue());
+					log.setUserHeadimg(volunteerDO.getHeadImg());
+					log.setUserName(volunteerDO.getVolunteerName());
+					log.setGuestTime(new Date());
+					log.setGuestType(1);
+					logService.save(log);
+				}
 				
 				
 			}
@@ -136,12 +139,10 @@ public class PcVolunteerController {
 		
 		params.clear();
 		params.put("guestId", id);
-		//params.put("guestType", 1);
 		List<GuestlogDO> guestLogList = logService.list(params);
 		model.addAttribute("zyzList",guestLogList);
 		params.clear();
 		params.put("userId", id);
-		//params.put("guestType", 2);
 		List<GuestlogDO> guestList = logService.list(params);//At访客
 		model.addAttribute("guestList",guestList);
 		
@@ -184,10 +185,10 @@ public class PcVolunteerController {
 	 */
 	public List<Map<String, Object>> getInfo(Integer type, Long id) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("type", type);
+		params.put("type", type + "");
 		params.put("memberId", id);
 		List<Map<String, Object>> dynamicList = new ArrayList<Map<String,Object>>();
-		List<DynamicDO> dynamic = dynamicServoce.list(params);
+		List<DynamicDO> dynamic = dynamicService.list(params);
 		for (DynamicDO bean : dynamic) {
 			Integer actType = bean.getActType();
 			if (actType != null && actType == 1) {
@@ -199,6 +200,22 @@ public class PcVolunteerController {
 					info.put("img", infoDO.getTitleImg());
 					info.put("actType", 1);
 					info.put("newsId", infoDO.getId());
+					UserDO user = ShiroUtils.getUser();
+					if (user != null) {//查询点赞状态
+						params.clear();
+						params.put("memberId", user.getUserId());
+						params.put("type", 1);
+						params.put("act_type", 1);
+						params.put("newsId", infoDO.getId());
+						List<DynamicDO> list = dynamicService.list(params);
+						if (!CollectionUtils.isEmpty(list)) {
+							info.put("isClick", 1);
+						} else {
+							info.put("isClick", 0);
+						}
+					}else {
+						info.put("isClick", 2);
+					}
 					dynamicList.add(info);
 				}
 			} else if (actType != null && actType == 2){

@@ -28,4 +28,7 @@ public interface ApplyService {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	ApplyDO getApply(Integer zyzId,Integer actId);
+	
 }

@@ -30,4 +30,6 @@ public interface ApplyDao {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+
+	List<ApplyDO> isApply(Integer zyzId,Integer actId);
 }

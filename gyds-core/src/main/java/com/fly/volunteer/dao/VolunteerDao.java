@@ -1,11 +1,11 @@
 package com.fly.volunteer.dao;
 
-import com.fly.volunteer.domain.VolunteerDO;
-
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.fly.volunteer.domain.VolunteerDO;
 
 /**
  * 志愿者表
@@ -16,7 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface VolunteerDao {
 
-	VolunteerDO get(Long id);
+	VolunteerDO get(Integer id);
 	
 	List<VolunteerDO> list(Map<String,Object> map);
 	
@@ -32,4 +32,6 @@ public interface VolunteerDao {
 	
 	List<VolunteerDO> isVolllist(Long userId);
 	int updateVolunteer(Map<String,Object> map);
+	
+	List<VolunteerDO> isVo(Long userId);
 }

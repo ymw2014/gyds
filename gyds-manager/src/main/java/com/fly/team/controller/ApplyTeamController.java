@@ -46,7 +46,7 @@ public class ApplyTeamController {
 	
 	@GetMapping("/info/{id}")
 	@RequiresPermissions("team:apply:info")
-	String edit(@PathVariable("id") Long id,Model model){
+	String info(@PathVariable("id") Integer id,Model model){
 		VolunteerDO volunteer = volunteerService.get(id);
 		model.addAttribute("volunteer", volunteer);
 	    return "team/volunteer/info";
@@ -135,11 +135,13 @@ public class ApplyTeamController {
 	public R examine(Integer id,Integer status){
 		ApplyTeamDO apply = applyService.get(id);
 		apply.setStatus(status);
+		VolunteerDO volunteer=volunteerService.get(apply.getZyzId());
+		if(volunteer.getTeamId()!=null||volunteer.getTeamId()!=-1) {
+			return R.error("该志愿者已入其他团队,请删除该数据");
+		}
 		if(status.equals(1)) {
-			VolunteerDO volunteer = new VolunteerDO();
 			volunteer.setEnterTeamTime(new Date());
 			volunteer.setTeamId(apply.getApplyTeamId());
-			volunteer.setId(apply.getZyzId());
 			volunteerService.update(volunteer);
 		}
 		if(applyService.update(apply)>0) {

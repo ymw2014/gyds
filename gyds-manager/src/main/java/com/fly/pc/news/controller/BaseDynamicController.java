@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -273,18 +274,18 @@ public class BaseDynamicController {
 	public Integer creadOrder(Map<String,Object> params) {
 		Integer i =-1;
 		OrderDO order = new OrderDO();
-		UserDO user = null; 
-		user = ShiroUtils.getUser();
-		if(user!=null) {
-			order.setUserId(Integer.valueOf(user.getUserId().toString())); 
+		String userId = (String)params.get("userId");
+		if(StringUtils.isEmpty(userId)) {
+			userId = ShiroUtils.getUserId() == null ? "" : ShiroUtils.getUserId() + ""; 
 		}
+		order.setUserId(Integer.valueOf(userId)); 
 		if(params.get("orderType")!=null) {
 			order.setOrderType(Integer.valueOf(params.get("orderType").toString()));
 		}if(params.get("expIncType")!=null) {
 			order.setExpIncType(Integer.valueOf(params.get("expIncType").toString()));
 		}
 		if(params.get("price")!=null) {
-			order.setPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())));
+			order.setPrice((BigDecimal)params.get("price"));
 		}
 		if(params.get("examineStatus")!=null) {
 			order.setExamineStatus(Integer.valueOf(params.get("examineStatus").toString()));
@@ -294,6 +295,9 @@ public class BaseDynamicController {
 		}
 		if(params.get("cashOutType")!=null) {
 			order.setCashOutType(Integer.valueOf(params.get("cashOutType").toString()));
+		}
+		if(params.get("examineUser")!=null) {
+			order.setExamineUser(Integer.valueOf(params.get("examineUser").toString()));
 		}
 		order.setIsDel(0);
 		order.setOrderNumber(new Date().getTime()+"");

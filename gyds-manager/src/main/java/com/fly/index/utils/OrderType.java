@@ -25,5 +25,19 @@ public class OrderType {
 	 * 	置顶
 	 */
 	public static final Integer ZHI_DING = 5;
+	/**
+	 * 	收入
+	 */
+	public static final Integer SHOU_RU = 1;
+	
+	/**
+	 * 	支出
+	 */
+	public static final Integer ZHI_CHU = 2;
+
+	 /**
+	  * 	代理商入驻
+	  */
+	public static final Integer DAI_LI_SHANG = 6;
 
 }

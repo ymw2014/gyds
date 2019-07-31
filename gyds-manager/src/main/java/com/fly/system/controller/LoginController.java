@@ -10,6 +10,7 @@ import com.fly.domain.UserDO;
 import com.fly.system.service.MenuService;
 import com.fly.system.utils.MD5Utils;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.Constant;
 import com.fly.utils.R;
 import com.google.code.kaptcha.Constants;
 import org.apache.shiro.SecurityUtils;
@@ -108,7 +109,11 @@ public class LoginController extends BaseController {
 			//3、执行登录方法
 			subject.login(token);
 			//UserDO user = (UserDO)subject.getPrincipal();
-			r.put("url", "/");
+			if(Constant.ADMIN.equals(username)) {
+				r.put("url", "/index");
+			}else {
+				r.put("url", "/");
+			}
 			return r;//登录成功
 		}catch (UnknownAccountException e){//用户名不存在
 			return R.error(e.getMessage());
