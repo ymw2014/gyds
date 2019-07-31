@@ -10,21 +10,26 @@
 		<script type="text/javascript" th:src="@{/mobile/js/idangerous.swiper.scrollbar-2.1.js}"></script>
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/lunbo.css}">
-		<link rel="stylesheet" th:href="@{/mobile/dist/idangerous.swiper.css}">
+		<link rel="stylesheet" th:href="@{/mobile/vdist/idangerous.swiper.css}">
 	</head>
 	<body> 
 		<header>
 			<div class="login">
-				<img th:src="@{/mobile/images/logo.png}" alt="">
+				<img src="images/logo.png" alt="">
 			</div>
 			<div class="header-center">
-				<input type="text" list="sexlist" placeholder="-- 全国 --">
-				<datalist id="sexlist" >
-					<option th:each="area: ${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
-				</datalist>
+				<select style="width: 135px;
+				height: 30px;
+				-webkit-appearance: none;
+				background:url(images/input_03.jpg)no-repeat right;
+				background-size:30px 30px;
+				background-color: #fff;" onchange="_area()" id="area">
+					 <option th:each="area: ${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+				</select> 
 			</div>
 			<div class="header-loginimg">
-				<a href=""><img th:src="@{/mobile/images/mylogin.jpg}" alt=""></a>
+				<img src="images/mylogin.jpg" alt="">
 			</div>
 		</header>
 		<div class="nav">
@@ -35,18 +40,17 @@
 			<a href="#">团队展示</a>
 		</div>
 		<div class="guanggao">
-			<a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a>
-			<!-- <img src="images/tp2.jpg" alt=""> -->
+			<img src="images/tp2.jpg" alt="">
 		</div>
 		<!-- 轮播 -->
 		<div class="device">
 		  <div class="swiper-container">
 		    <div class="swiper-wrapper">
 		      <div class="swiper-slide" th:each="newInfo: ${newList}">
-					<a href="#"><img  th:src="${newInfo.titleImg}" alt=""></a>
+						<img th:src="${newInfo.titleImg}">
 			   </div>
-			</div>
 		    </div>
+		  </div>
 		  <div class="pagination"></div>
 		</div>
 		<!-- 结束 -->
@@ -62,8 +66,7 @@
 			</div>
 		</div>
 		<div class="guanggao">
-			<a href=""><img  th:src="${adv2.advImg==''}?'/pc/images/tp2.jpg':${adv2.advImg}" alt=""> </a>
-			<!-- <img src="images/tp2.jpg" alt=""> -->
+			<img src="images/tp2.jpg" alt="">
 		</div>
 		<!-- 志愿服务数据统计 -->
 		<div class="tongji">
@@ -73,7 +76,7 @@
 			<div class="tongjicon">
 				<img src="images/index_17.jpg" alt="">
 				<span>实名志愿者总数</span>
-				<rem >45342</rem>
+				<rem>45342</rem>
 			</div>
 			<div class="tongjicon">
 				<img src="images/index_21.jpg" alt="">
@@ -94,7 +97,7 @@
 		<!-- 活动报名 -->
 		<div class="baoming">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>活动报名<span><a href="/pc/activityList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
+				<i></i>活动报名<span><img src="images/xuanze.jpg" alt=""></span>
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
@@ -108,13 +111,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="guanggao">
-			<a href=""><img  th:src="${adv3.advImg==''}?'/pc/images/tp2.jpg':${adv3.advImg}" alt=""> </a>
-			<!-- <img src="images/tp2.jpg" alt=""> -->
-		</div>
 		<div class="zhiyuan">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>志愿者<span><a href="/pc/volunteerList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
+				<i></i>志愿者<span><img src="images/xuanze.jpg" alt=""></span>
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
@@ -124,28 +123,36 @@
 			</div>
 		</div>
 		<div class="guanggao">
-			<a href=""><img  th:src="${adv4.advImg==''}?'/pc/images/tp2.jpg':${adv4.advImg}" alt=""> </a>
-			<!-- <img src="images/tp2.jpg" alt=""> -->
-		</div>
-		<div class="tuandui index_td">
-			<div class="tongjitxt" style="width:95%;">
-				<i></i>团队<span><a href="/pc/teamList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
-			</div>
-			<div class="tuanduiCen" >
-				<figure th:each="team: ${teamList}">
-					<img th:src="${team.teamTitleImg}" alt="">
-					<figcaption th:text="${team.teamName}"></figcaption>
-				</figure>
-			</div>
-		</div>
-		<div class="guanggao">
-			<a href=""><img  th:src="${adv5.advImg==''}?'/pc/images/tp2.jpg':${adv5.advImg}" alt=""> </a>
-			<!-- <img src="images/tp2.jpg" alt=""> -->
+			<img src="images/tp2.jpg" alt="">
 		</div>
 		<div class="footer">
-			<ul th:each="cente: ${centerList}">
-				<h4 th:text="${cente.helpTitle}"></h4>
-				<li th:each="center: ${cente.center}"><a th:href="${center.url}"  th:text="${center.content}"></a></li>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
 			</ul>
 		</div>
 		<!-- 备案 -->
@@ -173,4 +180,9 @@
 		e.preventDefault()
 		mySwiper.swipeNext()
 	  })
+	  
+	  function _area(){
+		console.log($("#area").val());
+		window.location.href = "/?areaId="+$("#area").val();
+	}
 </script>

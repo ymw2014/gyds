@@ -45,15 +45,15 @@
 			</select>
 			</div>
 		</div>
-		<div class="box-nr">
+		<div class="box-nr" id="neirong">
 			<div class="box-nr-1" th:each="act: ${actList}">
 				<img th:src="${act.actTitleImg}" alt="">
 				<span th:text="${act.actTitle}"></span>
 				<p th:text="${act.actIntro}"></p>
-				<rem th:utext="${act.actType==0}?'免费': ${act.actPrice} +'<a href=/pc/activityDetail?id='+${act.id}+'>马上抢票</a>' "></rem>
+				<rem th:utext="${act.actType==0}?'免费': '￥'+${act.actPrice} +'<a href=/pc/activityDetail?id='+${act.id}+'>马上报名</a>' "></rem>
 			</div>
 			<!-- 加载更多 -->
-			<button>加载更多</button>
+			<!-- <button>加载更多</button> -->
 		</div>
 		<div th:replace="mobile/include :: footer"></div>
 		
@@ -125,19 +125,16 @@ function info(obj) {
 		if (value.actType == 0) {
 			actype = '免费';
 		} else {
-			actype = '收费';
+			actype = '￥'+ value.actPrice + '.00';
 		}
-		html += '<figure>' + 
+		html += '<div class="box-nr-1">' + 
 					'<img src=" ' + value.actTitleImg + '" alt="">' +
-			    		'<figcaption>' +
-							'<p>'+ value.actTitle + '</p>' +
-							'<p style="font-size:14px; color:#676767;">'+ value.actIntro +'</p>' +
-							'<p style="line-height:36px;">' +
-								'<i style="color:#e13146;">' + actype + '</i>' +
-									'<a href="#" style="color:#e13146; float: right;margin-right:13px;">' + value.numberOfApplicants + '人已报名</a>' + 
-							'</p>' +
-						'</figcaption>' +
-				'</figure>';
+					'<span>'+ value.actTitle + '</span>' +
+					'<p>'+ value.actIntro +'</p>' +
+					'<rem>' + actype +
+						'<a href="/pc/activityDetail?id='+value.id+'" >马上报名</a>' + 
+					'</rem>' +
+				'</div>';
 				
 	})
 	return html;
