@@ -1,5 +1,6 @@
 package com.fly.pc.team.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
+import com.fly.domain.RegionDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
 import com.fly.news.domain.InfoDO;
@@ -50,6 +54,11 @@ public class PcTeamController {
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
+		params.clear();
+		params.put("parentRegionCode", 0);
+		params.put("regionType",1);
+		List<RegionDO> areaList = regionService.list(params);
+		model.addAttribute("areaList", areaList);
 		return "pc/teamList";
 	}
 	
@@ -63,9 +72,6 @@ public class PcTeamController {
 		
 		params.clear();
 		params.put("status", 1);
-		params.put("isDel", 0);
-		params.put("offset", 0);
-		params.put("limit", 10);
 		params.put("teamId", teamId);
 		List<InfoDO> newList = infoService.list(params);
 		model.addAttribute("newList", newList);//新闻资讯status
@@ -86,5 +92,22 @@ public class PcTeamController {
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
 		return "pc/teamDetail";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("team/query")
+	public String query(String areaId, String satuts) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("pids", areaId);
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		params.clear();
+		params.put("status", satuts);
+		params.put("ids", ids);
+		params.put("auditStatus",1);
+		List<TeamDO> teamList = teamService.list(params);
+		JSONObject dataInfo = new JSONObject();
+		dataInfo.put("teamList", teamList);
+		return dataInfo.toString();
 	}
 }

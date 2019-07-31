@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/huodong.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/new_file.css}">
+	</head>
+	<body>
+		<div class="header_txt">
+			<div class="headerleft">
+				<img src="images/qianwnag.png" alt="">
+			</div>
+			<div class="headercent">团队展示</div>
+			<!-- <div class="headerright">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+			</div> -->
+		</div>
+		<div class="header_nav">
+			<!-- <div>行业类别</div>
+			<div>活动状态</div> -->
+			<div>
+				<select onchange="query()" id ="code">
+					<option value="">地区</option>
+						<option th:each="area : ${areaList}" th:value="${area.regionCode}"
+							 th:text="${area.regionName}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="tuandui">
+			<div class="tuandui1" id="neirong">
+				<div th:each="team : ${teamList}">
+					<a th:href="'/pc/teamDetail?teamId=' + ${team.id}"><img th:src="${team.teamTitleImg}" alt=""></a>
+					<p th:text="${team.teamName}"></p>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="box-nr">
+		   <button>加载更多</button>
+		</div> -->
+		<div class="footer">
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+		</div>
+		<!-- 备案 -->
+		<div class="beian">
+			<div class="beian1">
+				<span>京ICP备12048184号</span>
+				<span>技术支持：景安网络</span>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+function query() {
+	var regionCode = $("#code").val();
+	 $.ajax({
+         type : "POST",
+         dataType: "json",
+         url : "/pc/team/query",
+         data : {
+         	'areaId': regionCode,
+         },
+         success : function(result) {
+         	var actList = result.teamList;
+         	$("#neirong").html('');
+         	var html = info(actList);
+         	$("#neirong").append(html);
+         }
+  });
+}
+
+function info(obj) {
+	var html = '';
+	$.each(obj, function (n, value) {
+		html += '<div>' + 
+					'<img src=" ' + value.teamTitleImg + '" alt="">' +
+					'<p>'+ value.teamName +'</p>' +
+				'</div>';
+				
+	})
+	return html;
+}
+
+
+</script>

@@ -35,7 +35,7 @@
 							<ul>
 								<li th:text=" '地点：' + ${activity.actAddr}"></li>
 								<li th:text=" '时间：' + ${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></li>
-								<li class="comli"><span style="float:left;">价格：</span><a href="#" class="comimg" th:text="${activity.actType == '0'} ? '付费': ${activity.actPrice}"></a></li>
+								<li class="comli"><span style="float:left;">价格：</span><a href="#" class="comimg" th:text="${activity.actType == '0'} ? '免费': ${activity.actPrice}"></a></li>
 								<!-- <li>数量：
 									<button class="jian">-</button>
 									<input type="text" class="shu" value="1">
