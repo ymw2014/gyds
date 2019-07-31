@@ -116,19 +116,22 @@ public class PcVolunteerController {
 		if (user != null) {//当前用户必须是志愿者才记录
 			params.clear();
 			params.put("userId", user.getUserId());
+			params.put("auditStatus", 1);
 			List<VolunteerDO> volunteer = volunteerService.list(params);
 			if (!CollectionUtils.isEmpty(volunteer)) {
 				//添加访客记录
-				GuestlogDO log = new GuestlogDO();
-				log.setGuestId(volunteer.get(0).getId().intValue());
-				log.setGuestHeadimg(volunteer.get(0).getHeadImg());
-				log.setGuestName(user.getName());
-				log.setUserId(id.intValue());
-				log.setUserHeadimg(volunteerDO.getHeadImg());
-				log.setUserName(volunteerDO.getVolunteerName());
-				log.setGuestTime(new Date());
-				log.setGuestType(1);
-				logService.save(log);
+				if (volunteer.get(0).getId() != id) {
+					GuestlogDO log = new GuestlogDO();
+					log.setGuestId(volunteer.get(0).getId().intValue());
+					log.setGuestHeadimg(volunteer.get(0).getHeadImg());
+					log.setGuestName(user.getName());
+					log.setUserId(id.intValue());
+					log.setUserHeadimg(volunteerDO.getHeadImg());
+					log.setUserName(volunteerDO.getVolunteerName());
+					log.setGuestTime(new Date());
+					log.setGuestType(1);
+					logService.save(log);
+				}
 				
 				
 			}
@@ -136,12 +139,10 @@ public class PcVolunteerController {
 		
 		params.clear();
 		params.put("guestId", id);
-		//sparams.put("guestType", 2);
 		List<GuestlogDO> guestLogList = logService.list(params);
 		model.addAttribute("zyzList",guestLogList);
 		params.clear();
 		params.put("userId", id);
-		//params.put("guestType", 1);
 		List<GuestlogDO> guestList = logService.list(params);//At访客
 		model.addAttribute("guestList",guestList);
 		
@@ -200,7 +201,7 @@ public class PcVolunteerController {
 					info.put("actType", 1);
 					info.put("newsId", infoDO.getId());
 					UserDO user = ShiroUtils.getUser();
-					if (user != null) {
+					if (user != null) {//查询点赞状态
 						params.clear();
 						params.put("memberId", user.getUserId());
 						params.put("type", 1);
