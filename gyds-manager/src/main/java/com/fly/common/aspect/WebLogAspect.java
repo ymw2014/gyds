@@ -85,25 +85,27 @@ public class WebLogAspect {
 		return ob;
 	}
 
-	  @Around("execution(* com.fly.pc..*(..))") 
-	  public Object afterexec(ProceedingJoinPoint pjp) throws Throwable { 
-		  Object ob = pjp.proceed(); 
-		  System.out.println(ob); 
-		  HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
-		  String url="";
-		  if(ob instanceof String) {
-			  if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {
-				  url= "mobile"; 
-				  String[] spli = ob.toString().split("/"); 
-				  for (int i =1; i < spli.length; i++) { 
-					  url += "/"+spli[i]; 
-					  return url; 
-					  } 
-				  } 
-			  } 
-		  return ob; 
-		  }
-	  
-	 
+	@Around("execution(* com.fly.pc..*(..))") 
+	public Object afterexec(ProceedingJoinPoint pjp) throws Throwable { 
+		Object ob = pjp.proceed(); 
+		System.out.println(ob); 
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
+		String url="";
+		if(ob instanceof String) {
+			if(ob.toString().indexOf("{")==-1) {
+				if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {
+					url= "mobile"; 
+					String[] spli = ob.toString().split("/"); 
+					for (int i =1; i < spli.length; i++) { 
+						url += "/"+spli[i]; 
+						return url; 
+					} 
+				} 
+			}
+		} 
+		return ob; 
+	}
+
+
 
 }

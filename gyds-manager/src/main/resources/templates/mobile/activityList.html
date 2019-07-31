@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/huodong.css}">
+	</head>
+	<body>
+		<div class="header_txt">
+			<div class="headerleft">
+				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+			</div>
+			<div class="headercent">活动报名</div>
+			<div class="headerright">
+				<img th:src="@{/mobile/images/dian.png}" alt="">
+				<img th:src="@{/mobile/images/dian.png}" alt="">
+				<img th:src="@{/mobile/images/dian.png}" alt="">
+			</div>
+		</div>
+		<div class="header_nav">
+			<div>
+			<select id="type">
+				<option value="">活动类别</option>
+					<option value="0">免费</option>
+					<option value="1">收费</option>
+			</select>
+			</div>
+			<div>
+				<select  onchange="statusQuery()" id="status">
+				<option value="">活动状态</option>
+					<option value="1">报名中</option>
+					<option value="2">进行中</option>
+					<option value="3">已结束</option>
+			</select>
+			</div>
+			<div>
+			<select onchange="query()" id ="code">
+				<option value="">地区</option>
+					<option th:each="area : ${areaList}" th:value="${area.regionCode}"
+						 th:text="${area.regionName}"></option>
+			</select>
+			</div>
+		</div>
+		<div class="box-nr">
+			<div class="box-nr-1" th:each="act: ${actList}">
+				<img th:src="${act.actTitleImg}" alt="">
+				<span th:text="${act.actTitle}"></span>
+				<p th:text="${act.actIntro}"></p>
+				<rem th:utext="${act.actType==0}?'免费': ${act.actPrice} +'<a href=/pc/activityDetail?id='+${act.id}+'>马上抢票</a>' "></rem>
+			</div>
+			<!-- 加载更多 -->
+			<button>加载更多</button>
+		</div>
+		<div th:replace="mobile/include :: footer"></div>
+		
+	</body>
+<script>
+$(function(){
+	$("#type").change(function(){
+		 $.ajax({
+	            type : "POST",
+	            dataType: "json",
+	            url : "/pc/activityList/query",
+	            data : {
+	            	'type': $(this).val(),
+	            	'regionCode': $("#code").val(),
+	            	'status': $("#status").val()
+	            	
+	            },
+	            success : function(result) {
+	            	var actList = result.actList;
+	            	$("#neirong").html('');
+	            	var html = info(actList);
+	            	$("#neirong").append(html);
+	            },
+	        });
+	});
+})
+
+function query() {
+	var regionCode = $("#code").val();
+	 $.ajax({
+         type : "POST",
+         dataType: "json",
+         url : "/pc/activityList/query",
+         data : {
+         	'regionCode': regionCode
+         },
+         success : function(result) {
+         	var actList = result.actList;
+         	$("#neirong").html('');
+         	var html = info(actList);
+         	$("#neirong").append(html);
+         }
+  });
+}
+
+function statusQuery() {
+	var status = $("#status").val();
+	 $.ajax({
+         type : "POST",
+         dataType: "json",
+         url : "/pc/activityList/query",
+         data : {
+         	'regionCode': $("#code").val(),
+         	'status': status,
+         	'type': $("#type").val()
+         },
+         success : function(result) {
+         	var actList = result.actList;
+         	$("#neirong").html('');
+         	var html = info(actList);
+         	$("#neirong").append(html);
+         }
+  });
+}
+function info(obj) {
+	var html = '';
+	$.each(obj, function (n, value) {
+		var actype = '';
+		if (value.actType == 0) {
+			actype = '免费';
+		} else {
+			actype = '收费';
+		}
+		html += '<figure>' + 
+					'<img src=" ' + value.actTitleImg + '" alt="">' +
+			    		'<figcaption>' +
+							'<p>'+ value.actTitle + '</p>' +
+							'<p style="font-size:14px; color:#676767;">'+ value.actIntro +'</p>' +
+							'<p style="line-height:36px;">' +
+								'<i style="color:#e13146;">' + actype + '</i>' +
+									'<a href="#" style="color:#e13146; float: right;margin-right:13px;">' + value.numberOfApplicants + '人已报名</a>' + 
+							'</p>' +
+						'</figcaption>' +
+				'</figure>';
+				
+	})
+	return html;
+}
+</script>
+<script>
+    $(function () {
+        tabPage({
+            pageMain: '.hdneirong',
+            pageNav: '#pageNav',
+            pagePrev: '#prev',
+            pageNext: '#next',
+            curNum: 8, /*每页显示的条数*/
+            activeClass: 'active', /*高亮显示的class*/
+            ini: 0/*初始化显示的页面*/
+        });
+        function tabPage(tabPage) {
+            var pageMain = $(tabPage.pageMain);+
+			  console.log(pageMain)
+            /*获取内容列表*/
+            var pageNav = $(tabPage.pageNav);
+            /*获取分页*/
+            var pagePrev = $(tabPage.pagePrev);
+            /*上一页*/
+            var pageNext = $(tabPage.pageNext);
+            /*下一页*/
+ 
+ 
+            var curNum = tabPage.curNum;
+			 console.log(curNum)
+            /*每页显示数*/
+            var len = Math.ceil(pageMain.find("figure").length / curNum);
+            /*计算总页数*/
+            console.log(len);
+            var pageList = '';
+            /*生成页码*/
+            var iNum = 0;
+            /*当前的索引值*/
+ 
+            for (var i = 0; i < len; i++) {
+                pageList += '<a href="javascript:;">' + (i + 1) + '</a>';
+            }
+            pageNav.html(pageList);
+            /*头一页加高亮显示*/
+            pageNav.find("a:first").addClass(tabPage.activeClass);
+ 
+            /*******标签页的点击事件*******/
+                pageNav.find("a").each(function(){
+                    $(this).click(function () {
+                        pageNav.find("a").removeClass(tabPage.activeClass);
+                        $(this).addClass(tabPage.activeClass);
+                        iNum = $(this).index();
+                        $(pageMain).find("figure").hide();
+                        for (var i = ($(this).html() - 1) * curNum; i < ($(this).html()) * curNum; i++) {
+                            $(pageMain).find("figure").eq(i).show()
+                        }
+ 
+                    });
+            })
+            $(pageMain).find("figure").hide();
+            /************首页的显示*********/
+            for (var i = 0; i < curNum; i++) {
+                $(pageMain).find("figure").eq(i).show()
+            }
+            /*下一页*/
+            pageNext.click(function () {
+                $(pageMain).find("figure").hide();
+                if (iNum == len - 1) {
+                    alert('已经是最后一页');
+                    for (var i = (len - 1) * curNum; i < len * curNum; i++) {
+                        $(pageMain).find("figure").eq(i).show()
+                    }
+                    return false;
+                } else {
+                    pageNav.find("a").removeClass(tabPage.activeClass);
+                    iNum++;
+                    pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
+//                    ini(iNum);
+                }
+                for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
+                    $(pageMain).find("figure").eq(i).show()
+                }
+            });
+            /*上一页*/
+            pagePrev.click(function () {
+                $(pageMain).find("figure").hide();
+                if (iNum == 0) {
+                    alert('当前是第一页');
+                    for (var i = 0; i < curNum; i++) {
+                        $(pageMain).find("figure").eq(i).show()
+                    }
+                    return false;
+                } else {
+                    pageNav.find("a").removeClass(tabPage.activeClass);
+                    iNum--;
+                    pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
+                }
+                for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
+                    $(pageMain).find("figure").eq(i).show()
+                }
+            })
+ 
+        }
+ 
+ 
+    })
+</script>
+</html>
