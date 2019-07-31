@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
+		<style>
+			.remover{
+				width: 27px;
+				height:30px;
+				position:absolute;
+				right:30px;
+				bottom:7px;
+			}
+			.biaotiyy{
+				width:95%;
+				margin-left:2.5%;
+				margin-top:30px;
+			}
+			.biaotiyy label>span{
+				line-height:92px;
+				display:inline-block;
+				float: left;
+				font-size:30px;
+				margin-right:18px;
+				color:#b8b8b8;
+			}
+			.biaotiyy label{
+				display: block;
+				overflow: hidden;
+			}
+			.biaotiyy input{
+				line-height:92px;
+				width:630px;
+				display:inline-block;
+				float: left;
+				border:none;
+				outline:none;
+				font-size:30px;
+				color:#333;
+			}
+			.fang{
+				float: left;
+				border:1px dashed #bdbdbd;
+				padding: 10px;
+			}
+			.mstp{
+				overflow: hidden;
+				padding: 20px;
+			}
+			.mstp>div>img{
+				width: 122px;
+				height: 122px;
+				margin-right:20px;
+			}
+			.mstp>div{
+				float: left;
+				position: relative;
+			}
+			.mstp>div>span{
+				display: block;
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				top:-10px;
+				right:10px;
+				text-align: center;
+				line-height:30px;
+				background:#f98185;
+				color:#fff;
+				border-radius:50%;
+			}
+			.tijiao{
+				width: 100%;
+				height:80px;
+			}
+			.tijiao>input{
+				width: 100%;
+				height:80px;
+			    line-height:80px;
+				background:#ff0000;
+				color:#fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mygz">
+			<div class="alendar"> 
+				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+				<span>新闻发布</span>
+			</div>
+		</div>
+		<div class="biaotiyy">
+			<form id="signupForm">
+				<label>
+					<span>标题</span>
+					<input name="title" type="text" >
+				</label>
+				<label>
+					<span>作者</span>
+					<input type="text" name="author">
+				</label>
+				<label>
+					<span>来源</span>
+					<input type="text" name="source">
+				</label>
+				<label>
+					<span>简介</span>
+					<textarea name="introduction" style="width: 588px;height: 115px;margin-top:20px;border: none;outline:none;" ></textarea>
+				</label>
+				<label style="margin-top:30px;">
+						<span style="float: left;">封面</span>
+							<img src="images/gahgha_03.png"  height="200" width="500" alt="" id="img">
+							<input type="file" name="file" style="display: none;" id ="file">
+					</label>
+				<label>
+					<span>
+						详情
+					</span>
+					<textarea name="content" id="deitor" style="width: 588px;height: 325px;margin-top:20px;border: none;outline:none;">
+					</textarea>
+				</label>
+			   
+			   <div class="tijiao">
+				   <input type="button" id="save" value="立即发布">
+			   </div>
+			</form>
+		</div>
+	</body>
+	 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+	<script type="text/javascript" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+	  <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+	 <script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+	 <script th:src="@{/js/validate.js}"></script>
+	
+	<script type="text/javascript">
+	
+	var ue = UE.getEditor('deitor',{
+		toolbars:[
+	        [
+	     	    '|', 'undo', 'redo', '|',
+	     	     'fontfamily', 'fontsize', '|',
+	     	    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+	     	    'link', 'unlink', 'anchor', '|',
+	     	    'insertimage', 'emotion', 'map','background', '|',
+	     	    'horizontal', 'date', 'time', 'spechars'
+	     ]
+	 ]
+	});
+	$(".sctp1").click(function(){
+		$(".sctp11").click();
+	})
+	$(".sctp2").click(function(){
+		$(".sctp22").click();
+	})
+	
+	
+	layui.use('upload', function() {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem : '#file', //绑定元素
+                url : '/common/sysFile/upload', //上传接口
+                size : 1000,
+                accept : 'file',
+                done : function(r) {
+                    var fileName = r.fileName;
+                     $("#img").val(fileName);
+             	     $("#img").attr("src",fileName);
+                },
+                error : function(r) {
+                    layer.msg(r.msg);
+                }
+            });
+            
+        });
+	$().ready(function(){
+		$("#save").on('click', function() {
+			$("#signupForm").submit();
+		});
+	})
+	
+	
+	function save() {
+		$.ajax({
+			type : "POST",
+			url : "/pc/newSave",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					var index = layer.load(1, {
+						shade : [ 0.1, '#fff' ]
+					//0.1透明度的白色背景
+					});
+					window.location.href = r.url;
+				} else if (r.status == 500) {
+					layer.msg(r.message);
+					self.find(".check-tips").text(r.message);
+					//刷新验证码
+					$(".reloadverify").click();
+				} else {
+					layer.msg(r.msg);
+					self.find(".check-tips").text(r.msg);
+					//刷新验证码
+					$(".reloadverify").click();
+				}
+			},
+		});
+	}
+	
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#signupForm").validate({
+			rules : {
+				title : {
+					required : true
+				},
+				author : {
+					required : true
+				},
+				source : {
+					required : true
+				},
+				introduction : {
+					required : true
+				},
+				content : {
+					content : true
+				}
+			},
+			messages : {
+				title : {
+					required : icon + "<span style='color:red'>标题不能为空</span>",
+				},
+				author : {
+					required : icon + "<span style='color:red'>请输入新闻作者</span>",
+				},
+				source : {
+					required : icon + "<span style='color:red'>请填写新闻来源</span>",
+				},
+				introduction : {
+					required : icon + "<span style='color:red'>请输入资讯简介</span>",
+				},
+				content : {
+					required : icon + "<span style='color:red'>新闻内容不能为空</span>",
+				}
+			}
+		})
+	}
+</script>
+
+
+	
+</html>
+	

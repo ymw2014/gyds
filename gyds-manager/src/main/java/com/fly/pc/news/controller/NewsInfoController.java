@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,6 @@ import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.DateUtils;
-import com.fly.utils.Query;
 import com.fly.utils.R;
 
 @Controller
@@ -211,6 +211,7 @@ public class NewsInfoController extends BaseDynamicController{
 	//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 	@RequestMapping(value="/reward",method=RequestMethod.POST)
 	@ResponseBody
+	@Transactional
 	public R reward(@RequestParam Map<String,Object> params) {
  		Integer i = null;
 		i = deductMoney(params);
