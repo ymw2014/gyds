@@ -56,8 +56,10 @@ public class ApplyServiceImpl implements ApplyService {
 
 	@Override
 	public ApplyDO getApply(Integer zyzId,Integer actId) {
-		applyDao.isApply(zyzId,actId);
-		return null;
+		if(applyDao.isApply(zyzId,actId)!=null&&applyDao.isApply(zyzId,actId).size()>0) {
+			return applyDao.isApply(zyzId,actId).get(0);
+		}
+		return  null;
 	}
 	
 	

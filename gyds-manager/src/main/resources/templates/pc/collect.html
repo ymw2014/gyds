@@ -38,7 +38,7 @@
 				<div class="yy-gz" style="margin-top:20px;">
 					<div class="yy-gz1" style="padding-top: 30px;" th:each="act: ${actList}">
 							<img src="images/aaa4.jpg" alt="">
-							<p>据说中美经贸磋商未来将在北京举行</p>
+							<p th:text="${act.act_title}"></p>
 							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd hh:MM:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd hh:MM:ss')}"></span></div>
 							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count+'人报名'}"></span>
 							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 0}">取消报名</a>

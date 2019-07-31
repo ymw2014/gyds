@@ -31,5 +31,5 @@ public interface ApplyDao {
 	
 	int batchRemove(Long[] ids);
 
-	void isApply(Integer zyzId,Integer actId);
+	List<ApplyDO> isApply(Integer zyzId,Integer actId);
 }

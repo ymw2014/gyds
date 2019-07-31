@@ -200,11 +200,9 @@ public class PcActivityController extends BaseDynamicController{
 			return dataInfo.toString();
 		}
 		
-		params.clear();
-		params.put("userId", user.getUserId());
-		params.put("auditStatus", 1);
-		List<VolunteerDO> list2 = volunteerService.list(params);
-		if (CollectionUtils.isEmpty(list2)) {
+		boolean flag = volunteerService.isVo(user.getUserId());
+		VolunteerDO vo = volunteerService.getVo(user.getUserId());//获取志愿者信息
+		if (!flag) {
 			dataInfo.put("status", "3");//还不是志愿者
 			return dataInfo.toString();
 		}
@@ -226,7 +224,7 @@ public class PcActivityController extends BaseDynamicController{
 				apply.setActId(actId);
 				apply.setCreateTime(new Date());
 				apply.setStatus(0);
-				apply.setZyzId(list2.get(0).getId());
+				apply.setZyzId(vo.getId());
 				status = applyService.save(apply);
 				activityDO.setNumberOfApplicants(num++);
 				if (status > 0) {
