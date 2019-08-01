@@ -39,7 +39,7 @@
 							<img src="images/gqwg.png" alt="">
 							</span>
 							</li>
-							<li>ID <span th:text="${volunteer.id}"></span></li>
+							<li>ID <span th:text="${volunteer.volunteerNumber}"></span></li>
 							<li>所属团队 <span th:text="${volunteer.teamName}"></span></li>
 							<li>参与活动次数 <span th:text="${volunteer.actNumber}"></span></li>
 							<li>点击量 <span th:text="${volunteer.clickNumber}"></span></li>
@@ -83,12 +83,13 @@
 									<img th:src="${comment.titleImg}" alt="" style="width: 146px;height: 108px;"><a href=""></a></img>
 								</div>
 								<div class="pinglun">
+								</span>
 									<ul>
 										<li th:onclick="'share('+ ${comment.newsId}+', 1, 1)'" style="cursor:pointer"><img src="images/sc.png" alt="">&nbsp;转发</li>
 										<li><a th:href="'/pc/news/info?id='+ ${comment.newsId}" style="cursor:pointer"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:if=" ${comment.idClick} eq '0'" th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
-										<li th:if=" ${comment.idClick} eq '1'" ><img src="images/gongyitubiao_19.png" alt="" >&nbsp;赞</li>
-										<li th:if=" ${comment.idClick} eq '2'" th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
+										<li th:if="${comment.isClick eq '0'}" th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
+										<li th:if="${comment.isClick eq '1'}" ><img src="images/gongyitubiao_19.png" alt="" >&nbsp;赞</li>
+										<li th:if="${comment.isClick eq '2'}" th:onclick="'log()'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -109,12 +110,13 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li th:if=" ${dynamic.actType} eq '2'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img src="images/sc.png" alt="">&nbsp;收藏</li>
+										<li th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '1'}"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/pc/images/gongyitubiao_03.jpg}" alt="">&nbsp;收藏</li>
+										<li th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '2'}" ><img src="images/gongyitubiao_16.jpg" alt="">&nbsp;收藏</li>
 										<li  th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+')'" style="cursor:pointer"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
 										<li th:if=" ${dynamic.actType} eq '1'"><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt="">&nbsp;评论</a></li>
-										<li th:if=" ${dynamic.actType == '1'} && {dynamic.isClick == '0'}"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;点赞</li>
-										<li th:if=" ${dynamic.actType == '1'} && {dynamic.isClick == '1'}"  ><img src="images/gongyitubiao_19.png" alt="" >&nbsp;点赞</li>
-										<li th:if=" ${dynamic.actType == '1'} && {dynamic.isClick == '2'}"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 0}"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 1}"  ><img src="images/gongyitubiao_19.png" alt="" >&nbsp;点赞</li>
+										<li th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 2}"  th:onclick="'log()'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;点赞</li>
 									
 									</ul>
 								</div>
@@ -136,7 +138,8 @@
 								</div>
 								<div class="pinglun">
 									<ul>
-										<li th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img src="images/sc.png" alt="" >&nbsp;收藏</li>
+										<li th:if="${dynamic.collectStatus} eq '1'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/pc/images/gongyitubiao_03.jpg}" alt="" >&nbsp;收藏</li>
+										<li th:if="${dynamic.collectStatus} eq '2'" ><img th:src="@{/pc/images/gongyitubiao_16.jpg}" alt="" >&nbsp;收藏</li>
 										<li th:onclick="'share('+${dynamic.newsId}+',2, 2)'" style="cursor:pointer"><img src="images/zhuanfa.jpg" alt="">&nbsp;转发</li>    
 									</ul>
 								</div>
@@ -167,7 +170,7 @@
 										
 										<li th:if=" ${dynamic.isClick} eq '0'" th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
 										<li th:if=" ${dynamic.isClick} eq '1'" ><img src="images/gongyitubiao_19.png" alt="" >&nbsp;赞</li>
-										<li th:if=" ${dynamic.isClick} eq '2'" th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
+										<li th:if=" ${dynamic.isClick} eq '2'" th:onclick="'log()'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
 									</ul>
 								</div>
 							</div>
@@ -235,7 +238,6 @@
             },
             success : function(result) {
             	if (result.code == 0) {
-					$("#like1").attr("src","/pc/images/listzz_04.jpg");
 					history.go(0);
 				} else if(result.code == 2){
 					alert(data.msg);
@@ -286,5 +288,9 @@
             	}
             }
         });
+	}
+	
+	function log() {
+		parent.layer.msg("请先登录，再操作");
 	}
 </script>
