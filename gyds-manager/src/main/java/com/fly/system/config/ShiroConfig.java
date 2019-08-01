@@ -97,6 +97,7 @@ public class ShiroConfig {
          */
         filterChainDefinitionMap.put("/login","anon");
         filterChainDefinitionMap.put("/wx/**","anon");
+        filterChainDefinitionMap.put("/notify/**","anon");
         filterChainDefinitionMap.put("/admin","anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/pc/**", "anon");

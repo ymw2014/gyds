@@ -52,7 +52,15 @@ spring:
           # 连接池最大阻塞等待时间（使用负值表示没有限制）
           max-wait: -1
       database: 6
+
+  
+wechat:
+  open:
+    componentAppId: wx8f042090d19f8ee0
+    componentSecret: 5d77193a6f39799d6892d94bcd7e3471
+    componentToken: wangyanke
+    componentAesKey: 
 wx:
-  appid: wx77dfab0ba32b06ea
-  secret: 0f23e16494e0701e4f16ed153d27cb7d
-  backUrl: http://mlbdenet.nat300.top/auth/callback      
+  appid: wx56c5f184879412f4
+  secret: f579870d16cc2fc222ff2b20963be73a
+  backUrl: http://mlbdenet.nat300.top/auth/callback           
