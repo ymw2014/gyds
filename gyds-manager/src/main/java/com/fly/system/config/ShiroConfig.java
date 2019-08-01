@@ -102,7 +102,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/pc/**", "anon");
         filterChainDefinitionMap.put("/mobile/**", "anon");
+        filterChainDefinitionMap.put("/eleditor/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/**/*.js", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("**/img/**", "anon");

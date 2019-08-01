@@ -285,7 +285,7 @@ public class BaseDynamicController {
 			order.setExpIncType(Integer.valueOf(params.get("expIncType").toString()));
 		}
 		if(params.get("price")!=null) {
-			order.setPrice((BigDecimal)params.get("price"));
+			order.setPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())) );
 		}
 		if(params.get("examineStatus")!=null) {
 			order.setExamineStatus(Integer.valueOf(params.get("examineStatus").toString()));

@@ -19,6 +19,8 @@ import com.fly.signin.domain.SigninDO;
 import com.fly.signin.service.SigninService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.R;
+import com.fly.volunteer.domain.VolunteerDO;
+import com.fly.volunteer.service.VolunteerService;
 
 @Controller
 @RequestMapping("/pc/checkin/")
@@ -26,6 +28,8 @@ public class CheckinController {
 
 	@Autowired
 	private SigninService signinService;
+	@Autowired
+	private VolunteerService volunteerService;
 	
 	@RequestMapping("show")
 	public String show() {
@@ -68,8 +72,15 @@ public class CheckinController {
 	@ResponseBody
 	@RequestMapping("/do")
 	public R signin(SigninDO signinDo) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		UserDO user = ShiroUtils.getUser();
-		signinDo.setVoId(user.getUserId());//现在测试，用用户id
+		params.put("userId", user.getUserId());
+		params.put("auditStatus", 1);
+		List<VolunteerDO> volList = volunteerService.list(params);
+		if (CollectionUtils.isEmpty(volList)) {
+			return R.error("您还不是志愿者，请先申请为志愿者");
+		}
+		signinDo.setVoId(Long.valueOf(volList.get(0).getId()));
 		if (signinService.save(signinDo) > 0) {
 			return R.ok();
 		}

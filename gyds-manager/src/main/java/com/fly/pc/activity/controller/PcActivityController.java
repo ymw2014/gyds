@@ -155,6 +155,7 @@ public class PcActivityController extends BaseDynamicController{
 		
 		params.clear();
 		params.put("userId", user.getUserId());
+		params.put("auditStatus", 1);
 		List<VolunteerDO> list2 = volunteerService.list(params);
 		if (CollectionUtils.isEmpty(list2)) {//不是志愿者
 			model.addAttribute("applyStatus", applyStatus);
@@ -199,8 +200,6 @@ public class PcActivityController extends BaseDynamicController{
 			return dataInfo.toString();
 		}
 		
-		params.clear();
-		params.put("userId", user.getUserId());
 		boolean flag = volunteerService.isVo(user.getUserId());
 		VolunteerDO vo = volunteerService.getVo(user.getUserId());//获取志愿者信息
 		if (!flag) {

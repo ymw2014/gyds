@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/huodong.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/new_file.css}">
+	</head>
+	<body>
+		<div class="header_txt">
+			<div class="headerleft">
+				<img src="images/qianwnag.png" alt="">
+			</div>
+			<div class="headercent">志愿者展示</div>
+			<!-- <div class="headerright">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+			</div -->>
+		</div>
+		<div class="header_nav">
+			<div>
+				<select id="type">
+					<option value="0">男</option>
+					<option value="1">女</option>
+				</select>
+			</div>
+			<!-- <div>活动状态</div>
+			<div>地区</div> -->
+		</div>
+		<div class="tuandui">
+			<div class="tuandui2" id="zyzhti">
+				<figure th:each="volunt : ${voluntList}">
+					<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
+					<figcaption th:text="${volunt.volunteerName}"></figcaption>
+				</figure>
+			</div>
+		</div>
+		<!-- <div class="box-nr">
+		   <button>加载更多</button>
+		</div> -->
+		<div class="footer">
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+			<ul>
+				<h4>关于我们</h4>
+				<li><a href="#">关于我们1</a></li>
+				<li><a href="#">关于我们2</a></li>
+				<li><a href="#">关于我们3</a></li>
+				<li><a href="#">关于我们4</a></li>
+			</ul>
+		</div>
+		<!-- 备案 -->
+		<div class="beian">
+			<div class="beian1">
+				<span>京ICP备12048184号</span>
+				<span>技术支持：景安网络</span>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script>
+$(function () {
+	$("#type").change(function(){
+		 $.ajax({
+	           type : "POST",
+	           dataType: "json",
+	           url : "/pc/volunteerList/query",
+	           data : {
+	           	'sex': $(this).val()
+	           	
+	           },
+	           success : function(result) {
+	           	var voluntList = result.voluntList;
+	           	$("#zyzhti").html('');
+	           	var html = info(voluntList);
+	           	$("#zyzhti").append(html);
+	           },
+	       });
+	});
+})
+
+function info(value) {
+	var html = '';
+	$.each(value, function (n, value) {
+		html += '<figure>' + 
+					'<a href=""><img src=" ' + value.headImg + '" alt=""></a>' +
+			    		'<figcaption>' + value.volunteerName + '</figcaption>' +
+				'</figure>';
+	})
+	return html;
+}
+
+</script>

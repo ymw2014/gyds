@@ -11,6 +11,7 @@
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/lunbo.css}">
 		<link rel="stylesheet" th:href="@{/mobile/dist/idangerous.swiper.css}">
+		<script src="../pc/js/common.js"></script>
 	</head>
 	<body> 
 		<header>
@@ -23,8 +24,14 @@
 					<option th:each="area: ${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
 				</datalist>
 			</div>
-			<div class="header-loginimg">
-				<img src="images/mylogin.jpg" alt="">
+			<div class="header-loginimg" id="no_login" style="display: none">
+				<a href="/admin"><img th:src="@{/mobile/images/mylogin.jpg}" alt=""></a>
+			</div>
+			<div class="header-loginimg" id="login_ok" style="display: none">
+					<a href="/pc/persion_main"><img id="headImg" style="width: 100%; height: auto;" src="" alt=""></a>
+				<div class="loginname">
+					<p id="userName"></p>
+				</div>
 			</div>
 		</header>
 		<div class="nav">
@@ -94,7 +101,7 @@
 		<!-- 活动报名 -->
 		<div class="baoming">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>活动报名<span><a href="#"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
+				<i></i>活动报名<span><a href="/pc/activityList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
@@ -114,7 +121,7 @@
 		</div>
 		<div class="zhiyuan">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>志愿者<span><a href="#"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
+				<i></i>志愿者<span><a href="/pc/volunteerList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
@@ -129,7 +136,7 @@
 		</div>
 		<div class="tuandui index_td">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>志愿者<span><a href="#"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
+				<i></i>团队<span><a href="/pc/teamList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="tuanduiCen" >
 				<figure th:each="team: ${teamList}">

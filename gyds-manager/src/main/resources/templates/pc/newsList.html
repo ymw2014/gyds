@@ -49,9 +49,9 @@
 							 </div> 
 						</p>
 						<p style="float:right;">
-							<img th:src="@{/pc/images/list_12.jpg}" alt=""><span th:text="${info.criticismOfCount}"></span>
-							<img th:src="@{/pc/images/list03.jpg}" alt="" style="width: 19px;height: 22px;"><span th:text="${info.numberOfLikes}"></span>
-							<img th:src="@{/pc/images/list06.jpg}" alt=""><span th:text="${info.numberOfShares}"></span>
+							<a th:href="@{/pc/news/info(id=${info.id})}"><img th:src="@{/pc/images/list_12.jpg}" alt=""><span th:text="${info.criticismOfCount}"></span></a>
+							<a th:href="@{/pc/news/info(id=${info.id})}"><img th:src="@{/pc/images/list03.jpg}" alt="" style="width: 19px;height: 22px;"><span th:text="${info.numberOfLikes}"></span></a>
+							<a th:href="@{/pc/news/info(id=${info.id})}"><img th:src="@{/pc/images/list06.jpg}" alt=""><span th:text="${info.numberOfShares}"></span></a>
 						</p>
 					</div>
 				</div>

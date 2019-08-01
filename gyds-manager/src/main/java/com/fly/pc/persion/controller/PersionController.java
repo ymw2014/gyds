@@ -268,11 +268,15 @@ public class PersionController extends BaseController{
 	public String newsAdd(Model model) {
 		return "pc/news_add";
 	}
-	
+	@RequestMapping("/pc/new/message")
+	public String message(Model model) {
+		model.addAttribute("message",  "您已提交成功!");
+		return "pc/message";
+	}
 	
 	@ResponseBody
 	@RequestMapping("/pc/newSave")
-	public R newSave(InfoDO newInfo) {
+	public R newSave(InfoDO newInfo,Model model) {
 		UserDO user = getUser();
 		Map<String, Object> map=new HashMap<>();
 		map.put("userId", user.getUserId());
@@ -290,7 +294,10 @@ public class PersionController extends BaseController{
 		newInfo.setCreateTime(new Date());
 		newInfo.setTeamId(voList.get(0).getTeamId());
 		if(infoService.save(newInfo)>0) {
-			return R.ok();
+			R r = new R();
+			r.put("code", 0);
+			r.put("url", "/pc/new/message");
+			return r;
 		}
 		return R.error();
 		
