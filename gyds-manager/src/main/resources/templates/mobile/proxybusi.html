@@ -113,7 +113,12 @@
 			</div>
 		</div>
 		<div class="biaotiyy">
-			<form action="" method="" >
+			<form action="" method=""  id="signupForm">
+					<input type="hidden"  th:value="${user.userId}" name="userId"> 
+					<input type="hidden"  th:value="${proxybusiDO.id}" name="id">
+					<input type="hidden"  th:value="${setupDO.cityBail}" id="ct">
+					<input type="hidden"  th:value="${setupDO.areaBail}" id="ar">
+					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
 				<label>
 					<span>真实姓名</span>
 					<input type="text"  th:value="${user.name}" readonly="readonly">
@@ -130,11 +135,17 @@
 					<span>电话</span>
 					<input type="text" value="" name="proxyTelephone">
 				</label>
+				<label style="font-size: 30px">
+						<span>代理级别</span>
+						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;" type="radio" value="1" name="regionLevel" checked="checked"/>省
+						<input style="float: none; width: 30px; margin-top: 40px; font-size: 30px;"  type="radio" value="2" name="regionLevel" />市
+						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;" type="radio" value="3" name="regionLevel" />县
+					</label>
 				<label>
 					<span>联系地址</span>
 					<div>
                        <div class="content-block">
-					   <input type="text" value=""  id="demo1" class="zfsdf">
+					   <input type="text" value=""  id="demo1" class="zfsdf" name="aa">
 					   <input id="value1" type="hidden" value="20,234,504" style="display:none;"/>
 					   </div>
 					</div>
