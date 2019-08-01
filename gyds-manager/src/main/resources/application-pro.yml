@@ -55,4 +55,11 @@ spring:
 wx:
   appid: wx77dfab0ba32b06ea
   secret: 0f23e16494e0701e4f16ed153d27cb7d
-  backUrl: http://mlbdenet.nat300.top/auth/callback      
+  backUrl: http://mlbdenet.nat300.top/auth/callback
+  
+wechat:
+  open:
+    componentAppId: "wx8f042090d19f8ee0"
+    componentSecret: "755d16e3110aa06a3dd34d2f5c597ce2"
+    componentToken: ""
+    componentAesKey: ""      
