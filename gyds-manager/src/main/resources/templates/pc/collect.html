@@ -20,11 +20,11 @@
 							<img src="images/mytdlogo.jpg" alt="">
 						</div>
 						<div class="yy-mytd2">
-							<h4>郑州志愿者联盟</h4>
+							<h4 th:text="${team.team_name}">郑州志愿者联盟</h4>
 							<div>
 								<ul>
 									<li>团队类型<span th:text="${team.type_name}"></span></li>
-									<li>所在地区<span>河南省郑州市</span></li>
+									<li>所在地区<span th:text="${team.region_name}">河南省郑州市</span></li>
 									<li>志愿者总数 <span th:text="${team.v_renshu}"></span></li>
 									<li>发布活动 <span th:text="${team.act_count}"></span></li>
 									<li>发布咨询 <span th:text="${team.new_count}"></span></li>
@@ -39,7 +39,7 @@
 					<div class="yy-gz1" style="padding-top: 30px;" th:each="act: ${actList}">
 							<img src="images/aaa4.jpg" alt="">
 							<p th:text="${act.act_title}"></p>
-							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd hh:MM:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd hh:MM:ss')}"></span></div>
+							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd HH:mm:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
 							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count+'人报名'}"></span>
 							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 0}">取消报名</a>
 							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 1}">已报名</a>

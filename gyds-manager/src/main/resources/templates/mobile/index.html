@@ -11,6 +11,7 @@
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/lunbo.css}">
 		<link rel="stylesheet" th:href="@{/mobile/dist/idangerous.swiper.css}">
+		<script src="../pc/js/common.js"></script>
 	</head>
 	<body> 
 		<header>
@@ -23,8 +24,14 @@
 					<option th:each="area: ${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
 				</datalist>
 			</div>
-			<div class="header-loginimg">
-				<a href=""><img th:src="@{/mobile/images/mylogin.jpg}" alt=""></a>
+			<div class="header-loginimg" id="no_login" style="display: none">
+				<a href="/admin"><img th:src="@{/mobile/images/mylogin.jpg}" alt=""></a>
+			</div>
+			<div class="header-loginimg" id="login_ok" style="display: none">
+					<a href="/pc/persion_main"><img id="headImg" style="width: 100%; height: auto;" src="" alt=""></a>
+				<div class="loginname">
+					<p id="userName"></p>
+				</div>
 			</div>
 		</header>
 		<div class="nav">
