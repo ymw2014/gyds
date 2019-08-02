@@ -91,15 +91,17 @@
 					</label>
 					<label>
 						<span>代理级别</span>
-						<input type="text"  th:value="${proxybusiDO.regionLevel}" readonly="readonly">
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '1'" value="省" readonly="readonly">
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '2'" value="市" readonly="readonly">
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '3'" value="区/县" readonly="readonly">
 					</label>
-					<label>
+					<!-- <label>
 						<span>代理地区</span>
 						<input type="text"  th:value="${proxybusiDO.regionLevel}" readonly="readonly">
-					</label>
+					</label> -->
 					<label>
 						<span>代理详细地址</span>
-						<input type="text" th:value="${proxybusiDO.proxyAddr}">
+						<input type="text" th:value="${proxybusiDO.proxyAddr}" readonly="readonly">
 					</label>
 				</form>
 			</div>

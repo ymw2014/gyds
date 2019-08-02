@@ -78,7 +78,8 @@ public class PcProxybusiController extends BaseDynamicController{
 		
 		Integer status = list.get(0).getAuditStatus();
 		if (status == 0) {//0:申请中
-			return "pc/proxybusiMessage";
+			model.addAttribute("message", "如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！");
+			return "pc/message";
 		}
 		
 		
@@ -111,12 +112,17 @@ public class PcProxybusiController extends BaseDynamicController{
 	@ResponseBody
 	@Transactional
 	@RequestMapping("/save")
-	public synchronized R save(ProxybusiDO proxybusiDO, String pronvice, String city, String country,String aaa, String bbb) {
+	public synchronized R save(ProxybusiDO proxybusiDO, String pronvice, String city, String country, String client, String proxyArea) {
 		SetupDO setupDO = setupService.get(1);
 		UserDO user = ShiroUtils.getUser();
 		BigDecimal account = user.getAccount();
 		if (account == null) {
 			return R.error("账号余额不足，请充值");
+		}
+		
+		String[] area = null;
+		if (!StringUtils.isEmpty(client)) {
+			area = proxyArea.split(",");
 		}
 		proxybusiDO.setCreateTime(new Date());
 		proxybusiDO.setAuditStatus(0);
@@ -131,7 +137,8 @@ public class PcProxybusiController extends BaseDynamicController{
 			}
 			params.put("price", bail);
 			balance = account.subtract(bail);
-			proxybusiDO.setProxyRegion(Integer.valueOf(pronvice));
+			String pron = area != null ? area[0] : pronvice;
+			proxybusiDO.setProxyRegion(Integer.valueOf(pron));
 			break;
 		case 2:
 			BigDecimal cityBail = setupDO.getCityBail();
@@ -140,7 +147,8 @@ public class PcProxybusiController extends BaseDynamicController{
 			}
 			params.put("price", cityBail);
 			balance = account.subtract(cityBail);
-			proxybusiDO.setProxyRegion(Integer.valueOf(city));
+			String cit = area != null ? area[1] : city;
+			proxybusiDO.setProxyRegion(Integer.valueOf(cit));
 			break;
 		case 3:
 			BigDecimal areaBail = setupDO.getAreaBail();
@@ -149,7 +157,8 @@ public class PcProxybusiController extends BaseDynamicController{
 			}
 			params.put("price", areaBail);
 			balance = account.subtract(areaBail);
-			proxybusiDO.setProxyRegion(Integer.valueOf(country));
+			String coun = area != null ? area[2] : country;
+			proxybusiDO.setProxyRegion(Integer.valueOf(coun));
 			break;
 		default:
 			break;
