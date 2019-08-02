@@ -15,8 +15,8 @@
 	display: none;
 }
 </style>
-
-<head th:replace="pc/include :: head"></head></head>
+<head th:replace="pc/include :: head"></head>
+</head>
 
 <body>
 	<!-- 头部 -->
@@ -28,11 +28,13 @@
 		</div>
 		<form action="" method="" class="biaodanyy biaodanyy1" id="signupForm">
 			<label> <span>团队名称</span> <input type="text" name="teamName">
-			</label> <label> <span>团队负责人</span> <input type="text" name="colonelName">
-			</label> <label> <span>负责人电话</span> <input type="text" name="colonelTel">
+			</label> <label> <span>团队负责人</span> <input type="text"
+				name="colonelName">
+			</label> <label> <span>负责人电话</span> <input type="text"
+				name="colonelTel">
 			</label> <label> <span>联系地址</span> <select class="juzhu" id="pro"
 				onchange="byPro()">
-				<option value="">省</option>
+					<option value="">省</option>
 					<option th:each="area:${areaList}" th:value="${area.regionCode}"
 						th:text="${area.regionName}"></option>
 			</select> <select class="juzhu" id="city" onchange="byCity()">
@@ -42,41 +44,41 @@
 			</select>
 			</label> <label id="logo"> <span>团队logo</span> <img
 				th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo"
-				id="img" style="height: 65px; width: 65px"> <input type="hidden" name="teamTitleImg" id="imgStr"> 
-				<input type="file"
-				class="tuanduilogo" id="img" name="file" style="display: none;">
-			</label> 
+				id="img" style="height: 65px; width: 65px"> <input
+				type="hidden" name="teamTitleImg" id="imgStr"> <input
+				type="file" class="tuanduilogo" id="img" name="file"
+				style="display: none;">
+			</label>
 			<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
-					<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
-					<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
-					<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+			<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
+			<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
+			<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
 			<label> <span id="demo2">团队照片</span>
 				<div style="display: inline;">
-				<div id="imgsbox_imgs" style="display: inline;" class="imgsbox tdlogo1">
-				</div>
-				<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1"
+					<div id="imgsbox_imgs" style="display: inline;"
+						class="imgsbox tdlogo1"></div>
+					<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1"
 						style="height: 65px; width: 65px" id="img0"> <input
-						type="hidden" id="imgStr0" name="teamImg">
-				<input type="file" class="tuanduilogo1" id="imgUpload_imgs" name="file"
-				style="display: none;" multiple>
-				<span id="progress_imgs"></span> 
+						type="hidden" id="imgStr0" name="teamImg"> <input
+						type="file" class="tuanduilogo1" id="imgUpload_imgs" name="file"
+						style="display: none;" multiple> <span id="progress_imgs"></span>
 				</div>
-				
-				
-				
-			</label>
 
-			<label> <span>团队简介</span> <textarea name="teamIntroduce" id="" cols="30"
-					rows="10">
+
+
+			</label> <label> <span>团队简介</span> <textarea name="teamIntroduce"
+					id="" cols="30" rows="10">
 							 
 						 </textarea>
-			</label> <label> <span>项目服务</span> <select class="xmfw" name="teamType">
+			</label> <label> <span>项目服务</span> <select class="xmfw"
+				name="teamType">
 					<option th:each="type:${type}" th:value="${type.id}"
 						th:text="${type.typeName}"></option>
 			</select>
-			</label> <label> <input type="button" id="save" onclick="save()" value="提交"
+			</label> <label> <input type="button" id="save" onclick="save()"
+				value="提交"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 30px; border-radius: 3px;">
-			</label> 
+			</label>
 		</form>
 	</div>
 	</div>
