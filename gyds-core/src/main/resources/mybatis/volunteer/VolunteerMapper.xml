@@ -4,21 +4,21 @@
 <mapper namespace="com.fly.volunteer.dao.VolunteerDao">
 
 	<select id="get" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select v.id,v.`volunteer_name`,v.user_id, t.team_name teamName,head_img,
-		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
-		`card_no`,`shares_number`,`comment_number`,`click_number`,
-		audit_status,
-		`act_number`,`level`,`province`,`city`,`county`,`regionCode` ,v.remark,v.introduction
+		select v.id,v.`volunteer_name`,v.user_id, t.team_name teamName,v.head_img,
+		v.`address`,v.`telephone`,v.`sex`,v.`age`,v.`volunteer_number`,
+		v.`card_no`,v.`shares_number`,v.`comment_number`,v.`click_number`,
+		v.audit_status,
+		v.`act_number`,v.`level`,v.`province`,v.`city`,v.`county`,v.`regionCode` ,v.remark,v.introduction
 		from volunteer v
 		left join team t on v.team_id = t.id where v.id = #{value}
 	</select>
 	
 	<select id="list" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select v.id,`volunteer_name`,v.user_id, t.team_name teamName,head_img,
-		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
-		`card_no`,`shares_number`,`comment_number`,`click_number`,
-		`act_number`,`level`,`province`,`city`,`county`,`regionCode`,
-		audit_status,
+		select v.id,`volunteer_name`,v.user_id, t.team_name teamName,v.head_img,
+		v.`address`,v.`telephone`,v.`sex`,v.`age`,v.`volunteer_number`,
+		v.`card_no`,v.`shares_number`,v.`comment_number`,v.`click_number`,
+		v.`act_number`,v.`level`,v.`province`,v.`city`,v.`county`,v.`regionCode`,
+		v.audit_status,
 		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime,v.remark,v.introduction
 		from volunteer v
 		left join team t on v.team_id = t.id

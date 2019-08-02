@@ -4,21 +4,21 @@
 <mapper namespace="com.fly.member.dao.MemberDao">
 
 	<select id="get" resultType="com.fly.member.domain.MemberDO">
-		select m.`id`,`name`,`sex`,`head_img`,`age`,m.`address`,`telephone`,`login_no`,`password`,`team_id`,
-		`account`,`red_envelope_income`,`platform_integral`,`county`,`city`,`regionCode`,`province`,
-		`is_identification`, t.team_name team_name from member m
+		select m.`id`,m.`name`,m.`sex`,m.`head_img`,m.`age`,m.`address`,m.`telephone`,m.`login_no`,m.`password`,m.`team_id`,
+		m.`account`,m.`red_envelope_income`,m.`platform_integral`,m.`county`,`city`,m.`regionCode`,m.`province`,
+		m.`is_identification`, t.team_name team_name from member m
 		left join team t on m.team_id = t.id where m.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.member.domain.MemberDO">
-		select m.`id`,`name`,`sex`,`head_img`,`age`,m.`address`,`telephone`,`login_no`,`password`,`team_id`,
-		`account`,`red_envelope_income`,`platform_integral`,`county`,`city`,`regionCode`,`province`,
-		`is_identification`, t.team_name team_name from member m
+		select m.`id`,m.`name`,m.`sex`,m.`head_img`,m.`age`,m.`address`,m.`telephone`,m.`login_no`,m.`password`,m.`team_id`,
+		m.`account`,m.`red_envelope_income`,m.`platform_integral`,m.`county`,m.`city`,m.`regionCode`,m.`province`,
+		m.`is_identification`, t.team_name team_name from member m
 		left join team t on m.team_id = t.id
         <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="name != null and name != ''"> and name like  CONCAT('%',CONCAT(#{name},'%')) </if>
-		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="id != null and id != ''"> and m.id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and m.name like  CONCAT('%',CONCAT(#{name},'%')) </if>
+		  		  <if test="sex != null and sex != ''"> and m.sex = #{sex} </if>
 		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
 		  		  <if test="age != null and age != ''"> and age = #{age} </if>
 		  		  <if test="address != null and address != ''"> and address = #{address} </if>

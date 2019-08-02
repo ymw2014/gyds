@@ -47,7 +47,7 @@
 			}
 			.biaotiyy input{
 				line-height: 92px;
-			    width: 375px;
+			    width: 436px;
 			    display: inline-block;
 			    float: left;
 			    border: none;
@@ -104,12 +104,6 @@
 				 background-position:right;
 				 background-size:24px 15px;
 			}
-			.tijiaohou{
-				width: 80%;
-				text-align: left;
-				float: right;
-				margin-top:30px;
-			}
 		</style>
 	</head>
 	<body>
@@ -137,50 +131,27 @@
 				</label>
 				<label>
 					<span>代理商名称</span>
-					<input type="text" id="name"  name="name">
+					<input type="text"  th:value="${proxybusiDO.name}" readonly="readonly">
 				</label>
 				<label>
 					<span>代理电话</span>
-					<input type="text" value="" name="proxyTelephone">
+					<input type="text"  th:value="${proxybusiDO.proxyTelephone}" readonly="readonly">
 				</label>
 				<label style="font-size: 30px">
 						<span>代理级别</span>
-						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;" type="radio" value="1" name="regionLevel" checked="checked"/>省
-						<input style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;"  type="radio" value="2" name="regionLevel" />市
-						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;" type="radio" value="3" name="regionLevel" />县
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '1'" value="省" readonly="readonly">
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '2'" value="市" readonly="readonly">
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '3'" value="区/县" readonly="readonly">
 				</label>
-				<label>
-						<span style="color:red">代理保证金</span>
-						<input type="text" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
-					</label>
-				<label>
+				<!-- <label>
 					<span>代理地区</span>
-					<div>
-                       <div class="content-block">
-					   <input type="text" value=""  id="demo1" class="zfsdf" name="address">
-					   <input id="value1" type="hidden" value="20,234,504" style="display:none;" name="proxyArea"/>
-					   </div>
-					</div>
-				</label>
+					<input type="text"  th:value="${proxybusiDO.regionLevel}" readonly="readonly">
+				</label> -->
 			   <label>
 			   	<span>代理地址</span>
-			   	<div>
-			       <div class="content-block">
-			   	    <input type="text" value=""  class="zfsdf" name="proxyAddr">
-			   	   <!--  <input id="valfue2" type="hidden" value="20,234,504" style="display:none;"/> -->
-			   	   </div>
-			   	</div>
+			   	<input type="text" th:value="${proxybusiDO.proxyAddr}" readonly="readonly">
 			   </label>
-			   <div class="tijiao">
-				   <input type="submit" value="提交申请">
-			   </div>
 			</form>
-			<div style="background:#fff;display: none"  id="info">
-					<div class="tijiaohou">
-						<img th:src="@{/pc/images/hsusus_03.jpg}" alt="">
-						<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
-					</div>
-			</div>
 		</div>
 	</body>
 </html>
@@ -206,8 +177,6 @@
 	})
     var area1 = new LArea();
    /*  area1.init({
-    /* var area1 = new LArea();
-    area1.init({
         'trigger': '#demo1', 
         'valueTo': '#value1', 
         'keys': {
@@ -231,7 +200,7 @@
     });
     </script>
 	<script>
-	    /* var area1 = new LArea();
+	    var area1 = new LArea();
 	    area1.init({
 	        'trigger': '#demfo2', 
 	        'valueTo': '#valfue2', 
@@ -239,10 +208,10 @@
 	            id: 'id',
 	            name: 'name'
 	        }, 
-	        'type': 2, 
+	        'type': 1, 
 	        'data': LAreaData
 	    });
-	    area1.value=[1,13,3]; */
+	    area1.value=[1,13,3];
 	    var area2 = new LArea();
 	    area2.init({
 	        'trigger': '#demo2',
@@ -309,7 +278,7 @@ function validateRule() {
 			regionLevel:{
 				required : true
 			},
-			address:{
+			proxyArea:{
 				required : true
 			}
 			
@@ -332,7 +301,7 @@ function validateRule() {
 			regionLevel:{
 				required : "<span style='color:red;margin-left:10px;'>请选择代理级别</span>"
 			},
-			address:{
+			proxyArea:{
 				required : "<span style='color:red;margin-left:10px;'>代理地区为空</span>"
 			}
 		},

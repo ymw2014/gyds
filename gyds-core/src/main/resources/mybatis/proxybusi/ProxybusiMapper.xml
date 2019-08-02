@@ -8,8 +8,8 @@
 	</select>
 
 	<select id="list" resultType="com.fly.proxybusi.domain.ProxybusiDO">
-		select p.`id`,p.`name`,p.`status`,`level`,`audit_status`,`region_level`,p.`user_id`, proxy_addr,
-		`audit_result`,`audit_opinion`, proxy_telephone, proxy_region,
+		select p.`id`,p.`name`,p.`status`,p.`level`,p.`audit_status`,p.`region_level`,p.`user_id`, p.proxy_addr,
+		p.`audit_result`,p.`audit_opinion`, p.proxy_telephone, p.proxy_region,
 		u.city,u.district,u.`name` memberName,u.province,
 		DATE_FORMAT(audit_time,'%Y-%m-%d %H:%i:%s') auditTime,
 		DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') createTime
