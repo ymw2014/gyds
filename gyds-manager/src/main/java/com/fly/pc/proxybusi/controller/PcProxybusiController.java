@@ -111,7 +111,7 @@ public class PcProxybusiController extends BaseDynamicController{
 	@ResponseBody
 	@Transactional
 	@RequestMapping("/save")
-	public synchronized R save(ProxybusiDO proxybusiDO, String pronvice, String city, String country,String aa) {
+	public synchronized R save(ProxybusiDO proxybusiDO, String pronvice, String city, String country,String aaa, String bbb) {
 		SetupDO setupDO = setupService.get(1);
 		UserDO user = ShiroUtils.getUser();
 		BigDecimal account = user.getAccount();

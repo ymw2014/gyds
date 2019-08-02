@@ -14,7 +14,7 @@
 		<div style="width: 1200px;margin:0 auto;line-height:70px; font-size:14px;color:#aaaaaa;">您所在的位置：首页>团队展示</div>
 		<div class="team">
 			<figure th:each="team : ${teamList}">
-				<a href="/pc/teamDetail"><img th:src="${team.teamTitleImg}" alt=""></a>
+				<a th:href="'/pc/teamDetail?teamId=' + ${team.id}"><img th:src="${team.teamTitleImg}" alt=""></a>
 				<figcaption th:text="${team.teamName}"></figcaption>
 			</figure>
 		</div>
