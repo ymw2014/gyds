@@ -153,18 +153,15 @@ public class PcActivityController extends BaseDynamicController{
 			model.addAttribute("collectStatus", 2);//已收藏
 		}
 		
-		params.clear();
-		params.put("userId", user.getUserId());
-		params.put("auditStatus", 1);
-		List<VolunteerDO> list2 = volunteerService.list(params);
-		if (CollectionUtils.isEmpty(list2)) {//不是志愿者
+		boolean flag = volunteerService.isVo(user.getUserId());
+		if (!flag) {//不是志愿者
 			model.addAttribute("applyStatus", applyStatus);
 			return "pc/activityJoin";
 		}
-		
+		VolunteerDO vo = volunteerService.getVo(user.getUserId());
 		params.clear();
 		params.put("actId", id);
-		params.put("zyzId", list2.get(0).getId());
+		params.put("zyzId", vo.getId());
 		List<ApplyDO> ApplyDO = applyService.list(params);
 		if (CollectionUtils.isEmpty(ApplyDO)) {//还没有报名
 			model.addAttribute("applyStatus", applyStatus);
@@ -173,9 +170,6 @@ public class PcActivityController extends BaseDynamicController{
 		
 		//1:审核通过 2:审核拒绝0:待审核
 		applyStatus = ApplyDO.get(0).getStatus();
-		
-		
-		
 		model.addAttribute("applyId", ApplyDO.get(0).getId());
 		model.addAttribute("applyStatus", applyStatus);
 		return "pc/activityJoin";
@@ -192,7 +186,6 @@ public class PcActivityController extends BaseDynamicController{
 	@Transactional
 	@RequestMapping("activity/apply")
 	public String apply(Integer type, Long actId, Long applyId) {
-		Map<String, Object> params = new HashMap<String, Object>();
 		JSONObject dataInfo = new JSONObject();
 		UserDO user = ShiroUtils.getUser();
 		if (user == null) {

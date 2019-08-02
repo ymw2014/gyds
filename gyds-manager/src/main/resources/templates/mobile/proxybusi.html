@@ -47,7 +47,7 @@
 			}
 			.biaotiyy input{
 				line-height: 92px;
-			    width: 436px;
+			    width: 375px;
 			    display: inline-block;
 			    float: left;
 			    border: none;
@@ -146,8 +146,8 @@
 				<label style="font-size: 30px">
 						<span>代理级别</span>
 						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;" type="radio" value="1" name="regionLevel" checked="checked"/>省
-						<input style="float: none; width: 30px; margin-top: 40px; font-size: 30px;"  type="radio" value="2" name="regionLevel" />市
-						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;" type="radio" value="3" name="regionLevel" />县
+						<input style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;"  type="radio" value="2" name="regionLevel" />市
+						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;" type="radio" value="3" name="regionLevel" />县
 				</label>
 				<label>
 						<span style="color:red">代理保证金</span>
@@ -157,7 +157,7 @@
 					<span>代理地区</span>
 					<div>
                        <div class="content-block">
-					   <input type="text" value=""  id="demo1" class="zfsdf" >
+					   <input type="text" value=""  id="demo1" class="zfsdf" name="address">
 					   <input id="value1" type="hidden" value="20,234,504" style="display:none;" name="proxyArea"/>
 					   </div>
 					</div>
@@ -309,7 +309,7 @@ function validateRule() {
 			regionLevel:{
 				required : true
 			},
-			proxyArea:{
+			address:{
 				required : true
 			}
 			
@@ -332,7 +332,7 @@ function validateRule() {
 			regionLevel:{
 				required : "<span style='color:red;margin-left:10px;'>请选择代理级别</span>"
 			},
-			proxyArea:{
+			address:{
 				required : "<span style='color:red;margin-left:10px;'>代理地区为空</span>"
 			}
 		},

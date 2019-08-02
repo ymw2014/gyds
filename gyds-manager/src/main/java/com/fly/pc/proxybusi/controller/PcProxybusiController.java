@@ -114,10 +114,11 @@ public class PcProxybusiController extends BaseDynamicController{
 	@RequestMapping("/save")
 	public synchronized R save(ProxybusiDO proxybusiDO, String pronvice, String city, String country, String client, String proxyArea) {
 		SetupDO setupDO = setupService.get(1);
+		String errMsg = "账号余额不足，请充值";
 		UserDO user = ShiroUtils.getUser();
 		BigDecimal account = user.getAccount();
 		if (account == null) {
-			return R.error("账号余额不足，请充值");
+			return R.error(errMsg);
 		}
 		
 		String[] area = null;
@@ -133,7 +134,7 @@ public class PcProxybusiController extends BaseDynamicController{
 		case 1:
 			BigDecimal bail = setupDO.getProvincialBail();
 			if (account.compareTo(bail) == -1) {
-				return R.error("账号余额不足，请充值");
+				return R.error(errMsg);
 			}
 			params.put("price", bail);
 			balance = account.subtract(bail);
@@ -143,7 +144,7 @@ public class PcProxybusiController extends BaseDynamicController{
 		case 2:
 			BigDecimal cityBail = setupDO.getCityBail();
 			if (account.compareTo(cityBail) == -1) {
-				return R.error("账号余额不足，请充值");
+				return R.error(errMsg);
 			}
 			params.put("price", cityBail);
 			balance = account.subtract(cityBail);
@@ -153,7 +154,7 @@ public class PcProxybusiController extends BaseDynamicController{
 		case 3:
 			BigDecimal areaBail = setupDO.getAreaBail();
 			if (account.compareTo(areaBail) == -1) {
-				return R.error("账号余额不足，请充值");
+				return R.error(errMsg);
 			}
 			params.put("price", areaBail);
 			balance = account.subtract(areaBail);
