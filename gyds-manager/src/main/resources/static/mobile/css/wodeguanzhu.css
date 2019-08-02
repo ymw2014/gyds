@@ -16,7 +16,7 @@
 	line-height:80px;
 	color:#fff;
 }
-.alendar img{
+.alendar>img{
 	width: 16px;
 	height: 30px;
 	position: absolute;
@@ -32,7 +32,7 @@
 .zidaoh li{
 	float: left;
 	font-size:28px;
-	width: 33%;
+	width: 25%;
 	line-height:60px;
 	text-align: center;
 }

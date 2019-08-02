@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss2.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss3.js}"></script>
+			<head th:replace="mobile/include :: head"></head>
+		
+		
+		<style>
+			.remover{
+				width: 27px;
+				height:30px;
+				position:absolute;
+				right:30px;
+				bottom:7px;
+			}
+			.biaotiyy{
+				width:95%;
+				margin-left:2.5%;
+				margin-top:30px;
+			}
+			.biaotiyy label>span{
+				line-height:92px;
+				width:150px;
+				display:inline-block;
+				float: left;
+				font-size:30px;
+				margin-right:18px;
+				color:#b8b8b8;
+			}
+			.biaotiyy label{
+				display: block;
+				overflow: hidden;
+				border-bottom: 1px solid #f4f4f4;
+			}
+			.biaotiyy input{
+				line-height:92px;
+				width:535px;
+				display:inline-block;
+				float: right;
+				border:none;
+				outline:none;
+				font-size:30px;
+				color:#333;
+			}
+			.fang{
+				float: left;
+				border:1px dashed #bdbdbd;
+				padding: 10px;
+			}
+			.mstp{
+				width: 100%;
+				overflow: hidden;
+				margin:30px 0px;
+			}
+			.mstp>span{
+				line-height: 92px;
+				display: inline-block;
+				float: left;
+				width:150px;
+				font-size: 30px;
+				margin-right: 18px;
+				color: #b8b8b8;
+			}
+			.mstp>div{
+				float: left;
+				/* width:413px; */
+				margin-top:30px;
+			}
+			.mstp>div>div{
+				/* width: 411px; */
+				float: left;
+				margin-right:10px;
+				position: relative;
+			}
+			.mstp>div>div>img{
+				width: 167px;
+				height: 168px; 
+			}
+			.tijiao{
+				width: 100%;
+				height:80px;
+			}
+			.tijiao>input{
+				width: 100%;
+				height:80px;
+			    line-height:80px;
+				background:#ff0000;
+				color:#fff;
+			}
+			.zfsdf{
+				background:(mobile/images/sjxl_03.jpg) no-repeat;
+				 background-position:right;
+				 background-size:24px 15px;
+			}
+			.aad select{
+				width:500px;
+				line-height:92px;
+				height:92px;
+				font-size:30px;
+				border:none;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mygz">
+			<div class="alendar"> 
+				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+				<span>我要建团</span>
+			</div>
+		</div>
+		<div class="biaotiyy">
+			<form action="" method="" id="signupForm">
+				<label>
+					<span>团队名称</span>
+					<input type="text" name="teamName">
+				</label>
+				<label>
+					<span>团队负责人</span>
+					<input type="text" name="colonelName">
+				</label>
+				<label>
+					<span>联系电话</span>
+					<input type="text" name="colonelTel">
+				</label>
+				<label>
+					<span>联系地址</span>
+					<div>
+                       <div class="content-block">
+					   <input type="text" value=""  id="demo1" class="zfsdf">
+					   <input id="value1" type="hidden"  style="display:none;" name="regCode"/>
+					   </div>
+					</div>
+				</label>
+			   <div class="mstp">
+				   <span>团队logo</span>
+				   <div>
+					   <div>
+						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp1" id="img">
+						   
+						   <input type="hidden" name="teamTitleImg" id="imgStr"> 
+						   <input type="file" class="sctp11"  name="file" style="display: none;">
+						   
+					   </div>
+				   </div>
+			   </div>
+			   <div class="mstp">
+				   <span>团队照片</span>
+				   <div>
+					   <div>
+						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp2">
+						   <input type="file" class="sctp22" style="display: none;">
+					   </div>
+					   <div>
+						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp3">
+						   <input type="file" class="sctp33" style="display: none;">
+					   </div>
+					   <div>
+						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp4">
+						   <input type="file" class="sctp44" style="display: none;">
+					   </div>
+				   </div>
+			   </div>
+			   <label class="aad">
+			   	<span style="width: 180px;">团队服务项目</span>
+					<select>
+						<option value ="">我也不知道填啥</option>
+						<option value ="">1</option>
+					</select>
+			   </label>
+			   <div class="tijiao">
+				   <input type="submit" value="立即建团">
+			   </div>
+			</form>
+		</div>
+	</body>
+		
+	<script type="text/javascript">
+	$(".sctp1").click(function(){
+		$(".sctp11").click();
+	})
+	$(".sctp2").click(function(){
+		$(".sctp22").click();
+	})
+	$(".sctp3").click(function(){
+		$(".sctp33").click();
+	})
+	$(".sctp4").click(function(){
+		$(".sctp44").click();
+	})
+   
+    var area2 = new LArea();
+    area2.init({
+        'trigger': '#demo1',
+        'valueTo': '#value1',
+        'keys': {
+            id: 'value',
+            name: 'text'
+        },
+        'type': 2,
+        'data': [provs_data, citys_data, dists_data]
+    });
+    
+    
+    $("#img").click(function (e){
+    	layui.use('upload', function() {
+            var upload = layui.upload;
+            var uploadInst = upload.render({
+                elem : '#img', //绑定元素
+                url : '/common/sysFile/upload', //上传接口
+                size : 1000,
+                accept : 'file',
+                done : function(r) {
+                    var fileName = r.fileName;
+                    $("#imgStr").val(fileName);
+                    $("#img").attr("src",fileName);
+                },
+                error : function(r) {
+                    layer.msg(r.msg);
+                }
+            });
+    	});
+    	});
+    	
+    	function save() {
+    		$.ajax({
+    			type : "POST",
+    			url : "/pc/regTeam/savaTeam",
+    			data : $('#signupForm').serialize(),// 你的formid
+    			error : function(request) {
+    				parent.layer.alert("Connection error");
+    			},
+    			success : function(data) {
+    				if (data.code == 0) {
+    					parent.layer.msg("操作成功");
+    					history.go(0);
+    					
+    				} else {
+    					parent.layer.alert(data.msg)
+    				}
+
+    			}
+    		});
+
+    	};
+    	layui.use('upload', function() {
+    		  var upload = layui.upload;
+    		  var multi = 1;
+    		  var name = "imgs";
+    		  if (multi) {
+    		   name = "imgs";
+    		   $("#imgUpload_imgs").attr('multiple','multiple');
+    		  } else {
+    		   $("#imgUpload_imgs").removeAttr('multiple');
+    		  }
+
+    		  //执行实例
+    		  var uploadInst = upload.render({
+    		   elem : '#imgUpload_imgs', //绑定元素
+    		   url : '/common/sysFile/upload', //上传接口
+    		   size : 1000,
+    		   accept : 'file',
+    		   done : function(r) {
+    		    var fileName = r.fileName;
+    		    var id=r.id;
+    		    var img = '<div class="imgbox">';
+    		    img += '<div class="removePic" onclick="removePic(this,\'/common/sysFile/remove\')">×</div>';
+    		    img += '<input type="hidden" name="'+name+'" value="' + fileName + '">';
+    		    img += '<input type="hidden" name="id" value="' + id + '">';
+    		    img += '<img src="' + fileName + '">';
+    		    img += '</div>';
+    		    if (multi) {
+    		     $("#imgsbox_imgs").append(img);
+    		    } else {
+    		     $("#imgsbox_imgs").html(img);
+    		    }
+    		    
+    		    var imgs="";
+    		    $("#imgsbox_imgs").find("input[name='imgs']").each(function(i,item){
+    		    	if(imgs==''){
+    		    		imgs+=item.value;
+    		    	}else{
+    		    		imgs+=','+item.value;
+    		    	}
+    		    	$('#imgStr0').val(imgs);
+    		    })
+    		   }
+    		  });
+
+    		 });
+    	
+    	$().ready(function() {
+    		$("#save").on('click', function() {
+    			$("#signupForm").submit();
+    		});
+    		validateRule();
+    	});
+
+    	$.validator.setDefaults({
+    		submitHandler : function() {
+    			save();
+    		}
+    	});
+    	function validateRule() {
+    		var icon = "<i class='fa fa-times-circle' ></i> ";
+    		$("#signupForm")
+    				.validate(
+    						{
+    							rules : {
+    								teamName : {
+    									required : true
+    								},
+    								colonelName : {
+    									required : true
+    									
+    								},
+    								colonelTel : {
+    									required : true,
+    									isMobile : true
+    								},
+    								regCode : {
+    									required : true,
+    								},
+    								teamIntroduce : {
+    									required : true
+    								},
+    								teamType : {
+    									required : true
+    								}
+    							},
+    							messages : {
+    								teamName : {
+    									required : "<span style='color:red;margin-left:10px;'>请输入团队名称</span>"
+    								},
+    								colonelName : {
+    									required : "<span style='color:red;margin-left:10px;'>请输入负责人名称</span>"
+    								},
+    								colonelTel : {
+    										required : "<span style='color:red;margin-left:10px;'>请输入负责人手机号</span>",
+    										isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+    								},
+    								regCode : {
+    									required : "<span style='color:red;margin-left:10px;'>请选择联系地址</span>",
+    								},
+    								teamIntroduce : {
+    									required : "<span style='color:red;margin-left:10px;'>请输入团队简介</span>"
+    								},
+    								teamType : {
+    									required : "<span style='color:red;margin-left:10px;'>请选择项目服务</span>"
+    								}
+    							}
+    						})
+    	}
+	
+	</script>
+</html>
