@@ -85,6 +85,8 @@ public class UserDO implements Serializable {
 	private String politicalStatus;
 	//是否为管理员0:否1:是
 	private Integer isManage;
+	
+	private String openId;
 
 	/**
 	 * 设置：
@@ -483,5 +485,13 @@ public class UserDO implements Serializable {
 				+ ", regionCode=" + regionCode + ", politicalStatus=" + politicalStatus + ", isManage=" + isManage
 				+ "]";
 	}
+	public String getOpenId() {
+		return openId;
+	}
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+	
+	
 	
 }

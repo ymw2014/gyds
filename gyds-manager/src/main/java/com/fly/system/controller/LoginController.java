@@ -12,6 +12,7 @@ import com.fly.system.utils.MD5Utils;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.Constant;
 import com.fly.utils.R;
+import com.fly.wx.utils.EasyTypeToken;
 import com.google.code.kaptcha.Constants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -105,7 +106,8 @@ public class LoginController extends BaseController {
 			//1、获取subject
 			Subject subject = SecurityUtils.getSubject();
 			//2、封装用户数据
-			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			EasyTypeToken token = new EasyTypeToken(username,password);
+			//UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			//3、执行登录方法
 			subject.login(token);
 			//UserDO user = (UserDO)subject.getPrincipal();

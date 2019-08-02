@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +55,7 @@ public class IndexController {
 	
 	@Autowired
 	private SetupService setupService;
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	
 	/**
@@ -128,8 +131,9 @@ public class IndexController {
 		SetupDO setup = setupService.list(new HashMap<>(16)).get(0);
 		Map<String, Object> map = JSONUtils.jsonToMap(JSONUtils.beanToJson(setup));
 		UserDO user = ShiroUtils.getUser();
+		logger.info("logger:userDO 对象==="+user.toString());
 		if(user!=null) {
-			map.put("name", user.getName());
+			map.put("name", user.getNikeName());
 			map.put("head_img", user.getHeadImg());
 		}
 		R r=new R();

@@ -5,6 +5,9 @@ import com.fly.domain.UserDO;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.MenuService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.wx.utils.EasyTypeToken;
+import com.fly.wx.utils.LoginType;
+
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -49,10 +52,10 @@ public class UserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-		//UsernamePasswordToken userToken=(UsernamePasswordToken)token;
+		EasyTypeToken userToken=(EasyTypeToken)token;
 		//获取页面传过来的username
 		String username =(String) token.getPrincipal(); //userToken.getUsername();//
-
+		
 		Map<String, Object> map = new HashMap<>(16);
 		map.put("username", username);
 		//获取加密后的密码
@@ -69,12 +72,12 @@ public class UserRealm extends AuthorizingRealm {
 		if (user == null) {
 			throw new UnknownAccountException("账号或密码不正确");
 		}
-
-		// 密码错误
-		if (!password.equals(user.getPassword())) {
-			throw new IncorrectCredentialsException("账号或密码不正确");
+		if(!userToken.getType().equals(LoginType.NOPASSWD)) {
+			// 密码错误
+			if (!password.equals(user.getPassword())) {
+				throw new IncorrectCredentialsException("账号或密码不正确");
+			}
 		}
-
 		// 账号锁定
 		if (user.getStatus() == 0) {
 			throw new LockedAccountException("账号已被锁定,请联系管理员");

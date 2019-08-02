@@ -41,6 +41,7 @@
 		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
 		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
 		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
+		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
 		  		  <if test="ids != null and ids.size > 0">
 		  		  	and
 		  		  	dept_id in 
@@ -103,6 +104,7 @@
 		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
 		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus}</if>
 		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
+		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
 		  		  <if test="ids != null and ids.size > 0">
 		  		  	and
 		  		  	dept_id in 
@@ -145,7 +147,8 @@
 			`nation`, 
 			`region_code`, 
 			`political_status`, 
-			`is_manage`
+			`is_manage`,
+			`open_id`
 		)
 		values
 		(
@@ -178,7 +181,8 @@
 			#{nation}, 
 			#{regionCode}, 
 			#{politicalStatus}, 
-			#{isManage}
+			#{isManage},
+			#{openId}
 		)
 	</insert>
 	 
@@ -215,6 +219,7 @@
 			<if test="regionCode != null">`region_code` = #{regionCode}, </if>
 			<if test="politicalStatus != null">`political_status` = #{politicalStatus}, </if>
 			<if test="isManage != null">`is_manage` = #{isManage}</if>
+			<if test="openId != null">`open_id` = #{openId}</if>
 		</set>
 		where user_id = #{userId}
 	</update>
