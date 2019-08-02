@@ -34,9 +34,9 @@
 			<label> <span>团队名称</span> <input type="text" th:value="${team.teamName}" disabled="disabled">
 			</label> <label> <span>团队负责人</span> <input type="text" th:value="${team.colonelName}" disabled="disabled">
 			</label> <label> <span>负责人电话</span> <input type="text" th:value="${team.colonelTel}" disabled="disabled">
-			</label> <label> <span>联系地址</span>   <input  type="text" th:value="${team.regCode}" disabled="disabled">
+			</label> <label> <span>联系地址</span>   <input  type="text" th:value="${team.addres}" disabled="disabled">
 			</label> <label id="logo"> <span>团队logo</span> 
-			<img th:src="@{team.teamTitleImg}" alt="" class="tdlogo" style="height: 65px; width: 65px"> 
+			<img th:src="${team.teamTitleImg}" alt="" class="tdlogo" style="height: 65px; width: 65px"> 
 			</label> 
 			<label> <span id="demo2">团队照片</span>
 				<img th:each ="img : ${imgList}" th:src="${img}" class="tdlogo1"

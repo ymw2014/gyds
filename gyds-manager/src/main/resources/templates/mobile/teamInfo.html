@@ -5,13 +5,13 @@
 		<title></title>
 		<meta name="viewport" content="width=750">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-		<link rel="stylesheet" href="css/wodeguanzhu.css">
-		<link rel="stylesheet" href="css/sanjiliandong.css">
-		<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-		<script type="text/javascript" src="js/mobile-util.js"></script>
-		<script type="text/javascript" src="js/jss1.js"></script>
-		<script type="text/javascript" src="js/jss2.js"></script>
-		<script type="text/javascript" src="js/jss3.js"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss2.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss3.js}"></script>
 		<style>
 			.remover{
 				width: 27px;
@@ -95,7 +95,7 @@
 				color:#fff;
 			}
 			.zfsdf{
-				background:url(images/sjxl_03.jpg) no-repeat;
+				background:url(mobile/images/sjxl_03.jpg) no-repeat;
 				 background-position:right;
 				 background-size:24px 15px;
 			}
@@ -112,111 +112,54 @@
 	<body>
 		<div class="mygz">
 			<div class="alendar"> 
-				<img src="images/qianwnag.png" alt="">
+				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 				<span>我要建团</span>
 			</div>
 		</div>
 		<div class="biaotiyy">
-			<form action="" method="" id="signupForm">
+			<form action="" method="">
 				<label>
 					<span>团队名称</span>
-					<input type="text" name="teamName">
+					<input type="text" th:value="${team.teamName}" disabled="disabled">
 				</label>
 				<label>
 					<span>团队负责人</span>
-					<input type="text" name="colonelName">
+					<input type="text" th:value="${team.colonelName}" disabled="disabled">
 				</label>
 				<label>
 					<span>联系电话</span>
-					<input type="text" name="colonelTel">
+					<input type="text" th:value="${team.colonelTel}"  disabled="disabled">
 				</label>
 				<label>
 					<span>联系地址</span>
 					<div>
                        <div class="content-block">
-					   <input type="text" value=""  id="demo1" class="zfsdf">
-					   <input id="value1" type="hidden" value="20,234,504" style="display:none;"/>
+					   <input type="text" th:value="${team.addres}" disabled="disabled" >
 					   </div>
 					</div>
-				</label>
-				<label>
-					<span>详细地址</span>
-					<input type="text" value="">
 				</label>
 			   <div class="mstp">
 				   <span>团队logo</span>
 				   <div>
 					   <div>
-						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp1">
-						   <input type="file" class="sctp11" style="display: none;">
+						   <img th:src="${team.teamTitleImg}" alt="" class="sctp1">
 					   </div>
 				   </div>
 			   </div>
 			   <div class="mstp">
 				   <span>团队照片</span>
 				   <div>
-					   <div>
-						   <img src="images/mylian_03.jpg" alt="" class="sctp2">
-						   <input type="file" class="sctp22" style="display: none;">
-					   </div>
-					   <div>
-						   <img src="images/mylian_03.jpg" alt="" class="sctp3">
-						   <input type="file" class="sctp33" style="display: none;">
-					   </div>
-					   <div>
-						   <img src="images/mylian_03.jpg" alt="" class="sctp4">
-						   <input type="file" class="sctp44" style="display: none;">
+					   <div th:each ="img : ${imgList}">
+						   <img th:src="${img}" alt="" class="sctp2">
 					   </div>
 				   </div>
 			   </div>
 			   <label class="aad">
 			   	<span style="width: 180px;">团队服务项目</span>
-					<select>
-						<option value ="">我也不知道填啥</option>
-						<option value ="">1</option>
-					</select>
+			   	<input type="text" th:text="${team.teamIntroduce}" disabled="disabled">
+			   	<input>
 			   </label>
-			   <div class="tijiao">
-				   <input type="submit" value="立即建团">
-			   </div>
 			</form>
 		</div>
 	</body>
 </html>
-<script>
-	$(".sctp1").click(function(){
-		$(".sctp11").click();
-	})
-	$(".sctp2").click(function(){
-		$(".sctp22").click();
-	})
-	$(".sctp3").click(function(){
-		$(".sctp33").click();
-	})
-	$(".sctp4").click(function(){
-		$(".sctp44").click();
-	})
-    var area1 = new LArea();
-    area1.init({
-        'trigger': '#demo1', 
-        'valueTo': '#value1', 
-        'keys': {
-            id: 'id',
-            name: 'name',
-        }, 
-        'type': 1, 
-        'data': LAreaData
-    });
-    area1.value=[provs_data, citys_data, dists_data];
-    var area2 = new LArea();
-    area2.init({
-        'trigger': '#demo2',
-        'valueTo': '#value2',
-        'keys': {
-            id: 'value',
-            name: 'text'
-        },
-        'type': 2,
-        'data': [provs_data, citys_data, dists_data]
-    });
-    </script>

@@ -92,7 +92,13 @@ public class PersionTeamController {
 	}
 	@PostMapping("/savaTeam")
 	@ResponseBody
-	public R savaTeam(TeamDO team) {
+	public R savaTeam(TeamDO team,String reg) {
+		Integer regCode = null;
+		if(reg!=null) {
+			String [] regStr = reg.split(",");
+			regCode = Integer.parseInt(regStr[regStr.length-1]);
+			team.setRegCode(regCode);
+		}
 		UserDO user = ShiroUtils.getUser();
 		if(user!=null) {
 			Integer id = randomCode(team.getRegCode());
@@ -106,7 +112,7 @@ public class PersionTeamController {
 		return R.error();
 	}
 	public Integer randomCode(Integer regCode) {
-		Integer random =(int) (Math.random()*1000);
+		Integer random =(int) (Math.random()*(999-100+1)+100);
 		String strCode = regCode+""+random;
 		Integer code = Integer.valueOf(strCode);
 		Map<String, Object> map = new HashMap<String, Object>();

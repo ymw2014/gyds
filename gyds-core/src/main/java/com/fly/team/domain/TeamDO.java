@@ -36,6 +36,8 @@ public class TeamDO implements Serializable {
 	//地区Code
 	private Integer regCode;
 	//地区
+	private String addres;
+	//地区
 	private String regionName;
 	//状态
 	private Integer status;
@@ -48,6 +50,13 @@ public class TeamDO implements Serializable {
 	//积分
 	private Integer integral ; 
 	
+	
+	public String getAddres() {
+		return addres;
+	}
+	public void setAddres(String addres) {
+		this.addres = addres;
+	}
 	public Integer getIntegral() {
 		return integral;
 	}

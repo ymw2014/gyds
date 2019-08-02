@@ -114,7 +114,7 @@
 	<body>
 		<div class="mygz">
 			<div class="alendar"> 
-				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 				<span>我要建团</span>
 			</div>
 		</div>
@@ -136,8 +136,8 @@
 					<span>联系地址</span>
 					<div>
                        <div class="content-block">
-					   <input type="text" value=""  id="demo1" class="zfsdf">
-					   <input id="value1" type="hidden"  style="display:none;" name="regCode"/>
+					   <input type="text" value=""  id="demo1" class="zfsdf" name="addres">
+					   <input id="value1" type="hidden"   name="reg" style="display:none;"/>
 					   </div>
 					</div>
 				</label>
@@ -145,40 +145,41 @@
 				   <span>团队logo</span>
 				   <div>
 					   <div>
-						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp1" id="img">
-						   
-						   <input type="hidden" name="teamTitleImg" id="imgStr"> 
-						   <input type="file" class="sctp11"  name="file" style="display: none;">
-						   
+						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp1" id="img" >
+							<input type="hidden" id="imgstr" name="teamTitleImg">
+							<input type="file" name="file" class="sctp11" style="display: none;" id ="file">
+						    
 					   </div>
 				   </div>
 			   </div>
+			   <link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
 			   <div class="mstp">
 				   <span>团队照片</span>
 				   <div>
 					   <div>
-						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp2">
-						   <input type="file" class="sctp22" style="display: none;">
+					   	   <div id="imgsbox_imgs"  class="imgsbox tdlogo1" ></div>
+						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp2" id="imgs">
+						   <input type="hidden" id="imgStr" name="teamImg"> 
+						   <input type="file" class="sctp22" id="imgUpload_imgs" name="file" style="display: none;" multiple>
 					   </div>
-					   <div>
-						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp3">
-						   <input type="file" class="sctp33" style="display: none;">
-					   </div>
-					   <div>
-						   <img th:src="@{/mobile/images/mylian_03.jpg}" alt="" class="sctp4">
-						   <input type="file" class="sctp44" style="display: none;">
-					   </div>
+						<div>
+						<span id="progress_imgs"></span>
+						</div>
 				   </div>
 			   </div>
+			   <label>
+					<span>团队简介</span>
+					<input type="text" name="teamIntroduce">
+				</label>
 			   <label class="aad">
 			   	<span style="width: 180px;">团队服务项目</span>
-					<select>
-						<option value ="">我也不知道填啥</option>
-						<option value ="">1</option>
+					<select name="teamType">
+						<option th:each="type:${type}" th:value="${type.id}"
+						th:text="${type.typeName}"></option>
 					</select>
 			   </label>
 			   <div class="tijiao">
-				   <input type="submit" value="立即建团">
+				   <input value="立即建团" type="button" id="save" >
 			   </div>
 			</form>
 		</div>
@@ -208,20 +209,20 @@
         },
         'type': 2,
         'data': [provs_data, citys_data, dists_data]
+       
     });
     
-    
-    $("#img").click(function (e){
+     
     	layui.use('upload', function() {
             var upload = layui.upload;
             var uploadInst = upload.render({
-                elem : '#img', //绑定元素
+                elem : '#file', //绑定元素
                 url : '/common/sysFile/upload', //上传接口
                 size : 1000,
                 accept : 'file',
                 done : function(r) {
                     var fileName = r.fileName;
-                    $("#imgStr").val(fileName);
+                    $("#imgstr").val(fileName);
                     $("#img").attr("src",fileName);
                 },
                 error : function(r) {
@@ -229,8 +230,6 @@
                 }
             });
     	});
-    	});
-    	
     	function save() {
     		$.ajax({
     			type : "POST",
@@ -255,9 +254,9 @@
     	layui.use('upload', function() {
     		  var upload = layui.upload;
     		  var multi = 1;
-    		  var name = "imgs";
+    		  var name = "teamImg";
     		  if (multi) {
-    		   name = "imgs";
+    		   name = "teamImg";
     		   $("#imgUpload_imgs").attr('multiple','multiple');
     		  } else {
     		   $("#imgUpload_imgs").removeAttr('multiple');
@@ -291,7 +290,7 @@
     		    	}else{
     		    		imgs+=','+item.value;
     		    	}
-    		    	$('#imgStr0').val(imgs);
+    		    	$('#imgStr').val(imgs);
     		    })
     		   }
     		  });
