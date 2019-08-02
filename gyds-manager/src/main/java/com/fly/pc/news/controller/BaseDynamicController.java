@@ -139,7 +139,8 @@ public class BaseDynamicController {
 		case 3:
 			rewardInfoDO = new RewardInfoDO();
 			rewardInfoDO.setNewsId(Integer.valueOf(params.get("newsId").toString()));
-			rewardInfoDO.setRewardPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())));
+			
+			rewardInfoDO.setRewardPrice(new BigDecimal(params.get("price").toString()));
 			dynamic.setActType(1);
 			if(user!=null) {
 				dynamic.setMemberId(user.getUserId()); 
@@ -285,7 +286,7 @@ public class BaseDynamicController {
 			order.setExpIncType(Integer.valueOf(params.get("expIncType").toString()));
 		}
 		if(params.get("price")!=null) {
-			order.setPrice(BigDecimal.valueOf(Long.parseLong(params.get("price").toString())) );
+			order.setPrice(new BigDecimal(params.get("price").toString()));
 		}
 		if(params.get("examineStatus")!=null) {
 			order.setExamineStatus(Integer.valueOf(params.get("examineStatus").toString()));
@@ -390,7 +391,7 @@ public class BaseDynamicController {
 		}
 		user = userMapper.get(userId);
 		if(user!=null) {
-			BigDecimal price = BigDecimal.valueOf(Long.parseLong(params.get("price").toString()));
+			BigDecimal price = new BigDecimal(params.get("price").toString());;
 			BigDecimal account = user.getAccount();
 			if(account!=null&&price!=null) {
 				//结果 :-1 小于,0 等于,1 大于

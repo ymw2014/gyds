@@ -36,10 +36,14 @@ public class CheckinController {
 		return "pc/checkin";
 	}
 	
-	
+	/**
+	    *      签到数据回显
+	 * @param queryMonth 查询参数（月份）
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("data")
-	public String data(Model model, String queryMonth) {
+	public String data(String queryMonth) {
 		JSONObject dataInfo = new JSONObject();
 		UserDO user = ShiroUtils.getUser();
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -48,10 +52,11 @@ public class CheckinController {
 		if (StringUtils.isEmpty(queryMonth)) {
 			month = date.getMonthValue();
 		} else {
-			Integer.valueOf(queryMonth);
+			month = Integer.valueOf(queryMonth);
 		}
+		VolunteerDO vo = volunteerService.getVo(user.getUserId());
 		params.put("month", month);
-		params.put("voId", user.getUserId());
+		params.put("voId", vo.getId());
 		int status = 0;
 		List<SigninDO> list = signinService.list(params);
 		if (!CollectionUtils.isEmpty(list)) {
@@ -61,26 +66,26 @@ public class CheckinController {
 				status = 1;
 			}
 		}
-		/*
-		 * model.addAttribute("status", status); model.addAttribute("signin", list);
-		 */
 		dataInfo.put("signin", list);
 		dataInfo.put("status", status);
 		return dataInfo.toString();
 	}
 	
+	/**
+	     *     签到
+	 * @param signinDo
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/do")
 	public R signin(SigninDO signinDo) {
-		Map<String, Object> params = new HashMap<String, Object>();
 		UserDO user = ShiroUtils.getUser();
-		params.put("userId", user.getUserId());
-		params.put("auditStatus", 1);
-		List<VolunteerDO> volList = volunteerService.list(params);
-		if (CollectionUtils.isEmpty(volList)) {
+		boolean flag = volunteerService.isVo(user.getUserId());
+		if (!flag) {
 			return R.error("您还不是志愿者，请先申请为志愿者");
 		}
-		signinDo.setVoId(Long.valueOf(volList.get(0).getId()));
+		VolunteerDO vo = volunteerService.getVo(user.getUserId());
+		signinDo.setVoId(Long.valueOf(vo.getId()));
 		if (signinService.save(signinDo) > 0) {
 			return R.ok();
 		}

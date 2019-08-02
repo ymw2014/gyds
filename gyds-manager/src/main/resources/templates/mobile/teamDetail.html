@@ -11,6 +11,24 @@
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/lunbo.css}">
 		<link rel="stylesheet" th:href="@{/mobile/vdist/idangerous.swiper.css}">
+		<style>
+			.tongji{
+				position:relative;
+			}
+			.rutuanbtn{
+				position: absolute;
+				width: 120px;
+				line-height:30px;
+				background:red;
+				text-align: center;
+				color:#fff;
+				right: 13px;
+				bottom:20px;
+			}
+			.rutuanbtn a{
+				color:#fff;
+			}
+		</style>
 	</head>
 	<body> 
 		<header>
@@ -93,6 +111,16 @@
 				<span>发布资讯数量</span>
 				<rem>452</rem>
 			</div>
+			
+			<!-- 红色的 -->
+			<div class="rutuanbtn">
+				<a href="#">入团申请</a>
+			</div>
+			<!-- 灰色的 -->
+			<div class="rutuanbtn" style="background:#ccc;">
+				<a href="#">入团申请</a>
+			</div>
+			
 		</div>
 		<!-- 活动报名 -->
 		<div class="baoming">

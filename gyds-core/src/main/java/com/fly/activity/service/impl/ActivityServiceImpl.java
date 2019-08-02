@@ -21,8 +21,6 @@ import com.fly.member.domain.MemberDO;
 public class ActivityServiceImpl implements ActivityService {
 	@Autowired
 	private ActivityDao activityDao;
-	@Autowired
-	private MemberDao memberDao;
 	
 	@Override
 	public ActivityDO get(Integer id){
@@ -31,9 +29,6 @@ public class ActivityServiceImpl implements ActivityService {
 	
 	@Override
 	public List<ActivityDO> list(Map<String, Object> map){
-		List<Long> list = memberDao.list(map).stream().map(MemberDO::getId).collect(Collectors.toList());
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("ids", list);
 		return activityDao.list(map);
 	}
 	

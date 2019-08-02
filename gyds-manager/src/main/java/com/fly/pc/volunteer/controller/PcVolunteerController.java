@@ -162,6 +162,24 @@ public class PcVolunteerController {
 			List<CommentDO> comment = commentService.list(params);
 			ArrayList<CommentDO> newComment = comment.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() ->
 			new TreeSet<>(Comparator.comparing(CommentDO::getNewsId))), ArrayList::new));
+			for (CommentDO bean : newComment) {
+				if (user != null) {//查询点赞状态
+					params.clear();
+					params.put("memberId", user.getUserId());
+					params.put("type", 1);
+					params.put("act_type", 1);
+					params.put("newsId", bean.getNewsId());
+					List<DynamicDO> list = dynamicService.list(params);
+					if (!CollectionUtils.isEmpty(list)) {
+						bean.setIsClick("1");
+					} else {
+						bean.setIsClick("0");
+					}
+				}else {
+					bean.setIsClick("2");
+				}
+			}
+			
 			model.addAttribute("commentList",newComment);//评论信息
 		}
 		model.addAttribute("volunteer",volunteerDO);//志愿者信息
@@ -185,6 +203,7 @@ public class PcVolunteerController {
 	 */
 	public List<Map<String, Object>> getInfo(Integer type, Long id) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		UserDO user = ShiroUtils.getUser();
 		params.put("type", type + "");
 		params.put("memberId", id);
 		List<Map<String, Object>> dynamicList = new ArrayList<Map<String,Object>>();
@@ -200,7 +219,6 @@ public class PcVolunteerController {
 					info.put("img", infoDO.getTitleImg());
 					info.put("actType", 1);
 					info.put("newsId", infoDO.getId());
-					UserDO user = ShiroUtils.getUser();
 					if (user != null) {//查询点赞状态
 						params.clear();
 						params.put("memberId", user.getUserId());
@@ -227,6 +245,20 @@ public class PcVolunteerController {
 					info.put("img", activityDO.getActTitleImg());
 					info.put("actType", 2);
 					info.put("newsId", activityDO.getId());
+					params.clear();
+					if (user != null) {//查询点赞状态
+						params.put("memberId", user.getUserId());
+						params.put("actType", 2);
+						params.put("newsId", activityDO.getId());
+						List<DynamicDO> dyna = dynamicService.list(params);
+						if (CollectionUtils.isEmpty(dyna)) {
+							info.put("collectStatus", 1);//未收藏
+						} else {
+							info.put("collectStatus", 2);//已收藏
+						}
+					} else {
+						info.put("collectStatus", 1);//未收藏
+					}
 					dynamicList.add(info);
 				}
 			}

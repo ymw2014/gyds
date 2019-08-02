@@ -41,8 +41,16 @@ public class CommentDO implements Serializable {
 	private Integer prenId;
 	//新闻封面
 	private String titleImg;
+	//是否点赞
+	private String isClick;
 	
 	
+	public String getIsClick() {
+		return isClick;
+	}
+	public void setIsClick(String isClick) {
+		this.isClick = isClick;
+	}
 	public String getHeadImg() {
 		return headImg;
 	}
