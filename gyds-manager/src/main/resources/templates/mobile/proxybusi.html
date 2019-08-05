@@ -33,7 +33,7 @@
 			}
 			.biaotiyy label>span{
 				line-height:92px;
-				width:180px;
+				width:150px;
 				display:inline-block;
 				float: left;
 				font-size:30px;
@@ -46,15 +46,14 @@
 				border-bottom: 1px solid #f4f4f4;
 			}
 			.biaotiyy input{
-				line-height: 92px;
-			    width: 375px;
-			    display: inline-block;
-			    float: left;
-			    border: none;
-			    outline: none;
-			    font-size: 30px;
-			    color: #333;
-			    margin-left: -20px;
+				line-height:92px;
+				width:535px;
+				display:inline-block;
+				float: right;
+				border:none;
+				outline:none;
+				font-size:30px;
+				color:#333;
 			}
 			.fang{
 				float: left;
@@ -115,7 +114,7 @@
 	<body>
 		<div class="mygz">
 			<div class="alendar"> 
-				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 				<span>代理申请商</span>
 			</div>
 		</div>
@@ -204,20 +203,6 @@
 			}
 		})
 	})
-    var area1 = new LArea();
-   /*  area1.init({
-    /* var area1 = new LArea();
-    area1.init({
-        'trigger': '#demo1', 
-        'valueTo': '#value1', 
-        'keys': {
-            id: 'id',
-            name: 'name'
-        }, 
-        'type': 1, 
-        'data': LAreaData
-    }); */
-    area1.value=[1,13,3];
     var area2 = new LArea();
     area2.init({
         'trigger': '#demo1',
@@ -241,8 +226,8 @@
 	        }, 
 	        'type': 2, 
 	        'data': LAreaData
-	    });
-	    area1.value=[1,13,3]; */
+	    });*/
+	   /*  area1.value=[1,13,3];  */
 	    var area2 = new LArea();
 	    area2.init({
 	        'trigger': '#demo2',

@@ -1,14 +1,9 @@
 package com.fly.system.config;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
 
-//import org.apache.shiro.cache.CacheManager;
-import com.fly.common.redis.shiro.RedisCacheManager;
-import com.fly.common.redis.shiro.RedisManager;
-import com.fly.common.redis.shiro.RedisSessionDAO;
-import com.fly.system.shiro.UserRealm;
-import com.fly.utils.Constant;
-import net.sf.ehcache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.SessionListener;
@@ -19,17 +14,20 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fly.common.redis.shiro.RedisCacheManager;
+import com.fly.common.redis.shiro.RedisManager;
+import com.fly.common.redis.shiro.RedisSessionDAO;
+//import org.apache.shiro.cache.CacheManager;
+import com.fly.system.shiro.UserRealm;
+import com.fly.utils.Constant;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import net.sf.ehcache.CacheManager;
 
 /**
  * @author
