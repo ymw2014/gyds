@@ -1,4 +1,3 @@
-
 var prefix = "/volunteer/volunteer"
 $(function() {
 	load();

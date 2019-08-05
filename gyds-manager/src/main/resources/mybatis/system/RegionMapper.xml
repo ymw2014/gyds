@@ -106,5 +106,4 @@
 	<select id="getRegionUserNumber" resultType="int">
 		select count(*) from sys_user where dept_id = #{value}
 	</select>
-
 </mapper>

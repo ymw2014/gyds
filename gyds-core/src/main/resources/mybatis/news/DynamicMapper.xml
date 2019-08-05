@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -137,4 +138,145 @@
 		LEFT JOIN volunteer v ON v.`id`=dy.`news_id`
 		WHERE dy.member_id=#{userId} AND dy.act_type=4 AND dy.type=2 AND v.`audit_status`=1
 	</select>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.news.dao.DynamicDao">
+
+	<select id="get" resultType="com.fly.news.domain.DynamicDO">
+		select `id`,`news_id`,`member_id`,`transpond_type`,`type`,`creat_time` from new_dynamic where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.news.domain.DynamicDO">
+		select `id`,`news_id`,`member_id`,`transpond_type`,`type`,`creat_time`, act_type from new_dynamic
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="transpondType != null and transpondType != ''"> and transpond_type = #{transpondType} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="creatTime != null and creatTime != ''"> and creat_time = #{creatTime} </if>
+		  		   <if test="actType != null and actType != ''"> and act_type = #{actType} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from new_dynamic
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="transpondType != null and transpondType != ''"> and transpond_type = #{transpondType} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="creatTime != null and creatTime != ''"> and creat_time = #{creatTime} </if>
+		  		  <if test="actType != null and actType != ''"> and act_type = #{actType} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.news.domain.DynamicDO" useGeneratedKeys="true" keyProperty="id">
+		insert into new_dynamic
+		(
+			`news_id`, 
+			`member_id`, 
+			`transpond_type`, 
+			`type`, 
+			`creat_time`,
+			`act_type`
+		)
+		values
+		(
+			#{newsId}, 
+			#{memberId}, 
+			#{transpondType}, 
+			#{type}, 
+			#{creatTime},
+			#{actType}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.news.domain.DynamicDO">
+		update new_dynamic 
+		<set>
+			<if test="newsId != null">`news_id` = #{newsId}, </if>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+			<if test="transpondType != null">`transpond_type` = #{transpondType}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="creatTime != null">`creat_time` = #{creatTime},</if>
+			<if test="actType != null">  act_type = #{actType} </if>
+
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from new_dynamic where id = #{value}
+	</delete>
+	
+	<delete id="removeCall" parameterType="com.fly.news.domain.DynamicDO">
+		delete from new_dynamic 
+		<where>
+		<if test="newsId != null">and `news_id` = #{newsId}, </if>
+			<if test="memberId != null">and `member_id` = #{memberId} </if>
+		</where> 
+	</delete>
+	<delete id="batchRemove">
+		delete from new_dynamic where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 获取关注团队的关联信息  -->
+	<select id="dyTeamList" parameterType="java.util.Map" resultType="java.util.Map">
+		select dy.`id`,dy.`news_id`,dy.`member_id`,dy.`transpond_type`,dy.`type`,dy.`creat_time`, dy.act_type,t.team_name,t.team_type,t.remark,t.team_title_img,type.type_name,
+		(select count(new.id) from new_info new where new.team_id=t.id and new.`status`=1 ) as new_count,
+		(select count(v.id) from volunteer v where v.team_id=t.id and v.audit_status=1 ) as v_renshu,
+		(select count(act.id) from activity act where act.team_id=t.id and act.examine_status=2 ) as act_count ,r.region_name
+			from new_dynamic dy
+			left join team t on dy.news_id =t.id
+			LEFT JOIN team_type type on t.team_type=type.id
+			left join cux_region r on t.reg_code = r.region_code
+			WHERE dy.member_id=#{userId} and dy.act_type=3 and dy.type=2
+	</select>
+	
+	<!-- 获取关注活动的关联信息-->
+	<select id="dyActList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT dy.`id`,dy.`news_id`,dy.`member_id`,dy.`transpond_type`,dy.`type`,dy.`creat_time`, dy.act_type,
+		act.`act_title`,act.`act_title_img`,act.`create_time`,act.`end_time`,
+		(SELECT COUNT(apply.id) FROM act_apply apply WHERE act.`id`=apply.act_id ) AS baoming_count
+	 	FROM new_dynamic dy
+		LEFT JOIN activity act ON act.`id`=dy.`news_id`
+		WHERE dy.member_id=#{userId} AND dy.act_type=2 AND dy.type=2 AND act.`examine_status`=1
+	</select>
+	
+	<!-- 获取关注新闻的关联信息-->
+	<select id="dyNewList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT dy.`id`,dy.`news_id`,dy.`member_id`,dy.`transpond_type`,dy.`type`,dy.`creat_time`, dy.act_type,
+		info.`title`,info.`title_img`,info.`number_of_likes`,info.`public_time`
+ 		FROM new_dynamic dy
+		LEFT JOIN new_info info ON info.id=dy.news_id
+		WHERE dy.member_id=#{userId} AND dy.act_type=1 AND dy.type=2 AND info.`is_del`=0 
+	</select>
+	
+	<!-- 获取关注志愿者的关联信息-->
+	<select id="dyVoluList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT dy.`id`,dy.`news_id`,dy.`member_id`,dy.`transpond_type`,dy.`type`,dy.`creat_time`, dy.act_type,
+		v.`head_img`,v.`volunteer_name`,v.`volunteer_number`,v.`remark`
+ 		FROM new_dynamic dy
+		LEFT JOIN volunteer v ON v.`id`=dy.`news_id`
+		WHERE dy.member_id=#{userId} AND dy.act_type=4 AND dy.type=2 AND v.`audit_status`=1
+	</select>
+>>>>>>> d7599c5df10b932a0c1fc85b5b2e9708ca6a2471
 </mapper>

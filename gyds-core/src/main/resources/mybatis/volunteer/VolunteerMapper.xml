@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -246,4 +247,254 @@
 		</set>
 		where id = #{id}
 	</update>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.volunteer.dao.VolunteerDao">
+
+	<select id="get" resultType="com.fly.volunteer.domain.VolunteerDO">
+		select v.id,v.`volunteer_name`,v.user_id, t.team_name teamName,v.head_img,
+		v.`address`,v.`telephone`,v.`sex`,v.`age`,v.`volunteer_number`,
+		v.`card_no`,v.`shares_number`,v.`comment_number`,v.`click_number`,
+		v.audit_status,
+		v.`act_number`,v.`level`,v.`province`,v.`city`,v.`county`,v.`regionCode` ,v.remark,v.introduction
+		from volunteer v
+		left join team t on v.team_id = t.id where v.id = #{value}
+	</select>
+	
+	<select id="list" resultType="com.fly.volunteer.domain.VolunteerDO">
+		select v.id,`volunteer_name`,v.user_id, t.team_name teamName,v.head_img,
+		v.`address`,v.`telephone`,v.`sex`,v.`age`,v.`volunteer_number`,
+		v.`card_no`,v.`shares_number`,v.`comment_number`,v.`click_number`,
+		v.`act_number`,v.`level`,v.`province`,v.`city`,v.`county`,v.`regionCode`,
+		v.audit_status,
+		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime,v.remark,v.introduction
+		from volunteer v
+		left join team t on v.team_id = t.id
+        <where>  
+		  		  <if test="id != null and id != ''"> and v.id = #{id} </if>     
+		  		  <if test="volunteerName != null and volunteerName != ''"> and v.volunteer_name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
+		  		  <if test="userId != null and userId != ''"> and v.user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and v.team_id = #{teamId} </if>
+		  		  <if test="address != null and address != ''"> and v.address = #{address} </if>
+		  		  <if test="telephone != null and telephone != ''"> and v.telephone = #{telephone} </if>
+		  		  <if test="sex != null and sex != ''"> and v.sex = #{sex} </if>
+		  		  <if test="age != null and age != ''"> and v.age = #{age} </if>
+		  		  <if test="volunteerNumber != null and volunteerNumber != ''"> and v.volunteer_number = #{volunteerNumber} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and v.card_no = #{cardNo} </if>
+		  		  <if test="sharesNumber != null and sharesNumber != ''"> and v.shares_number = #{sharesNumber} </if>
+		  		  <if test="commentNumber != null and commentNumber != ''"> and v.comment_number = #{commentNumber} </if>
+		  		  <if test="clickNumber != null and clickNumber != ''"> and v.click_number = #{clickNumber} </if>
+		  		  <if test="actNumber != null and actNumber != ''"> and v.act_number = #{actNumber} </if>
+		  		  <if test="level != null and level != ''"> and v.level = #{level} </if>
+		  		  <if test="province != null and province != ''"> and v.province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and v.city = #{city} </if>
+		  		  <if test="county != null and county != ''"> and v.county = #{county} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and v.regionCode = #{regioncode} </if>
+		  		   <if test="createTime != null and createTime != ''"> and v.create_Time = #{createTime} </if>
+		  		   <if test="auditStatus != null and auditStatus != ''"> and v.audit_status = #{auditStatus}</if>
+		  		   <if test="introduction != null and introduction != ''"> and introduction <![CDATA[<=]]> #{introduction} </if>
+		  		   <if test="startTime != null and startTime != ''"> and v.create_Time <![CDATA[>=]]>#{startTime} </if>
+		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
+		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND v.enter_team_time &gt;= #{startEntTeamTime}</if>
+				  <if test="endEntTeamTime != null and endEntTeamTime != ''">AND v.enter_team_time &lt;= #{endEntTeamTime}</if>
+				  <if test="ids != null and ids.size() > 0">
+		  		  	and
+		  		  	v.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		  <if test="idList != null and idList.size() > 0">
+		  		  	and
+		  		  	v.id in 
+		  		   	<foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from volunteer
+		 <where>  
+		  		  <if test="id != null and id != ''"> and v.id = #{id} </if>     
+		  		  <if test="volunteerName != null and volunteerName != ''"> and v.volunteer_name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
+		  		  <if test="userId != null and userId != ''"> and v.user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and v.team_id = #{teamId} </if>
+		  		  <if test="address != null and address != ''"> and v.address = #{address} </if>
+		  		  <if test="telephone != null and telephone != ''"> and v.telephone = #{telephone} </if>
+		  		  <if test="sex != null and sex != ''"> and v.sex = #{sex} </if>
+		  		  <if test="age != null and age != ''"> and v.age = #{age} </if>
+		  		  <if test="volunteerNumber != null and volunteerNumber != ''"> and v.volunteer_number = #{volunteerNumber} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and v.card_no = #{cardNo} </if>
+		  		  <if test="sharesNumber != null and sharesNumber != ''"> and v.shares_number = #{sharesNumber} </if>
+		  		  <if test="commentNumber != null and commentNumber != ''"> and v.comment_number = #{commentNumber} </if>
+		  		  <if test="clickNumber != null and clickNumber != ''"> and v.click_number = #{clickNumber} </if>
+		  		  <if test="actNumber != null and actNumber != ''"> and v.act_number = #{actNumber} </if>
+		  		  <if test="level != null and level != ''"> and v.level = #{level} </if>
+		  		  <if test="province != null and province != ''"> and v.province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and v.city = #{city} </if>
+		  		  <if test="county != null and county != ''"> and v.county = #{county} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and v.regionCode = #{regioncode} </if>
+		  		   <if test="createTime != null and createTime != ''"> and v.create_Time = #{createTime} </if>
+		  		   <if test="auditStatus != null and auditStatus != ''"> and v.audit_status = #{auditStatus}</if>
+		  		   <if test="startTime != null and startTime != ''"> and v.create_Time <![CDATA[>=]]>#{startTime} </if>
+		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
+		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND v.enter_team_time &gt;= #{startEntTeamTime}</if>
+				  <if test="endEntTeamTime != null and endEntTeamTime != ''">AND v.enter_team_time &lt;= #{endEntTeamTime}</if>
+				  <if test="ids != null and ids.size() > 0">
+		  		  	and
+		  		  	v.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.volunteer.domain.VolunteerDO" useGeneratedKeys="true" keyProperty="id">
+		insert into volunteer
+		(
+			`head_img`, 
+			`volunteer_name`, 
+			`user_id`, 
+			`team_id`, 
+			`address`, 
+			`telephone`, 
+			`sex`, 
+			`age`, 
+			`volunteer_number`, 
+			`card_no`, 
+			`shares_number`, 
+			`comment_number`, 
+			`click_number`, 
+			`act_number`, 
+			`level`, 
+			`province`, 
+			`city`, 
+			`county`, 
+			`create_time`, 
+			`audit_status`, 
+			`regionCode`, 
+			`remark`, 
+			`enter_team_time`, 
+			`introduction`
+		)
+		values
+		(
+			#{headImg}, 
+			#{volunteerName}, 
+			#{userId}, 
+			#{teamId}, 
+			#{address}, 
+			#{telephone}, 
+			#{sex}, 
+			#{age}, 
+			#{volunteerNumber}, 
+			#{cardNo}, 
+			#{sharesNumber}, 
+			#{commentNumber}, 
+			#{clickNumber}, 
+			#{actNumber}, 
+			#{level}, 
+			#{province}, 
+			#{city}, 
+			#{county}, 
+			#{createTime}, 
+			#{auditStatus}, 
+			#{regioncode}, 
+			#{remark}, 
+			#{enterTeamTime}, 
+			#{introduction}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.volunteer.domain.VolunteerDO">
+		update volunteer 
+		<set>
+			<if test="volunteerName != null">`volunteer_name` = #{volunteerName}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="teamId != null">`team_id` = #{teamId}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="telephone != null">`telephone` = #{telephone}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="age != null">`age` = #{age}, </if>
+			<if test="volunteerNumber != null">`volunteer_number` = #{volunteerNumber}, </if>
+			<if test="cardNo != null">`card_no` = #{cardNo}, </if>
+			<if test="sharesNumber != null">`shares_number` = #{sharesNumber}, </if>
+			<if test="commentNumber != null">`comment_number` = #{commentNumber}, </if>
+			<if test="clickNumber != null">`click_number` = #{clickNumber}, </if>
+			<if test="actNumber != null">`act_number` = #{actNumber}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="province != null">`province` = #{province}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="county != null">`county` = #{county}, </if>
+			<if test="regioncode != null">`regionCode` = #{regioncode},</if>
+			<if test="headImg != null">`head_img` = #{headImg},</if>
+			<if test="remark != null">`remark` = #{remark},</if>
+			<if test="auditStatus != null">`audit_status` = #{auditStatus},</if>
+			<if test="enterTeamTime != null">`enter_team_time` = #{enterTeamTime}</if>
+			<if test="introduction != null">`introduction` = #{introduction}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from volunteer where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from volunteer where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<select id="isVolllist" resultType="com.fly.volunteer.domain.VolunteerDO">
+		SELECT v.id,`volunteer_name`,v.user_id, t.team_name teamName,head_img,
+		`address`,`telephone`,`sex`,`age`,`volunteer_number`,
+		`card_no`,`shares_number`,`comment_number`,`click_number`,
+		`act_number`,`level`,`province`,`city`,`county`,`regionCode`,
+		audit_status,
+		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime,v.remark,v.introduction
+		FROM volunteer v
+		LEFT JOIN team t ON v.team_id = t.id
+        <where>  
+		  		v.`user_id`=#{userId}  and v.`audit_status`!=2
+		</where>
+      
+		
+	</select>
+
+	<!-- 判断用户是否为志愿者 -->
+	<select id="isVo" resultType="com.fly.volunteer.domain.VolunteerDO">
+		SELECT v.* 
+		FROM volunteer v
+        <where>  
+		  		v.`user_id`=#{userId}  and v.`audit_status`=1
+		</where>
+      
+		
+	</select>
+	<update id="updateVolunteer" parameterType="java.util.Map">
+		update volunteer 
+		<set>
+			<if test="integral != null">`integral` = integral + #{integral}</if>
+		</set>
+		where id = #{id}
+	</update>
+>>>>>>> d7599c5df10b932a0c1fc85b5b2e9708ca6a2471
 </mapper>

@@ -24,6 +24,16 @@ import com.fly.system.utils.ShiroUtils;
 import com.fly.wx.utils.EasyTypeToken;
 import com.fly.wx.utils.LoginType;
 
+import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 自定义Realm
  * @author
