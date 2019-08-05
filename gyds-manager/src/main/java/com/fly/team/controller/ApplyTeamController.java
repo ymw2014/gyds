@@ -133,10 +133,12 @@ public class ApplyTeamController {
 	@ResponseBody
 	@RequiresPermissions("team:apply:examine")
 	public R examine(Integer id,Integer status){
+		Integer teamId=null;
 		ApplyTeamDO apply = applyService.get(id);
 		apply.setStatus(status);
 		VolunteerDO volunteer=volunteerService.get(apply.getZyzId());
-		if(volunteer.getTeamId()!=null||volunteer.getTeamId()!=-1) {
+		teamId = volunteer.getTeamId();
+		if(teamId!=null&&teamId != -1) {
 			return R.error("该志愿者已入其他团队,请删除该数据");
 		}
 		if(status.equals(1)) {

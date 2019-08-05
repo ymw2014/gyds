@@ -5,7 +5,7 @@
 
 	<select id="get" resultType="com.fly.volunteer.domain.VolunteerDO">
 		select v.id,v.`volunteer_name`,v.user_id, t.team_name teamName,v.head_img,
-		v.`address`,v.`telephone`,v.`sex`,v.`age`,v.`volunteer_number`,
+		v.`address`,v.`telephone`,v.`sex`,v.`age`,v.`volunteer_number`,v.team_id,
 		v.`card_no`,v.`shares_number`,v.`comment_number`,v.`click_number`,
 		v.audit_status,
 		v.`act_number`,v.`level`,v.`province`,v.`city`,v.`county`,v.`regionCode` ,v.remark,v.introduction
@@ -196,7 +196,7 @@
 			<if test="headImg != null">`head_img` = #{headImg},</if>
 			<if test="remark != null">`remark` = #{remark},</if>
 			<if test="auditStatus != null">`audit_status` = #{auditStatus},</if>
-			<if test="enterTeamTime != null">`enter_team_time` = #{enterTeamTime}</if>
+			<if test="enterTeamTime != null">`enter_team_time` = #{enterTeamTime},</if>
 			<if test="introduction != null">`introduction` = #{introduction}</if>
 		</set>
 		where id = #{id}

@@ -98,7 +98,7 @@ function load() {
 									align : 'center',
 									formatter : function(value, row, index) {
 										var i = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="详情" onclick="info(\''
-										+ row.id
+										+ row.zyzId
 										+ '\')"><i class="fa fa-edit"></i></a> ';
 										
 										

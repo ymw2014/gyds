@@ -404,7 +404,7 @@
 				  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":red,"count":count};
 				  $.ajax({
 						type : "POST",
-						url : "/pc/news/reward",
+						url : "/pc/news/redPacket",
 						data : para,
 						error : function(request) {
 							layer.msg('发红包失败！您扣除的：'+ red +'元 已原路退回您的账户');
@@ -424,7 +424,7 @@
 										}, function(){
 											window.location.href = "/admin";
 										}, function(){
-										  layer.msg('打赏是需要登陆的', {
+										  layer.msg('发红包是需要登陆的', {
 										    time: 20000, //20s后自动关闭
 										    btn: ['知道了']
 										  });

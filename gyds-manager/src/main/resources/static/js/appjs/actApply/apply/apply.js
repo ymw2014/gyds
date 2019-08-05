@@ -32,7 +32,8 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset
+								offset:params.offset,
+								actId:$('#id').val()
 					           // name:$('#searchName').val(),
 					           // username:$('#searchName').val()
 							};
@@ -90,7 +91,7 @@ function load() {
 									formatter : function(value, row, index) {
 										var e="";
 										if(row.status!=1&&row.status!=2){
-											e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
+											e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="审核" onclick="edit(\''
 											+ row.id
 											+ '\')"><i class="fa fa-edit"></i></a> ';
 										}
