@@ -52,7 +52,7 @@ public class InfoDO implements Serializable {
 	//置顶付费
 	private BigDecimal paymentTop;
 	//红包个数
-	private Integer redPeperCount;
+	private Integer redPeperId;
 	//红包
 	private BigDecimal redPeper;
 	//创建日期
@@ -326,14 +326,14 @@ public class InfoDO implements Serializable {
 	/**
 	 * 设置：红包个数
 	 */
-	public void setRedPeperCount(Integer redPeperCount) {
-		this.redPeperCount = redPeperCount;
+	public void setRedPeperId(Integer redPeperId) {
+		this.redPeperId = redPeperId;
 	}
 	/**
 	 * 获取：红包个数
 	 */
-	public Integer getRedPeperCount() {
-		return redPeperCount;
+	public Integer getRedPeperId() {
+		return redPeperId;
 	}
 	/**
 	 * 设置：红包

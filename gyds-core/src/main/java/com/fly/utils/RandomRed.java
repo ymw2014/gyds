@@ -1,4 +1,4 @@
-package com.fly.test;
+package com.fly.utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -6,28 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Test {
-	
-	public static void main(String[] args) {
-		/*
-		 * for (int i = 0; i < 50; i++) { Integer random =(int)
-		 * (Math.random()*(999-100+1)+100); System.out.println(random); }
-		 */
-		for (int i = 0; i < 10; i++) {
-            List<BigDecimal> moneys = math(BigDecimal.valueOf(68), 100);
-            if (moneys != null) {
-                BigDecimal b = new BigDecimal(0);
-                for (BigDecimal bigDecimal : moneys) {
-                    System.out.print(bigDecimal + "元    ");
-                    b = b.add(bigDecimal);
-                }
-                System.out.print("   总额：" + b+"元 ");
-                System.out.println();
-            }
-        }
-    }
-
-    /**
+public class RandomRed {
+	  /**
      * 计算每人获得红包金额;最小每人0.01元
      * @param mmm 红包总额
      * @param number 人数
@@ -77,5 +57,4 @@ public class Test {
         Collections.shuffle(arrMoney);
         return arrMoney;
     }
-	  
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.news.dao.RedDao">
+
+	<select id="get" resultType="com.fly.news.domain.RedDO">
+		select `id`,`price`,`is_get`,`get_user_id`,`get_time` from red where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.news.domain.RedDO">
+		select `id`,`price`,`is_get`,`get_user_id`,`get_time` from red
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="isGet != null and isGet != ''"> and is_get = #{isGet} </if>
+		  		  <if test="getUserId != null and getUserId != ''"> and get_user_id = #{getUserId} </if>
+		  		  <if test="getTime != null and getTime != ''"> and get_time = #{getTime} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from red
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="isGet != null and isGet != ''"> and is_get = #{isGet} </if>
+		  		  <if test="getUserId != null and getUserId != ''"> and get_user_id = #{getUserId} </if>
+		  		  <if test="getTime != null and getTime != ''"> and get_time = #{getTime} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.news.domain.RedDO">
+		insert into red
+		(
+			`id`, 
+			`price`, 
+			`is_get`, 
+			`get_user_id`, 
+			`get_time`
+		)
+		values
+		(
+			#{id}, 
+			#{price}, 
+			#{isGet}, 
+			#{getUserId}, 
+			#{getTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.news.domain.RedDO">
+		update red 
+		<set>
+			<if test="price != null">`price` = #{price}, </if>
+			<if test="isGet != null">`is_get` = #{isGet}, </if>
+			<if test="getUserId != null">`get_user_id` = #{getUserId}, </if>
+			<if test="getTime != null">`get_time` = #{getTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from red where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from red where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

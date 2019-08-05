@@ -230,10 +230,24 @@ public class NewsInfoController extends BaseDynamicController{
 		//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 		@RequestMapping(value="/redPacket",method=RequestMethod.POST)
 		@ResponseBody
+		@Transactional
 		public R redPacket(@RequestParam Map<String,Object> params) {
 	 		Integer i = null;
+	 		if(params.get("price")!=null&&params.get("price")!=""&&params.get("count")!=null&&params.get("count")!="") {
 			i = deductMoney(params);
 			if(i==1) {
+				
+				 List<BigDecimal> moneys = math(new BigDecimal(params.get("price").toString()), Integer.valueOf(params.get("count").toString()));
+		            if (moneys != null) {
+		                BigDecimal b = new BigDecimal(0);
+		                for (BigDecimal bigDecimal : moneys) {
+		                    System.out.print(bigDecimal + "元    ");
+		                    b = b.add(bigDecimal);
+		                }
+		                System.out.print("   总额：" + b+"元 ");
+		                System.out.println();
+		            }
+				
 				//产生订单
 				if(creadOrder(params)>0){
 					//记录+1
@@ -242,6 +256,7 @@ public class NewsInfoController extends BaseDynamicController{
 					}
 				}
 			}
+	 	}
 			return R.error(i+"");
 		}
 	//置顶
