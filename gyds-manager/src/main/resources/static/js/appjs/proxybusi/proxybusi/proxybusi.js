@@ -1,4 +1,3 @@
-
 var prefix = "/proxybusi/proxybusi"
 $(function() {
 	load();
@@ -293,4 +292,5 @@ function batchRemove() {
 	}, function() {
 
 	});
+
 }

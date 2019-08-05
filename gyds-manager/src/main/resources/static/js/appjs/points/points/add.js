@@ -1,3 +1,4 @@
+
 $().ready(function() {
 	validateRule();
 });

@@ -1,4 +1,3 @@
-
 var prefix = "/member/member"
 $(function() {
 	load();

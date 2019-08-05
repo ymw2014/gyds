@@ -1,4 +1,3 @@
-
 var prefix = "/points/points"
 $(function() {
 	load();

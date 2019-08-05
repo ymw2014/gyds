@@ -30,3 +30,4 @@ public interface PointsDao {
 	
 	int batchRemove(Long[] ids);
 }
+

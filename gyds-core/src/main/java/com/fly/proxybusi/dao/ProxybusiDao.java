@@ -30,3 +30,4 @@ public interface ProxybusiDao {
 	
 	int batchRemove(Long[] ids);
 }
+

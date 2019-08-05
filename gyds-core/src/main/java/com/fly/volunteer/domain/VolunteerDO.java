@@ -1,3 +1,4 @@
+
 package com.fly.volunteer.domain;
 
 import java.io.Serializable;
@@ -349,3 +350,4 @@ public class VolunteerDO implements Serializable {
 		return regioncode;
 	}
 }
+

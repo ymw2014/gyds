@@ -33,6 +33,7 @@
 			}
 			.biaotiyy label>span{
 				line-height:92px;
+				width:150px;
 				width:180px;
 				display:inline-block;
 				float: left;
@@ -46,6 +47,14 @@
 				border-bottom: 1px solid #f4f4f4;
 			}
 			.biaotiyy input{
+				line-height:92px;
+				width:535px;
+				display:inline-block;
+				float: right;
+				border:none;
+				outline:none;
+				font-size:30px;
+				color:#333;
 				line-height: 92px;
 			    width: 375px;
 			    display: inline-block;
@@ -115,6 +124,7 @@
 	<body>
 		<div class="mygz">
 			<div class="alendar"> 
+				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
 				<span>代理申请商</span>
 			</div>
@@ -241,6 +251,8 @@
 	        }, 
 	        'type': 2, 
 	        'data': LAreaData
+	    });*/
+	   /*  area1.value=[1,13,3];  */
 	    });
 	    area1.value=[1,13,3]; */
 	    var area2 = new LArea();

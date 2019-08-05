@@ -51,7 +51,7 @@ public class InfoDO implements Serializable {
 	private Integer paymentDuration;
 	//置顶付费
 	private BigDecimal paymentTop;
-	//红包个数
+	//红包ID
 	private Integer redPeperId;
 	//红包
 	private BigDecimal redPeper;
@@ -478,3 +478,4 @@ public class InfoDO implements Serializable {
 	}
 	
 }
+

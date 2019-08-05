@@ -28,3 +28,4 @@ public interface PointsService {
 	
 	int batchRemove(Long[] ids);
 }
+

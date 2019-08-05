@@ -1,3 +1,4 @@
+
 package com.fly.proxybusi.service;
 
 import com.fly.proxybusi.domain.ProxybusiDO;
@@ -28,3 +29,4 @@ public interface ProxybusiService {
 	
 	int batchRemove(Long[] ids);
 }
+

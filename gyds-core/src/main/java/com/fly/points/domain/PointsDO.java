@@ -164,3 +164,4 @@ public class PointsDO implements Serializable {
 		return memberId;
 	}
 }
+

@@ -1,3 +1,4 @@
+
 package com.fly.news.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,3 +81,4 @@ public class DynamicServiceImpl implements DynamicService {
 	}
 	
 }
+
