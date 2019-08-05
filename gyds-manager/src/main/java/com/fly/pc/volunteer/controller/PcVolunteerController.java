@@ -192,6 +192,11 @@ public class PcVolunteerController {
 			model.addAttribute("likesList",likes);//点赞
 			model.addAttribute("collectList",collect);//收藏
 		}
+		
+		params.put("parentRegionCode", 0);
+		params.put("regionType",1);
+		List<RegionDO> areaList = regionService.list(params);
+		model.addAttribute("areaList", areaList);
 		return "pc/volunteerDetail";
 	}
 	
