@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="id" name="id" th:value="${advertisement.id}"  type="hidden">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">广告名称：</label>
+								<div class="col-sm-8">
+									<input id="advName" name="advName" th:value="${advertisement.advName}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">广告外链接：</label>
+								<div class="col-sm-8">
+									<input id="url" name="url" th:value="${advertisement.url}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">位置：</label>
+								<div class="col-sm-8">
+									<select class="form-control input-sm" id="positionNum" name="positionNum" th:field="${advertisement.positionNum}" th:value="${advertisement.positionNum}" >
+										<option th:style="${level==4}?'display:none;':''" value="1">首页</option>
+										<option th:if="${advertisement.positionNum eq 2}" value="2" th:selected="selected">资讯列表页</option>
+										<option  th:if="${advertisement.positionNum eq 3}" value="3" th:selected="selected">资讯详情页</option>
+										<option  th:if="${advertisement.positionNum eq 4}" value="4" th:selected="selected">活动报名页</option>
+										<option  th:if="${advertisement.positionNum eq 5}" value="5" th:selected="selected">团队详情页</option>
+										<option  th:if="${advertisement.positionNum eq 6}" value="6" th:selected="selected">志愿者详情页</option>
+										<option  th:if="${advertisement.positionNum eq 7}" value="7" th:selected="selected">签到页</option>
+									</select>
+								</div>
+							</div>
+						
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">位置编号：</label>
+								<div class="col-sm-8">
+									<input id="positionNum" name="positionNum" th:value="${advertisement.positionNum}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">展示开始时间：</label>
+								<div class="col-sm-8">
+									<input id="showStartTime" name="showStartTime" th:value="${advertisement.showStartTime}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">展现结束时间：</label>
+								<div class="col-sm-8">
+									<input id="showEndTime" name="showEndTime" th:value="${advertisement.showEndTime}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/adv/advertisement/edit.js">
+	</script>
+</body>
+</html>

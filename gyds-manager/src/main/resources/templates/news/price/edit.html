@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div style="padding: 10px;">
+	<div class="tabs-container">
+		<form class="form-config" id="signupForm">
+			<input id="id" name="id" th:value="${price.id}"  type="hidden">
+			<div class="tabs-container">
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">置顶设置</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class=" control-label">置顶费用<span class="text-muted">(每天/元):</span></label>
+										<input id="priceOfDay" name="priceOfDay" th:value=${price.priceOfDay} oninput="clearNoNum(this)"  class="form-control  input-sm"  type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-4 col-sm-offset-3">
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/news/price/edit.js">
+	</script>
+</body>
+</html>

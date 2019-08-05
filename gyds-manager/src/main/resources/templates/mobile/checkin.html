@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/qiandao.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/rili(1).css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/rili(2).css}">
+		
+		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
+	</head>
+	<body>
+		<div class="boxRight" style="background:#fff;width:100%;margin-top:0;">
+			<div class="cwmx">
+				<h4>我的签到</h4>
+			</div>
+			<div class="riliwai" >
+				<div class="top flex flex-align-end flex-pack-center flex-warp">
+					<div class="out-1 flex flex-align-center flex-pack-center" id="signIn">
+						<div class="out-2 flex flex-align-center flex-pack-center">
+							<div class="signBtn">
+								<strong id="sign-txt">立即签到</strong>
+							</div>
+						</div>
+						<div style="position:absolute;top: 245px;line-height: 60px;
+						font-size: 26px; color: #fff;">当前已累计签到<em id="sign-count">0</em>天</div>
+					</div>
+				</div>
+				<div class="Calendar" style="position:relative;">
+					<div id="toyear" class="flex flex-pack-center">
+					<input type="hidden"  id="status"/>
+						<div style="width: 100%;">
+							<div style="height:70px;overflow: hidden;width: 360px;margin: 0 auto;">
+								<!-- <div id="idCalendarPre" style="font-size:38px; color:#fe6554;">&lt;</div> -->
+								<div class="year-month" style="font-size:36px; color:#fe6554;margin-left: 93px;">
+									<span id="idCalendarYear">2018</span>年<span id="idCalendarMonth">6</span>月
+								</div>
+							   <!--  <div id="idCalendarNext" style="font-size:30px; color:#fe6554;">&gt;</div> -->
+							</div>
+						</div>
+					</div>
+					<table border="1px" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr class="tou">
+								<td>日</td>
+								<td>一</td>
+								<td>二</td>
+								<td>三</td>
+								<td>四</td>
+								<td>五</td>
+								<td>六</td>
+							</tr>
+						</thead>
+						<tbody id="idCalendar">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="qiandao">
+			<a href="#"><img th:src="@{/mobile/images/qiandao_03.jpg}" alt=""></a>
+			<a href="#"><img  th:src="@{/mobile/images/qiandao_06.jpg}" alt=""></a>
+			<a href="#"><img  th:src="@{/mobile/images/qiandao_08.jpg}" alt=""></a>
+			<a href="#"><img  th:src="@{/mobile/images/qiandao_11.jpg}" alt=""></a>
+			<a href="#"><img  th:src="@{/mobile/images/qoandao_13.jpg}" alt=""></a>
+		</div>
+	</body>
+</html>
+ <script type="text/javascript" th:src="@{/mobile/js/touch-0.2.14.min.js}"></script>
+ 		<script language="JavaScript">
+ 			var isSign = false;
+ 			var myday = new Array();
+ 
+ 			var cale = new Calendar("idCalendar", {
+ 				qdDay: myday,
+ 				onToday: function(o) {
+ 					o.className = "onToday";
+ 				},
+ 				onSignIn: function (){
+ 					$$("sign-txt").innerHTML = '已签到';
+ 				},
+ 				onFinish: function() {
+ 					$$("sign-count").innerHTML = myday.length //已签到次数
+ 					$$("idCalendarYear").innerHTML = this.Year;
+ 					$$("idCalendarMonth").innerHTML = this.Month; //表头年份
+ 
+ 				}
+ 			});
+ 			/* $$("idCalendarPre").onclick = function() {
+ 				cale.PreMonth();
+ 			}
+ 			$$("idCalendarNext").onclick = function() {
+ 				cale.NextMonth();
+ 			} */
+ 			//添加今天签到
+ 			$$("signIn").onclick = function() {
+ 				if(isSign == false) {
+ 					var res = cale.SignIn();
+ 					var satus = $("#status").val();
+					if (satus == 1) {
+						res = '2';
+					}
+ 					if(res == '1') {
+ 						$$("sign-txt").innerHTML = '已签到';
+ 						$$("sign-count").innerHTML = parseInt($$("sign-count").innerHTML) + 1;
+ 						isSign = true;
+ 						signin(formatTime(myday[0], 'Y-M-D'));
+ 					} else if (res == '2'){
+ 						$$("sign-txt").innerHTML = '已签到';
+ 						parent.layer.msg("今天已经签到了");
+ 					}
+ 				} else {
+ 					parent.layer.msg("今天已经签到了");
+ 				}
+ 
+ 			}
+ 			
+ 			function signin(date) {
+				var date = date.split("-");
+				$.ajax({
+					cache : true,
+					type : "POST",
+					url : "/pc/checkin/do",
+					data : {
+						'year': date[0],
+						'month':date[1],
+						'day':date[2]
+					},
+					async : false,
+					error : function(request) {
+						parent.layer.alert("Connection error");
+					},
+					success : function(data) {
+						if (data.code == 0) {
+							parent.layer.msg("签到成功");
+						} else {
+							parent.layer.alert(data.msg)
+						}
+
+					}
+				});
+			}
+			
+			
+			
+			/*时间格式化  */
+			function formatTime(number,format) {  
+				  
+				  var formateArr  = ['Y','M','D','h','m','s'];  
+				  var returnArr   = [];  
+				  
+				  var date = new Date(number * 1000);  
+				  returnArr.push(date.getFullYear());  
+				  returnArr.push(formatNumber(date.getMonth() + 1));  
+				  returnArr.push(formatNumber(date.getDate()));  
+				  
+				  returnArr.push(formatNumber(date.getHours()));  
+				  returnArr.push(formatNumber(date.getMinutes()));  
+				  returnArr.push(formatNumber(date.getSeconds()));  
+				  
+				  for (var i in returnArr)  
+				  {  
+				    format = format.replace(formateArr[i], returnArr[i]);  
+				  }  
+				  return format;  
+				}
+			
+			//数据转化  
+			function formatNumber(n) {  
+			  n = n.toString()  
+			  return n[1] ? n : '0' + n  
+			}  
+			
+			
+			$(function(){
+				var signin;
+				$.ajax({
+					cache : true,
+					type : "POST",
+					url : "/pc/checkin/data",
+					data : {},
+					async : false,
+					error : function(request) {
+						parent.layer.alert("Connection error");
+					},
+					success : function(data) {
+						var data = eval('(' + data + ')');
+						signin = data.signin;
+						$("#sign-count").html(signin.length)
+						$("#status").val(data.status);
+						if (data.status == 1) {
+							$("#sign-txt").html("已签到");
+						}
+					}
+				});
+				var trList = $("#idCalendar").find("span").each(function(i,item){
+					var obj = $(item);
+					for (var i = 0; i < signin.length; i++ ) {
+						if (signin[i].day == obj.text()) {
+							$(obj.parent()).addClass("onToday");
+						}
+					}
+				});
+			})
+</script>

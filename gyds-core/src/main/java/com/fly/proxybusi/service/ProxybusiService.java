@@ -1,0 +1,30 @@
+package com.fly.proxybusi.service;
+
+import com.fly.proxybusi.domain.ProxybusiDO;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 
+ * 
+ * @author WangYanke
+ * @email 15638836857@163.com
+ * @date 2019-07-10 13:57:24
+ */
+public interface ProxybusiService {
+	
+	ProxybusiDO get(Long id);
+	
+	List<ProxybusiDO> list(Map<String, Object> map);
+	
+	int count(Map<String, Object> map);
+	
+	int save(ProxybusiDO proxybusi);
+	
+	int update(ProxybusiDO proxybusi);
+	
+	int remove(Long id);
+	
+	int batchRemove(Long[] ids);
+}

@@ -1,0 +1,125 @@
+	#container{
+		width:612px;
+		height: 394px;
+		position: relative;
+		overflow: hidden;
+	}
+		.lun{
+			width:1836px;
+			height: 100%;
+			position: absolute;
+		}
+		.lun img{
+			width: 612px;
+			height: 394px;
+			float: left;
+		}
+		.left,.right{
+			width: 20px;
+			height: 25px;
+			background-color: #ccc;
+			outline: none;
+			border: 4px solid #9a745f;
+			position: absolute;
+			display: none;
+		}
+		.left{
+			left: 30px;
+			top: 200px;
+		}
+	     .right{
+			right: 30px;
+			top: 200px;
+	    }
+		.bo{
+			position: absolute;
+			width: 100%;
+			line-height:50px;
+			top: 344px;
+			background:rgba(0,0,0,0.5);
+		}
+		.bo p{
+			float: left;
+			margin-left:10px;
+			color:#F1F1F1;
+		}
+		.list{
+			float: right;
+        }
+		.list li{
+			float: left;
+			list-style: none;
+			width: 10px !important;
+			height: 10px !important;
+			margin-right: 10px;
+			margin-top:20px;
+			background-color: #ff1012;
+			border-radius: 50%;
+			
+		}
+		.select{
+			background-color: #ccc !important;
+		}
+		/**/
+			#container1{
+			width:765px;
+			height: 394px;
+			position: relative;
+			overflow: hidden;
+            background: #fff;
+		}
+			.lun1{
+				width:3060px;
+				height: 100%;
+				position: absolute;
+			}
+			.lun1 img{
+				width:765px;
+				height: 394px;
+				float: left;
+			}
+			.left1,.right1{
+				width: 20px;
+				height: 25px;
+				background-color: #ccc;
+				outline: none;
+				border: 4px solid #9a745f;
+				position: absolute;
+				display: none;
+			}
+			.left1{
+				left: 30px;
+				top: 200px;
+			}
+		     .right1{
+				right: 30px;
+				top: 200px;
+		    }
+			.bo1{
+				position: absolute;
+				width: 100%;
+				line-height:50px;
+				top: 344px;
+				/* background:rgba(0,0,0,0.5); */
+			}
+			.bo1 p{
+				float: left;
+				margin-left:10px;
+				color:#F1F1F1;
+			}
+			.list1{
+				float: right;
+		    }
+			.list1 li{
+				float: left;
+				list-style: none;
+				width: 10px !important;
+				height: 10px !important;
+				margin-right: 10px;
+				margin-top:20px;
+				background-color: #ff1012;
+				border-radius: 50%;	
+			}
+			.select1{
+				background-color: #ccc !important;
+			}

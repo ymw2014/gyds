@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head th:replace="pc/include :: head">
+	</head>
+	<body>
+		<div class="boxRight" style="background:#fff;width: 1006px;height: 925px;margin-top:0;">
+				<div class="gzzx">
+					<h4>关注中心</h4>
+					<ul class="dianli">
+						<li class="hongdise"><a href="javaScript:;">团队 <span>32</span></a></li>
+						<li><a href="javaScript:;">活动 <span>9</span></a></li>
+						<!-- <li><a href="javaScript:;">新闻 <span>9</span></a></li> -->
+						<li><a href="javaScript:;">志愿者 <span>19</span></a></li>
+					</ul>
+				</div>
+				 <!-- 团队 -->
+				<div class="yy-gz" style="margin-top:20px;display: block;">
+					<div class="yymytd" th:each="team: ${teamList}">
+						<div class="yy-mytd1">
+							<img src="images/mytdlogo.jpg" alt="">
+						</div>
+						<div class="yy-mytd2">
+							<h4 th:text="${team.team_name}">郑州志愿者联盟</h4>
+							<div>
+								<ul>
+									<li>团队类型<span th:text="${team.type_name}"></span></li>
+									<li>所在地区<span th:text="${team.region_name}">河南省郑州市</span></li>
+									<li>志愿者总数 <span th:text="${team.v_renshu}"></span></li>
+									<li>发布活动 <span th:text="${team.act_count}"></span></li>
+									<li>发布咨询 <span th:text="${team.new_count}"></span></li>
+								</ul>
+							</div>
+							<p th:text="${team.remark}"></p>
+						</div>
+					</div>
+				</div>
+				  <!-- 活动 -->
+				<div class="yy-gz" style="margin-top:20px;">
+					<div class="yy-gz1" style="padding-top: 30px;" th:each="act: ${actList}">
+							<img src="images/aaa4.jpg" alt="">
+							<p th:text="${act.act_title}"></p>
+							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd HH:mm:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
+							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count+'人报名'}"></span>
+							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 0}">取消报名</a>
+							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 1}">已报名</a>
+							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq -1}">立即报名</a>
+					</div>
+				</div>
+				  <!-- 新闻 -->
+				<!-- <div class="yy-gz" style="margin-top:20px;" >
+					<div class="yy-gz1" th:each="new: ${newList}">
+						<a href="#">
+							<img th:src="${new.title_img}" alt="">
+							<p th:text="${new.title}">据说中美经贸磋商未来将在北京举行，中方在这些原则问题上不能让步中方在这些原则问题上不能让步</p>
+							<span th:text="${new.public_time}">发布时间：2019/07/15</span>
+						</a>
+					</div>
+				</div> -->
+			      <!-- 志愿者 -->
+				<div class="yy-gz" style="margin-top:20px;">
+					<div class="wyy-gz">
+						<div th:each="vo: ${voList}">
+							<img th:src="${vo.head_img}" alt="">
+							<h4>张丽芳 <img src="images/wan_vip.png" alt=""></h4>
+							<p th:text="${vo.remark}">个人签名 我是河南志愿者</p>
+							<div><a href="#"><img src="images/wyyzan.png" alt=""></a></div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+	</body>
+</html>
+<script>
+	$(".btn").mouseover(function(){
+		 $(this).children("ul").show();
+	});
+	$(".btn").mouseout(function(){
+		 $(this).children("ul").hide();
+	})
+	$('dt').click(function () {
+		if($(this).nextUntil('dt','dd').is(':visible')){
+			$(this).nextUntil('dt','dd').slideUp()
+		}else{
+			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
+		}
+	});
+	$('.dianli li').click(function() {
+		$(this).addClass("hongdise").siblings("li").removeClass("hongdise");
+		var index = $(this).index();
+		$('.yy-gz').hide().eq($(this).index()).show();
+	});
+	$(".wyy-gz>div").click(function(){
+		$(this).addClass("redborder").siblings("div").removeClass("redborder")
+	})
+	
+	function apply(type) {
+		$.ajax({
+            type : "POST",
+            dataType: "json",
+            url : "/pc/activity/apply",
+            data : {
+            	'type': type,
+            	'actId': $("#actId").val(),
+            	'applyId': $("#applyId").val()
+            },
+            success : function(result) {
+            	var status = result.status;
+            	if (status == 1) {
+            		parent.layer.msg("操作成功");
+            		history.go(0)
+            	} else if (status == 2){
+            		parent.layer.msg("您还没登录，请先登录");
+            	} else if (status == 3){
+            		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+            	} else if (status == 3){
+            		parent.layer.msg("报名失败，报名人数已满");
+            	} else {
+            		parent.layer.msg("操作失败");
+            	}
+            }
+        });
+	}
+
+</script>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/HuaDongNav.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/zixun.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/flexible.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/iscroll.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/navbarscroll.js}"></script>
+	</head>
+	<body>
+		<header style="background:#c01b25;">
+			<div class="login">
+				<img th:src="@{/mobile/images/zixun_03.jpg}" alt="">
+			</div>
+			<div class="header-center">
+				<select style="width: 135px;
+				height: 30px;-webkit-appearance: none;
+				background:url(images/input_03.jpg)no-repeat right;
+				background-size:30px 30px;background-color: #fff;">
+					  <option value="1">全国</option>
+					  <option value="2">Saab</option>
+					  <option value="3">Opel</option>
+					  <option value="4">Audi</option>
+                </select> 
+			</div>
+		</header>
+		
+		<div class="zixungg">
+			<a href="#">
+				<img th:src="@{/mobile/images/zixungg_07.jpg}" alt="">
+			</a>
+			<a href="#">
+				<img th:src="@{/mobile/images/zixungg_07.jpg}" alt="">
+			</a>
+			<a href="#">
+				<img th:src="@{/mobile/images/zixungg_07.jpg}" alt="">
+			</a>
+			<a href="#">
+				<img th:src="@{/mobile/images/zixungg_07.jpg}" alt="">
+			</a>
+		</div>
+		<div class="zixunnr" th:each="info:${newsList}"><a th:href="@{/pc/news/info(id=${info.id})}">
+			<div>
+				<span th:text="${info.title}"></span>
+				<p><span th:text="${info.source}"></span>&nbsp;&nbsp;<span th:text="${info.teamName}"></span>&nbsp;<span th:text="${#dates.format(info.publicTime,'yyyy-MM-dd')}"></span>&nbsp;&nbsp;<span th:text="${'评论' + info.criticismOfCount}"></span> <img th:if=" ${info.isTop} eq '1'" th:src="@{/mobile/images/list_09.jpg}" style="width: 38px;height: 20px"><img th:if=" ${info.isRedPeper} eq '1'" th:src="@{/mobile/images/list_06.jpg}" style="width: 38px;height: 20px"></p>
+			</div>
+			<img th:src="@{/mobile/images/zixungg_20.jpg}" style="width: 240px; height: 157px;">
+		</a>
+		</div>
+		<div class="beian">
+			<div class="beian1">
+				<span>京ICP备12048184号</span>
+				<span>技术支持：景安网络</span>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		$('.wrapper').navbarscroll();
+		
+	});
+</script>

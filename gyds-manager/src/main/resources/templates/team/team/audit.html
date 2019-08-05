@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<input id="id" name="id" th:value="${team.id}" type="hidden">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">团队名称：</label>
+								<div class="col-sm-8">
+									<input id="teamName" 
+										th:value="${team.teamName}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">团长名称：</label>
+								<div class="col-sm-8">
+									<input id="colonelName" readonly="readonly"
+										th:value="${team.colonelName}" class="form-control"
+										type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">团队类型：</label>
+								<div class="col-sm-8">
+									<select name="teamType" lay-search=""
+										class="form-control input1" disabled="disabled">
+										<option th:selected="${type.id eq team.teamType}"
+											th:each="type : ${type}" th:value="${type.id}"
+											th:text="${type.typeName}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">团队编号：</label>
+								<div class="col-sm-8">
+									<input id="teamCode" readonly="readonly"
+										th:value="${team.teamCode}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">团队封面图：</label>
+								<div class="col-sm-8">
+									<div>
+										<div id="imgsbox_img" class="imgsbox">
+											<div class="imgbox">
+												<img th:src="${team.teamTitleImg}">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">团队图片</label>
+								<input type="hidden" th:value="${team.teamImg}" id = "teamImg">
+								<div class="col-sm-8">
+									<div>
+										<div id="imgsbox_img" class="imgsbox" >
+											<div class="imgbox" th:each="img : ${imgList}">
+												<img  th:src="${img}">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">地区：</label>
+								<div class="col-sm-8">
+									<input id="regCode" readonly="readonly"
+										th:value="${team.regionName}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">状态：</label>
+								<div class="col-sm-8">
+								<label class="radio-inline" >
+										<input type="radio"  value="0" th:attr ="checked=${0 == team.status?true:false}" name="status">申请中
+									</label>
+									<label class="radio-inline" >
+										<input type="radio"  value="1" th:attr ="checked=${1 == team.status?true:false}" name="status">通过
+									</label>
+									<label class="radio-inline" >
+										<input type="radio"  value="2" th:attr ="checked=${2 == team.status?true:false}" name="status">已拒绝
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">备注：</label>
+								<div class="col-sm-8">
+									<input id="remark" name="remark"
+										th:value="${team.remark}" class="form-control" type="text">
+								</div>
+							</div>
+							 <div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div> 
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/team/team/edit.js">
+	</script>
+	
+</body>
+</html>

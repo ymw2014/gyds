@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>公益打赏</title>
+<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/pc/css/login.css}">
+<link th:href="@{/css/layui.css}" rel="stylesheet">
+	<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+	<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+	<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+	<script th:src="@{/js/plugins/layer/layer.js}"></script>
+	<script th:src="@{/js/layui.js}"></script>
+	<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+	<script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+</head>
+<body>
+	<!-- 头部 -->
+	<div th:replace="pc/include :: header"></div>
+	<div class="wyylogin">
+		<div class="wyylogin1">
+			<img th:src="@{/pc/images/aixin.jpg}" alt="">
+			<div class="wyylogin2">
+				<div class="wyylogin2-1">
+					<ul>
+						<li class="gaoliang">账号登录</li>
+						<li>微信登录</li>
+					</ul>
+					<div class="gaoliang-1" style="display: block;">
+						<form id="signupForm" >
+							<input type="text" name="username" placeholder="请输入账号" value="admin" class="shoujihao"
+								style="background: url(images/shouji.jpg) no-repeat; background-position: 10px 9px;">
+							<input type="password" name="password" placeholder="请输入登录密码"  value="123456"
+								style="background: url(images/mimasuio.jpg) no-repeat; background-position: 10px 9px;">
+							<label>
+								<input type="text" name="verify" placeholder="请输入图片验证码" style="background:url(images/kujiedl_06.jpg) no-repeat;background-position:10px 9px;" class="yanzheng">
+								<a href="javaScript:;" class="yanzhengtup "><img class="verifyimg reloadverify" style="height: 40px;width:100px;" src="/pc/images/kujiedl_03.jpg" alt=""></a>
+							</label>
+							<div style="overflow: hidden;">
+								<a href="#" style="float: right; color: #a7a7a7;">忘记密码？</a>
+							</div>
+							<div>
+								<input  type="button" id="login" value="立即登录">
+							</div>
+						</form>
+						<div class="kuaijiedl">
+							<a href=""> <img src="images/dlxinlang.jpg" alt="">
+							</a> <a href="" style="text-align: center;"> <img
+								src="images/dlqq.jpg" alt="">
+							</a> <a href="" style="text-align: right;"> <img
+								src="images/dlwx.jpg" alt="">
+							</a>
+						</div>
+					</div>
+					<div class="gaoliang-1">
+						<form action="" method="">
+							<div id="login_container">
+								
+							</div>
+						</form>
+						<div class="kuaijiedl">
+							<a href=""> <img th:src="@{/pc/images/dlxinlang.jpg}" alt="">
+							</a> <a href="" style="text-align: center;"> <img
+								th:src="@{/pc/images/dlqq.jpg}" alt="">
+							</a> <a href="javascript:;" onclick="wxLogin()" style="text-align: right;"> <img
+								th:src="@{/pc/images/dlwx.jpg}" alt="">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 底部 -->
+	<div th:replace="pc/include :: footer"></div>
+	<!-- 备案 -->
+	<div class="beian">
+		<div class="beian1">
+			<span style="float: left;">©公益打赏平台 版权所有</span> <span
+				style="float: right;">京ICP备12048184号 技术支持：景安网络</span>
+		</div>
+	</div>
+</body>
+</html>
+<script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
+<script>
+	$("#area").hide();
+	var cttx = window.location.protocol + "//" + window.location.host;
+	$('.verifyimg').attr('src',
+			cttx + '/vifityCodeController/getVerify?xxx=' + Math.random());
+
+	$(document).ajaxStart(function() {
+		console.log("denglu");
+		$("#login").val('登 录 中...').attr("disabled", true);
+	}).ajaxStop(function() {
+		$("#login").val('登 录').attr("disabled", false);
+	}).ready(function() {
+		$("#login").on('click', function() {
+			console.log(123456);
+			$("#signupForm").submit();
+		});
+		validateRule();
+	});
+
+	function login() {
+		var self = $(this);
+		$.ajax({
+			type : "POST",
+			url : ctx + "login",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					var index = layer.load(1, {
+						shade : [ 0.1, '#fff' ]
+					//0.1透明度的白色背景
+					});
+					window.location.href = r.url;
+				} else if (r.status == 500) {
+					layer.msg(r.message);
+					self.find(".check-tips").text(r.message);
+					//刷新验证码
+					$(".reloadverify").click();
+				} else {
+					layer.msg(r.msg);
+					self.find(".check-tips").text(r.msg);
+					//刷新验证码
+					$(".reloadverify").click();
+				}
+			},
+		});
+	}
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			login();
+		}
+	});
+	function validateRule() {
+
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#signupForm").validate({
+			rules : {
+				username : {
+					required : true
+				},
+				password : {
+					required : true
+				},
+				verify : {
+					required : true
+				}
+			},
+			messages : {
+				username : {
+					required : icon + "<span style='color:red'>请输入您的用户名</span>",
+				},
+				password : {
+					required : icon + "<span style='color:red'>请输入您的密码</span>",
+				},
+				verify : {
+					required : icon + "请输入验证码",
+				}
+			}
+		})
+	}
+
+	//刷新验证码
+	var verifyimg = $(".verifyimg").attr("src");
+	$(".reloadverify").click(
+			function() {
+				console.log(verifyimg);
+				if (verifyimg.indexOf('?') > 0) {
+					$(".verifyimg").attr("src",
+							verifyimg + '&random=' + Math.random());
+				} else {
+					$(".verifyimg").attr(
+							"src",
+							verifyimg.replace(/\?.*$/, '') + '?'
+									+ Math.random());
+				}
+			});
+
+	function upperCase() {
+		var shouji = $(".shoujihao").val();
+		if (!(/^1[34578]\d{9}$/.test(shouji))) {
+			alert("手机号码输入有误,请重填");
+			return false;
+		}
+	}
+	$(".wyylogin2-1 li").click(function() {
+		$(this).addClass("gaoliang").siblings("li").removeClass("gaoliang");
+		var index = $(this).index();
+		$('.gaoliang-1').hide().eq($(this).index()).show();
+	})
+	
+	function wxLogin(){
+		var obj = new WxLogin({
+			 
+            id:"login_container",    //div的id
+
+            appid: "wx8f042090d19f8ee0",
+
+            scope: "snsapi_login",
+
+            redirect_uri: encodeURIComponent("http://zhgy.61966.com/wx/auth/jump"),        //回调地址
+
+            state: "",　　　　　　　　　//参数，可带可不带
+
+            style: "",　　　　　　　　　//样式  提供"black"、"white"可选，默认为黑色文字描述
+
+            href: ""                 //自定义样式链接，第三方可根据实际需求覆盖默认样式。
+	});
+	}
+	
+	/* function UrlDecode(str){
+		  var ret="";
+		  for(var i=0;i<str.length;i++){
+		   var chr = str.charAt(i);
+		    if(chr == "+"){
+		      ret+=" ";
+		    }else if(chr=="%"){
+		     var asc = str.substring(i+1,i+3);
+		     if(parseInt("0x"+asc)>0x7f){
+		      ret+=asc2str(parseInt("0x"+asc+str.substring(i+4,i+6)));
+		      i+=5;
+		     }else{
+		      ret+=asc2str(parseInt("0x"+asc));
+		      i+=2;
+		     }
+		    }else{
+		      ret+= chr;
+		    }
+		  }
+		  return ret;
+		} */
+	
+	
+	
+	
+</script>
+

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" th:href ="@{/pc/css/index.css}" />
+		<script th:src="@{/pc/js/jquery-3.1.1.js}" ></script>
+		<link rel="stylesheet" th:href ="@{/pc/css/activity.css}">
+		<link rel="stylesheet" th:href ="@{/pc/css/content.css}" >
+		<link rel="stylesheet" th:href ="@{/pc/css/listcont.css}" >
+		<link rel="stylesheet" th:href ="@{/pc/css/ziyunlist.css}">
+		<link rel="stylesheet" th:href ="@{/pc/css/css1.css}">
+		<link rel="stylesheet" th:href ="@{/pc/css/css2.css}" >
+	</head>
+	<body>
+		<div th:replace="pc/include :: header"></div>
+		<!-- 导航 -->
+		<!-- <div class="navTwo">
+			<div class="navTwoCen">
+				<div><a href="#">网站首页</a></div>
+				<div><a href="#">动态咨询</a></div>
+				<div><a href="#">活动报名</a></div>
+				<div><a href="#">志愿者</a></div>
+				<div><a href="#">团队活动</a></div>	
+			</div>
+		</div> -->
+		<!-- 文字内容 -->
+		<div class="listcont">
+		<!-- 	左1 -->
+			<div class="listcontL">
+				<div class="listcontLtxt">
+					<!-- <p>您所在的位置：首页>青少年马术教学试骑体验</p> -->
+				</div>
+				<div class="listcontLH">
+					<h4 th:text="${info.title}"></h4>
+					<p >
+						<span th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"></span>&nbsp;
+						<span th:text="'来  源 : '+${info.source}"></span>&nbsp;
+						<span th:text="'作  者 : '+${info.author}"></span>
+					</p>
+				</div>
+				<div style="margin-top:40px;" class="listcontLC">
+					<div th:utext="${info.content}">
+					</div>
+					  <div class="xqfenxing" style="margin: 0 auto; width: 400px;margin-top:40px;">
+					  	<span>分享至</span>
+					  	<a href="#"><img th:src="@{/pc/images/conter_26.jpg}" alt=""></a>
+					  	<a href="#"><img th:src="@{/pc/images/conter_28.jpg}" alt=""></a>
+					  	<a href="#"><img th:src="@{/pc/images/conter_30.jpg}" alt=""></a>
+					  	<a href="#"><img th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
+					  </div>
+				</div>			
+			</div>
+			<!-- 右1 -->
+			<div class="listcontR">
+				<div class="xqrightTop" style="width:254px;">
+					<img th:src="@{/pc/images/touxiang%2082.png}" alt="">
+					<span th:text="${info.author}"></span>
+					<p>求关注</p>
+				</div>
+				<ul th:each="news:${newsList}">
+					<li>·<a th:text="${news.title}" th:href="@{/news/info/{id}(id=${news.id})}"></a></li>
+					
+				</ul>
+			</div>
+			<div class="listcontRI">
+				<a href="#"><img th:src="@{/pc/images/zyz_03.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_06.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_09.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_12.jpg}" alt=""></a>
+				<a href="#"><img th:src="@{/pc/images/zyz_15.jpg}" alt=""></a>
+				<!-- 右侧排名 -->
+				<div class="listcontpm">
+					<div class="zixunbut">
+						<h3>点击排名</h3>
+						<ul th:each="likeNews:${newsLike}">
+							<li><i th:text="${likeNews.i}"></i><a href="#" th:text="${likeNews.title}">关于公益救济性捐款税前扣除政策</a></li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- 右侧排名 -->
+
+			
+			<!-- 左2 -->
+			<div class="listcontL1">
+				<div class="listcontL1-1 modal__trigger" data-modal="#modal">
+					<img th:src="@{/pc/images/dashang.png}" alt="">打赏
+				</div>
+				<div class="listcontL1-2">
+					<p>已有10人打赏</p>
+				</div>
+				<div class="listcontL1-3">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+					<img src="images/wan1.jpg" alt="">
+				</div>
+			</div>
+			<!-- 红包 -->
+			<div id="modal" class="modal modal__bg" role="dialog" aria-hidden="true" style="background:rgba(0,0,0,0.9);">
+				<div class="modal__dialog" style="width: 600px;">
+					<div class="modal__content">
+						<div style="width: 600px;background:#fff;position: fixed;">
+							<div class="hbtop"></div>
+							<div style="width: 600px;background:#fff;height: 260px;">
+								<div class="hbcen">
+									<div class="hbcen1">
+										<img th:src="@{pc/images/touxiang5.png}" alt="">
+										<p style="font-size:20px;line-height:30px;">打赏门户的红包</p>
+										<p style="color:#b8b8b8;font-size:16px;line-height:40px;">恭喜发财，大吉大利</p>
+										<span><rem style="font-size:36px; color:#ef472a;">17.77 </rem>元</span>
+									</div>
+								</div>
+							</div>
+							<div style="width: 100%;line-height: 40px;background:#ebebeb;">
+								<p style="margin-left:10px;">已领取3/8个,共150.00元</p>
+							</div>
+						</div>
+						<div class="lingqu">
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+								<div class="hblq1">
+									<img src="images/touxiang5.png" alt="">
+									<div>
+										<span>苏小宁</span>
+										<p>今天 10:00:28</p>
+									</div>
+									<p>18.66元</p>
+								</div>
+							</div>
+							<div class="hblq">
+							<div class="hblq1">
+								<img src="images/touxiang5.png" alt="">
+								<div>
+									<span>苏小宁</span>
+									<p>今天 10:00:28</p>
+								</div>
+								<p>18.66元</p>
+							</div>
+						</div>
+						</div>				
+						<div class="butt">
+							<button>我的红包</button>
+							<button>发红包</button>
+						</div>
+						<a href="" class="modal__close demo-close">
+							<svg class="" viewBox="0 0 24 24">
+								<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
+								<path d="M0 0h24v24h-24z" fill="none" />
+							</svg>
+						</a>
+					</div>
+				</div>
+				<script th:src="@{/pc/js/js1.js}"></script>
+			</div>
+			<div class="listzz">
+				<div><img th:src="@{/pc/images/listzz_03.jpg}" alt="">9896</div>
+				<div><img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶</div>
+				<div><img th:src="@{/pc/images/listcc_07.jpg}" alt="">发放中</div>	
+			</div>
+			<!-- 左3 评论 -->
+			<div class="listpl">
+				<div class="listpl-1">
+					<p>网友评论 <span>文明上网理性发言，请遵守新闻评论服务协议</span><rem>2条评论</rem> </p>
+				</div>
+				<div class="listpl-2">
+					<div class="listpl-2-1">
+						<img src="images/touxiang 82.png" alt="">
+					</div>
+					<div class="listpl-2-2">
+						<textarea placeholder="说两句吧...">
+						</textarea>
+						<a href="#">发表</a>
+					</div>
+				</div>
+			</div>
+			<!-- 左4 全部评论 -->
+			 <div class="listL-4">
+				 <p>全部评价</p>
+				 <span>
+					 <a href="#">最新</a>/
+					 <a href="#">最热</a>
+				 </span>
+			 </div>
+			 <div class="listL-5">
+				 <div class="listL-5-1">
+					 <img th:src="@{/pc/images/touxiang 82.png}" alt="">
+				 </div>
+				 <div class="listL-5-2">
+					 <p>今昔<span>6分钟前</span><rem>举报</rem></p>
+					  <p style="color:#4b4b4b;">在网络扇框黑色粉色衣服随风公司法在网络扇框黑色粉色衣服随风公司法</p>
+				 </div>
+			 </div>
+			 <div class="listbutt">
+				 <button>查看更多评论</button> 
+			 </div>
+			 
+			<!-- 推荐 -->
+			<div style="width: 783px;float: left;">
+				<!-- 开始 -->
+				 <div class="zixunbox">
+					<div class="zixuncent1" style="height: 120px;">
+						<img src="images/aaa4.jpg" alt="">
+					</div>
+					<div class="zixuncent2" style="width: 540px;"> 
+						<p>就说中美经贸磋商未来经在北京举行。中方在这些原则问题上不能让步
+						中方在这些原则问题上不能让步</p>
+					</div>
+					<div class="zixuncent3" style="width: 540px;">
+						<p style="float: left;">
+							<img src="images/list_15.jpg" alt="" style="width:40px; height:13px;margin-top:5px;"><span>环球网</span>
+							<img src="images/list_03.jpg" alt="" style="width:23px; height:23px;"><span>小暖暖 17分钟前</span>
+							<img src="images/list_09.jpg" alt="">
+							<img src="images/list_06.jpg" alt="">
+						</p>
+						<p style="float:right;">
+							<img src="images/list_12.jpg" alt=""><span>(23)</span>
+							<img src="images/list03.jpg" alt="" style="width: 19px;height: 22px;"><span>(23)</span>
+							<img src="images/list06.jpg" alt=""><span>(23)</span>
+						</p>
+					</div>
+				</div>
+				<!-- 结束 -->
+				<div class="zixunbox">
+					<div class="zixuncent1" style="height: 120px;">
+						<img src="images/aaa4.jpg" alt="">
+					</div>
+					<div class="zixuncent2" style="width: 540px;"> 
+						<p>就说中美经贸磋商未来经在北京举行。中方在这些原则问题上不能让步
+						中方在这些原则问题上不能让步</p>
+					</div>
+					<div class="zixuncent3" style="width: 540px;">
+						<p style="float: left;">
+							<img src="images/list_15.jpg" alt="" style="width:40px; height:13px;margin-top:5px;"><span>环球网</span>
+							<img src="images/list_03.jpg" alt="" style="width:23px; height:23px;"><span>小暖暖 17分钟前</span>
+							<img src="images/list_09.jpg" alt="">
+							<img src="images/list_06.jpg" alt="">
+						</p>
+						<p style="float:right;">
+							<img src="images/list_12.jpg" alt=""><span>(23)</span>
+							<img src="images/list03.jpg" alt="" style="width: 19px;height: 22px;"><span>(23)</span>
+							<img src="images/list06.jpg" alt=""><span>(23)</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="pc/include :: footer"></div>
+		<!-- 备案 -->
+		<div class="beian">
+			<div class="beian1">
+				<span style="float: left;">©公益打赏平台 版权所有</span>
+				<span style="float: right;">京ICP备12048184号  技术支持：景安网络</span>
+			</div>
+		</div>
+	</body>
+</html>

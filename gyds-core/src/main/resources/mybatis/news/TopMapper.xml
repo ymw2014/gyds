@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.news.dao.TopDao">
+
+	<select id="get" resultType="com.fly.news.domain.TopDO">
+		select `id`,`news_id`,`user_id`,`top_start_time`,`top_end_time`,`top_price`,`status`,`orderNumber`,`top_day` from appy_top where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.news.domain.TopDO">
+		select `id`,`news_id`,`user_id`,`top_start_time`,`top_end_time`,`top_price`,`status`,`orderNumber`,`top_day` from appy_top
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="topStartTime != null and topStartTime != ''"> and top_start_time = #{topStartTime} </if>
+		  		  <if test="topEndTime != null and topEndTime != ''"> and top_end_time = #{topEndTime} </if>
+		  		  <if test="topPrice != null and topPrice != ''"> and top_price = #{topPrice} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="ordernumber != null and ordernumber != ''"> and orderNumber = #{ordernumber} </if>
+		  		  <if test="topDay != null and topDay != ''"> and top_day = #{topDay} </if>
+		  		  <if test="regionCode != null">and region_code = #{regionCode}</if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from appy_top
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="topStartTime != null and topStartTime != ''"> and top_start_time = #{topStartTime} </if>
+		  		  <if test="topEndTime != null and topEndTime != ''"> and top_end_time = #{topEndTime} </if>
+		  		  <if test="topPrice != null and topPrice != ''"> and top_price = #{topPrice} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="ordernumber != null and ordernumber != ''"> and orderNumber = #{ordernumber} </if>
+		  		  <if test="topDay != null and topDay != ''"> and top_day = #{topDay} </if>
+		  		  <if test="regionCode != null">and region_code = #{regionCode}</if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.news.domain.TopDO" useGeneratedKeys="true" keyProperty="id">
+		insert into appy_top
+		(
+			`news_id`, 
+			`user_id`, 
+			`top_start_time`, 
+			`top_end_time`, 
+			`top_price`, 
+			`status`, 
+			`orderNumber`, 
+			`top_day`
+		)
+		values
+		(
+			#{newsId}, 
+			#{userId}, 
+			#{topStartTime}, 
+			#{topEndTime}, 
+			#{topPrice}, 
+			#{status}, 
+			#{ordernumber}, 
+			#{topDay}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.news.domain.TopDO">
+		update appy_top 
+		<set>
+			<if test="newsId != null">`news_id` = #{newsId}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="topStartTime != null">`top_start_time` = #{topStartTime}, </if>
+			<if test="topEndTime != null">`top_end_time` = #{topEndTime}, </if>
+			<if test="topPrice != null">`top_price` = #{topPrice}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="ordernumber != null">`orderNumber` = #{ordernumber}, </if>
+			<if test="topDay != null">`top_day` = #{topDay}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from appy_top where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from appy_top where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

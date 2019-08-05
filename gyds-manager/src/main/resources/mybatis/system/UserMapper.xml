@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.system.dao.UserDao">
+
+	<select id="get" resultType="com.fly.domain.UserDO">
+		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user where user_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.domain.UserDO">
+		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user
+        <where>  
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="username != null and username != ''"> and username = #{username} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="nikeName != null and nikeName != ''"> and nike_name = #{nikeName} </if>
+		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
+		  		  <if test="account != null and account != ''"> and account = #{account} </if>
+		  		  <if test="platformIntegral != null and platformIntegral != ''"> and platform_integral = #{platformIntegral} </if>
+		  		  <if test="email != null and email != ''"> and email = #{email} </if>
+		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="userIdCreate != null and userIdCreate != ''"> and user_id_create = #{userIdCreate} </if>
+		  		  <if test="gmtCreate != null and gmtCreate != ''"> and gmt_create = #{gmtCreate} </if>
+		  		  <if test="gmtModified != null and gmtModified != ''"> and gmt_modified = #{gmtModified} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="birth != null and birth != ''"> and birth = #{birth} </if>
+		  		  <if test="picId != null and picId != ''"> and pic_id = #{picId} </if>
+		  		  <if test="liveAddress != null and liveAddress != ''"> and live_address = #{liveAddress} </if>
+		  		  <if test="hobby != null and hobby != ''"> and hobby = #{hobby} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="district != null and district != ''"> and district = #{district} </if>
+		  		  <if test="isIdentification != null and isIdentification != ''"> and is_identification = #{isIdentification} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="cardFrontImg != null and cardFrontImg != ''"> and card_front_img = #{cardFrontImg} </if>
+		  		  <if test="cardBackImg != null and cardBackImg != ''"> and card_back_img = #{cardBackImg} </if>
+		  		  <if test="nation != null and nation != ''"> and nation = #{nation} </if>
+		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
+		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
+		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
+		  		  <if test="ids != null and ids.size > 0">
+		  		  	and
+		  		  	dept_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		  <if test="userIds != null and userIds.size > 0">
+		  		  	and
+		  		  	user_id in 
+		  		   	<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by user_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from sys_user
+		 <where>  
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="username != null and username != ''"> and username = #{username} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="nikeName != null and nikeName != ''"> and nike_name = #{nikeName} </if>
+		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
+		  		  <if test="account != null and account != ''"> and account = #{account} </if>
+		  		  <if test="platformIntegral != null and platformIntegral != ''"> and platform_integral = #{platformIntegral} </if>
+		  		  <if test="email != null and email != ''"> and email = #{email} </if>
+		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="userIdCreate != null and userIdCreate != ''"> and user_id_create = #{userIdCreate} </if>
+		  		  <if test="gmtCreate != null and gmtCreate != ''"> and gmt_create = #{gmtCreate} </if>
+		  		  <if test="gmtModified != null and gmtModified != ''"> and gmt_modified = #{gmtModified} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="birth != null and birth != ''"> and birth = #{birth} </if>
+		  		  <if test="picId != null and picId != ''"> and pic_id = #{picId} </if>
+		  		  <if test="liveAddress != null and liveAddress != ''"> and live_address = #{liveAddress} </if>
+		  		  <if test="hobby != null and hobby != ''"> and hobby = #{hobby} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="district != null and district != ''"> and district = #{district} </if>
+		  		  <if test="isIdentification != null and isIdentification != ''"> and is_identification = #{isIdentification} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="cardFrontImg != null and cardFrontImg != ''"> and card_front_img = #{cardFrontImg} </if>
+		  		  <if test="cardBackImg != null and cardBackImg != ''"> and card_back_img = #{cardBackImg} </if>
+		  		  <if test="nation != null and nation != ''"> and nation = #{nation} </if>
+		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus}</if>
+		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
+		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
+		  		  <if test="ids != null and ids.size > 0">
+		  		  	and
+		  		  	dept_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.domain.UserDO" useGeneratedKeys="true" keyProperty="userId">
+		insert into sys_user
+		(
+			`username`, 
+			`name`, 
+			`password`, 
+			`nike_name`, 
+			`dept_id`, 
+			`head_img`, 
+			`account`, 
+			`platform_integral`, 
+			`email`, 
+			`mobile`, 
+			`status`, 
+			`user_id_create`, 
+			`gmt_create`, 
+			`gmt_modified`, 
+			`sex`, 
+			`birth`, 
+			`pic_id`, 
+			`live_address`, 
+			`hobby`, 
+			`province`, 
+			`city`, 
+			`district`, 
+			`is_identification`, 
+			`card_no`, 
+			`card_front_img`, 
+			`card_back_img`, 
+			`nation`, 
+			`region_code`, 
+			`political_status`, 
+			`is_manage`,
+			`open_id`
+		)
+		values
+		(
+			#{username}, 
+			#{name}, 
+			#{password}, 
+			#{nikeName}, 
+			#{deptId}, 
+			#{headImg}, 
+			#{account}, 
+			#{platformIntegral}, 
+			#{email}, 
+			#{mobile}, 
+			#{status}, 
+			#{userIdCreate}, 
+			#{gmtCreate}, 
+			#{gmtModified}, 
+			#{sex}, 
+			#{birth}, 
+			#{picId}, 
+			#{liveAddress}, 
+			#{hobby}, 
+			#{province}, 
+			#{city}, 
+			#{district}, 
+			#{isIdentification}, 
+			#{cardNo}, 
+			#{cardFrontImg}, 
+			#{cardBackImg}, 
+			#{nation}, 
+			#{regionCode}, 
+			#{politicalStatus}, 
+			#{isManage},
+			#{openId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.domain.UserDO">
+		update sys_user 
+		<set>
+			<if test="username != null">`username` = #{username}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="nikeName != null">`nike_name` = #{nikeName}, </if>
+			<if test="deptId != null">`dept_id` = #{deptId}, </if>
+			<if test="headImg != null">`head_img` = #{headImg}, </if>
+			<if test="account != null">`account` = #{account}, </if>
+			<if test="platformIntegral != null">`platform_integral` = #{platformIntegral}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="userIdCreate != null">`user_id_create` = #{userIdCreate}, </if>
+			<if test="gmtCreate != null">`gmt_create` = #{gmtCreate}, </if>
+			<if test="gmtModified != null">`gmt_modified` = #{gmtModified}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="birth != null">`birth` = #{birth}, </if>
+			<if test="picId != null">`pic_id` = #{picId}, </if>
+			<if test="liveAddress != null">`live_address` = #{liveAddress}, </if>
+			<if test="hobby != null">`hobby` = #{hobby}, </if>
+			<if test="province != null">`province` = #{province}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="district != null">`district` = #{district}, </if>
+			<if test="isIdentification != null">`is_identification` = #{isIdentification}, </if>
+			<if test="cardNo != null">`card_no` = #{cardNo}, </if>
+			<if test="cardFrontImg != null">`card_front_img` = #{cardFrontImg}, </if>
+			<if test="cardBackImg != null">`card_back_img` = #{cardBackImg}, </if>
+			<if test="nation != null">`nation` = #{nation}, </if>
+			<if test="regionCode != null">`region_code` = #{regionCode}, </if>
+			<if test="politicalStatus != null">`political_status` = #{politicalStatus}, </if>
+			<if test="isManage != null">`is_manage` = #{isManage}</if>
+			<if test="openId != null">`open_id` = #{openId}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="remove">
+		delete from sys_user where user_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from sys_user where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+	
+	<update id="updateIntegral" parameterType="java.util.Map">
+		update sys_user 
+		<set>
+			<if test="platformIntegral != null">`platform_integral` = platform_integral + #{platformIntegral}, </if>
+		</set>
+		where user_id = #{userId}
+	</update>
+</mapper>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div style="padding: 10px;">
+	<div class="tabs-container">
+		<form class="form-config" id="signupForm">
+			<input id="id" name="id" th:value="${setup.id}"  type="hidden">
+			<div class="tabs-container">
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">网站配置</a></li>
+					<li class=""><a data-toggle="tab" href="#tab-2"	aria-expanded="false">广告标准</a></li>
+					<li class=""><a data-toggle="tab" href="#tab-3"	aria-expanded="false">分佣配置</a></li>
+					<li class=""><a data-toggle="tab" href="#tab-4"	aria-expanded="false">代理商入驻标准</a></li>
+					<li class=""><a data-toggle="tab" href="#tab-5"	aria-expanded="false">接口配置</a></li>
+					<li class=""><a data-toggle="tab" href="#tab-6"	aria-expanded="false">其它配置</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class=" control-label">公司名称:</label>
+										<input id="corporateName" name="corporateName" th:value=${setup.corporateName}  class="form-control  input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">网站标题:</label>
+										<input id="title" name="title" th:value=${setup.title}  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">SEO优化关键字:</label>
+										<input id="keywords" name="keywords" th:value=${setup.keywords}  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">版权信息:</label>
+										<input id="copyrightInto" name="copyrightInto" th:value=${setup.copyrightInto}  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">备案号:</label>
+										<input id="preparationNo" name="preparationNo" th:value=${setup.preparationNo}  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">客服电话:</label>
+										<input id="serviceTelephone" name="serviceTelephone" th:value="${setup.serviceTelephone}"  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class="control-label">LOGO:</label>
+									<input id="img" name="logo"  th:value="${setup.logo}"  class="form-control" type="hidden"/>
+									<div>
+										<img width="100px" height="90px" th:src="${setup.logo}"  id="img4" />
+										<button type="button" class="layui-btn" id="file">
+											<i class="fa fa-cloud"></i>上传图片
+										</button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">公众号:</label>
+									<input id="img1" name="officialAccountImg" th:value="${setup.officialAccountImg}" class="form-control" type="hidden"/>
+									<div>
+										<img width="100px" height="90px" th:src="${setup.officialAccountImg}"  id="img5" />
+										<button type="button" class="layui-btn" id="file1">
+											<i class="fa fa-cloud"></i>上传图片
+										</button>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div id="tab-2" class="tab-pane">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class=" control-label">广告基数最低值<span class="text-muted">(基数用于广告位价格最低标准):</span></label>
+										<input id="advertMin" name="advertMin" th:value="${setup.advertMin}"  oninput="clearNoNum(this)"  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">广告基数最高值<span class="text-muted">(基数用于广告位价格最高标准):</span></label>
+										<input id="advertMax" name="advertMax" th:value="${setup.advertMax}"  oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">置顶最低费用<span class="text-muted">(用于各级代理新闻置顶费用标准最小值):</span></label>
+										<input id="stickTopMin" name="stickTopMin" th:value="${setup.stickTopMin}"  oninput="clearNoNum(this)"  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">置顶最高费用<span class="text-muted">(用于各级代理新闻置顶费用标准最大值):</span></label>
+										<input id="stickTopMax" name="stickTopMax" th:value="${setup.stickTopMax}"  oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="tab-3" class="tab-pane">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class=" control-label">团队分佣比例<span class="text-muted">:</span></label>
+										<input id="teamExtract" name="teamExtract" th:value="${setup.teamExtract}" oninput="clearNoNum(this)"  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">县级分佣比例<span class="text-muted">:</span></label>
+										<input id="areaExtract" name="areaExtract" th:value="${setup.areaExtract}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">市级分佣比例<span class="text-muted">:</span></label>
+										<input id="cityExtract" name="cityExtract" th:value="${setup.cityExtract}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">省级分佣比例<span class="text-muted">:</span></label>
+										<input id="provinceExtract" name="provinceExtract" th:value="${setup.provinceExtract}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">平台分佣比例<span class="text-muted">:</span></label>
+										<input id="headExtract" name="headExtract" th:value="${setup.headExtract}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="tab-4" class="tab-pane">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class=" control-label">省级代理保证金<span class="text-muted">:</span></label>
+										<input id="provincialBail" name="provincialBail" th:value="${setup.provincialBail}" oninput="clearNoNum(this)"  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">市代理保证金<span class="text-muted">:</span></label>
+										<input id="cityBail" name="cityBail" th:value="${setup.cityBail}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">县级代理保证金<span class="text-muted">:</span></label>
+										<input id="areaBail" name="areaBail" th:value="${setup.areaBail}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="tab-5" class="tab-pane">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class=" control-label">短信接口账号<span class="text-muted">:</span></label>
+										<input id="messageLogin" name="messageLogin" th:value="${setup.messageLogin}"   class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">短信接口秘钥<span class="text-muted">:</span></label>
+										<input id="messagePassword" name="messagePassword" th:value="${setup.messagePassword}"    class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">支付接口账号<span class="text-muted">:</span></label>
+										<input id="payLogin" name="payLogin" th:value="${setup.payLogin}"   class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">支付接口秘钥<span class="text-muted">:</span></label>
+										<input id="payPassword" name="payPassword" th:value="${setup.payPassword}"    class="form-control input-sm" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="tab-6" class="tab-pane">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class=" control-label">签到送积分个数<span class="text-muted">:</span></label>
+										<input id="punchTheClockIntegral" name="punchTheClockIntegral" th:value="${setup.punchTheClockIntegral}" oninput="clearNoNum2(this)"  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">充值送积分比例<span class="text-muted">:</span></label>
+										<input id="rechargeIntegral" name="rechargeIntegral" th:value="${setup.rechargeIntegral}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">体现手续费<span class="text-muted">:</span></label>
+										<input id="withdrawalFee" name="withdrawalFee" th:value="${setup.withdrawalFee}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-4 col-sm-offset-3">
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+								<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/sys/setup/edit.js">
+	</script>
+	<script>
+        layui.use('upload', function() {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem : '#file', //绑定元素
+                url : '/common/sysFile/upload', //上传接口
+                size : 1000,
+                accept : 'file',
+                done : function(r) {
+                    var fileName = r.fileName;
+                    $("#img").val(fileName);
+                    $("#img4").attr("src",fileName);
+                },
+                error : function(r) {
+                    layer.msg(r.msg);
+                }
+            });
+            
+        });
+        
+        layui.use('upload', function() {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem : '#file1', //绑定元素
+                url : '/common/sysFile/upload', //上传接口
+                size : 1000,
+                accept : 'file',
+                done : function(r) {
+                    var fileName = r.fileName;
+                    $("#img1").val(fileName);
+                    $("#img5").attr("src",fileName);
+                },
+                error : function(r) {
+                    layer.msg(r.msg);
+                }
+            });
+            
+        });
+
+	</script>
+</body>
+</html>

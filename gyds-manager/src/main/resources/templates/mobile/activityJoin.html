@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=750">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/huodong.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/hdxq.css}">
+		<title></title>
+	</head>
+	<body>
+		<div class="header_txt">
+			<div class="headerleft">
+				<img src="images/qianwnag.png" alt="">
+			</div>
+			<div class="headercent">活动详情</div>
+			<!-- <div class="headerright">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+			</div> -->
+		</div>
+		<div class="header_img">
+			<img th:src="${activity.actTitleImg}" alt="">
+		</div>
+		<div class="header_cent">
+			<ul>
+				<li>
+					<img th:src="@{/mobile/images/hdxq_05.jpg}" alt=""><span th:text="${activity.actAddr}"></span>
+				</li>
+				<li>
+					<img th:src="@{/mobile/images/hdxq_09.jpg}" alt=""><span th:text="${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></span>
+
+				</li>
+				<li>
+					<img th:src="@{/mobile/images/hdxq_13.jpg}" alt=""><span th:text="${activity.actType == '0'} ? '免费': ${activity.actPrice}"></span>
+					
+				</li>
+				<!-- <li>
+					<img src="images/hdxq_16.jpg" alt=""><span><button>-</button><input type="text"><button>+</button></span>
+				</li> -->
+			</ul>
+		</div>
+		<div class="header_text">
+			<div class="header_text1">
+				<div>
+					<span>活动详情</span>
+					<span th:text=" '已报名 ' + ${activity.numberOfApplicants}"></span>
+				</div>
+				<p th:utext="${activity.actContent}"></p>
+			</div>
+		</div>
+		<div class="hdxqtx">
+			<div>-- 已报名 --</div>
+			
+			<figure th:each=" vounlteer : ${volunteerList}">
+				<img th:src="${vounlteer.img}" alt="" style="width: 100%;">
+				<figcaption th:text="${vounlteer.name}"></figcaption>
+			</figure>
+		</div>
+		<div class="footerxq">
+			<img th:src="@{/mobile/images/zixungg_07.jpg}" alt="">
+			<img th:src="@{/mobile/images/zixungg_09.jpg}" alt="">
+			<img th:src="@{/mobile/images/zixungg_14.jpg}" alt="">
+			<img th:src="@{/mobile/images/zixungg_16.jpg}" alt="">
+			<img th:src="@{/mobile/images/zixungg_07.jpg}" alt="">
+		</div>
+		<div class="footerhd">
+			<figure>
+				<img th:src="@{/mobile/images/hdxq_30.jpg}" alt="">
+				<figcaption>发布活动</figcaption>
+			</figure>
+			<figure th:if="${collectStatus} == '1'">
+				<img th:src="@{/mobile/images/hdxq_27.jpg}" alt="">
+				<figcaption th:onclick="'collection('+${activity.id}+',5, 2)'">收藏活动</figcaption>
+			</figure>
+			<figure th:if="${collectStatus} == '2'">
+				<img th:src="@{/mobile/images/gongyitubiao_16.jpg}" alt="">
+				<figcaption>已收藏</figcaption>
+			</figure>
+			
+			<div th:switch="${applyStatus}">
+				<p th:case="'0'">
+					<span onclick="apply('1')" style="cursor:pointer">取消报名</span>
+				</p>
+				<p th:case="'1'">
+					<span style="cursor:not-allowed">已报名</span>
+				</p>
+				<p th:case="'2'">
+					<span style="cursor:not-allowed">已拒绝</span>
+				</p>
+				<p th:case="'4'">
+					<span onclick="apply('2')" style="cursor:pointer">我要报名</span>
+				</p>
+			</div>
+		</div>
+		
+	</body>
+</html>
+<script>
+function collection(actId, type, newtype) {
+	$.ajax({
+        type : "get",
+        dataType: "json",
+        url : "/pc/activity/collect",
+        data : {
+        	'actId': actId
+        },
+        success : function(result) {
+        	var code = result.code;
+        	if (code == 0) {
+        		parent.layer.msg("操作失败");
+        	} else if (code == 1){
+        		parent.layer.msg("操作成功");
+        		history.go(0)
+        	} else if (code == 3) {
+        		parent.layer.msg("您还没登录，请先登录");
+        	}
+        }
+    });
+}
+function apply(type) {
+	$.ajax({
+        type : "POST",
+        dataType: "json",
+        url : "/pc/activity/apply",
+        data : {
+        	'type': type,
+        	'actId': $("#actId").val(),
+        	'applyId': $("#applyId").val()
+        },
+        success : function(result) {
+        	var status = result.status;
+        	console.log(status)
+        	if (status == 1) {
+        		parent.layer.msg("操作成功");
+        		history.go(0)
+        	} else if (status == 2){
+        		parent.layer.msg("您还没登录，请先登录");
+        	} else if (status == 3){
+        		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+        	} else if (status == 3){
+        		parent.layer.msg("报名失败，报名人数已满");
+        	} else {
+        		parent.layer.msg("操作失败");
+        	}
+        }
+    });
+}
+
+</script>

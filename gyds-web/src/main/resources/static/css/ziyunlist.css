@@ -1,0 +1,112 @@
+.zixunlist{
+	width:1200px;
+	margin:0 auto;
+	overflow: hidden;
+}
+.zixunlogin{
+	width: 100%;
+	height: 100px;
+}
+.zixunlogin img{
+	width: 100%;
+	height: 100%;
+}
+.zixuncent{
+	width: 885px;
+	float:left;
+	
+}
+.zixunbox{
+	width: 100%;
+	margin-top:15px;
+    overflow: hidden;
+	border-bottom:1px solid #dddddd;
+}
+.zixuncent1{
+	float: left;
+	width:213px;
+	height: 140px;
+	 margin: 30px 0px;
+}
+.zixuncent1 img{
+	width: 100%;
+	height: 100%;
+}
+.zixuncent2{
+	width: 657px;
+	float:right;
+	font-size:20px;
+	margin-top:30px;
+}
+.zixuncent3{
+	width: 657px;
+	height: 23px;
+	line-height: 23px;
+	float:right;
+	margin-top:36px;
+}
+.zixuncent3 img{
+   float: left;
+   margin-right:5px;
+}
+.zixuncent3 span{
+   float: left;
+   font-size:12px;
+   margin-right:10px;
+   color:#808080;
+}
+.zixunright{
+	width: 274px;
+	float: right;
+	margin-top:20px;
+}
+.zixunright img{
+	margin-top:15px;
+}
+.zixunbut{
+	margin-top:20px;
+}
+.zixunbut h3{
+	line-height:52px;
+}
+.zixunbut li{
+	line-height:40px;
+		font-size:12px;
+}
+.zixunbut a{
+	float: right;
+	color:#aaaaaa;
+	font-size:15px;
+}
+.zixunbut li:nth-child(1)>i{
+	color: red;
+	font-size:16px;
+}
+.zixunbut li:nth-child(2)>i{
+	color: red;
+	font-size:16px;
+}
+.zixunbut li:nth-child(3)>i{
+	color: red;
+	font-size:16px;
+}
+.xuanfu{
+	width: 90px;
+	height: 200px;
+	position: fixed;
+	top:276px;
+}
+.xuanfu a{
+	display: inline-block;
+	width:90px;
+	height: 40px;
+	text-align: center;
+	line-height:40px;
+	margin-top:10px;
+	background:#dddddd;
+	color:#636363;
+}
+.xfcl{
+	background:#ff3030 !important;
+	color:#fffffd !important;
+}

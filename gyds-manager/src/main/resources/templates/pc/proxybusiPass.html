@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/personal.css}"/>
+		<link rel="stylesheet" th:href="@{/pc/css/index.css}">
+		<link rel="stylesheet" th:href="@{/pc/css/cwmx.css}">
+		<link rel="stylesheet" th:href="@{/pc/css/guzhunaws.css}">
+		<link rel="stylesheet" th:href="@{/pc/css/jibenziliao.css}">
+		
+		<link th:href="@{/css/layui.css}" rel="stylesheet">
+		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
+		<style>
+		  .yy-gz{
+			  display: none;
+		  }
+		  .biaodanyy>label>span {
+				display: inline-block;
+				width: 122px !important;
+				text-align: right;
+				font-size: 14px;
+				margin-right: 24px;
+				color: #666666;
+				float: left;
+				line-height: 60px;
+			}
+		  .biaodanyy>label {
+				display: block;
+				width: 840px !important;
+				margin-left: 50px;
+            }
+			.duoxianrt{
+				    width: 661px;
+					float: right;
+					margin-top: 20px;
+			}
+			.duoxianrt input{
+				margin-top:15px;
+			}
+			.tijiaohou{
+				width: 80%;
+				text-align: left;
+				float: right;
+				margin-top:30px;
+			}
+			.biaodanyy>label>div{
+				width:338px;
+				height: 180px;
+				float: left;
+				border:1px solid #f0f0f0;
+				margin-right:5px;
+				text-align: center;
+				font-size:16px;
+				color:#5c5c5c;
+			}
+			.biaodanyy>label>div>img{
+				width: 235px;
+				height: 138px;
+				margin-top:36px;
+			}
+		</style>
+	</head>
+	<body>
+			<div class="boxRight" style="background:#fff;width: 1006px;height: 1150px;margin-top:0;">
+				<div class="cwmx">
+					<h4>基本资料</h4>
+				</div>
+				<form action="" method="" class="biaodanyy" id="signupForm">
+					<input type="hidden"  th:value="${user.userId}" name="userId">
+				    <label>
+						<span>真实姓名</span>
+						<input type="text"  th:value="${user.name}" readonly="readonly">
+					</label>
+					<label>
+						<span>身份证号</span>
+						<input type="text"  th:value="${user.cardNo}" readonly="readonly">
+					</label>
+					<label>
+						<span>代理商名称</span>
+						<input type="text"  th:value="${proxybusiDO.name}" readonly="readonly">
+					</label>
+					<label>
+						<span>代理电话</span>
+						<input type="text"  th:value="${proxybusiDO.proxyTelephone}" readonly="readonly">
+					</label>
+					<label>
+						<span>代理级别</span>
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '1'" value="省" readonly="readonly">
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '2'" value="市" readonly="readonly">
+						<input type="text"  th:if="${proxybusiDO.regionLevel} eq '3'" value="区/县" readonly="readonly">
+					</label>
+					<!-- <label>
+						<span>代理地区</span>
+						<input type="text"  th:value="${proxybusiDO.regionLevel}" readonly="readonly">
+					</label> -->
+					<label>
+						<span>代理详细地址</span>
+						<input type="text" th:value="${proxybusiDO.proxyAddr}" readonly="readonly">
+					</label>
+				</form>
+			</div>
+	</body> 
+</html>
+<script src="/js/plugins/validate/jquery.validate.min.js"></script>
+<script>
+	$(".btn").mouseover(function(){
+		 $(this).children("ul").show();
+	});
+	$(".btn").mouseout(function(){
+		 $(this).children("ul").hide();
+	})
+	$('dt').click(function () {
+		if($(this).nextUntil('dt','dd').is(':visible')){
+			$(this).nextUntil('dt','dd').slideUp()
+		}else{
+			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
+		}
+	});
+	$(function(){
+		 $(":radio").click(function(){
+			 var level = $(this).val()
+			 if (level == 1) {
+				 $("#cityId").hide();
+				 $("#count").hide();
+			 } else if (level == 2) {
+				 $("#cityId").show();
+				 $("#count").hide();
+			 } else {
+				 $("#cityId").show();
+				 $("#count").show();
+			 }
+		});
+	})	
+	function pronv() {
+		$.ajax({
+            type : "post",
+            dataType: "json",
+            url : "/pc/proxybusi/city",
+            data : {
+            	'areaId': $("#pron").val()
+            },
+            success : function(result) {
+            	console.log(result.areaList);
+            	var areaList = result.areaList;
+            	$("#cityId").html('');
+            	var html = '<option value ="">市</option>';
+            	$.each(areaList, function (n, value) {
+            		html += '<option value =" '+ value.regionCode + '">' + value.regionName + '</option>';
+            	});
+            	$("#count").html('<option value ="">区/县</option>');
+            	$("#cityId").append(html);
+            }
+        });
+	}
+	
+	function cityQuery() {
+		$.ajax({
+            type : "post",
+            dataType: "json",
+            url : "/pc/proxybusi/city",
+            data : {
+            	'areaId': $("#cityId").val()
+            },
+            success : function(result) {
+            	console.log(result.areaList);
+            	var areaList = result.areaList;
+            	$("#count").html('');
+            	var html = '<option value ="">区/县</option>';
+            	$.each(areaList, function (n, value) {
+            		html += '<option value =" '+ value.regionCode + '">' + value.regionName + '</option>';
+            	});
+            	$("#count").append(html);
+            }
+        });
+	}
+	
+	
+	$().ready(function() {
+		validateRule();
+	});
+	$.validator.setDefaults({
+		submitHandler : function() {
+			update();
+		}
+	});
+	function update() {
+		layer.confirm('请确定所填写内容无误后点击确定提交？', {
+			btn : [ '确定', '取消' ]
+		}, function() {
+			$.ajax({
+				cache : true,
+				type : "POST",
+				url : "/pc/proxybusi/save",
+				data : $('#signupForm').serialize(),// 你的formid
+				async : false,
+				error : function(request) {
+					parent.layer.alert("Connection error");
+				},
+				success : function(data) {
+					if (data.code == 0) {
+						//parent.layer.msg("操作成功");
+						$("#form").hide();
+						$("#info").show();
+					} else {
+						parent.layer.alert(data.msg)
+					}
+	
+				}
+			});
+		})
+
+	}
+	function validateRule() {
+		var icon = "<i class='fa fa-times-circle' ></i> ";
+		$("#signupForm").validate({
+			rules : {
+				name : {
+					required : true
+				},
+				proxyTelephone:{
+			        required:true,
+			        isMobile:true
+			    },
+			    proxyAddr:{
+					required:true
+				},
+				cardNo:{
+					required : true,
+					isIdCardNo:true
+				},
+				regionLevel:{
+					required : true
+				}
+			},
+			messages : {
+				name : {
+					required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+				},
+				proxyTelephone : {  
+			       required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+			       isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+			  	},
+			  	proxyAddr:{
+					required:"<span style='color:red;margin-left:10px;'>请输入地址</span>"
+				},
+				cardNo:{
+					required : "<span style='color:red;margin-left:10px;'>请输入身份证</span>",
+					isIdCardNo:"<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
+				},
+				regionLevel:{
+					required : "<span style='color:red;margin-left:10px;'>请选择代理级别</span>"
+				}
+			},
+			errorPlacement: function (error, element) { //指定錯誤信息位置
+	            if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+	                var eid = element.attr('name'); //獲取元素的name屬性
+	                error.appendTo(element.parent()); //將錯誤信息添加當前元素的父結點後面
+	            } else {
+	                error.insertAfter(element);
+	            }
+	        }
+		})
+	}
+	
+</script>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="pc/include :: head"></head>
+<body>
+	<!-- 头部 -->
+	<header>
+		<div class="header_top">
+
+			<div style="cursor: pointer;">
+				<img id="home" src="images/post_03.jpg" alt="">
+			</div>
+
+			<!-- 头部导航 -->
+			<nav>
+				<div class="btn active">
+					<a href="index.html">首页</a>
+				</div>
+				<div class="btn">
+					<a href="index.html">账户设置 <img src="images/aaa2.jpg" alt=""></a>
+					<ul>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+					</ul>
+				</div>
+				<div class="btn">
+					<a href="index.html">评价 <img src="images/aaa2.jpg" alt=""></a>
+					<ul>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">1</a></li>
+					</ul>
+				</div>
+				<div class="btn">
+					<a href="index.html">消息</a>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<!-- 主体 -->
+	<div class="box">
+		<!-- 主体左侧导航 -->
+		<div class="NavLeft">
+			<dl>
+
+				<dt>新闻管理</dt>
+				<dd>
+					<a href="/pc/newAdd" data-index="1" target="iframe0">新闻发布</a>
+				</dd>
+				<dt>
+					<a href="/pc/collect" data-index="1" target="iframe0">关注中心</a>
+				</dt>
+				<dt>
+					<!-- shiro:hasPermission="caiwu:caiwu:list" -->
+					<a href="/pc/getFinancial" data-index="2" target="iframe0">财务明细</a>
+				</dt>
+				<dt>我的参团</dt>
+
+				<dt>
+					<a href="/pc/voApply" data-index="1" target="iframe0">志愿者申请</a>
+				</dt>
+
+				<dt>
+					<a href="/pc/regTeam/createTeam" data-index="1" target="iframe0">申请建团</a>
+				</dt>
+				<dt>
+					<a href="/pc/proxybusi/show" data-index="3" target="iframe0">申请代理商</a>
+				</dt>
+
+
+				<dt>
+					<a href="/pc/checkin/show" data-index="1s" target="iframe0">我的签到</a>
+				</dt>
+				<dt>基本设置</dt>
+				<dd>
+					<a href="/pc/attestation" data-index="1" target="iframe0">实名认证</a>
+				</dd>
+				<dd>账户安全</dd>
+				<dd>志愿者证书</dd>
+				<dd>二级菜单</dd>
+				<dd>二级菜单</dd>
+			</dl>
+		</div>
+		<!-- 右侧主内容 -->
+		<div class="boxRight">
+			<iframe class="J_iframe" name="iframe0" width="100%" height="100%"
+				th:src="@{/pc/persion_main}" frameborder="0" scrolling="no"
+				data-id="persion_center.html" seamless></iframe>
+			<!-- @{/chart/graph_echarts.html}-->
+		</div>
+	</div>
+
+	<div th:replace="pc/include :: footer"></div>
+</body>
+</html>
+<script>
+	$(".btn").mouseover(function() {
+		$(this).children("ul").show();
+	});
+	$(".btn").mouseout(function() {
+		$(this).children("ul").hide();
+	})
+	$('dt').click(
+			function() {
+				if ($(this).nextUntil('dt', 'dd').is(':visible')) {
+					$(this).nextUntil('dt', 'dd').slideUp()
+				} else {
+					$(this).siblings('dd').slideUp().end()
+							.nextUntil('dt', 'dd').slideToggle();
+				}
+			})
+	$("#home").click(function() {
+		window.location.href = "/";
+	})
+</script>

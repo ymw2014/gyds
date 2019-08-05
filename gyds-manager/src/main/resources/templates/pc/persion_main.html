@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" type="text/css" th:href="@{/pc/css/personal.css}" />
+<link rel="stylesheet" th:href="@{/pc/css/index.css}">
+<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+</head>
+<body>
+	<div class="boxRight">
+		<div class="NavCent">
+			<!-- 账户中心 -->
+			<div class="Navtext">
+				<figure>
+					<a href=""><img src="images/geren.jpg" alt=""></a>
+					<figcaption>
+						<span th:text="${user.name}">jiaxiaozhan <img src="images/xingbie.jpg" alt=""></span>
+						<p>
+							 <font th:text="${'ID:'+user.userId}"></font> <i th:text="${user.isIdentification==1?'已实名':'未实名'}"></i>
+						</p>
+						
+						
+					</figcaption>
+				</figure>
+				<div class="xing">
+					<img src="images/pingji.jpg" alt=""> <img
+						src="images/pingji.jpg" alt=""> <img src="images/pingji.jpg"
+						alt=""> <img src="images/pingji.jpg" alt=""> <img
+						src="images/pingji.jpg" alt=""> <span>5星志愿者</span>
+				</div>
+			</div>
+			<div class="NavRight">
+				<div class="Navstxt">
+					<p>账户中心</p>
+					<img src="images/yan.jpg" alt="">
+				</div>
+				<div class="NavCenter">
+					<div>
+						<span th:text="${ccount}"></span>
+						<p>余额</p>
+					</div>
+					<div>
+						<span th:text="${platformIntegral}"></span>
+						<p>平台积分</p>
+					</div>
+				</div>
+				<div class="qiana">
+					<div>
+						<img src="images/tixian.jpg" alt="">充值
+					</div>
+					<div>
+						<img src="images/chongzhi.jpg" alt="">提现
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 我的发布 -->
+		<div class="myright" th:if="${team!=null}">
+			<div class="myrighttxt">
+				<p>我的团队</p>
+			</div>
+			<div class="myrightimg">
+				<img src="images/13.jpg" alt="">
+			</div>
+			<p th:text="${team.teamName}">
+				
+			</p>
+			<span>河南郑州</span>
+
+		</div>
+	</div>
+</body>
+</html>

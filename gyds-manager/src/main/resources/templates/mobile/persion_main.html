@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		 <meta name="viewport" content="width=750">
+		<link rel="stylesheet" th:href="@{/mobile/css/Personal.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+	</head>
+	<body>
+		<header>
+			<div class="header1">
+				<div class="header1-1">
+					<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+				</div>
+				<div class="header1-2">
+					个人中心
+				</div>
+				<div class="header1-3">
+					<img th:src="@{/mobile/images/shezhi.png}" alt="">
+				</div>
+			</div>
+			<div class="header2">
+				<div class="header2-1">
+					<img th:src="@{/mobile/images/touxiang5.png}" alt="">
+					<div th:text="${user.isIdentification==1?'已实名':'未实名'}"></div>
+				</div>
+				<div class="header2-2" style="margin-top:13px;">
+					<div class="header2-2-1"><span th:text="${'姓名:' + user.name}"></span> <span><img th:src="@{/mobile/images/nv.png}" alt=""></span> <span th:text="${'ID:'+user.userId}"></span></div>
+					<div class="header2-2-2">
+						<span>志愿者等级 </span>
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+					</div>
+					<div class="header2-2-3">所属团队:河南省郑州市金水区景安团队</div>
+				</div>
+			</div>
+		</header>
+		<!-- 资产情况 -->
+		<div class="conter">
+			<div class="conter1">
+				<span th:text="${ccount}"></span>
+				<p>账户总额(元)</p>
+			</div>
+			<div class="conter1">
+				<span th:text="${platformIntegral}">162.87</span>
+				<p>平台积分</p>
+			</div>
+			<div class="conter1">
+				<span>162.87</span>
+				<p>账户总额(元)</p>
+			</div>
+		</div>
+		<!-- 提现 -->
+		<div class="tianxian">
+			<div class="tianxian1">
+				<a href="#"><img th:src="@{/mobile/images/tixian.png}" alt="">提现</a>
+			</div>
+			<div class="tianxian2">
+				<a href="#"><img th:src="@{/mobile/images/qianabo.png}" alt="">充值</a>
+			</div>
+		</div>
+		<!-- 功能 -->
+		<div class="gongneng">
+			<figure>
+				<a href="/pc/getFinancial"><img th:src="@{/mobile/images/caiwu.png}" alt=""></a>
+				<figcaption>
+					财务中心
+				</figcaption>
+			</figure>
+			<!-- <figure>
+				<a href="#"><img th:src="@{/mobile/images/xinwen.png}" alt=""></a>
+				<figcaption>
+					新闻管理
+				</figcaption>
+			</figure> -->
+			<figure>
+				<a href="/pc/newAdd"><img th:src="@{/mobile/images/xinwen.png}" alt=""></a>
+				<figcaption>
+					新闻发布
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="/pc/collect"><img th:src="@{/mobile/images/xinwen.png}" alt=""></a>
+				<figcaption>
+					关注中心
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="#"><img th:src="@{/mobile/images/guang.png}" alt=""></a>
+				<figcaption>
+					广告管理
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="#"><img th:src="@{/mobile/images/xiangce.png}" alt=""></a>
+				<figcaption>
+					相册管理
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="#"><img th:src="@{/mobile/images/tuandui.png}" alt=""></a>
+				<figcaption>
+				    我的参团
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="/pc/regTeam/createTeam"><img th:src="@{/mobile/images/chuangjian.png}" alt=""></a>
+				<figcaption>
+					申请建团
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="#"><img th:src="@{/mobile/images/liwu.png}" alt=""></a>
+				<figcaption>
+					活动中心
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="#"><img th:src="@{/mobile/images/tuceng.png}" alt=""></a>
+				<figcaption>
+					消息中心
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="#"><img thsrc="@{/mobile/images/qiandao.png}" alt=""></a>
+				<figcaption>
+					我拍签到
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="#"><img th:src="@{/mobile/images/dianzi.png}" alt=""></a>
+				<figcaption>
+					志愿者电子证
+				</figcaption>
+			</figure>
+			<figure>
+				<a href="/pc/proxybusi/show"><img th:src="@{/mobile/images/dianzi.png}" alt=""></a>
+				<figcaption>
+					代理商申请
+				</figcaption>
+			</figure>
+			
+		</div>
+	</body>
+</html>

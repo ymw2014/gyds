@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss2.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jss3.js}"></script>
+		
+		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
+		<style>
+			.remover{
+				width: 27px;
+				height:30px;
+				position:absolute;
+				right:30px;
+				bottom:7px;
+			}
+			.biaotiyy{
+				width:95%;
+				margin-left:2.5%;
+				margin-top:30px;
+			}
+			.biaotiyy label>span{
+				line-height:92px;
+				width:180px;
+				display:inline-block;
+				float: left;
+				font-size:30px;
+				margin-right:18px;
+				color:#b8b8b8;
+			}
+			.biaotiyy label{
+				display: block;
+				overflow: hidden;
+				border-bottom: 1px solid #f4f4f4;
+			}
+			.biaotiyy input{
+				line-height: 92px;
+			    width: 375px;
+			    display: inline-block;
+			    float: left;
+			    border: none;
+			    outline: none;
+			    font-size: 30px;
+			    color: #333;
+			    margin-left: -20px;
+			}
+			.fang{
+				float: left;
+				border:1px dashed #bdbdbd;
+				padding: 10px;
+			}
+			.mstp{
+				width: 100%;
+				overflow: hidden;
+			}
+			.mstp>span{
+				line-height: 92px;
+				display: inline-block;
+				float: left;
+				width:150px;
+				font-size: 30px;
+				margin-right: 18px;
+				color: #b8b8b8;
+			}
+			.mstp>div{
+				float: left;
+				width:413px;
+			}
+			.mstp>div>div{
+				width: 411px;
+				height: 258px;
+				float: left;
+				position: relative;
+			}
+			.mstp>div>div>img{
+				width: 389px;
+				height: 250px; 
+			}
+			.tijiao{
+				width: 100%;
+				height:80px;
+			}
+			.tijiao>input{
+				width: 100%;
+				height:80px;
+			    line-height:80px;
+				background:#ff0000;
+				color:#fff;
+			}
+			.zfsdf{
+				background:url(images/sjxl_03.jpg) no-repeat;
+				 background-position:right;
+				 background-size:24px 15px;
+			}
+			.tijiaohou{
+				width: 80%;
+				text-align: left;
+				float: right;
+				margin-top:30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mygz">
+			<div class="alendar"> 
+				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+				<span>代理申请商</span>
+			</div>
+		</div>
+		<div class="biaotiyy">
+			<form action="" method=""  id="signupForm">
+					<input type="hidden"  th:value="${user.userId}" name="userId"> 
+					<input type="hidden"  th:value="${proxybusiDO.id}" name="id">
+					<input type="hidden"  th:value="${setupDO.cityBail}" id="ct">
+					<input type="hidden"  th:value="${setupDO.areaBail}" id="ar">
+					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
+					<input type="hidden" value="0" name="client">
+				<label>
+					<span>真实姓名</span>
+					<input type="text"  th:value="${user.name}" readonly="readonly">
+				</label>
+				<label>
+					<span>身份证号</span>
+					<input type="text"  th:value="${user.cardNo}" readonly="readonly">
+				</label>
+				<label>
+					<span>代理商名称</span>
+					<input type="text" id="name"  name="name">
+				</label>
+				<label>
+					<span>代理电话</span>
+					<input type="text" value="" name="proxyTelephone">
+				</label>
+				<label style="font-size: 30px">
+						<span>代理级别</span>
+						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;" type="radio" value="1" name="regionLevel" checked="checked"/>省
+						<input style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;"  type="radio" value="2" name="regionLevel" />市
+						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;" type="radio" value="3" name="regionLevel" />县
+				</label>
+				<label>
+						<span style="color:red">代理保证金</span>
+						<input type="text" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
+					</label>
+				<label>
+					<span>代理地区</span>
+					<div>
+                       <div class="content-block">
+					   <input type="text" value=""  id="demo1" class="zfsdf" name="address">
+					   <input id="value1" type="hidden" value="20,234,504" style="display:none;" name="proxyArea"/>
+					   </div>
+					</div>
+				</label>
+			   <label>
+			   	<span>代理地址</span>
+			   	<div>
+			       <div class="content-block">
+			   	    <input type="text" value=""  class="zfsdf" name="proxyAddr">
+			   	   <!--  <input id="valfue2" type="hidden" value="20,234,504" style="display:none;"/> -->
+			   	   </div>
+			   	</div>
+			   </label>
+			   <div class="tijiao">
+				   <input type="submit" value="提交申请">
+			   </div>
+			</form>
+			<div style="background:#fff;display: none"  id="info">
+					<div class="tijiaohou">
+						<img th:src="@{/pc/images/hsusus_03.jpg}" alt="">
+						<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
+					</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	$(".sctp1").click(function(){
+		$(".sctp11").click();
+	})
+	$(".sctp2").click(function(){
+		$(".sctp22").click();
+	})
+	
+	$(function(){
+		$(":radio").click(function(){
+			var level = $(this).val();
+			if (level == 1) {
+				$("#bail").val($("#pr").val())
+			} else if(level == 2){
+				$("#bail").val($("#ct").val())
+			} else{
+				$("#bail").val($("#ar").val())
+			}
+		})
+	})
+    var area1 = new LArea();
+   /*  area1.init({
+    /* var area1 = new LArea();
+    area1.init({
+        'trigger': '#demo1', 
+        'valueTo': '#value1', 
+        'keys': {
+            id: 'id',
+            name: 'name'
+        }, 
+        'type': 1, 
+        'data': LAreaData
+    }); */
+    area1.value=[1,13,3];
+    var area2 = new LArea();
+    area2.init({
+        'trigger': '#demo1',
+        'valueTo': '#value1',
+        'keys': {
+            id: 'value',
+            name: 'text'
+        },
+        'type': 2,
+        'data': [provs_data, citys_data, dists_data]
+    });
+    </script>
+	<script>
+	    /* var area1 = new LArea();
+	    area1.init({
+	        'trigger': '#demfo2', 
+	        'valueTo': '#valfue2', 
+	        'keys': {
+	            id: 'id',
+	            name: 'name'
+	        }, 
+	        'type': 2, 
+	        'data': LAreaData
+	    });
+	    area1.value=[1,13,3]; */
+	    var area2 = new LArea();
+	    area2.init({
+	        'trigger': '#demo2',
+	        'valueTo': '#value2',
+	        'keys': {
+	            id: 'value',
+	            name: 'text'
+	        },
+	        'type': 2,
+	        'data': [provs_data, citys_data, dists_data]
+	    });
+	    </script>
+	    
+<script>
+$().ready(function() {
+	validateRule();
+});
+$.validator.setDefaults({
+	submitHandler : function() {
+		update();
+	}
+});
+function update() {
+	$.ajax({
+		cache : true,
+		type : "POST",
+		url : "/pc/proxybusi/save",
+		data : $('#signupForm').serialize(),// 你的formid
+		async : false,
+		error : function(request) {
+			parent.layer.alert("Connection error");
+		},
+		success : function(data) {
+			if (data.code == 0) {
+				//parent.layer.msg("操作成功");
+				$("#signupForm").hide();
+				$("#info").show();
+			} else {
+				parent.layer.alert(data.msg)
+			}
+
+		}
+	});
+
+}
+function validateRule() {
+	var icon = "<i class='fa fa-times-circle' ></i> ";
+	$("#signupForm").validate({
+		rules : {
+			name : {
+				required : true
+			},
+			proxyTelephone:{
+		        required:true,
+		        isMobile:true
+		    },
+		    proxyAddr:{
+				required:true
+			},
+			cardNo:{
+				required : true,
+				isIdCardNo:true
+			},
+			regionLevel:{
+				required : true
+			},
+			address:{
+				required : true
+			}
+			
+		},
+		messages : {
+			name : {
+				required : "<span style='color:red;margin-left:10px;'>代理商为空</span>"
+			},
+			proxyTelephone : {  
+		       required : "<span style='color:red;margin-left:10px;'>手机号为空</span>",
+		       isMobile : "<span style='color:red;margin-left:10px;'>手机号不正确</span>"
+		  	},
+		  	proxyAddr:{
+				required:"<span style='color:red;margin-left:10px;'>地址为空</span>"
+			},
+			cardNo:{
+				required : "<span style='color:red;margin-left:10px;'>身份证为空</span>",
+				isIdCardNo:"<span style='color:red;margin-left:10px;'>身份证号不正确</span>"
+			},
+			regionLevel:{
+				required : "<span style='color:red;margin-left:10px;'>请选择代理级别</span>"
+			},
+			address:{
+				required : "<span style='color:red;margin-left:10px;'>代理地区为空</span>"
+			}
+		},
+		errorPlacement: function (error, element) { //指定錯誤信息位置
+            if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                var eid = element.attr('name'); //獲取元素的name屬性
+                error.appendTo(element.parent()); //將錯誤信息添加當前元素的父結點後面
+            } else {
+                error.insertAfter(element);
+            }
+        }
+	})
+}
+
+
+</script>
+
+
+

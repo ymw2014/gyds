@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" th:type="@{/pc/text/css}"
+	th:href="@{/pc/css/personal.css}" />
+<link rel="stylesheet" th:href="@{/pc/css/index.css}">
+<link rel="stylesheet" th:href="@{/pc/css/cwmx.css}">
+<link rel="stylesheet" th:href="@{/pc/css/guzhunaws.css}">
+<link rel="stylesheet" th:href="@{/pc/css/jibenziliao.css}">
+<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+<style>
+.yy-gz {
+	display: none;
+}
+</style>
+<head th:replace="pc/include :: head"></head>
+</head>
+
+<body>
+	<!-- 头部 -->
+	<!-- 右侧主内容 -->
+	<div class="boxRight"
+		style="background: #fff; width: 1006px; height: 925px; margin-top: 0;">
+		<div class="cwmx">
+			<h4>我要建团</h4>
+		</div>
+		<form action="" method="" class="biaodanyy biaodanyy1" id="signupForm">
+			<label> <span>团队名称</span> <input type="text" name="teamName">
+			</label> <label> <span>团队负责人</span> <input type="text"
+				name="colonelName">
+			</label> <label> <span>负责人电话</span> <input type="text"
+				name="colonelTel">
+			</label> <label> <span>联系地址</span> <select class="juzhu" id="pro"
+				onchange="byPro()">
+					<option value="">省</option>
+					<option th:each="area:${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+			</select> <select class="juzhu" id="city" onchange="byCity()">
+					<option value="">市</option>
+			</select> <select class="juzhu" id="area" name="regCode">
+					<option value="">区/县</option>
+			</select>
+			<input type="hidden" id="addres" name="addres">
+			</label> <label id="logo"> <span>团队logo</span> 
+				<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo" id="img" style="height: 65px; width: 65px" name="teamTitleImg">
+				<input type="hidden" name="teamTitleImg" id="imgStr"> 
+				<input type="file" name="file" style="display: none;" id ="file">
+			</label>
+			<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
+			<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
+			<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
+			<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+			<label> <span id="demo2">团队照片</span>
+				<div>
+					<div id="imgsbox_imgs" style="display: inline;" class="imgsbox tdlogo1"></div>
+					<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1" style="height: 65px; width: 65px" id="img0"> 
+					<input type="hidden" id="imgStr0" name="teamImg"> 
+					<input type="file" class="tuanduilogo1" id="imgUpload_imgs" name="file" style="display: none;" multiple> 
+					<span id="progress_imgs"></span>
+				</div>
+
+
+
+			</label> <label> <span>团队简介</span> <textarea name="teamIntroduce"
+					id="" cols="30" rows="10">
+							 
+						 </textarea>
+			</label> <label> <span>项目服务</span> <select class="xmfw"
+				name="teamType">
+					<option th:each="type:${type}" th:value="${type.id}"
+						th:text="${type.typeName}"></option>
+			</select>
+			</label> <label> <input type="button" id="save" onclick="save()"
+				value="提交"
+				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 30px; border-radius: 3px;">
+			</label>
+		</form>
+	</div>
+	</div>
+	<!-- 备案 -->
+	<div class="beian">
+		<div class="beian1">
+			<span style="float: left;">©公益打赏平台 版权所有</span> <span
+				style="float: right;">京ICP备12048184号 技术支持：景安网络</span>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	function byPro(){
+		var area = $('#pro option:selected').val();
+		var para = {"area":area};
+		$.ajax({
+			type : "GET",
+			url : "/pc/regTeam/area",
+			data : para,
+			error : function(request) {
+				alert("请求异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#city").empty();
+					$("#area").empty();
+					// $("#area").append($("<option/>").text("区/县").attr("value",""));
+					  $.each(data.regList, function(i, item){ 
+					   $("#city").append($("<option/>").text(item.regionName).attr("value",item.regionCode));
+					   }); 
+					  $.each(data.areaList, function(i, item){ 
+						   $("#area").append($("<option/>").text(item.regionName).attr("value",item.regionCode));
+						   }); 
+				}else{
+					alert("数据请求异常");
+				}
+			}
+		});
+	};
+	function byCity(){
+		var area = $('#city option:selected').val();
+		var para = {"area":area};
+		$.ajax({
+			type : "GET",
+			url : "/pc/regTeam/area",
+			data : para,
+			error : function(request) {
+				alert("请求异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#area").empty();
+					  $.each(data.regList, function(i, item){ 
+					   $("#area").append($("<option/>").text(item.regionName).attr("value",item.regionCode));
+					   }); 
+				}else{
+					alert("数据请求异常");
+				};
+				
+			}
+		});
+	};
+	
+	/* layui.use('upload', function() {
+        var upload = layui.upload;
+        upload.render({
+		    elem: '#imgs',
+		    url: '/common/sysFile/uploads',
+		    accept:'files',
+		    multiple: true,
+		    done: function(res){
+		    	$.each(res.fileNameList, function(i, item){
+		            var a = '';
+		    		console.log(i+''+item);
+		    		a +='<img src="'+item.url+'" alt="" class="tdlogo1" style="height:65px;width:65px" id ="img'+i+'">';
+		    		a +='<input type="hidden" id ="imgStr'+i+'">';
+	                $('#demo1').prepend(a);
+	            	});
+		      //上传完毕
+		    }
+		  });
+	}); */
+	
+	layui.use('upload', function() {
+        var upload = layui.upload;
+        var uploadInst = upload.render({
+            elem : '#file', //绑定元素
+            url : '/common/sysFile/upload', //上传接口
+            size : 1000,
+            accept : 'file',
+            done : function(r) {
+                var fileName = r.fileName;
+                $("#imgStr").val(fileName);
+                $("#img").attr("src",fileName);
+            },
+            error : function(r) {
+                layer.msg(r.msg);
+            }
+        });
+	});
+	
+	function save() {
+		$('#addres').val($('#pro option:selected').text()+','+$('#city option:selected').text()+','+$('#area option:selected').text());
+		$.ajax({
+			type : "POST",
+			url : "/pc/regTeam/savaTeam",
+			data : $('#signupForm').serialize(),// 你的formid
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					parent.layer.msg("操作成功");
+					history.go(0);
+					
+				} else {
+					parent.layer.alert(data.msg)
+				}
+			
+			}
+		});
+
+	};
+	layui.use('upload', function() {
+		  var upload = layui.upload;
+		  var multi = 1;
+		  var name = "imgs";
+		  if (multi) {
+		   name = "imgs";
+		   $("#imgUpload_imgs").attr('multiple','multiple');
+		  } else {
+		   $("#imgUpload_imgs").removeAttr('multiple');
+		  }
+
+		  //执行实例
+		  var uploadInst = upload.render({
+		   elem : '#imgUpload_imgs', //绑定元素
+		   url : '/common/sysFile/upload', //上传接口
+		   size : 1000,
+		   accept : 'file',
+		   done : function(r) {
+		    var fileName = r.fileName;
+		    var id=r.id;
+		    var img = '<div class="imgbox">';
+		    img += '<div class="removePic" onclick="removePic(this,\'/common/sysFile/remove\')">×</div>';
+		    img += '<input type="hidden" name="'+name+'" value="' + fileName + '">';
+		    img += '<input type="hidden" name="id" value="' + id + '">';
+		    img += '<img src="' + fileName + '">';
+		    img += '</div>';
+		    if (multi) {
+		     $("#imgsbox_imgs").append(img);
+		    } else {
+		     $("#imgsbox_imgs").html(img);
+		    }
+		    
+		    var imgs="";
+		    $("#imgsbox_imgs").find("input[name='imgs']").each(function(i,item){
+		    	if(imgs==''){
+		    		imgs+=item.value;
+		    	}else{
+		    		imgs+=','+item.value;
+		    	}
+		    	$('#imgStr0').val(imgs);
+		    })
+		   }
+		  });
+
+		 });
+	
+	$().ready(function() {
+		$("#save").on('click', function() {
+			$("#signupForm").submit();
+		});
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+		var icon = "<i class='fa fa-times-circle' ></i> ";
+		$("#signupForm")
+				.validate(
+						{
+							rules : {
+								teamName : {
+									required : true
+								},
+								colonelName : {
+									required : true
+									
+								},
+								colonelTel : {
+									required : true,
+									isMobile : true
+								},
+								regCode : {
+									required : true,
+								},
+								teamIntroduce : {
+									required : true
+								},
+								teamType : {
+									required : true
+								}
+							},
+							messages : {
+								teamName : {
+									required : "<span style='color:red;margin-left:10px;'>请输入团队名称</span>"
+								},
+								colonelName : {
+									required : "<span style='color:red;margin-left:10px;'>请输入负责人名称</span>"
+								},
+								colonelTel : {
+										required : "<span style='color:red;margin-left:10px;'>请输入负责人手机号</span>",
+										isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+								},
+								regCode : {
+									required : "<span style='color:red;margin-left:10px;'>请选择联系地址</span>",
+								},
+								teamIntroduce : {
+									required : "<span style='color:red;margin-left:10px;'>请输入团队简介</span>"
+								},
+								teamType : {
+									required : "<span style='color:red;margin-left:10px;'>请选择项目服务</span>"
+								}
+							}
+						})
+	}
+	</script>
+</html>
+<script>
+	/*  $(".tdlogo").click(function(){
+		$("tuanduilogo").click();
+	})
+	$(".tdlogo1").click(function(){
+		$("tuanduilogo1").click();
+	})
+	$(".tdlogo2").click(function(){
+		$("tuanduilogo2").click();
+	})
+	$(".tdlogo3").click(function(){
+		$("tuanduilogo3").click();
+	})
+	$(".tdlogo4").click(function(){
+		$("tuanduilogo4").click();
+	});  */
+	
+</script>

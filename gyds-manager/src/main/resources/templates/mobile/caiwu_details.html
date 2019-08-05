@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<style>
+			*{
+				text-decoration:none;
+			}
+			.caiwu{
+				width: 100%;
+			}
+			.caiwu li{
+				width: 100%;
+				height: 128px;
+				border-bottom:1px solid #eee;
+				overflow: hidden;
+			}
+			.caileft{
+				float: left;
+				margin-left:2.5%;
+			}
+			.caileft>span{
+				line-height:78px;
+				font-size: 32px;
+			}
+			.caileft>p{
+
+				font-size: 20px;
+			}
+			.cairight{
+				float: right;
+				margin-right:2.5%;
+			}
+			.cairight>span{
+				line-height:78px;
+				font-size: 32px;
+				
+			}
+			.cairight>p{
+			
+				font-size: 20px;
+			}
+			.mygz1{
+				position: absolute;
+				right:0;
+				margin-right:2.5%;
+				top: 0;
+				width:150px;
+			}
+			.mygz1>span{
+				float: right;
+			}
+			.mygz1>img{
+				    width: 24px;
+					height: 11px;
+					position: absolute;
+					right: 0;
+					z-index: 999;
+					top: 35px;
+			   }
+			.mygz2{
+				background:#fff;
+				width:200px;
+				position:absolute;
+				right:0;
+				padding:10px;
+				border: 1px solid #ccc;
+				margin-right:10px;
+				display: none;
+			}
+			.mygz2 li{
+				line-height:60px;
+				border-bottom:1px solid #ccc;
+			}
+			.mygz2 li>a{
+				color: #080808;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mygz">
+			<div class="alendar"> 
+				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+				<span>财务明细</span>
+				<div class="mygz1">
+					<p>筛选</p>
+					<img th:src="@{/mobile/images/xiaxia.png}" alt="">
+				</div>
+				<div class="mygz2">
+					<ul>	
+						<li><a href="#" id="quanbu">全部记录</a></li>
+						<li><a href="#" id="chongzhi">充值明细</a></li>
+						<li><a href="#" id="tixian">体现明细</a></li>
+						<li><a href="#" id="shouru">收入明细</a></li>
+						<li><a href="#" id="zhichu">支出明细</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="caiwu" id ="quanbu1">
+			<ul>
+				<li th:each="order: ${allList}">
+					<div class="caileft">
+						<div th:switch="${order.expIncType}">
+									<span th:case="0" style="line-height:78px ;font-size: 32px;">提现</span>
+									<span th:case="1" style="line-height:78px ;font-size: 32px;">充值</span>
+									<span th:case="5" style="line-height:78px ;font-size: 32px;">置顶</span>
+									<span th:case="2" style="line-height:78px ;font-size: 32px;">打赏 </span>
+									<span th:case="4" style="line-height:78px ;font-size: 32px;">广告费用 </span>
+									<span th:case="3" style="line-height:78px ;font-size: 32px;">红包 </span>
+						</div>
+						<p th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}"></p>
+					</div>
+					<div class="cairight">
+						<span style="color:#fe6256;" th:text="${order.price}"></span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="caiwu" id ="chongzhi1" hidden>
+			<ul>
+				<li th:each="order: ${czList}">
+					<div class="caileft">
+						<div th:switch="${order.expIncType}">
+									<span th:case="0" style="line-height:78px ;font-size: 32px;">提现</span>
+									<span th:case="1" style="line-height:78px ;font-size: 32px;">充值</span>
+									<span th:case="5" style="line-height:78px ;font-size: 32px;">置顶</span>
+									<span th:case="2" style="line-height:78px ;font-size: 32px;">打赏 </span>
+									<span th:case="4" style="line-height:78px ;font-size: 32px;">广告费用 </span>
+									<span th:case="3" style="line-height:78px ;font-size: 32px;">红包 </span>
+						</div>
+						<p th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}"></p>
+					</div>
+					<div class="cairight">
+						<span style="color:#fe6256;" th:text="${order.price}"></span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="caiwu" id ="tixian1" hidden>
+			<ul>
+				<li th:each="order: ${txList}">
+					<div class="caileft">
+						<div th:switch="${order.expIncType}">
+									<span th:case="0" style="line-height:78px ;font-size: 32px;">提现</span>
+									<span th:case="1" style="line-height:78px ;font-size: 32px;">充值</span>
+									<span th:case="5" style="line-height:78px ;font-size: 32px;">置顶</span>
+									<span th:case="2" style="line-height:78px ;font-size: 32px;">打赏 </span>
+									<span th:case="4" style="line-height:78px ;font-size: 32px;">广告费用 </span>
+									<span th:case="3" style="line-height:78px ;font-size: 32px;">红包 </span>
+						</div>
+						<p th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}"></p>
+					</div>
+					<div class="cairight">
+						<span style="color:#fe6256;" th:text="${order.price}"></span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="caiwu" id ="shouru1" hidden>
+			<ul>
+				<li th:each="order: ${srList}">
+					<div class="caileft">
+						<div th:switch="${order.expIncType}">
+									<span th:case="0" style="line-height:78px ;font-size: 32px;">提现</span>
+									<span th:case="1" style="line-height:78px ;font-size: 32px;">充值</span>
+									<span th:case="5" style="line-height:78px ;font-size: 32px;">置顶</span>
+									<span th:case="2" style="line-height:78px ;font-size: 32px;">打赏 </span>
+									<span th:case="4" style="line-height:78px ;font-size: 32px;">广告费用 </span>
+									<span th:case="3" style="line-height:78px ;font-size: 32px;">红包 </span>
+						</div>
+						<p th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}"></p>
+					</div>
+					<div class="cairight">
+						<span style="color:#fe6256;" th:text="${order.price}"></span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="caiwu" id ="zhichu1" hidden>
+			<ul>
+				<li th:each="order: ${zcList}">
+					<div class="caileft">
+						<div th:switch="${order.expIncType}">
+									<span th:case="0" style="line-height:78px ;font-size: 32px;">提现</span>
+									<span th:case="1" style="line-height:78px ;font-size: 32px;">充值</span>
+									<span th:case="5" style="line-height:78px ;font-size: 32px;">置顶</span>
+									<span th:case="2" style="line-height:78px ;font-size: 32px;">打赏 </span>
+									<span th:case="4" style="line-height:78px ;font-size: 32px;">广告费用 </span>
+									<span th:case="3" style="line-height:78px ;font-size: 32px;">红包 </span>
+						</div>
+						<p th:text="${#dates.format(order.businessTime, 'yyyy-MM-dd hh:MM:ss')}"></p>
+					</div>
+					<div class="cairight">
+						<span style="color:#fe6256;" th:text="${order.price}"></span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script>
+	$(".mygz1").click(function(){
+		$(".mygz2").toggle();
+	})
+	$("#quanbu").click(function(){
+		$("#quanbu1").show();
+		$("#chongzhi1").hide();
+		$("#tixian1").hide();
+		$("#shouru1").hide();
+		$("#zhichu1").hide();
+	})
+	$("#chongzhi").click(function(){
+		$("#quanbu1").hide();
+		$("#chongzhi1").show();
+		$("#tixian1").hide();
+		$("#shouru1").hide();
+		$("#zhichu1").hide();
+	})
+	$("#tixian").click(function(){
+		$("#quanbu1").hide();
+		$("#chongzhi1").hide();
+		$("#tixian1").show();
+		$("#shouru1").hide();
+		$("#zhichu1").hide();
+	})
+	$("#shouru").click(function(){
+		$("#quanbu1").hide();
+		$("#chongzhi1").hide();
+		$("#tixian1").hide();
+		$("#shouru1").show();
+		$("#zhichu1").hide();
+		
+	})
+	$("#zhichu").click(function(){
+		$("#quanbu1").hide();
+		$("#chongzhi1").hide();
+		$("#tixian1").hide();
+		$("#shouru1").hide();
+		$("#zhichu1").show();
+	})
+</script>

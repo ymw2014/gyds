@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.helpCenter.dao.CenterDao">
+
+	<select id="get" resultType="com.fly.helpCenter.domain.CenterDO">
+		select h.id,h.member_id,u.name,h.title,h.url,h.help_type_id,t.help_title,h.content,h.status,h.del_time,h.update_time,h.public_time,h.creat_time,h.del,h.level,h.district_id from help_center h left join help_type_title t on h.help_type_id = t.id left join sys_user u on h.member_id = u.user_id where h.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.helpCenter.domain.CenterDO">
+		select h.id,h.member_id,u.name,h.title,h.url,h.help_type_id,t.help_title,h.content,h.status,h.del_time,h.update_time,h.public_time,h.creat_time,h.del,h.level,h.district_id from help_center h left join help_type_title t on h.help_type_id = t.id left join sys_user u on h.member_id = u.user_id
+        <where>  
+		  		  <if test="id != null and id != ''"> and h.id = #{id} </if>
+		  		  <if test="memberId != null and memberId != ''"> and h.member_id = #{memberId} </if>
+		  		  <if test="title != null and title != ''"> and h.title like concat('%',#{title},'%')</if>
+		  		  <if test="url != null and url != ''"> and h.url = #{url} </if>
+		  		  <if test="helpTypeId != null and helpTypeId != ''"> and h.help_type_id = #{helpTypeId} </if>
+		  		  <if test="content != null and content != ''"> and h.content = #{content} </if>
+		  		  <if test="status != null and status != ''"> and h.status = #{status} </if>
+		  		  <if test="delTime != null and delTime != ''"> and h.del_time = #{delTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and h.update_time = #{updateTime} </if>
+		  		  <if test="publicTime != null and publicTime != ''"> and h.public_time = #{publicTime} </if>
+		  		  <if test="del != null and del != ''"> and h.del = #{del} </if>
+		  		  <if test="level != null and level != ''"> and h.level = #{level} </if>
+		  		  <if test="districtId != null and districtId != ''"> and h.district_id = #{districtId} </if>
+		  			<if test="startTime != null and startTime != ''"> AND h.creat_time &gt;= #{startTime}</if>
+				  <if test="endTime != null and endTime != ''">AND h.creat_time &lt;= #{endTime}</if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from help_center
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="title != null and title != ''"> and title like concat('%',#{title},'%')</if>
+		  		  <if test="url != null and url != ''"> and h.url = #{url} </if>
+		  		  <if test="helpTypeId != null and helpTypeId != ''"> and help_type_id = #{helpTypeId} </if>
+		  		  <if test="content != null and content != ''"> and content = #{content} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="delTime != null and delTime != ''"> and del_time = #{delTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="publicTime != null and publicTime != ''"> and public_time = #{publicTime} </if>
+		  		  <if test="creatTime != null and creatTime != ''"> and creat_time = #{creatTime} </if>
+		  		  <if test="del != null and del!= ''"> and del = #{del} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="districtId != null and districtId != ''"> and district_id = #{districtId} </if>
+		  		  <if test="startTime != null and startTime != ''"> AND creat_time &gt;= #{startTime}</if>
+				  <if test="endTime != null and endTime != ''">AND creat_time &lt;= #{endTime}</if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.helpCenter.domain.CenterDO" useGeneratedKeys="true" keyProperty="id">
+		insert into help_center
+		(
+			`member_id`, 
+			`title`, 
+			`url`,
+			`help_type_id`, 
+			`content`, 
+			`status`, 
+			`del_time`, 
+			`update_time`, 
+			`public_time`, 
+			`creat_time`, 
+			`del`, 
+			`level`, 
+			`district_id`
+		)
+		values
+		(
+			#{memberId}, 
+			#{title}, 
+			#{url},
+			#{helpTypeId}, 
+			#{content}, 
+			#{status}, 
+			#{delTime}, 
+			#{updateTime}, 
+			#{publicTime}, 
+			#{creatTime}, 
+			#{del}, 
+			#{level}, 
+			#{districtId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.helpCenter.domain.CenterDO">
+		update help_center 
+		<set>
+			<if test="memberId != null">`member_id` = #{memberId}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="helpTypeId != null">`help_type_id` = #{helpTypeId}, </if>
+			<if test="content != null">`content` = #{content}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="delTime != null">`del_time` = #{delTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="publicTime != null">`public_time` = #{publicTime}, </if>
+			<if test="creatTime != null">`creat_time` = #{creatTime}, </if>
+			<if test="del != null">`del` = #{del}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="districtId != null">`district_id` = #{districtId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from help_center where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from help_center where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

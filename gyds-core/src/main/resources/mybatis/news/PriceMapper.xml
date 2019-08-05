@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.news.dao.PriceDao">
+
+	<select id="get" resultType="com.fly.news.domain.PriceDO">
+		select `id`,`region_code`,`price_of_day` from top_price where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.news.domain.PriceDO">
+		select `id`,`region_code`,`price_of_day` from top_price
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="regionCode != null"> and region_code = #{regionCode} </if>
+		  		  <if test="priceOfDay != null and priceOfDay != ''"> and price_of_day = #{priceOfDay} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from top_price
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="regionCode != null"> and region_code = #{regionCode} </if>
+		  		  <if test="priceOfDay != null and priceOfDay != ''"> and price_of_day = #{priceOfDay} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.news.domain.PriceDO" useGeneratedKeys="true" keyProperty="id">
+		insert into top_price
+		(
+			`region_code`, 
+			`price_of_day`
+		)
+		values
+		(
+			#{regionCode}, 
+			#{priceOfDay}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.news.domain.PriceDO">
+		update top_price 
+		<set>
+			<if test="regionCode != null">`region_code` = #{regionCode}, </if>
+			<if test="priceOfDay != null">`price_of_day` = #{priceOfDay}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from top_price where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from top_price where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

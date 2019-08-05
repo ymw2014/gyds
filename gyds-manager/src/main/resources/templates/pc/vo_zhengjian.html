@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head th:replace="pc/include :: head"></head>
+	<style>
+		   .biaodan2-1{
+				display: none;
+			}
+		</style>
+	<body>
+		<div class="boxRight" style="background:#fff;width: 1006px;height: 925px;margin-top:0;">
+				<div class="cwmx">
+					<h4 style="width: 90px;">志愿者证书</h4>
+				</div>
+				<div class="kapian" style="background:url(/pc/images/zyzzs_03.jpg) no-repeat;">
+					<span class="zyzname" th:text="${vo.volunteerName}">王积乐</span>
+					<span class="zyzxb"th:text="${vo.sex==0?'男':'女'}"></span>
+					<span class="zyzbh" th:text="${vo.volunteerNumber}"></span>
+					<img th:src="${vo.headImg}" alt="" class="touxing">
+					<img src="/pc/images/zyzew_03.jpg" alt="" class="touxing1">
+					<span class="zyzfwrx">志愿服务咨询热线:400-003-5125</span>
+					<span class="zyzfjz">监制:豫民网</span>
+				</div>
+				<div class="fenxiangx">
+					<img src="/pc/images/fenxiangx_03.png" alt=""><br>
+					分享
+				</div>
+				<div class="xiazaigy">
+					<img src="/pc/images/xiazaigy_03.png" alt=""><br>
+					下载
+				</div>
+			</div>
+	</body>
+</html>
+<script>
+	$(".btn").mouseover(function(){
+		 $(this).children("ul").show();
+	});
+	$(".btn").mouseout(function(){
+		 $(this).children("ul").hide();
+	})
+	$('dt').click(function () {
+		if($(this).nextUntil('dt','dd').is(':visible')){
+			$(this).nextUntil('dt','dd').slideUp()
+		}else{
+			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
+		}
+	});
+</script>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.order.dao.OrderDao">
+
+	<select id="get" resultType="com.fly.order.domain.OrderDO">
+		select g.id,g.order_number,g.user_id,m.name,g.team_id,t.team_name,g.business_time,g.order_type,g.is_del,g.Examine_user,s.username,g.Examine_status,g.remake,g.level,g.cash_up_type,g.cash_out_type,g.exp_inc_Type,g.price,g.create_time from gyds_order g left join member m on g.user_id = m.id left join team t on g.team_id = t.id left join sys_user s on g.Examine_user = s.user_id; from gyds_order where g.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.order.domain.OrderDO">
+		select g.id,g.order_number,g.user_id,m.name,g.team_id,t.team_name,g.business_time,g.order_type,g.is_del,g.Examine_user,s.username,g.Examine_status,g.remake,g.level,g.cash_up_type,g.cash_out_type,g.exp_inc_Type,g.price,g.create_time from gyds_order g left join member m on g.user_id = m.id left join team t on g.team_id = t.id left join sys_user s on g.Examine_user = s.user_id
+        <where>  
+		  		  <if test="id != null and id != ''"> and g.id = #{id} </if>
+		  		  <if test="orderNumber != null and orderNumber != ''"> and g.order_number = #{orderNumber} </if>
+		  		  <if test="userId != null and userId != ''"> and g.user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and g.team_id = #{teamId} </if>
+		  		  <if test="businessTime != null and businessTime != ''"> and g.business_time = #{businessTime} </if>
+		  		  <if test="orderType != null"> and g.order_type = #{orderType} </if>
+		  		  <if test="isDel != null"> and g.is_del = #{isDel} </if>
+		  		  <if test="examineUser != null and examineUser != ''"> and g.Examine_user = #{examineUser} </if>
+		  		  <if test="examineStatus != null"> and g.Examine_status = #{examineStatus} </if>
+		  		  <if test="remake != null and remake != ''"> and g.remake = #{remake} </if>
+		  		  <if test="level != null and level != ''"> and g.level = #{level} </if>
+		  		  <if test="cashUpType != null"> and g.cash_up_type = #{cashUpType} </if>
+		  		  <if test="cashOutType != null"> and g.cash_out_type = #{cashOutType} </if>
+		  		  <if test="expIncType != null "> and g.exp_inc_Type = #{expIncType} </if>
+		  		  <if test="price != null and price != ''"> and g.price = #{price} </if>
+		  		  <if test="createTime != null and createTime != ''"> and g.create_time = #{createTime} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from gyds_order
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="orderNumber != null and orderNumber != ''"> and order_number = #{orderNumber} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="businessTime != null and businessTime != ''"> and business_time = #{businessTime} </if>
+		  		  <if test="orderType != null"> and order_type = #{orderType} </if>
+		  		  <if test="isDel != null"> and is_del = #{isDel} </if>
+		  		  <if test="examineUser != null and examineUser != ''"> and Examine_user = #{examineUser} </if>
+		  		  <if test="examineStatus != null"> and Examine_status = #{examineStatus} </if>
+		  		  <if test="remake != null and remake != ''"> and remake = #{remake} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="cashUpType != null"> and cash_up_type = #{cashUpType} </if>
+		  		  <if test="cashOutType != null"> and cash_out_type = #{cashOutType} </if>
+		  		  <if test="expIncType != null"> and exp_inc_Type = #{expIncType} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		   <if test="createTime != null and createTime != ''"> and g.create_time = #{createTime} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.order.domain.OrderDO" useGeneratedKeys="true" keyProperty="id">
+		insert into gyds_order
+		(
+			`order_number`, 
+			`user_id`, 
+			`team_id`, 
+			`business_time`, 
+			`order_type`, 
+			`is_del`, 
+			`Examine_user`, 
+			`Examine_status`, 
+			`remake`, 
+			`level`, 
+			`cash_up_type`, 
+			`cash_out_type`, 
+			`exp_inc_Type`, 
+			`price`,
+			`create_time` 
+		)
+		values
+		(
+			#{orderNumber}, 
+			#{userId}, 
+			#{teamId}, 
+			#{businessTime}, 
+			#{orderType}, 
+			#{isDel}, 
+			#{examineUser}, 
+			#{examineStatus}, 
+			#{remake}, 
+			#{level}, 
+			#{cashUpType}, 
+			#{cashOutType}, 
+			#{expIncType}, 
+			#{price},
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.order.domain.OrderDO">
+		update gyds_order 
+		<set>
+			<if test="orderNumber != null">`order_number` = #{orderNumber}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="teamId != null">`team_id` = #{teamId}, </if>
+			<if test="businessTime != null">`business_time` = #{businessTime}, </if>
+			<if test="orderType != null">`order_type` = #{orderType}, </if>
+			<if test="isDel != null">`is_del` = #{isDel}, </if>
+			<if test="examineUser != null">`Examine_user` = #{examineUser}, </if>
+			<if test="examineStatus != null">`Examine_status` = #{examineStatus}, </if>
+			<if test="remake != null">`remake` = #{remake}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="cashUpType != null">`cash_up_type` = #{cashUpType}, </if>
+			<if test="cashOutType != null">`cash_out_type` = #{cashOutType}, </if>
+			<if test="expIncType != null">`exp_inc_Type` = #{expIncType}, </if>
+			<if test="price != null">`price` = #{price},</if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from gyds_order where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from gyds_order where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

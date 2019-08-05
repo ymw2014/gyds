@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.member.dao.MemberDao">
+
+	<select id="get" resultType="com.fly.member.domain.MemberDO">
+		select m.`id`,m.`name`,m.`sex`,m.`head_img`,m.`age`,m.`address`,m.`telephone`,m.`login_no`,m.`password`,m.`team_id`,
+		m.`account`,m.`red_envelope_income`,m.`platform_integral`,m.`county`,`city`,m.`regionCode`,m.`province`,
+		m.`is_identification`, t.team_name team_name from member m
+		left join team t on m.team_id = t.id where m.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.member.domain.MemberDO">
+		select m.`id`,m.`name`,m.`sex`,m.`head_img`,m.`age`,m.`address`,m.`telephone`,m.`login_no`,m.`password`,m.`team_id`,
+		m.`account`,m.`red_envelope_income`,m.`platform_integral`,m.`county`,m.`city`,m.`regionCode`,m.`province`,
+		m.`is_identification`, t.team_name team_name from member m
+		left join team t on m.team_id = t.id
+        <where>  
+		  		  <if test="id != null and id != ''"> and m.id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and m.name like  CONCAT('%',CONCAT(#{name},'%')) </if>
+		  		  <if test="sex != null and sex != ''"> and m.sex = #{sex} </if>
+		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
+		  		  <if test="address != null and address != ''"> and address = #{address} </if>
+		  		  <if test="telephone != null and telephone != ''"> and telephone = #{telephone} </if>
+		  		  <if test="loginNo != null and loginNo != ''"> and login_no = #{loginNo} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="account != null and account != ''"> and account = #{account} </if>
+		  		  <if test="redEnvelopeIncome != null and redEnvelopeIncome != ''"> and red_envelope_income = #{redEnvelopeIncome} </if>
+		  		  <if test="platformIntegral != null and platformIntegral != ''"> and platform_integral = #{platformIntegral} </if>
+		  		  <if test="county != null and county != ''"> and county = #{county} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="isIdentification != null and isIdentification != ''"> and is_identification = #{isIdentification} </if>
+		  		  <if test="ids != null and ids.size > 0">
+		  		  	and
+		  		  	m.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		  <if test="userId != null and userId.size > 0">
+		  		  	and
+		  		  	m.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from member
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
+		  		  <if test="address != null and address != ''"> and address = #{address} </if>
+		  		  <if test="telephone != null and telephone != ''"> and telephone = #{telephone} </if>
+		  		  <if test="loginNo != null and loginNo != ''"> and login_no = #{loginNo} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="account != null and account != ''"> and account = #{account} </if>
+		  		  <if test="redEnvelopeIncome != null and redEnvelopeIncome != ''"> and red_envelope_income = #{redEnvelopeIncome} </if>
+		  		  <if test="platformIntegral != null and platformIntegral != ''"> and platform_integral = #{platformIntegral} </if>
+		  		  <if test="county != null and county != ''"> and county = #{county} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="isIdentification != null and isIdentification != ''"> and is_identification = #{isIdentification} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.member.domain.MemberDO" useGeneratedKeys="true" keyProperty="id">
+		insert into member
+		(
+			`name`, 
+			`sex`, 
+			`head_img`, 
+			`age`, 
+			`address`, 
+			`telephone`, 
+			`login_no`, 
+			`password`, 
+			`team_id`, 
+			`account`, 
+			`red_envelope_income`, 
+			`platform_integral`, 
+			`county`, 
+			`city`, 
+			`regionCode`, 
+			`province`, 
+			`is_identification`
+		)
+		values
+		(
+			#{name}, 
+			#{sex}, 
+			#{headImg}, 
+			#{age}, 
+			#{address}, 
+			#{telephone}, 
+			#{loginNo}, 
+			#{password}, 
+			#{teamId}, 
+			#{account}, 
+			#{redEnvelopeIncome}, 
+			#{platformIntegral}, 
+			#{county}, 
+			#{city}, 
+			#{regioncode}, 
+			#{province}, 
+			#{isIdentification}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.member.domain.MemberDO">
+		update member 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="headImg != null">`head_img` = #{headImg}, </if>
+			<if test="age != null">`age` = #{age}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="telephone != null">`telephone` = #{telephone}, </if>
+			<if test="loginNo != null">`login_no` = #{loginNo}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="teamId != null">`team_id` = #{teamId}, </if>
+			<if test="account != null">`account` = #{account}, </if>
+			<if test="redEnvelopeIncome != null">`red_envelope_income` = #{redEnvelopeIncome}, </if>
+			<if test="platformIntegral != null">`platform_integral` = #{platformIntegral}, </if>
+			<if test="county != null">`county` = #{county}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="regioncode != null">`regionCode` = #{regioncode}, </if>
+			<if test="province != null">`province` = #{province}, </if>
+			<if test="isIdentification != null">`is_identification` = #{isIdentification}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from member where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from member where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

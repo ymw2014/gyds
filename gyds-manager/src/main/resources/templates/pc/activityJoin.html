@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<script src="js/jquery-3.1.1.js"></script>
+		<link rel="stylesheet" href="css/activity.css">
+		<link rel="stylesheet" href="css/content.css">
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div th:replace="pc/include :: header"></div>
+		<div class="content">
+			<div class="conTxt">
+				<p>您所在的位置：首页>青少年马术教学试骑体验</p>
+			</div>
+			<div class="conBox">
+				<div class="conBox1">
+					<img th:src="${activity.actTitleImg}" alt="">
+					<input type="hidden" th:value="${activity.id}"  id="actId"/>
+					<input type="hidden" th:value="${applyId}"  id="applyId"/>
+				</div>
+				<div class="conBox2">
+					<div class="conBox2-1">
+						<h4 th:text="${activity.actTitle}"></h4>
+						<!-- <p>
+							<img src="images/conter_09.jpg" alt=""> 1W+
+							<img src="images/conter_06.jpg" alt=""> 85 
+							<img src="images/conter_12.jpg" alt=""> 69
+						</p> -->
+					</div>
+					<div class="conBox2-2">
+						<div class="conBox2-2-1">
+							<ul>
+								<li th:text=" '地点：' + ${activity.actAddr}"></li>
+								<li th:text=" '时间：' + ${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></li>
+								<li class="comli"><span style="float:left;">价格：</span><a href="#" class="comimg" th:text="${activity.actType == '0'} ? '免费': ${activity.actPrice}"></a></li>
+								<!-- <li>数量：
+									<button class="jian">-</button>
+									<input type="text" class="shu" value="1">
+									<button class="jia">+</button>
+									<span>(每人仅限两张)</span>
+								</li> -->
+							</ul>
+							<div class="zaixian">
+								<div th:switch="${applyStatus}">
+									<p th:case="'0'">
+										<img src="images/zaixian.png" alt="" ><span onclick="apply('1')" style="cursor:pointer">取消报名</span>
+									</p>
+									<p th:case="'1'">
+										<img src="images/zaixian.png" alt="" ><span style="cursor:not-allowed">已报名</span>
+									</p>
+									<p th:case="'2'">
+										<img src="images/zaixian.png" alt="" ><span style="cursor:not-allowed">已拒绝</span>
+									</p>
+									<p th:case="'4'">
+										<img src="images/zaixian.png" alt="" ><span onclick="apply('2')" style="cursor:pointer">我要报名</span>
+									</p>
+								</div>
+							</div>
+							<div class="zaixian1">
+								<div th:switch="${collectStatus}">
+									<p th:case="'1'">
+										<li th:onclick="'collection('+${activity.id}+',5, 2)'" >
+										<img src="images/gongyitubiao_03.jpg" alt="" ><span style="cursor:pointer">我要收藏</span></li>
+									</p>
+									<p th:case="'2'">
+										<img src="images/myshouc.png" alt="" style="cursor:not-allowed"><span style="cursor:not-allowed">已收藏</span>
+									</p>
+								</div>
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 活动详情 -->
+				<div class="xqtop">
+					<span class="xqtop1">活动详情</span>
+					<span th:text=" '已报名 ' + ${activity.numberOfApplicants}"></span>
+				</div>
+				<div class="xqcon">
+					<div th:utext="${activity.actContent}"></div>
+					<div class="xqfenxing">
+						<span>分享至</span> 
+						<a href="javascript:;" th:onclick="'share(1)'"><img
+							th:src="@{/pc/images/conter_26.jpg}" alt=""></a> 
+						<a href="javascript:;" th:onclick="share(2)"><img
+							th:src="@{/pc/images/conter_28.jpg}" alt=""></a> 
+						<a href="javascript:;" th:onclick="share(3)"><img
+							th:src="@{/pc/images/conter_30.jpg}" alt=""></a> 
+						<a href="javascript:;" th:onclick="share(4)"><img
+							th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
+					</div>
+				</div>
+				<!-- 右侧 -->
+				<div class="xqright">
+					<div class="xqrightTop">
+						<img src="images/touxiang%2082.png" alt="">
+						<span>风影电影</span>
+						<p>求关注</p>
+					</div>
+					<div class="xqrightCon">
+						<a href="#" class="xqrightCimg"><img src="images/conter_19.jpg" alt=""></a>
+						<p><a href="">2019老板必修课《总裁五项修炼》- 商业时代创业....</a></p>
+						<span>进行中<rem>￥99起</rem></span>
+					</div>
+					<div class="xqrightCon">
+						<a href="#" class="xqrightCimg"><img src="images/conter_19.jpg" alt=""></a>
+						<p><a href="">2019老板必修课《总裁五项修炼》- 商业时代创业....</a></p>
+						<span>进行中<rem>￥99起</rem></span>
+					</div>
+					<div class="xqrightCon">
+						<a href="#" class="xqrightCimg"><img src="images/conter_19.jpg" alt=""></a>
+						<p><a href="">2019老板必修课《总裁五项修炼》- 商业时代创业....</a></p>
+						<span>进行中<rem>￥99起</rem></span>
+					</div>
+					<div class="xqrightCon">
+						<a href="#" class="xqrightCimg"><img src="images/conter_19.jpg" alt=""></a>
+						<p><a href="">2019老板必修课《总裁五项修炼》- 商业时代创业....</a></p>
+						<span>进行中<rem>￥99起</rem></span>
+					</div>
+				</div>
+				<div class="xqrightBtn">
+					<a href="#"><img src="images/zyz_03.jpg" alt=""></a>
+					<a href="#"><img src="images/zyz_06.jpg" alt=""></a>
+					<a href="#"><img src="images/zyz_09.jpg" alt=""></a>
+					<a href="#"><img src="images/zyz_12.jpg" alt=""></a>
+					<a href="#"><img src="images/zyz_15.jpg" alt=""></a>
+				</div>
+				<div class="xqfooter">
+					已报名<span th:text=" '(' + ${activity.numberOfApplicants} + ')'"></span>
+				</div>
+				<div class="xqname">
+					<figure th:each=" vounlteer : ${volunteerList}">
+						<img th:src="${vounlteer.img}" alt="" style="width: 100%;">
+						<figcaption>
+							<span th:text="${vounlteer.name}"></span>
+							<p th:text="${vounlteer.time}"></p>
+						</figcaption>
+					</figure>
+					<!-- <a href="#">展开更多报名 <img src="images/conter_40.jpg" alt=""></a> -->
+				</div>
+		</div>
+		<!-- 底部 -->
+		<div th:replace="pc/include :: footer"></div>
+	</body>
+</html>
+<script src="/js/plugins/layer/layer.js"></script>
+<script src="/js/layui.js"></script>
+<script src="/js/plugins/layer/laydate/laydate.js"></script>
+<script>
+	$(".comli a").click(function(){
+		$(this).addClass("comimg").siblings().removeClass("comimg")
+	})
+	var r=$(".shu");
+	$(".jia").click(function(){
+		r.val(parseInt(r.val())+1)
+		if(r.val()>2){
+		r.val(parseInt(r.val())-1);
+		}
+	})
+	$(".jian").click(function(){
+		r.val(parseInt(r.val())-1)
+		if(r.val()<=0){
+        r.val(parseInt(r.val())+1);
+       }
+	})
+	$(".shu").keyup(function(){
+	    var c=$(this);
+	    if(/[^\d]/.test(c.val())){
+	        var amount=c.val().replace(/[^\d]/g,'');
+	        $(this).val(amount);
+	    }
+	});
+	
+	function apply(type) {
+		$.ajax({
+            type : "POST",
+            dataType: "json",
+            url : "/pc/activity/apply",
+            data : {
+            	'type': type,
+            	'actId': $("#actId").val(),
+            	'applyId': $("#applyId").val()
+            },
+            success : function(result) {
+            	var status = result.status;
+            	console.log(status)
+            	if (status == 1) {
+            		parent.layer.msg("操作成功");
+            		history.go(0)
+            	} else if (status == 2){
+            		parent.layer.msg("您还没登录，请先登录");
+            	} else if (status == 3){
+            		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+            	} else if (status == 3){
+            		parent.layer.msg("报名失败，报名人数已满");
+            	} else {
+            		parent.layer.msg("操作失败");
+            	}
+            }
+        });
+	}
+	
+	function collection(actId, type, newtype) {
+		$.ajax({
+            type : "get",
+            dataType: "json",
+            url : "/pc/activity/collect",
+            data : {
+            	'actId': actId
+            },
+            success : function(result) {
+            	var code = result.code;
+            	if (code == 0) {
+            		parent.layer.msg("操作失败");
+            	} else if (code == 1){
+            		parent.layer.msg("操作成功");
+            		history.go(0)
+            	} else if (code == 3) {
+            		parent.layer.msg("您还没登录，请先登录");
+            	}
+            }
+        });
+	}
+	
+	
+	function share(reType){
+		para={
+				"actId":$('#actId').val(),
+				"trType":reType,
+				"type" : 2
+		};
+		$.ajax({
+			cache : true,
+			type : "GET",
+			url : "/pc/news/share",
+			data : para,
+			async : true,
+			error : function(request) {
+				alert("分享失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					alert("分享成功");
+					history.go(0);
+				} else if(data.code == 2){
+					alert(data.msg);
+				}else{
+					alert(data.msg);
+				}
+
+			}
+		});
+	}
+</script>

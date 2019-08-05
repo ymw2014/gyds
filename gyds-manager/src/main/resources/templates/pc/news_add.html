@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head th:replace="pc/include :: head"></head>
+	<div class="boxRight" style="background:#fff;width: 1006px;height: 1125px;margin-top:0;">
+				<div class="cwmx">
+					<h4>新闻发布</h4>
+				</div>
+				<form id="signupForm" class="biaodanyy">
+				    <label>
+						<span>标题</span>
+						<input name="title" type="text">
+					</label>
+					<label>
+						<span>作者</span>
+						<input name="author" type="text">
+					</label>
+					<label>
+						<span>来源</span>
+						<input name="source" type="text">
+					</label>
+					<label style="margin-top:30px;">
+						<span style="float: left;">封面</span>
+							<img src="images/gahgha_03.png"  height="200" width="500" alt="" id="img">
+							<input type="file" name="file" style="display: none;" id ="file">
+					</label>
+					<label>
+						<span>简介</span>
+						 <textarea name="introduction" style="width:700px;height:50px;float: right; resize: none;" >
+							 
+						 </textarea>
+					</label>
+					<label>
+						<span>详情</span>
+						<textarea name="content" id="deitor" style="width:700px;height:380px;float: right; resize: none;"></textarea>
+					</label>
+					<label>
+						<input type="button" id="save" value="新闻发布" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 30px;border-radius:3px ;">
+					</label>
+				</form>
+			</div>
+</html>
+	<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+	<script type="text/javascript" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+var ue = UE.getEditor('deitor',{
+	toolbars:[
+        [
+     	   'fullscreen', 'source', '|', 'undo', 'redo', '|',
+     	    'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+     	    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+     	    'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+     	    'directionalityltr', 'directionalityrtl', 'indent', '|',
+     	    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+     	    'link', 'unlink', 'anchor', '|',
+     	    'insertimage', 'emotion', 'map', 'insertframe', 'insertcode', 'pagebreak', 'background', '|',
+     	    'horizontal', 'date', 'time', 'spechars', '|',
+     	    'print', 'preview', 'searchreplace', 'drafts', 'help'
+     ]
+ ]
+});
+	$(".btn").mouseover(function(){
+		 $(this).children("ul").show();
+	});
+	$(".btn").mouseout(function(){
+		 $(this).children("ul").hide();
+	})
+	$('dt').click(function () {
+		if($(this).nextUntil('dt','dd').is(':visible')){
+			$(this).nextUntil('dt','dd').slideUp()
+		}else{
+			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
+		}
+	});
+	/* $(".jbziliao img").click(function(){
+		$("[type=file]").click();
+	}) */
+	
+	/* $("#aa").click(function(){
+		$("[type=file]").click();
+	}) */
+	
+	layui.use('upload', function() {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem : '#file', //绑定元素
+                url : '/common/sysFile/upload', //上传接口
+                size : 1000,
+                accept : 'file',
+                done : function(r) {
+                    var fileName = r.fileName;
+                     $("#img").val(fileName);
+             	     $("#img").attr("src",fileName);
+                },
+                error : function(r) {
+                    layer.msg(r.msg);
+                }
+            });
+            
+        });
+	$().ready(function(){
+		$("#save").on('click', function() {
+			$("#signupForm").submit();
+		});
+	})
+	
+	
+	function save() {
+		$.ajax({
+			type : "POST",
+			url : "/pc/newSave",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					var index = layer.load(1, {
+						shade : [ 0.1, '#fff' ]
+					//0.1透明度的白色背景
+					});
+					window.location.href = r.url;
+				} else if (r.status == 500) {
+					layer.msg(r.message);
+					self.find(".check-tips").text(r.message);
+					//刷新验证码
+					$(".reloadverify").click();
+				} else {
+					layer.msg(r.msg);
+					self.find(".check-tips").text(r.msg);
+					//刷新验证码
+					$(".reloadverify").click();
+				}
+			},
+		});
+	}
+	
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#signupForm").validate({
+			rules : {
+				title : {
+					required : true
+				},
+				author : {
+					required : true
+				},
+				source : {
+					required : true
+				},
+				introduction : {
+					required : true
+				},
+				content : {
+					content : true
+				}
+			},
+			messages : {
+				title : {
+					required : icon + "<span style='color:red'>标题不能为空</span>",
+				},
+				author : {
+					required : icon + "<span style='color:red'>请输入新闻作者</span>",
+				},
+				source : {
+					required : icon + "<span style='color:red'>请填写新闻来源</span>",
+				},
+				introduction : {
+					required : icon + "<span style='color:red'>请输入资讯简介</span>",
+				},
+				content : {
+					required : icon + "<span style='color:red'>新闻内容不能为空</span>",
+				}
+			}
+		})
+	}
+</script>

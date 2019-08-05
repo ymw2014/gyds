@@ -1,0 +1,93 @@
+
+<div th:fragment="header">
+	<header>
+		<div class="header-top">
+			<div class="header-left">
+				<img src="../pc/images/logo.png" alt="">
+			</div>
+			<div class="header-center">
+				<!-- <input type="text" list="sexlist" placeholder="--全国--">
+				<datalist id="sexlist">
+					<option th:each="area: ${areaList}" th:value="${area.regionName}"></option>
+				</datalist> -->
+				<select style="width:100px;">
+					<option th:each="area: ${areaList}" th:value="${area.regionCode}"th:text="${area.regionName}"></option>
+				</select>
+			</div>
+			<div class="header-img">
+				<img src="../pc/images/gongyi.png" alt="">
+			</div>
+			<div class="header-login" style="display: none;">
+				<a href="#">登录</a>
+				<a href="#">注册</a>
+			</div>
+			<div class="loginOk">
+				<div class="loginOkImg">
+					<img src="" alt="">
+				</div>
+				<div class="loginname">
+					<p>小暖8886</p>
+					<span>普通用户</span>
+				</div>
+				
+			</div>
+		</div>
+	</header>
+	<nav>
+		<div>
+			<ul>
+				<li><a href="">网站首页</a></li>
+				<li><a href="#">咨询动态</a></li>
+				<li><a href="#">活动报名</a></li>
+				<li><a href="#">志愿者</a></li>
+				<li><a href="#">团队展示</a></li>
+				<li><a href="#">关于我们</a></li>
+				<li><a href="#">联系我们</a></li>
+			</ul>
+		</div>
+	</nav>
+</div>
+
+
+<div th:fragment="footer">
+	<footer>
+		<div class="bot">
+			<ul th:each="cente: ${centerList}">
+				<h4 th:text="${cente.helpTitle}"></h4>
+				<li th:each="center: ${cente.center}"><a th:href="${center.url}"  th:text="${center.content}"></a></li>
+			</ul>
+			<figure>
+				<img src="images/26.jpg" alt="">
+				<figcaption>微信公众号</figcaption>
+			</figure>
+		</div>
+		<div class="foter">
+			<h4><img src="images/xian_03.jpg" alt="">&nbsp;&nbsp;友情链接&nbsp;&nbsp;<img src="images/xian_03.jpg" alt=""></h4>
+			<ul>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+				<li><a href="">网易公益</a></li>
+			</ul>
+		</div>
+	</footer>
+	<!-- 备案 -->
+	<div class="beian">
+		<div class="beian1">
+			<span style="float: left;">©公益打赏平台 版权所有</span>
+			<span style="float: right;">京ICP备12048184号  技术支持：景安网络</span>
+		</div>
+	</div>
+</div>
+
+
+
+

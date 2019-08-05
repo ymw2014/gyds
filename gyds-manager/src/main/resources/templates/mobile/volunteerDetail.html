@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<link rel="stylesheet" th:href="@{/mobile/css/Personal.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/zyzxq.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script src="/js/plugins/layer/layer.js"></script>
+		<script src="/js/layui.js"></script>
+		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
+	</head>
+	<body>
+		<header style="height: 554px;">
+			<div class="header1">
+				<div class="header1-1">
+					<img src="images/qianwnag.png" alt="">
+				</div>
+				<div class="header1-2">
+					志愿者详情
+				</div>
+				<!-- <div class="header1-3">
+					<img th:src="@{/mobile/images/shezhi.png}" alt="">
+				</div> -->
+			</div>
+			<div class="header2">
+				<div class="header2-1">
+					<img th:src="${volunteer.headImg} != null ? ${volunteer.headImg} : @{/mobile/images/touxiang5.png}" alt="">
+					<div th:if="${isReal} eq '0'">未实名</div>
+					<div th:if="${isReal} eq '1'">已实名</div>
+				</div>
+				<div class="header2-2" style="margin-top:13px;">
+					<div class="header2-2-1"><span th:text=" '昵称:' + ${volunteer.volunteerName}"></span> <span><img th:src="@{/mobile/images/nv.png}" alt=""></span> <span th:text=" 'ID:' + ${volunteer.volunteerNumber}"></span></div>
+					<div class="header2-2-2">
+						<span>志愿者等级 </span>
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:src="@{/mobile/images/xing.png}" alt="">
+					</div>
+					<div class="header2-2-3"   th:text=" '所属团队:' + ${volunteer.teamName}"></div>
+				</div>
+			</div>
+			<div class="header3">
+				<div>
+					<span th:text="${volunteer.actNumber} != null ? ${volunteer.actNumber} : '0' "></span>
+					<p>参与活动</p>
+				</div>
+				<div>
+					<span th:text="${volunteer.clickNumber} != null ? ${volunteer.clickNumber} : '0'"></span>
+					<p>点击量</p>
+				</div>
+				<div>
+					<span th:text="${volunteer.commentNumber} != null ? ${volunteer.commentNumber} : '0'"></span>
+					<p>评论量</p>
+				</div>
+				<div>
+					<span th:text="${volunteer.sharesNumber} != null ? ${volunteer.sharesNumber} : '0'"></span>
+					<p>转发量</p>
+				</div>
+			</div>
+		</header>
+		<div class="header4">
+			<ul>
+				<li><a href="javaScript:;">评论</a></li>
+				<li><a href="javaScript:;">转发</a></li>
+				<li><a href="javaScript:;">收藏</a></li>
+				<li><a href="javaScript:;">点赞</a></li>
+				<li><a href="javaScript:;">相册</a></li>
+			</ul>
+		</div>
+		<div class="toog">
+			<div class="header5" th:each="comment: ${commentList}">
+				<div class="header5-1">
+					<p style="line-height:60px; font-size:20px;" th:text="${comment.createTimeStr}"></p>
+					<div>
+						<p style="font-size:30px;" th:text="${comment.title}"></p>
+						<div class="header5-1-1">
+							<a href="#"><img th:src="${comment.titleImg}" alt=""></a>
+						</div>
+					</div>
+					<div class="header5-2">
+						<p>
+							<a th:onclick="'share('+ ${comment.newsId}+', 1, 1)'" style="cursor:pointer"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""></a>
+							<a th:href="'/pc/news/info?id='+ ${comment.newsId}" style="cursor:pointer"><img th:src="@{/mobile/images/pinglun.png}" alt=""></a>
+							<a th:if=" ${comment.isClick} eq '0'" th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img th:src="@{/mobile/images/gongyitubiao_10.jpg}" alt="" ></a>
+							<a th:if=" ${comment.isClick} eq '1'" ><img src="images/gongyitubiao_19.png" alt="" ></a>
+							<a th:if=" ${comment.isClick} eq '2'" th:onclick="'log()'" style="cursor:pointer"><img th:src="@{/mobile/images/gongyitubiao_10.jpg}" alt="" ></a>					
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="toog">
+			
+			<div class="header5" th:each="dynamic: ${sharesList}">
+				<div class="header5-1">
+					<p style="line-height:60px; font-size:20px;" th:text="${dynamic.createTime}"></p>
+					<div>
+						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
+						<div class="header5-1-1">
+							<a href="#"><img th:src="${dynamic.img}"alt=""></a>
+						</div>
+					</div>
+					<div class="header5-2">
+						<p>
+							<a href="javaScript:;" th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '1'}"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/pc/images/gongyitubiao_03.jpg}" alt=""></a>
+							<a href="javaScript:;" th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '2'}" ><img th:src="@{/pc/images/gongyitubiao_16.jpg}" alt=""></a>
+							<a th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+')'" style="cursor:pointer"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""></a>  
+							<a th:if=" ${dynamic.actType} eq '1'" th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img th:src="@{/mobile/images/pinglun.png}" alt=""></a>
+							<a href="javaScript:;" th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 0}"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" ><img th:src="@{/mobile/images/gongyitubiao_10.jpg}" alt="" ></a>
+							<a href="javaScript:;" th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 1}"  ><img th:src="@{/pc/images/gongyitubiao_19.png}" alt="" ></a>
+							<a href="javaScript:;" th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 2}"  th:onclick="'log()'"><img th:src="@{/mobile/images/gongyitubiao_10.jpg}" alt="" ></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="toog">
+			
+			<div class="header5" th:each="dynamic: ${collectList}">
+				<div class="header5-1">
+					<p style="line-height:60px; font-size:20px;" th:text="${dynamic.createTime}"></p>
+					<div>
+						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
+						<div class="header5-1-1">
+							<a href="#"><img th:src="${dynamic.img}"alt=""></a>
+						</div>
+					</div>
+					<div class="header5-2">
+						<p>
+							<a th:if=" ${dynamic.collectStatus} eq '1'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/mobile/images/gongyitubiao_03.jpg}"alt=""></a>
+							<a th:if=" ${dynamic.collectStatus} eq '2'" ><img th:src="@{/mobile/images/gongyitubiao_16.jpg}" alt=""></a>
+							<a th:onclick="'share('+${dynamic.newsId}+',2, 2)'" style="cursor:pointer"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""></a>    
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="toog">
+			
+			<div class="header5" th:each="dynamic: ${likesList}">
+				<div class="header5-1">
+					<p style="line-height:60px; font-size:20px;" th:text="${dynamic.createTime}"></p>
+					<div>
+						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
+						<div class="header5-1-1">
+							<a href="#"><img th:src="${dynamic.img}"alt=""></a>
+						</div>
+					</div>
+					<div class="header5-2">
+						<p>
+							<a th:onclick="'share('+${dynamic.newsId}+',1, 1)'" style="cursor:pointer"><img src="images/sc.png" alt=""></a>
+							<a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img src="images/pinglun.jpg" alt=""></a>
+							<!-- <li th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li> -->
+							
+							
+							
+							<a th:if=" ${dynamic.isClick} eq '0'" th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img th:src="@{/mobile/images/gongyitubiao_10.jpg}" alt="" ></a>
+							<a th:if=" ${dynamic.isClick} eq '1'" ><img th:src="@{/mobile/images/line.png}" alt="" ></a>
+							<a th:if=" ${dynamic.isClick} eq '2'" th:onclick="'log()'" style="cursor:pointer"><img th:src="@{/mobile/images/gongyitubiao_10.jpg}" alt="" ></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="toog">
+		相册
+		</div>
+	</body>
+</html>
+<script>
+	$(".header4 li").click(function(){
+		$(this).addClass("headercolor").siblings().removeClass("headercolor")
+		var index=$(this).index();
+		$(".toog").hide().eq($(this).index()).show();
+	})
+	
+	
+	
+	
+	
+	
+	function likes(newsId, type, newtype) {
+		$.ajax({
+            type : "get",
+            dataType: "json",
+            url : '/pc/news/likes',
+            data : {
+            	'newsId': newsId,
+            	'type': type
+            },
+            success : function(result) {
+            	if (result.code == 0) {
+					history.go(0);
+				} else if(result.code == 2){
+					alert(data.msg);
+				}else {
+					parent.layer.alert(data.msg)
+				}
+            }
+        });
+	}
+	
+	function share(newsId, type, newtype) {
+		var actType = '';
+		var type = '';
+		if (newtype == 1) {
+			actType = '1';
+			type = '1';
+		} else {
+			actType = '2';
+			type = '6';
+		}
+		layer.open({
+			type : 2,
+			title : '分享',
+			maxmin : true,
+			shadeClose : false, // 点击遮罩关闭层
+			area : [ '300px', '200px' ],
+			content : '/pc/activity/share/' + actType + '/' + type + '/' + newsId// iframe的url
+		});
+	}
+	function collection(actId, type, newtype) {
+		$.ajax({
+            type : "get",
+            dataType: "json",
+            url : "/pc/activity/collect",
+            data : {
+            	'actId': actId
+            },
+            success : function(result) {
+            	var code = result.code;
+            	if (code == 0) {
+            		parent.layer.msg("操作失败");
+            	} else if (code == 1){
+            		parent.layer.msg("操作成功");
+            		history.go(0);
+            	} else if (code == 3) {
+            		parent.layer.msg("您还没登录，请先登录");
+            	} else if(code == -1){
+            		parent.layer.msg("您已经收藏了");
+            	}
+            }
+        });
+	}
+	
+	function log() {
+		parent.layer.msg("请先登录，再操作");
+	}
+</script>

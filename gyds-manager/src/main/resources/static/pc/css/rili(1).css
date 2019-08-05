@@ -1,0 +1,110 @@
+.top {
+  width: 100%;
+  height:88px;
+  overflow: hidden;
+  background:#ff8108;
+}
+.top .out-1 {
+  width: 174px;
+  margin: 0 auto;
+  margin-top:20px;
+  height:48px;
+  line-height:48px;
+}
+.top .out-1 .out-2 {
+   width: 100%;
+   height:48px;
+    margin: 0 auto;
+	border-radius:30px;
+	background:#fff481;
+	color:#de2908;
+}
+.top .out-1 .out-2 .signBtn {
+  width:100%;
+   height:48px;
+}
+.top .out-1 .out-2 .signBtn strong,
+.top .out-1 .out-2 .signBtn span {
+  display: block;
+  width: 85%;
+  margin: 0 auto;
+  text-align: center;
+  color: #007aff;
+}
+.top .out-1 .out-2 .signBtn strong {
+   height:48px;
+  line-height:48px;
+  font-weight: 600;
+  color:#de2908;
+}
+.top .out-1 .out-2 .signBtn span {
+  height: 2.5rem;
+  line-height: 2.5rem;
+  font-size: .9rem;
+}
+.top .out-1:active {
+  animation: sign .25s forwards;
+  -webkit-animation: sign .25s forwards;
+}
+.tips {
+  position: absolute;
+  top: 10rem;
+  z-index: 999;
+  width: 100%;
+  color: #fff;
+  font-size: .9rem;
+  text-align: center;
+  padding-bottom: .5rem;
+}
+.Calendar {
+  background: #fff;
+  padding-bottom: 1rem;
+}
+.Calendar #toyear {
+  border-bottom: 1px #e7e7e7 solid;
+  width: 96%;
+  margin: 0 auto;
+  height: 104px;
+  text-align: center;
+  color: #333;
+  font-size: .95rem;
+}
+.Calendar #toyear .year-month {
+  line-height: 2.5rem;
+  float: left;
+}
+.Calendar #toyear #idCalendarPre,
+.Calendar #toyear #idCalendarNext {
+  line-height: 2.5rem;
+  padding: 0 2rem;
+  text-align: center;
+  font-size: .85rem;
+  color: #999;
+  float: left;
+}
+.Calendar table,
+.Calendar tr,
+.Calendar td {
+  border: 0;
+}
+.Calendar table {
+  width: 96%;
+  margin: 0 auto;
+}
+.Calendar table tr {
+  text-align: center;
+  height: 2rem;
+}
+.Calendar table tr td span {
+  margin: 0 auto;
+  display: block;
+  line-height: 1.6rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size:1.1rem;
+  border-radius: 100%;
+}
+.Calendar table tr .onToday span {
+  background: #1485ff;
+  color: #fff;
+}

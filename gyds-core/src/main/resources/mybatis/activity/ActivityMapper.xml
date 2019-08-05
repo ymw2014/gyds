@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.activity.dao.ActivityDao">
+
+	<select id="get" resultType="com.fly.activity.domain.ActivityDO">
+		select a.id,a.act_intro,act_addr,a.act_title,a.act_content,a.member_id,
+		a.status,a.examine_status,u.name,a.act_price,a.act_title_img,
+		a.act_type_id,t.type_name,a.start_time,a.end_time,
+		DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
+		DATE_FORMAT(a.start_time,'%Y-%m-%d %H:%i:%s') startTimeStr,
+		DATE_FORMAT(a.end_time,'%Y-%m-%d %H:%i:%s') endTimeStr,
+		a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id where a.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.activity.domain.ActivityDO">
+        select a.id,a.act_intro,act_addr,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
+        <where>  
+		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
+		  		  <if test="actIntro != null and actIntro != ''"> and a.act_intro = #{actIntro} </if>
+		  		  <if test="actTitle != null and actTitle != ''"> and a.act_title = #{actTitle} </if>
+		  		  <if test="actContent != null and actContent != ''"> and a.act_content = #{actContent} </if>
+		  		  <if test="status != null and status != ''">and a.status = #{status}</if>
+		  		  <if test="examineStatus != null  and examineStatus != ''">and a.examine_status = #{examineStatus}</if>
+		  		  <if test="actPrice != null and actPrice != ''"> and a.act_price = #{actPrice} </if>
+		  		  <if test="actTitleImg != null and actTitleImg != ''"> and a.act_title_img = #{actTitleImg} </if>
+		  		  <if test="actTypeId != null and actTypeId != ''"> and a.act_type_id = #{actTypeId} </if>
+		  		  <if test="startTime != null and startTime != ''"> and a.start_time = #{startTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and a.end_time = #{endTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
+		  		  <if test="ticketCount != null and ticketCount != ''"> and a.ticket_count = #{ticketCount} </if>
+		  		  <if test="actType != null and actType != ''"> and a.act_type = #{actType} </if>
+		  		  <if test="restrictions != null and restrictions != ''"> and a.restrictions = #{restrictions} </if>
+		  		  <if test="numberOfShares != null and numberOfShares != ''"> and a.number_of_shares = #{numberOfShares} </if>
+		  		  <if test="numberOfCollection != null and numberOfcollection != ''"> and a.number_of_collection = #{numberOfCollection} </if>
+		  		  <if test="numberOfPreviews != null and numberOfpreviews != ''"> and a.number_of_previews = #{numberOfPreviews} </if>
+		  		  <if test="numberOfApplicants != null and numberOfApplicants != ''"> and a.number_of_applicants = #{numberOfApplicants} </if>
+		  		  <if test="applicantsNumMax != null and applicantsNumMax != ''"> and a.applicants_num_max = #{applicantsNumMax} </if>
+		  		  <if test="teamId != null and teamId != ''"> and a.team_id = #{teamId} </if>
+		  		  <if test="ids != null and ids.size() > 0">
+		  		  	and
+		  		  	a.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+ 	<select id="count" resultType="int">
+		select count(*) from activity
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="actIntro != null and actIntro != ''"> and act_intro = #{actIntro} </if>
+		  		  <if test="actTitle != null and actTitle != ''"> and act_title = #{actTitle} </if>
+		  		  <if test="actContent != null and actContent != ''"> and act_content = #{actContent} </if>
+		  		  <if test="actPrice != null and actPrice != ''"> and act_price = #{actPrice} </if>
+		  		  <if test="status != null">and status = #{status}</if>
+		  		  <if test="examineStatus != null">and examine_status = #{examineStatus}</if>
+		  		  <if test="actTitleImg != null and actTitleImg != ''"> and act_title_img = #{actTitleImg} </if>
+		  		  <if test="actTypeId != null and actTypeId != ''"> and act_type_id = #{actTypeId} </if>
+		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="ticketCount != null and ticketCount != ''"> and ticket_count = #{ticketCount} </if>
+		  		  <if test="actType != null"> and act_type = #{actType} </if>
+		  		  <if test="restrictions != null and restrictions != ''"> and restrictions = #{restrictions} </if>
+		  		  <if test="numberOfShares != null and numberOfShares != ''"> and number_of_shares = #{numberOfShares} </if>
+		  		  <if test="numberOfCollection != null and numberOfCollection != ''"> and number_of_collection = #{numberOfCollection} </if>
+		  		  <if test="numberOfPreviews != null and numberOfPreviews != ''"> and number_of_previews = #{numberOfPreviews} </if>
+		  		  <if test="numberOfApplicants != null and numberOfApplicants != ''"> and number_of_applicants = #{numberOfApplicants} </if>
+		  		  <if test="applicantsNumMax != null and applicantsNumMax != ''"> and applicants_num_max = #{applicantsNumMax} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.activity.domain.ActivityDO" useGeneratedKeys="true" keyProperty="id">
+		insert into activity
+		(	
+			`status`,
+			`examine_status`,
+			`member_id`,
+			`act_intro`, 
+			`act_title`, 
+			`act_content`, 
+			`act_price`, 
+			`act_title_img`, 
+			`act_type_id`, 
+			`start_time`, 
+			`end_time`, 
+			`create_time`, 
+			`ticket_count`, 
+			`act_type`, 
+			`restrictions`, 
+			`number_of_shares`, 
+			`number_of_collection`, 
+			`number_of_previews`, 
+			`number_of_applicants`, 
+			`applicants_num_max`
+		)
+		values
+		(	
+			#{status},
+			#{examineStatus},
+			#{memberId},
+			#{actIntro}, 
+			#{actTitle}, 
+			#{actContent}, 
+			#{actPrice}, 
+			#{actTitleImg}, 
+			#{actTypeId}, 
+			#{startTime}, 
+			#{endTime}, 
+			#{createTime}, 
+			#{ticketCount}, 
+			#{actType}, 
+			#{restrictions}, 
+			#{numberOfShares}, 
+			#{numberOfCollection}, 
+			#{numberOfPreviews}, 
+			#{numberOfApplicants}, 
+			#{applicantsNumMax}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.activity.domain.ActivityDO">
+		update activity 
+		<set>
+			<if test="actIntro != null">`act_intro` = #{actIntro}, </if>
+			<if test="actTitle != null">`act_title` = #{actTitle}, </if>
+			<if test="actContent != null">`act_content` = #{actContent}, </if>
+			<if test="actPrice != null">`act_price` = #{actPrice}, </if>
+			<if test="status != null"> `status` = #{status},</if>
+			<if test="examineStatus != null"> `examine_status` = #{examineStatus},</if>
+			<if test="actTitleImg != null">`act_title_img` = #{actTitleImg}, </if>
+			<if test="actTypeId != null">`act_type_id` = #{actTypeId}, </if>
+			<if test="startTime != null">`start_time` = #{startTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="ticketCount != null">`ticket_count` = #{ticketCount}, </if>
+			<if test="actType != null">`act_type` = #{actType}, </if>
+			<if test="restrictions != null">`restrictions` = #{restrictions}, </if>
+			<if test="numberOfShares != null">`number_of_shares` = #{numberOfShares}, </if>
+			<if test="numberOfCollection != null">`number_of_collection` = #{numberOfCollection}, </if>
+			<if test="numberOfPreviews != null">`number_of_previews` = #{numberOfPreviews}, </if>
+			<if test="numberOfApplicants != null">`number_of_applicants` = #{numberOfApplicants}, </if>
+			<if test="applicantsNumMax != null">`applicants_num_max` = #{applicantsNumMax},</if>
+			<if test="reasonForRefusal != null">`reason_for_refusal` = #{reasonForRefusal}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from activity where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from activity where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<update id="updateActDynamic" parameterType="java.util.Map">
+		update activity 
+		<set>
+			<if test="numberOfShares == 1">`number_of_shares` = number_of_shares+1, </if>
+			<if test="numberOfCollection == 2">`number_of_collection` = number_of_collection+1, </if>
+			<if test="numberOfPreviews == 3">`number_of_previews` = number_of_previews+1, </if>
+			<if test="numberOfApplicants == 4">`number_of_applicants` = number_of_applicants+1</if>
+		</set>
+		where id = #{id}
+	</update>
+	<update id="ActDynamicCall" parameterType="java.util.Map">
+		update activity 
+		<set>
+			<if test="numberOfShares == 1">`number_of_shares` = number_of_shares-1, </if>
+			<if test="numberOfCollection == 2">`number_of_collection` = number_of_collection-1, </if>
+			<if test="numberOfPreviews == 3">`number_of_previews` = number_of_previews-1, </if>
+			<if test="numberOfApplicants == 4">`number_of_applicants` = number_of_applicants-1</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<script src="js/jquery-3.1.1.js"></script>
+		<link rel="stylesheet" href="css/activity.css">
+		<link rel="stylesheet" href="css/fenye.css">
+		<script type="text/javascript" src="js/fenye.js"></script>
+		<title>活动报名</title>
+	</head>
+	<body>
+		<!-- 头部 -->
+		<div th:replace="pc/include :: header"></div>
+		<!-- 地区 -->
+		<div class="weizhi">
+			<div class="wztwo">
+				<p>您所在的位置：首页 > 活动报名</p>
+				<input type="hidden" value="" id="code"/>
+				<input type="hidden" value="" id="status"/>
+			</div>
+			<div class="wzshenfen">
+				<p>地区：<span>全部</span></p>
+				<ul>
+					<li th:each="area : ${areaList}" th:onclick="'query('+${area.regionCode}+')'" th:text="${area.regionName}"></li>
+				</ul>
+				<div class="butnn"><img src="images/baoming03.png" alt=""></div>
+			</div>	
+		</div>
+		<!-- 行业 -->
+		<div class="hangye">
+			<ul class="all">
+				<!-- <li class="hxcolor">行业类型&nbsp;<img src="images/jiantou.png" alt="">
+					<ul>
+						<li><a href="">1</a></li>
+						<li><a href="">1</a></li>
+						<li><a href="">1</a></li>
+					</ul>
+				</li> -->
+				<li>活动状态&nbsp;<img src="images/jiantou.png" alt="">
+					<ul>
+						<li onclick="statusQuery('1')">报名中</li>
+						<li onclick="statusQuery('2')">进行中</li>
+						<li onclick="statusQuery('3')">已结束</li>
+					</ul>
+				</li>
+            </ul>
+			<div class="danxuan">
+				 <input type="radio" name="sex" value="0" />&nbsp;免费
+                 <input type="radio" name="sex" value="1" />&nbsp;收费	
+			</div>
+		</div>
+		<!-- 内容 -->
+		<div class="hdneirong" id="neirong">
+			<figure th:each="act: ${actList}">
+				<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt="" style="width: 100%;"></a>
+				<figcaption>
+					<p th:text="${act.actTitle}"></p>
+					<p style="font-size:14px; color:#676767;" th:text="${act.actIntro}"></p>
+					<p style="line-height:36px;"><i style="color:#e13146;" th:text="${act.actType==0}?'免费':'收费'"></i><a href="#" style="color:#e13146; float: right;margin-right:13px;" th:text="${act.numberOfApplicants}+人已报名"></a></p>
+				</figcaption>
+			</figure>
+		</div>
+		<!-- 分页 -->
+		<div id="pageBox">
+		    <span id="prev">上一页</span>
+		    <ul id="pageNav"></ul>
+		    <span id="next">下一页</span>
+		</div>
+		<!-- 底部 -->
+		<div th:replace="pc/include :: footer"></div>
+		<!-- 备案 -->
+		<div class="beian">
+			<div class="beian1">
+				<span style="float: left;">©公益打赏平台 版权所有</span>
+				<span style="float: right;">京ICP备12048184号  技术支持：景安网络</span>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+   $(function(){
+    var i=0;
+    $(".butnn").click(function(){
+        i++;
+        if(i%2!=0){
+            $(".wzshenfen").animate({"height":"152px"},600);
+			$(this).animate({"line-height":"150px"},600)
+        }else{
+            $(".wzshenfen").animate({"height":"50px"},600);
+			$(this).animate({"line-height":"50px"},600)
+        }
+    });
+	$('.all>li').click(function(e) {
+        $(this).children().stop().slideToggle()
+		$(this).siblings().children().hide();
+		$(this).addClass("hxcolor").siblings().removeClass("hxcolor");	
+    });
+});
+</script>
+<script>
+$(function(){
+	$(":radio").click(function(){
+		$("#type").val($(this).val())
+		 $.ajax({
+	            type : "POST",
+	            dataType: "json",
+	            url : "/pc/activityList/query",
+	            data : {
+	            	'type': $(this).val(),
+	            	'regionCode': $("#code").val(),
+	            	'status': $("#status").val()
+	            	
+	            },
+	            success : function(result) {
+	            	var actList = result.actList;
+	            	$("#neirong").html('');
+	            	var html = info(actList);
+	            	$("#neirong").append(html);
+	            },
+	        });
+	});
+})
+
+function query(regionCode) {
+	$("#code").val(regionCode);
+	 $.ajax({
+         type : "POST",
+         dataType: "json",
+         url : "/pc/activityList/query",
+         data : {
+         	'regionCode': regionCode
+         },
+         success : function(result) {
+         	var actList = result.actList;
+         	$("#neirong").html('');
+         	var html = info(actList);
+         	$("#neirong").append(html);
+         }
+  });
+}
+
+function statusQuery(status) {
+	$("#status").val(status);
+	 $.ajax({
+         type : "POST",
+         dataType: "json",
+         url : "/pc/activityList/query",
+         data : {
+         	'regionCode': $("#code").val(),
+         	'status': status,
+         	'type': $("#type").val()
+         },
+         success : function(result) {
+         	var actList = result.actList;
+         	$("#neirong").html('');
+         	var html = info(actList);
+         	$("#neirong").append(html);
+         }
+  });
+}
+function info(obj) {
+	var html = '';
+	$.each(obj, function (n, value) {
+		var actype = '';
+		if (value.actType == 0) {
+			actype = '免费';
+		} else {
+			actype = '收费';
+		}
+		html += '<figure>' + 
+					'<img src=" ' + value.actTitleImg + '" alt="">' +
+			    		'<figcaption>' +
+							'<p>'+ value.actTitle + '</p>' +
+							'<p style="font-size:14px; color:#676767;">'+ value.actIntro +'</p>' +
+							'<p style="line-height:36px;">' +
+								'<i style="color:#e13146;">' + actype + '</i>' +
+									'<a href="#" style="color:#e13146; float: right;margin-right:13px;">' + value.numberOfApplicants + '人已报名</a>' + 
+							'</p>' +
+						'</figcaption>' +
+				'</figure>';
+	})
+	return html;
+}
+</script>
+<script>
+    $(function () {
+        tabPage({
+            pageMain: '.hdneirong',
+            pageNav: '#pageNav',
+            pagePrev: '#prev',
+            pageNext: '#next',
+            curNum: 8, /*每页显示的条数*/
+            activeClass: 'active', /*高亮显示的class*/
+            ini: 0/*初始化显示的页面*/
+        });
+        function tabPage(tabPage) {
+            var pageMain = $(tabPage.pageMain);+
+			  console.log(pageMain)
+            /*获取内容列表*/
+            var pageNav = $(tabPage.pageNav);
+            /*获取分页*/
+            var pagePrev = $(tabPage.pagePrev);
+            /*上一页*/
+            var pageNext = $(tabPage.pageNext);
+            /*下一页*/
+ 
+ 
+            var curNum = tabPage.curNum;
+			 console.log(curNum)
+            /*每页显示数*/
+            var len = Math.ceil(pageMain.find("figure").length / curNum);
+            /*计算总页数*/
+            console.log(len);
+            var pageList = '';
+            /*生成页码*/
+            var iNum = 0;
+            /*当前的索引值*/
+ 
+            for (var i = 0; i < len; i++) {
+                pageList += '<a href="javascript:;">' + (i + 1) + '</a>';
+            }
+            pageNav.html(pageList);
+            /*头一页加高亮显示*/
+            pageNav.find("a:first").addClass(tabPage.activeClass);
+ 
+            /*******标签页的点击事件*******/
+                pageNav.find("a").each(function(){
+                    $(this).click(function () {
+                        pageNav.find("a").removeClass(tabPage.activeClass);
+                        $(this).addClass(tabPage.activeClass);
+                        iNum = $(this).index();
+                        $(pageMain).find("figure").hide();
+                        for (var i = ($(this).html() - 1) * curNum; i < ($(this).html()) * curNum; i++) {
+                            $(pageMain).find("figure").eq(i).show()
+                        }
+ 
+                    });
+            })
+            $(pageMain).find("figure").hide();
+            /************首页的显示*********/
+            for (var i = 0; i < curNum; i++) {
+                $(pageMain).find("figure").eq(i).show()
+            }
+            /*下一页*/
+            pageNext.click(function () {
+                $(pageMain).find("figure").hide();
+                if (iNum == len - 1) {
+                    alert('已经是最后一页');
+                    for (var i = (len - 1) * curNum; i < len * curNum; i++) {
+                        $(pageMain).find("figure").eq(i).show()
+                    }
+                    return false;
+                } else {
+                    pageNav.find("a").removeClass(tabPage.activeClass);
+                    iNum++;
+                    pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
+//                    ini(iNum);
+                }
+                for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
+                    $(pageMain).find("figure").eq(i).show()
+                }
+            });
+            /*上一页*/
+            pagePrev.click(function () {
+                $(pageMain).find("figure").hide();
+                if (iNum == 0) {
+                    alert('当前是第一页');
+                    for (var i = 0; i < curNum; i++) {
+                        $(pageMain).find("figure").eq(i).show()
+                    }
+                    return false;
+                } else {
+                    pageNav.find("a").removeClass(tabPage.activeClass);
+                    iNum--;
+                    pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
+                }
+                for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
+                    $(pageMain).find("figure").eq(i).show()
+                }
+            })
+ 
+        }
+ 
+ 
+    })
+</script>
