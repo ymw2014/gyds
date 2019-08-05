@@ -43,6 +43,7 @@ public class ApplyDO implements Serializable {
 	public void setCreateTimeStr(String createTimeStr) {
 		this.createTimeStr = createTimeStr;
 	}
+	
 	public String getVolunteerName() {
 		return volunteerName;
 	}

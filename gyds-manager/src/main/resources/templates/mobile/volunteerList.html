@@ -25,12 +25,18 @@
 		<div class="header_nav">
 			<div>
 				<select id="type">
+					<option value="0">性别</option>
 					<option value="0">男</option>
 					<option value="1">女</option>
 				</select>
 			</div>
-			<!-- <div>活动状态</div>
-			<div>地区</div> -->
+			<!-- <div>活动状态</div> -->
+			<div><select onchange="query()" id ="code">
+				<option value="">地区</option>
+					<option th:each="area : ${areaList}" th:value="${area.regionCode}"
+						 th:text="${area.regionName}"></option>
+			</select>
+			</div>
 		</div>
 		<div class="tuandui">
 			<div class="tuandui2" id="zyzhti">
@@ -43,43 +49,7 @@
 		<!-- <div class="box-nr">
 		   <button>加载更多</button>
 		</div> -->
-		<div class="footer">
-			<ul>
-				<h4>关于我们</h4>
-				<li><a href="#">关于我们1</a></li>
-				<li><a href="#">关于我们2</a></li>
-				<li><a href="#">关于我们3</a></li>
-				<li><a href="#">关于我们4</a></li>
-			</ul>
-			<ul>
-				<h4>关于我们</h4>
-				<li><a href="#">关于我们1</a></li>
-				<li><a href="#">关于我们2</a></li>
-				<li><a href="#">关于我们3</a></li>
-				<li><a href="#">关于我们4</a></li>
-			</ul>
-			<ul>
-				<h4>关于我们</h4>
-				<li><a href="#">关于我们1</a></li>
-				<li><a href="#">关于我们2</a></li>
-				<li><a href="#">关于我们3</a></li>
-				<li><a href="#">关于我们4</a></li>
-			</ul>
-			<ul>
-				<h4>关于我们</h4>
-				<li><a href="#">关于我们1</a></li>
-				<li><a href="#">关于我们2</a></li>
-				<li><a href="#">关于我们3</a></li>
-				<li><a href="#">关于我们4</a></li>
-			</ul>
-		</div>
-		<!-- 备案 -->
-		<div class="beian">
-			<div class="beian1">
-				<span>京ICP备12048184号</span>
-				<span>技术支持：景安网络</span>
-			</div>
-		</div>
+		<div th:replace="mobile/include :: footer"></div>
 	</body>
 </html>
 
@@ -104,6 +74,23 @@ $(function () {
 	});
 })
 
+function query() {
+	var regionCode = $("#code").val();
+	 $.ajax({
+         type : "POST",
+         dataType: "json",
+         url : "/pc/volunteerList/query",
+         data : {
+         	'regionCode': regionCode
+         },
+         success : function(result) {
+         	var voluntList = result.voluntList;
+         	$("#zyzhti").html('');
+         	var html = info(voluntList);
+         	$("#zyzhti").append(html);
+         }
+  });
+}
 function info(value) {
 	var html = '';
 	$.each(value, function (n, value) {
@@ -114,5 +101,4 @@ function info(value) {
 	})
 	return html;
 }
-
 </script>
