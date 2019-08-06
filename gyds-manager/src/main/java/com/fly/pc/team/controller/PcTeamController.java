@@ -1,9 +1,11 @@
 package com.fly.pc.team.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +18,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
 import com.fly.domain.RegionDO;
+import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
+import com.fly.team.domain.ApplyTeamDO;
 import com.fly.team.domain.TeamDO;
+import com.fly.team.service.ApplyTeamService;
 import com.fly.team.service.TeamService;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
@@ -42,6 +48,8 @@ public class PcTeamController {
 	private VolunteerService volunteerService;
 	@Autowired
 	private IndexService indexService;
+	@Autowired
+	private ApplyTeamService applyTeamService;
 	
 	@RequestMapping("teamList")
 	public String list(@RequestParam Map<String,Object> params, Model model) {
@@ -91,6 +99,25 @@ public class PcTeamController {
 		params.clear();
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
+		model.addAttribute("teamId", teamId);
+		
+		UserDO user = ShiroUtils.getUser();
+		if (user != null ) {
+			VolunteerDO vo = volunteerService.getVo(user.getUserId());//获取志愿者信息
+			params.clear();
+			params.put("zyzId", vo.getId());
+			params.put("applyTeamId",teamId);
+			List<ApplyTeamDO> list = applyTeamService.list(params);
+			if (!CollectionUtils.isEmpty(list)) {
+				ApplyTeamDO applyTeamDO = list.get(0);
+				Integer status = applyTeamDO.getStatus();
+				model.addAttribute("status", status);
+			} else {
+				model.addAttribute("status", 3);
+			}
+		}else {
+			model.addAttribute("status", 3);
+		}
 		return "pc/teamDetail";
 	}
 	
@@ -108,6 +135,37 @@ public class PcTeamController {
 		List<TeamDO> teamList = teamService.list(params);
 		JSONObject dataInfo = new JSONObject();
 		dataInfo.put("teamList", teamList);
+		return dataInfo.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping("team/apply")
+	public String apply(Integer id) {
+		JSONObject dataInfo = new JSONObject();
+		Integer status = 0;
+		try {
+			UserDO user = ShiroUtils.getUser();
+			if (user == null) {
+				dataInfo.put("status", "2");//还没登录
+				return dataInfo.toString();
+			}
+			
+			boolean flag = volunteerService.isVo(user.getUserId());
+			if (!flag) {
+				dataInfo.put("status", "3");//还不是志愿者
+				return dataInfo.toString();
+			}
+			ApplyTeamDO apply = new ApplyTeamDO();
+			apply.setApplyTeamId(id);
+			apply.setUserId(user.getUserId().intValue());
+			apply.setStatus(0);
+			apply.setApplyTeamTime(new Date());
+			status = applyTeamService.save(apply);
+		}catch(Exception e) {
+			status = 5;
+			e.printStackTrace();
+		}
+		dataInfo.put("status", status);
 		return dataInfo.toString();
 	}
 }

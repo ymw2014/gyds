@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.domain.UserDO;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.ApplyTeamDO;
 import com.fly.team.service.ApplyTeamService;
 import com.fly.utils.PageUtils;
@@ -133,10 +135,12 @@ public class ApplyTeamController {
 	@ResponseBody
 	@RequiresPermissions("team:apply:examine")
 	public R examine(Integer id,Integer status){
-		Integer teamId=null;
+		UserDO user = ShiroUtils.getUser();
 		ApplyTeamDO apply = applyService.get(id);
 		apply.setStatus(status);
-		VolunteerDO volunteer=volunteerService.get(apply.getZyzId());
+		VolunteerDO volunteer=volunteerService.get(user.getUserId().intValue());
+		if(volunteer.getTeamId()!=null||volunteer.getTeamId()!=-1) {
+		Integer teamId=null;
 		teamId = volunteer.getTeamId();
 		if(teamId!=null&&teamId != -1) {
 			return R.error("该志愿者已入其他团队,请删除该数据");
@@ -148,6 +152,7 @@ public class ApplyTeamController {
 		}
 		if(applyService.update(apply)>0) {
 			return R.ok();
+		}
 		}
 		return R.error();
 	}

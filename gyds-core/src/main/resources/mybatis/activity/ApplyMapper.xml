@@ -50,7 +50,7 @@
 	<insert id="save" parameterType="com.fly.activity.domain.ApplyDO" useGeneratedKeys="true" keyProperty="id">
 		insert into act_apply
 		(
-			`zyz_id`, 
+			`user_id`, 
 			`act_id`, 
 			`create_time`, 
 			`examine`, 
@@ -59,7 +59,7 @@
 		)
 		values
 		(
-			#{zyzId}, 
+			#{userId}, 
 			#{actId}, 
 			#{createTime}, 
 			#{examine}, 

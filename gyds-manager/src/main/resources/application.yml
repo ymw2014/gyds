@@ -30,6 +30,7 @@ spring:
       config: classpath:config/ehcache.xml
 mybatis:
   configuration:
+    call-setters-on-nulls: true
     map-underscore-to-camel-case: true
   mapper-locations: classpath*:/mybatis/**/*Mapper.xml
   typeAliasesPackage: com.fly.domain,com.fly.**.domain

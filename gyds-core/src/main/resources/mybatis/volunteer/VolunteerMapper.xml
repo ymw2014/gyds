@@ -246,4 +246,47 @@
 		</set>
 		where id = #{id}
 	</update>
+	
+	<!-- 用户端 -->
+	<select id="voluntList" resultType="java.util.Map">
+		SELECT
+			u.head_img AS headImg,
+			u.`name` AS volunteerName,
+			u.province,
+			u.city,
+			t.team_name AS teamName,
+			v.* 
+		FROM
+			sys_user u 
+			LEFT JOIN volunteer v ON v.user_id   =  u.user_id
+			LEFT JOIN team t ON v.team_id = t.id 
+		<where>
+			<if test="id != null and id != ''"> and v.id = #{id} </if> 
+			<if test="userId != null and userId != ''"> and v.user_id = #{userId} </if>
+		  	<if test="teamId != null and teamId != ''"> and v.team_id = #{teamId} </if>
+		  	<if test="isVo != null and isVo != ''"> and u.is_identification = #{isVo} </if>
+		  	<if test="sex != null and sex != ''"> and u.sex = #{sex} </if>
+		  	<if test="ids != null and ids.size() > 0">
+	  		  	and
+	  		  	v.team_id in 
+	  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+			            #{item}       
+			    </foreach> 
+	  		</if>
+		</where>
+		 <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	
+	
 </mapper>

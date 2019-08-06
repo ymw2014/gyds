@@ -35,4 +35,6 @@ public interface VolunteerDao {
 	int updateVolunteer(Map<String,Object> map);
 	
 	List<VolunteerDO> isVo(Long userId);
+	
+	List<Map<String,Object>> voluntList(Map<String,Object> map);
 }

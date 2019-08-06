@@ -11,6 +11,13 @@
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/lunbo.css}">
 		<link rel="stylesheet" th:href="@{/mobile/vdist/idangerous.swiper.css}">
+		
+		
+		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
 		<style>
 			.tongji{
 				position:relative;
@@ -73,6 +80,7 @@
 		</div>
 		<!-- 结束 -->
 		<div class="tongji">
+		<input type="hidden" th:value="${teamId}" id="teamId"/>
 			<div class="tongji1">
 				<div class="tongjitxt">
 					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
@@ -111,14 +119,22 @@
 				<span>发布资讯数量</span>
 				<rem>452</rem>
 			</div>
-			
 			<!-- 红色的 -->
 			<div class="rutuanbtn">
 				<a href="#">入团申请</a>
 			</div>
 			<!-- 灰色的 -->
-			<div class="rutuanbtn" style="background:#ccc;">
-				<a href="#">入团申请</a>
+			<div class="rutuanbtn" style="background:#ccc;" th:if="${status} eq '0'">
+				<a href="javaScript:;">正在申请中</a>
+			</div>
+			<div class="rutuanbtn" style="background:#ccc;" th:if="${status} eq '1'">
+				<a href="javaScript:;">你已是该团的团员</a>
+			</div>
+			<div class="rutuanbtn" style="background:#ccc;" th:if="${status} eq '2'">
+				<a href="javaScript:teamApply()">入团申请</a>
+			</div>
+			<div class="rutuanbtn" style="background:#ccc;" th:if="${status} eq '3'">
+				<a href="javaScript:teamApply()">入团申请</a>
 			</div>
 			
 		</div>
@@ -153,43 +169,7 @@
 		<div class="guanggao">
 			<img src="images/tp2.jpg" alt="">
 		</div>
-		<div class="footer">
-			<ul>
-				<h4>关于我们</h4>
-				<li><a href="#">关于我们1</a></li>
-				<li><a href="#">关于我们2</a></li>
-				<li><a href="#">关于我们3</a></li>
-				<li><a href="#">关于我们4</a></li>
-			</ul>
-			<ul>
-				<h4>关于我们</h4>
-				<li><a href="#">关于我们1</a></li>
-				<li><a href="#">关于我们2</a></li>
-				<li><a href="#">关于我们3</a></li>
-				<li><a href="#">关于我们4</a></li>
-			</ul>
-			<ul>
-				<h4>关于我们</h4>
-				<li><a href="#">关于我们1</a></li>
-				<li><a href="#">关于我们2</a></li>
-				<li><a href="#">关于我们3</a></li>
-				<li><a href="#">关于我们4</a></li>
-			</ul>
-			<ul>
-				<h4>关于我们</h4>
-				<li><a href="#">关于我们1</a></li>
-				<li><a href="#">关于我们2</a></li>
-				<li><a href="#">关于我们3</a></li>
-				<li><a href="#">关于我们4</a></li>
-			</ul>
-		</div>
-		<!-- 备案 -->
-		<div class="beian">
-			<div class="beian1">
-				<span>京ICP备12048184号</span>
-				<span>技术支持：景安网络</span>
-			</div>
-		</div>
+		<div th:replace="mobile/include :: footer"></div>s
 	</body>
 </html>
 <script th:src="@{/mobile/dist/idangerous.swiper.min.js}"></script>
@@ -213,4 +193,35 @@
 		console.log($("#area").val());
 		window.location.href = "/?areaId="+$("#area").val();
 	}
+	  
+	  
+	  
+	  function teamApply() {
+			var teamId = $("#teamId").val();
+			$.ajax({
+		        type : "POST",
+		        dataType: "json",
+		        url : "/pc/team/apply",
+		        data : {
+		        	'id': teamId
+		        },
+		        success : function(result) {
+		        	var status = result.status;
+		        	console.log(status)
+		        	if (status == 1) {
+		        		alert("申请成功");
+		        		history.go(0)
+		        	} else if (status == 2){
+		        		parent.layer.msg("您还没登录，请先登录");
+		        	} else if (status == 3){
+		        		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+		        	} else if (status == 3){
+		        		parent.layer.msg("报名失败，报名人数已满");
+		        	} else {
+		        		parent.layer.msg("操作失败");
+		        	}
+		        }
+		    });
+		}
+
 </script>

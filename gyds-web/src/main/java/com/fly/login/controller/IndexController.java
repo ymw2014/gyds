@@ -31,6 +31,7 @@ import com.fly.utils.JudgeIsMoblieUtil;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
+
 @Controller
 public class IndexController {
 	@Autowired

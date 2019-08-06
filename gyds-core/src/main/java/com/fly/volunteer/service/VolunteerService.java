@@ -37,4 +37,6 @@ public interface VolunteerService {
 	boolean isVo(Long userId);
 	
 	VolunteerDO getVo(Long userId);
+	
+	List<Map<String,Object>> voluntList(Map<String,Object> map);
 }

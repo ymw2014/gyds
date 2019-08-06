@@ -24,7 +24,7 @@ public class ApplyTeamDO implements Serializable {
 	//志愿者姓名
 	private String volunteerName;
 	//志愿者id
-	private Integer zyzId;
+	private Integer userId;
 	//状态 0:申请中 1:申请成功 2 :已拒绝
 	private Integer status;
 	//
@@ -69,14 +69,14 @@ public class ApplyTeamDO implements Serializable {
 	/**
 	 * 设置：志愿者id
 	 */
-	public void setZyzId(Integer zyzId) {
-		this.zyzId = zyzId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 	/**
 	 * 获取：志愿者id
 	 */
-	public Integer getZyzId() {
-		return zyzId;
+	public Integer getUserId() {
+		return userId;
 	}
 	/**
 	 * 设置：状态 0:申请中 1:申请成功 2 :已拒绝

@@ -44,14 +44,14 @@
 		insert into team_apply
 		(
 			`apply_team_id`, 
-			`zyz_id`, 
+			`user_id`, 
 			`status`, 
 			`apply_team_time`
 		)
 		values
 		(
 			#{applyTeamId}, 
-			#{zyzId}, 
+			#{userId}, 
 			#{status}, 
 			#{applyTeamTime}
 		)
