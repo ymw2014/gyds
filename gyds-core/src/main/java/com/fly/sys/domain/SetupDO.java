@@ -74,6 +74,12 @@ public class SetupDO implements Serializable {
 	private BigDecimal cityBail;
 	//县级代理保证金
 	private BigDecimal areaBail;
+	//办事处代理保证金
+	private BigDecimal agencyBail;
+	//红包金额配置
+	private String redPriceSetup;
+	//打赏金额配置
+	private String rewardPriceSetup;
 
 	/**
 	 * 设置：
@@ -412,4 +418,25 @@ public class SetupDO implements Serializable {
 	public BigDecimal getAreaBail() {
 		return areaBail;
 	}
+	public BigDecimal getAgencyBail() {
+		return agencyBail;
+	}
+	public void setAgencyBail(BigDecimal agencyBail) {
+		this.agencyBail = agencyBail;
+	}
+	public String getRedPriceSetup() {
+		return redPriceSetup;
+	}
+	public void setRedPriceSetup(String redPriceSetup) {
+		this.redPriceSetup = redPriceSetup;
+	}
+	public String getRewardPriceSetup() {
+		return rewardPriceSetup;
+	}
+	public void setRewardPriceSetup(String rewardPriceSetup) {
+		this.rewardPriceSetup = rewardPriceSetup;
+	}
+	
+	
+	
 }

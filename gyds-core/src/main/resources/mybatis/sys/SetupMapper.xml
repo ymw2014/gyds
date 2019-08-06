@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.sys.dao.SetupDao">
 
 	<select id="get" resultType="com.fly.sys.domain.SetupDO">
-		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail` from sys_setup where id = #{value}
+		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.sys.domain.SetupDO">
-		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail` from sys_setup
+		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="redPacketExtract != null and redPacketExtract != ''"> and red_packet_extract = #{redPacketExtract} </if>
@@ -85,6 +85,9 @@
 		  		  <if test="provincialBail != null and provincialBail != ''"> and provincial_bail = #{provincialBail} </if>
 		  		  <if test="cityBail != null and cityBail != ''"> and city_bail = #{cityBail} </if>
 		  		  <if test="areaBail != null and areaBail != ''"> and area_bail = #{areaBail} </if>
+		  		  <if test="agencyBail != null and agencyBail != ''"> and agency_bail = #{agencyBail} </if>
+		  		  <if test="redPriceSetup != null and redPriceSetup != ''"> and red_price_setup = #{redPriceSetup} </if>
+		  		  <if test="rewardPriceSetup != null and rewardPriceSetup != ''"> and reward_price_setup = #{rewardPriceSetup} </if>
 		  		</where>
 	</select>
 	 
@@ -118,7 +121,11 @@
 			`recharge_integral`, 
 			`provincial_bail`, 
 			`city_bail`, 
-			`area_bail`
+			`area_bail`,
+			`agency_bail`,
+			`red_price_setup`,
+			`reward_price_setup`
+			
 		)
 		values
 		(
@@ -149,7 +156,10 @@
 			#{rechargeIntegral}, 
 			#{provincialBail}, 
 			#{cityBail}, 
-			#{areaBail}
+			#{areaBail},
+			#{agencyBail},
+			#{redPriceSetup},
+			#{rewardPriceSetup}
 		)
 	</insert>
 	 
@@ -184,6 +194,9 @@
 			<if test="provincialBail != null">`provincial_bail` = #{provincialBail}, </if>
 			<if test="cityBail != null">`city_bail` = #{cityBail}, </if>
 			<if test="areaBail != null">`area_bail` = #{areaBail}</if>
+			<if test="agencyBail != null and agencyBail != ''"> and agency_bail = #{agencyBail} </if>
+			<if test="redPriceSetup != null and redPriceSetup != ''"> and red_price_setup = #{redPriceSetup} </if>
+		  	<if test="rewardPriceSetup != null and rewardPriceSetup != ''"> and reward_price_setup = #{rewardPriceSetup} </if>
 		</set>
 		where id = #{id}
 	</update>

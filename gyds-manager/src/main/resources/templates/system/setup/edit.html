@@ -120,16 +120,20 @@
 						<div class="panel-body">
 							<div class="col-sm-4">
 								<div class="form-group">
-									<label class=" control-label">省级代理保证金<span class="text-muted">:</span></label>
+									<label class=" control-label">省级代理保证金:<span class="text-muted">:</span></label>
 										<input id="provincialBail" name="provincialBail" th:value="${setup.provincialBail}" oninput="clearNoNum(this)"  class="form-control input-sm"  type="text">
 								</div>
 								<div class="form-group">
-									<label class=" control-label">市代理保证金<span class="text-muted">:</span></label>
+									<label class=" control-label">市代理保证金:<span class="text-muted">:</span></label>
 										<input id="cityBail" name="cityBail" th:value="${setup.cityBail}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
 								</div>
 								<div class="form-group">
-									<label class=" control-label">县级代理保证金<span class="text-muted">:</span></label>
+									<label class=" control-label">县级代理保证金:<span class="text-muted">:</span></label>
 										<input id="areaBail" name="areaBail" th:value="${setup.areaBail}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">街道办代理保证金:<span class="text-muted">:</span></label>
+										<input id="agencyBail" name="agencyBail" th:value="${setup.agencyBail}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
 								</div>
 							</div>
 						</div>
@@ -170,6 +174,14 @@
 								<div class="form-group">
 									<label class=" control-label">体现手续费<span class="text-muted">:</span></label>
 										<input id="withdrawalFee" name="withdrawalFee" th:value="${setup.withdrawalFee}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">红包金额配置:<span class="text-muted">:</span></label>
+										<input id="redPriceSetup" name="redPriceSetup" th:value="${setup.redPriceSetup}"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
+									<label class=" control-label">打赏金额配置<span class="text-muted">:</span></label>
+										<input id="rewardPriceSetup" name="rewardPriceSetup" th:value="${setup.rewardPriceSetup}"    class="form-control input-sm" type="text">
 								</div>
 							</div>
 						</div>
