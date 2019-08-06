@@ -102,9 +102,9 @@ public class IndexController {
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
 		params.clear();
-		params.put("auditStatus",1);//
+		params.put("isVo",1);//
 		params.put("ids", ids);
-		List<VolunteerDO> voluntList = volunteerService.list(params);
+		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		int count = volunteerService.count(null);
 		model.addAttribute("voluntList", voluntList);//志愿者
 		model.addAttribute("voluntCount", count);

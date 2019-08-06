@@ -1,1 +1,33 @@
 2019-07-11 09:00:45,399 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2019-08-06 08:45:28,913 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2019-08-06 11:12:32,564 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2019-08-06 11:13:00,854 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2019-08-06 11:14:14,387 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.gyds.core:gyds-core:1.0.0-SNAPSHOT @ E:\gyds\gyds-core\pom.xml.
+2019-08-06 11:14:28,592 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.fly:gyds-manager:1.0.0-SNAPSHOT @ E:\gyds\gyds-manager\pom.xml.
+2019-08-06 11:14:34,444 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier  to /gyds-core/target/classes
+2019-08-06 11:14:34,697 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.fly:gyds-web:0.0.1-SNAPSHOT @ E:\gyds\gyds-web\pom.xml.
+2019-08-06 11:14:34,711 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier  to /gyds-core/target/classes
+2019-08-06 11:14:40,562 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /gyds-core/src/main/java
+2019-08-06 11:14:40,562 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /gyds-core/src/main/resources
+2019-08-06 11:14:40,563 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /gyds-core/src/main/resources
+2019-08-06 11:14:40,564 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /gyds-core/src/test/java
+2019-08-06 11:14:40,982 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /gyds-manager/src/main/java
+2019-08-06 11:14:40,983 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /gyds-manager/src/main/resources
+2019-08-06 11:14:40,998 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /gyds-manager/src/main/resources
+2019-08-06 11:14:41,018 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /gyds-manager/src/test/java
+2019-08-06 11:14:41,287 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /gyds-web/src/main/java
+2019-08-06 11:14:41,288 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /gyds-web/src/main/resources
+2019-08-06 11:14:41,291 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /gyds-web/src/main/resources
+2019-08-06 11:14:41,293 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /gyds-web/src/test/java
+2019-08-06 11:14:41,537 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 3 project(s) in 54 sec
+2019-08-06 11:14:48,344 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-06 11:14:48,354 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-06 11:14:48,356 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 30 resources
+2019-08-06 11:14:48,678 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-06 11:14:48,679 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\gyds\gyds-core\src\test\resources
+2019-08-06 11:14:52,601 [Worker-2: Building workspace] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier  to /gyds-core/target/classes
+2019-08-06 11:14:52,628 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-06 11:14:52,638 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-06 11:14:52,720 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2232 resources
+2019-08-06 11:15:43,514 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-06 11:15:43,515 [Worker-2: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\gyds\gyds-manager\src\test\resources

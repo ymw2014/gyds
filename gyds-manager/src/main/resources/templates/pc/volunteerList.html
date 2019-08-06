@@ -137,7 +137,11 @@ function orderSort(val,obj){
             	$("#zyzhti").html('');
             	var html = info(voluntList);
             	$("#zyzhti").append(html);
-            	$(obj).attr('data_id','asc');
+            	if (aData == 'asc') {
+	            	$(obj).attr('data_id','desc');
+            	} else {
+            		$(obj).attr('data_id','asc');
+            	}
             },
      });
 }

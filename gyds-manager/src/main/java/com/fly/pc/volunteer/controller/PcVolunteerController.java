@@ -72,7 +72,6 @@ public class PcVolunteerController {
 			Model model,String sort, String order, HttpServletResponse response) throws IOException {
 		params.clear();
 		String areaId = request.getParameter("regionCode");
-		String sex = request.getParameter("sex");
 		params.put("parentRegionCode", 0);
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
@@ -87,13 +86,10 @@ public class PcVolunteerController {
 		if (CollectionUtils.isEmpty(ids)) {
 			ids.add(-1);
 		}
-		
-		params.put("auditStatus",1);//
-		params.put("sex",sex);
-		params.put("sort", sort);
-		params.put("order", order);
+		params.clear();
+		params.put("isVo",1);//
 		params.put("ids", ids);
-		List<VolunteerDO> voluntList = volunteerService.list(params);
+		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		model.addAttribute("voluntList", voluntList);
 		model.addAttribute("areaList", areaList);//全国包含的省
 		return "pc/volunteerList";
@@ -108,32 +104,28 @@ public class PcVolunteerController {
 	@RequestMapping("volunteerDetail")
 	public String volunteerDetail(@RequestParam Map<String,Object> params, Integer id, Model model) {
 		UserDO user = ShiroUtils.getUser();
-		VolunteerDO volunteerDO = volunteerService.get(id);
-		if (volunteerDO.getUserId() != null) {
-			UserDO userDO = userService.get(volunteerDO.getUserId());
-			model.addAttribute("isReal",userDO.getIsIdentification());
-		}
+		params.clear();
+		params.put("id", id);
+		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		if (user != null) {//当前用户必须是志愿者才记录
 			params.clear();
 			params.put("userId", user.getUserId());
-			params.put("auditStatus", 1);
-			List<VolunteerDO> volunteer = volunteerService.list(params);
+			params.put("isVo", 1);
+			List<Map<String,Object>> volunteer = volunteerService.voluntList(params);
 			if (!CollectionUtils.isEmpty(volunteer)) {
 				//添加访客记录
-				if (volunteer.get(0).getId() != id) {
+				if (volunteer.get(0).get("id") != id) {
 					GuestlogDO log = new GuestlogDO();
-					log.setGuestId(volunteer.get(0).getId().intValue());
-					log.setGuestHeadimg(volunteer.get(0).getHeadImg());
+					log.setGuestId(Integer.valueOf(volunteer.get(0).get("id").toString()));
+					log.setGuestHeadimg(volunteer.get(0).get("headImg").toString());
 					log.setGuestName(user.getName());
 					log.setUserId(id.intValue());
-					log.setUserHeadimg(volunteerDO.getHeadImg());
-					log.setUserName(volunteerDO.getVolunteerName());
+					log.setUserHeadimg(voluntList.get(0).get("headImg").toString());
+					log.setUserName(voluntList.get(0).get("VolunteerName").toString());
 					log.setGuestTime(new Date());
 					log.setGuestType(1);
 					logService.save(log);
 				}
-				
-				
 			}
 		}
 		
@@ -146,19 +138,12 @@ public class PcVolunteerController {
 		List<GuestlogDO> guestList = logService.list(params);//At访客
 		model.addAttribute("guestList",guestList);
 		
-		
 		params.clear();
-		if (volunteerDO.getUserId() != null) {
-			params.put("memberId", volunteerDO.getUserId());
-			List<PhotoDO> photolist = PhotoService.list(params);
-			model.addAttribute("photolist",photolist);//相册
-		}
-		
-		String region = volunteerDO.getProvince() + " " + volunteerDO.getCity();
-		volunteerDO.setProvince(region);
+		params.put("memberId", voluntList.get(0).get("userId"));
+		List<PhotoDO> photolist = PhotoService.list(params);
+		model.addAttribute("photolist",photolist);//相册
 		params.clear();
-		if (volunteerDO.getUserId() != null) {
-			params.put("memberId",volunteerDO.getUserId());
+			params.put("memberId",voluntList.get(0).get("userId"));
 			List<CommentDO> comment = commentService.list(params);
 			ArrayList<CommentDO> newComment = comment.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() ->
 			new TreeSet<>(Comparator.comparing(CommentDO::getNewsId))), ArrayList::new));
@@ -180,18 +165,17 @@ public class PcVolunteerController {
 				}
 			}
 			
-			model.addAttribute("commentList",newComment);//评论信息
-		}
-		model.addAttribute("volunteer",volunteerDO);//志愿者信息
+		model.addAttribute("commentList",newComment);//评论信息
+		model.addAttribute("volunteer",voluntList.get(0));//志愿者信息
 		params.clear();
-		if (volunteerDO.getUserId() != null) {
-			List<Map<String, Object>> shares = getInfo(0, volunteerDO.getUserId());
-			List<Map<String, Object>> likes = getInfo(1, volunteerDO.getUserId());
-			List<Map<String, Object>> collect = getInfo(2, volunteerDO.getUserId());
+		
+			List<Map<String, Object>> shares = getInfo(0, Long.valueOf(voluntList.get(0).get("userId").toString()));
+			List<Map<String, Object>> likes = getInfo(1, Long.valueOf(voluntList.get(0).get("userId").toString()));
+			List<Map<String, Object>> collect = getInfo(2, Long.valueOf(voluntList.get(0).get("userId").toString()));
 			model.addAttribute("sharesList",shares);//转发
 			model.addAttribute("likesList",likes);//点赞
 			model.addAttribute("collectList",collect);//收藏
-		}
+		
 		
 		params.put("parentRegionCode", 0);
 		params.put("regionType",1);
@@ -295,12 +279,12 @@ public class PcVolunteerController {
 		if (CollectionUtils.isEmpty(ids)) {
 			ids.add(-1);
 		}
-		params.put("auditStatus",1);//
+		params.put("isVo",1);//
 		params.put("sex",sex);
 		params.put("sort", sort);
 		params.put("order", order);
 		params.put("ids", ids);
-		List<VolunteerDO> voluntList = volunteerService.list(params);
+		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		JSONObject dataInfo = new JSONObject();
 		dataInfo.put("voluntList", voluntList);
 		return dataInfo.toString();

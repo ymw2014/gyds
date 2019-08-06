@@ -31,6 +31,7 @@ import com.fly.news.domain.DynamicDO;
 import com.fly.news.service.DynamicService;
 import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.system.service.RegionService;
+import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
@@ -49,6 +50,8 @@ public class PcActivityController extends BaseDynamicController{
 	private VolunteerService volunteerService;
 	@Autowired
 	private DynamicService dynamicService;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping("activityList")
 	public String list(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -112,16 +115,16 @@ public class PcActivityController extends BaseDynamicController{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("actId", id);
 		List<ApplyDO> list = applyService.list(params);
-		List<Integer> idList = list.stream().map(ApplyDO :: getZyzId).collect(Collectors.toList());
+		List<Integer> idList = list.stream().map(ApplyDO :: getUserId).collect(Collectors.toList());
 		if (!CollectionUtils.isEmpty(idList)) {
 			params.clear();
-			params.put("idList", idList);
-			List<VolunteerDO> volunteerList = volunteerService.list(params);
+			params.put("userIds", idList);
+			List<UserDO> userList = userService.list(params);
 			List<Map<String,Object>> infoList = new ArrayList<Map<String,Object>>();
-			for (int i = 0; i < volunteerList.size(); i++) {
+			for (int i = 0; i < userList.size(); i++) {
 				Map<String, Object> info = new HashMap<String, Object>();
-				info.put("img", volunteerList.get(i).getHeadImg());
-				info.put("name", volunteerList.get(i).getVolunteerName());
+				info.put("img", userList.get(i).getHeadImg());
+				info.put("name", userList.get(i).getName());
 				info.put("time", list.get(i).getCreateTimeStr());
 				infoList.add(info);
 			}
@@ -194,7 +197,6 @@ public class PcActivityController extends BaseDynamicController{
 		}
 		
 		boolean flag = volunteerService.isVo(user.getUserId());
-		VolunteerDO vo = volunteerService.getVo(user.getUserId());//获取志愿者信息
 		if (!flag) {
 			dataInfo.put("status", "3");//还不是志愿者
 			return dataInfo.toString();
@@ -209,15 +211,15 @@ public class PcActivityController extends BaseDynamicController{
 				activityDO.setNumberOfApplicants(--num);
 				activityService.update(activityDO);
 			} else {
-				if (num++ > activityDO.getApplicantsNumMax()) {
-					dataInfo.put("status", "4");//报名人数已满
-					return dataInfo.toString();
-				}
+				/*
+				 * if (num++ > activityDO.getApplicantsNumMax()) { dataInfo.put("status",
+				 * "4");//报名人数已满 return dataInfo.toString(); }
+				 */
 				ApplyDO apply = new ApplyDO();
 				apply.setActId(actId);
 				apply.setCreateTime(new Date());
 				apply.setStatus(0);
-				apply.setZyzId(vo.getId());
+				apply.setUserId(user.getUserId().intValue());
 				status = applyService.save(apply);
 				activityDO.setNumberOfApplicants(num++);
 				if (status > 0) {
