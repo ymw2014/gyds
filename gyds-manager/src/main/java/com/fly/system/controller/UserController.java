@@ -85,9 +85,9 @@ public class UserController extends BaseController {
 	@PostMapping("/save")
 	@ResponseBody
 	R save(UserDO user) {
-		if (Constant.ADMIN.equals(getUsername())) {
+		/*if (Constant.ADMIN.equals(getUsername())) {
 			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
+		}*/
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		if (userService.save(user) > 0) {
 			return R.ok();

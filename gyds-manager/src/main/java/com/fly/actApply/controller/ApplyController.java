@@ -33,7 +33,6 @@ import com.fly.utils.R;
 public class ApplyController {
 	@Autowired
 	private ApplyService applyService;
-	private Long id;
 	
 	@GetMapping()
 	@RequiresPermissions("actApply:apply:apply")
@@ -45,19 +44,17 @@ public class ApplyController {
 	@GetMapping("/list")
 	@RequiresPermissions("actApply:apply:apply")
 	public PageUtils list(@RequestParam Map<String, Object> params){
-		params.put("actId", id);
 		//查询列表数据
         Query query = new Query(params);
 		List<ApplyDO> applyList = applyService.list(query);
 		int total = applyService.count(query);
 		PageUtils pageUtils = new PageUtils(applyList, total);
-		params.put("actId", "");
 		return pageUtils;
 	}
 	@GetMapping("/auditList/{id}")
 	@RequiresPermissions("actApply:apply:audit")
-	String auditList(@PathVariable("id") Long id){
-		this.id=id;
+	String auditList(@PathVariable("id") Long id,Model model){
+		model.addAttribute("id", id);
 	    return "actApply/apply/apply";
 	}
 	@GetMapping("/add")
