@@ -202,6 +202,7 @@ function loadTree(tree) {
 	$('#jstree').jstree().open_all();
 }
 $('#jstree').on("changed.jstree", function(e, data) {
+	console.log(data)
 	if (data.selected == -1) {
 		var opt = {
 			query : {
