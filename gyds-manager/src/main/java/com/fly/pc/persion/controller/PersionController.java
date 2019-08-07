@@ -83,7 +83,7 @@ public class PersionController extends BaseController{
 		model.addAttribute("user", user);
 		params.put("userId", user.getUserId());
 		List<Map<String, Object>> voluntList = voService.voluntList(params);
-		model.addAttribute("team",voluntList.size()==0?null: teamService.get(Integer.parseInt(voluntList.get(0).get("team_id")+"")));
+		model.addAttribute("team",voluntList.size()==0?null: teamService.get(Integer.parseInt(voluntList.get(0).get("teamId")+"")));
 		return "pc/persion_main";
 	}
 	
@@ -101,19 +101,23 @@ public class PersionController extends BaseController{
 		VolunteerDO vo =voService.getVo(getUserId());
 		for (Map<String, Object> map : actList) {//查找该用户是否已经报名该活动
 			if(vo!=null) {
-				ApplyDO apply = applyService.getApply(vo.getId(), Integer.parseInt(map.get("id").toString()));
+				ApplyDO apply = applyService.getApply(getUserId(), Integer.parseInt(map.get("news_id").toString()));
 				if(apply!=null) {
 					if(apply.getStatus()==0) {
 						map.put("app_status",0);
+						map.put("appId", apply.getId());
 					}
 					if(apply.getStatus()==1) {
 						map.put("app_status",1);
+						map.put("appId", apply.getId());
 					}
 				}else {
 					map.put("app_status",-1);
+					map.put("appId",-1);
 				}
 			}else {
 				map.put("app_status",-1);
+				map.put("appId", -1);
 			}
 		}
 		List<Map<String, Object>> newList = dynamicService.dyNewList(params);//关注的新闻

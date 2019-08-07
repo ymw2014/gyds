@@ -41,9 +41,9 @@
 							<p th:text="${act.act_title}"></p>
 							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd HH:mm:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
 							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count+'人报名'}"></span>
-							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 0}">取消报名</a>
-							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 1}">已报名</a>
-							<a href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq -1}">立即报名</a>
+							<a id="anniu" href="javaScript:;" th:onclick="'javascript:apply(1,'+${act.news_id}+','+${act.appId}+')'" class="anniiu" th:if="${act.app_status eq 0}">取消报名</a>
+							<a id="anniu" href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 1}">已报名</a>
+							<a id="anniu" href="javaScript:;" th:onclick="'javascript:apply(2,'+${act.news_id}+',-1)'" class="anniiu" th:if="${act.app_status eq -1}">立即报名</a>
 					</div>
 				</div>
 				  <!-- 新闻 -->
@@ -94,26 +94,39 @@
 		$(this).addClass("redborder").siblings("div").removeClass("redborder")
 	})
 	
-	function apply(type) {
+	function apply(type,actId,applyId) {
 		$.ajax({
             type : "POST",
             dataType: "json",
             url : "/pc/activity/apply",
             data : {
             	'type': type,
-            	'actId': $("#actId").val(),
-            	'applyId': $("#applyId").val()
+            	'actId':actId,
+            	'applyId':applyId
             },
+            beforeSend: function(){
+                $("#anniu").attr("onclick","");
+           },
             success : function(result) {
             	var status = result.status;
             	if (status == 1) {
             		parent.layer.msg("操作成功");
-            		history.go(0)
+            		if(type==1){//取消报名成功,改为可报名
+                		$("#anniu").attr("onclick","apply(2,"+actId+","+result.applyId+")");
+                		$("#anniu").text("立即报名")
+                	}
+                	if(type==2){//提交报名成功,改为取消报名
+                		$("#anniu").attr("onclick","apply(1,"+actId+","+result.applyId+")");	
+                		$("#anniu").text("取消报名")
+                	}
             	} else if (status == 2){
+            		$("#anniu").attr("onclick","apply("+type+","+actId+","+result.applyId+")");
             		parent.layer.msg("您还没登录，请先登录");
             	} else if (status == 3){
+            		$("#anniu").attr("onclick","apply("+type+","+actId+","+result.applyId+")");
             		parent.layer.msg("您还不是志愿者，请先申请志愿者");
             	} else if (status == 3){
+            		$("#anniu").attr("onclick","apply("+type+","+actId+","+result.applyId+")");
             		parent.layer.msg("报名失败，报名人数已满");
             	} else {
             		parent.layer.msg("操作失败");

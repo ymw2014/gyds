@@ -61,12 +61,9 @@
 				<p>我的团队</p>
 			</div>
 			<div class="myrightimg">
-				<img src="images/13.jpg" alt="">
+				<a th:href="@{/pc/teamDetail?teamId=}+${team.id}"><img th:src="${team.teamTitleImg}" alt=""></a>
 			</div>
-			<p th:text="${team.teamName}">
-				
-			</p>
-			<span>河南郑州</span>
+			<p th:utext="${team.teamName+'<span>'+team.addres+'</span>'}"></p>
 
 		</div>
 	</div>

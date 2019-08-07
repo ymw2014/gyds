@@ -161,10 +161,9 @@ public class PcActivityController extends BaseDynamicController{
 			model.addAttribute("applyStatus", applyStatus);
 			return "pc/activityJoin";
 		}
-		VolunteerDO vo = volunteerService.getVo(user.getUserId());
 		params.clear();
 		params.put("actId", id);
-		params.put("zyzId", vo.getId());
+		params.put("userId", ShiroUtils.getUserId());
 		List<ApplyDO> ApplyDO = applyService.list(params);
 		if (CollectionUtils.isEmpty(ApplyDO)) {//还没有报名
 			model.addAttribute("applyStatus", applyStatus);
@@ -208,8 +207,10 @@ public class PcActivityController extends BaseDynamicController{
 		try {
 			if (type == 1) {
 				status = applyService.remove(applyId);
-				activityDO.setNumberOfApplicants(--num);
+				num--;
+				activityDO.setNumberOfApplicants(num);
 				activityService.update(activityDO);
+				dataInfo.put("applyId", -1);//
 			} else {
 				/*
 				 * if (num++ > activityDO.getApplicantsNumMax()) { dataInfo.put("status",
@@ -221,10 +222,12 @@ public class PcActivityController extends BaseDynamicController{
 				apply.setStatus(0);
 				apply.setUserId(user.getUserId().intValue());
 				status = applyService.save(apply);
-				activityDO.setNumberOfApplicants(num++);
+				num++;
+				activityDO.setNumberOfApplicants(num);
 				if (status > 0) {
 					activityService.update(activityDO);
 				}
+				dataInfo.put("applyId", apply.getId());//
 			}
 		} catch (Exception e) {
 			status = 5;

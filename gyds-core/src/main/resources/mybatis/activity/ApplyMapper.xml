@@ -4,17 +4,19 @@
 <mapper namespace="com.fly.activity.dao.ApplyDao">
 
 	<select id="get" resultType="com.fly.activity.domain.ApplyDO">
-		select a.id,a.zyz_id,a.act_id,v.volunteer_name, ac.act_title,a.create_time,a.examine,a.status,a.reason_for_refusal from act_apply a left join volunteer v on a.zyz_id = v.id left join activity ac on a.act_id = ac.id where a.id = #{value}
+		SELECT a.id,a.user_id,a.act_id,mem.`name`, ac.act_title,a.create_time,a.examine,a.status,a.reason_for_refusal FROM act_apply a 
+			LEFT JOIN sys_user mem ON mem.`user_id`=a.`user_id` 
+			LEFT JOIN activity ac ON a.act_id = ac.id WHERE a.id  #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.activity.domain.ApplyDO">
-		select a.id,a.zyz_id,a.act_id,v.volunteer_name, ac.act_title,
+		select a.id,a.user_id,a.act_id,mem.name as volunteer_name, ac.act_title,
 		a.create_time,
 		DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
-		a.examine,a.status,a.reason_for_refusal from act_apply a left join volunteer v on a.zyz_id = v.id left join activity ac on a.act_id = ac.id
+		a.examine,a.status,a.reason_for_refusal from act_apply a left join sys_user mem  on a.user_id = mem.`user_id` left join activity ac on a.act_id = ac.id
         <where>  
 		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
-		  		  <if test="zyzId != null and zyzId != ''"> and a.zyz_id = #{zyzId} </if>
+		  		  <if test="userId != null and userId != ''"> and a.user_id = #{userId} </if>
 		  		  <if test="actId != null and actId != ''"> and a.act_id = #{actId} </if>
 		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
 		  		  <if test="examine != null and examine != ''"> and a.examine = #{examine} </if>
@@ -38,7 +40,7 @@
 		select count(*) from act_apply
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="zyzId != null and zyzId != ''"> and zyz_id = #{zyzId} </if>
+		  		  <if test="zyzId != null and zyzId != ''"> and user_id = #{userId} </if>
 		  		  <if test="actId != null and actId != ''"> and act_id = #{actId} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="examine != null and examine != ''"> and examine = #{examine} </if>
@@ -71,7 +73,7 @@
 	<update id="update" parameterType="com.fly.activity.domain.ApplyDO">
 		update act_apply 
 		<set>
-			<if test="zyzId != null">`zyz_id` = #{zyzId}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
 			<if test="actId != null">`act_id` = #{actId}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="examine != null">`examine` = #{examine}, </if>
@@ -96,7 +98,7 @@
 	<select id="isApply" resultType="com.fly.activity.domain.ApplyDO">
 			SELECT apply.* FROM act_apply apply	
 			<where>  
-		  		 apply.`zyz_id`=#{zyzId} and apply.`zyz_id`=#{actId} AND apply.`status`!=2
+		  		 apply.`user_id`=#{userId} and apply.`act_id`=#{actId} AND apply.`status`!=2
 		  	</where>
 	</select>
 

@@ -193,10 +193,10 @@
 			<if test="rechargeIntegral != null">`recharge_integral` = #{rechargeIntegral}, </if>
 			<if test="provincialBail != null">`provincial_bail` = #{provincialBail}, </if>
 			<if test="cityBail != null">`city_bail` = #{cityBail}, </if>
-			<if test="areaBail != null">`area_bail` = #{areaBail}</if>
-			<if test="agencyBail != null and agencyBail != ''"> and agency_bail = #{agencyBail} </if>
-			<if test="redPriceSetup != null and redPriceSetup != ''"> and red_price_setup = #{redPriceSetup} </if>
-		  	<if test="rewardPriceSetup != null and rewardPriceSetup != ''"> and reward_price_setup = #{rewardPriceSetup} </if>
+			<if test="areaBail != null">`area_bail` = #{areaBail},</if>
+			<if test="agencyBail != null"> agency_bail = #{agencyBail}, </if>
+			<if test="redPriceSetup != null"> red_price_setup = #{redPriceSetup}, </if>
+		  	<if test="rewardPriceSetup != null "> reward_price_setup = #{rewardPriceSetup} </if>
 		</set>
 		where id = #{id}
 	</update>

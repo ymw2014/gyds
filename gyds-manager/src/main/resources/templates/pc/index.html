@@ -15,7 +15,7 @@
      <!-- 广告 -->
 	 <div class="guangao">
 		 <!-- <a><img  th:src="${adv1.advImg}" alt=""> </a> -->
-		 <a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a>
+		 <a th:href="${adv1.url==null}?'/':${'http://'+adv1.url}"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a>
 	 </div>
 	 <input type="hidden" th:value="${areaId}" id="areaId">
 	 <!-- 内容 -->
