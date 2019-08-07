@@ -233,8 +233,9 @@
 	<select id="isVo" resultType="com.fly.volunteer.domain.VolunteerDO">
 		SELECT v.* 
 		FROM volunteer v
+		LEFT JOIN  sys_user u ON v.user_id   =  u.user_id
         <where>  
-		  		v.`user_id`=#{userId}  and v.`audit_status`=1
+		  		v.`user_id`=#{userId}  and u.is_identification = 1
 		</where>
       
 		

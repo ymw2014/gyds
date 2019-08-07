@@ -51,5 +51,10 @@ public class ApplyTeanServiceImpl implements ApplyTeamService {
 	public int batchRemove(Integer[] ids){
 		return applyDao.batchRemove(ids);
 	}
+
+	@Override
+	public Integer teamApplyStatus(Map<String, Object> map) {
+		return applyDao.teamApplyStatus(map);
+	}
 	
 }
