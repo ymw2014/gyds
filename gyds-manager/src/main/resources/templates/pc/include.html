@@ -58,7 +58,7 @@
 	<header>
 		<div class="header-top">
 			<div class="header-left">
-				<img style="display: none" id="logo" src="../pc/images/logo.png" alt="">
+				<img style="display: none" id="logo" th:src="@{/pc/images/logo.png}" alt="">
 			</div>
 			<div class="header-center">
 				<!-- <input type="text" list="sexlist" placeholder="--全国--">
@@ -71,7 +71,7 @@
 				</select>
 			</div>
 			<div class="header-img">
-				<img src="../pc/images/gongyi.png" alt="">
+				<img th:src="@{/pc/images/gongyi.png}" alt="">
 			</div>
 			<div class="header-login" id="no_login" style="display: none">
 				<a href="/admin">登录</a>
@@ -79,7 +79,7 @@
 			</div>
 			<div class="loginOk" id="login_ok" style="display: none">
 				<div class="loginOkImg">
-					<a href="/pc/personalCenter"><img id="headImg" style="width: 100%; height: auto;" src="" alt=""></a>
+					<a  href="/pc/personalCenter"><img id="headImg" style="width: 100%; height: auto;" src="" alt=""></a>
 				</div>
 
 				<div class="loginname">
@@ -100,8 +100,6 @@
 				<li><a href="/pc/activityList">活动报名</a></li>
 				<li><a href="/pc/volunteerList">志愿者</a></li>
 				<li><a href="/pc/teamList">团队展示</a></li>
-				<li><a href="#">关于我们</a></li>
-				<li><a href="#">联系我们</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -122,8 +120,8 @@
 		</div>
 		<div class="foter">
 			<h4>
-				<img src="images/xian_03.jpg" alt="">&nbsp;&nbsp;友情链接&nbsp;&nbsp;<img
-					src="images/xian_03.jpg" alt="">
+				<img th:src="@{/pc/images/xian_03.jpg}" alt="">&nbsp;&nbsp;友情链接&nbsp;&nbsp;<img
+					th:src="@{/pc/images/xian_03.jpg}" alt="">
 			</h4>
 			<ul>
 				<li><a href="">网易公益</a></li>

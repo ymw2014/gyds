@@ -84,14 +84,8 @@
 			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">置顶</a>
 		</div>
 		<div th:replace="pc/include :: footer"></div>
-		<!-- 备案 -->
-		<div class="beian">
-			<div class="beian1">
-				<span style="float: left;">©公益打赏平台 版权所有</span>
-				<span style="float: right;">京ICP备12048184号  技术支持：景安网络</span>
-			</div>
-		</div>
 	</body>
+	<script th:src="@{/pc/js/common.js}"></script>
 </html>
 <script>
 	$(".xuanfu a").click(function(){
