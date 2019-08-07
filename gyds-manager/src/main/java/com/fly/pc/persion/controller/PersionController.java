@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.fly.activity.domain.ApplyDO;
 import com.fly.activity.service.ApplyService;
 import com.fly.common.controller.BaseController;
@@ -28,8 +30,11 @@ import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.service.TeamService;
+import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
 import com.fly.utils.xss.PublicUtils;
+import com.fly.verifyName.dao.NameDao;
+import com.fly.verifyName.domain.NameDO;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -52,7 +57,8 @@ public class PersionController extends BaseController{
 	private ApplyService applyService;
 	@Autowired
 	private VolunteerService voService;
-
+	@Autowired
+	private NameDao nameDao;
 	
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter(Model model) {
@@ -218,20 +224,20 @@ public class PersionController extends BaseController{
 	 * @return 
 	 */
 	@RequestMapping("/pc/attestation")
-	public String realNameAuthentication(Model model) {
+	public String realNameAuthentication(@RequestParam Integer teamId,@RequestParam Integer type,Model model) {
 		UserDO user = getUser();
 		Map<String, Object> map=new HashMap<>(16);
-		if(user.getIsIdentification()!=null&&user.getIsIdentification()==-1) {//实名认证已提交
-			model.addAttribute("model", "实名认证");
-			model.addAttribute("message", "您的实名认证已经提交,请等待审核结果......");
-			return "pc/message";
-		}
-		if(user.getIsIdentification()!=null&&user.getIsIdentification()==1) {//已实名认证
-			model.addAttribute("user",user);
-			return "pc/att_sucess";
-		}
+		/*
+		 * if(user.getIsIdentification()!=null&&user.getIsIdentification()==-1)
+		 * {//实名认证已提交 model.addAttribute("model", "实名认证"); model.addAttribute("message",
+		 * "您的实名认证已经提交,请等待审核结果......"); return "pc/message"; }
+		 * if(user.getIsIdentification()!=null&&user.getIsIdentification()==1) {//已实名认证
+		 * model.addAttribute("user",user); return "pc/att_sucess"; }
+		 */
 		map.put("parentRegionCode", 0);
 		List<RegionDO> areaList = regionService.list(map);
+		model.addAttribute("type", type);
+		model.addAttribute("teamId", teamId);
 		model.addAttribute("areaList", areaList);
 		model.addAttribute("user", user);
 		return "pc/attestation";
@@ -243,21 +249,28 @@ public class PersionController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping("/pc/realName")
-	public R realName(UserDO user,Model model) {
+	public R realName(NameDO name,Model model) {
 		try {
-			user.setBirth(PublicUtils.IdNOToBirth(user.getCardNo()));
+			name.setBirth(PublicUtils.IdNOToBirth(name.getCardNo()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		PublicUtils.IdNOToAge(user.getCardNo());
-		if(user.getCardFrontImg()==null||user.getCardFrontImg()=="") {
+		PublicUtils.IdNOToAge(name.getCardNo());
+		if(name.getCardFrontImg()==null||name.getCardFrontImg()=="") {
 			return R.error("身份证正面图不能为空");
 		}
-		if(user.getCardBackImg()==null||user.getCardBackImg()=="") {
+		if(name.getCardBackImg()==null||name.getCardBackImg()=="") {
 			return R.error("身份证正面图不能为空");
 		}
-		user.setIsIdentification(-1);
-		if(userService.updatePersonal(user)>0) {
+		name.setCreadTime(new Date());
+		name.setStatus(1);
+		if(name.getType()==2) {
+			name.setText(JSONUtils.beanToJson(name.getTeam()));
+		}
+		if(name.getType()==3) {
+			name.setText(JSONUtils.beanToJson(name.getProxybusi()));
+		}
+		if(nameDao.save(name)>0) {
 			return R.ok();
 		}
 		return R.error();

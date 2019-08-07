@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.verifyName.dao.NameDao">
+
+	<select id="get" resultType="com.fly.verifyName.domain.NameDO">
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`cread_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.verifyName.domain.NameDO">
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`cread_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="email != null and email != ''"> and email = #{email} </if>
+		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
+		  		  <if test="creadTime != null and creadTime != ''"> and cread_time = #{creadTime} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="birth != null and birth != ''"> and birth = #{birth} </if>
+		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
+		  		  <if test="address != null and address != ''"> and address = #{address} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="district != null and district != ''"> and district = #{district} </if>
+		  		  <if test="street != null and street != ''"> and street = #{street} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="cardFrontImg != null and cardFrontImg != ''"> and card_front_img = #{cardFrontImg} </if>
+		  		  <if test="cardBackImg != null and cardBackImg != ''"> and card_back_img = #{cardBackImg} </if>
+		  		  <if test="nation != null and nation != ''"> and nation = #{nation} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="team != null and team != ''"> and team = #{team} </if>
+		  		  <if test="proxybusi != null and proxybusi != ''"> and proxybusi = #{proxybusi} </if>
+		  		  <if test="region_code != null">and region_code = #{regionCode}</if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from verify_name
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="email != null and email != ''"> and email = #{email} </if>
+		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
+		  		  <if test="creadTime != null and creadTime != ''"> and cread_time = #{creadTime} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="birth != null and birth != ''"> and birth = #{birth} </if>
+		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
+		  		  <if test="address != null and address != ''"> and address = #{address} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="district != null and district != ''"> and district = #{district} </if>
+		  		  <if test="street != null and street != ''"> and street = #{street} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="cardFrontImg != null and cardFrontImg != ''"> and card_front_img = #{cardFrontImg} </if>
+		  		  <if test="cardBackImg != null and cardBackImg != ''"> and card_back_img = #{cardBackImg} </if>
+		  		  <if test="nation != null and nation != ''"> and nation = #{nation} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="team != null and team != ''"> and team = #{team} </if>
+		  		  <if test="proxybusi != null and proxybusi != ''"> and proxybusi = #{proxybusi} </if>
+		  		  <if test="region_code != null">and region_code = #{regionCode}</if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.verifyName.domain.NameDO">
+		insert into verify_name
+		(
+			`id`, 
+			`user_id`, 
+			`team_id`, 
+			`name`, 
+			`email`, 
+			`mobile`, 
+			`cread_time`, 
+			`sex`, 
+			`birth`, 
+			`political_status`, 
+			`address`, 
+			`province`, 
+			`city`, 
+			`district`, 
+			`street`, 
+			`status`, 
+			`card_no`, 
+			`card_front_img`, 
+			`card_back_img`, 
+			`nation`, 
+			`type`, 
+			`text`,
+			`region_code`
+		)
+		values
+		(
+			#{id}, 
+			#{userId}, 
+			#{teamId}, 
+			#{name}, 
+			#{email}, 
+			#{mobile}, 
+			#{creadTime}, 
+			#{sex}, 
+			#{birth}, 
+			#{politicalStatus}, 
+			#{address}, 
+			#{province}, 
+			#{city}, 
+			#{district}, 
+			#{street}, 
+			#{status}, 
+			#{cardNo}, 
+			#{cardFrontImg}, 
+			#{cardBackImg}, 
+			#{nation}, 
+			#{type}, 
+			#{text},
+			#{regionCode}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.verifyName.domain.NameDO">
+		update verify_name 
+		<set>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="teamId != null">`team_id` = #{teamId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="creadTime != null">`cread_time` = #{creadTime}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="birth != null">`birth` = #{birth}, </if>
+			<if test="politicalStatus != null">`political_status` = #{politicalStatus}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="province != null">`province` = #{province}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="district != null">`district` = #{district}, </if>
+			<if test="street != null">`street` = #{street}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="cardNo != null">`card_no` = #{cardNo}, </if>
+			<if test="cardFrontImg != null">`card_front_img` = #{cardFrontImg}, </if>
+			<if test="cardBackImg != null">`card_back_img` = #{cardBackImg}, </if>
+			<if test="nation != null">`nation` = #{nation}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="text!=null">`text` = #{text},</if>
+			<if test="regionCode != null">`region_code` = #{regionCode}</if>
+			
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from verify_name where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from verify_name where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<select id="applyStatus" resultType="com.fly.verifyName.domain.NameDO">
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`cread_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name
+        <where>  
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		</where>
+	</select>
+</mapper>

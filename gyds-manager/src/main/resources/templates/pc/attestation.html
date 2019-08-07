@@ -67,6 +67,8 @@
 		</div>
 		<form id="signupForm" class="biaodanyy">
 			<input type="hidden" name="userId" th:value="${user.userId}">
+			<input type="hidden" name="teamId" th:value="${teamId}">
+			<input type="hidden" name="type" th:value="${type}">
 			<label> 
 				<span>真实姓名</span> 
 				<input name="name" type="text">
@@ -189,10 +191,14 @@
 				class="juzhu" id="cityId" onchange="cityQuery()">
 					<option value="">市</option>
 			</select> <input name="district" id="district" type="hidden"> <select
-				id="xian" name="regionCode" onchange="cityDist()" class="juzhu">
+				id="xian"  onchange="streetQuery()" class="juzhu">
 					<option value="">区/县</option>
 			</select>
-			</label> <label> <span>详细地址</span> <input name="liveAddress"
+			<input name="street" id="street" type="hidden"> <select
+				id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
+					<option value="">街道</option>
+			</select>
+			</label> <label> <span>详细地址</span> <input name="address"
 				type="text">
 			</label> <label> <input type="button" id="save" value="提交申请"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 100px; border-radius: 3px;">
@@ -302,9 +308,30 @@
 			}
 		});
 	}
-
-	function cityDist() {
+	//通过区编号获取街道
+	function streetQuery() {
 		$("#district").val($("#xian").find("option:selected").text());
+		$.ajax({
+			type : "post",
+			dataType : "json",
+			url : "/pc/proxybusi/city",
+			data : {
+				'areaId' : $("#xian").val()
+			},
+			success : function(result) {
+				var areaList = result.areaList;
+				$("#jiedao").html('');
+				var html = '<option value ="">街道</option>';
+				$.each(areaList, function(n, value) {
+					html += '<option value =" '+ value.regionCode + '">'
+							+ value.regionName + '</option>';
+				});
+				$("#jiedao").append(html);
+			}
+		});
+	}
+	function streetDist() {
+		$("#street").val($("#jiedao").find("option:selected").text());
 	}
 
 	$().ready(function() {
