@@ -27,7 +27,7 @@
 		<div class="guanzhu">
 			<div style="display:block;">
 				 <div class="guanzhu1" th:each="team: ${teamList}">
-					<a th:href="@{/pc/teamDetail(teamId=${team.id})}">
+					<!-- <a th:href="@{/pc/teamDetail(teamId=${team.id})}"> -->
 					<img th:src="${team.team_title_img}" alt="">
 					<div>
 						<h4 th:text="${team.team_name}"></h4>
@@ -39,13 +39,12 @@
 							<li>发布资讯<span th:text="${team.new_count}"></span></li>
 						</ul>
 					</div>
-					</a>
+					<!-- </a> -->
 				 </div>
 			</div>
 			<div>
 				<div class="guanzhu2" th:each="act: ${actList}">
-					<a th:href="@{/pc/activityDetail(id=${act.id})}">
-					<img th:src="${act.act_title_img}" alt="">
+					<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.act_title_img}" alt=""></a>
 					<div>
 						<h4 th:text="${act.act_title}"></h4>
 						<ul>
@@ -54,7 +53,6 @@
 						</ul>
 						<p th:text="${act.baoming_count+'人报名'}"></p>
 					</div>
-					</a>
 				</div>
 			</div>
 			<!-- <div>
@@ -93,14 +91,12 @@
 			</div> -->
 			<div>
 				<div class="guanzhu4" th:each="vo: ${voList}">
-					<a th:href="@{/pc/volunteerDetail(id=${vo.id})}">
-					<img th:src="${vo.head_img}" alt="">
+					<a th:href="@{/pc/volunteerDetail(id=${vo.id})}"><img th:src="${vo.head_img}" alt=""></a>
 					<div>
 						<h4 th:text="${vo.volunteer_name}"><!-- <img src="images/wan_vip_03.png" alt=""> --></h4>
 						<p th:text="${'个人签名:' + vo.remark}"></p>
 						<span><img src="images/zanzanzna_03.png" alt="">230</span>
 					</div>
-					</a>
 				</div>
 			</div>
 		</div>

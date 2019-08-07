@@ -13,7 +13,7 @@
 		<div th:replace="pc/include :: header"></div>
 		<div class="content">
 			<div class="conTxt">
-				<p>您所在的位置：首页>青少年马术教学试骑体验</p>
+				<p >您所在的位置：首页>活动中心</p>
 			</div>
 			<div class="conBox">
 				<div class="conBox1">
@@ -46,16 +46,16 @@
 							<div class="zaixian">
 								<div th:switch="${applyStatus}">
 									<p th:case="'0'">
-										<img src="images/zaixian.png" alt="" ><span onclick="apply('1')" style="cursor:pointer">取消报名</span>
+										<img src="images/zaixian.png" alt="" ><span id="baoming" th:onclick="'javascript:apply(1,'+${activity.id}+','+${applyId}+')'" style="cursor:pointer">取消报名</span>
 									</p>
 									<p th:case="'1'">
-										<img src="images/zaixian.png" alt="" ><span style="cursor:not-allowed">已报名</span>
+										<img src="images/zaixian.png" alt="" ><span id="baoming" style="cursor:not-allowed">已报名</span>
 									</p>
 									<p th:case="'2'">
-										<img src="images/zaixian.png" alt="" ><span style="cursor:not-allowed">已拒绝</span>
+										<img src="images/zaixian.png" alt="" ><span id="baoming" style="cursor:not-allowed">已拒绝</span>
 									</p>
 									<p th:case="'4'">
-										<img src="images/zaixian.png" alt="" ><span onclick="apply('2')" style="cursor:pointer">我要报名</span>
+										<img src="images/zaixian.png" alt="" ><span id="baoming" th:onclick="'javascript:apply(2,'+${activity.id}+',-1)'" style="cursor:pointer">我要报名</span>
 									</p>
 								</div>
 							</div>
@@ -174,30 +174,43 @@
 	    }
 	});
 	
-	function apply(type) {
+	function apply(type,actId,applyId) {
 		$.ajax({
             type : "POST",
             dataType: "json",
             url : "/pc/activity/apply",
             data : {
             	'type': type,
-            	'actId': $("#actId").val(),
-            	'applyId': $("#applyId").val()
+            	'actId': actId,
+            	'applyId': applyId
             },
+            beforeSend: function(){
+            	$("#baoming").attr("onclick","");
+           },
             success : function(result) {
             	var status = result.status;
             	console.log(status)
             	if (status == 1) {
-            		alert("申请成功");
-            		history.go(0)
+            		layer.msg("操作成功");
+            		$("#baoming").text()
+            		if(type==1){//取消报名成功,改为可报名
+                		$("#baoming").attr("onclick","apply(2,"+actId+","+result.applyId+")");
+                		$("#baoming").text("立即报名");
+                		history.go(0);
+                	}
+            		if(type==2){//提交报名成功,改为取消报名
+                		$("#baoming").attr("onclick","apply(1,"+actId+","+result.applyId+")");	
+                		$("#baoming").text("取消报名");
+                		history.go(0);
+                	}
             	} else if (status == 2){
-            		parent.layer.msg("您还没登录，请先登录");
+            		layer.msg("您还没登录，请先登录");
             	} else if (status == 3){
-            		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+            		layer.msg("您还不是志愿者，请先申请志愿者");
             	} else if (status == 3){
-            		parent.layer.msg("报名失败，报名人数已满");
+            		layer.msg("报名失败，报名人数已满");
             	} else {
-            		parent.layer.msg("操作失败");
+            		layer.msg("操作失败");
             	}
             }
         });

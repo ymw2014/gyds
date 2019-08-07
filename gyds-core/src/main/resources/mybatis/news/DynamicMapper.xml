@@ -101,7 +101,7 @@
 	<select id="dyTeamList" parameterType="java.util.Map" resultType="java.util.Map">
 		select dy.`id`,dy.`news_id`,dy.`member_id`,dy.`transpond_type`,dy.`type`,dy.`creat_time`, dy.act_type,t.team_name,t.team_type,t.remark,t.team_title_img,type.type_name,
 		(select count(new.id) from new_info new where new.team_id=t.id and new.`status`=1 ) as new_count,
-		(select count(v.id) from volunteer v where v.team_id=t.id and v.audit_status=1 ) as v_renshu,
+		(select count(v.id) from volunteer v where v.team_id=t.id  ) as v_renshu,
 		(select count(act.id) from activity act where act.team_id=t.id and act.examine_status=2 ) as act_count ,r.region_name
 			from new_dynamic dy
 			left join team t on dy.news_id =t.id
@@ -132,9 +132,10 @@
 	<!-- 获取关注志愿者的关联信息-->
 	<select id="dyVoluList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT dy.`id`,dy.`news_id`,dy.`member_id`,dy.`transpond_type`,dy.`type`,dy.`creat_time`, dy.act_type,
-		v.`head_img`,v.`volunteer_name`,v.`volunteer_number`,v.`remark`
+		mem.`head_img`,mem.`name`,v.`remake`
  		FROM new_dynamic dy
 		LEFT JOIN volunteer v ON v.`id`=dy.`news_id`
+		LEFT JOIN sys_user mem ON mem.`user_id`=v.`user_id`
 		WHERE dy.member_id=#{userId} AND dy.act_type=4 AND dy.type=2
 	</select>
 </mapper>
