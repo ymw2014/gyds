@@ -33,4 +33,6 @@ public interface RegionDao {
 	int getRegionUserNumber(Integer regionCode);
 
 	List<RegionDO> regionIdByList(Map<String, Object> params);
+	
+	int activeCount(List<Integer> ids);
 }

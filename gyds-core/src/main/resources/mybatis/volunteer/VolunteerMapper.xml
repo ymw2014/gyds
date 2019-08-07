@@ -295,6 +295,61 @@
 		</if>
 	</select>
 	
+	<select id="voluntInfo" resultType="map">
+		SELECT
+			u.user_id AS userId,
+			u.head_img AS headImg,
+			u.`name` AS volunteerName,
+			CONCAT(u.province, u.city) city,
+			u.sex,
+			u.mobile,
+			t.team_name AS teamName,
+			t.id as teamId,
+			v.act_number as actNumber,
+			v.click_number AS clickNumber,
+			v.comment_number AS commentNumber,
+			v.shares_number AS sharesNumber,
+			v.volunteer_number AS volunteerNumber,
+			v.create_time createTime,
+			v.id AS voId
+		FROM
+			 volunteer v
+			LEFT JOIN  sys_user u ON v.user_id   =  u.user_id
+			LEFT JOIN team t ON v.team_id = t.id  
+		where u.is_identification = 1 
+		
+		<if test="startTime != null and startTime != ''"> and v.create_Time <![CDATA[>=]]>#{startTime} </if>
+	  	<if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
+		<if test="mobile != null and mobile != ''"> and u.mobile = #{mobile} </if>
+		<if test="volunteerName != null and volunteerName != ''"> and u.name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
+	
+		 <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by v.id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="voluntInfoCount" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			volunteer v
+			LEFT JOIN  sys_user u ON v.user_id   =  u.user_id
+			LEFT JOIN team t ON v.team_id = t.id  
+		where u.is_identification = 1 	
+			<if test="startTime != null and startTime != ''"> and v.create_Time <![CDATA[>=]]>#{startTime} </if>
+		  	<if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
+			<if test="mobile != null and mobile != ''"> and u.mobile = #{mobile} </if>
+			<if test="volunteerName != null and volunteerName != ''"> and u.name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
+	</select>
+	
 	
 	
 </mapper>

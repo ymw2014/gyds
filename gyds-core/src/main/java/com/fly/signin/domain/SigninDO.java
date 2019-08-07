@@ -24,8 +24,24 @@ public class SigninDO implements Serializable {
 	//日
 	private Integer day;
 	//志愿者id
-	private Long voId;
+	private Long userId;
+	
+	private Date siginTime;
+	
+	private Long teamId;
 
+	public Long getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(Long teamId) {
+		this.teamId = teamId;
+	}
+	public Date getSiginTime() {
+		return siginTime;
+	}
+	public void setSiginTime(Date siginTime) {
+		this.siginTime = siginTime;
+	}
 	/**
 	 * 设置：自增主键
 	 */
@@ -77,13 +93,13 @@ public class SigninDO implements Serializable {
 	/**
 	 * 设置：志愿者id
 	 */
-	public void setVoId(Long voId) {
-		this.voId = voId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	/**
 	 * 获取：志愿者id
 	 */
-	public Long getVoId() {
-		return voId;
+	public Long getUserId() {
+		return userId;
 	}
 }

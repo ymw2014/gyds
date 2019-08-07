@@ -58,9 +58,9 @@ public class VolunteerController {
 			params.put("endTime", endTime);
 		}
         Query query = new Query(params);
-		List<VolunteerDO> volunteerList = volunteerService.list(query);
-		int total = volunteerService.count(query);
-		PageUtils pageUtils = new PageUtils(volunteerList, total);
+		List<Map<String,Object>> voluntInfo = volunteerService.voluntInfo(query);
+		int total = volunteerService.voluntInfoCount(query);
+		PageUtils pageUtils = new PageUtils(voluntInfo, total);
 		return pageUtils;
 	}
 	

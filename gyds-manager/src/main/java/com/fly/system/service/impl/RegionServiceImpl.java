@@ -1,12 +1,14 @@
 package com.fly.system.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map;import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.fly.domain.RegionDO;
 import com.fly.domain.Tree;
 import com.fly.system.dao.RegionDao;
@@ -141,6 +143,44 @@ public class RegionServiceImpl implements RegionService {
 			list.add(sysRegion.getRegionCode());
 		}
 		return list;
+	}
+
+	@Override
+	public Map<String, Object> activeStat(Map<String, Object> params) {
+		List<RegionDO> RegionDOs =new ArrayList<>();
+		Map<String,Object> data = new HashMap<String, Object>();
+		String pids = String.valueOf(params.get("pids"));
+		if(Integer.valueOf(pids) == 0) {
+			RegionDOs = regionDao.list(null);
+			List<Integer> teamId = RegionDOs.stream().filter(bean -> bean.getRegionType()==2).map(bean -> bean.getRegionCode()).collect(Collectors.toList());
+			int activeCount = regionDao.activeCount(teamId);
+			data.put("allactiveCount", activeCount);
+			return data;
+		}
+		params.put("pids", params.get("pids"));
+		RegionDOs = regionDao.regionIdByList(params);
+		
+		for (RegionDO sysRegion : RegionDOs) {
+			switch (sysRegion.getRegionLevel()) {
+				case 1:
+								
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+					break;
+				case 4:
+					
+					break;
+					
+				default:
+					break;
+			}
+		}
+		
+		return null;
 	}
 
 	

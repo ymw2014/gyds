@@ -84,4 +84,5 @@ public interface RegionService {
 	 */
 	List<Integer> getTeamAndAreaByUserRole(Map<String,Object> params);
 	
+	Map<String,Object>  activeStat(Map<String,Object> params);
 }

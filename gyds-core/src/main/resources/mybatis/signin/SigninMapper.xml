@@ -4,17 +4,18 @@
 <mapper namespace="com.fly.signin.dao.SigninDao">
 
 	<select id="get" resultType="com.fly.signin.domain.SigninDO">
-		select `id`,`year`,`month`,`day`,`vo_id` from signin where id = #{value}
+		select `id`,`year`,`month`,`day`,`user_id`,team_id from signin where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.signin.domain.SigninDO">
-		select `id`,`year`,`month`,`day`,`vo_id` from signin
+		select `id`,`year`,`month`,`day`,`user_id`,team_id from signin
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="year != null and year != ''"> and year = #{year} </if>
 		  		  <if test="month != null and month != ''"> and month = #{month} </if>
 		  		  <if test="day != null and day != ''"> and day = #{day} </if>
-		  		  <if test="voId != null and voId != ''"> and vo_id = #{voId} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -36,7 +37,8 @@
 		  		  <if test="year != null and year != ''"> and year = #{year} </if>
 		  		  <if test="month != null and month != ''"> and month = #{month} </if>
 		  		  <if test="day != null and day != ''"> and day = #{day} </if>
-		  		  <if test="voId != null and voId != ''"> and vo_id = #{voId} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
 		  		</where>
 	</select>
 	 
@@ -46,14 +48,18 @@
 			`year`, 
 			`month`, 
 			`day`, 
-			`vo_id`
+			`user_id`,
+			sigin_time,
+			team_id
 		)
 		values
 		(
 			#{year}, 
 			#{month}, 
 			#{day}, 
-			#{voId}
+			#{userId},
+			#{siginTime},
+			#{teamId}
 		)
 	</insert>
 	 
@@ -63,7 +69,8 @@
 			<if test="year != null">`year` = #{year}, </if>
 			<if test="month != null">`month` = #{month}, </if>
 			<if test="day != null">`day` = #{day}, </if>
-			<if test="voId != null">`vo_id` = #{voId}</if>
+			<if test="userId != null">`user_id` = #{userId}</if>
+			<if test="teamId != null">`team_id` = #{teamId}</if>
 		</set>
 		where id = #{id}
 	</update>
