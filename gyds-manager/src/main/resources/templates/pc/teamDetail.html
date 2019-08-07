@@ -97,19 +97,15 @@
 					  </div>
 				 </div>
 			</div>
+			<input type="hidden" th:value="${teamId}" id="teamId"/>
 			<div class="gps_txt">
-				<div class="gps_txtyy" th:if="${status} eq '0'">
-					<button>正在申请中</button>
-				</div>
 				<div class="gps_txtyy" th:if="${status} eq '1'">
-					<button>你已是该团的团员</button>
+					<button>正在申请中</button>
 				</div>
 				<div class="gps_txtyy" th:if="${status} eq '2'">
 					<button onclick="teamApply()">入团申请</button>
 				</div>
-				<div class="gps_txtyy" th:if="${status} eq '3'">
-					<button onclick="teamApply()">入团申请</button>
-				</div>
+			
 				<div class="gps_txt1">
 					<img src="images/index_17.jpg" alt="">
 					<div class="gps_txt1-1">
@@ -195,7 +191,7 @@
 <script>
 function teamApply() {
 	var teamId = $("#teamId").val();
-	$.ajax({
+ 	$.ajax({
         type : "POST",
         dataType: "json",
         url : "/pc/team/apply",
@@ -204,21 +200,23 @@ function teamApply() {
         },
         success : function(result) {
         	var status = result.status;
+        	var url = result.url;
         	console.log(status)
         	if (status == 1) {
         		alert("申请成功");
-        		history.go(0)
+        		history.go(0);
         	} else if (status == 2){
         		parent.layer.msg("您还没登录，请先登录");
         	} else if (status == 3){
-        		parent.layer.msg("您还不是志愿者，请先申请志愿者");
-        	} else if (status == 3){
-        		parent.layer.msg("报名失败，报名人数已满");
+        		alert("您还不是志愿者，请先申请志愿者");
+        		window.location.href=url;
+        	} else if (status == 4){
+        		parent.layer.msg("报名失败，您已是团队成员");
         	} else {
         		parent.layer.msg("操作失败");
         	}
         }
-    });
+    }); 
 }
 </script>
 </html>

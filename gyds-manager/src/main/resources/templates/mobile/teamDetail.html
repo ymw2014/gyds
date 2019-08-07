@@ -203,8 +203,7 @@
 		        dataType: "json",
 		        url : "/pc/team/apply",
 		        data : {
-		        	'id': tea
-		        	mId
+		        	'id': teamId
 		        },
 		        success : function(result) {
 		        	var status = result.status;
@@ -215,7 +214,8 @@
 		        	} else if (status == 2){
 		        		parent.layer.msg("您还没登录，请先登录");
 		        	} else if (status == 3){
-		        		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+		        		alert("您还不是志愿者，请先申请志愿者");
+		        		window.location.href = "/pc/attestation";
 		        	} else if (status == 3){
 		        		parent.layer.msg("报名失败，报名人数已满");
 		        	} else {

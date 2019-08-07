@@ -23,12 +23,17 @@ import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
+import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.ApplyTeamDO;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.ApplyTeamService;
 import com.fly.team.service.TeamService;
+import com.fly.utils.R;
+import com.fly.utils.userToObject;
+import com.fly.verifyName.dao.NameDao;
+import com.fly.verifyName.domain.NameDO;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -50,6 +55,11 @@ public class PcTeamController {
 	private IndexService indexService;
 	@Autowired
 	private ApplyTeamService applyTeamService;
+	@Autowired
+	private NameDao nameDao;
+	@Autowired
+	private UserDao userDao;
+	
 	
 	@RequestMapping("teamList")
 	public String list(@RequestParam Map<String,Object> params, Model model) {
@@ -107,10 +117,11 @@ public class PcTeamController {
 			params.clear();
 			params.put("userId", user.getUserId());
 			params.put("teamId",teamId);
-			Integer applyStatus = applyTeamService.teamApplyStatus(params);
-			model.addAttribute("status", applyStatus == null ? 3 : applyStatus);
-		}else {
-			model.addAttribute("status", 3);
+			params.put("type",1);
+			params.put("status", 1);
+			NameDO name = nameDao.applyStatus(params);
+			//1申请中 2请申请
+			model.addAttribute("status", name == null ? 2 : 1);
 		}
 		return "pc/teamDetail";
 	}
@@ -146,15 +157,18 @@ public class PcTeamController {
 			
 			boolean flag = volunteerService.isVo(user.getUserId());
 			if (!flag) {
-				dataInfo.put("status", "3");//还不是志愿者
+				dataInfo.put("status", "3");
+				dataInfo.put("url", "/pc/attestation?teamId="+id+"&type="+"1");
 				return dataInfo.toString();
 			}
-			ApplyTeamDO apply = new ApplyTeamDO();
-			apply.setApplyTeamId(id);
-			apply.setUserId(user.getUserId().intValue());
-			apply.setStatus(0);
-			apply.setApplyTeamTime(new Date());
-			status = applyTeamService.save(apply);
+			VolunteerDO volunteer = volunteerService.get(user.getUserId().intValue());
+			if(volunteer.getTeamId()==null||volunteer.getTeamId()==-1) {
+				user = userDao.get(user.getUserId());
+				NameDO name = userToObject.userToverify(user, id);
+				status = nameDao.save(name);
+			}else {
+				status = 4;
+			}
 		}catch(Exception e) {
 			status = 5;
 			e.printStackTrace();
@@ -162,4 +176,5 @@ public class PcTeamController {
 		dataInfo.put("status", status);
 		return dataInfo.toString();
 	}
+	
 }
