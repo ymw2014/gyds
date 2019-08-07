@@ -135,6 +135,6 @@
 		v.`head_img`,v.`volunteer_name`,v.`volunteer_number`,v.`remark`
  		FROM new_dynamic dy
 		LEFT JOIN volunteer v ON v.`id`=dy.`news_id`
-		WHERE dy.member_id=#{userId} AND dy.act_type=4 AND dy.type=2 AND v.`audit_status`=1
+		WHERE dy.member_id=#{userId} AND dy.act_type=4 AND dy.type=2
 	</select>
 </mapper>
