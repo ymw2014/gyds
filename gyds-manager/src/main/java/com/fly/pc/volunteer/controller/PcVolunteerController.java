@@ -114,14 +114,14 @@ public class PcVolunteerController {
 			List<Map<String,Object>> volunteer = volunteerService.voluntList(params);
 			if (!CollectionUtils.isEmpty(volunteer)) {
 				//添加访客记录
-				if (volunteer.get(0).get("id") != id) {
+				if (Integer.valueOf(volunteer.get(0).get("id").toString()) != id) {
 					GuestlogDO log = new GuestlogDO();
 					log.setGuestId(Integer.valueOf(volunteer.get(0).get("id").toString()));
-					log.setGuestHeadimg(volunteer.get(0).get("headImg").toString());
+					log.setGuestHeadimg(volunteer.get(0).get("headImg") != null ? volunteer.get(0).get("headImg").toString() : "");
 					log.setGuestName(user.getName());
 					log.setUserId(id.intValue());
-					log.setUserHeadimg(voluntList.get(0).get("headImg").toString());
-					log.setUserName(voluntList.get(0).get("VolunteerName").toString());
+					log.setUserHeadimg(voluntList.get(0).get("headImg") != null ? voluntList.get(0).get("headImg").toString() : "");
+					log.setUserName(voluntList.get(0).get("volunteerName").toString());
 					log.setGuestTime(new Date());
 					log.setGuestType(1);
 					logService.save(log);
@@ -169,12 +169,12 @@ public class PcVolunteerController {
 		model.addAttribute("volunteer",voluntList.get(0));//志愿者信息
 		params.clear();
 		
-			List<Map<String, Object>> shares = getInfo(0, Long.valueOf(voluntList.get(0).get("userId").toString()));
-			List<Map<String, Object>> likes = getInfo(1, Long.valueOf(voluntList.get(0).get("userId").toString()));
-			List<Map<String, Object>> collect = getInfo(2, Long.valueOf(voluntList.get(0).get("userId").toString()));
-			model.addAttribute("sharesList",shares);//转发
-			model.addAttribute("likesList",likes);//点赞
-			model.addAttribute("collectList",collect);//收藏
+		List<Map<String, Object>> shares = getInfo(0, Long.valueOf(voluntList.get(0).get("userId").toString()));
+		List<Map<String, Object>> likes = getInfo(1, Long.valueOf(voluntList.get(0).get("userId").toString()));
+		List<Map<String, Object>> collect = getInfo(2, Long.valueOf(voluntList.get(0).get("userId").toString()));
+		model.addAttribute("sharesList",shares);//转发
+		model.addAttribute("likesList",likes);//点赞
+		model.addAttribute("collectList",collect);//收藏
 		
 		
 		params.put("parentRegionCode", 0);

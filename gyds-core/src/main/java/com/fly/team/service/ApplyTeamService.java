@@ -27,4 +27,6 @@ public interface ApplyTeamService {
 	int remove(Integer id);
 	
 	int batchRemove(Integer[] ids);
+	
+	Integer teamApplyStatus(Map<String,Object> map);
 }

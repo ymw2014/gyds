@@ -32,7 +32,7 @@ cux_region r on t.reg_code = r.region_code
 		  		   <if test="colonelTel != null and colonelTel != ''">and t.colonel_tel = #{colonelTel}</if>
 		  		   <if test="ids != null and ids.size > 0">
 		  		  	and
-		  		  	t.reg_code in 
+		  		  	t.id in 
 		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
 				            #{item}       
 				    </foreach> 

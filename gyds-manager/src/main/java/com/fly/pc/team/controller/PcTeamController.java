@@ -59,6 +59,8 @@ public class PcTeamController {
 		}
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		params.clear();
+		params.put("status", 1);
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
@@ -90,9 +92,8 @@ public class PcTeamController {
 		model.addAttribute("actList", actList);//团队活动
 		params.clear();
 		
-		params.put("auditStatus",1);//
 		params.put("teamId", teamId);
-		List<VolunteerDO> voluntList = volunteerService.list(params);
+		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		int count = volunteerService.count(null);
 		model.addAttribute("voluntList", voluntList);//志愿者
 		model.addAttribute("voluntCount", count);
@@ -103,18 +104,11 @@ public class PcTeamController {
 		
 		UserDO user = ShiroUtils.getUser();
 		if (user != null ) {
-			VolunteerDO vo = volunteerService.getVo(user.getUserId());//获取志愿者信息
 			params.clear();
-			params.put("zyzId", vo.getId());
-			params.put("applyTeamId",teamId);
-			List<ApplyTeamDO> list = applyTeamService.list(params);
-			if (!CollectionUtils.isEmpty(list)) {
-				ApplyTeamDO applyTeamDO = list.get(0);
-				Integer status = applyTeamDO.getStatus();
-				model.addAttribute("status", status);
-			} else {
-				model.addAttribute("status", 3);
-			}
+			params.put("userId", user.getUserId());
+			params.put("teamId",teamId);
+			Integer applyStatus = applyTeamService.teamApplyStatus(params);
+			model.addAttribute("status", applyStatus == null ? 3 : applyStatus);
 		}else {
 			model.addAttribute("status", 3);
 		}

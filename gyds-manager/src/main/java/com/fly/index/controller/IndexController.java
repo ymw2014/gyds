@@ -97,7 +97,7 @@ public class IndexController {
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		params.clear();
-		
+		params.put("status", 1);
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队

@@ -29,4 +29,6 @@ public interface ApplyTeamDao {
 	int remove(Integer id);
 	
 	int batchRemove(Integer[] ids);
+	
+	Integer teamApplyStatus(Map<String,Object> map);
 }

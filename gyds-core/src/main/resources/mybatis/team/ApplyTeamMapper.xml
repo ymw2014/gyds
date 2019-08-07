@@ -78,5 +78,13 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<select id="teamApplyStatus" resultType="Integer">
+		select t.`status` from team_apply t 
+		<where>
+			<if test="userId != null and userId != ''"> and t.user_id = #{userId} </if>
+		    <if test="teamId != null and teamId != ''"> and t.apply_team_id = #{teamId} </if>
+		</where>
+	</select>
 
 </mapper>
