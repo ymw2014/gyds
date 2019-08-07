@@ -119,21 +119,21 @@
 				<span>发布资讯数量</span>
 				<rem>452</rem>
 			</div>
-			<!-- 红色的 -->
+			<!-- <!-- 红色的 -->
 			<div class="rutuanbtn">
 				<a href="#">入团申请</a>
-			</div>
+			</div> -->
 			<!-- 灰色的 -->
-			<div class="rutuanbtn" style="background:#ccc;" th:if="${status} eq '0'">
+			<div class="rutuanbtn" th:if="${status} eq '0'">
 				<a href="javaScript:;">正在申请中</a>
 			</div>
-			<div class="rutuanbtn" style="background:#ccc;" th:if="${status} eq '1'">
+			<div class="rutuanbtn"  th:if="${status} eq '1'">
 				<a href="javaScript:;">你已是该团的团员</a>
 			</div>
-			<div class="rutuanbtn" style="background:#ccc;" th:if="${status} eq '2'">
+			<div class="rutuanbtn"  th:if="${status} eq '2'">
 				<a href="javaScript:teamApply()">入团申请</a>
 			</div>
-			<div class="rutuanbtn" style="background:#ccc;" th:if="${status} eq '3'">
+			<div class="rutuanbtn"  th:if="${status} eq '3'">
 				<a href="javaScript:teamApply()">入团申请</a>
 			</div>
 			

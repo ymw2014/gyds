@@ -7,6 +7,32 @@
 		<link rel="stylesheet" type="text/css" href="css/lunbo.css"/>
 		<script src="js/jquery-3.1.1.js"></script>
 		<script src="js/lunbo.js"></script>
+		<style>
+			.gps_txtyy{
+				width: 100%;
+			}
+			.gps_txtxx{
+				width: 100%;
+			}
+			.gps_txtxx>button{
+				width: 100%;
+				line-height:45px;
+				font-size:16px;
+				color:#f5f5f5;
+			    background:#ccc;
+				border:none;
+				border-radius:5px;
+			}
+			.gps_txtyy>button{
+				width: 100%;
+				line-height:45px;
+				font-size:16px;
+				color:#fff;
+			    background:#c01b25;
+				border:none;
+				border-radius:5px;
+			}
+		</style>
 	</head>
 <body>
 	<!-- 头部 -->
@@ -72,6 +98,18 @@
 				 </div>
 			</div>
 			<div class="gps_txt">
+				<div class="gps_txtyy" th:if="${status} eq '0'">
+					<button>正在申请中</button>
+				</div>
+				<div class="gps_txtyy" th:if="${status} eq '1'">
+					<button>你已是该团的团员</button>
+				</div>
+				<div class="gps_txtyy" th:if="${status} eq '2'">
+					<button onclick="teamApply()">入团申请</button>
+				</div>
+				<div class="gps_txtyy" th:if="${status} eq '3'">
+					<button onclick="teamApply()">入团申请</button>
+				</div>
 				<div class="gps_txt1">
 					<img src="images/index_17.jpg" alt="">
 					<div class="gps_txt1-1">
@@ -154,4 +192,33 @@
 		</div>
 	</div>
 </body>
+<script>
+function teamApply() {
+	var teamId = $("#teamId").val();
+	$.ajax({
+        type : "POST",
+        dataType: "json",
+        url : "/pc/team/apply",
+        data : {
+        	'id': teamId
+        },
+        success : function(result) {
+        	var status = result.status;
+        	console.log(status)
+        	if (status == 1) {
+        		alert("申请成功");
+        		history.go(0)
+        	} else if (status == 2){
+        		parent.layer.msg("您还没登录，请先登录");
+        	} else if (status == 3){
+        		parent.layer.msg("您还不是志愿者，请先申请志愿者");
+        	} else if (status == 3){
+        		parent.layer.msg("报名失败，报名人数已满");
+        	} else {
+        		parent.layer.msg("操作失败");
+        	}
+        }
+    });
+}
+</script>
 </html>

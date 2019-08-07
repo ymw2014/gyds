@@ -72,7 +72,7 @@ public class CheckinController {
 	}
 	
 	/**
-	     *     签到
+	 *  签到
 	 * @param signinDo
 	 * @return
 	 */
