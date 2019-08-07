@@ -203,14 +203,15 @@
 		        dataType: "json",
 		        url : "/pc/team/apply",
 		        data : {
-		        	'id': teamId
+		        	'id': tea
+		        	mId
 		        },
 		        success : function(result) {
 		        	var status = result.status;
 		        	console.log(status)
 		        	if (status == 1) {
 		        		alert("申请成功");
-		        		history.go(0)
+		        		history.go(0);
 		        	} else if (status == 2){
 		        		parent.layer.msg("您还没登录，请先登录");
 		        	} else if (status == 3){
