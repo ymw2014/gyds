@@ -53,9 +53,9 @@ spring:
           max-wait: -1
       database: 6
 wx:
-  appid: wx77dfab0ba32b06ea
-  secret: 0f23e16494e0701e4f16ed153d27cb7d
-  backUrl: http://mlbdenet.nat300.top/auth/callback
+  appid: wx4334431741b35429
+  secret: 2c2f47e624eed7043be7cc55f1fbb428
+  backUrl: http://r6h7zn.natappfree.cc/auth/callback
   
 wechat:
   open:
