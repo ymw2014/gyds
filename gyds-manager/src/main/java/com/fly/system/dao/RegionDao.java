@@ -34,5 +34,5 @@ public interface RegionDao {
 
 	List<RegionDO> regionIdByList(Map<String, Object> params);
 	
-	int activeCount(List<Integer> ids);
+	int activeCount(List<Integer> ids, String startTime, String endTime);
 }

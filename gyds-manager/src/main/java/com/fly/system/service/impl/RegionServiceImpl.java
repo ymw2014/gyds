@@ -1,11 +1,13 @@
 package com.fly.system.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;import java.util.stream.Collector;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -146,42 +148,74 @@ public class RegionServiceImpl implements RegionService {
 	}
 
 	@Override
-	public Map<String, Object> activeStat(Map<String, Object> params) {
-		List<RegionDO> RegionDOs =new ArrayList<>();
-		Map<String,Object> data = new HashMap<String, Object>();
-		String pids = String.valueOf(params.get("pids"));
-		if(Integer.valueOf(pids) == 0) {
-			RegionDOs = regionDao.list(null);
-			List<Integer> teamId = RegionDOs.stream().filter(bean -> bean.getRegionType()==2).map(bean -> bean.getRegionCode()).collect(Collectors.toList());
-			int activeCount = regionDao.activeCount(teamId);
-			data.put("allactiveCount", activeCount);
-			return data;
+	public Map<String, Object> activeStat(String region, String level, String day) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		int teamCount = 0;//团队
+		int roadCount = 0;//街道
+		int distCount = 0;//区县
+		int cityCount = 0;//市
+		int provCount = 0;//省
+		String parentRegionCode = null;
+		switch (level) {
+			case "5":
+				teamCount = activeCount("5", region, day);
+				parentRegionCode = getParentCode(region);
+			case "4":
+				roadCount = activeCount(null, chooseCode(parentRegionCode, region), day);
+				parentRegionCode = getParentCode(region);
+			case "3":
+				distCount = activeCount(null, chooseCode(parentRegionCode, region), day);
+				parentRegionCode = getParentCode(region);
+			case "2":
+				cityCount = activeCount(null, chooseCode(parentRegionCode, region), day);
+				parentRegionCode = getParentCode(region);
+			case "1":
+				provCount = activeCount(null, chooseCode(parentRegionCode, region), day);
+			case "0":
+				int allCount = activeCount(null, "0", day);
+				param.clear();
+				param.put("allCount", allCount);
+				param.put("provCount", provCount);
+				param.put("cityCount", cityCount);
+				param.put("distCount", distCount);
+				param.put("roadCount", roadCount);
+				param.put("teamCount", teamCount);
+				break;
 		}
-		params.put("pids", params.get("pids"));
-		RegionDOs = regionDao.regionIdByList(params);
-		
-		for (RegionDO sysRegion : RegionDOs) {
-			switch (sysRegion.getRegionLevel()) {
-				case 1:
-								
-					break;
-				case 2:
-					
-					break;
-				case 3:
-					
-					break;
-				case 4:
-					
-					break;
-					
-				default:
-					break;
+		return param;
+	}
+	
+	public int activeCount(String level, String region, String day) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		if ("5".equals(level)) {
+			param.put("regionLevel", level);
+			param.put("regionCode", region);
+		} else {
+			if (!region.equals("0")) {
+				param.put("parentRegionCode", region);
 			}
 		}
-		
-		return null;
+		param.put("regionType", 2);//团队
+		LocalDate now = LocalDate.now();
+		LocalDate dayAgo = LocalDate.now().minusDays(Long.valueOf(day));
+		List<Integer>  teamId = regionDao.list(param).stream().map(bean -> bean.getRegionCode()).collect(Collectors.toList());
+		if (CollectionUtils.isEmpty(teamId)) {
+			return 0;
+		}
+		int allCount = regionDao.activeCount(teamId, dayAgo.toString(), now.toString());
+		return allCount;
 	}
-
+	
+	public String  getParentCode(String region) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("regionCode", region);
+		String parentRegionCode = regionDao.list(param).get(0).getParentRegionCode() + "";
+		return parentRegionCode;
+	}
+	
+	
+	public String chooseCode(String parentRegionCode, String region) {
+		return parentRegionCode == null ? region : parentRegionCode;
+	}
 	
 }

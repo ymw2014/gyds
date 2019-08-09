@@ -113,7 +113,7 @@
  		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
 	            #{item}       
 	    </foreach> 
-	    and sigin_time <![CDATA[>=]]> startTime and sigin_time <![CDATA[<=]]> endTime
+	    and sigin_time <![CDATA[>=]]> #{startTime} and sigin_time <![CDATA[<=]]> #{endTime}
 	</select>
 	
 </mapper>
