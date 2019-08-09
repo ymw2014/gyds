@@ -63,7 +63,7 @@ public class NameDO implements Serializable {
 	//1:入团申请2:建团申请3:代理商入驻
 	private Integer type;
 	//创建团队信息
-	private TeamDO team;
+	private String team;
 	//代理商信息
 	private ProxybusiDO proxybusi;
 	//信息
@@ -336,10 +336,11 @@ public class NameDO implements Serializable {
 	public Integer getType() {
 		return type;
 	}
-	public TeamDO getTeam() {
+	
+	public String getTeam() {
 		return team;
 	}
-	public void setTeam(TeamDO team) {
+	public void setTeam(String team) {
 		this.team = team;
 	}
 	public ProxybusiDO getProxybusi() {

@@ -2,6 +2,11 @@
 <html>
 <head th:replace="pc/include :: head"></head>
 <link rel="stylesheet" th:href="@{/pc/css/jibenziliao.css}">
+<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
+			<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
+			<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
+			<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+			<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
 <style>
 .yy-gz {
 	display: none;
@@ -66,92 +71,80 @@
 			<h4>实名认证</h4>
 		</div>
 		<form id="signupForm" class="biaodanyy">
-			<input type="hidden" name="userId" th:value="${user.userId}">
-			<input type="hidden" name="teamId" th:value="${teamId}">
-			<input type="hidden" name="type" th:value="${type}">
-			<label> 
-				<span>真实姓名</span> 
-				<input name="name" type="text">
-			</label>
+			<input type="hidden" name="teamId" th:value="${teamId}"> 
+			<input type="hidden" name="type" th:value="${type}"> 
+			<input type="hidden" name="team" id="team">
 			<label>
-				<span>政治面貌</span>
-				<select name="politicalStatus">
-					<option selected="selected" >-请选择-</option>
+				<span>真实姓名</span> <input name="name" type="text">
+			</label> <label> <span>政治面貌</span> <select name="politicalStatus">
+					<option selected="selected">-请选择-</option>
 					<option>共青团团员</option>
 					<option>党员</option>
-				</select>
-			</label>
-			<label>
-				<span>民族</span>
-				<select name="nation">
-					 <option selected="selected" >-请选择-</option>
-					 <option value="汉族">汉族</option> 
-				     <option value="蒙古族">蒙古族</option>
-				     <option value="回族">回族</option>
-				     <option value="藏族">藏族</option>
-				     <option value="维吾尔族">维吾尔族</option>
-				     <option value="维吾尔族">维吾尔族</option>
-				     <option value="苗族">苗族</option>
-				     <option value="彝族">彝族</option>
-				     <option value="壮族">壮族</option>
-				     <option value="布依族">布依族</option>
-				     <option value="朝鲜族">朝鲜族</option>
-				     <option value="满族">满族</option>
-				     <option value="侗族">侗族</option>
-				     <option value="瑶族">瑶族</option>
-				     <option value="白族">白族</option>
-				     <option value="土家族">土家族</option>
-				     <option value="哈尼族">哈尼族</option>
-				     <option value="哈萨克族">哈萨克族</option>
-				     <option value="傣族">傣族</option>
-				     <option value="黎族">黎族</option>
-				     <option value="傈僳族">傈僳族</option>
-				     <option value="佤族">佤族</option>
-				     <option value="畲族">畲族</option>
-				     <option value="高山族">高山族</option>
-				     <option value="拉祜族">拉祜族</option>
-				     <option value="水族">水族</option>
-				     <option value="东乡族">东乡族</option>
-				     <option value="纳西族">纳西族</option>
-				     <option value="景颇族">景颇族</option>
-				     <option value="柯尔克孜族">柯尔克孜族</option>
-				     <option value="土族">土族</option>
-				     <option value="达斡尔族">达斡尔族</option>
-				     <option value="仫佬族">仫佬族</option>
-				     <option value="羌族">羌族</option>
-				     <option value="布朗族">布朗族</option>
-				     <option value="撒拉族">撒拉族</option>
-				     <option value="毛南族">毛南族</option>
-				     <option value="仡佬族">仡佬族</option>
-				     <option value="锡伯族">锡伯族</option>
-				     <option value="阿昌族">阿昌族</option>
-				     <option value="普米族">普米族</option>
-				     <option value="塔吉克族">塔吉克族</option>
-				     <option value="怒族">怒族</option>
-				     <option value="乌孜别克族">乌孜别克族</option>
-				     <option value="俄罗斯族">俄罗斯族</option>
-				     <option value="鄂温克族">鄂温克族</option>
-				     <option value="德昂族">德昂族</option>
-				     <option value="保安族">保安族</option>
-				     <option value="裕固族">裕固族</option>
-				     <option value="京族">京族</option>
-				     <option value="塔塔尔族">塔塔尔族</option>
-				     <option value="独龙族">独龙族</option>
-				     <option value="鄂伦春族">鄂伦春族</option>
-				     <option value="赫哲族">赫哲族</option>
-				     <option value="门巴族">门巴族</option>
-				     <option value="珞巴族">珞巴族</option>
-				     <option value="基诺族">基诺族</option>
+			</select>
+			</label> <label> <span>民族</span> <select name="nation">
+					<option selected="selected">-请选择-</option>
+					<option value="汉族">汉族</option>
+					<option value="蒙古族">蒙古族</option>
+					<option value="回族">回族</option>
+					<option value="藏族">藏族</option>
+					<option value="维吾尔族">维吾尔族</option>
+					<option value="维吾尔族">维吾尔族</option>
+					<option value="苗族">苗族</option>
+					<option value="彝族">彝族</option>
+					<option value="壮族">壮族</option>
+					<option value="布依族">布依族</option>
+					<option value="朝鲜族">朝鲜族</option>
+					<option value="满族">满族</option>
+					<option value="侗族">侗族</option>
+					<option value="瑶族">瑶族</option>
+					<option value="白族">白族</option>
+					<option value="土家族">土家族</option>
+					<option value="哈尼族">哈尼族</option>
+					<option value="哈萨克族">哈萨克族</option>
+					<option value="傣族">傣族</option>
+					<option value="黎族">黎族</option>
+					<option value="傈僳族">傈僳族</option>
+					<option value="佤族">佤族</option>
+					<option value="畲族">畲族</option>
+					<option value="高山族">高山族</option>
+					<option value="拉祜族">拉祜族</option>
+					<option value="水族">水族</option>
+					<option value="东乡族">东乡族</option>
+					<option value="纳西族">纳西族</option>
+					<option value="景颇族">景颇族</option>
+					<option value="柯尔克孜族">柯尔克孜族</option>
+					<option value="土族">土族</option>
+					<option value="达斡尔族">达斡尔族</option>
+					<option value="仫佬族">仫佬族</option>
+					<option value="羌族">羌族</option>
+					<option value="布朗族">布朗族</option>
+					<option value="撒拉族">撒拉族</option>
+					<option value="毛南族">毛南族</option>
+					<option value="仡佬族">仡佬族</option>
+					<option value="锡伯族">锡伯族</option>
+					<option value="阿昌族">阿昌族</option>
+					<option value="普米族">普米族</option>
+					<option value="塔吉克族">塔吉克族</option>
+					<option value="怒族">怒族</option>
+					<option value="乌孜别克族">乌孜别克族</option>
+					<option value="俄罗斯族">俄罗斯族</option>
+					<option value="鄂温克族">鄂温克族</option>
+					<option value="德昂族">德昂族</option>
+					<option value="保安族">保安族</option>
+					<option value="裕固族">裕固族</option>
+					<option value="京族">京族</option>
+					<option value="塔塔尔族">塔塔尔族</option>
+					<option value="独龙族">独龙族</option>
+					<option value="鄂伦春族">鄂伦春族</option>
+					<option value="赫哲族">赫哲族</option>
+					<option value="门巴族">门巴族</option>
+					<option value="珞巴族">珞巴族</option>
+					<option value="基诺族">基诺族</option>
 
 
-				</select>
-			</label>
-			<label> 
-				<span>身份证号</span> 
-				<input name="cardNo" type="text">
-			</label> 
-			<label> 
-				<span>上传身份证</span>
+			</select>
+			</label> <label> <span>身份证号</span> <input name="cardNo" type="text">
+			</label> <label> <span>上传身份证</span>
 				<div>
 					<img th:src="@{/pc/images/shenfenzheng_01.jpg}" id="img" alt=""
 						class="sfz1">
@@ -167,19 +160,11 @@
 						style="display: none;" id="file1">
 					<p>身份证反面</p>
 				</div>
-			</label>
-			<label> 
-				<span>邮箱地址</span> 
-				<input name="email" type="text">
-			</label>
-			<label>
-				<span>性别</span>
-				<input type="radio" name="sex" value="0" class="xingbie">男
-				<input type="radio" name="sex" value="1" class="xingbie">女
-			</label> 
-			<label> 
-				<span>手机号码</span> 
-				<input name="mobile" type="text">
+			</label> <label> <span>邮箱地址</span> <input name="email" type="text">
+			</label> <label> <span>性别</span> <input type="radio" name="sex"
+				value="0" class="xingbie">男 <input type="radio" name="sex"
+				value="1" class="xingbie">女
+			</label> <label> <span>手机号码</span> <input name="mobile" type="text">
 			</label> <label> <span>联系地址</span> <input name="province"
 				id="province" type="hidden"> <select class="juzhu" id="pron"
 				onchange="pronv()">
@@ -191,15 +176,66 @@
 				class="juzhu" id="cityId" onchange="cityQuery()">
 					<option value="">市</option>
 			</select> <input name="district" id="district" type="hidden"> <select
-				id="xian"  onchange="streetQuery()" class="juzhu">
+				id="xian" onchange="streetQuery()" class="juzhu">
 					<option value="">区/县</option>
-			</select>
-			<input name="street" id="street" type="hidden"> <select
+			</select> <input name="street" id="street" type="hidden"> <select
 				id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
 					<option value="">街道</option>
 			</select>
-			</label> <label> <span>详细地址</span> <input name="address"
-				type="text">
+			</label> <label> <span>详细地址</span> <input name="address" type="text">
+			
+			</label> <label th:if="${type} eq '2'"> <input type="button" id="downTeam" value="下页">
+			
+			</label> 
+		</form>
+
+		<form id="creatTeam" class="biaodanyy" style="display: none;">
+			<label> <span>团队名称</span> <input type="text" name="teamName">
+			</label> <label> <span>团队负责人</span> <input type="text"
+				name="colonelName">
+			</label> <label> <span>负责人电话</span> <input type="text"
+				name="colonelTel">
+			</label> <label> <span>联系地址</span> <select class="juzhu" id="pro1"
+				onchange="byPro()">
+					<option value="">省</option>
+					<option th:each="area:${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+			</select> <select class="juzhu" id="city1" onchange="byCity()">
+					<option value="">市</option>
+			</select> <select class="juzhu" id="area1" onchange="byStreet()">
+					<option value="">区/县</option>
+			</select> <select class="juzhu" id="street1" name="regCode">
+					<option value="">街道</option>
+			</select> <input type="hidden" id="addres" name="addres">
+			</label> <label id="logo"> <span>团队logo</span> <img
+				th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo"
+				id="img" style="height: 65px; width: 65px" name="teamTitleImg">
+				<input type="hidden" name="teamTitleImg" id="imgStr"> <input
+				type="file" name="file" style="display: none;" id="file">
+			</label>
+			
+			<label> <span id="demo2">团队照片</span>
+				<div>
+					<div id="imgsbox_imgs" style="display: inline;"
+						class="imgsbox tdlogo1"></div>
+					<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1"
+						style="height: 65px; width: 65px" id="img0"> <input
+						type="hidden" id="imgStr0" name="teamImg"> <input
+						type="file" class="tuanduilogo1" id="imgUpload_imgs" name="file"
+						style="display: none;" multiple> <span id="progress_imgs"></span>
+				</div>
+			</label> <label> <span>团队简介</span> <textarea name="teamIntroduce"
+					id="" cols="30" rows="10">
+						 </textarea>
+			</label> <label> <span>项目服务</span> <select class="xmfw"
+				name="teamType">
+					<option th:each="type:${teamType}" th:value="${type.id}"
+						th:text="${type.typeName}"></option>
+			</select>
+			</label>
+			
+			<label th:if="${type} eq '2'"> <input type="button" id="upTeam" value="上页">
+			
 			</label> <label> <input type="button" id="save" value="提交申请"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 100px; border-radius: 3px;">
 			</label>
@@ -227,7 +263,17 @@
 							.nextUntil('dt', 'dd').slideToggle();
 				}
 			});
-
+	
+	$("#downTeam").on('click', function() {
+		$('#creatTeam').show();
+		$('#signupForm').hide();
+	});
+	
+	$("#upTeam").on('click', function() {
+		$('#creatTeam').hide();
+		$('#signupForm').show();
+	});
+	
 	layui.use('upload', function() {
 		var upload = layui.upload;
 
@@ -341,6 +387,13 @@
 	})
 
 	function save() {
+		$('#addres').val(
+				$('#pro1 option:selected').text() + ','
+						+ $('#city1 option:selected').text() + ','
+						+ $('#area1 option:selected').text() + ','
+						+ $('#street1 option:selected').text());
+		var jsonStr = JSON.stringify($('#creatTeam').serializeJSON());
+		$('#team').val(jsonStr);
 		$.ajax({
 			type : "POST",
 			url : "/pc/realName",
@@ -423,4 +476,172 @@
 							}
 						})
 	}
+
+	function byPro() {
+		var area = $('#pro1 option:selected').val();
+		var para = {
+			"area" : area
+		};
+		$.ajax({
+			type : "GET",
+			url : "/pc/regTeam/area",
+			data : para,
+			error : function(request) {
+				alert("请求异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#city1").empty();
+					$("#area1").empty();
+					$("#street1").empty();
+					// $("#area").append($("<option/>").text("区/县").attr("value",""));
+					$.each(data.regList, function(i, item) {
+						$("#city1").append(
+								$("<option/>").text(item.regionName).attr(
+										"value", item.regionCode));
+					});
+					$.each(data.areaList, function(i, item) {
+						$("#area1").append(
+								$("<option/>").text(item.regionName).attr(
+										"value", item.regionCode));
+					});
+					$.each(data.streetList, function(i, item) {
+						$("#street1").append(
+								$("<option/>").text(item.regionName).attr(
+										"value", item.regionCode));
+					});
+				} else {
+					alert("数据请求异常");
+				}
+			}
+		});
+	};
+	function byCity() {
+		var area = $('#city1 option:selected').val();
+		var para = {
+			"area" : area
+		};
+		$.ajax({
+			type : "GET",
+			url : "/pc/regTeam/area",
+			data : para,
+			error : function(request) {
+				alert("请求异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#area1").empty();
+					$.each(data.regList, function(i, item) {
+						$("#area1").append(
+								$("<option/>").text(item.regionName).attr(
+										"value", item.regionCode));
+					});
+				} else {
+					alert("数据请求异常");
+				}
+				;
+
+			}
+		});
+	};
+	function byStreet() {
+		var street = $('#area1 option:selected').val();
+		var para = {
+			"area" : street
+		};
+		$.ajax({
+			type : "GET",
+			url : "/pc/regTeam/area",
+			data : para,
+			error : function(request) {
+				alert("请求异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#street1").empty();
+					$.each(data.regList, function(i, item) {
+						$("#street1").append(
+								$("<option/>").text(item.regionName).attr(
+										"value", item.regionCode));
+					});
+				} else {
+					alert("数据请求异常");
+				}
+				;
+
+			}
+		});
+	};
+	
+
+	layui.use('upload', function() {
+		var upload = layui.upload;
+		var uploadInst = upload.render({
+			elem : '#file', //绑定元素
+			url : '/common/sysFile/upload', //上传接口
+			size : 1000,
+			accept : 'file',
+			done : function(r) {
+				var fileName = r.fileName;
+				$("#imgStr").val(fileName);
+				$("#img").attr("src", fileName);
+			},
+			error : function(r) {
+				layer.msg(r.msg);
+			}
+		});
+	});
+
+
+	layui.use(
+					'upload',
+					function() {
+						var upload = layui.upload;
+						var multi = 1;
+						var name = "imgs";
+						if (multi) {
+							name = "imgs";
+							$("#imgUpload_imgs").attr('multiple', 'multiple');
+						} else {
+							$("#imgUpload_imgs").removeAttr('multiple');
+						}
+
+						//执行实例
+						var uploadInst = upload
+								.render({
+									elem : '#imgUpload_imgs', //绑定元素
+									url : '/common/sysFile/upload', //上传接口
+									size : 1000,
+									accept : 'file',
+									done : function(r) {
+										var fileName = r.fileName;
+										var id = r.id;
+										var img = '<div class="imgbox">';
+										img += '<div class="removePic" onclick="removePic(this,\'/common/sysFile/remove\')">×</div>';
+										img += '<input type="hidden" name="'+name+'" value="' + fileName + '">';
+										img += '<input type="hidden" name="id" value="' + id + '">';
+										img += '<img src="' + fileName + '">';
+										img += '</div>';
+										if (multi) {
+											$("#imgsbox_imgs").append(img);
+										} else {
+											$("#imgsbox_imgs").html(img);
+										}
+
+										var imgs = "";
+										$("#imgsbox_imgs").find(
+												"input[name='imgs']").each(
+												function(i, item) {
+													if (imgs == '') {
+														imgs += item.value;
+													} else {
+														imgs += ','
+																+ item.value;
+													}
+													$('#imgStr0').val(imgs);
+												})
+									}
+								});
+
+					});
 </script>
