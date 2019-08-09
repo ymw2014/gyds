@@ -1,6 +1,7 @@
 package com.fly.pc.checkin.controller;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,7 +37,7 @@ public class CheckinController {
 	}
 	
 	/**
-	    *      签到数据回显
+	 * 签到数据回显
 	 * @param queryMonth 查询参数（月份）
 	 * @return
 	 */
@@ -54,9 +54,8 @@ public class CheckinController {
 		} else {
 			month = Integer.valueOf(queryMonth);
 		}
-		VolunteerDO vo = volunteerService.getVo(user.getUserId());
 		params.put("month", month);
-		params.put("voId", vo.getId());
+		params.put("userId", user.getUserId());
 		int status = 0;
 		List<SigninDO> list = signinService.list(params);
 		if (!CollectionUtils.isEmpty(list)) {
@@ -84,8 +83,12 @@ public class CheckinController {
 		if (!flag) {
 			return R.error("您还不是志愿者，请先申请为志愿者");
 		}
-		VolunteerDO vo = volunteerService.getVo(user.getUserId());
-		signinDo.setVoId(Long.valueOf(vo.getId()));
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("userId", user.getUserId());
+		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
+		signinDo.setUserId(user.getUserId());
+		signinDo.setSiginTime(new Date());
+		signinDo.setTeamId(Long.valueOf(voluntList.get(0).get("teamId").toString()));
 		if (signinService.save(signinDo) > 0) {
 			return R.ok();
 		}

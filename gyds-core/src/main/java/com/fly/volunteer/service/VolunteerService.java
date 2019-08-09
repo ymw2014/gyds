@@ -39,4 +39,9 @@ public interface VolunteerService {
 	VolunteerDO getVo(Long userId);
 	
 	List<Map<String,Object>> voluntList(Map<String,Object> map);
+	
+	
+	List<Map<String,Object>> voluntInfo(Map<String,Object> map);
+	
+	int voluntInfoCount(Map<String,Object> map);
 }

@@ -27,6 +27,8 @@ import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.helpCenter.domain.TypeTitleDO;
+import com.fly.index.service.IndexService;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.service.DynamicService;
 import com.fly.pc.news.controller.BaseDynamicController;
@@ -52,6 +54,8 @@ public class PcActivityController extends BaseDynamicController{
 	private DynamicService dynamicService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private IndexService indexService;
 
 	@RequestMapping("activityList")
 	public String list(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -76,6 +80,8 @@ public class PcActivityController extends BaseDynamicController{
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		model.addAttribute("areaList", areaList);
+		List<TypeTitleDO> list2 = indexService.getFooterCenter();
+		model.addAttribute("centerList", list2);
 		return "pc/activityList";
 	}
 	

@@ -29,6 +29,8 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.guestlog.domain.GuestlogDO;
 import com.fly.guestlog.service.GuestlogService;
+import com.fly.helpCenter.domain.TypeTitleDO;
+import com.fly.index.service.IndexService;
 import com.fly.news.domain.CommentDO;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.InfoDO;
@@ -65,7 +67,7 @@ public class PcVolunteerController {
 	@Autowired
 	private PhotoService PhotoService;
 	@Autowired
-	private UserService userService;
+	private IndexService indexService;
 
 	@RequestMapping("volunteerList")
 	public String volunteer(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -92,6 +94,8 @@ public class PcVolunteerController {
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		model.addAttribute("voluntList", voluntList);
 		model.addAttribute("areaList", areaList);//全国包含的省
+		List<TypeTitleDO> list2 = indexService.getFooterCenter();
+		model.addAttribute("centerList", list2);
 		return "pc/volunteerList";
 	}
 	/**

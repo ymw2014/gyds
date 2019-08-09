@@ -80,7 +80,7 @@
 		</div>
 		<!-- 结束 -->
 		<div class="tongji">
-		<input type="hidden" th:value="${teamId}" id="teamId"/>
+			<input type="hidden" th:value="${teamId}" id="teamId"/>
 			<div class="tongji1">
 				<div class="tongjitxt">
 					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
@@ -145,7 +145,7 @@
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
-					<img th:src="${act.actTitleImg}" alt="">
+					<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<span th:text="${act.actTitle}"></span>
 					<p th:text="${act.actIntro}"></p>
 					<rem>
@@ -161,7 +161,7 @@
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
-					<img th:src="${volunt.headImg}" alt="">
+					<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
 					<p th:text="${volunt.volunteerName}"></p>
 				</div>
 			</div>
@@ -169,7 +169,7 @@
 		<div class="guanggao">
 			<img src="images/tp2.jpg" alt="">
 		</div>
-		<div th:replace="mobile/include :: footer"></div>s
+		<div th:replace="mobile/include :: footer"></div>
 	</body>
 </html>
 <script th:src="@{/mobile/dist/idangerous.swiper.min.js}"></script>

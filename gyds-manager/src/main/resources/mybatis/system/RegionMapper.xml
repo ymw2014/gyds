@@ -106,4 +106,14 @@
 	<select id="getRegionUserNumber" resultType="int">
 		select count(*) from sys_user where dept_id = #{value}
 	</select>
+	
+	
+	<select id="activeCount" resultType="Integer">
+		select count(distinct user_id) num from signin where team_id in 
+ 		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+	            #{item}       
+	    </foreach> 
+	    and sigin_time <![CDATA[>=]]> #{startTime} and sigin_time <![CDATA[<=]]> #{endTime}
+	</select>
+	
 </mapper>

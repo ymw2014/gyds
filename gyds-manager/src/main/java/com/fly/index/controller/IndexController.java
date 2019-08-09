@@ -64,13 +64,11 @@ public class IndexController {
 	 */
 	@RequestMapping("/")
 	public String indexValidate(@RequestParam Map<String,Object> params, HttpServletRequest request,Model model) {
-		//params.put("areaId", 0);
 		String code = request.getParameter("areaId");
 		Integer areaId = 0;
 		if (!StringUtils.isEmpty(code)) {
 			areaId = Integer.valueOf(request.getParameter("areaId"));
 		}
-		//Object areaId = params.get("areaId");
 		if(params.get("areaId")!=null) {
 			params.put("parentRegionCode", params.get("areaId"));
 		}else {
