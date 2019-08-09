@@ -30,7 +30,9 @@ import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.domain.TypeDO;
 import com.fly.utils.R;
+import com.fly.volunteer.service.VolunteerService;
 
 @Controller
 @RequestMapping("/pc/proxybusi")
@@ -44,7 +46,8 @@ public class PcProxybusiController extends BaseDynamicController{
 	private SetupService setupService;
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private VolunteerService volunteerService;
 	
 	@RequestMapping("/show")
 	public String index(@RequestParam Map<String,Object> params, HttpServletRequest request,Model model) {
@@ -58,18 +61,28 @@ public class PcProxybusiController extends BaseDynamicController{
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);
-		
 		params.clear();
 		params.put("userId", user.getUserId());
 		List<ProxybusiDO> list = proxybusiService.list(params);
+		//申请保证金查询
+		SetupDO setupDO = setupService.get(1);
+		model.addAttribute("setupDO", setupDO);
+		if(user!=null) {
+			Long userId = user.getUserId();
+			boolean flag = volunteerService.isVo(userId);
+			if (!flag) {
+				Map<String, Object> map=new HashMap<>(16);
+				model.addAttribute("type", 3);
+				return "/pc/attestation";
+			}
+		}
+		
 		String cardNo = user.getCardNo();
 		StringBuilder sb = new StringBuilder(cardNo);
 		sb.replace(6, 14, "********");
 		user.setCardNo(sb.toString());
 		model.addAttribute("user", user);
-		//申请保证金查询
-		SetupDO setupDO = setupService.get(1);
-		model.addAttribute("setupDO", setupDO);
+		
 		
 		if (CollectionUtils.isEmpty(list)) {//还没申请
 			model.addAttribute("proxybusiDO", new ProxybusiDO());

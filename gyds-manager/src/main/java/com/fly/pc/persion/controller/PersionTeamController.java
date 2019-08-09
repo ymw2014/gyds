@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
@@ -25,7 +26,9 @@ import com.fly.team.dao.TeamTypeDao;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.domain.TypeDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
+import com.fly.utils.userToObject;
 import com.fly.verifyName.dao.NameDao;
 import com.fly.verifyName.domain.NameDO;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -46,12 +49,25 @@ public class PersionTeamController {
 	private VolunteerService volunteerService;
 	@Autowired
 	private NameDao nameDao;
+	@Autowired
+	private UserDao userDao;
 	
 
 	@RequestMapping("/createTeam")
 	public String createTeam(Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		Long userId = ShiroUtils.getUserId();
+		params.put("userId", userId);
+		params.put("type",2);
+		params.put("status", 1);
+		NameDO name = nameDao.applyStatus(params);
+		if(name!=null) {
+			if(name.getStatus()==1) {
+				model.addAttribute("message", "您已提交过建团申请,不可重复提交!请耐心等待!");
+				//return "pc/message";
+			} 
+		}	
+		
 		boolean flag = volunteerService.isVo(userId);
 		if (!flag) {
 			Map<String, Object> map=new HashMap<>(16);
@@ -63,15 +79,7 @@ public class PersionTeamController {
 			model.addAttribute("type", 2);
 			return "/pc/attestation";
 		}
-		params.put("userId", userId);
-		params.put("type",2);
-		params.put("status", 1);
-		NameDO name = nameDao.applyStatus(params);
-		//1申请中 2请申请
-			if(name.getStatus()==1) {
-				model.addAttribute("message", "您已提交过建团申请,不可重复提交!请耐心等待!");
-				return "pc/message";
-			} 
+		
 			params.clear();
 			params.put("userId", userId);
 			List<TeamDO> list = teamDao.list(params);
@@ -89,7 +97,8 @@ public class PersionTeamController {
 			}	
 			VolunteerDO Vol = volunteerService.getVo(userId);
 			if(Vol.getTeamId()!=null&&Vol.getTeamId()!=-1){
-				
+				model.addAttribute("message", "您已是团队成员");
+				return "pc/message";
 			}
 		List<TypeDO> type = typeDao.list1();
 		model.addAttribute("type", type);
@@ -135,12 +144,16 @@ public class PersionTeamController {
 		}
 		UserDO user = ShiroUtils.getUser();
 		if(user!=null) {
-			Integer id = randomCode(team.getRegCode());
-			team.setId(id);
+			user.getUserId();
+			user = userDao.get(user.getUserId());
+			NameDO name = userToObject.userToverify(user, null);
+			/*
+			 * Integer id = randomCode(team.getRegCode()); team.setId(id);
+			 */
 			team.setTeamIntroduce(team.getTeamIntroduce().trim());
 			team.setUserId(Integer.valueOf(user.getUserId().toString()));
-			team.setStatus(0);
-			if(teamService.save(team)>0);
+			name.setText(JSONUtils.beanToJson(team));
+			if(nameDao.save(name)>0);
 			return R.ok();
 		}
 		return R.error();

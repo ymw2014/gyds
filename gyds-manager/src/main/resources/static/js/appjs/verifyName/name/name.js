@@ -62,7 +62,7 @@ function load() {
 									title : '手机' 
 								},
 																{
-									field : 'creadTime', 
+									field : 'createTime', 
 									title : '申请时间' 
 								},
 																{

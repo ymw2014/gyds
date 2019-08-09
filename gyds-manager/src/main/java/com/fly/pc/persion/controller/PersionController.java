@@ -53,8 +53,6 @@ public class PersionController extends BaseController{
 	@Autowired
 	private InfoService infoService;
 	@Autowired
-	private UserService userService;
-	@Autowired
 	private ApplyService applyService;
 	@Autowired
 	private VolunteerService voService;
@@ -255,6 +253,8 @@ public class PersionController extends BaseController{
 	public R realName(NameDO name,Model model) {
 		UserDO user = getUser();
 		name.setUserId(user.getUserId());
+		Map<String, Object> map = JSONUtils.jsonToMap(name.getText());
+		System.out.println(map);
 		try {
 			name.setBirth(PublicUtils.IdNOToBirth(name.getCardNo()));
 		} catch (ParseException e) {
@@ -267,14 +267,9 @@ public class PersionController extends BaseController{
 		if(name.getCardBackImg()==null||name.getCardBackImg()=="") {
 			return R.error("身份证正面图不能为空");
 		}
-		name.setCreadTime(new Date());
+		name.setCreateTime(new Date());
 		name.setStatus(1);
-		if(name.getType()==2) {
-			name.setText(JSONUtils.beanToJson(name.getTeam()));
-		}
-		if(name.getType()==3) {
-			name.setText(JSONUtils.beanToJson(name.getProxybusi()));
-		}
+		
 		if(nameDao.save(name)>0) {
 			return R.ok();
 		}

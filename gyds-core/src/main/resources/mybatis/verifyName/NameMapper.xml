@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.verifyName.dao.NameDao">
 
 	<select id="get" resultType="com.fly.verifyName.domain.NameDO">
-		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`cread_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name where id = #{value}
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.verifyName.domain.NameDO">
-		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`cread_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
@@ -16,7 +16,7 @@
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="email != null and email != ''"> and email = #{email} </if>
 		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
-		  		  <if test="creadTime != null and creadTime != ''"> and cread_time = #{creadTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
 		  		  <if test="birth != null and birth != ''"> and birth = #{birth} </if>
 		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
@@ -57,7 +57,7 @@
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="email != null and email != ''"> and email = #{email} </if>
 		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
-		  		  <if test="creadTime != null and creadTime != ''"> and cread_time = #{creadTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
 		  		  <if test="birth != null and birth != ''"> and birth = #{birth} </if>
 		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
@@ -87,7 +87,7 @@
 			`name`, 
 			`email`, 
 			`mobile`, 
-			`cread_time`, 
+			`create_time`, 
 			`sex`, 
 			`birth`, 
 			`political_status`, 
@@ -113,7 +113,7 @@
 			#{name}, 
 			#{email}, 
 			#{mobile}, 
-			#{creadTime}, 
+			#{createTime}, 
 			#{sex}, 
 			#{birth}, 
 			#{politicalStatus}, 
@@ -141,7 +141,7 @@
 			<if test="name != null">`name` = #{name}, </if>
 			<if test="email != null">`email` = #{email}, </if>
 			<if test="mobile != null">`mobile` = #{mobile}, </if>
-			<if test="creadTime != null">`cread_time` = #{creadTime}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="sex != null">`sex` = #{sex}, </if>
 			<if test="birth != null">`birth` = #{birth}, </if>
 			<if test="politicalStatus != null">`political_status` = #{politicalStatus}, </if>
@@ -174,7 +174,7 @@
 		</foreach>
 	</delete>
 	<select id="applyStatus" resultType="com.fly.verifyName.domain.NameDO">
-		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`cread_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name
         <where>  
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
