@@ -105,7 +105,7 @@
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
-					<img th:src="${act.actTitleImg}" alt="">
+					<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<span th:text="${act.actTitle}"></span>
 					<p th:text="${act.actIntro}"></p>
 					<rem>
@@ -125,7 +125,7 @@
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
-					<img th:src="${volunt.headImg}" alt="">
+					<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
 					<p th:text="${volunt.volunteerName}"></p>
 				</div>
 			</div>
@@ -140,7 +140,7 @@
 			</div>
 			<div class="tuanduiCen" >
 				<figure th:each="team: ${teamList}">
-					<img th:src="${team.teamTitleImg}" alt="">
+					<a th:href="'/pc/teamDetail?teamId=' + ${team.id}"><img th:src="${team.teamTitleImg}" alt=""></a>
 					<figcaption th:text="${team.teamName}"></figcaption>
 				</figure>
 			</div>
