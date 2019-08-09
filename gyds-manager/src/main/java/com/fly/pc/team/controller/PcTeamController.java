@@ -163,7 +163,7 @@ public class PcTeamController {
 				dataInfo.put("url", "/pc/attestation?teamId="+id+"&type="+"1");
 				return dataInfo.toString();
 			}
-			VolunteerDO volunteer = volunteerService.get(user.getUserId().intValue());
+			VolunteerDO volunteer = volunteerService.getVo(user.getUserId());
 			if(volunteer.getTeamId()==null||volunteer.getTeamId()==-1) {
 				user = userDao.get(user.getUserId());
 				NameDO name = userToObject.userToverify(user, id);
