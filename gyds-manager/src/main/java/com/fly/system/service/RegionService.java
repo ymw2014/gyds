@@ -83,5 +83,12 @@ public interface RegionService {
 	 * @return
 	 */
 	List<Integer> getTeamAndAreaByUserRole(Map<String,Object> params);
-	
+	/**
+	 *  获取地区团队活跃人数
+	 * @param region  地区编码
+	 * @param level   地区级别
+	 * @param day     天数
+	 * @return
+	 */
+	Map<String, Object>  activeStat(String region, String level, String day);
 }

@@ -76,6 +76,16 @@ public class VolunteerServiceImpl implements VolunteerService {
 	public List<Map<String,Object>> voluntList(Map<String, Object> map) {
 		return volunteerDao.voluntList(map);
 	}
+
+	@Override
+	public List<Map<String, Object>> voluntInfo(Map<String, Object> map) {
+		return volunteerDao.voluntInfo(map);
+	}
+
+	@Override
+	public int voluntInfoCount(Map<String, Object> map) {
+		return volunteerDao.voluntInfoCount(map);
+	}
 	
 }
 
