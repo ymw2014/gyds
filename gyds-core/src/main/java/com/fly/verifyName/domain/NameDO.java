@@ -33,7 +33,7 @@ public class NameDO implements Serializable {
 	//手机
 	private String mobile;
 	//创建时间
-	private Date creadTime;
+	private Date createTime;
 	//性别
 	private Integer sex;
 	//出身日期
@@ -156,17 +156,13 @@ public class NameDO implements Serializable {
 	public String getMobile() {
 		return mobile;
 	}
-	/**
-	 * 设置：创建时间
-	 */
-	public void setCreadTime(Date creadTime) {
-		this.creadTime = creadTime;
+	
+	
+	public Date getCreateTime() {
+		return createTime;
 	}
-	/**
-	 * 获取：创建时间
-	 */
-	public Date getCreadTime() {
-		return creadTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	/**
 	 * 设置：性别

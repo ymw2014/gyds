@@ -83,6 +83,8 @@ function load() {
 										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
 									
 								}
+									field : 'createTime', 
+									title : '申请时间' 
 								},
 																{
 									field : 'sex', 
