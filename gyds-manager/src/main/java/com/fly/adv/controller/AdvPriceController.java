@@ -109,19 +109,22 @@ public class AdvPriceController extends BaseController{
 		R r=new R();
 		switch(region.getRegionLevel()){ 
 	    case 0:  //超管
-	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),5);
+	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),6);
 	    	break;
 	    case 1:  //省管理员
-	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),4);
+	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),5);
 	    	break;
 	    case 2:  //市管理员
-	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),3);
+	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),4);
 	    	break;
 	    case 3:  //县管理员
+	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),3);
+	    	break;
+	    case 4:  //办事处
 	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),2);
 	    	break;
-	    case 4:  //团管理员
-	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),2);
+	    case 5:  //团管理员
+	    	r=validateSwitch(advList,advPrice,advPrice.getPositionNum(),1);
 	    	break;
 	    default:  
 	    	;
