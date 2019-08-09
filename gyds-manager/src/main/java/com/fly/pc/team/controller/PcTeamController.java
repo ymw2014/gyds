@@ -79,6 +79,8 @@ public class PcTeamController {
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);
+		List<TypeTitleDO> list2 = indexService.getFooterCenter();
+		model.addAttribute("centerList", list2);
 		return "pc/teamList";
 	}
 	

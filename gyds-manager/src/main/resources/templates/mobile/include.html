@@ -86,51 +86,24 @@
 		</div>
 		
 	</header>
-	<nav>
+	<div th:fragment="nav">
 		<div class="nav">
-			<ul>
-				<li><a href="/">网站首页</a></li>
-				<li><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a></li>
-				<li><a href="/pc/activityList">活动报名</a></li>
-				<li><a href="/pc/volunteerList">志愿者</a></li>
-				<li><a href="/pc/teamList">团队展示</a></li>
-				<li><a href="#">关于我们</a></li>
-				<li><a href="#">联系我们</a></li>
-			</ul>
+			<a href="/">网站首页</a>
+			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a>
+			<a href="/pc/activityList">活动报名</a>
+			<a href="/pc/volunteerList">志愿者</a>
+			<a href="/pc/teamList">团队展示</a>
 		</div>
-	</nav>
+	</div>
 </div>
 <div th:fragment="footer">
 	<div style="margin-bottom:93px;">
 			<div class="footer">
-				<ul>
-					<h4>关于我们</h4>
-					<li><a href="#">关于我们1</a></li>
-					<li><a href="#">关于我们2</a></li>
-					<li><a href="#">关于我们3</a></li>
-					<li><a href="#">关于我们4</a></li>
-				</ul>
-				<ul>
-					<h4>关于我们</h4>
-					<li><a href="#">关于我们1</a></li>
-					<li><a href="#">关于我们2</a></li>
-					<li><a href="#">关于我们3</a></li>
-					<li><a href="#">关于我们4</a></li>
-				</ul>
-				<ul>
-					<h4>关于我们</h4>
-					<li><a href="#">关于我们1</a></li>
-					<li><a href="#">关于我们2</a></li>
-					<li><a href="#">关于我们3</a></li>
-					<li><a href="#">关于我们4</a></li>
-				</ul>
-				<ul>
-					<h4>关于我们</h4>
-					<li><a href="#">关于我们1</a></li>
-					<li><a href="#">关于我们2</a></li>
-					<li><a href="#">关于我们3</a></li>
-					<li><a href="#">关于我们4</a></li>
-				</ul>
+				<ul th:each="cente: ${centerList}">
+				<h4 th:text="${cente.helpTitle}"></h4>
+				<li th:each="center: ${cente.center}"><a
+					th:href="${center.url}" th:text="${center.content}"></a></li>
+			</ul>
 			</div>
 			<!-- 备案 -->
 			<div class="beian">

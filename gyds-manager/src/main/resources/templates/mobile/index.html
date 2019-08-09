@@ -35,11 +35,11 @@
 			</div>
 		</header>
 		<div class="nav">
-			<a href="#">网站首页</a>
-			<a href="#">咨询动态</a>
-			<a href="#">活动报名</a>
-			<a href="#">志愿者</a>
-			<a href="#">团队展示</a>
+			<a href="/">网站首页</a>
+			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a>
+			<a href="/pc/activityList">活动报名</a>
+			<a href="/pc/volunteerList">志愿者</a>
+			<a href="/pc/teamList">团队展示</a>
 		</div>
 		<div class="guanggao">
 			<a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a>
