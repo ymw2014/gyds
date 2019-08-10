@@ -342,7 +342,7 @@ public class PersionController extends BaseController{
 				return "pc/message";
 			} else {
 				model.addAttribute("activiType",list);
-				model.addAttribute("message","抱歉，您发布的活动未通过，请重新发布");
+				model.addAttribute("message","您发布的活动未通过，请重新发布");
 				return "pc/activityAdd";
 			}
 		}
