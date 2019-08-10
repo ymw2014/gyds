@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
+import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.domain.ApplyDO;
+import com.fly.activity.domain.TypeDO;
+import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
+import com.fly.activity.service.TypeService;
 import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
@@ -34,11 +37,9 @@ import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
-import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
-import com.fly.utils.userToObject;
 import com.fly.utils.xss.PublicUtils;
 import com.fly.verifyName.dao.NameDao;
 import com.fly.verifyName.domain.NameDO;
@@ -68,7 +69,11 @@ public class PersionController extends BaseController{
 	private SetupService setupService;
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private TypeService typeService;
+	@Autowired
+	private ActivityService activityService;
+	
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter(Model model) {
 		UserDO user = ShiroUtils.getUser();
@@ -135,6 +140,11 @@ public class PersionController extends BaseController{
 		model.addAttribute("actList", actList);
 		model.addAttribute("newList", newList);
 		model.addAttribute("voList", voList);
+		
+		model.addAttribute("teamSize", teamList.size());
+		model.addAttribute("actLSize", actList.size());
+		model.addAttribute("newSize", newList.size());
+		model.addAttribute("voSize", voList.size());
 		return "pc/collect";
 	}
 
@@ -425,6 +435,32 @@ public class PersionController extends BaseController{
 		return R.error();
 
 	}
-
-
+	
+	@RequestMapping("/pc/activityAdd")
+	public String activityAdd(Model model) {
+		UserDO user = ShiroUtils.getUser();
+		List<TypeDO> list = typeService.list(null);
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("memberId", user.getUserId());
+		List<ActivityDO> activi = activityService.list(params);
+		if (!CollectionUtils.isEmpty(activi)) {
+			Integer examineStatus = activi.get(0).getExamineStatus();
+			if (examineStatus == 0) {
+				model.addAttribute("message","活动已提交，请耐心等待后台审核，谢谢配合！");
+				return "pc/message";
+			} else if (examineStatus == 1) {
+				model.addAttribute("message","恭喜，您发布的活动已审核通过,可以继续发布活动");
+				model.addAttribute("status","1");
+				return "pc/activityAdd";
+			} else {
+				model.addAttribute("activiType",list);
+				model.addAttribute("message","您发布的活动未通过，请重新发布");
+				model.addAttribute("status","2");
+				return "pc/activityAdd";
+			}
+		}
+		model.addAttribute("activiType",list);
+		return "pc/activityAdd";
+	}
+	
 }

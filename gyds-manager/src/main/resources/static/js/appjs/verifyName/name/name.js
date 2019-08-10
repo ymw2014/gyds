@@ -55,19 +55,52 @@ function load() {
 								},
 																{
 									field : 'email', 
-									title : 'email' 
+									title : '邮箱' 
 								},
 																{
 									field : 'mobile', 
 									title : '手机' 
 								},
+
+								{
+									field : 'cardNo', 
+									title : '身份证号' 
+								},
 																{
+									field : 'cardFrontImg', 
+									title : '身份证正面照' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
+									
+								}
+								},
+																{
+									field : 'cardBackImg', 
+									title : '身份证背面照' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
+									
+								}
 									field : 'createTime', 
 									title : '申请时间' 
 								},
 																{
 									field : 'sex', 
-									title : '性别' 
+									title : '性别' ,
+									formatter : function(value, row, index) {
+										if (value == '1') {
+											return '女'
+										} 
+										if (value == '0') {
+											return '男'
+										}
+									}
+								},
+																{
+									field : 'nation', 
+									title : '民族' 
 								},
 																{
 									field : 'birth', 
@@ -97,55 +130,47 @@ function load() {
 									field : 'street', 
 									title : '街道' 
 								},
+									
 																{
-									field : 'status', 
-									title : '1:未审核 2:审核 3:拒绝' 
+									field : 'teamName', 
+									title : '团队名称' 
+								},
+
+																{
+									field : 'teamType', 
+									title : '团队类型' 
 								},
 																{
-									field : 'cardNo', 
-									title : '身份证号' 
+									field : 'addres', 
+									title : '团队地址' 
 								},
+
 																{
-									field : 'cardFrontImg', 
-									title : '身份证正面照' 
-								},
-																{
-									field : 'cardBackImg', 
-									title : '身份证背面照' 
-								},
-																{
-									field : 'nation', 
-									title : '民族' 
-								},
-																{
-									field : 'type', 
-									title : '1:入团申请2:建团申请3:代理商入驻' 
-								},
-																{
-									field : 'team', 
-									title : '创建团队信息' 
-								},
-																{
-									field : 'proxybusi', 
-									title : '代理商信息' 
-								},
-																{
-									title : '操作',
-									field : 'id',
-									align : 'center',
+									field : 'teamImg', 
+									title : '团队封面图',
 									formatter : function(value, row, index) {
-										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
-												+ row.id
-												+ '\')"><i class="fa fa-edit"></i></a> ';
-										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
-												+ row.id
-												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-												+ row.id
-												+ '\')"><i class="fa fa-key"></i></a> ';
-										return e + d ;
+										
+										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
+									
+								}
+								},
+
+								{
+									field : 'createTime', 
+									title : '申请时间' 
+									
+								},
+								{
+									field : 'status', 
+									title : '审核' ,
+									formatter : function(value, row, index) {
+										if (row.status == "1") {
+											return '<a class="label label-success"  onclick="examineStatus('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger"  onclick="examineStatus('+row.id+',2)" >拒绝</a>';
+										}
 									}
-								} ]
+								},
+						]
 					});
 }
 function reLoad() {
@@ -228,4 +253,69 @@ function batchRemove() {
 	}, function() {
 
 	});
+}
+
+function showBigPic(obj,filepath) {
+	
+    //将文件路径传给img大图
+    document.getElementById('pre_view').src = filepath;
+    //获取大图div是否存在
+    var div = document.getElementById("bigPic");
+    if (!div) {
+        return;
+    }
+    //如果存在则展示
+    var ImgObj=new Image();
+    	ImgObj.src= filepath;
+    if(ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0))
+     {
+        document.getElementById("bigPic").style.display="block";
+     }else{
+    	 return;
+     }
+    //获取鼠标坐标
+    var e = event || window.event;
+   	var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+   	var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+  	var intX = e.pageX || e.clientX + scrollX;
+   	var intY = e.pageY || e.clientY + scrollY;
+    //var intX = window.event.clientX;
+    //var intY = window.event.clientY;
+    //设置大图左上角起点位置
+    div.style.left = intX +10+ "px";
+    div.style.top = intY - 150+"px";
+}
+
+function closeimg(){
+    document.getElementById("bigPic").style.display="none";
+}
+
+/**
+ * 建团审核
+ * @param id
+ * @param status
+ * @returns
+ */
+function examineStatus(id,status) {
+	console.log(id);
+	layer.confirm('确定要进行团队审核吗？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : prefix+"/examine",
+			type : "post",
+			data : {
+				'id' : id,
+				'status':status
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
 }

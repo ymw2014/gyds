@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=750">
+		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
+		<script src="/js/plugins/layer/laydate/laydate.js"></script>
+		<style>
+			.remover{
+				width: 27px;
+				height:30px;
+				position:absolute;
+				right:30px;
+				bottom:7px;
+			}
+			.biaotiyy{
+				width:95%;
+				margin-left:2.5%;
+				margin-top:30px;
+			}
+			.biaotiyy label>span{
+				line-height:92px;
+				display:inline-block;
+				float: left;
+				font-size:30px;
+				margin-right:18px;
+				color:#b8b8b8;
+			}
+			.biaotiyy label{
+				display: block;
+				overflow: hidden;
+			}
+			.biaotiyy input{
+				line-height:92px;
+				width:630px;
+				display:inline-block;
+				float: left;
+				border:none;
+				outline:none;
+				font-size:30px;
+				color:#333;
+			}
+			.fang{
+				float: left;
+				border:1px dashed #bdbdbd;
+				padding: 10px;
+			}
+			.mstp{
+				overflow: hidden;
+				padding: 20px;
+			}
+			.mstp>div>img{
+				width: 122px;
+				height: 122px;
+				margin-right:20px;
+			}
+			.mstp>div{
+				float: left;
+				position: relative;
+			}
+			.mstp>div>span{
+				display: block;
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				top:-10px;
+				right:10px;
+				text-align: center;
+				line-height:30px;
+				background:#f98185;
+				color:#fff;
+				border-radius:50%;
+			}
+			.tijiao{
+				width: 100%;
+				height:80px;
+			}
+			.tijiao>input{
+				width: 100%;
+				height:80px;
+			    line-height:80px;
+				background:#ff0000;
+				color:#fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mygz">
+			<div class="alendar"> 
+				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
+				<span>活动发布</span>
+			</div>
+		</div>
+		<div class="biaotiyy">
+				<span th:if="${status == '1'}" th:text="${message}" style="color:green"></span>
+				<span th:if="${status == '2'}" th:text="${message}" style="color:red"></span>
+				<form id="signupForm">
+				    <label>
+						<span>活动名称</span>
+						<input name="actTitle" type="text">
+					</label>
+					<label>
+						<span>活动地点</span>
+						<input name=actAddr type="text">
+					</label>
+					<label>
+						<span>活动类型</span>
+						<select name="actTypeId" style="width: 384px;">
+							<option th:each="type : ${activiType}" th:value="${type.id}" th:text="${type.typeName}"></option>
+						</select>
+					</label>
+					<label>
+						<span>付费类型</span>
+						<input type="radio" name="actType" value="1" style="width:20px;"/>付费
+						<input type="radio" name="actType" value="0" style="width:20px;"/>免费
+					</label>
+					<label id="price">
+						<span>活动费用</span>
+						<input name="actPrice" type="text">
+					</label>
+					<label>
+						<span>活动开始时间</span>
+						<input type="text" class="laydate-icon form-control" id="activiStartTime" name="activiStartTime"   placeholder=""
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;width:350px;" />
+					</label>
+					<label>
+						<span>活动结束时间</span>
+						<input type="text" class="laydate-icon form-control" id="activiEndTime" name="activiEndTime"   placeholder=""
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD '})" style="background-color: #fff;width:350px;" />
+					</label>
+					<label>
+						<span>报名开始时间</span>
+						<input type="text" class="laydate-icon form-control" id="startTime" name="startTime"   placeholder=""
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD '})" style="background-color: #fff;width:350px;" />
+					</label>
+					<label>
+						<span>报名结束时间</span>
+						<input type="text" class="laydate-icon form-control" id="endTime" name="endTime"   placeholder=""
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD '})" style="background-color: #fff;width:350px;" />
+					</label>
+					<label style="margin-top:30px;">
+						<span style="float: left;">封面</span>
+							<img src="images/gahgha_03.png"  height="100" width="386" alt="" id="img">
+							<input type="file" name="file" style="display: none;" id="file">
+							<input type="hidden" name="actTitleImg" style="display: none;" id="actImg">
+					</label>
+					<label>
+						<span>活动简介</span>
+						 <textarea name="actIntro" style="width:700px;height:400;float: right; resize: none;" >
+							 
+						 </textarea>
+					</label>
+					<label>
+						<span>活动详情</span>
+						<textarea name="actContent" id="deitor" style="width:700px;height:380px;float: right; resize: none;"></textarea>
+					</label>
+					<label>
+						<input type="button" id="save" value="活动发布" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 30px;border-radius:3px ;">
+					</label>
+				</form>
+				<div style="background:#fff;display: none"  id="info">
+					<div class="tijiaohou">
+						<img src="/pc/images/hsusus_03.jpg" alt="">
+						<p>活动已提交，请耐心等待后台审核，谢谢配合！</p>
+					</div>
+				</div>
+			</div>
+</html>
+	 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+	<script type="text/javascript" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+	  <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+	 <script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+	 <script th:src="@{/js/validate.js}"></script>
+<script type="text/javascript">
+var ue = UE.getEditor('deitor',{
+		toolbars:[
+	        [
+	     	    '|', 'undo', 'redo', '|',
+	     	     'fontfamily', 'fontsize', '|',
+	     	    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+	     	    'link', 'unlink', 'anchor', '|',
+	     	    'insertimage', 'emotion', 'map','background', '|',
+	     	    'horizontal', 'date', 'time', 'spechars'
+	     ]
+	 ]
+});
+	$(".btn").mouseover(function(){
+		 $(this).children("ul").show();
+	});
+	$(".btn").mouseout(function(){
+		 $(this).children("ul").hide();
+	})
+	$('dt').click(function () {
+		if($(this).nextUntil('dt','dd').is(':visible')){
+			$(this).nextUntil('dt','dd').slideUp()
+		}else{
+			$(this).siblings('dd').slideUp().end().nextUntil('dt','dd').slideToggle();
+		}
+	});
+	/* $(".jbziliao img").click(function(){
+		$("[type=file]").click();
+	}) */
+	
+	/* $("#aa").click(function(){
+		$("[type=file]").click();
+	}) */
+	
+	layui.use('upload', function() {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem : '#file', //绑定元素
+                url : '/common/sysFile/upload', //上传接口
+                size : 1000,
+                accept : 'file',
+                done : function(r) {
+                    var fileName = r.fileName;
+                     $("#img").val(fileName);
+             	     $("#img").attr("src",fileName);
+             	     $("#actImg").val(fileName);
+                },
+                error : function(r) {
+                    layer.msg(r.msg);
+                }
+            });
+            
+        });
+	$().ready(function(){
+		$("#save").on('click', function() {
+			$("#signupForm").submit();
+		});
+		$(":radio").click(function(){
+			var type = $(this).val();
+			if (type == '1') {
+				$("#price").show();
+			} else {
+				$("#price").hide();
+			}
+		})
+	})
+	
+	
+	function save() {
+		$.ajax({
+			type : "POST",
+			url : "/pc/activity/publish",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (data.code == 0) {
+					$("#signupForm").hide();
+					$("#info").show();
+				} else {
+					parent.layer.alert(data.msg)
+				}
+			},
+		});
+	}
+	
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#signupForm").validate({
+			rules : {
+				actTitle : {
+					required : true
+				},
+				actAddr : {
+					required : true
+				},
+				actTypeId : {
+					required : true
+				},
+				actType : {
+					required : true
+				},
+				actPrice : {
+					required : true
+				},
+				
+				activiStartTime : {
+					required : true
+				},
+				activiEndTime : {
+					required : true
+				},
+				startTime : {
+					required : true
+				},
+				endTime : {
+					required : true
+				},
+				actIntro : {
+					required : true
+				},
+				actContent : {
+					required : true
+				}
+			},
+			messages : {
+				actTitle : {
+					required : icon + "<span style='color:red'>活动名称不能为空</span>",
+				},
+				actAddr : {
+					required : icon + "<span style='color:red'>活动地点不能为空</span>",
+				},
+				actTypeId : {
+					required : icon + "<span style='color:red'>活动类型不能为空</span>",
+				},
+				actType : {
+					required : icon + "<span style='color:red'>付费类型不能为空</span>",
+				},
+				actPrice : {
+					required : icon + "<span style='color:red'>活动费用不能为空</span>",
+				},
+				
+				activiStartTime : {
+					required : icon + "<span style='color:red'>活动开始时间不能为空</span>",
+				},
+				activiEndTime : {
+					required : icon + "<span style='color:red'>活动结束时间不能为空</span>",
+				},
+				startTime : {
+					required : icon + "<span style='color:red'>报名开始时间不能为空</span>",
+				},
+				endTime : {
+					required : icon + "<span style='color:red'>报名结束时间不能为空</span>",
+				},
+				actIntro : {
+					required : icon + "<span style='color:red'>活动简介不能为空</span>",
+				},
+				actContent : {
+					required : icon + "<span style='color:red'>活动详情不能为空</span>",
+				}
+			},
+			errorPlacement: function (error, element) { //指定錯誤信息位置
+	            if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+	                var eid = element.attr('name'); //獲取元素的name屬性
+	                error.appendTo(element.parent()); //將錯誤信息添加當前元素的父結點後面
+	            } else {
+	                error.insertAfter(element);
+	            }
+	        }
+		})
+	}
+</script>

@@ -213,6 +213,74 @@
 							.nextUntil('dt', 'dd').slideToggle();
 				}
 			});
-	
-	
+
+	layui.use('upload', function() {
+		var upload = layui.upload;
+		var uploadInst = upload.render({
+			elem : '#file', //绑定元素
+			url : '/common/sysFile/upload', //上传接口
+			size : 1000,
+			accept : 'file',
+			done : function(r) {
+				var fileName = r.fileName;
+				$("#imgStr").val(fileName);
+				$("#img").attr("src", fileName);
+			},
+			error : function(r) {
+				layer.msg(r.msg);
+			}
+		});
+	});
+
+
+	layui.use(
+					'upload',
+					function() {
+						var upload = layui.upload;
+						var multi = 1;
+						var name = "imgs";
+						if (multi) {
+							name = "imgs";
+							$("#imgUpload_imgs").attr('multiple', 'multiple');
+						} else {
+							$("#imgUpload_imgs").removeAttr('multiple');
+						}
+
+						//执行实例
+						var uploadInst = upload
+								.render({
+									elem : '#imgUpload_imgs', //绑定元素
+									url : '/common/sysFile/upload', //上传接口
+									size : 1000,
+									accept : 'file',
+									done : function(r) {
+										var fileName = r.fileName;
+										var id = r.id;
+										var img = '<div class="imgbox">';
+										img += '<div class="removePic" onclick="removePic(this,\'/common/sysFile/remove\')">×</div>';
+										img += '<input type="hidden" name="'+name+'" value="' + fileName + '">';
+										img += '<img src="' + fileName + '">';
+										img += '</div>';
+										if (multi) {
+											$("#imgsbox_imgs").append(img);
+										} else {
+											$("#imgsbox_imgs").html(img);
+										}
+
+										var imgs = "";
+										$("#imgsbox_imgs").find(
+												"input[name='imgs']").each(
+												function(i, item) {
+													if (imgs == '') {
+														imgs += item.value;
+													} else {
+														imgs += ','
+																+ item.value;
+													}
+													$('#imgStr0').val(imgs);
+												})
+									}
+								});
+
+					});
 </script>

@@ -167,8 +167,8 @@ function load() {
 									align : 'center',
 									formatter : function(value, row, index) {
 										if (row.isIdentification == "-1") {
-											return '<a class="label label-success '+s_examine_h+'" onclick="examineStatus('+row.userId+',1)" >通过</a>&nbsp;&nbsp'+
-											'<a class="label label-danger '+s_examine_h+'" onclick="examineStatus('+row.userId+',2)" >拒绝</a>';
+											return '<a class="label label-success '+s_examine_h+'"onclick="examineStatus('+row.userId+',1)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger '+s_examine_h+'"onclick="examineStatus('+row.userId+',2)" >拒绝</a>';
 										}
 									}
 								} ]
