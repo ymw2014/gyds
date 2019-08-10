@@ -98,7 +98,8 @@
 			</div>
 		</div>
 		<div class="biaotiyy">
-				<span th:text="${message}" style="color:red"></span>
+				<span th:if="${status == '1'}" th:text="${message}" style="color:green"></span>
+				<span th:if="${status == '2'}" th:text="${message}" style="color:red"></span>
 				<form id="signupForm">
 				    <label>
 						<span>活动名称</span>

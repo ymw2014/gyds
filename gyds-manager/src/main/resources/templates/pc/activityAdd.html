@@ -4,7 +4,8 @@
 	<div class="boxRight" style="background:#fff;width: 1006px;height: 1382px;margin-top:0;">
 				<div class="cwmx">
 					<h4>活动发布</h4>
-					<span th:text="${message}"></span>
+					<span th:if="${status == '1'}" th:text="${message}" style="color:green"></span>
+					<span th:if="${status == '2'}" th:text="${message}" style="color:red"></span>
 				</div>
 				<form id="signupForm" class="biaodanyy">
 				    <label>

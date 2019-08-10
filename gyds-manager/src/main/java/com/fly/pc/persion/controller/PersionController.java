@@ -343,11 +343,13 @@ public class PersionController extends BaseController{
 				model.addAttribute("message","活动已提交，请耐心等待后台审核，谢谢配合！");
 				return "pc/message";
 			} else if (examineStatus == 1) {
-				model.addAttribute("message","恭喜，您发布的活动已审核通过");
-				return "pc/message";
+				model.addAttribute("message","恭喜，您发布的活动已审核通过,可以继续发布活动");
+				model.addAttribute("status","1");
+				return "pc/activityAdd";
 			} else {
 				model.addAttribute("activiType",list);
 				model.addAttribute("message","您发布的活动未通过，请重新发布");
+				model.addAttribute("status","2");
 				return "pc/activityAdd";
 			}
 		}
