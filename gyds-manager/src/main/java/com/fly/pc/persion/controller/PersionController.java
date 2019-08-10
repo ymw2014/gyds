@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.domain.ApplyDO;
+import com.fly.activity.domain.TypeDO;
+import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
+import com.fly.activity.service.TypeService;
 import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
@@ -59,6 +64,10 @@ public class PersionController extends BaseController{
 	private VolunteerService voService;
 	@Autowired
 	private NameDao nameDao;
+	@Autowired
+	private TypeService typeService;
+	@Autowired
+	private ActivityService activityService;
 	
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter(Model model) {
@@ -320,5 +329,29 @@ public class PersionController extends BaseController{
 		
 	}
 	
+	@RequestMapping("/pc/activityAdd")
+	public String activityAdd(Model model) {
+		UserDO user = ShiroUtils.getUser();
+		List<TypeDO> list = typeService.list(null);
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("memberId", user.getUserId());
+		List<ActivityDO> activi = activityService.list(params);
+		if (!CollectionUtils.isEmpty(activi)) {
+			Integer examineStatus = activi.get(0).getExamineStatus();
+			if (examineStatus == 0) {
+				model.addAttribute("message","活动已提交，请耐心等待后台审核，谢谢配合！");
+				return "pc/message";
+			} else if (examineStatus == 1) {
+				model.addAttribute("message","恭喜，您发布的活动已审核通过");
+				return "pc/message";
+			} else {
+				model.addAttribute("activiType",list);
+				model.addAttribute("message","抱歉，您发布的活动未通过，请重新发布");
+				return "pc/activityAdd";
+			}
+		}
+		model.addAttribute("activiType",list);
+		return "pc/activityAdd";
+	}
 	
 }

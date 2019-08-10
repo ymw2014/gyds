@@ -40,7 +40,7 @@
 							<img src="images/aaa4.jpg" alt="">
 							<p th:text="${act.act_title}"></p>
 							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd HH:mm:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
-							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count+'人报名'}"></span>
+							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count} +'人报名'" id="applyNum"></span>
 							<a id="anniu" href="javaScript:;" th:onclick="'javascript:apply(1,'+${act.news_id}+','+${act.appId}+')'" class="anniiu" th:if="${act.app_status eq 0}">取消报名</a>
 							<a id="anniu" href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 1}">已报名</a>
 							<a id="anniu" href="javaScript:;" th:onclick="'javascript:apply(2,'+${act.news_id}+',-1)'" class="anniiu" th:if="${act.app_status eq -1}">立即报名</a>
@@ -109,6 +109,7 @@
            },
             success : function(result) {
             	var status = result.status;
+            	$("#applyNum").text(result.applyNum +"人报名");
             	if (status == 1) {
             		parent.layer.msg("操作成功");
             		if(type==1){//取消报名成功,改为可报名

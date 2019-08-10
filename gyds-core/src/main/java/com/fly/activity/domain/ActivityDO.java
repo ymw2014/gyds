@@ -71,6 +71,27 @@ public class ActivityDO implements Serializable {
 	
 	private String startTimeStr;
 	
+	private int teamId;
+	
+	private String actAddr;
+	
+	private Date activiStartTime;
+	
+	private Date activiEndTime;
+	
+	
+	public Date getActiviStartTime() {
+		return activiStartTime;
+	}
+	public void setActiviStartTime(Date activiStartTime) {
+		this.activiStartTime = activiStartTime;
+	}
+	public Date getActiviEndTime() {
+		return activiEndTime;
+	}
+	public void setActiviEndTime(Date activiEndTime) {
+		this.activiEndTime = activiEndTime;
+	}
 	public String getEndTimeStr() {
 		return endTimeStr;
 	}
@@ -83,9 +104,6 @@ public class ActivityDO implements Serializable {
 	public void setStartTimeStr(String startTimeStr) {
 		this.startTimeStr = startTimeStr;
 	}
-	private int teamId;
-	
-	private String actAddr;
 	
 	public String getActAddr() {
 		return actAddr;

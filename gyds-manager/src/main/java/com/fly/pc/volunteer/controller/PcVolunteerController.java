@@ -73,15 +73,14 @@ public class PcVolunteerController {
 	public String volunteer(@RequestParam Map<String,Object> params, HttpServletRequest request, 
 			Model model,String sort, String order, HttpServletResponse response) throws IOException {
 		params.clear();
-		String areaId = request.getParameter("regionCode");
-		params.put("parentRegionCode", 0);
-		params.put("regionType",1);
-		List<RegionDO> areaList = regionService.list(params);
-		params.clear();
-		
+		String areaId = request.getParameter("areaId");
 		if (StringUtils.isEmpty(areaId)) {
 			areaId = "0";
 		}
+		params.put("parentRegionCode", areaId);
+		params.put("regionType",1);
+		List<RegionDO> areaList = regionService.list(params);
+		params.clear();
 		
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
@@ -270,7 +269,7 @@ public class PcVolunteerController {
 	public String query(@RequestParam Map<String,Object> params, HttpServletRequest request, 
 			Model model,String sort, String order, HttpServletResponse response) {
 		params.clear();
-		String areaId = request.getParameter("regionCode");
+		String areaId = request.getParameter("areaId");
 		String sex = request.getParameter("sex");
 		params.clear();
 		

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,28 +56,29 @@ public class PcTeamController {
 	@Autowired
 	private IndexService indexService;
 	@Autowired
-	private ApplyTeamService applyTeamService;
-	@Autowired
 	private NameDao nameDao;
 	@Autowired
 	private UserDao userDao;
 	
 	
 	@RequestMapping("teamList")
-	public String list(@RequestParam Map<String,Object> params, Model model) {
-		Object areaId = params.get("areaId");
+	public String list(@RequestParam Map<String,Object> params, Model model, HttpServletRequest request) {
+		String areaId = request.getParameter("areaId");
 		if (areaId == null) {
 			areaId = "0";
 		}
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		if (CollectionUtils.isEmpty(ids)) {
+			ids.add(-1);
+		}
 		params.clear();
 		params.put("status", 1);
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
 		params.clear();
-		params.put("parentRegionCode", 0);
+		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);

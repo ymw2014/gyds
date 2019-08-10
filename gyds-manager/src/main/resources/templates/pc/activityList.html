@@ -108,7 +108,7 @@ $(function(){
 	            url : "/pc/activityList/query",
 	            data : {
 	            	'type': $(this).val(),
-	            	'regionCode': $("#code").val(),
+	            	'areaId': $("#code").val(),
 	            	'status': $("#status").val()
 	            	
 	            },
@@ -129,7 +129,7 @@ function query(regionCode) {
          dataType: "json",
          url : "/pc/activityList/query",
          data : {
-         	'regionCode': regionCode
+         	'areaId': regionCode
          },
          success : function(result) {
          	var actList = result.actList;
@@ -147,7 +147,7 @@ function statusQuery(status) {
          dataType: "json",
          url : "/pc/activityList/query",
          data : {
-         	'regionCode': $("#code").val(),
+         	'areaId': $("#code").val(),
          	'status': status,
          	'type': $("#type").val()
          },

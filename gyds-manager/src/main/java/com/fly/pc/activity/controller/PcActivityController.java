@@ -35,6 +35,7 @@ import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.R;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -61,13 +62,15 @@ public class PcActivityController extends BaseDynamicController{
 	public String list(@RequestParam Map<String,Object> params, HttpServletRequest request, 
 			Model model) {
 		params.clear();
-		String areaId = request.getParameter("regionCode");
-		params.put("parentRegionCode", 0);
-		params.put("regionType",1);
-		List<RegionDO> areaList = regionService.list(params);
+		String areaId = request.getParameter("areaId");
 		if (StringUtils.isEmpty(areaId)) {
 			areaId = "0";
 		}
+		params.put("parentRegionCode", areaId);
+		params.put("regionType",1);
+		List<RegionDO> areaList = regionService.list(params);
+		model.addAttribute("areaList", areaList);
+		
 		params.clear();
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
@@ -79,7 +82,6 @@ public class PcActivityController extends BaseDynamicController{
 		params.put("examineStatus",1);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
-		model.addAttribute("areaList", areaList);
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
 		return "pc/activityList";
@@ -89,7 +91,7 @@ public class PcActivityController extends BaseDynamicController{
 	@RequestMapping("activityList/query")
 	public String query(@RequestParam Map<String,Object> params, HttpServletRequest request, 
 			Model model) {
-		String areaId = request.getParameter("regionCode");
+		String areaId = request.getParameter("areaId");
 		String type = request.getParameter("type");
 		String status = request.getParameter("status");
 		if (StringUtils.isEmpty(areaId)) {
@@ -235,6 +237,8 @@ public class PcActivityController extends BaseDynamicController{
 				}
 				dataInfo.put("applyId", apply.getId());//
 			}
+			ActivityDO activity = activityService.get(actId.intValue());
+			dataInfo.put("applyNum", activity.getNumberOfApplicants());//
 		} catch (Exception e) {
 			status = 5;
 			e.printStackTrace();
@@ -274,4 +278,23 @@ public class PcActivityController extends BaseDynamicController{
 		model.addAttribute("newsId", newsId);
 		return "pc/share";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("activity/publish")
+	public R activiPublish(ActivityDO activityDO) {
+		UserDO user = ShiroUtils.getUser();
+		VolunteerDO vo = volunteerService.getVo(user.getUserId());
+		activityDO.setTeamId(vo.getTeamId());
+		activityDO.setMemberId(user.getUserId());
+		activityDO.setStatus(1);
+		activityDO.setExamineStatus(0);
+		activityDO.setNumberOfApplicants(0);
+		activityDO.setCreateTime(new Date());
+		if (activityService.save(activityDO) > 0) {
+			return R.ok();
+		}
+		return R.error();
+	}
+	
 }
