@@ -256,15 +256,6 @@ public class PcActivityController extends BaseDynamicController{
 			dataInfo.put("code", 3);
 			return dataInfo.toString();
 		}
-		Map<String,Object> param = new HashMap<String, Object>();
-		param.put("memberId", user.getUserId());
-		param.put("type", 0);
-		param.put("act_type", 2);
-		List<DynamicDO> list = dynamicService.list(param);
-		if (!CollectionUtils.isEmpty(list)) {
-			dataInfo.put("code", -1);
-			return dataInfo.toString();
-		}
 		Integer integer = dynamic(params, 5);
 		dataInfo.put("code", integer);
 		return dataInfo.toString();

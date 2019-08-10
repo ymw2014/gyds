@@ -62,8 +62,7 @@
 							<div class="zaixian1">
 								<div th:switch="${collectStatus}">
 									<p th:case="'1'">
-										<li th:onclick="'collection('+${activity.id}+',5, 2)'" >
-										<img src="images/gongyitubiao_03.jpg" alt="" ><span style="cursor:pointer">我要收藏</span></li>
+										<img src="images/gongyitubiao_03.jpg" alt="" ><span style="cursor:pointer" th:onclick="'javaScript:collection('+${activity.id}+',5, 2)'">我要收藏</span>
 									</p>
 									<p th:case="'2'">
 										<img src="images/myshouc.png" alt="" style="cursor:not-allowed"><span style="cursor:not-allowed">已收藏</span>

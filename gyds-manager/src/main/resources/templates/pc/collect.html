@@ -7,10 +7,10 @@
 				<div class="gzzx">
 					<h4>关注中心</h4>
 					<ul class="dianli">
-						<li class="hongdise"><a href="javaScript:;">团队 <span>32</span></a></li>
-						<li><a href="javaScript:;">活动 <span>9</span></a></li>
+						<li class="hongdise"><a href="javaScript:;">团队 <span th:text="${teamSize}"></span></a></li>
+						<li><a href="javaScript:;">活动 <span th:text="${actLSize}"></span></a></li>
 						<!-- <li><a href="javaScript:;">新闻 <span>9</span></a></li> -->
-						<li><a href="javaScript:;">志愿者 <span>19</span></a></li>
+						<li><a href="javaScript:;">志愿者 <span th:text="${voSize}"></span></a></li>
 					</ul>
 				</div>
 				 <!-- 团队 -->
@@ -37,7 +37,7 @@
 				  <!-- 活动 -->
 				<div class="yy-gz" style="margin-top:20px;">
 					<div class="yy-gz1" style="padding-top: 30px;" th:each="act: ${actList}">
-							<img src="images/aaa4.jpg" alt="">
+							<img th:src="${act.act_title_img}" alt="">
 							<p th:text="${act.act_title}"></p>
 							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd HH:mm:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
 							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count} +'人报名'" id="applyNum"></span>

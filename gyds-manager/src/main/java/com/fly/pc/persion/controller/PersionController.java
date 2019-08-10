@@ -134,6 +134,11 @@ public class PersionController extends BaseController{
 		model.addAttribute("actList", actList);
 		model.addAttribute("newList", newList);
 		model.addAttribute("voList", voList);
+		
+		model.addAttribute("teamSize", teamList.size());
+		model.addAttribute("actLSize", actList.size());
+		model.addAttribute("newSize", newList.size());
+		model.addAttribute("voSize", voList.size());
 		return "pc/collect";
 	}
 	
