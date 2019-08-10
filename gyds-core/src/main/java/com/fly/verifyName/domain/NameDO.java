@@ -33,7 +33,7 @@ public class NameDO implements Serializable {
 	//手机
 	private String mobile;
 	//创建时间
-	private Date creadTime;
+	private Date createTime;
 	//性别
 	private Integer sex;
 	//出身日期
@@ -63,7 +63,7 @@ public class NameDO implements Serializable {
 	//1:入团申请2:建团申请3:代理商入驻
 	private Integer type;
 	//创建团队信息
-	private TeamDO team;
+	private String team;
 	//代理商信息
 	private ProxybusiDO proxybusi;
 	//信息
@@ -156,17 +156,13 @@ public class NameDO implements Serializable {
 	public String getMobile() {
 		return mobile;
 	}
-	/**
-	 * 设置：创建时间
-	 */
-	public void setCreadTime(Date creadTime) {
-		this.creadTime = creadTime;
+	
+	
+	public Date getCreateTime() {
+		return createTime;
 	}
-	/**
-	 * 获取：创建时间
-	 */
-	public Date getCreadTime() {
-		return creadTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	/**
 	 * 设置：性别
@@ -336,10 +332,11 @@ public class NameDO implements Serializable {
 	public Integer getType() {
 		return type;
 	}
-	public TeamDO getTeam() {
+	
+	public String getTeam() {
 		return team;
 	}
-	public void setTeam(TeamDO team) {
+	public void setTeam(String team) {
 		this.team = team;
 	}
 	public ProxybusiDO getProxybusi() {

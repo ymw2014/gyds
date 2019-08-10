@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
@@ -25,7 +26,13 @@ import com.fly.team.dao.TeamTypeDao;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.domain.TypeDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
+import com.fly.utils.userToObject;
+import com.fly.verifyName.dao.NameDao;
+import com.fly.verifyName.domain.NameDO;
+import com.fly.volunteer.domain.VolunteerDO;
+import com.fly.volunteer.service.VolunteerService;
 
 @Controller
 @RequestMapping("/pc/regTeam")
@@ -38,20 +45,46 @@ public class PersionTeamController {
 	private TeamService teamService;
 	@Autowired
 	private TeamDao teamDao;
+	@Autowired
+	private VolunteerService volunteerService;
+	@Autowired
+	private NameDao nameDao;
+	@Autowired
+	private UserDao userDao;
 	
+
 	@RequestMapping("/createTeam")
 	public String createTeam(Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		Long userId = ShiroUtils.getUserId(); 
-		params.put("status", 2);
+		Long userId = ShiroUtils.getUserId();
 		params.put("userId", userId);
-		List<TeamDO> list = teamDao.is_apply(params);
-		if(list.size()>0) {
-			TeamDO team = list.get(0);
-			if(0 == team.getStatus()) {
+		params.put("type",2);
+		params.put("status", 1);
+		NameDO name = nameDao.applyStatus(params);
+		if(name!=null) {
+			if(name.getStatus()==1) {
 				model.addAttribute("message", "您已提交过建团申请,不可重复提交!请耐心等待!");
-				return "pc/message";
-			}else if(1 == team.getStatus()){
+				//return "pc/message";
+			} 
+		}	
+		
+		boolean flag = volunteerService.isVo(userId);
+		if (!flag) {
+			Map<String, Object> map=new HashMap<>(16);
+			map.put("parentRegionCode", 0);
+			List<RegionDO> areaList = regionService.list(map);
+			List<TypeDO> type = typeDao.list1();
+			model.addAttribute("teamType", type);
+			model.addAttribute("areaList", areaList);
+			model.addAttribute("type", 2);
+			return "/pc/attestation";
+		}
+		
+			params.clear();
+			params.put("userId", userId);
+			List<TeamDO> list = teamDao.list(params);
+			if(list.size()>0) {
+				TeamDO team = list.get(0);
 				String imgStr = team.getTeamImg();
 				String[] img = imgStr.split(",");
 				List<String> imgList = new ArrayList<String>();
@@ -61,9 +94,12 @@ public class PersionTeamController {
 				model.addAttribute("imgList", imgList);
 				model.addAttribute("team", team);
 				return "pc/teamInfo";
+			}	
+			VolunteerDO Vol = volunteerService.getVo(userId);
+			if(Vol.getTeamId()!=null&&Vol.getTeamId()!=-1){
+				model.addAttribute("message", "您已是团队成员");
+				return "pc/message";
 			}
-		}
-		
 		List<TypeDO> type = typeDao.list1();
 		model.addAttribute("type", type);
 		params.put("parentRegionCode",0);
@@ -71,7 +107,7 @@ public class PersionTeamController {
 		model.addAttribute("areaList", areaList);//全国包含的省
 		return "pc/createTeam";
 	}
-	
+
 	@GetMapping("/area")
 	@ResponseBody
 	public R area(@RequestParam Map<String,Object> para) {
@@ -84,7 +120,14 @@ public class PersionTeamController {
 		params.put("parentRegionCode",code);
 		List<RegionDO> areaList = regionService.list(params);
 		if(areaList.size()>0) {
-		r.put("areaList", areaList);
+			r.put("areaList", areaList);
+			code= areaList.get(0).getRegionCode();
+			params.clear();
+			params.put("parentRegionCode",code);
+			List<RegionDO> streetList = regionService.list(params);
+			if(areaList.size()>0) {
+				r.put("streetList", streetList);
+			}
 		}
 		r.put("code", 0);
 		r.put("regList", regList);
@@ -101,12 +144,16 @@ public class PersionTeamController {
 		}
 		UserDO user = ShiroUtils.getUser();
 		if(user!=null) {
-			Integer id = randomCode(team.getRegCode());
-			team.setId(id);
+			user.getUserId();
+			user = userDao.get(user.getUserId());
+			NameDO name = userToObject.userToverify(user, null);
+			/*
+			 * Integer id = randomCode(team.getRegCode()); team.setId(id);
+			 */
 			team.setTeamIntroduce(team.getTeamIntroduce().trim());
 			team.setUserId(Integer.valueOf(user.getUserId().toString()));
-			team.setStatus(0);
-			if(teamService.save(team)>0);
+			name.setText(JSONUtils.beanToJson(team));
+			if(nameDao.save(name)>0);
 			return R.ok();
 		}
 		return R.error();

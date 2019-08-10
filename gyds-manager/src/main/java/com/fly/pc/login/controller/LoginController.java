@@ -1,4 +1,4 @@
-/*package com.fly.system.controller;
+package com.fly.pc.login.controller;
 
 import java.util.List;
 
@@ -26,6 +26,7 @@ import com.fly.domain.FileDO;
 import com.fly.domain.MenuDO;
 import com.fly.domain.Tree;
 import com.fly.domain.UserDO;
+import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.system.service.MenuService;
 import com.fly.system.utils.MD5Utils;
 import com.fly.system.utils.ShiroUtils;
@@ -48,10 +49,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-*//**
+/**
  * @author 马凌冰
  * @date 2019-01-25
- *//*
+ */
 @Controller
 public class LoginController extends BaseController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -93,23 +94,23 @@ public class LoginController extends BaseController {
 		
 	}
 
-	*//**
+	/**
 	 *  登录页面
 	 * @return
-	 *//*
+	 */
 	@GetMapping("/login")
 	String login() {
 		return "pc/login";
 	}
 
-	*//**
+	/**
 	 * 接口登陆
 	 * @param username 用户名
 	 * @param password 用户密码
 	 * @param verify 验证码
 	 * @param request
 	 * @return
-	 *//*
+	 */
 	@Log("登录")
 	@PostMapping("/login")
 	@ResponseBody
@@ -117,9 +118,11 @@ public class LoginController extends BaseController {
 		//String inputVerify=verify;
 		R r=new R();
 		password = MD5Utils.encrypt(username, password);
-		String katha= ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);//(String)request.getSession().getAttribute("vifityCode");
-        if(!katha.equals(verify)){
-        	return R.error("验证码不正确");
+		if(!JudgeIsMoblieUtil.judgeIsMoblie(request)) {
+			String katha= ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);//(String)request.getSession().getAttribute("vifityCode");
+	        if(!katha.equals(verify)){
+	        	return R.error("验证码不正确");
+			}
 		}
 		try {
 			//1、获取subject
@@ -159,4 +162,3 @@ public class LoginController extends BaseController {
 	}
 
 }
-*/

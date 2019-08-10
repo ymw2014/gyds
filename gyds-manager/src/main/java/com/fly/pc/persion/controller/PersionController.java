@@ -34,6 +34,7 @@ import com.fly.order.service.OrderService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
@@ -56,8 +57,6 @@ public class PersionController extends BaseController{
 	private RegionService regionService;
 	@Autowired
 	private InfoService infoService;
-	@Autowired
-	private UserService userService;
 	@Autowired
 	private ApplyService applyService;
 	@Autowired
@@ -238,8 +237,6 @@ public class PersionController extends BaseController{
 	 */
 	@RequestMapping("/pc/attestation")
 	public String realNameAuthentication(@RequestParam Integer teamId,@RequestParam Integer type,Model model) {
-		UserDO user = getUser();
-		Map<String, Object> map=new HashMap<>(16);
 		/*
 		 * if(user.getIsIdentification()!=null&&user.getIsIdentification()==-1)
 		 * {//实名认证已提交 model.addAttribute("model", "实名认证"); model.addAttribute("message",
@@ -247,12 +244,12 @@ public class PersionController extends BaseController{
 		 * if(user.getIsIdentification()!=null&&user.getIsIdentification()==1) {//已实名认证
 		 * model.addAttribute("user",user); return "pc/att_sucess"; }
 		 */
+		Map<String, Object> map=new HashMap<>(16);
 		map.put("parentRegionCode", 0);
 		List<RegionDO> areaList = regionService.list(map);
 		model.addAttribute("type", type);
 		model.addAttribute("teamId", teamId);
 		model.addAttribute("areaList", areaList);
-		model.addAttribute("user", user);
 		return "pc/attestation";
 	}
 	
@@ -263,6 +260,10 @@ public class PersionController extends BaseController{
 	@ResponseBody
 	@RequestMapping("/pc/realName")
 	public R realName(NameDO name,Model model) {
+		UserDO user = getUser();
+		name.setUserId(user.getUserId());
+		Map<String, Object> map = JSONUtils.jsonToMap(name.getText());
+		System.out.println(map);
 		try {
 			name.setBirth(PublicUtils.IdNOToBirth(name.getCardNo()));
 		} catch (ParseException e) {
@@ -275,14 +276,9 @@ public class PersionController extends BaseController{
 		if(name.getCardBackImg()==null||name.getCardBackImg()=="") {
 			return R.error("身份证正面图不能为空");
 		}
-		name.setCreadTime(new Date());
+		name.setCreateTime(new Date());
 		name.setStatus(1);
-		if(name.getType()==2) {
-			name.setText(JSONUtils.beanToJson(name.getTeam()));
-		}
-		if(name.getType()==3) {
-			name.setText(JSONUtils.beanToJson(name.getProxybusi()));
-		}
+		
 		if(nameDao.save(name)>0) {
 			return R.ok();
 		}

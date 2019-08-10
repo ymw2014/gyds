@@ -4,7 +4,7 @@ package com.fly.utils;
  * 常量
  */
 public class Constant {
-    //演示系统账户
+    //系统账户
     public static String ADMIN = "admin";
     //自动去除表前缀
     public static String AUTO_REOMVE_PRE = "true";
@@ -22,6 +22,9 @@ public class Constant {
     public static String CACHE_TYPE_REDIS ="redis";
 
     public static String LOG_ERROR = "error";
+    
+    //
+    
 
     
 }

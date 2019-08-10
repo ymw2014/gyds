@@ -16,12 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.domain.UserDO;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.ApplyTeamDO;
 import com.fly.team.service.ApplyTeamService;
+import com.fly.team.service.TeamService;
+import com.fly.team.service.TeamTypeService;
+import com.fly.utils.Dictionary;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
+import com.fly.verifyName.domain.NameDO;
+import com.fly.verifyName.service.NameService;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -37,30 +43,30 @@ import com.fly.volunteer.service.VolunteerService;
 @RequestMapping("/team/apply")
 public class ApplyTeamController {
 	@Autowired
-	private ApplyTeamService applyService;
+	private NameService nameService;
 	@Autowired
-	private VolunteerService volunteerService;
+	private TeamTypeService teamTypeService;
+	@Autowired
+	private TeamService teamService;
+	@Autowired
+	private RegionService regionService;
+	
 	@GetMapping()
 	@RequiresPermissions("team:apply:apply")
 	String Apply(){
 	    return "team/apply/apply";
 	}
 	
-	@GetMapping("/info/{id}")
-	@RequiresPermissions("team:apply:info")
-	String info(@PathVariable("id") Integer id,Model model){
-		VolunteerDO volunteer = volunteerService.get(id);
-		model.addAttribute("volunteer", volunteer);
-	    return "team/volunteer/info";
-	}
 	
-	@ResponseBody
+	
+	/*@ResponseBody
 	@GetMapping("/list")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
+		params.put("type", Dictionary.RU_TUAN_SHEN_QING);
         Query query = new Query(params);
-		List<ApplyTeamDO> applyList = applyService.list(query);
-		int total = applyService.count(query);
+        List<NameDO> applyList = nameService.list(query);
+		int total = nameService.count(query);
 		PageUtils pageUtils = new PageUtils(applyList, total);
 		return pageUtils;
 	}
@@ -85,9 +91,9 @@ public class ApplyTeamController {
 	    return "team/apply/apply";
 	}
 	
-	/**
+	*//**
 	 * 保存
-	 */
+	 *//*
 	@ResponseBody
 	@PostMapping("/save")
 	@RequiresPermissions("team:apply:add")
@@ -97,9 +103,9 @@ public class ApplyTeamController {
 		}
 		return R.error();
 	}
-	/**
+	*//**
 	 * 修改
-	 */
+	 *//*
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("team:apply:edit")
@@ -108,9 +114,9 @@ public class ApplyTeamController {
 		return R.ok();
 	}
 	
-	/**
+	*//**
 	 * 删除
-	 */
+	 *//*
 	@PostMapping( "/remove")
 	@ResponseBody
 	@RequiresPermissions("team:apply:remove")
@@ -121,9 +127,9 @@ public class ApplyTeamController {
 		return R.error();
 	}
 	
-	/**
+	*//**
 	 * 删除
-	 */
+	 *//*
 	@PostMapping( "/batchRemove")
 	@ResponseBody
 	@RequiresPermissions("team:apply:batchRemove")
@@ -155,6 +161,6 @@ public class ApplyTeamController {
 		}
 		}
 		return R.error();
-	}
+	}*/
 	
 }

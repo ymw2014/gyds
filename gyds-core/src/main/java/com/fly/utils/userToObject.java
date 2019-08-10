@@ -14,7 +14,7 @@ public class userToObject {
 		name.setCardFrontImg(user.getCardFrontImg());
 		name.setCardNo(user.getCardNo());
 		name.setCity(user.getCity());
-		name.setCreadTime(new Date());
+		name.setCreateTime(new Date());
 		name.setDistrict(user.getDistrict());
 		name.setEmail(user.getEmail());
 		name.setMobile(user.getMobile());
