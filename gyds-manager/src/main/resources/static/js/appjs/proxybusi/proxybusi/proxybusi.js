@@ -69,17 +69,21 @@ function load() {
 								},
 								{
 									field : 'regionLevel', 
-									title : '代理级别' ,
+									title : '代理类型' ,
 									formatter : function(value, row, index) {
-										if (value == '1') {
-											return "省";
-										} else if (value == '') {
-											return "市";
-										} else {
-											return "县";
+										if (value == "1") {
+											return '<span style="color:green;">省代理</span>';
 										}
-										
-									}
+										if (value == "2") {
+											return '<span style="color:green;">市代理</span>';
+										}
+										if (value == "3") {
+											return '<span style="color:green;">县代理</span>';
+										}
+										if (value == "4") {
+											return '<span style="color:green;">街道办代理</span>';
+										}
+								}
 								},
 								{
 									field : 'proxyAddr', 
@@ -89,10 +93,7 @@ function load() {
 									field : 'createTime', 
 									title : '申请时间' 
 								},
-								{
-									field : 'auditTime', 
-									title : '审核时间' 
-								},
+								
 								/*{
 									field : 'auditResult', 
 									title : '审核结果' ,
@@ -123,23 +124,6 @@ function load() {
 									title : '所在省份' 
 								},*/
 								{
-									field : 'auditStatus', 
-									title : '审核状态' ,
-									formatter: function (value,row, index){
-										if (value == 0) {
-											return '<a class="label label-success '+s_audit_h+'" onclick="audit('+row.id+','+row.userId+',1)" >通过</a>&nbsp;&nbsp'+
-											'<a class="label label-danger '+s_audit_h+'" onclick="audit('+row.id+','+row.userId+',2)" >拒绝</a>';
-										}
-										if (value == 1) {
-											return '<span style="color:green;">已审核</span>';
-										}
-										if (value == 2) {
-											return '<span style="color:red;">已拒绝</span>';
-										}
-									}	
-								}
-								/*,
-								{
 									title : '操作',
 									field : 'id',
 									align : 'center',
@@ -150,15 +134,9 @@ function load() {
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var f = '<a class="btn btn-success btn-sm'+s_audit_h+'" href="#" title="审核"  mce_href="#" onclick="audit(\''
-												+ row.id
-												+ '\')"><i class="fa fa-key"></i></a> ';
-										if (row.auditStatus == '1') {
-											return e + d;
-										}
-										return e + d + f;
+										return e + d ;
 									}
-								} */]
+								} ]
 					});
 }
 function reLoad() {

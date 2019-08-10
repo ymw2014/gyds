@@ -1,4 +1,4 @@
-package com.fly.team.controller;
+package com.fly.proxybusi.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,13 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.proxybusi.domain.ProxybusiDO;
+import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.system.service.RegionService;
-import com.fly.system.service.UserService;
 import com.fly.team.domain.TeamDO;
-import com.fly.team.domain.TypeDO;
 import com.fly.team.service.TeamNameService;
 import com.fly.team.service.TeamService;
-import com.fly.team.service.TeamTypeService;
 import com.fly.utils.BeanUtil;
 import com.fly.utils.Dictionary;
 import com.fly.utils.JSONUtils;
@@ -43,39 +42,54 @@ import com.fly.verifyName.service.NameService;
  */
  
 @Controller
-@RequestMapping("/verifyName/name")
-public class NameController {
+@RequestMapping("/proxybusi/apply")
+public class ProxyApplyController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private NameService nameService;
 	@Autowired
-	private TeamTypeService teamTypeService;
-	@Autowired
-	private TeamService teamService;
+	private ProxybusiService proxybusiService;
 	@Autowired
 	private TeamNameService teamNameService;
+	@Autowired
+	private RegionService regionService;
 	
 	@GetMapping()
-	@RequiresPermissions("verifyName:name:name")
+	@RequiresPermissions("proxybusi:apply:apply")
 	String Name(){
-	    return "team/verifyName/name";
+	    return "proxybusi/apply/name";
 	}
 	
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("verifyName:name:name")
+	@RequiresPermissions("proxybusi:apply:apply")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
-		params.put("type", Dictionary.JIAN_TUAN_SHEN_QING);
+		params.put("type", Dictionary.DAI_LI_SHANG_SHEN_QING);
         Query query = new Query(params);
 		List<NameDO> nameList = nameService.list(query);
 		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
 		for (NameDO nameDO : nameList) {
-			Map<String, Object> teamMap = JSONUtils.jsonToMap(nameDO.getText());
-			Map<String, Object> map = BeanUtil.transBean2Map(nameDO);
-			map.putAll(teamMap);
-			TypeDO type = teamTypeService.get(Integer.parseInt(teamMap.get("teamType").toString()));
-			map.put("teamType", type.getTypeName());
+			Map<String, Object> proxyMap = JSONUtils.jsonToMap(nameDO.getText());
+			proxyMap.put("id", nameDO.getId());
+			Map<String, Object> map = BeanUtil.transBean2Map(nameDO);//
+			String pronvice=regionService.get(Integer.parseInt(proxyMap.get("pronvice").toString())).getRegionName();
+			String city=regionService.get(Integer.parseInt(proxyMap.get("city").toString())).getRegionName();
+			String country=regionService.get(Integer.parseInt(proxyMap.get("country").toString())).getRegionName();
+			String street=regionService.get(Integer.parseInt(proxyMap.get("street").toString())).getRegionName();
+			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("1")) {
+				map.put("daili", pronvice);
+			}
+			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("2")) {
+				map.put("daili", pronvice+city);
+			}
+			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("3")) {
+				map.put("daili", pronvice+city+country);
+			}
+			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("4")) {
+				map.put("daili", pronvice+city+country+street);
+			}
+			map.putAll(proxyMap);
 			list.add(map);
 		}
 		int total = nameService.count(query);
@@ -84,17 +98,17 @@ public class NameController {
 	}
 	
 	@GetMapping("/add")
-	@RequiresPermissions("verifyName:name:add")
+	@RequiresPermissions("proxybusi:apply:add")
 	String add(){
-	    return "team/verifyName/add";
+	    return "proxybusi/apply/add";
 	}
 
 	@GetMapping("/edit/{id}")
-	@RequiresPermissions("verifyName:name:edit")
+	@RequiresPermissions("proxybusi:apply:edit")
 	String edit(@PathVariable("id") Integer id,Model model){
 		NameDO name = nameService.get(id);
 		model.addAttribute("name", name);
-	    return "team/verifyName/edit";
+	    return "proxybusi/apply/edit";
 	}
 	
 	/**
@@ -102,7 +116,7 @@ public class NameController {
 	 */
 	@ResponseBody
 	@PostMapping("/save")
-	@RequiresPermissions("verifyName:name:add")
+	@RequiresPermissions("proxybusi:apply:add")
 	public R save( NameDO name){
 		if(nameService.save(name)>0){
 			return R.ok();
@@ -114,7 +128,7 @@ public class NameController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	@RequiresPermissions("verifyName:name:edit")
+	@RequiresPermissions("proxybusi:apply:edit")
 	public R update( NameDO name){
 		nameService.update(name);
 		return R.ok();
@@ -125,7 +139,7 @@ public class NameController {
 	 */
 	@PostMapping( "/remove")
 	@ResponseBody
-	@RequiresPermissions("verifyName:name:remove")
+	@RequiresPermissions("proxybusi:apply:remove")
 	public R remove( Integer id){
 		if(nameService.remove(id)>0){
 		return R.ok();
@@ -138,52 +152,37 @@ public class NameController {
 	 */
 	@PostMapping( "/batchRemove")
 	@ResponseBody
-	@RequiresPermissions("verifyName:name:batchRemove")
+	@RequiresPermissions("proxybusi:apply:batchRemove")
 	public R remove(@RequestParam("ids[]") Integer[] ids){
 		nameService.batchRemove(ids);
 		return R.ok();
 	}
 	
 	/**
-	 *	建团信息审核
+	 *	代理商入驻审核
 	 * @param id
 	 * @param status
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("/examine")
-	@RequiresPermissions("member:member:shenhe")
+	@RequiresPermissions("proxybusi:apply:examine")
 	public R examine(Integer id,Integer status) {
+		
+		
 		Map<String, Object> paramas=new HashMap<>(16);
 		NameDO name = nameService.get(id);
 		paramas.put("userId", name.getUserId());
-		List<TeamDO> list = teamService.list(paramas);
+		List<ProxybusiDO> list = proxybusiService.list(paramas);
 		if(list.size()>0) {
-			return R.error("每个用户只能创建一个团队");
+			return R.error("此用户已经是代理商");
 		}
-		if(teamNameService.createTeamExamine(id, status)>0) {
+		if(teamNameService.createProxyBus(id, status)>0) {
 			return R.ok();
 		}
 		return R.error();
 	}
 	
-	/**
-	 * 生成团队编号
-	 * @param regCode
-	 * @return
-	 */
-	public Integer randomCode(Integer regCode) {
-		Integer random =(int) (Math.random()*(999-100+1)+100);
-		String strCode = regCode.toString().substring(2, regCode.toString().length());
-		strCode = strCode+random;
-		Integer code = Integer.valueOf(strCode);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id",code);
-		List<TeamDO> list = teamService.list(map);
-		if(list.size()>0) {
-			randomCode(regCode);
-		}
-		return code;
-	}
+	
 	
 }

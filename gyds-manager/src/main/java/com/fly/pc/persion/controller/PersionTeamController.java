@@ -151,7 +151,7 @@ public class PersionTeamController {
 			 * Integer id = randomCode(team.getRegCode()); team.setId(id);
 			 */
 			team.setTeamIntroduce(team.getTeamIntroduce().trim());
-			team.setUserId(Integer.valueOf(user.getUserId().toString()));
+			team.setUserId(user.getUserId());
 			name.setText(JSONUtils.beanToJson(team));
 			if(nameDao.save(name)>0);
 			return R.ok();
