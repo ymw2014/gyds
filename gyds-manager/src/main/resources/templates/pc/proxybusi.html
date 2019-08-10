@@ -74,10 +74,10 @@
 				</div>
 				<form action="" method="" class="biaodanyy" id="signupForm">
 					<input type="hidden"  th:value="${user.userId}" name="userId">
-					<input type="hidden"  th:value="${proxybusiDO.id}" name="id">
 					<input type="hidden"  th:value="${setupDO.cityBail}" id="ct">
 					<input type="hidden"  th:value="${setupDO.areaBail}" id="ar">
 					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
+					<input type="hidden" th:value="${setupDO.agencyBail}"  id="ag">
 				    <label>
 						<span>真实姓名</span>
 						<input type="text"  th:value="${user.name}" readonly="readonly">
@@ -99,6 +99,7 @@
 						<input type="radio" style="width:20px;" value="1" name="regionLevel" checked="checked"/>省
 						<input type="radio" style="width:20px;margin-left: 20px" value="2" name="regionLevel" />市
 						<input type="radio" style="width:20px;margin-left: 20px" value="3" name="regionLevel" />县
+						<input type="radio" style="width:20px;margin-left: 20px" value="4" name="regionLevel" />办事处
 					</label>
 					<label>
 						<span style="margin-left: -147px;color:red">代理保证金</span>
@@ -113,8 +114,11 @@
 						<select class="juzhu" onchange="cityQuery()" id="cityId" name="city">
 							<option value ="">市</option>
 						</select>
-						<select class="juzhu" name="country" id="count">
+						<select class="juzhu" name="country" id="count" onchange="streetQuery()">
 							<option value ="">区/县</option>
+						</select>
+						<select id="jiedao"   class="juzhu" name="street">
+							<option value="">街道</option>
 						</select>
 					</label>
 					<label>
@@ -157,8 +161,10 @@
 				$("#bail").val($("#pr").val())
 			} else if(level == 2){
 				$("#bail").val($("#ct").val())
-			} else{
+			} else if(level == 3){
 				$("#bail").val($("#ar").val())
+			}else{
+				$("#bail").val($("#ag").val())
 			}
 		})
 	})
@@ -204,7 +210,27 @@
             }
         });
 	}
-	
+	//通过区编号获取街道
+	function streetQuery() {
+		$.ajax({
+			type : "post",
+			dataType : "json",
+			url : "/pc/proxybusi/city",
+			data : {
+				'areaId' : $("#count").val()
+			},
+			success : function(result) {
+				var areaList = result.areaList;
+				$("#jiedao").html('');
+				var html = '<option value ="">街道</option>';
+				$.each(areaList, function(n, value) {
+					html += '<option value =" '+ value.regionCode + '">'
+							+ value.regionName + '</option>';
+				});
+				$("#jiedao").append(html);
+			}
+		});
+	}
 	
 	$().ready(function() {
 		validateRule();

@@ -27,7 +27,6 @@ public class userToObject {
 		name.setStatus(1);
 		name.setStreet("");
 		name.setTeamId(id);
-		name.setType(1);
 		name.setUserId(user.getUserId());
 		return name;
 	}

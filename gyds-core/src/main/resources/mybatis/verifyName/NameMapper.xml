@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.verifyName.dao.NameDao">
 
 	<select id="get" resultType="com.fly.verifyName.domain.NameDO">
-		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name where id = #{value}
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code`,`order_id` from verify_name where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.verifyName.domain.NameDO">
-		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code` from verify_name
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code`,`order_id` from verify_name
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
@@ -33,7 +33,8 @@
 		  		  <if test="type != null and type != ''"> and type = #{type} </if>
 		  		  <if test="team != null and team != ''"> and team = #{team} </if>
 		  		  <if test="proxybusi != null and proxybusi != ''"> and proxybusi = #{proxybusi} </if>
-		  		  <if test="region_code != null">and region_code = #{regionCode}</if>
+		  		  <if test="regionCode != null">and region_code = #{regionCode}</if>
+		  		  <if test="orderId != null">and order_id = #{orderId}</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -74,7 +75,8 @@
 		  		  <if test="type != null and type != ''"> and type = #{type} </if>
 		  		  <if test="team != null and team != ''"> and team = #{team} </if>
 		  		  <if test="proxybusi != null and proxybusi != ''"> and proxybusi = #{proxybusi} </if>
-		  		  <if test="region_code != null">and region_code = #{regionCode}</if>
+		  		  <if test="regionCode != null">and region_code = #{regionCode}</if>
+		  		   <if test="orderId != null">and order_id = #{orderId}</if>
 		  		</where>
 	</select>
 	 
@@ -103,7 +105,8 @@
 			`nation`, 
 			`type`, 
 			`text`,
-			`region_code`
+			`region_code`,
+			`order_id`
 		)
 		values
 		(
@@ -129,7 +132,8 @@
 			#{nation}, 
 			#{type}, 
 			#{text},
-			#{regionCode}
+			#{regionCode},
+			#{orderId}
 		)
 	</insert>
 	 
@@ -158,7 +162,7 @@
 			<if test="type != null">`type` = #{type}, </if>
 			<if test="text!=null">`text` = #{text},</if>
 			<if test="regionCode != null">`region_code` = #{regionCode}</if>
-			
+			<if test="orderId != null">`order_id` = #{orderId}</if>
 		</set>
 		where id = #{id}
 	</update>

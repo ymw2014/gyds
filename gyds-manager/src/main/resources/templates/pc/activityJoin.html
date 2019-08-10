@@ -190,6 +190,7 @@
            },
             success : function(result) {
             	var status = result.status;
+            	var url = result.url;
             	console.log(status)
             	if (status == 1) {
             		layer.msg("操作成功");
@@ -205,13 +206,14 @@
                 		history.go(0);
                 	}
             	} else if (status == 2){
-            		layer.msg("您还没登录，请先登录");
+            		alert("您还没登录，请先登录");
             	} else if (status == 3){
-            		layer.msg("您还不是志愿者，请先申请志愿者");
-            	} else if (status == 3){
-            		layer.msg("报名失败，报名人数已满");
+            		alert("您还不是志愿者，请先申请志愿者");
+            		window.location.href=url;
+            	} else if (status == 4){
+            		alert("报名失败，您不是本团成员");
             	} else {
-            		layer.msg("操作失败");
+            		alert("操作失败");
             	}
             }
         });

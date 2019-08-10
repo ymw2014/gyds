@@ -183,12 +183,66 @@
 					<option value="">街道</option>
 			</select>
 			</label> <label> <span>详细地址</span> <input name="address" type="text">
+			
+			</label> <label th:if="${type} eq '3'"> <input type="button" id="downProxy" value="下页">
 			</label> 
-			<label> <input type="button" id="save" value="提交申请"
+		</form>
+		
+		 <form  class="biaodanyy" id="proxybusi" style="display: none;">
+					<input type="hidden"  th:value="${setupDO.cityBail}" id="ct">
+					<input type="hidden"  th:value="${setupDO.areaBail}" id="ar">
+					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
+				   <input type="hidden" th:value="${setupDO.agencyBail}"  id="ag">
+				   
+				   <label>
+						<span>代理商名称</span>
+						<input type="text" id="name"  name="name">
+					</label>
+					<label>
+						<span>代理电话</span>
+						<input type="text" id="proxyTelephone"  name="proxyTelephone">
+					</label>
+					<label>
+						<span>代理级别</span>
+						<input type="radio" style="width:20px;" value="1" name="regionLevel" checked="checked"/>省
+						<input type="radio" style="width:20px;margin-left: 20px" value="2" name="regionLevel" />市
+						<input type="radio" style="width:20px;margin-left: 20px" value="3" name="regionLevel" />县
+						<input type="radio" style="width:20px;margin-left: 20px" value="4" name="regionLevel" />办事处
+					</label>
+					<label>
+						<span style="margin-left: -147px;color:red">代理保证金</span>
+						<input type="text" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
+					</label>
+					<label>
+						<span>代理地区</span>
+						<select class="juzhu" onchange="pronv2()" id="pron2" name="pronvice">
+							<option value ="">省</option>
+							<option th:each=" area : ${areaList}" th:value ="${area.regionCode}" th:text="${area.regionName}" ></option>
+						</select>
+						<select class="juzhu" onchange="cityQuery2()" id="cityId2" name="city">
+							<option value ="">市</option>
+						</select>
+						<select class="juzhu" onchange="streetQuery2()" name="country" id="count">
+							<option value ="">区/县</option>
+						</select>
+						<select id="jiedao2"   class="juzhu" name="street">
+							<option value="">街道</option>
+						</select>
+					</label>
+					<label>
+						<span>代理详细地址</span>
+						<input type="text" id="proxyAddr" name="proxyAddr">
+					</label>
+					<label th:if="${type} eq '3'"> <input type="button" id="upProxy" value="上页"></label>
+					<label> <input type="button" id="save" value="提交申请"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 100px; border-radius: 3px;">
 			</label>
-		</form>
-
+				</form>
+		
+		
+		
+		
+		
 		<div class="tijiaohou" id="message" style="display: none">
 			<img th:src="@{/pc/images/hsusus_03.jpg}" alt="">
 			<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>

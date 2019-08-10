@@ -49,8 +49,16 @@ public class TeamDO implements Serializable {
 	private String teamIntroduce;
 	//积分
 	private Integer integral ; 
+	//详细地址
+	private String detailedAddr;
 	
 	
+	public String getDetailedAddr() {
+		return detailedAddr;
+	}
+	public void setDetailedAddr(String detailedAddr) {
+		this.detailedAddr = detailedAddr;
+	}
 	public String getAddres() {
 		return addres;
 	}

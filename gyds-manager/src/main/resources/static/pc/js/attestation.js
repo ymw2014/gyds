@@ -1,5 +1,26 @@
 
-
+function queryCost(){
+		var id = $("#teamType option:selected").val();
+		var para ={"id":id};
+		$.ajax({
+			type : "POST",
+			url : "/pc/regTeam/queryCost",
+			data : para,
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					var price = data.price==null?0:data.price;
+					$("#price").attr("value", price);
+				} else {
+					parent.layer.alert(data.msg)
+				}
+			}
+		});
+		
+		
+	}
 
 
 $("#downTeam").on('click', function() {
@@ -74,7 +95,7 @@ $("#downTeam").on('click', function() {
 				$("#cityId").html('');
 				var html = '<option value ="">市</option>';
 				$.each(areaList, function(n, value) {
-					html += '<option value =" '+ value.regionCode + '">'
+					html += '<option value ="'+value.regionCode+'">'
 							+ value.regionName + '</option>';
 				});
 				$("#cityId").append(html);
@@ -96,7 +117,7 @@ $("#downTeam").on('click', function() {
 				$("#xian").html('');
 				var html = '<option value ="">区/县</option>';
 				$.each(areaList, function(n, value) {
-					html += '<option value =" '+ value.regionCode + '">'
+					html += '<option value ="'+value.regionCode+'">'
 							+ value.regionName + '</option>';
 				});
 				$("#xian").append(html);
@@ -118,7 +139,7 @@ $("#downTeam").on('click', function() {
 				$("#jiedao").html('');
 				var html = '<option value ="">街道</option>';
 				$.each(areaList, function(n, value) {
-					html += '<option value =" '+ value.regionCode + '">'
+					html += '<option value ="'+value.regionCode +'">'
 							+ value.regionName + '</option>';
 				});
 				$("#jiedao").append(html);
@@ -158,6 +179,8 @@ $("#downTeam").on('click', function() {
 			success : function(r) {
 				if (r.code == 0) {
 					$("#signupForm").hide();
+					$("#proxybusi").hide();
+					$("#creatTeam").hide();
 					$("#message").show();
 				} else {
 					layer.msg(r.msg);
@@ -334,14 +357,14 @@ $("#downTeam").on('click', function() {
 	layui.use('upload', function() {
 		var upload = layui.upload;
 		var uploadInst = upload.render({
-			elem : '#file', //绑定元素
+			elem : '#file2', //绑定元素
 			url : '/common/sysFile/upload', //上传接口
 			size : 1000,
 			accept : 'file',
 			done : function(r) {
 				var fileName = r.fileName;
 				$("#imgStr").val(fileName);
-				$("#img").attr("src", fileName);
+				$("#img2").attr("src", fileName);
 			},
 			error : function(r) {
 				layer.msg(r.msg);
@@ -350,9 +373,7 @@ $("#downTeam").on('click', function() {
 	});
 
 
-	layui.use(
-					'upload',
-					function() {
+	layui.use('upload',function() {
 						var upload = layui.upload;
 						var multi = 1;
 						var name = "imgs";
@@ -431,7 +452,7 @@ $("#downTeam").on('click', function() {
             	$.each(areaList, function (n, value) {
             		html += '<option value ="'+ value.regionCode + '">' + value.regionName + '</option>';
             	});
-            	$("#count").html('<option value ="">区/县</option>');
+            	//$("#count").html('<option value ="">区/县</option>');
             	$("#cityId2").append(html);
             }
         });
@@ -468,13 +489,13 @@ $("#downTeam").on('click', function() {
 			},
 			success : function(result) {
 				var areaList = result.areaList;
-				$("#jiedao").html('');
+				$("#jiedao2").html('');
 				var html = '<option value ="">街道</option>';
 				$.each(areaList, function(n, value) {
-					html += '<option value =" '+ value.regionCode + '">'
+					html += '<option value ="'+ value.regionCode + '">'
 							+ value.regionName + '</option>';
 				});
-				$("#jiedao").append(html);
+				$("#jiedao2").append(html);
 			}
 		});
 	}

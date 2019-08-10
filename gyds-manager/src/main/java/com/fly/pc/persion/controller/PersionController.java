@@ -1,13 +1,16 @@
 package com.fly.pc.persion.controller;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,8 @@ import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
+import com.fly.sys.domain.SetupDO;
+import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
@@ -33,6 +38,7 @@ import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
+import com.fly.utils.userToObject;
 import com.fly.utils.xss.PublicUtils;
 import com.fly.verifyName.dao.NameDao;
 import com.fly.verifyName.domain.NameDO;
@@ -58,7 +64,11 @@ public class PersionController extends BaseController{
 	private VolunteerService voService;
 	@Autowired
 	private NameDao nameDao;
-	
+	@Autowired
+	private SetupService setupService;
+	@Autowired
+	private UserService userService;
+
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter(Model model) {
 		UserDO user = ShiroUtils.getUser();
@@ -67,7 +77,7 @@ public class PersionController extends BaseController{
 		}
 		return "pc/persion_center";
 	}
-	
+
 	/**
 	 * 个人中心首页
 	 * @param model
@@ -85,7 +95,7 @@ public class PersionController extends BaseController{
 		model.addAttribute("team",voluntList.size()==0?null: teamService.get(Integer.parseInt(voluntList.get(0).get("teamId")+"")));
 		return "pc/persion_main";
 	}
-	
+
 	/**
 	 *	 我的关注
 	 * @param model
@@ -127,7 +137,7 @@ public class PersionController extends BaseController{
 		model.addAttribute("voList", voList);
 		return "pc/collect";
 	}
-	
+
 	/**
 	 * 财务明细
 	 * @return 
@@ -162,7 +172,7 @@ public class PersionController extends BaseController{
 		//model.addAttribute("zdList", zdList);
 		return "pc/caiwu_details";
 	}
-	
+
 	/**
 	 * 志愿者申请
 	 * @return 
@@ -191,8 +201,8 @@ public class PersionController extends BaseController{
 		model.addAttribute("user", user);
 		return "pc/vo_apply";
 	}
-	
-	
+
+
 	/**
 	 *	志愿者申请提交
 	 * @return 
@@ -220,8 +230,8 @@ public class PersionController extends BaseController{
 		}
 		return R.error();
 	}
-	
-	
+
+
 	/**
 	 * 实名认证
 	 * @return 
@@ -243,40 +253,140 @@ public class PersionController extends BaseController{
 		model.addAttribute("areaList", areaList);
 		return "pc/attestation";
 	}
-	
+
 	/**
 	 *	实名认证提交
 	 * @return 
 	 */
 	@ResponseBody
 	@RequestMapping("/pc/realName")
+	@Transactional
 	public R realName(NameDO name,Model model) {
+		Integer i = 0;
+		String flag = "0";
+		String errMsg = "账号余额不足，请充值";
 		UserDO user = getUser();
 		name.setUserId(user.getUserId());
 		Map<String, Object> map = JSONUtils.jsonToMap(name.getText());
-		System.out.println(map);
-		try {
-			name.setBirth(PublicUtils.IdNOToBirth(name.getCardNo()));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if("2".equals(name.getType().toString())) {
+			R r = countCost(Integer.valueOf(map.get("teamType").toString()));
+			if(r.get("price")!=null||r.get("price").toString()!="0") {
+				i = deductMoney(r);
+				if(i==1) {
+					r.put("orderType", 2);
+					r.put("expIncType", 7);
+					i = creadOrder(r);
+					if(i>0) {
+						flag="1";
+						name.setOrderId(i);
+					}
+				}else {
+					return R.error(errMsg);
+				}
+			}else {
+				flag="1";
+			}
 		}
-		PublicUtils.IdNOToAge(name.getCardNo());
-		if(name.getCardFrontImg()==null||name.getCardFrontImg()=="") {
-			return R.error("身份证正面图不能为空");
+		if("3".equals(name.getType().toString())) {
+			SetupDO setupDO = setupService.get(1);
+			BigDecimal account = user.getAccount();
+			if (account == null) {
+				return R.error(errMsg);
+			}
+
+			String[] area = null;
+			if (map.get("client")!=null) {
+				area = (map.get("proxyArea").toString()).split(",");
+			}
+			Integer level = Integer.valueOf(map.get("regionLevel").toString());
+			Map<String,Object> params = new HashMap<String, Object>();
+			BigDecimal balance = null;
+			switch (level) {
+			case 1:
+				BigDecimal bail = setupDO.getProvincialBail();
+				if (account.compareTo(bail) == -1) {
+					return R.error(errMsg);
+				}
+				params.put("price", bail);
+				balance = account.subtract(bail);
+				String pron = area != null ? area[0] : map.get("pronvice").toString();
+				map.put("proxyRegion",Integer.valueOf(pron));
+				break;
+			case 2:
+				BigDecimal cityBail = setupDO.getCityBail();
+				if (account.compareTo(cityBail) == -1) {
+					return R.error(errMsg);
+				}
+				params.put("price", cityBail);
+				balance = account.subtract(cityBail);
+				String cit = area != null ? area[1] : map.get("city").toString();
+				map.put("proxyRegion",Integer.valueOf(cit));
+				break;
+			case 3:
+				BigDecimal areaBail = setupDO.getAreaBail();
+				if (account.compareTo(areaBail) == -1) {
+					return R.error(errMsg);
+				}
+				params.put("price", areaBail);
+				balance = account.subtract(areaBail);
+				String coun = area != null ? area[2] : map.get("country").toString();
+				map.put("proxyRegion",Integer.valueOf(coun));
+				break;
+			case 4:
+				BigDecimal agencyBail = setupDO.getAgencyBail();
+				if (account.compareTo(agencyBail) == -1) {
+					return R.error(errMsg);
+				}
+				params.put("price", agencyBail);
+				balance = account.subtract(agencyBail);
+				String street = area != null ? area[3] : map.get("street").toString();
+				map.put("proxyRegion",Integer.valueOf(street));
+				break;
+			default:
+				break;
+			}
+			user.setAccount(balance);
+			params.put("orderType", 2);
+			params.put("expIncType", OrderType.DAI_LI_SHANG);
+			params.put("examineStatus", 2);
+			params.put("cashUpType", 2);
+			params.put("cashOutType", 2);
+
+			map.put("userId",user.getUserId());
+			name.setType(3);
+			name.setText(JSONUtils.beanToJson(map));
+			if(userService.updatePersonal(user)>0) {
+				i = creadOrder(params);
+				if(i>0) {
+					flag="1";
+					name.setOrderId(i);
+				}
+
+			}
 		}
-		if(name.getCardBackImg()==null||name.getCardBackImg()=="") {
-			return R.error("身份证正面图不能为空");
-		}
-		name.setCreateTime(new Date());
-		name.setStatus(1);
-		
-		if(nameDao.save(name)>0) {
-			return R.ok();
+		if("1".equals(flag)) {
+			try {
+				name.setBirth(PublicUtils.IdNOToBirth(name.getCardNo()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			PublicUtils.IdNOToAge(name.getCardNo());
+			if(name.getCardFrontImg()==null||name.getCardFrontImg()=="") {
+				return R.error("身份证正面图不能为空");
+			}
+			if(name.getCardBackImg()==null||name.getCardBackImg()=="") {
+				return R.error("身份证正面图不能为空");
+			}
+			name.setCreateTime(new Date());
+			name.setStatus(1);
+			if(nameDao.save(name)>0) {
+				return R.ok();
+			}
 		}
 		return R.error();
 	}
-	
-	
+
+
 	@RequestMapping("/pc/newAdd")
 	public String newsAdd(Model model) {
 		return "pc/news_add";
@@ -286,7 +396,7 @@ public class PersionController extends BaseController{
 		model.addAttribute("message",  "您已提交成功!");
 		return "pc/message";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/pc/newSave")
 	public R newSave(InfoDO newInfo,Model model) {
@@ -313,8 +423,8 @@ public class PersionController extends BaseController{
 			return r;
 		}
 		return R.error();
-		
+
 	}
-	
-	
+
+
 }

@@ -25,6 +25,7 @@ import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.domain.ApplyDO;
 import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
+import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
@@ -40,7 +41,7 @@ import com.fly.volunteer.service.VolunteerService;
 
 @Controller
 @RequestMapping("/pc/")
-public class PcActivityController extends BaseDynamicController{
+public class PcActivityController extends BaseController{
 	
 	@Autowired
 	private RegionService regionService;
@@ -196,6 +197,7 @@ public class PcActivityController extends BaseDynamicController{
 	public String apply(Integer type, Long actId, Long applyId) {
 		JSONObject dataInfo = new JSONObject();
 		UserDO user = ShiroUtils.getUser();
+		ActivityDO activityDO = activityService.get(actId.intValue());
 		if (user == null) {
 			dataInfo.put("status", "2");//还没登录
 			return dataInfo.toString();
@@ -204,11 +206,15 @@ public class PcActivityController extends BaseDynamicController{
 		boolean flag = volunteerService.isVo(user.getUserId());
 		if (!flag) {
 			dataInfo.put("status", "3");//还不是志愿者
+			dataInfo.put("url", "/pc/attestation?teamId="+activityDO.getTeamId()+"&type="+"1");
 			return dataInfo.toString();
 		}
-		
+		VolunteerDO vol = volunteerService.getVo(user.getUserId());
+		if(!vol.getTeamId().equals(activityDO.getTeamId())) {
+			dataInfo.put("status", "4");//还不是本团成员
+			return dataInfo.toString();
+		}
 		int status = 0;
-		ActivityDO activityDO = activityService.get(actId.intValue());
 		Integer num = activityDO.getNumberOfApplicants();
 		try {
 			if (type == 1) {

@@ -183,12 +183,74 @@
 					<option value="">街道</option>
 			</select>
 			</label> <label> <span>详细地址</span> <input name="address" type="text">
+			
+			</label> <label th:if="${type} eq '2'"> <input type="button" id="downTeam" value="下页">
 			</label> 
-			<label> <input type="button" id="save" value="提交申请"
+		</form>
+
+		<form id="creatTeam" class="biaodanyy" style="display: none;">
+			<label> <span>团队名称</span> <input type="text" name="teamName">
+			</label> 
+			<label> <span>负责人电话</span> <input type="text"
+				name="colonelTel">
+			</label>
+			<label> 
+			</label> <label> <span>联系地址</span> <select class="juzhu" id="pro1"
+				onchange="byPro()">
+					<option value="">省</option>
+					<option th:each="area:${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+			</select> <select class="juzhu" id="city1" onchange="byCity()">
+					<option value="">市</option>
+			</select> <select class="juzhu" id="area1" onchange="byStreet()">
+					<option value="">区/县</option>
+			</select> <select class="juzhu" id="street1" name="regCode">
+					<option value="">街道</option>
+			</select> <input type="hidden" id="addres" name="addres">
+			</label> 
+			<label> <span>详细地址</span> <input type="text"
+				name="colonelTel">
+			</label>
+			
+			
+			<label id="logo"> <span>团队logo</span> <img
+				th:src="@{/pc/images/tianjiua_03.jpg}"  class="tdlogo"
+				id="img2" style="height: 65px; width: 65px" >
+				<input type="hidden" name="teamTitleImg" id="imgStr"> <input
+				type="file" name="file" style="display: none;" id="file2">
+			</label>
+			
+			<label> <span id="demo2">团队照片</span>
+				<div>
+					<div id="imgsbox_imgs" style="display: inline;"
+						class="imgsbox tdlogo1"></div>
+					<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1"
+						style="height: 65px; width: 65px" id="img0"> <input
+						type="hidden" id="imgStr0" name="teamImg"> <input
+						type="file" class="tuanduilogo1" id="imgUpload_imgs" name="file"
+						style="display: none;" multiple> <span id="progress_imgs"></span>
+				</div>
+			</label> <label> <span>团队简介</span> <textarea name="teamIntroduce"
+					id="" cols="30" rows="10">
+						 </textarea>
+			</label> <label> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"
+				name="teamType" id="teamType">
+				<option value="0">请选择</option>
+					<option th:each="type:${teamType}" th:value="${type.id}"
+						th:text="${type.typeName}"></option>
+			</select>
+			</label>
+			</label> 
+			<label> <span>费用</span> 
+					<input id ="price" value="0">
+			</label>
+			<label th:if="${type} eq '2'"> <input type="button" id="upTeam" value="上页">
+			
+			</label> <label> <input type="button" id="save" value="提交申请"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 100px; border-radius: 3px;">
 			</label>
 		</form>
-
+		
 		<div class="tijiaohou" id="message" style="display: none">
 			<img th:src="@{/pc/images/hsusus_03.jpg}" alt="">
 			<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
