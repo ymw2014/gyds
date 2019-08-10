@@ -20,9 +20,9 @@
 			</div>
 			<div class="header-center">
 				<input type="text" list="sexlist" placeholder="-- 全国 --">
-				<datalist id="sexlist" >
+				<dataList id="sexlist">
 					<option th:each="area: ${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
-				</datalist>
+				</dataList>
 			</div>
 			<div class="header-loginimg" id="no_login" style="display: none">
 				<a href="/admin"><img th:src="@{/mobile/images/mylogin.jpg}" alt=""></a>
@@ -37,9 +37,9 @@
 		<div class="nav">
 			<a href="/">网站首页</a>
 			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a>
-			<a href="/pc/activityList">活动报名</a>
-			<a href="/pc/volunteerList">志愿者</a>
-			<a href="/pc/teamList">团队展示</a>
+			<a href="javaScript:activiList()">活动报名</a>
+			<a href="javaScript:voluntList()">志愿者</a>
+			<a href="javaScript:teamList()">团队展示</a>
 		</div>
 		<div class="guanggao">
 			<a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a>
@@ -180,4 +180,28 @@
 		e.preventDefault()
 		mySwiper.swipeNext()
 	  })
+function _area(){
+	console.log($("#area").val());
+	window.location.href = "/?areaId="+$("#area").val();
+}
+	  
+function activiList() {
+	var areaId = getUrlParam("areaId") == null ? "":getUrlParam("areaId");
+	window.location.href = "/pc/activityList?areaId="+areaId;
+}
+
+function voluntList() {
+	var areaId = getUrlParam("areaId") == null ? "":getUrlParam("areaId");
+	window.location.href = "/pc/volunteerList?areaId="+areaId;
+}
+
+function teamList() {
+	var areaId = getUrlParam("areaId") == null ? "":getUrlParam("areaId");
+	window.location.href = "/pc/teamList?areaId="+areaId;
+}
+function getUrlParam(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+  var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+  if (r != null) return decodeURI(r[2]); return null; //返回参数值
+}
 </script>

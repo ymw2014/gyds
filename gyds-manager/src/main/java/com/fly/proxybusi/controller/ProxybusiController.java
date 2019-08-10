@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.common.controller.BaseController;
 import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
@@ -45,7 +46,7 @@ import com.fly.utils.R;
  
 @Controller
 @RequestMapping("/proxybusi/proxybusi")
-public class ProxybusiController extends BaseDynamicController{
+public class ProxybusiController extends BaseController{
 	@Autowired
 	private ProxybusiService proxybusiService;
 	@Autowired

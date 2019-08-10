@@ -68,10 +68,10 @@
 			<img th:src="@{/mobile/images/zixungg_07.jpg}" alt="">
 		</div>
 		<div class="footerhd">
-			<figure>
+			<!-- <figure>
 				<img th:src="@{/mobile/images/hdxq_30.jpg}" alt="">
 				<figcaption>发布活动</figcaption>
-			</figure>
+			</figure> -->
 			<figure th:if="${collectStatus} == '1'">
 				<img th:src="@{/mobile/images/hdxq_27.jpg}" alt="">
 				<figcaption th:onclick="'collection('+${activity.id}+',5, 2)'">收藏活动</figcaption>

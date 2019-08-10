@@ -67,12 +67,17 @@
 					id="" cols="30" rows="10">
 							 
 						 </textarea>
-			</label> <label> <span>项目服务</span> <select class="xmfw"
-				name="teamType">
+			</label> <label> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"
+				name="teamType" id ="teamType">
 					<option th:each="type:${type}" th:value="${type.id}"
 						th:text="${type.typeName}"></option>
 			</select>
-			</label> <label> <input type="button" id="save" onclick="save()"
+			</label> 
+			<label id ="price"> <span>费用</span> 
+			</label>
+			
+			
+			<label> <input type="button" id="save" onclick="save()"
 				value="提交"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 30px; border-radius: 3px;">
 			</label>
@@ -139,26 +144,30 @@
 		});
 	};
 	
-	/* layui.use('upload', function() {
-        var upload = layui.upload;
-        upload.render({
-		    elem: '#imgs',
-		    url: '/common/sysFile/uploads',
-		    accept:'files',
-		    multiple: true,
-		    done: function(res){
-		    	$.each(res.fileNameList, function(i, item){
-		            var a = '';
-		    		console.log(i+''+item);
-		    		a +='<img src="'+item.url+'" alt="" class="tdlogo1" style="height:65px;width:65px" id ="img'+i+'">';
-		    		a +='<input type="hidden" id ="imgStr'+i+'">';
-	                $('#demo1').prepend(a);
-	            	});
-		      //上传完毕
-		    }
-		  });
-	}); */
 	
+	function queryCost(){
+		var id = $("#teamType option:selected").val();
+		var para ={"id":id};
+		$.ajax({
+			type : "POST",
+			url : "/pc/regTeam/queryCost",
+			data : para,
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					var price = data.price==null?0:data.price;
+					var a = '';
+					a +='<input type="text" value="'+price+'">';
+				} else {
+					parent.layer.alert(data.msg)
+				}
+			}
+		});
+		
+		
+	}
 	layui.use('upload', function() {
         var upload = layui.upload;
         var uploadInst = upload.render({
@@ -222,7 +231,6 @@
 		    var img = '<div class="imgbox">';
 		    img += '<div class="removePic" onclick="removePic(this,\'/common/sysFile/remove\')">×</div>';
 		    img += '<input type="hidden" name="'+name+'" value="' + fileName + '">';
-		    img += '<input type="hidden" name="id" value="' + id + '">';
 		    img += '<img src="' + fileName + '">';
 		    img += '</div>';
 		    if (multi) {

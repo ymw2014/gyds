@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,28 +56,29 @@ public class PcTeamController {
 	@Autowired
 	private IndexService indexService;
 	@Autowired
-	private ApplyTeamService applyTeamService;
-	@Autowired
 	private NameDao nameDao;
 	@Autowired
 	private UserDao userDao;
 	
 	
 	@RequestMapping("teamList")
-	public String list(@RequestParam Map<String,Object> params, Model model) {
-		Object areaId = params.get("areaId");
+	public String list(@RequestParam Map<String,Object> params, Model model, HttpServletRequest request) {
+		String areaId = request.getParameter("areaId");
 		if (areaId == null) {
 			areaId = "0";
 		}
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		if (CollectionUtils.isEmpty(ids)) {
+			ids.add(-1);
+		}
 		params.clear();
 		params.put("status", 1);
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
 		params.clear();
-		params.put("parentRegionCode", 0);
+		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);
@@ -123,7 +126,19 @@ public class PcTeamController {
 			params.put("status", 1);
 			NameDO name = nameDao.applyStatus(params);
 			//1申请中 2请申请
-			model.addAttribute("status", name == null ? 2 : 1);
+			if(name!=null) {
+			model.addAttribute("status", "1");
+			model.addAttribute("nameId",name.getId());
+			}else {
+				VolunteerDO vol = volunteerService.getVo(user.getUserId());
+				if(vol!=null) {
+					if(vol.getTeamId().equals(teamId)) {
+						model.addAttribute("status", "3");
+					}
+				}else {
+					model.addAttribute("status", "2");
+				}
+			}
 		}
 		return "pc/teamDetail";
 	}
@@ -167,6 +182,7 @@ public class PcTeamController {
 			if(volunteer.getTeamId()==null||volunteer.getTeamId()==-1) {
 				user = userDao.get(user.getUserId());
 				NameDO name = userToObject.userToverify(user, id);
+				name.setType(1);
 				status = nameDao.save(name);
 			}else {
 				status = 4;
@@ -178,5 +194,26 @@ public class PcTeamController {
 		dataInfo.put("status", status);
 		return dataInfo.toString();
 	}
+	
+	@ResponseBody
+	@RequestMapping("team/remove")
+	public String remove(Integer id) {
+		JSONObject dataInfo = new JSONObject();
+		Integer status = 0;
+		try {
+			UserDO user = ShiroUtils.getUser();
+			if (user == null) {
+				dataInfo.put("status", "2");//还没登录
+				return dataInfo.toString();
+			}
+				status = nameDao.remove(id);
+		}catch(Exception e) {
+			status = 3;
+			e.printStackTrace();
+		}
+		dataInfo.put("status", status);
+		return dataInfo.toString();
+	}
+	
 	
 }

@@ -35,7 +35,7 @@
 							<ul>
 								<li th:text=" '地点：' + ${activity.actAddr}"></li>
 								<li th:text=" '时间：' + ${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></li>
-								<li class="comli"><span style="float:left;">价格：</span><a href="#" class="comimg" th:text="${activity.actType == '0'} ? '免费': ${activity.actPrice}"></a></li>
+								<li class="comli"><span style="float:left;">价格：</span><a href="javaScript:;" class="comimg" th:text="${activity.actType == 0} ? '免费': ${activity.actPrice}"></a></li>
 								<!-- <li>数量：
 									<button class="jian">-</button>
 									<input type="text" class="shu" value="1">
@@ -62,8 +62,7 @@
 							<div class="zaixian1">
 								<div th:switch="${collectStatus}">
 									<p th:case="'1'">
-										<li th:onclick="'collection('+${activity.id}+',5, 2)'" >
-										<img src="images/gongyitubiao_03.jpg" alt="" ><span style="cursor:pointer">我要收藏</span></li>
+										<img src="images/gongyitubiao_03.jpg" alt="" ><span style="cursor:pointer" th:onclick="'javaScript:collection('+${activity.id}+',5, 2)'">我要收藏</span>
 									</p>
 									<p th:case="'2'">
 										<img src="images/myshouc.png" alt="" style="cursor:not-allowed"><span style="cursor:not-allowed">已收藏</span>
@@ -190,6 +189,7 @@
            },
             success : function(result) {
             	var status = result.status;
+            	var url = result.url;
             	console.log(status)
             	if (status == 1) {
             		layer.msg("操作成功");
@@ -205,13 +205,14 @@
                 		history.go(0);
                 	}
             	} else if (status == 2){
-            		layer.msg("您还没登录，请先登录");
+            		alert("您还没登录，请先登录");
             	} else if (status == 3){
-            		layer.msg("您还不是志愿者，请先申请志愿者");
-            	} else if (status == 3){
-            		layer.msg("报名失败，报名人数已满");
+            		alert("您还不是志愿者，请先申请志愿者");
+            		window.location.href=url;
+            	} else if (status == 4){
+            		alert("报名失败，您不是本团成员");
             	} else {
-            		layer.msg("操作失败");
+            		alert("操作失败");
             	}
             }
         });

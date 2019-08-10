@@ -2,6 +2,7 @@ package com.fly.system.dao;
 
 import com.fly.domain.UserDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public interface UserDao {
 	int count(Map <String, Object> map);
 	
 	int save(UserDO user);
-	
+	@Transactional
 	int update(UserDO user);
 	
 	int remove(Long userId);

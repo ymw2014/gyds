@@ -102,7 +102,7 @@ var regionCode = '';
 	            url : "/pc/volunteerList/query",
 	            data : {
 	            	'sex': $(this).val(),
-	            	'regionCode': $("#code").val(),
+	            	'areaId': $("#code").val(),
 	            	'sort':$("#sort").val(),
 	            	'order' : $("#order").val()
 	            },
@@ -130,7 +130,7 @@ function orderSort(val,obj){
             	'sort': val,
             	'order': aData,
             	'sex': $("#sex").val(),
-            	'regionCode': $("#code").val()
+            	'areaId': $("#code").val()
             },
             success : function(result) {
             	var voluntList = result.voluntList;
@@ -155,7 +155,7 @@ function query(regionCode) {
          dataType: "json",
          url : "/pc/volunteerList/query",
          data : {
-         	'regionCode': regionCode
+         	'areaId': regionCode
          },
          success : function(result) {
          	var voluntList = result.voluntList;

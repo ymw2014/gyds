@@ -10,11 +10,12 @@
 		DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
 		DATE_FORMAT(a.start_time,'%Y-%m-%d %H:%i:%s') startTimeStr,
 		DATE_FORMAT(a.end_time,'%Y-%m-%d %H:%i:%s') endTimeStr,
+		a.activi_start_time, a.activi_end_time,
 		a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id where a.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.activity.domain.ActivityDO">
-        select a.id,a.act_intro,act_addr,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
+        select a.id,a.act_intro,a.activi_start_time, a.activi_end_time,act_addr,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
 		  		  <if test="actIntro != null and actIntro != ''"> and a.act_intro = #{actIntro} </if>
@@ -37,6 +38,9 @@
 		  		  <if test="numberOfApplicants != null and numberOfApplicants != ''"> and a.number_of_applicants = #{numberOfApplicants} </if>
 		  		  <if test="applicantsNumMax != null and applicantsNumMax != ''"> and a.applicants_num_max = #{applicantsNumMax} </if>
 		  		  <if test="teamId != null and teamId != ''"> and a.team_id = #{teamId} </if>
+		  		  <if test="activiStartTime != null and activiStartTime != ''"> and a.activi_start_time = #{activiStartTime} </if>
+		  		  <if test="activiEndTime != null and activiEndTime != ''"> and a.activi_end_time = #{activiEndTime} </if>
+		  		  <if test="memberId != null and memberId != ''"> and a.member_id = #{memberId} </if>
 		  		  <if test="ids != null and ids.size() > 0">
 		  		  	and
 		  		  	a.team_id in 
@@ -80,6 +84,17 @@
 		  		  <if test="numberOfPreviews != null and numberOfPreviews != ''"> and number_of_previews = #{numberOfPreviews} </if>
 		  		  <if test="numberOfApplicants != null and numberOfApplicants != ''"> and number_of_applicants = #{numberOfApplicants} </if>
 		  		  <if test="applicantsNumMax != null and applicantsNumMax != ''"> and applicants_num_max = #{applicantsNumMax} </if>
+		  		  <if test="activiStartTime != null and activiStartTime != ''"> and a.activi_start_time = #{activiStartTime} </if>
+		  		  <if test="activiEndTime != null and activiEndTime != ''"> and a.activi_end_time = #{activiEndTime} </if>
+		  		  <if test="teamId != null and teamId != ''"> and a.team_id = #{teamId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and a.member_id = #{memberId} </if>
+		  		  <if test="ids != null and ids.size() > 0">
+		  		  	and
+		  		  	a.team_id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
 		  		</where>
 	</select>
 	 
@@ -105,7 +120,10 @@
 			`number_of_collection`, 
 			`number_of_previews`, 
 			`number_of_applicants`, 
-			`applicants_num_max`
+			`applicants_num_max`,
+			team_id,
+			activi_start_time,
+			activi_end_time
 		)
 		values
 		(	
@@ -128,7 +146,10 @@
 			#{numberOfCollection}, 
 			#{numberOfPreviews}, 
 			#{numberOfApplicants}, 
-			#{applicantsNumMax}
+			#{applicantsNumMax},
+			#{teamId},
+			#{activiStartTime},
+			#{activiEndTime}
 		)
 	</insert>
 	 
@@ -154,7 +175,10 @@
 			<if test="numberOfPreviews != null">`number_of_previews` = #{numberOfPreviews}, </if>
 			<if test="numberOfApplicants != null">`number_of_applicants` = #{numberOfApplicants}, </if>
 			<if test="applicantsNumMax != null">`applicants_num_max` = #{applicantsNumMax},</if>
-			<if test="reasonForRefusal != null">`reason_for_refusal` = #{reasonForRefusal}</if>
+			<if test="reasonForRefusal != null">`reason_for_refusal` = #{reasonForRefusal},</if>
+			<if test="activiStartTime != null and activiStartTime != ''"> activi_start_time = #{activiStartTime}, </if>
+  		    <if test="activiEndTime != null and activiEndTime != ''"> activi_end_time = #{activiEndTime}, </if>
+  		    <if test="teamId != null and teamId != ''"> team_id = #{teamId} </if>
 		</set>
 		where id = #{id}
 	</update>
