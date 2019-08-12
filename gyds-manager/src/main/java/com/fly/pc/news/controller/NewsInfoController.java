@@ -22,11 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-<<<<<<< HEAD
-=======
-import com.alibaba.fastjson.JSON;
 import com.fly.common.controller.BaseController;
->>>>>>> d8f8c0f86d17c0ccfe9c30b76a0938b88cd4a0fd
 import com.fly.domain.UserDO;
 import com.fly.news.dao.CommentDao;
 import com.fly.news.dao.PriceDao;
@@ -47,7 +43,6 @@ import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.DateUtils;
 import com.fly.utils.R;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Controller
 @RequestMapping("/pc/news/")
