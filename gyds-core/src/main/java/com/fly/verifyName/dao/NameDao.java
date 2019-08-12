@@ -31,4 +31,6 @@ public interface NameDao {
 	int remove(Integer id);
 	
 	int batchRemove(Integer[] ids);
+	
+	List<NameDO> queryJoinTeam(Map<String,Object> map);
 }

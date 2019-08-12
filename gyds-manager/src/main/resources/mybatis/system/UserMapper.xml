@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.system.dao.UserDao">
 
 	<select id="get" resultType="com.fly.domain.UserDO">
-		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user where user_id = #{value}
+		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user where user_id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.domain.UserDO">
-		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user
+		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user
         <where>  
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="username != null and username != ''"> and username = #{username} </if>
@@ -42,6 +42,7 @@
 		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus} </if>
 		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
 		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
+		  		  <if test="street != null and street != ''">and street = #{street}</if>
 		  		  <if test="ids != null and ids.size > 0">
 		  		  	and
 		  		  	dept_id in 
@@ -105,6 +106,7 @@
 		  		  <if test="politicalStatus != null and politicalStatus != ''"> and political_status = #{politicalStatus}</if>
 		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
 		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
+		  		  <if test="street != null and street != ''">and street = #{street}</if>
 		  		  <if test="ids != null and ids.size > 0">
 		  		  	and
 		  		  	dept_id in 
@@ -148,7 +150,8 @@
 			`region_code`, 
 			`political_status`, 
 			`is_manage`,
-			`open_id`
+			`open_id`,
+			`street`
 		)
 		values
 		(
@@ -182,7 +185,8 @@
 			#{regionCode}, 
 			#{politicalStatus}, 
 			#{isManage},
-			#{openId}
+			#{openId},
+			#{street}
 		)
 	</insert>
 	 
@@ -220,6 +224,7 @@
 			<if test="politicalStatus != null">`political_status` = #{politicalStatus}, </if>
 			<if test="isManage != null">`is_manage` = #{isManage}</if>
 			<if test="openId != null">`open_id` = #{openId}</if>
+			<if test="street != null">and `street` = #{street}</if>
 		</set>
 		where user_id = #{userId}
 	</update>

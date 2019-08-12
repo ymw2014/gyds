@@ -116,6 +116,9 @@ public class BaseController {
 				//1:分享次数2: 评论次数3:文章点赞次数4:打赏次数
 				params.put("numberOfShares",1);
 				i=infoDao.updateDynamic(params);
+				params.put("sharesNumber", 1);
+				params.put("id", user.getUserId());
+				i=volunteerDao.update_count(params);
 				if(i>0) {
 					if(user!=null) {
 						points = new PointsDO();
@@ -140,6 +143,9 @@ public class BaseController {
 			if(dynamicService.save(dynamic)>0){
 				params.put("numberOfLikes",3);
 				i=infoDao.updateDynamic(params);
+				params.put("clickNumber", 3);
+				params.put("id", user.getUserId());
+				i=volunteerDao.update_count(params);
 				if(i>0) {
 					if(user!=null) {
 						points = new PointsDO();
@@ -171,6 +177,9 @@ public class BaseController {
 		case 4:
 			params.put("criticismOfCount",2);
 			i=infoDao.updateDynamic(params);
+			params.put("commentNumber", 2);
+			params.put("id", user.getUserId());
+			i=volunteerDao.update_count(params);
 			if(i>0) {
 				if(user!=null) {
 					points = new PointsDO();
@@ -381,15 +390,19 @@ public class BaseController {
 	public Integer is_top(Integer id) {
 		Map<String, Object> params  = new HashMap<String, Object>();
 		Integer i = 0 ;
-		params.put("isTop", 1);
-		params.put("id", id);
-		List<InfoDO> info = infoDao.list(params);
-		if(info.size()>0) {
-			//1:已置顶
-			i=1;
-		}else {
-			//2:未置顶
-			i=2;
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user!=null) {
+			params.put("isTop", 1);
+			params.put("id", id);
+			List<InfoDO> info = infoDao.list(params);
+			if(info.size()>0) {
+				//1:已置顶
+				i=1;
+			}else {
+				//2:未置顶
+				i=2;
+			}
 		}
 		//如果返回0表示未登录或无此用户
 		return i;

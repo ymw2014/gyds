@@ -3,11 +3,14 @@ package com.fly.pc.news.controller;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.fly.common.controller.BaseController;
 import com.fly.domain.UserDO;
 import com.fly.news.dao.CommentDao;
@@ -32,6 +34,8 @@ import com.fly.news.domain.PriceDO;
 import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
+import com.fly.sys.domain.SetupDO;
+import com.fly.sys.service.SetupService;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
@@ -59,6 +63,8 @@ public class NewsInfoController extends BaseController {
 	private TopDao topDao;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private SetupService setupService;
 
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id, Model model) {
@@ -270,17 +276,18 @@ public class NewsInfoController extends BaseController {
 		code = upRegCode(code);
 		model.addAttribute("region", code);
 		model.addAttribute("newsId", id);
+		model.addAttribute("topCount", topDays());
 		return "pc/top";
 	}
 
 	// 置顶提交
+	@Transactional
 	@ResponseBody
 	@PostMapping("/topInfo")
 	public R comTopInfo(@RequestParam Map<String, Object> params) {
 		TopDO top = new TopDO();
 		UserDO user = null;
-		Map<String, BigDecimal> costMap = count(params);
-		BigDecimal cost = costMap.get("count");
+		Object cost = params.get("count");
 		Map<String,Object> count = new HashMap<String,Object>();
 		count.put("price", cost);
 		Integer i = deductMoney(count);
@@ -294,9 +301,7 @@ public class NewsInfoController extends BaseController {
 				top.setOrdernumber(orderNuber);
 				top.setNewsId(Long.parseLong(params.get("newsId").toString()));
 				top.setStatus(3);
-				top.setTopPrice(cost);
-				top.setTopStartTime(DateUtils.parse(params.get("topStartTime").toString()));
-				top.setTopEndTime(DateUtils.parse(params.get("topEndTime").toString()));
+				top.setTopPrice(new BigDecimal(cost.toString()));
 				top.setRegionCode(Integer.valueOf(params.get("regionCode").toString()));
 				user = ShiroUtils.getUser();
 				if (user != null) {
@@ -312,26 +317,22 @@ public class NewsInfoController extends BaseController {
 
 	@RequestMapping(value = "/count", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, BigDecimal> count(@RequestParam Map<String, Object> params) {
-		BigDecimal count = null;
-		Integer dayNumber = 0;
+	public Map<String, Object> count(String topDays, String regionCode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("regionCode", regionCode);
 		List<PriceDO> pri = priceDao.list(params);
+		if (CollectionUtils.isEmpty(pri)) {
+			map.put("count", -1);
+			return map;
+		}
+		if (pri.size() == 3) {
+			map.put("count", -2);
+			return map;
+		}
 		BigDecimal mon = pri.get(0).getPriceOfDay();
-		String StartTime = (String) params.get("topStartTime");
-		String EndTime = (String) params.get("topEndTime");
-		Date Start = DateUtils.parse(StartTime);
-		Date end = DateUtils.parse(EndTime);
-		try {
-			dayNumber = DateUtils.longOfTwoDate(Start, end);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		BigDecimal day = BigDecimal.valueOf(Long.parseLong(dayNumber.toString()));
-		if (mon != null && day != null) {
-			count = mon.multiply(day);
-		}
-		Map<String, BigDecimal> map = new HashMap<String, BigDecimal>();
-		map.put("count", count);
+		BigDecimal day = new BigDecimal(topDays);
+		map.put("count", mon.multiply(day));
 		return map;
 	}
 
@@ -401,5 +402,24 @@ public class NewsInfoController extends BaseController {
 			return R.error("2");
 		}
 		return r;
+	}
+	
+	public List<Map<String,Object>> topDays() {
+		SetupDO setup;
+		List<SetupDO> list = setupService.list(new HashMap<String,Object>(16));
+		if (list!=null) {
+			setup = list.get(0);
+		}else {
+			setup=new SetupDO();
+		}
+		List<Map<String,Object>> listTop = new ArrayList<Map<String,Object>>();
+		String[] split = setup.getTopCount().split(",");
+		for(String s : split) {
+			Map<String,Object> data = new HashMap<String, Object>();
+			data.put("count", s);
+			listTop.add(data);
+		}
+		
+		return listTop;
 	}
 }

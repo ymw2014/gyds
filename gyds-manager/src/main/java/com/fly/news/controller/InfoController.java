@@ -1,5 +1,7 @@
 package com.fly.news.controller;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.fly.domain.UserDO;
+import com.fly.news.dao.TopDao;
 import com.fly.news.domain.InfoDO;
+import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
+import com.fly.utils.DateUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -40,6 +45,8 @@ public class InfoController {
 	private InfoService infoService;
 	@Autowired
 	private TeamDao teamDao;
+	@Autowired
+	private TopDao topDao;
 	
 	@Autowired
 	private RegionService regionService;
@@ -86,12 +93,37 @@ public class InfoController {
 
 	@GetMapping("/audit/{id}")
 	@RequiresPermissions("news:info:audit")
-	String audit(@PathVariable("id") Integer id,Model model){
-		InfoDO info = infoService.get(id);
-		model.addAttribute("info", info);
-	    return "news/info/audit";
+	public String audit(@PathVariable("id") Long id,Model model){
+		model.addAttribute("newsId", id);
+	    return "news/info/newsAudit";
+	}
+	
+	
+	
+	@ResponseBody
+	@GetMapping("/auditData/{id}")
+	@RequiresPermissions("news:info:audit")
+	public PageUtils auditDate(@PathVariable("id") Long id,Model model){
+		List<Map<String,Object>> auditData = infoService.auditData(id);
+		int dataCount = infoService.auditDataCount(id);
+		PageUtils pageUtils = new PageUtils(auditData, dataCount);
+	    return pageUtils;
 	}
 
+	
+	@ResponseBody
+	@RequestMapping("/auditUpdate")
+	@RequiresPermissions("news:info:audit")
+	public R auditUpdate(TopDO apply){
+		 Calendar c = Calendar.getInstance();
+		 c.add(Calendar.DAY_OF_MONTH, apply.getTopDay());
+		 apply.setTopStartTime(new Date());
+		 apply.setTopEndTime(c.getTime());
+		 if (topDao.update(apply) > 0) {
+				return R.ok();
+			}
+		return R.ok();
+	}
 	
 	/**
 	 * 保存

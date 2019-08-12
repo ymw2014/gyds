@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.sys.dao.SetupDao">
 
 	<select id="get" resultType="com.fly.sys.domain.SetupDO">
-		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup where id = #{value}
+		select `id`,top_count,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.sys.domain.SetupDO">
-		select `id`,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup
+		select `id`,top_count,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="redPacketExtract != null and redPacketExtract != ''"> and red_packet_extract = #{redPacketExtract} </if>
@@ -124,7 +124,8 @@
 			`area_bail`,
 			`agency_bail`,
 			`red_price_setup`,
-			`reward_price_setup`
+			`reward_price_setup`,
+			 top_count
 			
 		)
 		values
@@ -159,7 +160,8 @@
 			#{areaBail},
 			#{agencyBail},
 			#{redPriceSetup},
-			#{rewardPriceSetup}
+			#{rewardPriceSetup},
+			#{topCount}
 		)
 	</insert>
 	 
@@ -196,7 +198,8 @@
 			<if test="areaBail != null">`area_bail` = #{areaBail},</if>
 			<if test="agencyBail != null"> agency_bail = #{agencyBail}, </if>
 			<if test="redPriceSetup != null"> red_price_setup = #{redPriceSetup}, </if>
-		  	<if test="rewardPriceSetup != null "> reward_price_setup = #{rewardPriceSetup} </if>
+		  	<if test="rewardPriceSetup != null "> reward_price_setup = #{rewardPriceSetup},</if>
+		  	<if test="topCount != null "> top_count = #{topCount} </if>
 		</set>
 		where id = #{id}
 	</update>

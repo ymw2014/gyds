@@ -186,4 +186,13 @@
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		</where>
 	</select>
+	
+	<select id="queryJoinTeam" resultType="java.util.Map">
+		select v.`id`,v.`user_id`,v.`team_id`,v.`name`,v.`email`,v.`mobile`,v.`create_time`,v.`sex`,v.`birth`,v.`political_status`,v.`address`,v.`province`,v.`city`,v.`district`,v.`street`,v.`status`,v.`card_no`,v.`card_front_img`,v.`card_back_img`,v.`nation`,v.`type`,v.`text`,v.`region_code`,t.team_name,t.team_title_img from verify_name v left join team t on v.team_id = t.id
+        <where>  
+		  		  <if test="userId != null and userId != ''"> and v.user_id = #{userId} </if>
+		  		  <if test="type != null and type != ''"> and v.type = #{type} </if>
+		  		  <if test="status != null and status != ''"> and v.status = #{status} </if>
+		  		</where>
+	</select>
 </mapper>

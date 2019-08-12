@@ -7,18 +7,18 @@
 	height: 160px;
 	border-bottom:1px dashed #e2e2e2;
 }
-.tdlogo>div{
+.tdlogo>a>div{
 	width:33.33%;
 	height: 160px;
 	float: left;
 }
-.tdlogo>div>img{
+.tdlogo>a>div>img{
 	width: 102px;
 	height: 102px;
 	float: left;
 	margin:38px 0px 0px 50px;
 }
-.tdlogo>div>p{
+.tdlogo>a>div>p{
 	margin-left:38px;
 	line-height:160px;
 	font-weight:900;

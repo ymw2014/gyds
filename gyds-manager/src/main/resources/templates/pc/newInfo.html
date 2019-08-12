@@ -221,6 +221,7 @@
 
 		</div>
 		<div class="listzz">
+		<input th:value="${userStatus}" type="hidden"    id="userStatus" />
 			<div th:if=" ${isLike} eq '0'">
 				<img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞"
 					th:text="${info.numberOfLikes}">

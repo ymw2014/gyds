@@ -4,9 +4,9 @@
 <mapper namespace="com.fly.activity.dao.ApplyDao">
 
 	<select id="get" resultType="com.fly.activity.domain.ApplyDO">
-		SELECT a.id,a.user_id,a.act_id,mem.`name`, ac.act_title,a.create_time,a.examine,a.status,a.reason_for_refusal FROM act_apply a 
+		SELECT a.id,a.user_id,a.act_id,mem.name as volunteer_name, ac.act_title,a.create_time,a.examine,a.status,a.reason_for_refusal,mem.head_img,mem.email,mem.mobile,mem.sex,mem.birth,mem.live_address,mem.hobby,mem.nation,mem.political_status,mem.province,mem.city,mem.district,mem.street FROM act_apply a 
 			LEFT JOIN sys_user mem ON mem.`user_id`=a.`user_id` 
-			LEFT JOIN activity ac ON a.act_id = ac.id WHERE a.id  #{value}
+			LEFT JOIN activity ac ON a.act_id = ac.id WHERE a.id=#{value}
 	</select>
 
 	<select id="list" resultType="com.fly.activity.domain.ApplyDO">
