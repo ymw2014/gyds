@@ -4,15 +4,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.fly.base.BaseService;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.order.dao.OrderDao;
+import com.fly.order.domain.OrderDO;
 import com.fly.proxybusi.dao.ProxybusiDao;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.system.dao.RegionDao;
 import com.fly.system.dao.UserDao;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamNameService;
@@ -24,7 +32,8 @@ import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
 @Service
-public class TeamNameServiceImpl implements TeamNameService {
+public class TeamNameServiceImpl extends BaseService implements TeamNameService {
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -38,6 +47,8 @@ public class TeamNameServiceImpl implements TeamNameService {
 	
 	@Autowired
 	private ProxybusiDao proxybusiDao;
+	@Autowired
+	private OrderDao orderDao;
 
 	@Override
 	@Transactional
@@ -63,6 +74,19 @@ public class TeamNameServiceImpl implements TeamNameService {
 			if(user==null||user.getIsIdentification()!=-1) {//未实名认证,保存实名认证信息
 				user=userToObject.isIdentification(user,name);
 				userDao.update(user);
+			}
+		}
+		if(status==3) {//拒绝申请
+			if(name.getOrderId()!=null) {
+				OrderDO order = orderDao.get(name.getOrderId());
+				boolean flag = increaseMoney(name.getUserId(),order.getPrice());//资金回滚入用户账户
+				if(flag) {
+					order.setExamineStatus(3);
+					order.setExamineUser(ShiroUtils.getUserId());
+					orderDao.update(order);
+				}else {
+					logger.info("团队创建审核失败,失败原因:用户编号:"+name.getUserId()+"资金回滚失败");
+				}
 			}
 		}
 		count=nameDao.update(name);
@@ -158,7 +182,15 @@ public class TeamNameServiceImpl implements TeamNameService {
 		}
 		
 		if(status==3) {//如果是收费,驳回需要把资金回滚
-			
+			OrderDO order = orderDao.get(name.getOrderId());
+			boolean flag = increaseMoney(name.getUserId(),order.getPrice());//资金回滚入用户账户
+			if(flag) {
+				order.setExamineStatus(3);
+				order.setExamineUser(ShiroUtils.getUserId());
+				orderDao.update(order);
+			}else {
+				logger.info("团队创建审核失败,失败原因:用户编号:"+name.getUserId()+"资金回滚失败");
+			}
 		}
 		count=nameDao.update(name);
 		return count;

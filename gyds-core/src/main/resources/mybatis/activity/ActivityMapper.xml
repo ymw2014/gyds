@@ -90,7 +90,7 @@
 		  		  <if test="memberId != null and memberId != ''"> and a.member_id = #{memberId} </if>
 		  		  <if test="ids != null and ids.size() > 0">
 		  		  	and
-		  		  	a.team_id in 
+		  		  	team_id in 
 		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
 				            #{item}       
 				    </foreach> 

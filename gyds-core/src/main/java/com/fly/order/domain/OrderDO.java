@@ -21,7 +21,7 @@ public class OrderDO implements Serializable {
 	//订单编号
 	private String orderNumber;
 	//用户编号
-	private Integer userId;
+	private Long userId;
 	//用户名
 	private String name;
 	//团队编号
@@ -35,7 +35,7 @@ public class OrderDO implements Serializable {
 	//是否删除0：否1：是
 	private Integer isDel;
 	//审核人
-	private Integer examineUser;
+	private Long examineUser;
 	//审核人名称
 	private String username;
 	//审核状态 1:已完成 2：待审核 3：已拒绝
@@ -101,13 +101,13 @@ public class OrderDO implements Serializable {
 	/**
 	 * 设置：用户编号
 	 */
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	/**
 	 * 获取：用户编号
 	 */
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 	/**
@@ -161,13 +161,13 @@ public class OrderDO implements Serializable {
 	/**
 	 * 设置：审核人
 	 */
-	public void setExamineUser(Integer examineUser) {
+	public void setExamineUser(Long examineUser) {
 		this.examineUser = examineUser;
 	}
 	/**
 	 * 获取：审核人
 	 */
-	public Integer getExamineUser() {
+	public Long getExamineUser() {
 		return examineUser;
 	}
 	/**

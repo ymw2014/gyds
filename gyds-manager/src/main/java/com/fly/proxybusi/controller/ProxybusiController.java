@@ -150,7 +150,7 @@ public class ProxybusiController extends BaseController{
 				if (!CollectionUtils.isEmpty(order)) {
 					 OrderDO orderDO = order.get(0);
 					 orderDO.setExamineStatus(1);
-					 orderDO.setExamineUser(ShiroUtils.getUserId().intValue());
+					 orderDO.setExamineUser(ShiroUtils.getUserId());
 					 orderService.update(orderDO);
 				}
 			}
