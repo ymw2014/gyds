@@ -33,4 +33,9 @@ public interface InfoDao {
 	int batchRemove(Integer[] ids);
 	
 	int updateDynamic(Map<String, Object> map);
+	
+	List<Map<String,Object>> auditData(Map<String, Object> map);
+	
+	int auditDataCount(Map<String, Object> map);
 }
+

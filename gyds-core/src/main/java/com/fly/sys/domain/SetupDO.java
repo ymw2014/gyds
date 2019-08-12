@@ -80,7 +80,17 @@ public class SetupDO implements Serializable {
 	private String redPriceSetup;
 	//打赏金额配置
 	private String rewardPriceSetup;
+	//置顶天数
+	private String topCount;
+	
+	
 
+	public String getTopCount() {
+		return topCount;
+	}
+	public void setTopCount(String topCount) {
+		this.topCount = topCount;
+	}
 	/**
 	 * 设置：
 	 */

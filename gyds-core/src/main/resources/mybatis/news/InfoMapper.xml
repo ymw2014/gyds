@@ -225,5 +225,29 @@
 		where id = #{newsId}
 	</update>
 
+	<select id="auditData" resultType="map">
+		select a.id,n.title, a.top_day, o.price,o.business_time,u.name,a.status from appy_top a LEFT JOIN gyds_order o 
+		ON a.orderNumber = o.id
+		LEFT JOIN new_info n
+		ON a.news_id = n.id
+		LEFT JOIN sys_user u
+		ON u.user_id = a.user_id
+		<where>
+		 <if test="newsId != null and newsId != ''"> a.news_id = #{newsId}</if>
+		</where>
+	</select>
+
+	<select id="auditDataCount" resultType="int">
+		select count(1) num from appy_top a LEFT JOIN gyds_order o 
+		ON a.orderNumber = o.id
+		LEFT JOIN new_info n
+		ON a.news_id = n.id
+		LEFT JOIN sys_user u
+		ON u.user_id = a.user_id
+		<where>
+		 <if test="newsId != null and newsId != ''"> a.news_id = #{newsId}</if>
+		</where>
+	</select>
+
 
 </mapper>
