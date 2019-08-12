@@ -90,7 +90,8 @@ public class PersionController extends BaseController{
 	 */
 	@GetMapping("/pc/persion_main")
 	String main(Model model) {
-		UserDO user = ShiroUtils.getUser();
+		Long userId = ShiroUtils.getUserId();
+		UserDO user =  userService.get(userId);
 		model.addAttribute("ccount", user.getAccount());//余额
 		model.addAttribute("platformIntegral", user.getPlatformIntegral());//平台积分
 		Map<String, Object> params=new HashMap<String, Object>(16);
@@ -278,14 +279,15 @@ public class PersionController extends BaseController{
 		UserDO user = getUser();
 		name.setUserId(user.getUserId());
 		Map<String, Object> map = JSONUtils.jsonToMap(name.getText());
+		//1:入团申请2:建团申请3:代理商入驻
 		if("2".equals(name.getType().toString())) {
 			R r = countCost(Integer.valueOf(map.get("teamType").toString()));
 			if(r.get("price")!=null||r.get("price").toString()!="0") {
-				i = deductMoney(r);
+				i = deductMoney(r);//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 				if(i==1) {
-					r.put("orderType", 2);
-					r.put("expIncType", 7);
-					i = creadOrder(r);
+					r.put("orderType", OrderType.ZHI_CHU);
+					r.put("expIncType", OrderType.JIAN_TUAN);
+					i = creadOrder(r);//return 订单号
 					if(i>0) {
 						flag="1";
 						name.setOrderId(i);
@@ -297,6 +299,7 @@ public class PersionController extends BaseController{
 				flag="1";
 			}
 		}
+		//1:入团申请2:建团申请3:代理商入驻
 		if("3".equals(name.getType().toString())) {
 			SetupDO setupDO = setupService.get(1);
 			BigDecimal account = user.getAccount();
@@ -356,14 +359,13 @@ public class PersionController extends BaseController{
 				break;
 			}
 			user.setAccount(balance);
-			params.put("orderType", 2);
+			params.put("orderType", OrderType.ZHI_CHU);
 			params.put("expIncType", OrderType.DAI_LI_SHANG);
 			params.put("examineStatus", 2);
 			params.put("cashUpType", 2);
 			params.put("cashOutType", 2);
 
 			map.put("userId",user.getUserId());
-			name.setType(3);
 			name.setText(JSONUtils.beanToJson(map));
 			if(userService.updatePersonal(user)>0) {
 				i = creadOrder(params);
@@ -374,6 +376,7 @@ public class PersionController extends BaseController{
 
 			}
 		}
+		//1.支付费用成功或无需支付费用 0.失败
 		if("1".equals(flag)) {
 			try {
 				name.setBirth(PublicUtils.IdNOToBirth(name.getCardNo()));

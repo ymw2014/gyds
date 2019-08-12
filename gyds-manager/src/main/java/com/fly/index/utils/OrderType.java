@@ -39,5 +39,9 @@ public class OrderType {
 	  * 	代理商入驻
 	  */
 	public static final Integer DAI_LI_SHANG = 6;
+	 /**
+	  * 	建团
+	  */
+	public static final Integer JIAN_TUAN = 7;
 
 }

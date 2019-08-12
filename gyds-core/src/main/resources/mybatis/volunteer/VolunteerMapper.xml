@@ -350,6 +350,16 @@
 			<if test="volunteerName != null and volunteerName != ''"> and u.name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
 	</select>
 	
-	
+	<update id="update_count" parameterType="java.util.Map">
+		update volunteer 
+		<set>
+			<if test="sharesNumber == 1">`shares_number` = shares_number+1, </if>
+			<if test="commentNumber == 2">`comment_number` = comment_number+1, </if>
+			<if test="clickNumber == 3">`click_number` = click_number+1, </if>
+			<if test="actNumber == 4">`act_number` = act_number+1, </if>
+			<if test="integral == 5">`integral` = integral+#{actNumber} </if>
+		</set>
+		where user_id = #{id}
+	</update>
 	
 </mapper>
