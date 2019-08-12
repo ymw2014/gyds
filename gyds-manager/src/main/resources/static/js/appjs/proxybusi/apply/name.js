@@ -1,5 +1,5 @@
 
-var prefix = "/verifyName/name"
+var prefix = "/proxybusi/apply"
 $(function() {
 	load();
 });
@@ -48,20 +48,50 @@ function load() {
 								{
 									checkbox : true
 								},
+								{
+									field : 'name', 
+									title : '代理商名称' 
+								},
 																
 																{
 									field : 'name', 
-									title : '姓名' 
+									title : '法人' 
+								},
+								{
+									field : 'nation', 
+									title : '民族' 
+								},
+								
+								{
+									field : 'regionLevel', 
+									title : '代理类型' ,
+									formatter : function(value, row, index) {
+										if (value == "1") {
+											return '<span style="color:green;">省代理</span>';
+										}
+										if (value == "2") {
+											return '<span style="color:green;">市代理</span>';
+										}
+										if (value == "3") {
+											return '<span style="color:green;">县代理</span>';
+										}
+										if (value == "4") {
+											return '<span style="color:green;">街道办代理</span>';
+										}
+								}
+								},{
+									field : 'daili', 
+									title : '代理区域' 
+								},
+																{
+									field : 'mobile', 
+									title : '联系方式  ' 
 								},
 																{
 									field : 'email', 
 									title : '邮箱' 
 								},
-																{
-									field : 'mobile', 
-									title : '手机' 
-								},
-
+									
 								{
 									field : 'cardNo', 
 									title : '身份证号' 
@@ -95,63 +125,7 @@ function load() {
 										}
 									}
 								},
-																{
-									field : 'nation', 
-									title : '民族' 
-								},
-																{
-									field : 'birth', 
-									title : '出身日期' 
-								},
-																{
-									field : 'politicalStatus', 
-									title : '政治面貌' 
-								},
-																{
-									field : 'address', 
-									title : '详细地址' 
-								},
-																{
-									field : 'province', 
-									title : '省份' 
-								},
-																{
-									field : 'city', 
-									title : '所在城市' 
-								},
-																{
-									field : 'district', 
-									title : '所在地区' 
-								},
-																{
-									field : 'street', 
-									title : '街道' 
-								},
-									
-																{
-									field : 'teamName', 
-									title : '团队名称' 
-								},
-
-																{
-									field : 'teamType', 
-									title : '团队类型' 
-								},
-																{
-									field : 'addres', 
-									title : '团队地址' 
-								},
-
-																{
-									field : 'teamImg', 
-									title : '团队封面图',
-									formatter : function(value, row, index) {
-										
-										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
-									
-								}
-								},
-
+								
 								{
 									field : 'createTime', 
 									title : '申请时间' 

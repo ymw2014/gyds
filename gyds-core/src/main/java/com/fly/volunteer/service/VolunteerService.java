@@ -30,7 +30,7 @@ public interface VolunteerService {
 	List<VolunteerDO> isVolllist(Long userId);
 	
 	/**
-	 * 	通过用户编号查询是否为志愿者
+	 *     通过用户编号查询是否为志愿者
 	 * @param userId
 	 * @return
 	 */

@@ -1,5 +1,5 @@
 
-var prefix = "/verifyName/name"
+var prefix = "/team/apply"
 $(function() {
 	load();
 });
@@ -53,6 +53,31 @@ function load() {
 									field : 'name', 
 									title : '姓名' 
 								},
+								{
+									field : 'sex', 
+									title : '性别' ,
+									formatter : function(value, row, index) {
+										if (value == '1') {
+											return '女'
+										} 
+										if (value == '0') {
+											return '男'
+										}
+									}
+								},
+								{
+									field : 'headImg', 
+									title : '头像' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
+									
+								}
+								},	
+																{
+									field : 'nation', 
+									title : '民族' 
+								},
 																{
 									field : 'email', 
 									title : '邮箱' 
@@ -66,7 +91,7 @@ function load() {
 									field : 'cardNo', 
 									title : '身份证号' 
 								},
-																{
+								{
 									field : 'cardFrontImg', 
 									title : '身份证正面照' ,
 									formatter : function(value, row, index) {
@@ -74,7 +99,8 @@ function load() {
 										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
 									
 								}
-								},{
+								},
+								{
 									field : 'cardBackImg', 
 									title : '身份证背面照' ,
 									formatter : function(value, row, index) {
@@ -83,22 +109,7 @@ function load() {
 									
 								}
 								},
-																{
-									field : 'sex', 
-									title : '性别' ,
-									formatter : function(value, row, index) {
-										if (value == '1') {
-											return '女'
-										} 
-										if (value == '0') {
-											return '男'
-										}
-									}
-								},
-																{
-									field : 'nation', 
-									title : '民族' 
-								},
+								
 																{
 									field : 'birth', 
 									title : '出身日期' 
@@ -127,31 +138,6 @@ function load() {
 									field : 'street', 
 									title : '街道' 
 								},
-									
-																{
-									field : 'teamName', 
-									title : '团队名称' 
-								},
-
-																{
-									field : 'teamType', 
-									title : '团队类型' 
-								},
-																{
-									field : 'addres', 
-									title : '团队地址' 
-								},
-
-																{
-									field : 'teamImg', 
-									title : '团队封面图',
-									formatter : function(value, row, index) {
-										
-										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
-									
-								}
-								},
-
 								{
 									field : 'createTime', 
 									title : '申请时间' 

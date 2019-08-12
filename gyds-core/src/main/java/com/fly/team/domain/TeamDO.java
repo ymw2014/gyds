@@ -22,7 +22,7 @@ public class TeamDO implements Serializable {
 	//团长名称
 	private String colonelName;
 	//用户ID
-	private Integer userId;
+	private Long userId;
 	//团队类型
 	private Integer teamType;
 	//团队类型名称
@@ -146,13 +146,13 @@ public class TeamDO implements Serializable {
 	/**
 	 * 设置：用户ID
 	 */
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	/**
 	 * 获取：用户ID
 	 */
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 	/**

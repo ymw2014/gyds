@@ -10,7 +10,7 @@
 	<select id="list" resultType="com.fly.domain.RegionDO">
 		select `region_code`,`region_name`,`region_level`,`parent_region_code`,region_type from cux_region
         <where>  
-		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="regionCode != null"> and region_code = #{regionCode} </if>
 		  		  <if test="regionName != null and regionName != ''"> and region_name = #{regionName} </if>
 		  		  <if test="regionLevel != null and regionLevel != ''"> and region_level = #{regionLevel} </if>
 		  		  <if test="parentRegionCode != null"> and parent_region_code = #{parentRegionCode} </if>

@@ -30,4 +30,30 @@ public class userToObject {
 		name.setUserId(user.getUserId());
 		return name;
 	}
+	/***
+	 *	 实名认证资料补充
+	 * @param name
+	 * @param user
+	 * @return
+	 */
+	public static UserDO  isIdentification(UserDO user,NameDO name) {
+		user.setBirth(name.getBirth());
+		user.setCardBackImg(name.getCardBackImg());
+		user.setCardFrontImg(name.getCardFrontImg());
+		user.setCardNo(name.getCardNo());
+		user.setCity(name.getCity());
+		user.setDistrict(name.getDistrict());
+		user.setEmail(name.getEmail());
+		user.setMobile(name.getMobile());
+		user.setName(name.getName());
+		user.setNation(name.getNation());
+		user.setPoliticalStatus(name.getPoliticalStatus());
+		user.setProvince(name.getProvince());
+		user.setRegionCode(name.getRegionCode());
+		user.setSex(name.getSex());
+		user.setIsIdentification(1);
+		//name.setStreet("");
+		name.setUserId(name.getUserId());
+		return user;
+	}
 }
