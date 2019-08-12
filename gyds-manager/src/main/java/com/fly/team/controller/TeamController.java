@@ -178,7 +178,7 @@ public class TeamController {
 	public R remove( Integer id){
 		TeamDO team=teamService.get(id);
 		if(regionService.checkRegionHasUser(team.getTeamCode())) {
-			if(regionService.remove(team.getTeamCode())>0) {
+			if(regionService.remove(team.getId())>0) {
 				if(teamService.remove(id)>0){
 					return R.ok();
 				}

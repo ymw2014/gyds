@@ -16,10 +16,90 @@
 									<input id="zyzId"  th:value="${apply.volunteerName}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">用户头像：</label>
+								<div class="col-sm-8">
+									<img th:src="${apply.headImg}">
+								</div>
+							</div>
 														<div class="form-group">	
 								<label class="col-sm-3 control-label">报名活动：</label>
 								<div class="col-sm-8">
 									<input id="actId"  th:value="${apply.actTitle}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">email：</label>
+								<div class="col-sm-8">
+									<input id="email"  th:value="${apply.email}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">手机：</label>
+								<div class="col-sm-8">
+									<input id="mobile"  th:value="${apply.mobile}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">性别：</label>
+								<div class="col-sm-8">
+									<input id="sex"  th:value="${apply.sex == 1}?'女':'男'" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">出生日期：</label>
+								<div class="col-sm-8">
+									 <input type="text" class="laydate-icon layer-date form-control" id="birth"   th:value="${apply.birth}==null?null:${#dates.format(apply.birth,'yyyy-MM-dd')}" 
+                                             onclick="laydate({istime: true, format:'YYYY-MM-DD' editable:false})" style="background-color: #fff;" editable="false" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">爱好：</label>
+								<div class="col-sm-8">
+									<input id="hobby"  th:value="${apply.hobby}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">民族：</label>
+								<div class="col-sm-8">
+									<input id="nation"  th:value="${apply.nation}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">政治面貌：</label>
+								<div class="col-sm-8">
+									<input id="politicalStatus"  th:value="${apply.politicalStatus}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">省：</label>
+								<div class="col-sm-8">
+									<input id="province"  th:value="${apply.province}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">市：</label>
+								<div class="col-sm-8">
+									<input id="city"  th:value="${apply.city}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">县：</label>
+								<div class="col-sm-8">
+									<input id="district"  th:value="${apply.district}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">街道：</label>
+								<div class="col-sm-8">
+									<input id="street"  th:value="${apply.street}" class="form-control" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">家庭地址：</label>
+								<div class="col-sm-8">
+									<input id="liveAddress"  th:value="${apply.liveAddress}" class="form-control" type="text" readonly="readonly">
 								</div>
 							</div>
 														<div class="form-group">	

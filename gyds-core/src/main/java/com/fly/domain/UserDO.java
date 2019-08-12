@@ -69,6 +69,8 @@ public class UserDO implements Serializable {
 	private String city;
 	//所在地区
 	private String district;
+	//所在街道
+	private String street;
 	//是否实名认证0否1:是
 	private Integer isIdentification;
 	//身份证号
@@ -87,7 +89,13 @@ public class UserDO implements Serializable {
 	private Integer isManage;
 	
 	private String openId;
-
+	
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
 	/**
 	 * 设置：
 	 */

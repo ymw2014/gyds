@@ -1,6 +1,6 @@
 package com.fly.team.controller;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,21 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.domain.UserDO;
-import com.fly.system.service.RegionService;
-import com.fly.system.utils.ShiroUtils;
-import com.fly.team.domain.ApplyTeamDO;
-import com.fly.team.service.ApplyTeamService;
-import com.fly.team.service.TeamService;
-import com.fly.team.service.TeamTypeService;
+import com.fly.system.service.UserService;
+import com.fly.team.service.TeamNameService;
+import com.fly.utils.BeanUtil;
 import com.fly.utils.Dictionary;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
 import com.fly.verifyName.domain.NameDO;
 import com.fly.verifyName.service.NameService;
-import com.fly.volunteer.domain.VolunteerDO;
-import com.fly.volunteer.service.VolunteerService;
 
 /**
  * 入团申请表
@@ -45,11 +39,9 @@ public class ApplyTeamController {
 	@Autowired
 	private NameService nameService;
 	@Autowired
-	private TeamTypeService teamTypeService;
+	private TeamNameService  teamNameService;
 	@Autowired
-	private TeamService teamService;
-	@Autowired
-	private RegionService regionService;
+	private UserService userService;
 	
 	@GetMapping()
 	@RequiresPermissions("team:apply:apply")
@@ -59,28 +51,29 @@ public class ApplyTeamController {
 	
 	
 	
-	/*@ResponseBody
+	@ResponseBody
 	@GetMapping("/list")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
 		params.put("type", Dictionary.RU_TUAN_SHEN_QING);
         Query query = new Query(params);
         List<NameDO> applyList = nameService.list(query);
+        List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+        for (NameDO nameDO : applyList) {
+        	Map<String, Object> map = BeanUtil.transBean2Map(nameDO);
+        	map.put("headImg", userService.get(nameDO.getUserId()).getHeadImg());
+        	list.add(map);
+		}
 		int total = nameService.count(query);
-		PageUtils pageUtils = new PageUtils(applyList, total);
+		PageUtils pageUtils = new PageUtils(list, total);
 		return pageUtils;
 	}
 	
-	@GetMapping("/add")
-	@RequiresPermissions("team:apply:add")
-	String add(){
-	    return "team/apply/add";
-	}
 
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("team:apply:edit")
 	String edit(@PathVariable("id") Integer id,Model model){
-		ApplyTeamDO apply = applyService.get(id);
+		NameDO apply = nameService.get(id);
 		model.addAttribute("apply", apply);
 	    return "team/apply/edit";
 	}
@@ -88,79 +81,57 @@ public class ApplyTeamController {
 	@RequiresPermissions("team:apply:applyMember")
 	String applyMember(@PathVariable("id") Integer id,Model model){
 		model.addAttribute("teamId", id);
-	    return "team/apply/apply";
+	    return "team/apply/name";
 	}
 	
-	*//**
-	 * 保存
-	 *//*
-	@ResponseBody
-	@PostMapping("/save")
-	@RequiresPermissions("team:apply:add")
-	public R save( ApplyTeamDO apply){
-		if(applyService.save(apply)>0){
-			return R.ok();
-		}
-		return R.error();
-	}
-	*//**
+	/**
 	 * 修改
-	 *//*
+	 */
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("team:apply:edit")
-	public R update( ApplyTeamDO apply){
-		applyService.update(apply);
+	public R update( NameDO name){
+		nameService.update(name);
 		return R.ok();
 	}
 	
-	*//**
+	/**
 	 * 删除
-	 *//*
+	 */
 	@PostMapping( "/remove")
 	@ResponseBody
 	@RequiresPermissions("team:apply:remove")
 	public R remove( Integer id){
-		if(applyService.remove(id)>0){
+		if(nameService.remove(id)>0){
 		return R.ok();
 		}
 		return R.error();
 	}
 	
-	*//**
+	/**
 	 * 删除
-	 *//*
+	 */
 	@PostMapping( "/batchRemove")
 	@ResponseBody
 	@RequiresPermissions("team:apply:batchRemove")
 	public R remove(@RequestParam("ids[]") Integer[] ids){
-		applyService.batchRemove(ids);
+		nameService.batchRemove(ids);
 		return R.ok();
 	}
+	/***
+	 * 	入团审核
+	 * @param id
+	 * @param status
+	 * @return
+	 */
 	@PostMapping( "/examine")
 	@ResponseBody
 	@RequiresPermissions("team:apply:examine")
 	public R examine(Integer id,Integer status){
-		UserDO user = ShiroUtils.getUser();
-		ApplyTeamDO apply = applyService.get(id);
-		apply.setStatus(status);
-		VolunteerDO volunteer=volunteerService.get(user.getUserId().intValue());
-		if(volunteer.getTeamId()!=null||volunteer.getTeamId()!=-1) {
-		Integer teamId=null;
-		teamId = volunteer.getTeamId();
-		if(teamId!=null&&teamId != -1) {
-			return R.error("该志愿者已入其他团队,请删除该数据");
-		}
-		if(status.equals(1)) {
-			volunteer.setEnterTeamTime(new Date());
-			volunteer.setTeamId(apply.getApplyTeamId());
-			volunteerService.update(volunteer);
-		}
-		if(applyService.update(apply)>0) {
+		if(teamNameService.userIntoTeamExamine(id,status)>0) {
 			return R.ok();
 		}
-		}
 		return R.error();
-	}*/
+	}
 	
 }

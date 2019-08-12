@@ -14,21 +14,17 @@
 	</select>
 	
 	<select id="list" resultType="com.fly.volunteer.domain.VolunteerDO">
-		select v.id,`volunteer_name`,v.user_id, t.team_name teamName,v.head_img,
-		v.`address`,v.`telephone`,v.`sex`,v.`age`,v.`volunteer_number`,
-		v.`card_no`,v.`shares_number`,v.`comment_number`,v.`click_number`,
-		v.`act_number`,v.`level`,v.`province`,v.`city`,v.`county`,v.`regionCode`,
-		v.audit_status,
-		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime,v.remark,v.introduction
-		from volunteer v
-		left join team t on v.team_id = t.id
+		SELECT v.`volunteer_number`,mem.`name` AS volunteer_name,mem.`mobile`,v.`team_id`,mem.`province`,mem.`city`,mem.`district`,
+		mem.`region_code`,v.`act_number`,v.`click_number`,v.`comment_number`,v.`create_time`,v.`integral`,
+		mem.`sex` FROM volunteer v 
+		LEFT JOIN sys_user mem ON mem.`user_id`=v.`user_id`
         <where>  
 		  		  <if test="id != null and id != ''"> and v.id = #{id} </if>     
-		  		  <if test="volunteerName != null and volunteerName != ''"> and v.volunteer_name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
+		  		  <if test="volunteerName != null and volunteerName != ''"> and mem.name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
 		  		  <if test="userId != null and userId != ''"> and v.user_id = #{userId} </if>
 		  		  <if test="teamId != null and teamId != ''"> and v.team_id = #{teamId} </if>
 		  		  <if test="address != null and address != ''"> and v.address = #{address} </if>
-		  		  <if test="telephone != null and telephone != ''"> and v.telephone = #{telephone} </if>
+		  		  <if test="telephone != null and telephone != ''"> and mem.`mobile` = #{telephone} </if>
 		  		  <if test="sex != null and sex != ''"> and v.sex = #{sex} </if>
 		  		  <if test="age != null and age != ''"> and v.age = #{age} </if>
 		  		  <if test="volunteerNumber != null and volunteerNumber != ''"> and v.volunteer_number = #{volunteerNumber} </if>
@@ -350,6 +346,16 @@
 			<if test="volunteerName != null and volunteerName != ''"> and u.name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
 	</select>
 	
-	
+	<update id="update_count" parameterType="java.util.Map">
+		update volunteer 
+		<set>
+			<if test="sharesNumber == 1">`shares_number` = shares_number+1, </if>
+			<if test="commentNumber == 2">`comment_number` = comment_number+1, </if>
+			<if test="clickNumber == 3">`click_number` = click_number+1, </if>
+			<if test="actNumber == 4">`act_number` = act_number+1, </if>
+			<if test="integral == 5">`integral` = integral+#{actNumber} </if>
+		</set>
+		where user_id = #{id}
+	</update>
 	
 </mapper>

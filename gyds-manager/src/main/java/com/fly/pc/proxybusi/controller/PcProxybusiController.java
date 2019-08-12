@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
@@ -31,12 +32,16 @@ import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TypeDO;
+import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
+import com.fly.utils.userToObject;
+import com.fly.verifyName.dao.NameDao;
+import com.fly.verifyName.domain.NameDO;
 import com.fly.volunteer.service.VolunteerService;
 
 @Controller
 @RequestMapping("/pc/proxybusi")
-public class PcProxybusiController extends BaseDynamicController{
+public class PcProxybusiController extends BaseController{
 
 	@Autowired
 	private RegionService regionService;
@@ -48,11 +53,25 @@ public class PcProxybusiController extends BaseDynamicController{
 	private UserService userService;
 	@Autowired
 	private VolunteerService volunteerService;
+	@Autowired
+	private NameDao nameDao;
 	
 	@RequestMapping("/show")
 	public String index(@RequestParam Map<String,Object> params, HttpServletRequest request,Model model) {
 		String areaId = request.getParameter("areaId");
 		UserDO user = ShiroUtils.getUser();
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("type",3);
+		param.put("status", 1);
+		param.put("userId", user.getUserId());
+		NameDO name = nameDao.applyStatus(param);
+		if (name != null) {
+			if(name.getStatus()==1) {
+				model.addAttribute("message", "如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！");
+				return "pc/message";
+			} 
+		}
+		
 		if (StringUtils.isEmpty(areaId)) {
 			params.put("parentRegionCode",0);
 		} else {
@@ -71,9 +90,8 @@ public class PcProxybusiController extends BaseDynamicController{
 			Long userId = user.getUserId();
 			boolean flag = volunteerService.isVo(userId);
 			if (!flag) {
-				Map<String, Object> map=new HashMap<>(16);
 				model.addAttribute("type", 3);
-				return "/pc/attestation";
+				return "/pc/attestationProxy";
 			}
 		}
 		
@@ -83,26 +101,12 @@ public class PcProxybusiController extends BaseDynamicController{
 		user.setCardNo(sb.toString());
 		model.addAttribute("user", user);
 		
-		
 		if (CollectionUtils.isEmpty(list)) {//还没申请
-			model.addAttribute("proxybusiDO", new ProxybusiDO());
 			return "pc/proxybusi";
-		} 
-		
-		Integer status = list.get(0).getAuditStatus();
-		if (status == 0) {//0:申请中
-			model.addAttribute("message", "如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！");
-			return "pc/message";
-		}
-		
-		
-		if (status == 1) {//1:通过
+		}else {
 			model.addAttribute("proxybusiDO", list.get(0));
 			return "pc/proxybusiPass";
 		}
-		//2:已拒绝
-		model.addAttribute("proxybusiDO", list.get(0));
-		return "pc/proxybusi";
 	}
 	
 	
@@ -125,7 +129,8 @@ public class PcProxybusiController extends BaseDynamicController{
 	@ResponseBody
 	@Transactional
 	@RequestMapping("/save")
-	public synchronized R save(ProxybusiDO proxybusiDO, String pronvice, String city, String country, String client, String proxyArea) {
+	public synchronized R save(ProxybusiDO proxybusiDO, String pronvice, String city, String country, String street,String client, String proxyArea) {
+		Integer i = 0;
 		SetupDO setupDO = setupService.get(1);
 		String errMsg = "账号余额不足，请充值";
 		UserDO user = ShiroUtils.getUser();
@@ -139,7 +144,6 @@ public class PcProxybusiController extends BaseDynamicController{
 			area = proxyArea.split(",");
 		}
 		proxybusiDO.setCreateTime(new Date());
-		proxybusiDO.setAuditStatus(0);
 		Integer level = proxybusiDO.getRegionLevel();
 		Map<String,Object> params = new HashMap<String, Object>();
 		BigDecimal balance = null;
@@ -174,6 +178,16 @@ public class PcProxybusiController extends BaseDynamicController{
 			String coun = area != null ? area[2] : country;
 			proxybusiDO.setProxyRegion(Integer.valueOf(coun));
 			break;
+		case 4:
+			BigDecimal agencyBail = setupDO.getAgencyBail();
+			if (account.compareTo(agencyBail) == -1) {
+				return R.error(errMsg);
+			}
+			params.put("price", agencyBail);
+			balance = account.subtract(agencyBail);
+			String stree = area != null ? area[3] : street;
+			proxybusiDO.setProxyRegion(Integer.valueOf(stree));
+			break;
 		default:
 			break;
 		}
@@ -183,19 +197,20 @@ public class PcProxybusiController extends BaseDynamicController{
 		params.put("examineStatus", 2);
 		params.put("cashUpType", 2);
 		params.put("cashOutType", 2);
-		
-		if (proxybusiDO.getId() == null) {
-			if(proxybusiService.save(proxybusiDO)>0){
-				userService.updatePersonal(user);
-				creadOrder(params);
-				return R.ok();
-			}
-		}
-		if(proxybusiService.update(proxybusiDO)>0){
-			userService.updatePersonal(user);
-			creadOrder(params);
-			return R.ok();
-		}
+			
+		NameDO name = userToObject.userToverify(user, null);
+		proxybusiDO.setUserId(user.getUserId());
+		name.setType(3);
+		name.setText(JSONUtils.beanToJson(proxybusiDO));
+		 i = creadOrder(params);
+		 if(i>0) {
+			 name.setOrderId(i);
+			 if(nameDao.save(name)>0){
+					userService.updatePersonal(user);
+					return R.ok();
+				}
+		 }
+			
 		return R.error();
 	}
 	

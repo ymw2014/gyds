@@ -84,13 +84,13 @@
 		  		  <if test="numberOfPreviews != null and numberOfPreviews != ''"> and number_of_previews = #{numberOfPreviews} </if>
 		  		  <if test="numberOfApplicants != null and numberOfApplicants != ''"> and number_of_applicants = #{numberOfApplicants} </if>
 		  		  <if test="applicantsNumMax != null and applicantsNumMax != ''"> and applicants_num_max = #{applicantsNumMax} </if>
-		  		  <if test="activiStartTime != null and activiStartTime != ''"> and a.activi_start_time = #{activiStartTime} </if>
-		  		  <if test="activiEndTime != null and activiEndTime != ''"> and a.activi_end_time = #{activiEndTime} </if>
-		  		  <if test="teamId != null and teamId != ''"> and a.team_id = #{teamId} </if>
-		  		  <if test="memberId != null and memberId != ''"> and a.member_id = #{memberId} </if>
+		  		  <if test="activiStartTime != null and activiStartTime != ''"> and activi_start_time = #{activiStartTime} </if>
+		  		  <if test="activiEndTime != null and activiEndTime != ''"> and activi_end_time = #{activiEndTime} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
 		  		  <if test="ids != null and ids.size() > 0">
 		  		  	and
-		  		  	a.team_id in 
+		  		  	team_id in 
 		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
 				            #{item}       
 				    </foreach> 

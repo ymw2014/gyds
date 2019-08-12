@@ -43,6 +43,7 @@ public class BuildTree {
 		System.out.println(topNodes.get(0));
 		if (topNodes.size() == 1) {
 				root = topNodes.get(0);
+				root.setChildren(true);
 		} else {
 			root.setId(ids.toString());
 			root.setParentId("");

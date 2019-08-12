@@ -41,4 +41,6 @@ public interface VolunteerDao {
 	List<Map<String,Object>> voluntInfo(Map<String,Object> map);
 	
 	int voluntInfoCount(Map<String,Object> map);
+	
+	int update_count(Map<String,Object> map);
 }

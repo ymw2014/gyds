@@ -68,9 +68,11 @@ public class RegionServiceImpl implements RegionService {
 			Tree<RegionDO> tree = new Tree <RegionDO>();
 			tree.setId(sysRegion.getRegionCode().toString());
 			tree.setParentId(sysRegion.getParentRegionCode().toString());
+			tree.setChildren(true);
 			tree.setText(sysRegion.getRegionName());
 			Map<String, Object> state = new HashMap<>(16);
 			state.put("opened", false);
+			state.put("children", true);
 			tree.setState(state);
 			trees.add(tree);
 		}

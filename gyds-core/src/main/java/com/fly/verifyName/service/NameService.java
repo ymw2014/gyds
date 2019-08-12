@@ -27,4 +27,5 @@ public interface NameService {
 	int remove(Integer id);
 	
 	int batchRemove(Integer[] ids);
+	
 }

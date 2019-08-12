@@ -22,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< HEAD
+=======
+import com.alibaba.fastjson.JSON;
+import com.fly.common.controller.BaseController;
+>>>>>>> d8f8c0f86d17c0ccfe9c30b76a0938b88cd4a0fd
 import com.fly.domain.UserDO;
 import com.fly.news.dao.CommentDao;
 import com.fly.news.dao.PriceDao;
@@ -46,7 +51,7 @@ import com.mysql.fabric.xmlrpc.base.Array;
 
 @Controller
 @RequestMapping("/pc/news/")
-public class NewsInfoController extends BaseDynamicController {
+public class NewsInfoController extends BaseController {
 	@Autowired
 	private InfoService infoService;
 	@Autowired
@@ -228,6 +233,7 @@ public class NewsInfoController extends BaseDynamicController {
 		if (i == 1) {
 			// 产生订单
 			if (creadOrder(params) > 0) {
+				
 				// 记录+1
 				if (dynamic(params, 3) == 1) {
 					return R.ok();
@@ -284,25 +290,33 @@ public class NewsInfoController extends BaseDynamicController {
 	@ResponseBody
 	@PostMapping("/topInfo")
 	public R comTopInfo(@RequestParam Map<String, Object> params) {
-		UserDO user = ShiroUtils.getUser();
 		TopDO top = new TopDO();
+		UserDO user = null;
 		Object cost = params.get("count");
-		params.put("orderType", 2);
-		params.put("examineStatus", 2);
-		params.put("expIncType", 5);
-		params.put("price", cost);
-		Integer orderNuber = creadOrder(params);
-		if (orderNuber > 0) {
-			top.setOrdernumber(orderNuber);
-			top.setNewsId(Long.parseLong(params.get("newsId").toString()));
-			top.setStatus(3);
-			top.setTopPrice(new BigDecimal(cost.toString()));
-			top.setRegionCode(Integer.valueOf(params.get("regionCode").toString()));
-			top.setTopDay(Integer.valueOf(params.get("topCount").toString()));
-			user = ShiroUtils.getUser();
-			top.setUserId(Long.parseLong(user.getUserId().toString()));
-			if (topDao.save(top) > 0) {
-				return R.ok();
+		Map<String,Object> count = new HashMap<String,Object>();
+		count.put("price", cost);
+		Integer i = deductMoney(count);
+		if(i==1) {
+			params.put("orderType", 2);
+			params.put("examineStatus", 2);
+			params.put("expIncType", 5);
+			params.put("price", cost);
+			Integer orderNuber = creadOrder(params);
+			if (orderNuber > 0) {
+				top.setOrdernumber(orderNuber);
+				top.setNewsId(Long.parseLong(params.get("newsId").toString()));
+				top.setStatus(3);
+				top.setTopPrice(new BigDecimal(cost.toString()));
+				top.setTopStartTime(DateUtils.parse(params.get("topStartTime").toString()));
+				top.setTopEndTime(DateUtils.parse(params.get("topEndTime").toString()));
+				top.setRegionCode(Integer.valueOf(params.get("regionCode").toString()));
+				user = ShiroUtils.getUser();
+				if (user != null) {
+					top.setUserId(Long.parseLong(user.getUserId().toString()));
+				}
+				if (topDao.save(top) > 0) {
+					return R.ok();
+				}
 			}
 		}
 		return R.error();

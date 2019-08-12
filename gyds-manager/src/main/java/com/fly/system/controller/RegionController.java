@@ -128,18 +128,22 @@ public class RegionController extends BaseController {
 		return R.ok();
 	}
 	
+	
 	@GetMapping("/tree")
 	@ResponseBody
 	public Tree<RegionDO> tree() {
 		UserDO user = getUser();
 		Tree<RegionDO> tree = new Tree <RegionDO>();
 		Map<String,Object> params=new HashMap<>(16);
-		if(user.getDeptId()==0) {//超管
+		params.put("regionCode", 0);
+		tree = regionService.getTree(params);
+		/*if(user.getDeptId()==0) {//超管
+			params.put("region_code", 0);
 			tree = regionService.getTree(params);
 		}else {
 			params.put("pids", user.getDeptId());
 			tree=regionService.getRegionTree(params);
-		}
+		}*/
 		return tree;
 	}
 	

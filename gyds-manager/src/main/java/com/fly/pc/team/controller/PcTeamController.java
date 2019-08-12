@@ -126,7 +126,19 @@ public class PcTeamController {
 			params.put("status", 1);
 			NameDO name = nameDao.applyStatus(params);
 			//1申请中 2请申请
-			model.addAttribute("status", name == null ? 2 : 1);
+			if(name!=null) {
+			model.addAttribute("status", "1");
+			model.addAttribute("nameId",name.getId());
+			}else {
+				VolunteerDO vol = volunteerService.getVo(user.getUserId());
+				if(vol!=null) {
+					if(vol.getTeamId().equals(teamId)) {
+						model.addAttribute("status", "3");
+					}
+				}else {
+					model.addAttribute("status", "2");
+				}
+			}
 		}
 		return "pc/teamDetail";
 	}
@@ -170,6 +182,7 @@ public class PcTeamController {
 			if(volunteer.getTeamId()==null||volunteer.getTeamId()==-1) {
 				user = userDao.get(user.getUserId());
 				NameDO name = userToObject.userToverify(user, id);
+				name.setType(1);
 				status = nameDao.save(name);
 			}else {
 				status = 4;
@@ -181,5 +194,26 @@ public class PcTeamController {
 		dataInfo.put("status", status);
 		return dataInfo.toString();
 	}
+	
+	@ResponseBody
+	@RequestMapping("team/remove")
+	public String remove(Integer id) {
+		JSONObject dataInfo = new JSONObject();
+		Integer status = 0;
+		try {
+			UserDO user = ShiroUtils.getUser();
+			if (user == null) {
+				dataInfo.put("status", "2");//还没登录
+				return dataInfo.toString();
+			}
+				status = nameDao.remove(id);
+		}catch(Exception e) {
+			status = 3;
+			e.printStackTrace();
+		}
+		dataInfo.put("status", status);
+		return dataInfo.toString();
+	}
+	
 	
 }

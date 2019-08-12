@@ -62,16 +62,19 @@ public class NameDO implements Serializable {
 	private String nation;
 	//1:入团申请2:建团申请3:代理商入驻
 	private Integer type;
-	//创建团队信息
-	private String team;
-	//代理商信息
-	private ProxybusiDO proxybusi;
 	//信息
 	private String text;
 	//
 	private Integer regionCode;
+	//
+	private Integer orderId;
 	
-	
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
 	public Integer getRegionCode() {
 		return regionCode;
 	}
@@ -333,17 +336,5 @@ public class NameDO implements Serializable {
 		return type;
 	}
 	
-	public String getTeam() {
-		return team;
-	}
-	public void setTeam(String team) {
-		this.team = team;
-	}
-	public ProxybusiDO getProxybusi() {
-		return proxybusi;
-	}
-	public void setProxybusi(ProxybusiDO proxybusi) {
-		this.proxybusi = proxybusi;
-	}
 	
 }

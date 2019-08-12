@@ -4,20 +4,22 @@
 <mapper namespace="com.fly.team.dao.TeamDao">
 
 	<select id="get" resultType="com.fly.team.domain.TeamDO">
-		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.team_introduce,t.reg_code,r.region_name,t.status,t.remark,t.addres from team t left join team_type tt on t.team_type = tt.id left join 
+		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.team_introduce,t.reg_code,r.region_name,t.status,t.remark,t.addres,t.detailed_addr from team t left join team_type tt on t.team_type = tt.id left join 
 		cux_region r on t.reg_code = r.region_code
 		where
 		t.id = #{value}
 	</select>
 	<select id="getByTeamCode" resultType="com.fly.team.domain.TeamDO">
-		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code`,`status`,`remark`,team_introduce,addres from team 
+		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code`,`status`,`remark`,team_introduce,addres,detailed_addr from team 
 		where
 		id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.team.domain.TeamDO">
-select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.addres from team t left join team_type tt on t.team_type = tt.id left join 
-cux_region r on t.reg_code = r.region_code
+		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.addres ,mem.`name` as teamName
+		from team t left join team_type tt on t.team_type = tt.id 
+		left join cux_region r on t.reg_code = r.region_code
+		left join sys_user mem on mem.user_id=t.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and t.id = #{id} </if>
 		  		  <if test="teamName != null and teamName != ''"> and t.team_name like concat('%',#{teamName},'%')</if>
@@ -52,24 +54,34 @@ cux_region r on t.reg_code = r.region_code
 	</select>
 	
  	<select id="count" resultType="int">
-		select count(*) from team
+		select count(*)
+		from team t left join team_type tt on t.team_type = tt.id 
+		left join cux_region r on t.reg_code = r.region_code
+		left join sys_user mem on mem.user_id=t.user_id
 		 <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="teamName != null and teamName != ''"> and team_name like concat('%',#{teamName},'%')</if>
-		  		  <if test="colonelName != null and colonelName != ''"> and colonel_name = #{colonelName} </if>
-		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
-		  		  <if test="teamType != null and teamType != ''"> and team_type = #{teamType} </if>
-		  		  <if test="teamCode != null and teamCode != ''"> and team_code = #{teamCode} </if>
-		  		  <if test="teamTitleImg != null and teamTitleImg != ''"> and team_title_img = #{teamTitleImg} </if>
-		  		  <if test="teamImg != null and teamImg != ''"> and team_img = #{teamImg} </if>
-		  		  <if test="regCode != null and regCode != ''"> and reg_code = #{regCode} </if>
-		  		  <if test="status != null and status !=''"> and status = #{status} </if>
-		  		  <if test="colonelTel != null and colonelTel != ''">and colonel_tel = #{colonelTel}</if>
+		  		  <if test="id != null and id != ''"> and t.id = #{id} </if>
+		  		  <if test="teamName != null and teamName != ''"> and t.team_name like concat('%',#{teamName},'%')</if>
+		  		  <if test="colonelName != null and colonelName != ''"> and t.colonel_name = #{colonelName} </if>
+		  		  <if test="userId != null and userId != ''"> and t.user_id = #{userId} </if>
+		  		  <if test="teamType != null and teamType != ''"> and t.team_type = #{teamType} </if>
+		  		  <if test="teamCode != null and teamCode != ''"> and t.team_code = #{teamCode} </if>
+		  		  <if test="teamTitleImg != null and teamTitleImg != ''"> and t.team_title_img = #{teamTitleImg} </if>
+		  		  <if test="teamImg != null and teamImg != ''"> and t.team_img = #{teamImg} </if>
+		  		  <if test="regCode != null and regCode != ''"> and t.reg_code = #{regCode} </if>
+		  		   <if test="status != null and status !=''"> and t.status = #{status} </if>
+		  		   <if test="colonelTel != null and colonelTel != ''">and t.colonel_tel = #{colonelTel}</if>
+		  		   <if test="ids != null and ids.size > 0">
+		  		  	and
+		  		  	t.id in 
+		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				            #{item}       
+				    </foreach> 
+		  		  </if>
 		  		</where>
 	</select>
 	 
 	 <select id="is_apply" resultType="com.fly.team.domain.TeamDO">
-	select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.colonel_tel,t.addres from team t left join team_type tt on t.team_type = tt.id left join 
+	select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.colonel_tel,t.addres,t.detailed_addr from team t left join team_type tt on t.team_type = tt.id left join 
 	cux_region r on t.reg_code = r.region_code
         <where>  
 		  		  <if test="id != null and id != ''"> and t.id = #{id} </if>
@@ -94,7 +106,8 @@ cux_region r on t.reg_code = r.region_code
 			`remark`,
 			`colonel_tel`,
 			`team_introduce`,
-			`addres`
+			`addres`,
+			`detailed_addr`
 		)
 		values
 		(
@@ -111,7 +124,8 @@ cux_region r on t.reg_code = r.region_code
 			#{remark},
 			#{colonelTel},
 			#{teamIntroduce},
-			#{addres}
+			#{addres},
+			#{detailedAddr}
 		)
 	</insert>
 	 
@@ -131,6 +145,7 @@ cux_region r on t.reg_code = r.region_code
 			<if test="colonelTel != null">`colonel_tel` = #{colonelTel}</if>
 			<if test="teamIntroduce != null">`team_introduce` = #{teamIntroduce}</if>
 			<if test="address != null">`address` = #{addres}</if>
+			<if test="detailedAddr != null">`detailed_addr` = #{detailedAddr}</if>
 		</set>
 		where id = #{id}
 	</update>

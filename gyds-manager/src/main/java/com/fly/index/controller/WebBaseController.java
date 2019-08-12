@@ -18,6 +18,7 @@ import com.fly.adv.domain.AdvPriceDO;
 import com.fly.adv.domain.DetailDO;
 import com.fly.adv.service.AdvPriceService;
 import com.fly.adv.service.DetailService;
+import com.fly.common.controller.BaseController;
 import com.fly.index.utils.OrderType;
 import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.system.utils.ShiroUtils;
@@ -29,7 +30,7 @@ import com.fly.utils.R;
  * 
  */
 @Controller
-public class WebBaseController extends BaseDynamicController{
+public class WebBaseController extends BaseController{
 	@Autowired
 	private AdvPriceService advPriceService;
 	@Autowired
