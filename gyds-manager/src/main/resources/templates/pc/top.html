@@ -8,26 +8,15 @@
 			<div class="col-sm-12">
 				<div class="ibox float-e-margins">
 					<form class="form-horizontal m-t" id="signupForm">
-						<div class="ibox-content">
+						<div class="ibox-content" style="height: 210px;">
 							<div class="form-group">
 								<input type="hidden" th:value="${newsId}" name="newsId">
-								<label class="col-sm-2 control-label">置顶开始时间：<span
+								<label class="col-sm-2 control-label">置顶天数：<span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<input type="text" class="laydate-icon layer-date form-control"
-										id="topStartTime" name="topStartTime" placeholder="请选择置顶开始时间"
-										onclick="laydate({istime: true, format: 'YYYY-MM-DD',min:'0',min: laydate.now(1, 'YYYY-MM-DD ')})"
-										style="background-color: #fff;" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">置顶结束时间：<span
-									class="text-danger">*</span></label>
-								<div class="col-sm-8">
-									<input type="text" class="laydate-icon layer-date form-control"
-										id="topEndTime" name="topEndTime" placeholder="请选择置顶结束时间"
-										onclick="laydate({istime: true, format: 'YYYY-MM-DD',min: laydate.now(1, 'YYYY-MM-DD ')})"
-										style="background-color: #fff;" />
+									<select name="topCount" id="topDays">
+										<option th:each=" top : ${topCount}" th:value="${top.count}" th:text="${top.count}"></option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -35,24 +24,26 @@
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
 									<label class="radio-inline"> <input type="radio"
-										onchange="count()" th:value="${region}" name="regionCode">本平台
+										 th:value="${region}" name="regionCode">本平台
 									</label> <label class="radio-inline"> <input type="radio"
-										onchange="count()" th:value="${proRegion}" name="regionCode">本省
+										 th:value="${proRegion}" name="regionCode">本省
 									</label> <label class="radio-inline"> <input type="radio"
-										onchange="count()" th:value="${cityRegion}" name="regionCode">本市
+										 th:value="${cityRegion}" name="regionCode">本市
 									</label> <label class="radio-inline"> <input type="radio"
-										onchange="count()" th:value="${areaRegion}" name="regionCode">本县(区)
+										 th:value="${areaRegion}" name="regionCode">本县(区)
 									</label> <label class="radio-inline"> <input type="radio"
-										onchange="count()" th:value="${teamRegion}" name="regionCode">本团
+										o th:value="${teamRegion}" name="regionCode">本团
 									</label>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">费用(单位:元)：<span
 									class="text-danger"></span></label>
-								<div id="countMon"></div>
+								<div class="col-sm-8">
+									<input class="form-control"  type="text" name="count" id="count" value="0">
+								</div>
 							</div>
-							<div class="col-sm-8 col-sm-offset-3">
+							<div class="col-sm-8 col-sm-offset-3" id="sub">
 								<button type="submit" class="btn btn-primary" onclick="saveTop()">提交</button>
 							</div>
 						</div>
@@ -65,6 +56,7 @@
 	<div th:include="include::footer"></div>
 	<script type="text/javascript">
 		function saveTop() {
+			debugger
 			$.ajax({
 				type : "POST",
 				url : "/pc/news/topInfo",
@@ -75,8 +67,11 @@
 					parent.layer.alert("置顶申请失败");
 				},
 				success : function(data) {
+					if (data.code == -1) {
+						parent.layer.alert(data.msg)
+						return;
+					}
 					console.log(data);
-					alert("0");
 					if (data.code == 0) {
 						console.log(000);
 						parent.layer.msg("置顶申请成功");
@@ -93,27 +88,40 @@
 
 		}
 
-		function count() {
-			var params = {};
-			params = {
-				"topStartTime" : $('#topStartTime').val(),
-				"topEndTime" : $('#topEndTime').val(),
-				"regionCode" : $('input:radio:checked').val()
-			};
-			$.ajax({
+		$("#topDays").change(function(){
+			$('#count').val('');
+			$('input[type=radio][name="regionCode"]:checked').prop("checked", false);
+			$("#sub").show();
+		});
+		
+		 $(function(){ 
+			 $(":radio").click(function(){
+					$.ajax({
 						type : "POST",
 						url : "/pc/news/count",
-						data : params,// 你的formid
-						error : function(request) {
-							parent.layer.alert("请填写正确的开始时间 结束时间与置顶区域");
-						},
+						data : {
+							"regionCode" : $(this).val(),
+							'topDays': $("#topDays").val()
+						},// 你的formid
 						success : function(data) {
-							$('#countMon').empty();
-							var a = '<div class="col-sm-8"><input class="form-control" value = '+data.count+' type="text"></div>';
-							$('#countMon').append(a);
+							if (data.count == -1) {
+								$("#sub").hide();
+								$('#count').val('');
+								parent.layer.alert("该区域暂时无法置顶")
+								return;
+							}
+							if (data.count == -2) {
+								$("#sub").hide();
+								$('#count').val('');
+								parent.layer.alert("该区域已经置顶3条新闻了，无法置顶")
+								return;
+							}
+							$("#sub").show();
+							$('#count').val(data.count);
 						}
 					});
-		}
+		    })
+	   })
 	</script>
 </body>
 

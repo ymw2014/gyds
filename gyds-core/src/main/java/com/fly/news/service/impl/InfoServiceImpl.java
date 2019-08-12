@@ -1,5 +1,6 @@
 package com.fly.news.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,20 @@ public class InfoServiceImpl implements InfoService {
 	@Override
 	public int batchRemove(Integer[] ids){
 		return infoDao.batchRemove(ids);
+	}
+
+	@Override
+	public List<Map<String, Object>> auditData(long newsId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("newsId", newsId);
+		return infoDao.auditData(map);
+	}
+
+	@Override
+	public int auditDataCount(long newsId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("newsId", newsId);
+		return infoDao.auditDataCount(map);
 	}
 	
 }
