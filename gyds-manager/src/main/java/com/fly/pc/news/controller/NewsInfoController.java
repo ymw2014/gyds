@@ -302,8 +302,6 @@ public class NewsInfoController extends BaseController {
 				top.setNewsId(Long.parseLong(params.get("newsId").toString()));
 				top.setStatus(3);
 				top.setTopPrice(new BigDecimal(cost.toString()));
-				top.setTopStartTime(DateUtils.parse(params.get("topStartTime").toString()));
-				top.setTopEndTime(DateUtils.parse(params.get("topEndTime").toString()));
 				top.setRegionCode(Integer.valueOf(params.get("regionCode").toString()));
 				user = ShiroUtils.getUser();
 				if (user != null) {
