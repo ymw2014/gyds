@@ -4,22 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
-import com.fly.pc.news.controller.BaseDynamicController;
+import com.fly.proxybusi.domain.ProxybusiDO;
+import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
@@ -53,13 +52,24 @@ public class PersionTeamController extends BaseController{
 	private NameDao nameDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private ProxybusiService proxybusiService;
 
 
 	@RequestMapping("/createTeam")
 	public String createTeam(Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		Long userId = ShiroUtils.getUserId();
-		params.put("userId", userId);
+		UserDO user = userDao.get(ShiroUtils.getUserId());
+		if(user==null) {
+			return "redirect:/login";
+		}
+		params.put("userId", user.getUserId());
+		List<ProxybusiDO> proxylist = proxybusiService.list(params);
+		if(!CollectionUtils.isEmpty(proxylist)) {
+			model.addAttribute("message", "您已经是代理商，代理商不能建团，感谢您的参与" );
+			return "pc/message";
+		}
+		params.put("userId", user.getUserId());
 		params.put("type",2);
 		params.put("status", 1);
 		NameDO name = nameDao.applyStatus(params);
@@ -70,8 +80,7 @@ public class PersionTeamController extends BaseController{
 			} 
 		}	
 
-		boolean flag = volunteerService.isVo(userId);
-		if (!flag) {
+		if (user.getIsIdentification()==null||user.getIsIdentification()!=1) {
 			Map<String, Object> map=new HashMap<>(16);
 			map.put("parentRegionCode", 0);
 			List<RegionDO> areaList = regionService.list(map);
@@ -79,11 +88,11 @@ public class PersionTeamController extends BaseController{
 			model.addAttribute("teamType", type);
 			model.addAttribute("areaList", areaList);
 			model.addAttribute("type", 2);
-			return "/pc/attestationTeam";
+			return "pc/attestationTeam";
 		}
 
 		params.clear();
-		params.put("userId", userId);
+		params.put("userId", user.getUserId());
 		List<TeamDO> list = teamDao.list(params);
 		if(list.size()>0) {
 			TeamDO team = list.get(0);
@@ -97,7 +106,7 @@ public class PersionTeamController extends BaseController{
 			model.addAttribute("team", team);
 			return "pc/teamInfo";
 		}	
-		VolunteerDO Vol = volunteerService.getVo(userId);
+		VolunteerDO Vol = volunteerService.getVo(user.getUserId());
 		if(Vol.getTeamId()!=null&&Vol.getTeamId()!=-1){
 			model.addAttribute("message", "您已是团队成员");
 			return "pc/message";

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.fly.base.BaseService;
 import com.fly.domain.RegionDO;
@@ -56,6 +57,7 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 		int count=0;
 		NameDO name = nameDao.get(id);
 		name.setStatus(status);
+		OrderDO order = orderDao.get(name.getOrderId());
 		if(status==2) {//审核通过,保存团队信息
 			name.getText();
 			TeamDO team=(TeamDO)JSONUtils.jsonToBean(name.getText(), new TeamDO());
@@ -75,17 +77,18 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 				user=userToObject.isIdentification(user,name);
 				userDao.update(user);
 			}
+			orderDao.update(order);
 		}
 		if(status==3) {//拒绝申请
 			if(name.getOrderId()!=null) {
-				OrderDO order = orderDao.get(name.getOrderId());
 				boolean flag = increaseMoney(name.getUserId(),order.getPrice());//资金回滚入用户账户
 				if(flag) {
 					order.setExamineStatus(3);
 					order.setExamineUser(ShiroUtils.getUserId());
 					orderDao.update(order);
 				}else {
-					logger.info("团队创建审核失败,失败原因:用户编号:"+name.getUserId()+"资金回滚失败");
+					logger.info("团队创建审核失败,失败原因:用户编号:"+name.getUserId()+"资金回滚失败,手动事务处理");
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				}
 			}
 		}
@@ -105,6 +108,7 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 		if(status==2) {//审核通过,若用户还不是实名认证,保存实名认证信息
 			if(user.getIsIdentification()==null||user.getIsIdentification()!=1) {
 				user=userToObject.isIdentification(user,name);
+				userDao.update(user);
 				if(flag) {//若已经是志愿者,修改志愿者团队编号
 					VolunteerDO vo = volunteerService.getVo(user.getUserId());
 					vo.setTeamId(name.getTeamId());//将志愿者设置为本团团员
@@ -158,6 +162,8 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 		UserDO user = userDao.get(name.getUserId());
 		name.setStatus(status);
 		if(status==2) {//审核通过,若用户还不是实名认证,保存实名认证信息
+			user=userToObject.isIdentification(user,name);
+			userDao.update(user);
 			Map<String, Object> proxyMap = JSONUtils.jsonToMap(name.getText());
 			ProxybusiDO proxy=(ProxybusiDO)JSONUtils.jsonToBean(name.getText(), new ProxybusiDO());
 			proxy.setCreateTime(new Date());

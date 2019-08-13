@@ -1,4 +1,6 @@
-package com.fly.AliyunOSS;
+package com.fly.utils;
+
+import org.slf4j.LoggerFactory;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
@@ -7,7 +9,6 @@ import com.aliyun.oss.model.CannedAccessControlList;
 import com.aliyun.oss.model.CreateBucketRequest;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

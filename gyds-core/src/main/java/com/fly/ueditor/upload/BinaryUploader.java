@@ -1,7 +1,8 @@
 package com.fly.ueditor.upload;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,10 @@ import com.fly.ueditor.define.AppInfo;
 import com.fly.ueditor.define.BaseState;
 import com.fly.ueditor.define.FileType;
 import com.fly.ueditor.define.State;
+import com.fly.utils.AliyunOSSUtil;
+import com.fly.utils.ConstantProperties;
+import com.fly.utils.DeleteFileUtil;
+import com.fly.utils.R;
 
 
 
@@ -79,13 +84,27 @@ public class BinaryUploader {
 
 			String physicalPath = (String)conf.get("basePath") + savePath;
 
-			InputStream is = multipartFile.getInputStream();
-			State storageState = StorageManager.saveFileByInputStream(is,
-					physicalPath, maxSize);
-			is.close();
+			String filename = multipartFile.getOriginalFilename();
+			String uploadUrl="";
+            if(!"".equals(filename.trim())){
+                File newFile = new File(uuid+suffix);
+                FileOutputStream os = new FileOutputStream(newFile);
+                os.write(multipartFile.getBytes());
+                os.close();
+                os.flush();
+//                file.transferTo(newFile);
+                //上传到OSS
+                uploadUrl = AliyunOSSUtil.upload(newFile);
 
+                //上传图片的时候图片会保留在本地项目
+                File file1 = new File("");
+                String s = file1.getAbsolutePath();
+                DeleteFileUtil.delete(s + "\\" + filename);
+                //return "上传成功";
+            }
+			BaseState storageState=new BaseState();
 			if (storageState.isSuccess()) {
-				storageState.putInfo("url", PathFormat.format(savePath));
+				storageState.putInfo("url", ConstantProperties.JAVA4ALL_FILE_URL+"/"+uploadUrl);
 				storageState.putInfo("type", suffix);
 				storageState.putInfo("original", originFileName + suffix);
 			}

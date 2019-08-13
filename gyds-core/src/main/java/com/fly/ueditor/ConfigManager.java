@@ -27,6 +27,8 @@ import com.fly.ueditor.define.ActionMap;
  *
  */
 public final class ConfigManager {
+    //private String path="/web/gyds/config.json";
+	private String path="E:/project/config.json";
 	private final String rootPath;
 	private final String originalPath;
 	private final String contextPath;
@@ -43,7 +45,7 @@ public final class ConfigManager {
 	 */
 	private ConfigManager ( String rootPath, String contextPath, String uri ) throws FileNotFoundException, IOException {
 		
-		rootPath = rootPath.replace( "\\", "/" );
+		//rootPath = rootPath.replace( "\\", "/" );
 		
 		this.rootPath = rootPath;
 		this.contextPath = contextPath;
@@ -53,7 +55,6 @@ public final class ConfigManager {
 		} else {
 			this.originalPath = this.rootPath + uri;
 		}
-		
 		this.initEnv();
 		
 	}
@@ -68,6 +69,7 @@ public final class ConfigManager {
 	public static ConfigManager getInstance ( String rootPath, String contextPath, String uri ) {
 		
 		try {
+			System.out.println(uri);
 			return new ConfigManager(rootPath, contextPath, uri);
 		} catch ( Exception e ) {
 			return null;
@@ -160,7 +162,7 @@ public final class ConfigManager {
 	
 	private void initEnv () throws FileNotFoundException, IOException {
 		
-		File file = new File( this.originalPath );
+		File file = new File(this.contextPath);
 		
 		if ( !file.isAbsolute() ) {
 			file = new File( file.getAbsolutePath() );
@@ -168,7 +170,7 @@ public final class ConfigManager {
 		
 		this.parentPath = file.getParent();
 		
-		String configContent = this.readFile( this.getConfigPath() );
+		String configContent = this.readFile(path);
 		
 		try{
 			JSONObject jsonConfig = new JSONObject( configContent );
@@ -181,13 +183,19 @@ public final class ConfigManager {
  
  
 	private String getConfigPath () {
-		//return this.parentPath + File.separator + ConfigManager.configFileName;
-		try {
+		
 			//获取classpath下的config.json路径
-			return this.getClass().getClassLoader().getResource("config.json").toURI().getPath();
-		} catch (URISyntaxException e) {
-			return null;
-		}
+			try {
+				System.out.println("变更后====="+this.getClass().getClassLoader().getResource("config.json").toURI().getPath());
+
+				//return this.parentPath + File.separator + ConfigManager.configFileName;
+				//return this.getClass().getClassLoader().getResource("config.json").toURI().getPath();
+				return this.getClass().getClassLoader().getResource("config.json").toURI().getPath();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
 	}
  
 	private String[] getArray ( String key ) throws JSONException {

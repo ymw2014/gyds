@@ -161,7 +161,7 @@
 			<if test="nation != null">`nation` = #{nation}, </if>
 			<if test="type != null">`type` = #{type}, </if>
 			<if test="text!=null">`text` = #{text},</if>
-			<if test="regionCode != null">`region_code` = #{regionCode}</if>
+			<if test="regionCode != null">`region_code` = #{regionCode},</if>
 			<if test="orderId != null">`order_id` = #{orderId}</if>
 		</set>
 		where id = #{id}
