@@ -464,5 +464,44 @@ public class PersionController extends BaseController{
 		model.addAttribute("activiType",list);
 		return "pc/activityAdd";
 	}
+	/**
+	 * 我的参团
+	 */
+	@RequestMapping("/pc/myJoinTeam")
+	public String myJoinTeam(Model model) {
+		Long userId = ShiroUtils.getUserId();
+		Map<String, Object> params=new HashMap<String, Object>(16);
+		params.put("userId", userId);
+		//1:未审核 2:审核通过 3:拒绝
+		params.put("type", 1);
+		List<NameDO> list1= nameDao.queryJoinTeam(params);
+		//全部
+		model.addAttribute("joinTeam",list1);
+		params.clear();
+		params.put("userId", userId);
+		//1:未审核 2:审核通过 3:拒绝
+		params.put("type", 1);
+		params.put("status", 1);
+		List<NameDO> list2= nameDao.queryJoinTeam(params);
+		//未审核
+		model.addAttribute("joinTeam1",list2);
+		params.clear();
+		params.put("userId", userId);
+		//1:未审核 2:审核通过 3:拒绝
+		params.put("type", 1);
+		params.put("status", 2);
+		List<NameDO> list3= nameDao.queryJoinTeam(params);
+		//审核通过
+		model.addAttribute("joinTeam2",list3);
+		params.clear();
+		params.put("userId", userId);
+		//1:未审核 2:审核通过 3:拒绝
+		params.put("type", 1);
+		params.put("status", 3);
+		List<NameDO> list4= nameDao.queryJoinTeam(params);
+		//拒绝
+		model.addAttribute("joinTeam3",list4);
+		return "pc/myJoinTeam";
+	}
 	
 }

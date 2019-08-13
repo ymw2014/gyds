@@ -304,7 +304,7 @@ public class BaseController {
 		if(StringUtils.isEmpty(userId)) {
 			userId = ShiroUtils.getUserId() == null ? "" : ShiroUtils.getUserId() + ""; 
 		}
-		order.setUserId(Integer.valueOf(userId)); 
+		order.setUserId(Long.valueOf(userId)); 
 		if(params.get("orderType")!=null) {
 			order.setOrderType(Integer.valueOf(params.get("orderType").toString()));
 		}if(params.get("expIncType")!=null) {
@@ -323,7 +323,7 @@ public class BaseController {
 			order.setCashOutType(Integer.valueOf(params.get("cashOutType").toString()));
 		}
 		if(params.get("examineUser")!=null) {
-			order.setExamineUser(Integer.valueOf(params.get("examineUser").toString()));
+			order.setExamineUser(Long.valueOf(params.get("examineUser").toString()));
 		}
 		order.setIsDel(0);
 		order.setOrderNumber(new Date().getTime()+"");

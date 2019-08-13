@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="fixed-sidebar full-height-layout gray-bg fixed-nav" style="overflow-x:hidden;">
+<div id="top-alert" class="alert alert-danger alert-dismissable">
+    <button aria-hidden="true" class="close" type="button">×</button>
+    <span class="alert-content"></span>
+</div>
+<div style="padding: 10px;">
+    
+<style>
+    td{
+        word-break:break-all;
+    }
+    #afterSale img{
+    	width:260px;
+    	height:260px;
+    }
+</style>
+<div class="row" id="content">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content" style="padding: 0;">
+            
+                <table class="table table-bordered" id="insurance">
+                	<tr> 
+                		<td width="20%">保单号</td>
+                		<td width="30%"><font color="red" name="policyNo"></font></td>
+                		<td width="20%">车牌号码</td>
+	                	<td width="30%"><font color="#090909" name="vehicleLicencePlateNo"></td>
+                	</tr>
+                	<tr> 
+                		<td width="20%">保单生效日期</td>
+                		<td width="30%"><font color="#090909" name="effectiveDate"></font></td>
+                		<td width="20%">保单失效日期</td>
+	                	<td width="30%"><font color="#090909" name="expiryDate"></td>
+                	</tr>
+                	<tr> 
+                		<td width="20%">投保地</td>
+	                	<td width="30%"><font color="#090909" name="insurePlace"></font></td>
+	                	<td width="20%">品牌型号</td>
+	                	<td width="30%"><font color="#090909" name="vehicleBrand"></font></td>
+                	</tr>
+                	<tr> 
+	                	<td width="20%" >车辆车架号</td>
+	                	<td width="30%"><font color="#090909" name="vehicleVIN"></font></td>
+	                	<td width="20%">车辆发动机号</td>
+	                	<td width="30%"><font color="#090909" name="vehicleEngineNo"></font></td>
+                	</tr>
+                	<tr> 
+	                	<td width="20%" >投保人姓名</td>
+	                	<td width="30%"><font color="#090909" name="policyHolderName"></font></td>
+	                	<td width="20%">投保人手机号码</td>
+	                	<td width="30%"><font color="#090909" name="policyHolderPhoneNo"></font></td>
+                	</tr>
+                	<tr> 
+	                	<td width="20%" >车险类型</td>
+	                	<td width="30%"><font color="red" name="vehicleType"></font></td>
+	                	<td width="20%">是否新车</td>
+                		<td width="30%"><font color="#090909" name="isNew"></font></td>
+                	</tr>
+                	<tr> 
+                		<td width="20%">车主姓名</td>
+                		<td width="30%"><font color="#090909" name="vehicleOwnerName"></font></td>
+                		<td width="20%" >车主身份证</td>
+                		<td width="30%"><font color="#090909" name="vehicleOwnerCertificateNo"></font></td>
+                	</tr>
+                	<tr> 
+                		<td width="20%">总保费</td>
+	                	<td width="30%"><font color="red" name="premium"></font></td>
+	                	<td width="20%">车龄</td>
+	                	<td width="30%"><font color="#090909" name="vehicleAge"></font></td>
+                	</tr>
+                	
+                	<tr> 
+	                	<td width="20%">保单收件人姓名</td>
+	                	<td width="30%"><font color="#090909" name="policyHolderPhoneNo"></font></td>
+	                	<td width="20%" >保单收件人手机号</td>
+	                	<td width="30%" ><font color="#090909" name="recipienterPhone"></font></td>
+                	</tr>
+                	
+                	<tr> 
+	                	<td width="20%">保单收件地址</td>
+	                	<td width="30%"><font color="#090909" name="recipienterAddress"></font></td>
+	                	<td width="20%" >订单号</td>
+	                	<td width="30%"><font color="#090909" name="vehiclePolicyOrderNo"></font></td>
+                	</tr>
+                	<tr> 
+	                	<td width="20%">支付方式</td>
+	                	<td width="30%"><font color="#090909" name="paymentWay"></font></td>
+	                	<td width="20%" >保单收件人手机号</td>
+	                	<td width="30%"><font color="#090909" name="recipienterPhone"></font></td>
+                	</tr>
+                	<tr> 
+	                	<td width="20%">车辆类型</td>
+	                	<td width="30%"><font color="#090909" name="carType"></font></td>
+	                	<td width="20%" >使用性质</td>
+	                	<td width="30%"><font color="#090909" name="vehicleUsageType"></font></td>
+                	</tr>
+                	<tr> 
+                		<td width="20%">初登日期</td>
+	                	<td width="30%"><font color="#090909" name="vehicleRegisterDate"></font></td>
+	                	<td width="20%">上年出险次数</td>
+	                	<td width="30%"><font color="#090909" name="lastYearClaimTimes"></font></td>
+                	</tr>
+                	<tr id="taxPreimum"> 
+	                	<td width="20%">车船税</td>
+	                	<td width="30%"><font color="#090909" name="taxPreimum"></font></td>
+                	</tr>
+                	<tr> 
+	                	<td width="20%">批改类型</td>
+	                	<td width="30%" colspan="3"><font color="red" name="endorsementType"></font></td>
+                	</tr>
+                	<tr class="business"> 
+                		<td width="20%" >批单号(商业)</td>
+	                	<td width="30%"><font color="#090909" name="businessTpEndorsementNo"></font></td>
+	                	<td width="20%">批改金额(商业)</td>
+	                	<td width="30%"><font color="#090909" name="businessFee"></font></td>
+                	</tr>
+                	<tr class="business"> 
+	                	<td width="20%" >批改日期(商业)</td>
+	                	<td width="30%"><font color="#090909" name="businessApplyTime"></font></td>
+	                	<td width="20%">批改生效日期(商业)</td>
+	                	<td width="30%"><font color="#090909" name="businessEffectiveDate"></font></td>
+                	</tr>
+                	<tr class="compel"> 
+                		<td width="20%" >批单号(交强)</td>
+	                	<td width="30%"><font color="#090909" name="compelTpEndorsementNo"></font></td>
+	                	<td width="20%">批改金额(交强)</td>
+	                	<td width="30%"><font color="#090909" name="compelFee"></font></td>
+                	</tr>
+                	<tr class="compel"> 
+	                	<td width="20%" >批改日期(交强)</td>
+	                	<td width="30%"><font color="#090909" name="compelApplyTime"></font></td>
+	                	<td width="20%">批改生效日期(交强)</td>
+	                	<td width="30%"><font color="#090909" name="compelEndorEffectiveDate"></font></td>
+                	</tr>
+                	<tr> 
+                		<td width="20%" rowspan="2" >险种信息</td>
+	                	<td width="30%" colspan="3" rowspan="2"><font color="#090909" name="productDefName"></font></td>
+                	</tr>
+                </table>
+                &nbsp;<font color='red'>注:订单号为众安后台订单号</font>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</body>
+</html>
