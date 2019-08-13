@@ -200,6 +200,7 @@ public class PersionController extends BaseController{
 			VolunteerDO vo = voService.getVo(userId);
 			model.addAttribute("vo", vo);
 			return "pc/vo_zhengjian";
+
 		}
 	}
 

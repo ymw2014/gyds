@@ -71,8 +71,17 @@ public class VolunteerDO implements Serializable {
 	
 	private String introduction;
 	
+	private String isIdentification;
 	
 	
+	
+	
+	public String getIsIdentification() {
+		return isIdentification;
+	}
+	public void setIsIdentification(String isIdentification) {
+		this.isIdentification = isIdentification;
+	}
 	public Integer getIntegral() {
 		return integral;
 	}
