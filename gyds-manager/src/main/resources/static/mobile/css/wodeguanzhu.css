@@ -32,7 +32,7 @@
 .zidaoh li{
 	float: left;
 	font-size:28px;
-	width: 25%;
+	    width: 33.33%;
 	line-height:60px;
 	text-align: center;
 }
@@ -47,6 +47,11 @@
 }
 .guanzhu>div{
 	display: none;
+}
+.guanzhu2>a{
+	display:block;
+	    margin-top: 66px;
+    float: right;
 }
 .guanzhu1,.guanzhu2{
 	width: 100%;
@@ -151,4 +156,10 @@
 .guanzhu4>div>span{
 	font-size:20px;
 	color:#8e532b;
+}
+.mygz1>img {
+    left: 110px !important;
+}
+#deitor{
+	margin-left: 76px;
 }

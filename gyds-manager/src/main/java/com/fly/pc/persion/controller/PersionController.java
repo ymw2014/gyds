@@ -191,26 +191,17 @@ public class PersionController extends BaseController{
 	@RequestMapping("/pc/voApply")
 	public String voApply(Model model) {
 		UserDO user = getUser();
-		if(user.getIsIdentification()==null||user.getIsIdentification()!=1) {//未实名认证
-			model.addAttribute("message", "您还未进行实名认证!请先进行实名认证,感谢您的参与!");
-			return "pc/message";
-		}
 		Long userId = user.getUserId();
-		List<VolunteerDO> volist = voService.isVolllist(userId);//查询是否已经是志愿者
-		if(volist!=null&&volist.size()>0) {
-			VolunteerDO vo = volist.get(0);
-			if(vo.getAuditStatus()==0) {
-				model.addAttribute("model", "志愿者申请");
-				model.addAttribute("message", "您的志愿者申请正在审核!!");
+		boolean flag = voService.isVo(userId);
+		if(!flag) {
+				model.addAttribute("message", "您还不是志愿者!!!");
 				return "pc/message";
-			}
-			if(vo.getAuditStatus()==1) {//志愿者证件
-				model.addAttribute("vo", vo);
-				return "pc/vo_zhengjian";
-			}
+		}else {
+			VolunteerDO vo = voService.getVo(userId);
+			model.addAttribute("vo", vo);
+			return "pc/vo_zhengjian";
+
 		}
-		model.addAttribute("user", user);
-		return "pc/vo_apply";
 	}
 
 
