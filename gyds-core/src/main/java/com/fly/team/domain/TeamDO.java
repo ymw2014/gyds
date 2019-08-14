@@ -21,7 +21,7 @@ public class TeamDO implements Serializable {
 	private String teamName;
 	//团长名称
 	private String colonelName;
-	//用户ID
+	//团长用户ID
 	private Long userId;
 	//团队类型
 	private Integer teamType;
