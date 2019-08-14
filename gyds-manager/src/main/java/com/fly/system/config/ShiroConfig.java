@@ -96,6 +96,8 @@ public class ShiroConfig {
          * 设置过滤文件 路径
          */
         filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/ueditor/*","anon");
+        filterChainDefinitionMap.put("*.json","anon");
         filterChainDefinitionMap.put("/wx/**","anon");
         filterChainDefinitionMap.put("/notify/receive_ticket","anon");
         filterChainDefinitionMap.put("/admin","anon");

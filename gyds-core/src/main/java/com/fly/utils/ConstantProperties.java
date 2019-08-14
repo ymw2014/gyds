@@ -1,5 +1,5 @@
 
-package com.fly.AliyunOSS;
+package com.fly.utils;
  
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
