@@ -19,6 +19,7 @@
 					<label>
 						<span>活动类型</span>
 						<select name="actTypeId" style="width: 384px;">
+							<option>--请选择--</option>
 							<option th:each="type : ${activiType}" th:value="${type.id}" th:text="${type.typeName}"></option>
 						</select>
 					</label>
