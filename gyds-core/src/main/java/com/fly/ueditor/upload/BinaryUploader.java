@@ -25,7 +25,6 @@ import com.fly.ueditor.define.State;
 import com.fly.utils.AliyunOSSUtil;
 import com.fly.utils.ConstantProperties;
 import com.fly.utils.DeleteFileUtil;
-import com.fly.utils.R;
 
 
 

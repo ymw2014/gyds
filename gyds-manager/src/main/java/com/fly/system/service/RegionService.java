@@ -90,5 +90,5 @@ public interface RegionService {
 	 * @param day     天数
 	 * @return
 	 */
-	Map<String, Object>  activeStat(String region, String level, String day);
+	Map<String, Object>  activeStat(Integer region, Integer level, Integer day);
 }
