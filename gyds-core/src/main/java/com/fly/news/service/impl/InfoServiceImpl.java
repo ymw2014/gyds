@@ -55,16 +55,12 @@ public class InfoServiceImpl implements InfoService {
 	}
 
 	@Override
-	public List<Map<String, Object>> auditData(long newsId) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("newsId", newsId);
+	public List<Map<String, Object>> auditData(Map<String, Object> map) {
 		return infoDao.auditData(map);
 	}
 
 	@Override
-	public int auditDataCount(long newsId) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("newsId", newsId);
+	public int auditDataCount(Map<String, Object> map) {
 		return infoDao.auditDataCount(map);
 	}
 	

@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.fly.async.task.ThreadTaskService;
+//import com.fly.async.task.ThreadTaskService;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
@@ -45,8 +45,8 @@ public class BaseService {
 	private OrderDao orderDao;
 	@Autowired 
 	private RegionService regionService;
-	@Autowired
-	private ThreadTaskService threadTaskService;
+	//@Autowired
+	//private ThreadTaskService threadTaskService;
 	
 	/**
 	   *       更新账户余额
@@ -213,7 +213,7 @@ public class BaseService {
 			for (RegionDO regionDO : teamList) {
 				TeamDO team = teamDao.get(regionDO.getRegionCode());
 				regionService.activeStat(team.getId(), 5, 10);
-				threadTaskService.roolTeamByElement(regionDO.getRegionCode(),allPrice);
+		//		threadTaskService.roolTeamByElement(regionDO.getRegionCode(),allPrice);
 			}
 		}
 

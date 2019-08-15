@@ -235,6 +235,17 @@
 		<where>
 		 <if test="newsId != null and newsId != ''"> a.news_id = #{newsId}</if>
 		</where>
+		<choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 
 	<select id="auditDataCount" resultType="int">

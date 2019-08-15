@@ -82,10 +82,8 @@ public class IndexController {
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
 		params.clear();
-		params.put("status", 1);
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
-		ids = teamList.parallelStream().map(team -> team.getId()).collect(Collectors.toList());
 		model.addAttribute("teamList", teamList);//团队
 		params.clear();
 		params.put("status", 1);

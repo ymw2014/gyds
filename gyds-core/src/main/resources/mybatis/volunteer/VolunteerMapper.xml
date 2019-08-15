@@ -198,9 +198,10 @@
 
 	<!-- 判断用户是否为志愿者 -->
 	<select id="isVo" resultType="com.fly.volunteer.domain.VolunteerDO">
-		SELECT v.*,u.name volunteerName,u.sex
+		SELECT v.*,u.name volunteerName,u.sex,t.id teamId
 		FROM volunteer v
-		LEFT JOIN  sys_user u ON v.user_id   =  u.user_id
+		LEFT JOIN  sys_user u ON v.user_id = u.user_id
+		LEFT JOIN  team t ON v.team_id = t.id
         <where>  
 		  		v.`user_id`=#{userId}  and u.is_identification = 1
 		</where>
