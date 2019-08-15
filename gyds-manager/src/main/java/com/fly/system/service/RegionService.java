@@ -74,12 +74,12 @@ public interface RegionService {
 	 */
 	Tree<RegionDO> getRegionTree(Map<String, Object> params);
 	/**
-	 * 获取登录用户权限下所有团队编号
+	 * 获取登录用户权限下所有团队编号(通过当前区域编号获取所有团队编号)
 	 */
 	List<Integer> getAllTeamByUserRole(Map<String,Object> params);
 	
 	/**
-	 * 获取登录用户权限下所有区域及团队编号
+	 * 获取登录用户权限下所有区域及团队编号( 获取该区域下所有区域及团队)
 	 * @return
 	 */
 	List<Integer> getTeamAndAreaByUserRole(Map<String,Object> params);
@@ -91,4 +91,13 @@ public interface RegionService {
 	 * @return
 	 */
 	Map<String, Object>  activeStat(Integer region, Integer level, Integer day);
+	
+	/**
+	 * 	获取该区域下所有区域
+	 * @param params
+	 * @return
+	 */
+	List<Integer> getAllRegin(Map<String, Object> params);
+	List<Integer> getAllReginByLevel(Map<String, Object> params);
+
 }
