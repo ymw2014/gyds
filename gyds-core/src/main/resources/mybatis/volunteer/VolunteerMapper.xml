@@ -114,57 +114,31 @@
 	<insert id="save" parameterType="com.fly.volunteer.domain.VolunteerDO" useGeneratedKeys="true" keyProperty="id">
 		insert into volunteer
 		(
-			`head_img`, 
-			`volunteer_name`, 
 			`user_id`, 
 			`team_id`, 
-			`address`, 
-			`telephone`, 
-			`sex`, 
-			`age`, 
 			`volunteer_number`, 
-			`card_no`, 
 			`shares_number`, 
 			`comment_number`, 
 			`click_number`, 
 			`act_number`, 
 			`level`, 
-			`province`, 
-			`city`, 
-			`county`, 
 			`create_time`, 
-			`audit_status`, 
-			`regionCode`, 
-			`remark`, 
-			`enter_team_time`, 
-			`introduction`
+			`remake`, 
+			integral
 		)
 		values
 		(
-			#{headImg}, 
-			#{volunteerName}, 
 			#{userId}, 
 			#{teamId}, 
-			#{address}, 
-			#{telephone}, 
-			#{sex}, 
-			#{age}, 
 			#{volunteerNumber}, 
-			#{cardNo}, 
 			#{sharesNumber}, 
 			#{commentNumber}, 
 			#{clickNumber}, 
 			#{actNumber}, 
 			#{level}, 
-			#{province}, 
-			#{city}, 
-			#{county}, 
 			#{createTime}, 
-			#{auditStatus}, 
-			#{regioncode}, 
-			#{remark}, 
-			#{enterTeamTime}, 
-			#{introduction}
+			#{remake}, 
+			#{integral}
 		)
 	</insert>
 	 
@@ -210,13 +184,12 @@
 	</delete>
 	
 	<select id="isVolllist" resultType="com.fly.volunteer.domain.VolunteerDO">
-		SELECT v.id,u.name volunteerName,v.user_id, t.team_name teamName,u.head_img,
+		SELECT v.id,u.name volunteerName,v.user_id, u.head_img,
 		u.mobile telephone, u.`sex`,`volunteer_number`,
 		u.`card_no`,`shares_number`,`comment_number`,`click_number`,
 		`act_number`,`level`, u.is_identification  isIdentification,
 		DATE_FORMAT(create_Time,'%Y-%m-%d %H:%i:%s') createTime,v.remake
 		FROM volunteer v
-		LEFT JOIN team t ON v.team_id = t.id
 		LEFT JOIN sys_user u ON v.user_id   =  u.user_id
         <where>  
 		  		v.`user_id`=#{userId}  and u.is_identification = 1
@@ -225,9 +198,10 @@
 
 	<!-- 判断用户是否为志愿者 -->
 	<select id="isVo" resultType="com.fly.volunteer.domain.VolunteerDO">
-		SELECT v.* 
+		SELECT v.*,u.name volunteerName,u.sex,t.id teamId
 		FROM volunteer v
-		LEFT JOIN  sys_user u ON v.user_id   =  u.user_id
+		LEFT JOIN  sys_user u ON v.user_id = u.user_id
+		LEFT JOIN  team t ON v.team_id = t.id
         <where>  
 		  		v.`user_id`=#{userId}  and u.is_identification = 1
 		</where>
@@ -355,5 +329,15 @@
 		</set>
 		where user_id = #{id}
 	</update>
-	
+	<!-- 获取志愿者信息 -->
+	<select id="getVoInfo" resultType="java.util.Map">
+		SELECT v.* ,u.name,u.head_img,u.sex
+		FROM volunteer v
+		LEFT JOIN  sys_user u ON v.user_id   =  u.user_id
+        <where>  
+		  		v.`user_id`=#{userId}  and u.is_identification = 1
+		</where>
+      
+		
+	</select>
 </mapper>

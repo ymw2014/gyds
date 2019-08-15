@@ -178,7 +178,7 @@ function info(value) {
 	var html = '';
 	$.each(value, function (n, value) {
 		html += '<figure>' + 
-					'<a href=""><img src=" ' + value.headImg + '" alt=""></a>' +
+					'<a href="/pc/volunteerDetail?id='+value.id+'"><img src=" ' + value.headImg + '" alt=""></a>' +
 			    		'<figcaption>' +
 							'<span>'+ value.volunteerName + '</span>' +
 							'<p>团队：'+ value.teamName + '</p>' +

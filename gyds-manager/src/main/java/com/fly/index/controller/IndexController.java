@@ -3,6 +3,7 @@ package com.fly.index.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -81,6 +82,10 @@ public class IndexController {
 		params.put("pids", areaId);
 		List<Integer> ids = regionService.getAllTeamByUserRole(params);
 		params.clear();
+		params.put("ids", ids);
+		List<TeamDO> teamList = teamService.list(params);
+		model.addAttribute("teamList", teamList);//团队
+		params.clear();
 		params.put("status", 1);
 		params.put("isDel", 0);
 		params.put("offset", 0);
@@ -94,11 +99,6 @@ public class IndexController {
 		params.put("ids", ids);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
-		params.clear();
-		params.put("status", 1);
-		params.put("ids", ids);
-		List<TeamDO> teamList = teamService.list(params);
-		model.addAttribute("teamList", teamList);//团队
 		params.clear();
 		params.put("isVo",1);//
 		params.put("ids", ids);

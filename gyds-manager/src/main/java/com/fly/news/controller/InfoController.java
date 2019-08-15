@@ -1,11 +1,14 @@
 package com.fly.news.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +24,10 @@ import com.fly.news.dao.TopDao;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
+import com.fly.order.domain.OrderDO;
+import com.fly.order.service.OrderService;
 import com.fly.system.service.RegionService;
+import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
@@ -47,6 +53,10 @@ public class InfoController {
 	private TeamDao teamDao;
 	@Autowired
 	private TopDao topDao;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private RegionService regionService;
@@ -103,9 +113,14 @@ public class InfoController {
 	@ResponseBody
 	@GetMapping("/auditData/{id}")
 	@RequiresPermissions("news:info:audit")
-	public PageUtils auditDate(@PathVariable("id") Long id,Model model){
-		List<Map<String,Object>> auditData = infoService.auditData(id);
-		int dataCount = infoService.auditDataCount(id);
+	public PageUtils auditDate(@PathVariable("id") Long id,String limit,String offset){
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("newsId", id);
+		params.put("limit", limit);
+		params.put("offset", offset);
+		Query query = new Query(params);
+		List<Map<String,Object>> auditData = infoService.auditData(query);
+		int dataCount = infoService.auditDataCount(query);
 		PageUtils pageUtils = new PageUtils(auditData, dataCount);
 	    return pageUtils;
 	}
@@ -115,13 +130,28 @@ public class InfoController {
 	@RequestMapping("/auditUpdate")
 	@RequiresPermissions("news:info:audit")
 	public R auditUpdate(TopDO apply){
-		 Calendar c = Calendar.getInstance();
-		 c.add(Calendar.DAY_OF_MONTH, apply.getTopDay());
-		 apply.setTopStartTime(new Date());
-		 apply.setTopEndTime(c.getTime());
-		 if (topDao.update(apply) > 0) {
-				return R.ok();
-			}
+		 if (apply.getStatus() == 2) {
+			Map<String,Object> params = new HashMap<String, Object>();
+			params.put("id", apply.getOrdernumber());
+			List<OrderDO> list = orderService.list(params);
+			if (CollectionUtils.isEmpty(list)) {
+				BigDecimal price = list.get(0).getPrice();
+				UserDO userDO = userService.get(apply.getUserId());
+				BigDecimal account = userDO.getAccount();
+				BigDecimal blance = price.add(account);
+				userDO.setAccount(blance);
+				userService.update(userDO);
+				topDao.update(apply);
+			} 
+			return R.error("订单信息查询失败");
+		 }
+		 if (apply.getStatus() == 1) {
+			 Calendar c = Calendar.getInstance();
+			 c.add(Calendar.DAY_OF_MONTH, apply.getTopDay());
+			 apply.setTopStartTime(new Date());
+			 apply.setTopEndTime(c.getTime());
+			 topDao.update(apply);
+		 }
 		return R.ok();
 	}
 	

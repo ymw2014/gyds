@@ -73,7 +73,6 @@ public class PcTeamController {
 			ids.add(-1);
 		}
 		params.clear();
-		params.put("status", 1);
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队

@@ -42,8 +42,20 @@ public class BuildTree {
 		Tree<T> root = new Tree<T>();
 		System.out.println(topNodes.get(0));
 		if (topNodes.size() == 1) {
-				root = topNodes.get(0);
-				root.setChildren(true);
+			/*
+			 * root = topNodes.get(0); root.setChildren(true);
+			 */
+			List<Tree<T>> topNode = new ArrayList<Tree<T>>();
+			root.setId(topNodes.get(0).getId());
+			root.setParentId("");
+			root.setHasParent(false);
+			root.setChildren(true);
+			root.setChecked(true);
+			root.setChildren(topNode);
+			root.setText(topNodes.get(0).getText());
+			Map<String, Object> state = new HashMap<>(16);
+			state.put("opened", false);
+			root.setState(state);
 		} else {
 			root.setId(ids.toString());
 			root.setParentId("");

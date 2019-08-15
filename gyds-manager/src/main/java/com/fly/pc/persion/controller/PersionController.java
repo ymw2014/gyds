@@ -34,6 +34,7 @@ import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.sys.domain.SetupDO;
 import com.fly.sys.service.SetupService;
+import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
@@ -191,13 +192,14 @@ public class PersionController extends BaseController{
 	@RequestMapping("/pc/voApply")
 	public String voApply(Model model) {
 		UserDO user = getUser();
+		Map<String, Object> vo = new HashMap<String, Object>();
 		Long userId = user.getUserId();
 		boolean flag = voService.isVo(userId);
 		if(!flag) {
 				model.addAttribute("message", "您还不是志愿者!!!");
 				return "pc/message";
 		}else {
-			VolunteerDO vo = voService.getVo(userId);
+			 vo = voService.getVoInfo(userId);
 			model.addAttribute("vo", vo);
 			return "pc/vo_zhengjian";
 
@@ -445,6 +447,7 @@ public class PersionController extends BaseController{
 			} else if (examineStatus == 1) {
 				model.addAttribute("message","恭喜，您发布的活动已审核通过,可以继续发布活动");
 				model.addAttribute("status","1");
+				model.addAttribute("activiType",list);
 				return "pc/activityAdd";
 			} else {
 				model.addAttribute("activiType",list);

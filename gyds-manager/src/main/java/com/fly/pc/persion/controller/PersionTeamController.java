@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,10 @@ public class PersionTeamController extends BaseController{
 		List<TeamDO> list = teamDao.list(params);
 		if(list.size()>0) {
 			TeamDO team = list.get(0);
+			List<String> collect = typeDao.list1().stream().filter(bean -> bean.getId() == team.getTeamType()).map(bean -> bean.getTypeName()).collect(Collectors.toList());
+			if (!CollectionUtils.isEmpty(collect)) {
+				team.setTypeName(collect.get(0));
+			}
 			String imgStr = team.getTeamImg();
 			String[] img = imgStr.split(",");
 			List<String> imgList = new ArrayList<String>();

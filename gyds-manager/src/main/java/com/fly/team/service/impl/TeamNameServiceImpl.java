@@ -58,12 +58,14 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 		NameDO name = nameDao.get(id);
 		name.setStatus(status);
 		OrderDO order = orderDao.get(name.getOrderId());
+		boolean isVo =volunteerService.isVo(name.getUserId());
 		if(status==2) {//审核通过,保存团队信息
 			name.getText();
 			TeamDO team=(TeamDO)JSONUtils.jsonToBean(name.getText(), new TeamDO());
 			team.setId(randomCode(team.getRegCode()));
 			team.setUserId(name.getUserId());
 			team.setColonelName(name.getName());
+			team.setStatus(1);
 			teamDao.save(team);
 			RegionDO region=new RegionDO();
 			region.setRegionCode(team.getId());
@@ -73,9 +75,26 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 			region.setRegionLevel(5);
 			regionDao.save(region);
 			UserDO user = userDao.get(name.getUserId());
-			if(user==null||user.getIsIdentification()!=-1) {//未实名认证,保存实名认证信息
+			if(user.getIsIdentification()==null||user.getIsIdentification()!= 1) {//未实名认证,保存实名认证信息
 				user=userToObject.isIdentification(user,name);
 				userDao.update(user);
+			}
+			if(isVo) {//若已经是志愿者,修改志愿者团队编号
+				VolunteerDO vo = volunteerService.getVo(user.getUserId());
+				vo.setTeamId(team.getId());//将志愿者设置为本团团员
+				volunteerService.update(vo);
+			}else {//非志愿者重新创建志愿者对象
+				VolunteerDO vo=new VolunteerDO();
+				vo.setUserId(name.getUserId());
+				vo.setTeamId(team.getId());
+				vo.setVolunteerNumber(getVoNumber(name.getCardNo()));
+				vo.setSharesNumber(0);//转发
+				vo.setClickNumber(0);//点击
+				vo.setCommentNumber(0);//评论
+				vo.setIntegral(0);//积分
+				vo.setActNumber(0);
+				vo.setCreateTime(new Date());
+				volunteerService.save(vo);
 			}
 			orderDao.update(order);
 		}

@@ -20,6 +20,8 @@ public interface RedDao {
 	
 	List<RedDO> list(Map<String,Object> map);
 	
+	List<Map<String,Object>> redListUser(Map<String,Object> map);
+	
 	int count(Map<String,Object> map);
 	
 	int save(RedDO red);

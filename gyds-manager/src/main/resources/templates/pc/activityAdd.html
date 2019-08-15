@@ -19,6 +19,7 @@
 					<label>
 						<span>活动类型</span>
 						<select name="actTypeId" style="width: 384px;">
+							<option>--请选择--</option>
 							<option th:each="type : ${activiType}" th:value="${type.id}" th:text="${type.typeName}"></option>
 						</select>
 					</label>
@@ -162,7 +163,7 @@ var ue = UE.getEditor('deitor',{
 			url : "/pc/activity/publish",
 			data : $('#signupForm').serialize(),
 			success : function(r) {
-				if (data.code == 0) {
+				if (r.code == 0) {
 					$("#signupForm").hide();
 					$("#info").show();
 				} else {

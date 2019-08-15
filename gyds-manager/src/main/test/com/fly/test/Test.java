@@ -14,7 +14,7 @@ public class Test {
 		 * (Math.random()*(999-100+1)+100); System.out.println(random); }
 		 */
 		for (int i = 0; i < 10; i++) {
-            List<BigDecimal> moneys = math(BigDecimal.valueOf(68), 100);
+            List<BigDecimal> moneys = math(BigDecimal.valueOf(10), 50);
             if (moneys != null) {
                 BigDecimal b = new BigDecimal(0);
                 for (BigDecimal bigDecimal : moneys) {

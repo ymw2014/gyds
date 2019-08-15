@@ -12,10 +12,10 @@
 					<h4 style="width: 90px;">志愿者证书</h4>
 				</div>
 				<div class="kapian" style="background:url(/pc/images/zyzzs_03.jpg) no-repeat;">
-					<span class="zyzname" th:text="${vo.volunteerName}">王积乐</span>
+					<span class="zyzname" th:text="${vo.name}"></span>
 					<span class="zyzxb"th:text="${vo.sex==0?'男':'女'}"></span>
-					<span class="zyzbh" th:text="${vo.volunteerNumber}"></span>
-					<img th:src="${vo.headImg}" alt="" class="touxing">
+					<span class="zyzbh" th:text="${vo.volunteer_number}"></span>
+					<img th:src="${vo.head_img}" alt="" class="touxing">
 					<img src="/pc/images/zyzew_03.jpg" alt="" class="touxing1">
 					<span class="zyzfwrx">志愿服务咨询热线:400-003-5125</span>
 					<span class="zyzfjz">监制:豫民网</span>

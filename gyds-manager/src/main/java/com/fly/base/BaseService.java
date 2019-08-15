@@ -8,6 +8,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fly.async.task.ThreadTaskService;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
@@ -128,7 +129,7 @@ public class BaseService {
 			if(!CollectionUtils.isEmpty(teamList4)) {
 				for (Integer teamId : teamList4) {
 					//多线程分佣
-					threadTaskService.roolTeamByElement(teamId,Dictionary.SHENG,allPrice4);
+					threadTaskService.roolTeamByElement(teamId,Dictionary.ZONG_PING_TAI,allPrice4);
 				}
 			}
 			//街道办分佣
@@ -341,6 +342,7 @@ public class BaseService {
 				regionService.activeStat(team.getId(), 5, 10);
 				//多线程分佣
 				threadTaskService.roolTeamByElement(regionDO.getRegionCode(),Dictionary.JIE_DAO_BAN,allPrice);
+
 			}
 		}
 	}

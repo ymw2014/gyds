@@ -77,7 +77,8 @@ public class RegionServiceImpl implements RegionService {
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Tree <RegionDO> t = BuildTree.build(trees,-1);
+		Integer areaId = Integer.valueOf(params.get("parentRegionCode").toString());
+		Tree <RegionDO> t = BuildTree.build(trees,areaId);
 		return t;
 	}
 	
@@ -112,19 +113,14 @@ public class RegionServiceImpl implements RegionService {
 	public List<Integer> getAllTeamByUserRole(Map<String,Object> params) {
 		List<RegionDO> RegionDOs =new ArrayList<>();
 		String pids = String.valueOf(params.get("pids"));
-		if(Integer.valueOf(pids) == 0) {
+		if("0".equals(pids)) {
 			RegionDOs = regionDao.list(null);
 		}else {
-			params.put("pids", params.get("pids"));
-			RegionDOs = regionDao.regionIdByList(params);	 
+			params.put("pids", params.get("pids")); 
+			RegionDOs = regionDao.regionIdByList(params);
 		}
-		List<Integer> list=new ArrayList<>();
-		for (RegionDO sysRegion : RegionDOs) {
-			if(sysRegion.getRegionType()==2) {
-				list.add(sysRegion.getRegionCode());
-			}
-		}
-		return list;
+		List<Integer> collect = RegionDOs.parallelStream().filter(bean -> bean.getRegionType() == 2).map(bean -> bean.getRegionCode()).collect(Collectors.toList());
+		return collect;
 	}
 	
 	@Override
@@ -234,7 +230,7 @@ public class RegionServiceImpl implements RegionService {
 		param.put("regionType", 2);//团队
 		LocalDate now = LocalDate.now();
 		LocalDate dayAgo = LocalDate.now().minusDays(Long.valueOf(day));
-		List<Integer>  teamId = regionDao.list(param).stream().map(bean -> bean.getRegionCode()).collect(Collectors.toList());
+		List<Integer>  teamId = regionDao.list(param).parallelStream().map(bean -> bean.getRegionCode()).collect(Collectors.toList());
 		if (CollectionUtils.isEmpty(teamId)) {
 			return 0;
 		}

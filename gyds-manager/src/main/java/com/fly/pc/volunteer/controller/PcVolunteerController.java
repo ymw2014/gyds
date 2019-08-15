@@ -206,7 +206,7 @@ public class PcVolunteerController {
 				InfoDO infoDO = infoService.get(bean.getNewsId().intValue());
 				if (infoDO != null) {
 					Map<String, Object> info = new HashMap<String, Object>();
-					info.put("createTime", infoDO.getCreateTimeStr());
+					info.put("createTime", bean.getCreatTime());
 					info.put("title", infoDO.getTitle());
 					info.put("img", infoDO.getTitleImg());
 					info.put("actType", 1);
@@ -232,7 +232,7 @@ public class PcVolunteerController {
 				ActivityDO activityDO = activityService.get(bean.getNewsId().intValue());
 				if (activityDO != null) {
 					Map<String, Object> info = new HashMap<String, Object>();
-					info.put("createTime", activityDO.getCreateTimeStr());
+					info.put("createTime", bean.getCreatTime());
 					info.put("title", activityDO.getActTitle());
 					info.put("img", activityDO.getActTitleImg());
 					info.put("actType", 2);

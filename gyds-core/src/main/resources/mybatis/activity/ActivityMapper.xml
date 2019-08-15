@@ -123,7 +123,8 @@
 			`applicants_num_max`,
 			team_id,
 			activi_start_time,
-			activi_end_time
+			activi_end_time,
+			act_addr
 		)
 		values
 		(	
@@ -149,7 +150,8 @@
 			#{applicantsNumMax},
 			#{teamId},
 			#{activiStartTime},
-			#{activiEndTime}
+			#{activiEndTime},
+			#{actAddr}
 		)
 	</insert>
 	 
@@ -176,9 +178,9 @@
 			<if test="numberOfApplicants != null">`number_of_applicants` = #{numberOfApplicants}, </if>
 			<if test="applicantsNumMax != null">`applicants_num_max` = #{applicantsNumMax},</if>
 			<if test="reasonForRefusal != null">`reason_for_refusal` = #{reasonForRefusal},</if>
-			<if test="activiStartTime != null and activiStartTime != ''"> activi_start_time = #{activiStartTime}, </if>
-  		    <if test="activiEndTime != null and activiEndTime != ''"> activi_end_time = #{activiEndTime}, </if>
-  		    <if test="teamId != null and teamId != ''"> team_id = #{teamId} </if>
+			<if test="activiStartTime != null"> activi_start_time = #{activiStartTime}, </if>
+  		    <if test="activiEndTime != null"> activi_end_time = #{activiEndTime}, </if>
+  		    <if test="teamId != null "> team_id = #{teamId} </if>
 		</set>
 		where id = #{id}
 	</update>
