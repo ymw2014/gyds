@@ -144,71 +144,8 @@
 								<p>18.66元</p>
 							</div>
 						</div>
-						<div class="hblq">
-							<div class="hblq1">
-								<img src="images/touxiang5.png" alt="">
-								<div>
-									<span>苏小宁</span>
-									<p>今天 10:00:28</p>
-								</div>
-								<p>18.66元</p>
-							</div>
-						</div>
-						<div class="hblq">
-							<div class="hblq1">
-								<img src="images/touxiang5.png" alt="">
-								<div>
-									<span>苏小宁</span>
-									<p>今天 10:00:28</p>
-								</div>
-								<p>18.66元</p>
-							</div>
-						</div>
-						<div class="hblq">
-							<div class="hblq1">
-								<img src="images/touxiang5.png" alt="">
-								<div>
-									<span>苏小宁</span>
-									<p>今天 10:00:28</p>
-								</div>
-								<p>18.66元</p>
-							</div>
-						</div>
-						<div class="hblq">
-							<div class="hblq1">
-								<img src="images/touxiang5.png" alt="">
-								<div>
-									<span>苏小宁</span>
-									<p>今天 10:00:28</p>
-								</div>
-								<p>18.66元</p>
-							</div>
-						</div>
-						<div class="hblq">
-							<div class="hblq1">
-								<img src="images/touxiang5.png" alt="">
-								<div>
-									<span>苏小宁</span>
-									<p>今天 10:00:28</p>
-								</div>
-								<p>18.66元</p>
-							</div>
-						</div>
-						<div class="hblq">
-							<div class="hblq1">
-								<img src="images/touxiang5.png" alt="">
-								<div>
-									<span>苏小宁</span>
-									<p>今天 10:00:28</p>
-								</div>
-								<p>18.66元</p>
-							</div>
-						</div>
 					</div>
-					<div class="butt">
-						<button>我的红包</button>
-						<button>发红包</button>
-					</div>
+				
 					<a href="" class="modal__close demo-close"> <svg class=""
 							viewBox="0 0 24 24">
 								<path
@@ -218,13 +155,12 @@
 					</a>
 				</div>
 			</div>
-
 		</div>
 		<div class="listzz">
-		<input th:value="${userStatus}" type="hidden"    id="userStatus" />
+		<input th:value="${userStatus}" type="hidden"   id="userStatus" />
 			<div th:if=" ${isLike} eq '0'">
 				<img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞"
-					th:text="${info.numberOfLikes}">
+					th:text="${info.numberOfLikes}" onclick="login()">
 			</div>
 			<div th:if=" ${isLike} eq '1'">
 				<img th:src="@{/pc/images/listzz_04.jpg}" alt="点赞"
@@ -235,19 +171,31 @@
 					th:text="${info.numberOfLikes}" th:onclick="like()" id="like">
 			</div>
 			<div th:if=" ${isTop} eq '0'">
-				<img th:src="@{/pc/images/listzs_06.jpg}" alt="">未置顶
+				<img th:src="@{/pc/images/listzs_06.jpg}" alt="" onclick="login()">未置顶
 			</div>
 			<div th:if=" ${isTop} eq '1'">
 				<img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶
 			</div>
 			<div th:if=" ${isTop} eq '2'">
-				<img th:src="@{/pc/images/listzs_05.jpg}" alt=""
+				<img th:src="@{/pc/images/listzs_06.jpg}" alt=""
 					th:onclick="topNew()" id="top">未置顶
 			</div>
-			<div>
-				<img class="modal__trigger" data-modal="#modal"
-					th:src="@{/pc/images/listcc_07.jpg}" alt="" onclick="redPacket()"
+			<input type="hidden" id = "isRed" th:value="${isRed}">
+			<input type="hidden" id = "isGetRed" th:value="${isGetRed}">
+			<div th:if=" ${isRed} eq '0'">
+				<img class="modal__trigger" onclick="login()"
+					th:src="@{/pc/images/listcc_07.jpg}" alt="" 
+					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
+			</div>
+			<div th:if=" ${isRed} eq '1'">
+				<img class="modal__trigger" onclick="redWars()"data-modal="#modal"
+					th:src="@{/pc/images/listcc_08.png}" alt="" 
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">发放中
+			</div>
+			<div th:if=" ${isRed} eq '2'">
+				<img class="modal__trigger" 
+					th:src="@{/pc/images/listcc_07.jpg}" alt="" onclick="redNew()"
+					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
 			</div>
 		</div>
 		<script th:src="@{/pc/js/js1.js}"></script>
@@ -299,6 +247,60 @@
 <script src="/js/plugins/layer/laydate/laydate.js"></script>
 <script th:src="@{/pc/js/common.js}"></script>
 <script type="text/javascript">
+function redWars(){
+	para={"newsId":$('#infoId').val()};
+	$.ajax({
+		type : "POST",
+		url : "/pc/news/queryRed",
+		data : para,
+		error : function(request) {
+			alert("抢红包异常");
+		},
+		success : function(data) {
+			if (data.code == 0) {
+				alert("成功");
+			}else{
+				
+			}
+
+		}
+	});
+}
+$().ready(function(){
+	var isRed = $('#isRed').val();
+	var isGetRed = $('#isGetRed').val();
+	//满足两个条件 1:有红包 2:未领取过
+	if(isRed==1&&isGetRed==2){
+		var myVar = setTimeout(vieRed, 1000);
+	}
+})
+
+function vieRed(){
+	para={"newsId":$('#infoId').val(),"orderType":1,"expIncType":3};
+	$.ajax({
+		type : "POST",
+		url : "/pc/news/vieRed",
+		data : para,
+		async : true,
+		error : function(request) {
+			alert("抢红包异常");
+		},
+		success : function(data) {
+			if (data.code == 0) {
+				alert("成功");
+			} else if(data.msg == 1){
+				alert('红包抢完啦!');
+			}else if(data.msg == 2){
+				alert('抢红包失败!');
+			}else if(data.msg == 3){
+				
+			}
+
+		}
+	});
+	
+}
+
 	function share(reType){
 		para={"newsId":$('#infoId').val(),"trType":reType};
 		$.ajax({
@@ -398,52 +400,19 @@
 		});
 	
 	}
+	function redNew(){
+		var id = $('#infoId').val();
+		layer.open({
+			type : 2,
+			title : '红包发放',
+			maxmin : true,
+			shadeClose : false, // 点击遮罩关闭层
+			area : [ '1000px', '620px' ],
+			content : '/pc/news/red/' + id // iframe的url
+		});
 	
-	function redPacket(){
-		layer.prompt({title: '请输入红包金额,不少于10元，并确认', formType: 3}, function(red, index){
-			  layer.close(index);
-			  layer.prompt({title: '请输入发放数量，并确认', formType: 3}, function(count, index){
-				  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":red,"count":count};
-				  $.ajax({
-						type : "POST",
-						url : "/pc/news/redPacket",
-						data : para,
-						error : function(request) {
-							layer.msg('发红包失败！您扣除的：'+ red +'元 已原路退回您的账户');
-						},
-						success : function(data) {
-							if (data.code == 0) {
-								alert("发红包成功");
-								history.go(0);
-							} else {
-								if(data.msg == -1){
-								layer.msg('发红包失败！您的余额不足');
-								}else if(data.msg == 0){
-								layer.msg('发红包失败！您打赏的：'+ som +'元 已原路退回您的账户');
-								}else if(data.msg == 2){
-									layer.confirm('您未登录请问是否跳转登录页面？', {
-										  btn: ['是','否'] //按钮
-										}, function(){
-											window.location.href = "/admin";
-										}, function(){
-										  layer.msg('发红包是需要登陆的', {
-										    time: 20000, //20s后自动关闭
-										    btn: ['知道了']
-										  });
-										});
-								}
-							}
-
-						}
-					});  
-				  
-			    layer.close(index);
-			    layer.msg('您发放啦：'+ red +'元红包!<br>数量：'+count+'个');
-			    
-			  });
-			});
-		
 	}
+	
 	function comment(){
 		var comment={};
 		comment={"criticismContent":$('#comm').val(),"newsId":$('#infoId').val()};
@@ -504,6 +473,14 @@
 
 			}
 		});
+	}
+	
+	function login(){
+		layer.confirm('请先登录,登录后获取准确信息', {
+			  btn: ['是','否'] //按钮
+			}, function(){
+				window.location.href = "/admin";
+			});
 	}
 	</script>
 </html>

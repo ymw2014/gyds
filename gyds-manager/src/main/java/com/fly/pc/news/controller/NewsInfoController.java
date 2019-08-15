@@ -12,8 +12,10 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.codec.DataBufferDecoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,15 +23,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.FlashMap;
 
 import com.fly.common.controller.BaseController;
 import com.fly.domain.UserDO;
 import com.fly.news.dao.CommentDao;
+import com.fly.news.dao.PacketDao;
 import com.fly.news.dao.PriceDao;
+import com.fly.news.dao.RedDao;
 import com.fly.news.dao.RewardInfoDao;
 import com.fly.news.dao.TopDao;
 import com.fly.news.domain.CommentDO;
 import com.fly.news.domain.InfoDO;
+import com.fly.news.domain.PacketDO;
 import com.fly.news.domain.PriceDO;
 import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.domain.TopDO;
@@ -65,7 +71,11 @@ public class NewsInfoController extends BaseController {
 	private RegionService regionService;
 	@Autowired
 	private SetupService setupService;
-
+	@Autowired
+	private PacketDao packetDao;
+	@Autowired
+	private RedDao redDao;
+	
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id, Model model) {
 		InfoDO info = infoService.get(id);
@@ -139,6 +149,14 @@ public class NewsInfoController extends BaseController {
 		Integer t = is_top(id);
 		// 0:未登录 1:置顶 2: 未置顶
 		model.addAttribute("isTop", t);
+		// 是否有红包
+		Integer r = is_red(id);
+		// 0:未登录 1:有红包 2: 无红包
+		model.addAttribute("isRed", r);
+		// 是否领红包
+		Integer gr = is_get_red(id);
+		// 0:未登录 1:领过红包 2: 没领过红包
+		model.addAttribute("isGetRed", gr);
 		// 打赏人数
 		params.clear();
 		params.put("newsId", id);
@@ -219,46 +237,68 @@ public class NewsInfoController extends BaseController {
 
 	// 打赏
 	// return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/reward", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional
 	public R reward(@RequestParam Map<String, Object> params) {
+		R r = new R();
 		Integer i = null;
+		Boolean flag =false;
 		i = deductMoney(params);
 		if (i == 1) {
 			// 产生订单
 			if (creadOrder(params) > 0) {
-				
 				// 记录+1
 				if (dynamic(params, 3) == 1) {
-					return R.ok();
+					flag = true;
 				}
 			}
 		}
-		return R.error(i + "");
+		if(flag) {
+			return r.ok();
+		}else {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return r.error(i+"");
+		}
 	}
 
 	// 红包
 	// return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/redPacket", method = RequestMethod.POST)
 	@ResponseBody
 	@Transactional
 	public R redPacket(@RequestParam Map<String, Object> params) {
+		R r = new R();
 		Integer i = null;
-		if (params.get("price") != null && params.get("price") != "" && params.get("count") != null
-				&& params.get("count") != "") {
+		Boolean flag =false;
+		if (params.get("price") != null && params.get("price") != "" && params.get("number") != null
+				&& params.get("number") != "") {
+			BigDecimal number = new BigDecimal(params.get("number").toString());
+			BigDecimal price = new BigDecimal(params.get("price").toString());
+			BigDecimal priceMax = price.multiply(new BigDecimal(5));
+			//结果 :-1 小于,0 等于,1 大于
+			if(number.compareTo(priceMax)==1) {
+				return r.error("3");
+			}
 			i = deductMoney(params);
 			if (i == 1) {
 				//创建红包
 				if(creatRed(params)==1) {
 					// 产生订单
 					if (creadOrder(params) > 0) {
-						return R.ok();
+						flag = true;
 					}
 				}
 			}
 		}
-		return R.error(i + "");
+		if(flag) {
+			return r.ok();
+		}else {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return r.error(i+"");
+		}
 	}
 
 	// 置顶
@@ -337,10 +377,12 @@ public class NewsInfoController extends BaseController {
 	}
 
 	// 红包
-	@RequestMapping(value = "/red", method = RequestMethod.GET)
-	public String red(Model model) {
-
-		return "pc/redPacket";
+	@RequestMapping(value="/red/{id}", method = RequestMethod.GET)
+	public String red(@PathVariable("id") Integer id,Model model) {
+		List<Map<String,Object>> listPrice = querySetupPrice();
+		model.addAttribute("listPrice", listPrice);
+		model.addAttribute("newsId", id);
+		return "pc/red_packet";
 	}
 
 	// 评论
@@ -421,5 +463,79 @@ public class NewsInfoController extends BaseController {
 		}
 		
 		return listTop;
+	}
+	//查询配置红包额度
+	public List<Map<String,Object>> querySetupPrice() {
+		List<Map<String,Object>> listPrice = new ArrayList<Map<String,Object>>();
+		SetupDO setup = setupService.get(1);
+		String[] split = null;
+		if (setup!=null) {
+			split = setup.getRedPriceSetup().split(",");
+			for(String s : split) {
+				Map<String,Object> data = new HashMap<String, Object>();
+				data.put("price", s);
+				listPrice.add(data);
+			}
+		}
+		return listPrice;
+	}
+	
+	@ResponseBody
+	@PostMapping("/queryRed")
+	public Map<String, Object> queryRed(@RequestParam Map<String, Object> params){
+		Long userId = null;
+		try {
+			userId = ShiroUtils.getUserId();
+		} catch (Exception e) {
+			
+		}
+		
+		InfoDO info = infoService.get(Integer.valueOf(params.get("newsId").toString()));
+		PacketDO Packet = packetDao.get(info.getRedPeperId());
+		return null;
+	}
+	
+	@SuppressWarnings("static-access")
+	@RequestMapping(value = "/vieRed", method = RequestMethod.POST)
+	@ResponseBody
+	@Transactional
+	public R vieRed(@RequestParam Map<String, Object> params) {
+		R r = new R();
+		Boolean flag = false;
+		Long userId = null;
+		try {
+			 userId = ShiroUtils.getUserId();
+		} catch (Exception e) {
+			//3:获取不到用户
+			 return r.error("3");
+		}
+		InfoDO info = infoService.get(Integer.valueOf(params.get("newsId").toString()));
+		if(info.getIsRedPeper()==1) {
+			BigDecimal price  = getRed(info);
+			if(price.compareTo(new BigDecimal(0))==0) {
+				//红包抢完啦!
+				return r.error("1");
+			}
+			params.put("price", price);
+			params.put("userId", userId);
+			Integer i = creadOrder(params);
+			if(i>0) {
+				i = addMoney(params);
+				if(i==1) {
+					flag=true;
+				}
+			}
+		}else {
+			//红包抢完啦!
+			return r.error("1");
+		}
+		if(flag) {
+			//成功
+			return r.ok();
+		}else {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			//抢红包失败
+			return r.error("2");
+		}
 	}
 }

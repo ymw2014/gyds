@@ -4,17 +4,18 @@
 <mapper namespace="com.fly.news.dao.RedDao">
 
 	<select id="get" resultType="com.fly.news.domain.RedDO">
-		select `id`,`price`,`is_get`,`get_user_id`,`get_time` from red where id = #{value}
+		select `red_id`,`id`,`price`,`is_get`,`get_user_id`,`get_time` from red where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.news.domain.RedDO">
-		select `id`,`price`,`is_get`,`get_user_id`,`get_time` from red
+		select `red_id`,`id`,`price`,`is_get`,`get_user_id`,`get_time` from red
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
 		  		  <if test="isGet != null and isGet != ''"> and is_get = #{isGet} </if>
 		  		  <if test="getUserId != null and getUserId != ''"> and get_user_id = #{getUserId} </if>
 		  		  <if test="getTime != null and getTime != ''"> and get_time = #{getTime} </if>
+		  		  <if test="redId != null and redId !=''">and red_id = #{redId}</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -37,12 +38,14 @@
 		  		  <if test="isGet != null and isGet != ''"> and is_get = #{isGet} </if>
 		  		  <if test="getUserId != null and getUserId != ''"> and get_user_id = #{getUserId} </if>
 		  		  <if test="getTime != null and getTime != ''"> and get_time = #{getTime} </if>
+		  		  <if test="redId != null and redId !=''">and red_id = #{redId}</if>
 		  		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.fly.news.domain.RedDO">
 		insert into red
-		(
+		(	
+			`red_id`,
 			`id`, 
 			`price`, 
 			`is_get`, 
@@ -51,6 +54,7 @@
 		)
 		values
 		(
+			#{redId},
 			#{id}, 
 			#{price}, 
 			#{isGet}, 
@@ -65,9 +69,10 @@
 			<if test="price != null">`price` = #{price}, </if>
 			<if test="isGet != null">`is_get` = #{isGet}, </if>
 			<if test="getUserId != null">`get_user_id` = #{getUserId}, </if>
-			<if test="getTime != null">`get_time` = #{getTime}</if>
+			<if test="getTime != null">`get_time` = #{getTime},</if>
+			<if test="redId != null">`id` = #{id}</if>
 		</set>
-		where id = #{id}
+		where red_id = #{redId}
 	</update>
 	
 	<delete id="remove">

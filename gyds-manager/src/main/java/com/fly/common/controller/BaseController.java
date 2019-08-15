@@ -43,6 +43,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openxmlformats.schemas.officeDocument.x2006.docPropsVTypes.DecimalDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +83,8 @@ public class BaseController {
 	@Autowired
 	private TeamTypeDao typeDao;
 
+
+
 	/**
 	 * 
 	 * @param 
@@ -118,7 +121,7 @@ public class BaseController {
 				i=infoDao.updateDynamic(params);
 				params.put("sharesNumber", 1);
 				params.put("id", user.getUserId());
-				i=volunteerDao.update_count(params);
+				volunteerDao.update_count(params);
 				if(i>0) {
 					if(user!=null) {
 						points = new PointsDO();
@@ -145,7 +148,7 @@ public class BaseController {
 				i=infoDao.updateDynamic(params);
 				params.put("clickNumber", 3);
 				params.put("id", user.getUserId());
-				i=volunteerDao.update_count(params);
+				volunteerDao.update_count(params);
 				if(i>0) {
 					if(user!=null) {
 						points = new PointsDO();
@@ -179,7 +182,7 @@ public class BaseController {
 			i=infoDao.updateDynamic(params);
 			params.put("commentNumber", 2);
 			params.put("id", user.getUserId());
-			i=volunteerDao.update_count(params);
+			volunteerDao.update_count(params);
 			if(i>0) {
 				if(user!=null) {
 					points = new PointsDO();
@@ -300,8 +303,9 @@ public class BaseController {
 	public Integer creadOrder(Map<String,Object> params) {
 		Integer i =-1;
 		OrderDO order = new OrderDO();
-		String userId = (String)params.get("userId");
-		if(StringUtils.isEmpty(userId)) {
+		String userId =null;
+		userId = String.valueOf(params.get("userId"));
+		if(userId.equals("null")) {
 			userId = ShiroUtils.getUserId() == null ? "" : ShiroUtils.getUserId() + ""; 
 		}
 		order.setUserId(Long.valueOf(userId)); 
@@ -407,6 +411,52 @@ public class BaseController {
 		//如果返回0表示未登录或无此用户
 		return i;
 	}
+	//是否有红包
+	//入参:params id (资讯id)
+	public Integer is_red(Integer id) {
+		Map<String, Object> params  = new HashMap<String, Object>();
+		Integer i = 0 ;
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user!=null) {
+			params.put("isRedPeper", 1);
+			params.put("id", id);
+			List<InfoDO> info = infoDao.list(params);
+			if(info.size()>0) {
+				//1:有红包
+				i=1;
+			}else {
+				//2:无红包
+				i=2;
+			}
+		}
+		//如果返回0表示未登录或无此用户
+		return i;
+	}
+		//是否领红包
+		//入参:params id (资讯id)
+		public Integer is_get_red(Integer id) {
+			Map<String, Object> params  = new HashMap<String, Object>();
+			Integer i = 0 ;
+			UserDO user = null; 
+			user = ShiroUtils.getUser();
+			if(user!=null) {
+				InfoDO info = infoDao.get(id);
+				params.put("id", info.getRedPeperId());
+				params.put("getUserId", user.getUserId());
+				params.put("is_get", 2);
+				List<RedDO> red = redDao.list(params);
+				if(red.size()>0) {
+					//1:领过红包
+					i=1;
+				}else {
+					//2:没领红包
+					i=2;
+				}
+			}
+			//如果返回0表示未登录或无此用户
+			return i;
+		}
 	//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 	public synchronized Integer deductMoney(Map<String,Object> params) {
 		Integer i = 2;
@@ -572,7 +622,7 @@ public class BaseController {
 		UserDO user = ShiroUtils.getUser();
 		if(user!=null) {
 			PacketDO packetDO = new PacketDO();
-			packetDO.setCount(Integer.valueOf(params.get("count").toString()));
+			packetDO.setCount(Integer.valueOf(params.get("number").toString()));
 			packetDO.setMoney(new BigDecimal(params.get("price").toString()));
 			packetDO.setUserId(user.getUserId());
 			packetDO.setCreatTime(new Date());
@@ -582,8 +632,8 @@ public class BaseController {
 				info.setRedPeperId(redPeperId);
 				info.setIsRedPeper(1);
 				if(infoDao.update(info)>0) {
-					List<BigDecimal> moneys = math(new BigDecimal(params.get("price").toString()), Integer.valueOf(params.get("count").toString()));
-					if (moneys != null) {
+					List<BigDecimal> moneys = math(new BigDecimal(params.get("price").toString()), Integer.valueOf(params.get("number").toString()));
+					if (!moneys.isEmpty()) {
 						for (BigDecimal bigDecimal : moneys) {
 							red = new RedDO();
 							red.setId(redPeperId);
@@ -601,7 +651,6 @@ public class BaseController {
 		}  
 		return i;
 	}
-
 	public R countCost(Integer id) {
 		R r = new R();
 		TypeDO type = typeDao.get(id);
@@ -614,6 +663,49 @@ public class BaseController {
 		}
 		return r;
 	}
+	//获取红包
+	@Transactional
+	public  synchronized  BigDecimal getRed(InfoDO info) {
+		Map<String,Object> map  = new HashMap<String, Object>();
+		BigDecimal price  = new BigDecimal(0);
+		UserDO user = ShiroUtils.getUser();
+			map.put("id", info.getRedPeperId());
+			map.put("isGet","1");
+			List<RedDO> list = redDao.list(map);
+			if(list.size()>0) {
+				RedDO red = list.get(0);
+				price  = red.getPrice();
+				red.setIsGet(2);
+				red.setGetTime(new Date());
+				red.setGetUserId(user.getUserId());
+				redDao.update(red);
+			}
+			map.clear();
+			map.put("id", info.getRedPeperId());
+			map.put("isGet","1");
+			list = redDao.list(map);
+			if(list.isEmpty()) {
+				info.setIsRedPeper(0);
+				infoDao.update(info);
+			}
+		return price;
+	}
+	//return 0:扣款失败  1表示扣款成功 
+		public synchronized Integer addMoney(Map<String,Object> params) {
+			Integer i = 0;
+			UserDO user = null; 
+			user = userMapper.get(Long.valueOf(params.get("userId").toString()));
+			if(user!=null) {
+				BigDecimal price = new BigDecimal(params.get("price").toString());;
+				BigDecimal account = user.getAccount();
+						BigDecimal sum = account.add(price);
+						UserDO u = new UserDO();
+						u.setUserId(user.getUserId());
+						u.setAccount(sum);
+						return userMapper.update(u);
+			}
+			return i;
+		}
 	/**
 	 * 获取用户对象
 	 * @return

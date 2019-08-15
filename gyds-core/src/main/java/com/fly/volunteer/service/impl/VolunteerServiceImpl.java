@@ -86,6 +86,11 @@ public class VolunteerServiceImpl implements VolunteerService {
 	public int voluntInfoCount(Map<String, Object> map) {
 		return volunteerDao.voluntInfoCount(map);
 	}
+
+	@Override
+	public Map<String, Object> getVoInfo(Long id) {
+		return volunteerDao.getVoInfo(id);
+	}
 	
 }
 

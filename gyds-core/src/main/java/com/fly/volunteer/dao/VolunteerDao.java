@@ -18,6 +18,7 @@ import com.fly.volunteer.domain.VolunteerDO;
 public interface VolunteerDao {
 
 	VolunteerDO get(Integer id);
+	Map<String, Object> getVoInfo(Long id);
 	
 	List<VolunteerDO> list(Map<String,Object> map);
 	
