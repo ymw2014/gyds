@@ -61,14 +61,14 @@
 		<div class="listcontR">
 			<div class="xqrightTop" style="width: 254px;">
 				<img th:src="@{${team.teamTitleImg}}" alt=""> <span
-					th:text="${team.teamName}"></span>
-					<input type="hidden" th:value="${team.id}" id="teamId">
-					<div th:if=" ${is_attention} eq '0'">
-				<a href="javascript:;"><p id="guanzhu">求关注</p></a>
-					</div>
-					<div th:if=" ${is_attention} eq '2'">
-				<a href="javascript:;" onclick="attention()"><p id="guanzhu">求关注</p></a>
-					</div>
+					th:text="${team.teamName}"></span> <input type="hidden"
+					th:value="${team.id}" id="teamId">
+				<div th:if=" ${is_attention} eq '0'">
+					<a href="javascript:;"><p id="guanzhu">求关注</p></a>
+				</div>
+				<div th:if=" ${is_attention} eq '2'">
+					<a href="javascript:;" onclick="attention()"><p id="guanzhu">求关注</p></a>
+				</div>
 			</div>
 			<ul>
 				<li th:each="news:${newsList}">·<a th:text="${news.title}"
@@ -120,32 +120,23 @@
 						<div class="hbtop"></div>
 						<div style="width: 600px; background: #fff; height: 260px;">
 							<div class="hbcen">
-								<div class="hbcen1">
-									<img th:src="@{pc/images/touxiang5.png}" alt="">
+								<div class="hbcen1" id ="user">
+									<!-- <img th:src="@{/pc/images/touxiang5.png}" id="headImg">
 									<p style="font-size: 20px; line-height: 30px;">打赏门户的红包</p>
 									<p style="color: #b8b8b8; font-size: 16px; line-height: 40px;">恭喜发财，大吉大利</p>
-									<span><rem style="font-size:36px; color:#ef472a;">17.77
-										</rem>元</span>
+									<span><rem style="font-size:36px; color:#ef472a;"
+											id="userRed"> </rem>元</span> -->
 								</div>
 							</div>
 						</div>
-						<div style="width: 100%; line-height: 40px; background: #ebebeb;">
-							<p style="margin-left: 10px;">已领取3/8个,共150.00元</p>
+						<div style="width: 100%; line-height: 40px; background: #ebebeb;"
+							id="redCount">
 						</div>
 					</div>
-					<div class="lingqu">
-						<div class="hblq">
-							<div class="hblq1">
-								<img src="images/touxiang5.png" alt="">
-								<div>
-									<span>苏小宁</span>
-									<p>今天 10:00:28</p>
-								</div>
-								<p>18.66元</p>
-							</div>
-						</div>
+					<div class="lingqu" id="redList">
+						
 					</div>
-				
+
 					<a href="" class="modal__close demo-close"> <svg class=""
 							viewBox="0 0 24 24">
 								<path
@@ -157,7 +148,7 @@
 			</div>
 		</div>
 		<div class="listzz">
-		<input th:value="${userStatus}" type="hidden"   id="userStatus" />
+			<input th:value="${userStatus}" type="hidden" id="userStatus" />
 			<div th:if=" ${isLike} eq '0'">
 				<img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞"
 					th:text="${info.numberOfLikes}" onclick="login()">
@@ -170,9 +161,6 @@
 				<img th:src="@{/pc/images/listzz_03.jpg}" alt="点赞"
 					th:text="${info.numberOfLikes}" th:onclick="like()" id="like">
 			</div>
-			<div th:if=" ${isTop} eq '0'">
-				<img th:src="@{/pc/images/listzs_06.jpg}" alt="" onclick="login()">未置顶
-			</div>
 			<div th:if=" ${isTop} eq '1'">
 				<img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶
 			</div>
@@ -180,21 +168,21 @@
 				<img th:src="@{/pc/images/listzs_06.jpg}" alt=""
 					th:onclick="topNew()" id="top">未置顶
 			</div>
-			<input type="hidden" id = "isRed" th:value="${isRed}">
-			<input type="hidden" id = "isGetRed" th:value="${isGetRed}">
-			<div th:if=" ${isRed} eq '0'">
+			<input type="hidden" id="isRed" th:value="${isRed}"> <input
+				type="hidden" id="isGetRed" th:value="${isGetRed}">
+			<!-- <div th:if=" ${isRed} eq '0'">
 				<img class="modal__trigger" onclick="login()"
-					th:src="@{/pc/images/listcc_07.jpg}" alt="" 
+					th:src="@{/pc/images/listcc_07.jpg}" alt=""
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
-			</div>
+			</div> -->
 			<div th:if=" ${isRed} eq '1'">
-				<img class="modal__trigger" onclick="redWars()"data-modal="#modal"
-					th:src="@{/pc/images/listcc_08.png}" alt="" 
+				<img class="modal__trigger" onclick="queryRed()" data-modal="#modal" id="queryRed"
+					th:src="@{/pc/images/listcc_08.png}" alt=""
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">发放中
 			</div>
 			<div th:if=" ${isRed} eq '2'">
-				<img class="modal__trigger" 
-					th:src="@{/pc/images/listcc_07.jpg}" alt="" onclick="redNew()"
+				<img class="modal__trigger" th:src="@{/pc/images/listcc_07.jpg}"
+					alt="" onclick="redNew()"
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
 			</div>
 		</div>
@@ -226,8 +214,9 @@
 				<img th:src="${comm.headImg}" alt="">
 			</div>
 			<div class="listL-5-2">
-				<p th:utext="${comm.name + '<span >'+#dates.format(comm.createTime,'yyyy-MM-dd HH:mm')+'</span>'}">
-				
+				<p
+					th:utext="${comm.name + '<span >'+#dates.format(comm.createTime,'yyyy-MM-dd HH:mm')+'</span>'}">
+
 				</p>
 				<p style="color: #4b4b4b;" th:text="${comm.criticismContent}"></p>
 			</div>
@@ -247,18 +236,48 @@
 <script src="/js/plugins/layer/laydate/laydate.js"></script>
 <script th:src="@{/pc/js/common.js}"></script>
 <script type="text/javascript">
-function redWars(){
+function queryRed(){
 	para={"newsId":$('#infoId').val()};
 	$.ajax({
 		type : "POST",
 		url : "/pc/news/queryRed",
 		data : para,
 		error : function(request) {
-			alert("抢红包异常");
+			alert("查询红包异常");
 		},
 		success : function(data) {
 			if (data.code == 0) {
-				alert("成功");
+				var img = data.userRed.head_img;
+				if(img==null&&img==''){
+					img = '/pc/images/touxiang5.png'
+				}
+				var text = data.userRed.price;
+				var user = '';
+				var count = '';
+				var redList = '';
+				user +='<img src="'+img+'" id="headImg">';
+				user +='<p style="font-size: 20px; line-height: 30px;">打赏门户的红包</p>';
+				user +='<p style="color: #b8b8b8; font-size: 16px; line-height: 40px;">恭喜发财，大吉大利</p>';
+				user +='<span><rem style="font-size:36px; color:#ef472a;"';
+				user +='id="userRed">'+text+'</rem>元</span>';
+				$("#user").empty();
+				$('#user').append(user);
+				count += '<p style="margin-left: 10px;">已领取'+data.redSize+'/'+data.Packet.count+'个,共'+data.Packet.money+'元</p>'
+				$("#redCount").empty();
+				$('#redCount').append(count);
+				$('#redList').empty();
+				$.each(data.listRed, function(i, item){ 
+					 redList += '<div class="hblq"> <div class="hblq1">';
+					 redList += '<img src="'+item.head_img+'" alt="">'	;			
+					 redList += '<div>';			
+					 redList += '<span>'+item.name+'</span>';					
+					 redList += '<p>'+item.get_time+'</p>';					
+					 redList += '</div>';				
+					 redList += '<p>'+item.price+'元</p>';		
+					 redList += '</div>';	
+					 redList += '</div>';
+					   }); 
+					 $('#redList').append(redList);
 			}else{
 				
 			}
@@ -288,12 +307,14 @@ function vieRed(){
 		success : function(data) {
 			if (data.code == 0) {
 				alert("成功");
+				queryRed();
+				$('#queryRed').click();
 			} else if(data.msg == 1){
 				alert('红包抢完啦!');
 			}else if(data.msg == 2){
 				alert('抢红包失败!');
-			}else if(data.msg == 3){
-				
+			}else if(data.msg == 4){
+				alert('已领取红包!');
 			}
 
 		}

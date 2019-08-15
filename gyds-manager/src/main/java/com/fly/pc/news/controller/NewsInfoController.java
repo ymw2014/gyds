@@ -37,6 +37,7 @@ import com.fly.news.domain.CommentDO;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.domain.PacketDO;
 import com.fly.news.domain.PriceDO;
+import com.fly.news.domain.RedDO;
 import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
@@ -304,6 +305,11 @@ public class NewsInfoController extends BaseController {
 	// 置顶
 	@RequestMapping(value = "/top/{id}", method = RequestMethod.GET)
 	public String top(@PathVariable("id") Integer id, Model model) {
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user==null) {
+			return "redirect:/admin";
+		}
 		InfoDO info = infoService.get(id);
 		Integer code = info.getTeamId();
 		model.addAttribute("teamRegion", code);
@@ -379,6 +385,11 @@ public class NewsInfoController extends BaseController {
 	// 红包
 	@RequestMapping(value="/red/{id}", method = RequestMethod.GET)
 	public String red(@PathVariable("id") Integer id,Model model) {
+		UserDO user = null; 
+		user = ShiroUtils.getUser();
+		if(user==null) {
+			return "redirect:/admin";
+		}
 		List<Map<String,Object>> listPrice = querySetupPrice();
 		model.addAttribute("listPrice", listPrice);
 		model.addAttribute("newsId", id);
@@ -483,16 +494,46 @@ public class NewsInfoController extends BaseController {
 	@ResponseBody
 	@PostMapping("/queryRed")
 	public Map<String, Object> queryRed(@RequestParam Map<String, Object> params){
+		Map<String, Object> outMap = new HashMap<String, Object>();
+		UserDO user = null;
 		Long userId = null;
-		try {
-			userId = ShiroUtils.getUserId();
-		} catch (Exception e) {
-			
+		List<Map<String,Object>> userRed = null ;
+		user = ShiroUtils.getUser();
+		if(user==null) {
+			userId = (long) 0;
+		}else{
+			userId = user.getUserId();
 		}
-		
 		InfoDO info = infoService.get(Integer.valueOf(params.get("newsId").toString()));
+		//红包详情
 		PacketDO Packet = packetDao.get(info.getRedPeperId());
-		return null;
+		params.put("id", info.getRedPeperId());
+		params.put("isGet", "2");
+		//已抢红包详情
+		List<Map<String,Object>> list = redDao.redListUser(params);
+		params.clear();
+		params.put("id", info.getRedPeperId());
+		params.put("isGet", "2");
+		params.put("getUserId", userId);
+		//当前登录用户抢红包金额
+		userRed = redDao.redListUser(params);
+		//当前登录用户抢红包金额
+		if(!userRed.isEmpty()) {
+			outMap.put("userRed", userRed.get(0));
+		}else {
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("head_img", "/pc/images/touxiang5.png");
+			map.put("price","0");
+			outMap.put("userRed",map);
+		}
+		//红包详情
+		outMap.put("Packet", Packet);
+		//已抢红包详情
+		outMap.put("listRed", list);
+		//已抢红包数量
+		outMap.put("redSize", list.size());
+		outMap.put("code", 0);
+		return outMap;
 	}
 	
 	@SuppressWarnings("static-access")
@@ -508,6 +549,11 @@ public class NewsInfoController extends BaseController {
 		} catch (Exception e) {
 			//3:获取不到用户
 			 return r.error("3");
+		}
+		Integer gr = is_get_red(Integer.valueOf(params.get("newsId").toString()));
+		if(gr==1) {
+			//4:领取过红包
+			 return r.error("4");
 		}
 		InfoDO info = infoService.get(Integer.valueOf(params.get("newsId").toString()));
 		if(info.getIsRedPeper()==1) {

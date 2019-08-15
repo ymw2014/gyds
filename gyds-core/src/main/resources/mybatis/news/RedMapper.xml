@@ -13,7 +13,7 @@
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
 		  		  <if test="isGet != null and isGet != ''"> and is_get = #{isGet} </if>
-		  		  <if test="getUserId != null and getUserId != ''"> and get_user_id = #{getUserId} </if>
+		  		  <if test="getUserId != null"> and get_user_id = #{getUserId} </if>
 		  		  <if test="getTime != null and getTime != ''"> and get_time = #{getTime} </if>
 		  		  <if test="redId != null and redId !=''">and red_id = #{redId}</if>
 		  		</where>
@@ -85,5 +85,15 @@
 			#{id}
 		</foreach>
 	</delete>
-
+	<select id="redListUser" resultType="java.util.Map">
+		select r.`red_id`,r.`id`,r.`price`,r.`is_get`,r.`get_user_id`,r.`get_time`,u.name,u.head_img from red r left join sys_user u ON r.get_user_id = u.user_id
+        <where>  
+		  		  <if test="id != null and id != ''"> and r.id = #{id} </if>
+		  		  <if test="price != null and price != ''"> and r.price = #{price} </if>
+		  		  <if test="isGet != null and isGet != ''"> and r.is_get = #{isGet} </if>
+		  		  <if test="getUserId != null"> and r.get_user_id = #{getUserId} </if>
+		  		  <if test="getTime != null and getTime != ''"> and r.get_time = #{getTime} </if>
+		  		  <if test="redId != null and redId !=''">and r.red_id = #{redId}</if>
+		  		</where>
+</select>
 </mapper>

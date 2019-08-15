@@ -394,9 +394,6 @@ public class BaseController {
 	public Integer is_top(Integer id) {
 		Map<String, Object> params  = new HashMap<String, Object>();
 		Integer i = 0 ;
-		UserDO user = null; 
-		user = ShiroUtils.getUser();
-		if(user!=null) {
 			params.put("isTop", 1);
 			params.put("id", id);
 			List<InfoDO> info = infoDao.list(params);
@@ -407,18 +404,16 @@ public class BaseController {
 				//2:未置顶
 				i=2;
 			}
-		}
-		//如果返回0表示未登录或无此用户
 		return i;
 	}
 	//是否有红包
 	//入参:params id (资讯id)
 	public Integer is_red(Integer id) {
 		Map<String, Object> params  = new HashMap<String, Object>();
-		Integer i = 0 ;
-		UserDO user = null; 
-		user = ShiroUtils.getUser();
-		if(user!=null) {
+		Integer i = 2 ;
+		/*
+		 * UserDO user = null; user = ShiroUtils.getUser(); if(user!=null) {
+		 */
 			params.put("isRedPeper", 1);
 			params.put("id", id);
 			List<InfoDO> info = infoDao.list(params);
@@ -429,7 +424,7 @@ public class BaseController {
 				//2:无红包
 				i=2;
 			}
-		}
+	//	}
 		//如果返回0表示未登录或无此用户
 		return i;
 	}
