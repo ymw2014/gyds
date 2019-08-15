@@ -1,4 +1,4 @@
-package com.fly.AliyunOSS;
+package com.fly.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -52,14 +52,21 @@ public class PcProxybusiController extends BaseController{
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private VolunteerService volunteerService;
-	@Autowired
 	private NameDao nameDao;
-	
+	/***
+	 * 	进入代理商申请页面
+	 * @param params
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/show")
 	public String index(@RequestParam Map<String,Object> params, HttpServletRequest request,Model model) {
 		String areaId = request.getParameter("areaId");
 		UserDO user = ShiroUtils.getUser();
+		if(user==null) {//未登录返回登录页
+			return "redirect:/login";
+		}
 		Map<String,Object> param = new HashMap<String,Object>();
 		param.put("type",3);
 		param.put("status", 1);
@@ -71,7 +78,6 @@ public class PcProxybusiController extends BaseController{
 				return "pc/message";
 			} 
 		}
-		
 		if (StringUtils.isEmpty(areaId)) {
 			params.put("parentRegionCode",0);
 		} else {
@@ -86,15 +92,10 @@ public class PcProxybusiController extends BaseController{
 		//申请保证金查询
 		SetupDO setupDO = setupService.get(1);
 		model.addAttribute("setupDO", setupDO);
-		if(user!=null) {
-			Long userId = user.getUserId();
-			boolean flag = volunteerService.isVo(userId);
-			if (!flag) {
+		if (user.getIsIdentification()==null||user.getIsIdentification()!=1) {
 				model.addAttribute("type", 3);
-				return "/pc/attestationProxy";
-			}
+				return "pc/attestationProxy";
 		}
-		
 		String cardNo = user.getCardNo();
 		StringBuilder sb = new StringBuilder(cardNo);
 		sb.replace(6, 14, "********");

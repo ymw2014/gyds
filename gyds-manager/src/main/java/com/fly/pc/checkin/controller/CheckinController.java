@@ -65,8 +65,10 @@ public class CheckinController {
 				status = 1;
 			}
 		}
+		boolean flag = volunteerService.isVo(user.getUserId());
 		dataInfo.put("signin", list);
 		dataInfo.put("status", status);
+		dataInfo.put("isVo", flag);
 		return dataInfo.toString();
 	}
 	

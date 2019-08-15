@@ -118,6 +118,8 @@ public class WechatApiController {
 					logger.info("WeiXinLoginController ==> resultJson: " + json);
 					UserDO user=new UserDO();
 					user.setUsername(String.valueOf(json.get("nickname")));
+					user.setIsIdentification(0);
+					user.setIsManage(0);
 					user.setNikeName(String.valueOf(json.get("nickname")));
 					user.setOpenId(String.valueOf(json.get("openid")));
 					user.setHeadImg(String.valueOf(json.get("headimgurl")));

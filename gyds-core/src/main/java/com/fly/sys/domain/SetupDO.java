@@ -21,6 +21,8 @@ public class SetupDO implements Serializable {
 	private BigDecimal redPacketExtract;
 	//团队分佣比例
 	private BigDecimal teamExtract;
+	//街道办分佣比例
+	private BigDecimal agencyExtract;
 	//县级分佣比例
 	private BigDecimal areaExtract;
 	//市级分佣比例
@@ -446,6 +448,14 @@ public class SetupDO implements Serializable {
 	public void setRewardPriceSetup(String rewardPriceSetup) {
 		this.rewardPriceSetup = rewardPriceSetup;
 	}
+	public BigDecimal getAgencyExtract() {
+		return agencyExtract;
+	}
+	public void setAgencyExtract(BigDecimal agencyExtract) {
+		this.agencyExtract = agencyExtract;
+	}
+	
+	
 	
 	
 	

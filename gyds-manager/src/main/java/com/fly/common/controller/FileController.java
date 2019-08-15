@@ -1,25 +1,6 @@
 package com.fly.common.controller;
 
 
-import com.fly.AliyunOSS.AliyunOSSUtil;
-import com.fly.AliyunOSS.ConstantProperties;
-import com.fly.AliyunOSS.DeleteFileUtil;
-import com.fly.common.controller.BaseController;
-import com.fly.common.service.FileService;
-import com.fly.domain.FileDO;
-import com.fly.domain.UploadDo;
-import com.fly.utils.*;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -28,6 +9,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fly.common.service.FileService;
+import com.fly.domain.FileDO;
+import com.fly.domain.UploadDo;
+import com.fly.utils.AliyunOSSUtil;
+import com.fly.utils.ConstantProperties;
+import com.fly.utils.DeleteFileUtil;
+import com.fly.utils.FileType;
+import com.fly.utils.FileUtil;
+import com.fly.utils.PageUtils;
+import com.fly.utils.Query;
+import com.fly.utils.R;
 
 /**
  * 文件上传

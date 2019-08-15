@@ -77,7 +77,8 @@ public class RegionServiceImpl implements RegionService {
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Tree <RegionDO> t = BuildTree.build(trees,-1);
+		Integer areaId = Integer.valueOf(params.get("parentRegionCode").toString());
+		Tree <RegionDO> t = BuildTree.build(trees,areaId);
 		return t;
 	}
 	
@@ -112,23 +113,14 @@ public class RegionServiceImpl implements RegionService {
 	public List<Integer> getAllTeamByUserRole(Map<String,Object> params) {
 		List<RegionDO> RegionDOs =new ArrayList<>();
 		String pids = String.valueOf(params.get("pids"));
-		if(Integer.valueOf(pids) == 0) {
+		if("0".equals(pids)) {
 			RegionDOs = regionDao.list(null);
 		}else {
 			params.put("pids", params.get("pids"));
 			RegionDOs = regionDao.regionIdByList(params);
-			
-			  /*RegionDO regionDO = regionDao.get(ShiroUtils.getUser().getDeptId());
-			  RegionDOs.add(regionDO);*/
-			 
 		}
-		List<Integer> list=new ArrayList<>();
-		for (RegionDO sysRegion : RegionDOs) {
-			if(sysRegion.getRegionType()==2) {
-				list.add(sysRegion.getRegionCode());
-			}
-		}
-		return list;
+		List<Integer> collect = RegionDOs.parallelStream().filter(bean -> bean.getRegionType() == 2).map(bean -> bean.getRegionCode()).collect(Collectors.toList());
+		return collect;
 	}
 	
 	@Override
@@ -150,31 +142,31 @@ public class RegionServiceImpl implements RegionService {
 	}
 
 	@Override
-	public Map<String, Object> activeStat(String region, String level, String day) {
+	public Map<String, Object> activeStat(Integer region, Integer level, Integer day) {
 		Map<String,Object> param = new HashMap<String, Object>();
 		int teamCount = 0;//团队
 		int roadCount = 0;//街道
 		int distCount = 0;//区县
 		int cityCount = 0;//市
 		int provCount = 0;//省
-		String parentRegionCode = null;
+		Integer parentRegionCode = null;
 		switch (level) {
-			case "5":
-				teamCount = activeCount("5", region, day);
+			case 5:
+				teamCount = activeCount(5, region, day);
 				parentRegionCode = getParentCode(region);
-			case "4":
+			case 4:
 				roadCount = activeCount(null, chooseCode(parentRegionCode, region), day);
 				parentRegionCode = getParentCode(region);
-			case "3":
+			case 3:
 				distCount = activeCount(null, chooseCode(parentRegionCode, region), day);
 				parentRegionCode = getParentCode(region);
-			case "2":
+			case 2:
 				cityCount = activeCount(null, chooseCode(parentRegionCode, region), day);
 				parentRegionCode = getParentCode(region);
-			case "1":
+			case 1:
 				provCount = activeCount(null, chooseCode(parentRegionCode, region), day);
-			case "0":
-				int allCount = activeCount(null, "0", day);
+			case 0:
+				int allCount = activeCount(null, 0, day);
 				param.clear();
 				param.put("allCount", allCount);
 				param.put("provCount", provCount);
@@ -187,20 +179,20 @@ public class RegionServiceImpl implements RegionService {
 		return param;
 	}
 	
-	public int activeCount(String level, String region, String day) {
+	public int activeCount(Integer level, Integer region, Integer day) {
 		Map<String,Object> param = new HashMap<String, Object>();
-		if ("5".equals(level)) {
+		if (level==5) {
 			param.put("regionLevel", level);
 			param.put("regionCode", region);
 		} else {
-			if (!region.equals("0")) {
+			if (region!=0) {
 				param.put("parentRegionCode", region);
 			}
 		}
 		param.put("regionType", 2);//团队
 		LocalDate now = LocalDate.now();
 		LocalDate dayAgo = LocalDate.now().minusDays(Long.valueOf(day));
-		List<Integer>  teamId = regionDao.list(param).stream().map(bean -> bean.getRegionCode()).collect(Collectors.toList());
+		List<Integer>  teamId = regionDao.list(param).parallelStream().map(bean -> bean.getRegionCode()).collect(Collectors.toList());
 		if (CollectionUtils.isEmpty(teamId)) {
 			return 0;
 		}
@@ -208,15 +200,15 @@ public class RegionServiceImpl implements RegionService {
 		return allCount;
 	}
 	
-	public String  getParentCode(String region) {
+	public Integer  getParentCode(Integer region) {
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("regionCode", region);
-		String parentRegionCode = regionDao.list(param).get(0).getParentRegionCode() + "";
+		Integer parentRegionCode = regionDao.list(param).get(0).getParentRegionCode();
 		return parentRegionCode;
 	}
 	
 	
-	public String chooseCode(String parentRegionCode, String region) {
+	public Integer chooseCode(Integer parentRegionCode, Integer region) {
 		return parentRegionCode == null ? region : parentRegionCode;
 	}
 	

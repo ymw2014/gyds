@@ -47,6 +47,7 @@
 					</div>
 					<div class="Calendar" style="position:relative;">
 					<input type="hidden"  id="status"/>
+					<input type="hidden"  id="isVo"/>
 						<div id="toyear" class="flex flex-pack-center">
 							<div style="width: 100%;">
 								<div style="height:70px;overflow: hidden;width: 307px;margin: 0 auto;">
@@ -97,55 +98,69 @@
 </script>
 <script type="text/javascript" th:src="@{/pc/js/touch-0.2.14.min.js}"></script>
 		<script language="JavaScript">
-			var isSign = false;
-			var myday = new Array();
-
-			var cale = new Calendar("idCalendar", {
-				qdDay: myday,
-				onToday: function(o) {
-					console.log(o)
-					o.className = "onToday";
-				},
-				onSignIn: function (){
-					$$("sign-txt").innerHTML = '已签到';
-				},
-				onFinish: function() {
-					$$("sign-count").innerHTML = myday.length //已签到次数
-					$$("idCalendarYear").innerHTML = this.Year;
-					$$("idCalendarMonth").innerHTML = this.Month; //表头年份
-					console.log(this.Days)
-				}
-			});
-			/* $$("idCalendarPre").onclick = function() {
-				cale.PreMonth();
-				alert($$("idCalendarMonth").innerHTML)
-			}
-			$$("idCalendarNext").onclick = function() {
-				cale.NextMonth();
-			} */
-			//添加今天签到
-			$$("signIn").onclick = function() {
-				if(isSign == false) {
-					var res = cale.SignIn();
-					var satus = $("#status").val();
-					if (satus == 1) {
-						res = '2';
-					}
-					if(res == '1') {
+		var n = setTimeout("data()",100);//判断是否为志愿者要在签到插件之前得到数据
+		var t = setTimeout("cale()",110);
+		var l = setTimeout("data()",120);//签到数据要在签到插件初始化后填充
+		var k = setTimeout("msg()",130);
+		function cale() {
+				var isSign = false;
+				var myday = new Array();
+				var cale = new Calendar("idCalendar", {
+					qdDay: myday,
+					onToday: function(o) {
+						console.log(o)
+						o.className = "onToday";
+					},
+					onSignIn: function (){
 						$$("sign-txt").innerHTML = '已签到';
-						$$("sign-count").innerHTML = parseInt($$("sign-count").innerHTML) + 1;
-						isSign = true;
-						signin(formatTime(myday[0], 'Y-M-D'));
-					} else if (res == '2'){
-						$$("sign-txt").innerHTML = '已签到';
-						parent.layer.msg("今天已经签到了");
+					},
+					onFinish: function() {
+						$$("sign-count").innerHTML = myday.length //已签到次数
+						$$("idCalendarYear").innerHTML = this.Year;
+						$$("idCalendarMonth").innerHTML = this.Month; //表头年份
+						console.log(this.Days)
 					}
-				} else {
-					parent.layer.msg("今天已经签到了");
+				});
+				/* $$("idCalendarPre").onclick = function() {
+					cale.PreMonth();
+					alert($$("idCalendarMonth").innerHTML)
 				}
-
-			}
-			
+				$$("idCalendarNext").onclick = function() {
+					cale.NextMonth();
+				} */
+				//添加今天签到
+				var isVo = $('#isVo').val();
+				if (isVo) {
+					$$("signIn").onclick = function() {
+						if(isSign == false) {
+							var res = cale.SignIn();
+							var satus = $("#status").val();
+							if (satus == 1) {
+								res = '2';
+							}
+							if(res == '1') {
+								$$("sign-txt").innerHTML = '已签到';
+								$$("sign-count").innerHTML = parseInt($$("sign-count").innerHTML) + 1;
+								isSign = true;
+								signin(formatTime(myday[0], 'Y-M-D'));
+							} else if (res == '2'){
+								$$("sign-txt").innerHTML = '已签到';
+								parent.layer.msg("今天已经签到了");
+							}
+						} else {
+							parent.layer.msg("今天已经签到了");
+						}
+		
+					}
+					
+				}
+		}
+		
+		function msg(){
+			$('#in').click(function(){
+				parent.layer.msg("您还不是志愿者，请先申请为志愿者");
+			})
+		}
 			
 			function signin(date) {
 				var date = date.split("-");
@@ -204,7 +219,7 @@
 			}  
 			
 			
-			$(function(){
+			function data(){
 				var signin;
 				$.ajax({
 					cache : true,
@@ -218,6 +233,12 @@
 					success : function(data) {
 						var data = eval('(' + data + ')');
 						signin = data.signin;
+						$('#isVo').val(data.isVo);
+						if (!data.isVo) {
+							$('#signIn').attr("id","")
+							$('.signBtn > strong').removeAttr("id","");
+							$('.signBtn > strong').attr("id","in")
+						}
 						$("#sign-count").html(signin.length)
 						$("#status").val(data.status);
 						if (data.status == 1) {
@@ -233,5 +254,5 @@
 						}
 					}
 				});
-			})
+			}
 		</script>

@@ -447,6 +447,7 @@ public class PersionController extends BaseController{
 			} else if (examineStatus == 1) {
 				model.addAttribute("message","恭喜，您发布的活动已审核通过,可以继续发布活动");
 				model.addAttribute("status","1");
+				model.addAttribute("activiType",list);
 				return "pc/activityAdd";
 			} else {
 				model.addAttribute("activiType",list);

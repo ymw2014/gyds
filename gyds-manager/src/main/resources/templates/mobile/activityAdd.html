@@ -38,7 +38,7 @@
 			}
 			.biaotiyy input{
 				line-height:92px;
-				width:630px;
+				width:564px;
 				display:inline-block;
 				float: left;
 				border:none;
@@ -88,6 +88,13 @@
 				background:#ff0000;
 				color:#fff;
 			}
+			.lxh{
+			  width: 539px;
+			    height: 90px;
+			    border: none;
+			    outline: none;
+			    font-size: 20px;
+			}
 		</style>
 	</head>
 	<body>
@@ -111,14 +118,14 @@
 					</label>
 					<label>
 						<span>活动类型</span>
-						<select name="actTypeId" style="width: 384px;">
+						<select name="actTypeId"  class="lxh">
 							<option th:each="type : ${activiType}" th:value="${type.id}" th:text="${type.typeName}"></option>
 						</select>
 					</label>
 					<label>
 						<span>付费类型</span>
-						<input type="radio" name="actType" value="1" style="width:20px;"/>付费
-						<input type="radio" name="actType" value="0" style="width:20px;"/>免费
+						<p style="float: left;margin-top:40px;font-size:18px;"><input type="radio" name="actType" value="1" style="width:20px;"/>付费</p>
+						<p style="float: left;margin-top:40px;font-size:18px;"><input type="radio" name="actType" value="0" style="width:20px;"/>免费</p>
 					</label>
 					<label id="price">
 						<span>活动费用</span>
@@ -152,16 +159,16 @@
 					</label>
 					<label>
 						<span>活动简介</span>
-						 <textarea name="actIntro" style="width:700px;height:400;float: right; resize: none;" >
+						 <textarea name="actIntro" style="width:640px;height:200px;float: right; resize: none;" >
 							 
 						 </textarea>
 					</label>
 					<label>
 						<span>活动详情</span>
-						<textarea name="actContent" id="deitor" style="width:700px;height:380px;float: right; resize: none;"></textarea>
+						<textarea name="actContent" id="deitor" style="width:640px;height:380px;float: right; resize: none;"></textarea>
 					</label>
 					<label>
-						<input type="button" id="save" value="活动发布" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 30px;border-radius:3px ;">
+						<input type="submit" id="save" onclick="save()" value="活动发布" style="background:#ff0000;height:68px;color:#fff;border: none;margin:30px 0px 0px 30px;border-radius:3px;line-height: 68px;">
 					</label>
 				</form>
 				<div style="background:#fff;display: none"  id="info">
@@ -264,16 +271,16 @@ var ue = UE.getEditor('deitor',{
 		});
 	}
 	
-	$().ready(function() {
+	/* $().ready(function() {
 		validateRule();
 	});
-
-	$.validator.setDefaults({
+ */
+	/* $.validator.setDefaults({
 		submitHandler : function() {
 			save();
 		}
-	});
-	function validateRule() {
+	}); */
+	/* function validateRule() {
 
 		var icon = "<i class='fa fa-times-circle'></i> ";
 		$("#signupForm").validate({
@@ -358,5 +365,5 @@ var ue = UE.getEditor('deitor',{
 	            }
 	        }
 		})
-	}
+	} */
 </script>

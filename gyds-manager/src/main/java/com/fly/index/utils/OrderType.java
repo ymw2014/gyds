@@ -43,5 +43,25 @@ public class OrderType {
 	  * 	建团
 	  */
 	public static final Integer JIAN_TUAN = 7;
+	/**
+	 * 	红包返佣
+	 */
+	public static final Integer HONG_BAO_FAN_YONG =8;
+	/**
+	 * 	打赏返佣
+	 */
+	public static final Integer DA_SHANG_FAN_YONG =9;
+	/**
+	 * 	置顶返佣
+	 */
+	public static final Integer ZHI_DING_FAN_YONG =10;
+	/**
+	 * 	广告返佣
+	 */
+	public static final Integer GUANG_GAO_FAN_YONG =11;
+	/***
+	 * 	建团返佣
+	 */
+	public static final Integer JIAN_TUAN_FAN_YONG =12;
 
 }

@@ -161,6 +161,8 @@
 }
 .xqrightTop img{
 	float: left;
+	width:53px;
+	height:53px;
 }
 .xqrightTop span{
 	margin-left:14px;
