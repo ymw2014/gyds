@@ -14,6 +14,7 @@ import java.util.Map;
 public interface VolunteerService {
 	
 	VolunteerDO get(Integer id);
+	Map<String, Object> getVoInfo(Long userId);
 	
 	List<VolunteerDO> list(Map<String, Object> map);
 	

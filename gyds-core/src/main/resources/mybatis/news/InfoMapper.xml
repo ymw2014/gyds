@@ -17,7 +17,7 @@
 		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_id,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,t.team_title_img,n.introduction,n.content,n.author,n.title,n.id,n.top_region from new_info n left join team t on n.team_id = t.id
         <where>  
 		  		  <if test="isDel != null and isDel != ''"> and n.is_del = #{isDel} </if>
-		  		  <if test="isRedPeper != null and isRedPeper != ''"> and n.is_red_peper = #{isRedPeper} </if>
+		  		  <if test="isRedPeper != null"> and n.is_red_peper = #{isRedPeper} </if>
 		  		  <if test="isTop != null and isTop!= ''"> and n.is_top = #{isTop} </if>
 		  		  <if test="type != null and type != ''"> and n.type = #{type} </if>
 		  		  <if test="numberOfShares != null and numberOfShares != ''"> and n.number_of_shares = #{numberOfShares} </if>

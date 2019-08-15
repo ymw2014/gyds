@@ -15,7 +15,8 @@ import java.util.Date;
  */
 public class RedDO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+	//
+	private Long redId;
 	//红包表关联id
 	private Integer id;
 	//金额
@@ -26,7 +27,13 @@ public class RedDO implements Serializable {
 	private Long getUserId;
 	//
 	private Date getTime;
-
+	
+	public Long getRedId() {
+		return redId;
+	}
+	public void setRedId(Long redId) {
+		this.redId = redId;
+	}
 	/**
 	 * 设置：红包表关联id
 	 */
