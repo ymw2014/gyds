@@ -63,7 +63,7 @@ public class VolunteerDO implements Serializable {
 	
 	private String headImg;
 	
-	private String remark;
+	private String remake;
 		
 	private Date enterTeamTime;
 	//积分
@@ -100,11 +100,11 @@ public class VolunteerDO implements Serializable {
 	public void setEnterTeamTime(Date enterTeamTime) {
 		this.enterTeamTime = enterTeamTime;
 	}
-	public String getRemark() {
-		return remark;
+	public String getRemake() {
+		return remake;
 	}
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setRemake(String remake) {
+		this.remake = remake;
 	}
 	public String getHeadImg() {
 		return headImg;

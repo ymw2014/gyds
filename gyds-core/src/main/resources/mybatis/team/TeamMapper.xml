@@ -16,7 +16,7 @@
 	</select>
 
 	<select id="list" resultType="com.fly.team.domain.TeamDO">
-		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.addres ,mem.`name` as teamName
+		select t.id,t.team_name,t.colonel_name,colonel_tel,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.addres ,mem.`name` as teamName
 		from team t left join team_type tt on t.team_type = tt.id 
 		left join cux_region r on t.reg_code = r.region_code
 		left join sys_user mem on mem.user_id=t.user_id
