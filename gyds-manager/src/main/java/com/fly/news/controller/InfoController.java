@@ -113,9 +113,14 @@ public class InfoController {
 	@ResponseBody
 	@GetMapping("/auditData/{id}")
 	@RequiresPermissions("news:info:audit")
-	public PageUtils auditDate(@PathVariable("id") Long id,Model model){
-		List<Map<String,Object>> auditData = infoService.auditData(id);
-		int dataCount = infoService.auditDataCount(id);
+	public PageUtils auditDate(@PathVariable("id") Long id,String limit,String offset){
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("newsId", id);
+		params.put("limit", limit);
+		params.put("offset", offset);
+		Query query = new Query(params);
+		List<Map<String,Object>> auditData = infoService.auditData(query);
+		int dataCount = infoService.auditDataCount(query);
 		PageUtils pageUtils = new PageUtils(auditData, dataCount);
 	    return pageUtils;
 	}

@@ -116,11 +116,49 @@ public class RegionServiceImpl implements RegionService {
 		if("0".equals(pids)) {
 			RegionDOs = regionDao.list(null);
 		}else {
-			params.put("pids", params.get("pids"));
+			params.put("pids", params.get("pids")); 
 			RegionDOs = regionDao.regionIdByList(params);
 		}
 		List<Integer> collect = RegionDOs.parallelStream().filter(bean -> bean.getRegionType() == 2).map(bean -> bean.getRegionCode()).collect(Collectors.toList());
 		return collect;
+	}
+	
+	@Override
+	public List<Integer> getAllRegin(Map<String,Object> params) {
+		List<RegionDO> RegionDOs =new ArrayList<>();
+		String pids = String.valueOf(params.get("pids"));
+		if(Integer.valueOf(pids) == 0) {
+			RegionDOs = regionDao.list(null);
+		}else {
+			params.put("pids", params.get("pids"));
+			RegionDOs = regionDao.regionIdByList(params);	 
+		}
+		List<Integer> list=new ArrayList<>();
+		for (RegionDO sysRegion : RegionDOs) {
+			if(sysRegion.getRegionType()==1) {
+				list.add(sysRegion.getRegionCode());
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Integer> getAllReginByLevel(Map<String,Object> params) {
+		List<RegionDO> RegionDOs =new ArrayList<>();
+		String pids = String.valueOf(params.get("pids"));
+		if(Integer.valueOf(pids) == 0) {
+			RegionDOs = regionDao.list(null);
+		}else {
+			params.put("pids", params.get("pids"));
+			RegionDOs = regionDao.regionIdByList(params);	 
+		}
+		List<Integer> list=new ArrayList<>();
+		for (RegionDO sysRegion : RegionDOs) {
+			if(sysRegion.getRegionType()==1&&sysRegion.getRegionLevel().equals(params.get("level"))) {
+				list.add(sysRegion.getRegionCode());
+			}
+		}
+		return list;
 	}
 	
 	@Override

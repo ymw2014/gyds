@@ -28,7 +28,7 @@ public interface InfoService {
 	
 	int batchRemove(Integer[] ids);
 	
-	List<Map<String,Object>> auditData(long newsId);
+	List<Map<String,Object>> auditData(Map<String, Object> map);
 	
-	int auditDataCount(long newsId);
+	int auditDataCount(Map<String, Object> map);
 }

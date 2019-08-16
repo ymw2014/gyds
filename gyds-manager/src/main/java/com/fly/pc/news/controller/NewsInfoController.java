@@ -349,6 +349,7 @@ public class NewsInfoController extends BaseController {
 				top.setStatus(3);
 				top.setTopPrice(new BigDecimal(cost.toString()));
 				top.setRegionCode(Integer.valueOf(params.get("regionCode").toString()));
+				top.setTopDay(Integer.valueOf(params.get("topCount").toString()));
 				user = ShiroUtils.getUser();
 				if (user != null) {
 					top.setUserId(Long.parseLong(user.getUserId().toString()));
@@ -357,6 +358,10 @@ public class NewsInfoController extends BaseController {
 					return R.ok();
 				}
 			}
+		}
+		
+		if (i == -1) {
+			return R.error("置顶失败，余额不足！");
 		}
 		return R.error();
 	}

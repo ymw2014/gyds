@@ -87,7 +87,7 @@ function load() {
 									}
 								},*/
 								{
-									title : '状态',
+									title : '审核',
 									field : 'status',
 									width : '200',
 									align : 'center',
@@ -99,12 +99,10 @@ function load() {
 											return s + c;
 										}
 										if (value == 2) {
-											var s= '<span class="btn-success btn-sm"'+s_audit_h+' href="#" title=""  mce_href="#" ><span class="" >拒绝</span></span>'
-											return s;
+											return '<span style="color:red;">已拒绝</span>';
 										}
 										if (value == 1) {
-											var s= '<a class="btn-success btn-sm"'+s_audit_h+' href="#" title=""  mce_href="#" ><span class="" >通过</span></a>'
-											return s;
+											return '<span style="color:green;">已审核</span>';
 										}
 									}
 								} ]
