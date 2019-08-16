@@ -81,6 +81,7 @@
 		<!-- 结束 -->
 		<div class="tongji">
 			<input type="hidden" th:value="${teamId}" id="teamId"/>
+			<input type="hidden" th:value="${nameId}" id="nameId"/>
 			<div class="tongji1">
 				<div class="tongjitxt">
 					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
@@ -124,17 +125,14 @@
 				<a href="#">入团申请</a>
 			</div> -->
 			<!-- 灰色的 -->
-			<div class="rutuanbtn" th:if="${status} eq '0'">
-				<a href="javaScript:;">正在申请中</a>
-			</div>
 			<div class="rutuanbtn"  th:if="${status} eq '1'">
-				<a href="javaScript:;">你已是该团的团员</a>
+				<a href="javaScript:;" onclick="teamRemove()">取消申请</a>
 			</div>
 			<div class="rutuanbtn"  th:if="${status} eq '2'">
 				<a href="javaScript:teamApply()">入团申请</a>
 			</div>
 			<div class="rutuanbtn"  th:if="${status} eq '3'">
-				<a href="javaScript:teamApply()">入团申请</a>
+				<a href="javaScript:;">您已是本团成员</a>
 			</div>
 			
 		</div>
@@ -198,7 +196,7 @@
 	  
 	  function teamApply() {
 			var teamId = $("#teamId").val();
-			$.ajax({
+		 	$.ajax({
 		        type : "POST",
 		        dataType: "json",
 		        url : "/pc/team/apply",
@@ -207,22 +205,48 @@
 		        },
 		        success : function(result) {
 		        	var status = result.status;
+		        	var url = result.url;
 		        	console.log(status)
 		        	if (status == 1) {
 		        		alert("申请成功");
 		        		history.go(0);
 		        	} else if (status == 2){
-		        		parent.layer.msg("您还没登录，请先登录");
+		        		alert("您还没登录，请先登录");
 		        	} else if (status == 3){
 		        		alert("您还不是志愿者，请先申请志愿者");
-		        		window.location.href = "/pc/attestation";
-		        	} else if (status == 3){
-		        		parent.layer.msg("报名失败，报名人数已满");
+		        		window.location.href=url;
+		        	} else if (status == 4){
+		        		alert("报名失败，您已是团队成员");
 		        	} else {
-		        		parent.layer.msg("操作失败");
+		        		alert("操作失败");
 		        	}
 		        }
-		    });
+		    }); 
 		}
-
+	  function teamRemove() {
+			var nameId = $("#nameId").val();
+		 	$.ajax({
+		        type : "POST",
+		        dataType: "json",
+		        url : "/pc/team/remove",
+		        data : {
+		        	'id': nameId
+		        },
+		        success : function(result) {
+		        	var status = result.status;
+		        	var url = result.url;
+		        	console.log(status)
+		        	if (status == 1) {
+		        		alert("取消成功");
+		        		history.go(0);
+		        	} else if (status == 2){
+		        		alert("您还没登录，请先登录");
+		        	} else if (status == 3){
+		        		alert("取消失败");
+		        	} else {
+		        		alert("操作失败");
+		        	}
+		        }
+		    }); 
+		}
 </script>

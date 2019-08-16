@@ -371,6 +371,7 @@ public class NewsInfoController extends BaseController {
 
 	@RequestMapping(value = "/count", method = RequestMethod.POST)
 	@ResponseBody
+	@Transactional
 	public Map<String, Object> count(String topDays, String regionCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -407,6 +408,7 @@ public class NewsInfoController extends BaseController {
 	// 评论
 	@ResponseBody
 	@PostMapping("/comment")
+	@Transactional
 	public R comment(@RequestParam Map<String, Object> params) {
 		Integer i = creadComm(params);
 		R r = new R();
@@ -425,6 +427,7 @@ public class NewsInfoController extends BaseController {
 	}
 
 	@RequestMapping("/infoList")
+	@Transactional
 	public String newInfoList(@RequestParam Integer areaId, @RequestParam Integer flag, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
@@ -450,6 +453,7 @@ public class NewsInfoController extends BaseController {
 	// 关注团队
 	@ResponseBody
 	@PostMapping("/attention")
+	@Transactional
 	public R attention(@RequestParam Map<String, Object> params) {
 		Integer i = null;
 		// 0:+1失败 1:+1成功 2:表示+1成功&&积分+1 3:获取不到当前用户

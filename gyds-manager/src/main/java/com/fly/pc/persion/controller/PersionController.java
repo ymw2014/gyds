@@ -272,6 +272,9 @@ public class PersionController extends BaseController{
 		UserDO user = getUser();
 		name.setUserId(user.getUserId());
 		Map<String, Object> map = JSONUtils.jsonToMap(name.getText());
+		if("1".equals(name.getType().toString())) {
+			flag="1";
+		}
 		//1:入团申请2:建团申请3:代理商入驻
 		if("2".equals(name.getType().toString())) {
 			R r = countCost(Integer.valueOf(map.get("teamType").toString()));

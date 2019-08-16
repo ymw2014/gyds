@@ -1,51 +1,21 @@
-<head  th:fragment="head">
-		<meta charset="utf-8">
-		<title></title>
-		<link href="/css/layui.css" rel="stylesheet">
-		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
-		<script th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
-		<script th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
-		<script src="/js/plugins/layer/layer.js"></script>
-		<script src="/js/layui.js"></script>
-		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
-		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
-		<script th:src="@{/js/validate.js}"></script>
-		<style>
-		   .biaodan2-1{
-				display: none;
-			}
-			.yy-gz{
-			  display: none;
-		  }
-		  .biaodanyy>label>span {
-				display: inline-block;
-				width: 122px !important;
-				text-align: right;
-				font-size: 14px;
-				margin-right: 24px;
-				line-height: 40px;
-				color: #666666;
-		  }
-		  .biaodanyy>label {
-				display: block;
-				width: 840px !important;
-				margin-left: 50px;
-            }
-			.duoxianrt{
-				    width: 661px;
-					float: right;
-					margin-top: 20px;
-			}
-			.duoxianrt input{
-				margin-top:20px;
-			}
-			.tijiaohou{
-				width: 80%;
-				text-align: left;
-				float: right;
-				margin-top:50px;
-			}
-		</style>
+<head th:fragment="head">
+<meta charset="utf-8">
+<title></title>
+<link href="/css/layui.css" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
+<script th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+<script th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+<script src="/js/plugins/layer/layer.js"></script>
+<script src="/js/plugins/layer/laydate/laydate.js"></script>
+<script th:src="@{/js/validate.js}"></script>
+<script src="/js/layui.js"></script>
+<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
 </head>
 
 <div th:fragment="header">
@@ -73,47 +43,45 @@
 			</div>
 			<div class="loginOk" id="login_ok" style="display: none">
 				<div class="loginOkImg">
-					<a href="/pc/personalCenter"><img id="headImg" style="width: 100%; height: auto;" src="" alt=""></a>
+					<a href="/pc/personalCenter"><img id="headImg"
+						style="width: 100%; height: auto;" src="" alt=""></a>
 				</div>
 
 				<div class="loginname">
 					<p id="userName"></p>
 				</div>
 			</div>
-			<a href="/logout">退出</a>
-			<a href="/index">管理后台</a>
+			<a href="/logout">退出</a> <a href="/index">管理后台</a>
 
 		</div>
-		
+
 	</header>
 	<div th:fragment="nav">
 		<div class="nav">
-			<a href="/">网站首页</a>
-			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a>
-			<a href="/pc/activityList">活动报名</a>
-			<a href="/pc/volunteerList">志愿者</a>
+			<a href="/">网站首页</a> <a
+				th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a> <a
+				href="/pc/activityList">活动报名</a> <a href="/pc/volunteerList">志愿者</a>
 			<a href="/pc/teamList">团队展示</a>
 		</div>
 	</div>
 </div>
 <div th:fragment="footer">
-	<div style="margin-bottom:93px;">
-			<div class="footer">
-				<ul th:each="cente: ${centerList}">
+	<div style="margin-bottom: 93px;">
+		<div class="footer">
+			<ul th:each="cente: ${centerList}">
 				<h4 th:text="${cente.helpTitle}"></h4>
 				<li th:each="center: ${cente.center}"><a
 					th:href="${center.url}" th:text="${center.content}"></a></li>
 			</ul>
-			</div>
-			<!-- 备案 -->
-			<div class="beian">
-				<div class="beian1">
-					<span>京ICP备12048184号</span>
-					<span>技术支持：景安网络</span>
-				</div>
-			</div>
-			
 		</div>
+		<!-- 备案 -->
+		<div class="beian">
+			<div class="beian1">
+				<span>京ICP备12048184号</span> <span>技术支持：景安网络</span>
+			</div>
+		</div>
+
+	</div>
 </div>
 
 

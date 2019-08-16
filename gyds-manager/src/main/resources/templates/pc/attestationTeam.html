@@ -236,8 +236,7 @@
 			<label> <span>负责人电话</span> <input type="text"
 				name="colonelTel">
 			</label>
-			<label> 
-			</label> <label> <span>团队地址</span> <select class="juzhu" id="pro1"
+			 <label> <span>团队地址</span> <select class="juzhu" id="pro1"
 				onchange="byPro()">
 					<option value="">省</option>
 					<option th:each="area:${areaList}" th:value="${area.regionCode}"
@@ -282,7 +281,6 @@
 						th:text="${type.typeName}"></option>
 			</select>
 			</label>
-			</label> 
 			<label> <span>费用</span> 
 					<input id ="price" value="0">
 			</label>
