@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<form class="form-horizontal m-t" id="signupForm">
+						<div class="ibox-content" style="height: 210px;">
+								<input type="hidden" th:value="${newsId}"  id = "newsId">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">红包：<span
+									class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<label class="radio-inline"> 
+									<select name="price" id="price">
+										<option th:each=" price : ${listPrice}" th:value="${price.price}" th:text="${price.price}"></option>
+									</select>
+									</label>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label">个数：<span
+									class="text-danger">*</span></label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" name="number" id ="number" placeholder="红包个数不能大于红包总额的5倍!!!">
+								</div>
+							</div>
+							<div class="col-sm-8 col-sm-offset-3" id="sub">
+								<button type="submit" class="btn btn-primary" onclick="redPacket()">提交</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript">
+	   
+	   function redPacket(){
+				  para={"newsId":$('#newsId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val()};
+				  $.ajax({
+						type : "POST",
+						url : "/pc/news/redPacket",
+						data : para,
+						async: false,
+						error : function(request) {
+							layer.msg('发红包失败！您扣除的：'+ $('#price').val() +'元 已原路退回您的账户');
+						},
+						success : function(data) {
+							if (data.code == 0) {
+								alert("发红包成功");
+								///history.go(0);
+								var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+								parent.layer.close(index);
+							} else {
+								if(data.msg == -1){
+								layer.msg('发红包失败！您的余额不足');
+								}else if(data.msg == 0){
+								layer.msg('发红包失败！您打赏的：'+ $('#price').val() +'元 已原路退回您的账户');
+								}else if(data.msg == 2){
+									layer.confirm('您未登录请问是否跳转登录页面？', {
+										  btn: ['是','否'] //按钮
+										}, function(){
+											window.location.href = "/admin";
+										}, function(){
+										  layer.msg('发红包是需要登陆的', {
+										    time: 20000, //20s后自动关闭
+										    btn: ['知道了']
+										  });
+										});
+								}else if(data.msg == 3){
+									alert('红包数量不得大于红包总额的5倍');
+								}
+							}
+
+						}
+					});  
+				  
+			  
+		
+	}
+	</script>
+</body>
+
+</html>

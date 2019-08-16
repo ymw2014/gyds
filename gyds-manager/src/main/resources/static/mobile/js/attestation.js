@@ -148,8 +148,9 @@ $("#downTeam").on('click', function() {
 	}
 	function streetDist() {
 		$("#street").val($("#jiedao").find("option:selected").text());
-	}
-
+	};
+	 
+	
 	$.validator.setDefaults({
 		submitHandler : function() {
 			save();

@@ -23,6 +23,7 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
+import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
 import com.fly.system.dao.UserDao;
@@ -116,9 +117,20 @@ public class PcTeamController {
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
 		model.addAttribute("teamId", teamId);
-		
 		UserDO user = ShiroUtils.getUser();
 		if (user != null ) {
+			VolunteerDO vol = volunteerService.getVo(user.getUserId());
+			if(vol!=null) {
+				if(vol.getTeamId().equals(teamId)) {
+					//已是本团成员
+					model.addAttribute("status", "3");
+				}
+				//不是本团团员
+				model.addAttribute("status", "2");
+			}else {
+				//不是志愿者
+				model.addAttribute("status", "2");
+			}
 			params.clear();
 			params.put("userId", user.getUserId());
 			params.put("teamId",teamId);
@@ -127,17 +139,9 @@ public class PcTeamController {
 			NameDO name = nameDao.applyStatus(params);
 			//1申请中 2请申请
 			if(name!=null) {
+				//1:已申请
 			model.addAttribute("status", "1");
 			model.addAttribute("nameId",name.getId());
-			}else {
-				VolunteerDO vol = volunteerService.getVo(user.getUserId());
-				if(vol!=null) {
-					if(vol.getTeamId().equals(teamId)) {
-						model.addAttribute("status", "3");
-					}
-				}else {
-					model.addAttribute("status", "2");
-				}
 			}
 		}
 		return "pc/teamDetail";
@@ -162,7 +166,7 @@ public class PcTeamController {
 	
 	@ResponseBody
 	@RequestMapping("team/apply")
-	public String apply(Integer id) {
+	public String apply(Integer id,HttpServletRequest request) {
 		JSONObject dataInfo = new JSONObject();
 		Integer status = 0;
 		try {
