@@ -19,7 +19,7 @@ public class TopDO implements Serializable {
 	//自增id
 	private Integer id;
 	//咨询id
-	private Long newsId;
+	private Integer newsId;
 	//用户id
 	private Long userId;
 	//置顶开始时间
@@ -58,13 +58,13 @@ public class TopDO implements Serializable {
 	/**
 	 * 设置：咨询id
 	 */
-	public void setNewsId(Long newsId) {
+	public void setNewsId(Integer newsId) {
 		this.newsId = newsId;
 	}
 	/**
 	 * 获取：咨询id
 	 */
-	public Long getNewsId() {
+	public Integer getNewsId() {
 		return newsId;
 	}
 	/**

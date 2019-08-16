@@ -1,6 +1,7 @@
 package com.fly.async.task;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,7 @@ public class ThreadTaskService {
 	
 	@Autowired
 	private OrderDao orderDao;
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
 	
 		//团队分佣
 		@Async("taskExecutor")
@@ -52,7 +54,8 @@ public class ThreadTaskService {
 		 * @param allPrice
 		 */
 		@Async("taskExecutor")
-		public void roolTeamByElement(Integer regionCode,Integer levelType, BigDecimal allPrice) {
+		public void roolTeamByElement(Integer regionCode,Integer orderType,Integer levelType, BigDecimal allPrice) {
+			String remake="";
 			TeamDO team = teamDao.get(regionCode);
 			Map<String, Object> map = regionService.activeStat(team.getId(),5,10);
 			BigDecimal teamCount=null;
@@ -88,6 +91,8 @@ public class ThreadTaskService {
 			UserDO user = userDao.get(team.getUserId());
 			user.setAccount(user.getAccount().add(fanyong));
 			userDao.update(user);
+			remake=getRemake(team.getUserId(),fanyong,orderType,OrderType.SHOU_RU,OrderType.CommissionType.TUAN_DUI_FEN_YONG);
+			createOrder(team.getUserId(), fanyong, orderType, OrderType.SHOU_RU, remake);
 			
 		}
 		
@@ -105,7 +110,7 @@ public class ThreadTaskService {
 			try {
 				if(!CollectionUtils.isEmpty(proList)) {
 					increaseMoney(proList.get(0).getUserId(),fanyongPrice);
-					remake=getRemake(proList.get(0).getUserId(),fanyongPrice,type,OrderType.SHOU_RU);
+					remake=getRemake(proList.get(0).getUserId(),fanyongPrice,type,OrderType.SHOU_RU,OrderType.CommissionType.DAI_LI_FEN_YONG);
 					createOrder(proList.get(0).getUserId(), fanyongPrice, type, OrderType.SHOU_RU, remake);
 				}else {
 					logger.info("区域编号"+regionCode+"***************此地区暂无代理商,不生成分佣");
@@ -166,7 +171,7 @@ public class ThreadTaskService {
 					UserDO user = userDao.get(proList.get(0).getUserId());
 					user.setAccount(user.getAccount().add(fanyong));
 					userDao.update(user);
-					remake=getRemake(proList.get(0).getUserId(),fanyong,type,OrderType.SHOU_RU);
+					remake=getRemake(proList.get(0).getUserId(),fanyong,type,OrderType.SHOU_RU,OrderType.CommissionType.DAI_LI_FEN_YONG);
 					createOrder(proList.get(0).getUserId(), fanyong, type, OrderType.SHOU_RU, remake);
 				}else {
 					logger.info("区域编号"+regionCode+"***************此地区暂无代理商,不生成分佣");
@@ -241,7 +246,7 @@ public class ThreadTaskService {
 					UserDO user = userDao.get(proList.get(0).getUserId());
 					user.setAccount(user.getAccount().add(fanyong));
 					userDao.update(user);
-					remake=getRemake(proList.get(0).getUserId(),fanyong,type,OrderType.SHOU_RU);
+					remake=getRemake(proList.get(0).getUserId(),fanyong,type,OrderType.SHOU_RU,OrderType.CommissionType.DAI_LI_FEN_YONG);
 					createOrder(proList.get(0).getUserId(), fanyong, type, OrderType.SHOU_RU, remake);
 				}else {
 					logger.info("区域编号"+regionCode+"***************此地区暂无代理商,不生成分佣");
@@ -330,11 +335,11 @@ public class ThreadTaskService {
 		 * @param orderType 交易类型
 		 * @return
 		 */
-		public String getRemake(Long userId,BigDecimal price,Integer expIncType,Integer orderType) {
+		public String getRemake(Long userId,BigDecimal price,Integer expIncType,Integer orderType,String infomation) {
 			UserDO user = userDao.get(userId);
 			StringBuffer remake=new StringBuffer();
 			if(orderType.equals(OrderType.SHOU_RU)) {
-				remake.append("交易类型：<font style='color:green'>收入</font>\n");
+				remake.append("交易类型：<font style='color:green'>收入【"+infomation+"】</font>\n");
 			}
 			if(orderType.equals(OrderType.ZHI_CHU)) {
 				remake.append("交易类型：<font style='color:red'>支出</font>\n");
@@ -384,8 +389,8 @@ public class ThreadTaskService {
 			}
 			remake.append("用户编号【"+user.getUserId()+"】用户名称【"+user.getName()+"】\n");
 			remake.append("用户账户余额:<font style='color:green'>"+user.getAccount()+"</font>元\n");
-			remake.append("本次交易金额<font style='color:red'>"+price+"</font>元");
-			remake.append("订单创建时间:"+new Date()+"\n");
+			remake.append("本次交易金额<font style='color:red'>"+price+"</font>元\n");
+			remake.append("订单创建时间:"+sdf.format(new Date())+"\n");
 			return remake.toString();
 		}
 		

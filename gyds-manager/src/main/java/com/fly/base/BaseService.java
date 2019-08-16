@@ -62,7 +62,7 @@ public class BaseService {
 	 * @param price 参与分佣的金额
 	 * @param newId 资讯ID
 	 */
-	public void DistributionOfDomestic(Integer expIncType,BigDecimal price,Integer newId) {
+	public void distributionOfDomestic(Integer expIncType,BigDecimal price,Integer newId) {
 		logger.info("文章资讯生成分佣开始****************************************************************************");
 		InfoDO info = infoDao.get(newId);
 		SetupDO setup = setupDao.list(new HashMap<String, Object>(16)).get(0);
@@ -78,15 +78,16 @@ public class BaseService {
 			try {
 				BigDecimal fanyong=price.multiply(setup.getTeamExtract());
 				increaseMoney(team.getUserId(),fanyong);
-				remake=threadTaskService.getRemake(team.getUserId(),fanyong,expIncType,OrderType.SHOU_RU);
-				threadTaskService.createOrder(team.getUserId(), price, expIncType, OrderType.SHOU_RU, remake);
+				remake=threadTaskService.getRemake(team.getUserId(),fanyong,expIncType,OrderType.SHOU_RU,OrderType.CommissionType.TUAN_DUI_FEN_YONG);
+				threadTaskService.createOrder(team.getUserId(), fanyong, expIncType, OrderType.SHOU_RU, remake);
 			} catch (Exception e) {
 				logger.info("文章资讯团队分佣失败:用户编号"+team.getUserId());
 				e.printStackTrace();
 			}
 			
 		}
-		RegionDO agencyRegion = regionService.get(team.getId());//街道办
+		RegionDO teamRegion = regionService.get(team.getId());//团队
+		RegionDO agencyRegion = regionService.get(teamRegion.getParentRegionCode());//街道办
 		BigDecimal agencyFanyong=price.multiply(setup.getAgencyExtract());
 		threadTaskService.agencyDomestic(agencyRegion.getRegionCode(),expIncType, agencyFanyong);
 		//获取街道办上级
@@ -129,7 +130,7 @@ public class BaseService {
 			if(!CollectionUtils.isEmpty(teamList4)) {
 				for (Integer teamId : teamList4) {
 					//多线程分佣
-					threadTaskService.roolTeamByElement(teamId,Dictionary.ZONG_PING_TAI,allPrice4);
+					threadTaskService.roolTeamByElement(teamId,type,Dictionary.ZONG_PING_TAI,allPrice4);
 				}
 			}
 			//街道办分佣
@@ -175,7 +176,7 @@ public class BaseService {
 			if(!CollectionUtils.isEmpty(teamList3)) {
 				for (Integer teamId : teamList3) {
 					//多线程分佣
-					threadTaskService.roolTeamByElement(teamId,Dictionary.SHENG,allPrice3);
+					threadTaskService.roolTeamByElement(teamId,type,Dictionary.SHENG,allPrice3);
 				}
 			}
 			//街道办分佣
@@ -219,7 +220,7 @@ public class BaseService {
 			if(!CollectionUtils.isEmpty(teamList1)) {
 				for (Integer teamId : teamList1) {
 					//多线程分佣
-					threadTaskService.roolTeamByElement(teamId,Dictionary.SHI,allPrice1);
+					threadTaskService.roolTeamByElement(teamId,type,Dictionary.SHI,allPrice1);
 				}
 			}
 			//街道办分佣
@@ -252,7 +253,7 @@ public class BaseService {
 			if(!CollectionUtils.isEmpty(teamList)) {
 				for (Integer teamId : teamList) {
 					//多线程分佣
-					threadTaskService.roolTeamByElement(teamId,Dictionary.XIAN,allPrice);
+					threadTaskService.roolTeamByElement(teamId,type,Dictionary.XIAN,allPrice);
 				}
 			}
 			
@@ -276,7 +277,7 @@ public class BaseService {
 		case 4://置顶街道办(向上正常分佣,向下各团分佣)
 			BigDecimal teamAllPrice=price.multiply(setup.getTeamExtract());
 			//向下各团队分佣
-			agencyFindTeamDomestic(regionCode,teamAllPrice);
+			agencyFindTeamDomestic(regionCode,teamAllPrice,type);
 			//街道办分佣
 			BigDecimal agencyFanyong=price.multiply(setup.getAgencyExtract());
 			threadTaskService.agencyDomestic(regionCode,OrderType.ZHI_DING_FAN_YONG, agencyFanyong);
@@ -298,7 +299,7 @@ public class BaseService {
 			
 			break;
 		case 5://置顶本团(向上正常分佣)
-			DistributionOfDomestic(OrderType.ZHI_DING_FAN_YONG,price,newId);
+			distributionOfDomestic(OrderType.ZHI_DING_FAN_YONG,price,newId);
 			break;	
 			
 
@@ -332,7 +333,7 @@ public class BaseService {
 	 * @param regionCode
 	 * @param allPrice
 	 */
-	public void agencyFindTeamDomestic(Integer regionCode,BigDecimal allPrice) {
+	public void agencyFindTeamDomestic(Integer regionCode,BigDecimal allPrice,Integer orderType) {
 		Map<String, Object> params=new HashMap<>();
 		params.put("parentRegionCode", regionCode);
 		List<RegionDO> teamList = regionService.list(params);
@@ -341,7 +342,7 @@ public class BaseService {
 				TeamDO team = teamDao.get(regionDO.getRegionCode());
 				regionService.activeStat(team.getId(), 5, 10);
 				//多线程分佣
-				threadTaskService.roolTeamByElement(regionDO.getRegionCode(),Dictionary.JIE_DAO_BAN,allPrice);
+				threadTaskService.roolTeamByElement(regionDO.getRegionCode(),orderType,Dictionary.JIE_DAO_BAN,allPrice);
 
 			}
 		}

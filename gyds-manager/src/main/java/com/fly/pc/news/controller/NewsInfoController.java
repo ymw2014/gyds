@@ -1,18 +1,13 @@
 package com.fly.pc.news.controller;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.codec.DataBufferDecoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -23,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.FlashMap;
 
+import com.fly.base.BaseService;
 import com.fly.common.controller.BaseController;
 import com.fly.domain.UserDO;
+import com.fly.index.utils.OrderType;
 import com.fly.news.dao.CommentDao;
 import com.fly.news.dao.PacketDao;
 import com.fly.news.dao.PriceDao;
@@ -37,7 +33,6 @@ import com.fly.news.domain.CommentDO;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.domain.PacketDO;
 import com.fly.news.domain.PriceDO;
-import com.fly.news.domain.RedDO;
 import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
@@ -48,7 +43,6 @@ import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
-import com.fly.utils.DateUtils;
 import com.fly.utils.R;
 
 @Controller
@@ -76,6 +70,8 @@ public class NewsInfoController extends BaseController {
 	private PacketDao packetDao;
 	@Autowired
 	private RedDao redDao;
+	@Autowired
+	private BaseService baseService;
 	
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id, Model model) {
@@ -271,6 +267,7 @@ public class NewsInfoController extends BaseController {
 	@ResponseBody
 	@Transactional
 	public R redPacket(@RequestParam Map<String, Object> params) {
+		SetupDO setup = setupService.list(new HashMap<String, Object>(16)).get(0);
 		R r = new R();
 		Integer i = null;
 		Boolean flag =false;
@@ -293,6 +290,9 @@ public class NewsInfoController extends BaseController {
 					}
 				}
 			}
+			//获取需进行分佣的金额
+			BigDecimal commissionPrice = price.multiply(setup.getRedPacketExtract());
+			baseService.distributionOfDomestic(OrderType.HONG_BAO_FAN_YONG, commissionPrice, Integer.parseInt(params.get("newsId").toString()));
 		}
 		if(flag) {
 			return r.ok();
@@ -314,6 +314,8 @@ public class NewsInfoController extends BaseController {
 		Integer code = info.getTeamId();
 		model.addAttribute("teamRegion", code);
 		code = upRegCode(code);
+		model.addAttribute("angrnyRegion", code);
+		code = upRegCode(code);
 		model.addAttribute("areaRegion", code);
 		code = upRegCode(code);
 		model.addAttribute("cityRegion", code);
@@ -333,7 +335,8 @@ public class NewsInfoController extends BaseController {
 	public R comTopInfo(@RequestParam Map<String, Object> params) {
 		TopDO top = new TopDO();
 		UserDO user = null;
-		Object cost = params.get("count");
+		BigDecimal cost = new BigDecimal(params.get("count").toString());
+		BigDecimal day = new BigDecimal(params.get("topCount").toString()) ;
 		Map<String,Object> count = new HashMap<String,Object>();
 		count.put("price", cost);
 		Integer i = deductMoney(count);
@@ -341,13 +344,13 @@ public class NewsInfoController extends BaseController {
 			params.put("orderType", 2);
 			params.put("examineStatus", 2);
 			params.put("expIncType", 5);
-			params.put("price", cost);
+			params.put("price", cost.multiply(day));
 			Integer orderNuber = creadOrder(params);
 			if (orderNuber > 0) {
 				top.setOrdernumber(orderNuber);
-				top.setNewsId(Long.parseLong(params.get("newsId").toString()));
+				top.setNewsId(Integer.parseInt(params.get("newsId").toString()));
 				top.setStatus(3);
-				top.setTopPrice(new BigDecimal(cost.toString()));
+				top.setTopPrice(cost.multiply(day));
 				top.setRegionCode(Integer.valueOf(params.get("regionCode").toString()));
 				top.setTopDay(Integer.valueOf(params.get("topCount").toString()));
 				user = ShiroUtils.getUser();

@@ -1,17 +1,16 @@
 package com.fly.news.controller;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fly.base.BaseService;
 import com.fly.domain.UserDO;
+import com.fly.index.utils.OrderType;
 import com.fly.news.dao.TopDao;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
+import com.fly.news.service.TopService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.system.service.RegionService;
@@ -31,7 +34,6 @@ import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
-import com.fly.utils.DateUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -57,9 +59,13 @@ public class InfoController {
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
-	
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private TopService topService;
+	@Autowired
+	private BaseService baseService;
+
 
 	@GetMapping()
 	@RequiresPermissions("news:info:info")
@@ -109,7 +115,6 @@ public class InfoController {
 	}
 	
 	
-	
 	@ResponseBody
 	@GetMapping("/auditData/{id}")
 	@RequiresPermissions("news:info:audit")
@@ -125,32 +130,47 @@ public class InfoController {
 	    return pageUtils;
 	}
 
-	
+	@Transactional
 	@ResponseBody
 	@RequestMapping("/auditUpdate")
 	@RequiresPermissions("news:info:audit")
 	public R auditUpdate(TopDO apply){
-		 if (apply.getStatus() == 2) {
-			Map<String,Object> params = new HashMap<String, Object>();
-			params.put("id", apply.getOrdernumber());
-			List<OrderDO> list = orderService.list(params);
-			if (CollectionUtils.isEmpty(list)) {
-				BigDecimal price = list.get(0).getPrice();
-				UserDO userDO = userService.get(apply.getUserId());
-				BigDecimal account = userDO.getAccount();
-				BigDecimal blance = price.add(account);
-				userDO.setAccount(blance);
-				userService.update(userDO);
-				topDao.update(apply);
-			} 
+		TopDO exentApply = topService.get(apply.getId());
+		OrderDO order = orderService.get(exentApply.getOrdernumber());
+		if(order==null) {
 			return R.error("订单信息查询失败");
+		}
+		 if (apply.getStatus() == 2) {
+			BigDecimal price = order.getPrice();
+			UserDO userDO = userService.getUser(exentApply.getUserId());
+			BigDecimal account = userDO.getAccount();
+			BigDecimal blance = price.add(account);
+			userDO.setAccount(blance);
+			userService.updatePersonal(userDO);
+			exentApply.setStatus(2);
+			topDao.update(exentApply);
+			order.setExamineStatus(3);
+			order.setExamineUser(ShiroUtils.getUserId());
+			orderService.update(order);
 		 }
 		 if (apply.getStatus() == 1) {
+			 InfoDO newInfo = infoService.get(exentApply.getNewsId());
 			 Calendar c = Calendar.getInstance();
 			 c.add(Calendar.DAY_OF_MONTH, apply.getTopDay());
-			 apply.setTopStartTime(new Date());
-			 apply.setTopEndTime(c.getTime());
-			 topDao.update(apply);
+			 exentApply.setTopStartTime(new Date());
+			 exentApply.setTopEndTime(c.getTime());
+			 newInfo.setPymentEndTime(c.getTime());
+			 newInfo.setPymentStartTime(new Date());
+			 newInfo.setTopRegion(exentApply.getRegionCode());
+			 infoService.update(newInfo);
+			 exentApply.setStatus(1);
+			 topDao.update(exentApply);
+			 order.setExamineStatus(3);
+			 order.setExamineUser(ShiroUtils.getUserId());
+			 orderService.update(order);
+			 newInfo.setIsTop(1);
+			 infoService.update(newInfo);
+			 baseService.DistributionOfDomesticTop(order.getPrice(), OrderType.GUANG_GAO_FAN_YONG, apply.getNewsId(), exentApply.getRegionCode());
 		 }
 		return R.ok();
 	}

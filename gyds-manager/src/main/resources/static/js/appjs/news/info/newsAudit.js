@@ -93,6 +93,7 @@ function load() {
 									align : 'center',
 									width : '200px',
 									formatter : function(value, row, index) {
+										console.log(value);
 										if (value == 3) {
 											var s= '<a class="btn btn-success btn-sm"'+s_audit_h+' href="#" title=""  mce_href="#" ><span class="" onclick="audit('+row.id+','+row.top_day+',1)">通过</span></a>'
 											var c= '<a class="btn btn-success btn-sm"'+s_comList_h+' href="#" title=""  mce_href="#" style="margin-left: 10px;"><span class="" onclick="audit('+row.id+','+row.top_day+',2)">拒绝</span></a>'

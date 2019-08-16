@@ -63,5 +63,11 @@ public class OrderType {
 	 * 	建团返佣
 	 */
 	public static final Integer JIAN_TUAN_FAN_YONG =12;
+	
+	public static class CommissionType{
+        //    1:团队返佣 2:街道办返佣 3:县代理分佣 4.市代理分佣 5.省代理分佣
+        public static final String TUAN_DUI_FEN_YONG="团队分佣";
+        public static final String DAI_LI_FEN_YONG="代理分佣";
+    }
 
 }

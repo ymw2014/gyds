@@ -4,15 +4,16 @@
 <mapper namespace="com.fly.sys.dao.SetupDao">
 
 	<select id="get" resultType="com.fly.sys.domain.SetupDO">
-		select `id`,top_count,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup where id = #{value}
+		select `id`,top_count,`red_packet_extract`,`team_extract`,`agency_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.sys.domain.SetupDO">
-		select `id`,top_count,`red_packet_extract`,`team_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup
+		select `id`,top_count,`red_packet_extract`,`team_extract`,`agency_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract`,`corporate_name`,`official_account_img`,`logo`,`preparation_no`,`title`,`keywords`,`service_telephone`,`copyright_into`,`message_login`,`message_password`,`pay_login`,`pay_password`,`advert_min`,`advert_max`,`stick_top_min`,`stick_top_max`,`withdrawal_fee`,`punch_the_clock_integral`,`recharge_integral`,`provincial_bail`,`city_bail`,`area_bail`,`agency_bail`,red_price_setup,reward_price_setup from sys_setup
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="redPacketExtract != null and redPacketExtract != ''"> and red_packet_extract = #{redPacketExtract} </if>
 		  		  <if test="teamExtract != null and teamExtract != ''"> and team_extract = #{teamExtract} </if>
+		  		   <if test="agencyExtract != null and agencyExtract != ''"> and agency_extract = #{agencyExtract} </if>
 		  		  <if test="areaExtract != null and areaExtract != ''"> and area_extract = #{areaExtract} </if>
 		  		  <if test="cityExtract != null and cityExtract != ''"> and city_extract = #{cityExtract} </if>
 		  		  <if test="provinceExtract != null and provinceExtract != ''"> and province_extract = #{provinceExtract} </if>
@@ -59,6 +60,7 @@
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="redPacketExtract != null and redPacketExtract != ''"> and red_packet_extract = #{redPacketExtract} </if>
 		  		  <if test="teamExtract != null and teamExtract != ''"> and team_extract = #{teamExtract} </if>
+		  		  <if test="agencyExtract != null and agencyExtract != ''"> and agency_extract = #{agencyExtract} </if>
 		  		  <if test="areaExtract != null and areaExtract != ''"> and area_extract = #{areaExtract} </if>
 		  		  <if test="cityExtract != null and cityExtract != ''"> and city_extract = #{cityExtract} </if>
 		  		  <if test="provinceExtract != null and provinceExtract != ''"> and province_extract = #{provinceExtract} </if>
@@ -95,7 +97,8 @@
 		insert into sys_setup
 		(
 			`red_packet_extract`, 
-			`team_extract`, 
+			`team_extract`,
+			`agency_extract`, 
 			`area_extract`, 
 			`city_extract`, 
 			`province_extract`, 
@@ -132,6 +135,7 @@
 		(
 			#{redPacketExtract}, 
 			#{teamExtract}, 
+			#{agencyExtract}, 
 			#{areaExtract}, 
 			#{cityExtract}, 
 			#{provinceExtract}, 
@@ -170,6 +174,7 @@
 		<set>
 			<if test="redPacketExtract != null">`red_packet_extract` = #{redPacketExtract}, </if>
 			<if test="teamExtract != null">`team_extract` = #{teamExtract}, </if>
+			<if test="agencyExtract != null">`agency_extract` = #{agencyExtract}, </if>
 			<if test="areaExtract != null">`area_extract` = #{areaExtract}, </if>
 			<if test="cityExtract != null">`city_extract` = #{cityExtract}, </if>
 			<if test="provinceExtract != null">`province_extract` = #{provinceExtract}, </if>

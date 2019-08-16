@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.news.dao.TopDao">
 
 	<select id="get" resultType="com.fly.news.domain.TopDO">
-		select `id`,`news_id`,`user_id`,`top_start_time`,`top_end_time`,`top_price`,`status`,`orderNumber`,`top_day` from appy_top where id = #{value}
+		select `id`,`news_id`,`user_id`,`top_start_time`,`top_end_time`,`top_price`,`status`,`orderNumber`,`top_day`,`region_code` from appy_top where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.news.domain.TopDO">
-		select `id`,`news_id`,`user_id`,`top_start_time`,`top_end_time`,`top_price`,`status`,`orderNumber`,`top_day` from appy_top
+		select `id`,`news_id`,`user_id`,`top_start_time`,`top_end_time`,`top_price`,`status`,`orderNumber`,`top_day`,`region_code` from appy_top
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="newsId != null and newsId != ''"> and news_id = #{newsId} </if>
@@ -60,7 +60,8 @@
 			`top_price`, 
 			`status`, 
 			`orderNumber`, 
-			`top_day`
+			`top_day`,
+			`region_code`
 		)
 		values
 		(
@@ -71,7 +72,8 @@
 			#{topPrice}, 
 			#{status}, 
 			#{ordernumber}, 
-			#{topDay}
+			#{topDay},
+			#{regionCode}
 		)
 	</insert>
 	 
@@ -85,7 +87,8 @@
 			<if test="topPrice != null">`top_price` = #{topPrice}, </if>
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="ordernumber != null">`orderNumber` = #{ordernumber}, </if>
-			<if test="topDay != null">`top_day` = #{topDay}</if>
+			<if test="topDay != null">`top_day` = #{topDay},</if>
+			<if test="regionCode != null">`region_code` = #{regionCode}</if>
 		</set>
 		where id = #{id}
 	</update>
