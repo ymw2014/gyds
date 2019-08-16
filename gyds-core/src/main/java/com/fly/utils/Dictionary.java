@@ -20,24 +20,24 @@ public class Dictionary {
     public static Integer  DAI_LI_SHANG_SHEN_QING = 3;
     
     /**
-     * 	置顶分佣
+     * 	总平台
      */
-    public static Integer ZHI_DING_FEN_YONG=1;
+    public static Integer ZONG_PING_TAI=0;
     /**
-     * 	打赏分佣
+     * 	省代理
      */
-    public static Integer DA_SHANG_FEN_YONG=2;
+    public static Integer SHENG=1;
     /***
-     * 	红包分佣
+     * 	市代理
      */
-    public static Integer HONG_BAO_FEN_YONG=3;
+    public static Integer SHI=2;
     /**
-     * 	广告分佣
+     * 	县代理
      */
-    public static Integer GUANG_GAO_FEN_YONG=4;
+    public static Integer XIAN=3;
     
     /***
-     * 	团队创建分佣
+     * 	街道办代理
      */
-    public static Integer JIAN_TUAN_FEN_YONG=5;
+    public static Integer JIE_DAO_BAN=4;
 }

@@ -275,7 +275,7 @@ public class PersionController extends BaseController{
 		//1:入团申请2:建团申请3:代理商入驻
 		if("2".equals(name.getType().toString())) {
 			R r = countCost(Integer.valueOf(map.get("teamType").toString()));
-			if(r.get("price")!=null||r.get("price").toString()!="0") {
+			if(r.get("price")!=null&&r.get("price").toString()!="0") {
 				i = deductMoney(r);//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 				if(i==1) {
 					r.put("orderType", OrderType.ZHI_CHU);
