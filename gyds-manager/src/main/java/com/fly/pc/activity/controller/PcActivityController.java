@@ -85,6 +85,7 @@ public class PcActivityController extends BaseController{
 		model.addAttribute("actList", actList);//团队活动
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
+		model.addAttribute("areaId", areaId);
 		return "pc/activityList";
 	}
 	

@@ -84,6 +84,7 @@ public class PcTeamController {
 		model.addAttribute("areaList", areaList);
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
+		model.addAttribute("areaId", areaId);
 		return "pc/teamList";
 	}
 	

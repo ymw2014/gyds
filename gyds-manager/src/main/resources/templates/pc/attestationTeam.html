@@ -316,5 +316,69 @@
 				}
 			});
 	
-	
+	$().ready(function() {
+		$("#save").on('click', function() {
+			$("#signupForm").submit();
+		});
+	})
+	$().ready(function() {
+		validateRule();
+	});
+	function validateRule() {
+		var icon = "<i class='fa fa-times-circle' ></i> ";
+		$("#signupForm")
+				.validate(
+						{
+							rules : {
+								name : {
+									required : true
+								},
+								mobile : {
+									required : true,
+									isMobile : true
+								},
+								liveAddress : {
+									required : true
+								},
+								cardNo : {
+									required : true,
+									isIdCardNo : true
+								},
+								email : {
+									required : true
+								},//district
+								sex : {
+									required : true
+								},
+								district : {
+									required : true
+								}
+							},
+							messages : {
+								name : {
+									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+								},
+								mobile : {
+									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+									isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+								},
+								liveAddress : {
+									required : "<span style='color:red;margin-left:10px;'>请输入详细地址</span>"
+								},
+								cardNo : {
+									required : "<span style='color:red;margin-left:10px;'>请输入身份证</span>",
+									isIdCardNo : "<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
+								},
+								email : {
+									required : "<span style='color:red;margin-left:10px;'>请输入邮箱地址</span>"
+								},
+								sex : {
+									required : "<span style='color:red;margin-left:10px;'>性别不能为空</span>"
+								},
+								district : {
+									required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
+								}
+							}
+						})
+	}
 </script>
