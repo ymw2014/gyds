@@ -84,7 +84,7 @@ public class PersionController extends BaseController{
 	public R binding(UserDO user,Model model) {
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		user.setIsBinding(1);
-		if (userService.save(user) > 0) {
+		if (userService.updatePersonal(user)> 0) {
 			return R.ok();
 		}
 		return R.error();
