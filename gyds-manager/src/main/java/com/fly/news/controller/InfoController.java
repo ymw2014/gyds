@@ -11,6 +11,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -170,7 +171,13 @@ public class InfoController {
 			 orderService.update(order);
 			 newInfo.setIsTop(1);
 			 infoService.update(newInfo);
-			 baseService.DistributionOfDomesticTop(order.getPrice(), OrderType.GUANG_GAO_FAN_YONG, apply.getNewsId(), exentApply.getRegionCode());
+			 try {
+				 baseService.distributionOfDomesticTop(order.getPrice(), OrderType.ZHI_DING_FAN_YONG, apply.getNewsId(), exentApply.getRegionCode());
+			} catch (Exception e) {
+				e.printStackTrace();
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); 
+			}
+			
 		 }
 		return R.ok();
 	}

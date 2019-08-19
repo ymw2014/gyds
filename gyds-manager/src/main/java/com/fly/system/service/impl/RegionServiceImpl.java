@@ -219,7 +219,7 @@ public class RegionServiceImpl implements RegionService {
 	
 	public int activeCount(Integer level, Integer region, Integer day) {
 		Map<String,Object> param = new HashMap<String, Object>();
-		if (level==5) {
+		if (level!=null&&level==5) {
 			param.put("regionLevel", level);
 			param.put("regionCode", region);
 		} else {
