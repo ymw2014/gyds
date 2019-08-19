@@ -95,6 +95,7 @@ public class PcVolunteerController {
 		model.addAttribute("areaList", areaList);//全国包含的省
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
+		model.addAttribute("areaId", areaId);
 		return "pc/volunteerList";
 	}
 	/**

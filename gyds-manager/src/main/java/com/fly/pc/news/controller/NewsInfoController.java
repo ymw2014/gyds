@@ -436,6 +436,8 @@ public class NewsInfoController extends BaseController {
 		params.put("ids", ids);
 		params.put("status", 1);
 		params.put("isDel", 0);
+		params.put("offset", 1);
+		params.put("limit", 10);
 		if (flag == 0) {
 			params.put("sort", "n.is_top desc,n.public_time desc");
 		} else if (flag == 1) {

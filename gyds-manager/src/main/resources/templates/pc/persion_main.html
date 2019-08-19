@@ -67,7 +67,7 @@
 						<p>
 							 <font th:text="${'ID:'+user.userId}"></font> <i th:text="${user.isIdentification==1?'已实名':'未实名'}"></i>
 						</p>
-						
+						<input type="hidden" id="userId" th:value="${user.userId}">
 						
 					</figcaption>
 				</figure>
@@ -98,7 +98,7 @@
 						<img src="images/tixian.jpg" alt="">充值
 					</div>
 					<div>
-						<img src="images/chongzhi.jpg" alt="">提现
+						<a href="javascript:;" onclick=""><img src="images/chongzhi.jpg" alt="">提现</a>
 					</div>
 				</div>
 			</div>
@@ -116,6 +116,7 @@
 		</div>
 	</div>
 </body>
+<<<<<<< HEAD
 <script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
 <script type="text/javascript">
 	$(function(){

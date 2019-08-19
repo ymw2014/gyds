@@ -2,6 +2,7 @@ package com.fly.pc.persion.controller;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -515,4 +518,18 @@ public class PersionController extends BaseController{
 		return "pc/myJoinTeam";
 	}
 	
+	/*
+	 * @RequestMapping(value = "/pc/withdraw/{id}", method = RequestMethod.GET)
+	 * public String withdraw(@PathVariable("id") Long id, Model model) { UserDO
+	 * user = ShiroUtils.getUser(); if(user!=null) { BigDecimal account =
+	 * userService.get(id).getAccount();
+	 * 
+	 * if(account.compareTo(new BigDecimal(20000))!=-1) { model.addAttribute("max",
+	 * "20000"); }else { model.addAttribute("max", account); } //余额
+	 * model.addAttribute("account", account); //手续费
+	 * model.addAttribute("withdrawalFee", "20"); } return ""; } //查询提现配置 public
+	 * Map<String,Object> querySetupWithdraw() { Map<String,Object> listPrice = new
+	 * HashMap<String,Object>(); SetupDO setup = setupService.get(1); if
+	 * (setup!=null) { } return listPrice; }
+	 */
 }
