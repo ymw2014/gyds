@@ -114,12 +114,16 @@ public class WechatApiController {
 					Subject subject = SecurityUtils.getSubject();
 					EasyTypeToken token = new EasyTypeToken(user.getUsername());
 					subject.login(token);
+					if(user.getIsBinding()!=1) {
+						return "redirect:/pc/personalCenter";
+					}
 				}else {//新用户登录
 					logger.info("WeiXinLoginController ==> resultJson: " + json);
 					UserDO user=new UserDO();
 					user.setUsername(String.valueOf(json.get("nickname")));
 					user.setIsIdentification(0);
 					user.setIsManage(0);
+					user.setIsBinding(0);
 					user.setNikeName(String.valueOf(json.get("nickname")));
 					user.setOpenId(String.valueOf(json.get("openid")));
 					user.setHeadImg(String.valueOf(json.get("headimgurl")));
@@ -137,7 +141,7 @@ public class WechatApiController {
 					Subject subject = SecurityUtils.getSubject();
 					EasyTypeToken token = new EasyTypeToken(user.getUsername());
 					subject.login(token);
-					return "redirect:/";
+					return "redirect:/pc/personalCenter";
 				}
 				
 			}
