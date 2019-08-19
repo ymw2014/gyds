@@ -11,8 +11,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @EnableAsync
 public class ThreadPoolConfig {
 	
-	private static final int corePoolSize = 1000;       		// 核心线程数（默认线程数）
-	private static final int maxPoolSize = 2000;			    // 最大线程数
+	private static final int corePoolSize = 50;       		// 核心线程数（默认线程数）
+	private static final int maxPoolSize = 100;			    // 最大线程数
 	private static final int keepAliveTime = 10;			// 允许线程空闲时间（单位：默认为秒）
 	private static final int queueCapacity = 1000;			// 缓冲队列数
 	private static final String threadNamePrefix = "Async-Service-"; // 线程池名前缀

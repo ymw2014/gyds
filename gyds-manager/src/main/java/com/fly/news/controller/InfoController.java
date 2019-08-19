@@ -172,7 +172,7 @@ public class InfoController {
 			 newInfo.setIsTop(1);
 			 infoService.update(newInfo);
 			 try {
-				 baseService.DistributionOfDomesticTop(order.getPrice(), OrderType.GUANG_GAO_FAN_YONG, apply.getNewsId(), exentApply.getRegionCode());
+				 baseService.distributionOfDomesticTop(order.getPrice(), OrderType.ZHI_DING_FAN_YONG, apply.getNewsId(), exentApply.getRegionCode());
 			} catch (Exception e) {
 				e.printStackTrace();
 				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); 

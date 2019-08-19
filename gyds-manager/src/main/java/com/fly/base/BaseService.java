@@ -117,7 +117,7 @@ public class BaseService {
 	 * @param newId
 	 * @param topPos
 	 */
-	public void DistributionOfDomesticTop(BigDecimal price,Integer type,Integer newId,Integer regionCode) {
+	public void distributionOfDomesticTop(BigDecimal price,Integer type,Integer newId,Integer regionCode) {
 		SetupDO setup = setupDao.list(new HashMap<String, Object>(16)).get(0);
 		Map<String, Object> params=new HashMap<>(16);
 		RegionDO region = regionService.get(regionCode);

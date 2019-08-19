@@ -29,6 +29,7 @@ import com.fly.utils.MathUtils;
 @Service
 public class ThreadTaskService {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
+	@Autowired
 	private RegionService regionService;
 	@Autowired
 	private TeamDao teamDao;
