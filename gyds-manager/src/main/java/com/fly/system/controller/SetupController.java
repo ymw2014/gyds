@@ -1,5 +1,6 @@
 package com.fly.system.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,6 +96,13 @@ public class SetupController {
 	@RequestMapping("/update")
 	@RequiresPermissions("sys:setup:edit")
 	public R update( SetupDO setup){
+		BigDecimal price = setup.getTeamExtract().add(setup.getAgencyExtract()).add(setup.getAreaExtract()).
+				add(setup.getCityExtract()).add(setup.getProvinceExtract()).add(setup.getHeadExtract());
+		BigDecimal spec=new BigDecimal(1.0); 
+		int i=price.compareTo(spec);
+		if(i!=0) {
+			return R.error("分佣比例设置错误,您设置的分佣比例不等于1");
+		}
 		setupService.update(setup);
 		return R.ok();
 	}

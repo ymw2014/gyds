@@ -98,6 +98,10 @@
 										<input id="teamExtract" name="teamExtract" th:value="${setup.teamExtract}" oninput="clearNoNum(this)"  class="form-control input-sm"  type="text">
 								</div>
 								<div class="form-group">
+									<label class=" control-label">街道办分佣比例<span class="text-muted">:</span></label>
+										<input id="agencyExtract" name="agencyExtract" th:value="${setup.agencyExtract}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
+								</div>
+								<div class="form-group">
 									<label class=" control-label">县级分佣比例<span class="text-muted">:</span></label>
 										<input id="areaExtract" name="areaExtract" th:value="${setup.areaExtract}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
 								</div>
@@ -164,13 +168,17 @@
 						<div class="panel-body">
 							<div class="col-sm-4">
 								<div class="form-group">
+									<label class=" control-label">红包手续费比例<span class="text-muted">:</span></label>
+										<input id="redPacketExtract" name="redPacketExtract" th:value="${setup.redPacketExtract}" oninput="clearNoNum2(this)"  class="form-control input-sm"  type="text">
+								</div>
+								<div class="form-group">
 									<label class=" control-label">签到送积分个数<span class="text-muted">:</span></label>
 										<input id="punchTheClockIntegral" name="punchTheClockIntegral" th:value="${setup.punchTheClockIntegral}" oninput="clearNoNum2(this)"  class="form-control input-sm"  type="text">
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label class=" control-label">充值送积分比例<span class="text-muted">:</span></label>
 										<input id="rechargeIntegral" name="rechargeIntegral" th:value="${setup.rechargeIntegral}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
-								</div>
+								</div> -->
 								<div class="form-group">
 									<label class=" control-label">体现手续费<span class="text-muted">:</span></label>
 										<input id="withdrawalFee" name="withdrawalFee" th:value="${setup.withdrawalFee}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">
