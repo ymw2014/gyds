@@ -1,6 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head th:replace="pc/include :: head"></head>
+<head>
+<style type="text/css">
+.zhezhaozh{
+				position:absolute;
+				width: 100%;
+				height:100%;
+				top: 0;
+				bottom:1000;
+				left: 0;
+				right: 0;
+				background:rgba(0,0,0,0.8);
+				display: none;
+			}
+			.zhezhaozh1{
+				width: 510px;
+				height: 542px;
+				position: absolute;top:50%;left:50%;margin-left:-255px;margin-top:-300px;
+				background: #fff;
+			}
+			.zhezhaozh1 p{
+				font-size:14px;
+				line-height:44px;
+			}
+			.zhezhaozh1 p>span{
+				font-size:14px;
+				color:#e0e1e3;
+				margin-left:5px;
+			}
+			.zhezhaozh1 input{
+				width: 420px;
+				height:50px;
+				font-size:16px;
+			}
+			.queren{
+				background:#cd3333;
+				color:#fff;
+				border: none;
+				margin-top:40px;
+			}
+			.guanbi{
+				position:relative;left: 458px;top: 49px;
+			}
+</style>
+</head>
 <body>
 	<!-- 头部 -->
 	<header>
@@ -37,6 +81,28 @@
 			</nav>
 		</div>
 	</header>
+	
+	<!-- 弹出层 -->
+	<div class="zhezhaozh">
+		<div class="zhezhaozh1">
+			<img src="images/dacha_03.png" alt="" class="guanbi">
+			<div style="margin-top:44px;margin-left:38px;">
+				<form id="signupForm">
+					<input type="text" name="userId" id="userId">
+					<h4 style="font-size:18px;line-height:68px;">账号绑定</h4>
+					<p>账号:<span>(请先绑定账号)</span></p>
+					<input type="text" name="username">
+					<p>密码:<span>(最少长度为6个字符)</span></p>
+					<input type="password" id="password" name="password">
+					<p>密码:<span>(最少长度为6个字符)</span></p>
+					<input type="password" name="password1">
+					<input  type="button" id="save" value="确认" class="queren">
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- 结束 -->
+	
 	<!-- 主体 -->
 	<div class="box">
 		<!-- 主体左侧导航 -->

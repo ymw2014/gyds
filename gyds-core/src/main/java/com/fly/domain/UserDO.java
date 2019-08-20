@@ -29,6 +29,8 @@ public class UserDO implements Serializable {
 	private String password;
 	//昵称
 	private String nikeName;
+	//是否绑定账号
+	private Integer isBinding;
 	//组织ID
 	private Integer deptId;
 	private String deptName;
@@ -479,6 +481,14 @@ public class UserDO implements Serializable {
 	}
 	public void setRoleIds(List<Long> roleIds) {
 		this.roleIds = roleIds;
+	}
+	
+	
+	public Integer getIsBinding() {
+		return isBinding;
+	}
+	public void setIsBinding(Integer isBinding) {
+		this.isBinding = isBinding;
 	}
 	@Override
 	public String toString() {

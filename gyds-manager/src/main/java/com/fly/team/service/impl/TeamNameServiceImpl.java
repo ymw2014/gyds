@@ -57,7 +57,10 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 		int count=0;
 		NameDO name = nameDao.get(id);
 		name.setStatus(status);
-		OrderDO order = orderDao.get(name.getOrderId());
+		OrderDO order=null;
+		if(name.getOrderId()!=null) {
+			order = orderDao.get(name.getOrderId());
+		}
 		boolean isVo =volunteerService.isVo(name.getUserId());
 		if(status==2) {//审核通过,保存团队信息
 			name.getText();
@@ -96,7 +99,11 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 				vo.setCreateTime(new Date());
 				volunteerService.save(vo);
 			}
-			orderDao.update(order);
+			if(order!=null) {
+				order.setExamineStatus(2);
+				order.setExamineUser(ShiroUtils.getUserId());
+				orderDao.update(order);
+			}
 		}
 		if(status==3) {//拒绝申请
 			if(name.getOrderId()!=null) {

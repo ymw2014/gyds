@@ -40,7 +40,7 @@
 		  		  <if test="regioncode != null and regioncode != ''"> and v.regionCode = #{regioncode} </if>
 		  		   <if test="createTime != null and createTime != ''"> and v.create_Time = #{createTime} </if>
 		  		   <if test="auditStatus != null and auditStatus != ''"> and v.audit_status = #{auditStatus}</if>
-		  		   <if test="introduction != null and introduction != ''"> and introduction <![CDATA[<=]]> #{introduction} </if>
+		  		   <if test="introduction != null and introduction != ''"> and v.introduction <![CDATA[<=]]> #{introduction} </if>
 		  		   <if test="startTime != null and startTime != ''"> and v.create_Time <![CDATA[>=]]>#{startTime} </if>
 		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
 		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND v.enter_team_time &gt;= #{startEntTeamTime}</if>
@@ -76,34 +76,34 @@
  	<select id="count" resultType="int">
 		select count(*) from volunteer
 		 <where>  
-		  		  <if test="id != null and id != ''"> and v.id = #{id} </if>     
-		  		  <if test="volunteerName != null and volunteerName != ''"> and v.volunteer_name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
-		  		  <if test="userId != null and userId != ''"> and v.user_id = #{userId} </if>
-		  		  <if test="teamId != null and teamId != ''"> and v.team_id = #{teamId} </if>
-		  		  <if test="address != null and address != ''"> and v.address = #{address} </if>
-		  		  <if test="telephone != null and telephone != ''"> and v.telephone = #{telephone} </if>
-		  		  <if test="sex != null and sex != ''"> and v.sex = #{sex} </if>
-		  		  <if test="age != null and age != ''"> and v.age = #{age} </if>
-		  		  <if test="volunteerNumber != null and volunteerNumber != ''"> and v.volunteer_number = #{volunteerNumber} </if>
-		  		  <if test="cardNo != null and cardNo != ''"> and v.card_no = #{cardNo} </if>
-		  		  <if test="sharesNumber != null and sharesNumber != ''"> and v.shares_number = #{sharesNumber} </if>
-		  		  <if test="commentNumber != null and commentNumber != ''"> and v.comment_number = #{commentNumber} </if>
-		  		  <if test="clickNumber != null and clickNumber != ''"> and v.click_number = #{clickNumber} </if>
-		  		  <if test="actNumber != null and actNumber != ''"> and v.act_number = #{actNumber} </if>
-		  		  <if test="level != null and level != ''"> and v.level = #{level} </if>
-		  		  <if test="province != null and province != ''"> and v.province = #{province} </if>
-		  		  <if test="city != null and city != ''"> and v.city = #{city} </if>
-		  		  <if test="county != null and county != ''"> and v.county = #{county} </if>
-		  		  <if test="regioncode != null and regioncode != ''"> and v.regionCode = #{regioncode} </if>
-		  		   <if test="createTime != null and createTime != ''"> and v.create_Time = #{createTime} </if>
-		  		   <if test="auditStatus != null and auditStatus != ''"> and v.audit_status = #{auditStatus}</if>
-		  		   <if test="startTime != null and startTime != ''"> and v.create_Time <![CDATA[>=]]>#{startTime} </if>
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>     
+		  		  <if test="volunteerName != null and volunteerName != ''"> and volunteer_name like CONCAT('%',CONCAT(#{volunteerName},'%')) </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="address != null and address != ''"> and address = #{address} </if>
+		  		  <if test="telephone != null and telephone != ''"> and telephone = #{telephone} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
+		  		  <if test="volunteerNumber != null and volunteerNumber != ''"> and volunteer_number = #{volunteerNumber} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and card_no = #{cardNo} </if>
+		  		  <if test="sharesNumber != null and sharesNumber != ''"> and shares_number = #{sharesNumber} </if>
+		  		  <if test="commentNumber != null and commentNumber != ''"> and comment_number = #{commentNumber} </if>
+		  		  <if test="clickNumber != null and clickNumber != ''"> and click_number = #{clickNumber} </if>
+		  		  <if test="actNumber != null and actNumber != ''"> and act_number = #{actNumber} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="province != null and province != ''"> and province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="county != null and county != ''"> and county = #{county} </if>
+		  		  <if test="regioncode != null and regioncode != ''"> and regionCode = #{regioncode} </if>
+		  		   <if test="createTime != null and createTime != ''"> and create_Time = #{createTime} </if>
+		  		   <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus}</if>
+		  		   <if test="startTime != null and startTime != ''"> and create_Time <![CDATA[>=]]>#{startTime} </if>
 		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
-		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND v.enter_team_time &gt;= #{startEntTeamTime}</if>
-				  <if test="endEntTeamTime != null and endEntTeamTime != ''">AND v.enter_team_time &lt;= #{endEntTeamTime}</if>
+		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND enter_team_time &gt;= #{startEntTeamTime}</if>
+				  <if test="endEntTeamTime != null and endEntTeamTime != ''">AND enter_team_time &lt;= #{endEntTeamTime}</if>
 				  <if test="ids != null and ids.size() > 0">
 		  		  	and
-		  		  	v.team_id in 
+		  		  	team_id in 
 		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
 				            #{item}       
 				    </foreach> 

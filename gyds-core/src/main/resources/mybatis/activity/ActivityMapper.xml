@@ -6,7 +6,7 @@
 	<select id="get" resultType="com.fly.activity.domain.ActivityDO">
 		select a.id,a.act_intro,act_addr,a.act_title,a.act_content,a.member_id,
 		a.status,a.examine_status,u.name,a.act_price,a.act_title_img,
-		a.act_type_id,t.type_name,a.start_time,a.end_time,
+		a.act_type_id,t.type_name,a.start_time,a.end_time,a.team_id,
 		DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
 		DATE_FORMAT(a.start_time,'%Y-%m-%d %H:%i:%s') startTimeStr,
 		DATE_FORMAT(a.end_time,'%Y-%m-%d %H:%i:%s') endTimeStr,
