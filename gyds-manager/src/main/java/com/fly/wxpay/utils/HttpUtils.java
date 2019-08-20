@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HtmlUtils {
-	private static Logger logger_ = LoggerFactory.getLogger(HtmlUtils.class);
+public class HttpUtils {
+	private static Logger logger_ = LoggerFactory.getLogger(HttpUtils.class);
 	
 	    private final static int CONNECT_TIMEOUT = 5000; // in milliseconds
 	    private final static String DEFAULT_ENCODING = "UTF-8";

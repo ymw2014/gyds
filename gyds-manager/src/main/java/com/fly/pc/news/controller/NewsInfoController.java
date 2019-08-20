@@ -253,6 +253,8 @@ public class NewsInfoController extends BaseController {
 			}
 		}
 		if(flag) {
+			BigDecimal price = new BigDecimal(params.get("price").toString());
+			baseService.distributionOfDomestic(OrderType.DA_SHANG_FAN_YONG, price, Integer.parseInt(params.get("newsId").toString()));
 			return r.ok();
 		}else {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

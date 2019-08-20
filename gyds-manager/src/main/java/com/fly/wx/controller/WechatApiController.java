@@ -1,6 +1,7 @@
 package com.fly.wx.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,6 +125,7 @@ public class WechatApiController {
 					user.setIsIdentification(0);
 					user.setIsManage(0);
 					user.setIsBinding(0);
+					user.setAccount(new BigDecimal(0));
 					user.setNikeName(String.valueOf(json.get("nickname")));
 					user.setOpenId(String.valueOf(json.get("openid")));
 					user.setHeadImg(String.valueOf(json.get("headimgurl")));

@@ -40,7 +40,9 @@ public class PriceController {
 	@RequiresPermissions("news:price:price")
 	String Price(Model model){
 		PriceDO priceDo;
-		List<PriceDO> list = priceService.list(new HashMap<String,Object>(16));
+		Map<String, Object> params=new HashMap<>(16);
+		params.put("regionCode", ShiroUtils.getUser().getDeptId());
+		List<PriceDO> list = priceService.list(params);
 		priceDo=list.size()>0?list.get(0):new PriceDO();
 		model.addAttribute("price", priceDo);
 	    return "news/price/edit";

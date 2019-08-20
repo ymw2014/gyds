@@ -37,7 +37,7 @@
 							<input type="password" name="password" placeholder="请输入登录密码"  value="123456"
 								style="background: url(images/mimasuio.jpg) no-repeat; background-position: 10px 9px;">
 							<label>
-								<input type="text" name="verify" placeholder="请输入图片验证码" style="background:url(images/kujiedl_06.jpg) no-repeat;background-position:10px 9px;" class="yanzheng">
+								<input type="text" name="verify" placeholder="请输入图片验证码" style=" no-repeat;background-position:10px 9px;" class="yanzheng">
 								<a href="javaScript:;" class="yanzhengtup "><img class="verifyimg reloadverify" style="height: 40px;width:100px;" src="/pc/images/kujiedl_03.jpg" alt=""></a>
 							</label>
 							<div style="overflow: hidden;">
@@ -47,29 +47,24 @@
 								<input  type="button" id="login" value="立即登录">
 							</div>
 						</form>
-						<div class="kuaijiedl">
-							<a href=""> <img src="images/dlxinlang.jpg" alt="">
-							</a> <a href="" style="text-align: center;"> <img
-								src="images/dlqq.jpg" alt="">
-							</a> <a href="" style="text-align: right;"> <img
-								src="images/dlwx.jpg" alt="">
-							</a>
-						</div>
-					</div>
-					<div class="gaoliang-1">
-						<form action="" method="">
-							<div id="login_container">
-								
-							</div>
-						</form>
-						<div class="kuaijiedl">
+						<!-- <div class="kuaijiedl">
 							<a href=""> <img th:src="@{/pc/images/dlxinlang.jpg}" alt="">
 							</a> <a href="" style="text-align: center;"> <img
 								th:src="@{/pc/images/dlqq.jpg}" alt="">
-							</a> <a href="javascript:;" onclick="wxLogin()" style="text-align: right;"> <img
+							</a> <a href="" style="text-align: right;"> <img
+								th:src="@{/pc/src=images/dlwx.jpg}" alt="">
+							</a>
+						</div> -->
+					</div>
+					<div class="gaoliang-1">
+						<div id="login_container">
+							
+						</div>
+						<!-- <div class="kuaijiedl">
+							 <a href="javascript:;" onclick="wxLogin()" style="text-align: right;"> <img
 								th:src="@{/pc/images/dlwx.jpg}" alt="">
 							</a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -195,51 +190,28 @@
 		$(this).addClass("gaoliang").siblings("li").removeClass("gaoliang");
 		var index = $(this).index();
 		$('.gaoliang-1').hide().eq($(this).index()).show();
+		console.log($(this).index());
+		if($(this).index()==1){
+			
+			setTimeout( function(){
+				var obj = new WxLogin({
+		            id:"login_container",    //div的id
+
+		            appid: "wx8f042090d19f8ee0",
+
+		            scope: "snsapi_login",
+
+		            redirect_uri: encodeURIComponent("http://zhgy.61966.com/wx/auth/jump"),        //回调地址
+
+		            state: "",　　　　　　　　　//参数，可带可不带
+
+		            style: "",　　　　　　　　　//样式  提供"black"、"white"可选，默认为黑色文字描述
+
+		            href: "http://zhgy.61966.com/pc/css/qrcode.css"                 //自定义样式链接，第三方可根据实际需求覆盖默认样式。
+				});
+			}, 1 * 1000 )
+		}
 	})
-	
-	function wxLogin(){
-		var obj = new WxLogin({
-			 
-            id:"login_container",    //div的id
-
-            appid: "wx8f042090d19f8ee0",
-
-            scope: "snsapi_login",
-
-            redirect_uri: encodeURIComponent("http://zhgy.61966.com/wx/auth/jump"),        //回调地址
-
-            state: "",　　　　　　　　　//参数，可带可不带
-
-            style: "",　　　　　　　　　//样式  提供"black"、"white"可选，默认为黑色文字描述
-
-            href: ""                 //自定义样式链接，第三方可根据实际需求覆盖默认样式。
-	});
-	}
-	
-	/* function UrlDecode(str){
-		  var ret="";
-		  for(var i=0;i<str.length;i++){
-		   var chr = str.charAt(i);
-		    if(chr == "+"){
-		      ret+=" ";
-		    }else if(chr=="%"){
-		     var asc = str.substring(i+1,i+3);
-		     if(parseInt("0x"+asc)>0x7f){
-		      ret+=asc2str(parseInt("0x"+asc+str.substring(i+4,i+6)));
-		      i+=5;
-		     }else{
-		      ret+=asc2str(parseInt("0x"+asc));
-		      i+=2;
-		     }
-		    }else{
-		      ret+= chr;
-		    }
-		  }
-		  return ret;
-		} */
-	
-	
-	
 	
 </script>
 
