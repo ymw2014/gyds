@@ -1,19 +1,16 @@
 package com.fly.wxpay.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.wxpay.sdk.WXPayConfig;
 
-
-
-
-
-@Service
 public class IWxPayConfig implements  WXPayConfig{
 
 	/*
@@ -23,37 +20,48 @@ public class IWxPayConfig implements  WXPayConfig{
 	 * 
 	 * @Value("${wxpay.mch_id}") private String wx_pay_mch_id;
 	 */
+	private byte[] certData;
+	
+	public  IWxPayConfig() throws Exception{
+        String certPath = "/web/token/apiclient_cert.p12";
+        File file = new File(certPath);
+        InputStream certStream = new FileInputStream(file);
+        this.certData = new byte[(int) file.length()];
+        certStream.read(this.certData);
+        certStream.close();
+    }
 	
 	@Override
 	public String getAppID() {
-		return null;
+		return "wx561ae40290380b04";
 	}
 
 	@Override
 	public String getMchID() {
-		return null;
+		 return "1309497501";
 	}
 
 	@Override
 	public String getKey() {
-		return null;
+		 return "fenlegou20160226fenlegou20160226";
 	}
 
 	@Override
 	public InputStream getCertStream() {
-		return null;
+		ByteArrayInputStream certBis = new ByteArrayInputStream(this.certData);
+        return certBis;
+
 	}
 
 	@Override
 	public int getHttpConnectTimeoutMs() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 8000;
 	}
 
 	@Override
 	public int getHttpReadTimeoutMs() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 10000;
+
 	}
 
 	
