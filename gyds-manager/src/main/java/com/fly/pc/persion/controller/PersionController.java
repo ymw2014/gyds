@@ -40,6 +40,7 @@ import com.fly.sys.service.SetupService;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
+import com.fly.system.utils.MD5Utils;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.service.TeamService;
 import com.fly.utils.JSONUtils;
@@ -78,8 +79,20 @@ public class PersionController extends BaseController{
 	@Autowired
 	private ActivityService activityService;
 	
+	@ResponseBody
+	@RequestMapping("/pc/binding")
+	public R binding(UserDO user,Model model) {
+		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
+		user.setIsBinding(1);
+		if (userService.updatePersonal(user)> 0) {
+			return R.ok();
+		}
+		return R.error();
+	}
+	
+
 	@RequestMapping("/pc/personalCenter")
-	public String getPersionCenter(Model model) {
+	public String getPersionCenter (Model model) {
 		UserDO user = ShiroUtils.getUser();
 		if(user==null) {
 			return "redirect:/admin";

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -132,28 +131,18 @@ public class RegionController extends BaseController {
 	
 	@GetMapping("/tree")
 	@ResponseBody
-	public Tree<RegionDO> tree(String parentRegionCode) {
+	public Tree<RegionDO> tree() {
 		UserDO user = getUser();
 		Tree<RegionDO> tree = new Tree <RegionDO>();
 		Map<String,Object> params=new HashMap<>(16);
-		String areaId = "";
-		if (StringUtils.isEmpty(parentRegionCode)) {
-			areaId = "-1";
-		} else {
-			areaId = parentRegionCode;
-		}
-		params.put("parentRegionCode", areaId);
-		tree = regionService.getTree(params);
-		/*if(user.getDeptId()==0) {//超管
-			params.put("region_code", 0);
+		if(user.getDeptId()==0) {//超管
 			tree = regionService.getTree(params);
 		}else {
 			params.put("pids", user.getDeptId());
 			tree=regionService.getRegionTree(params);
-		}*/
+		}
 		return tree;
 	}
-	
 	@GetMapping("/treeView")
 	String treeView() {
 		return  "system/region/regionTree";

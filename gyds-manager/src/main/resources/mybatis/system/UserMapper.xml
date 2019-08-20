@@ -4,7 +4,7 @@
 <mapper namespace="com.fly.system.dao.UserDao">
 
 	<select id="get" resultType="com.fly.domain.UserDO">
-		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user where user_id = #{value}
+		select `user_id`,`username`,`name`,`password`,`is_binding`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user where user_id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.domain.UserDO">
@@ -14,6 +14,7 @@
 		  		  <if test="username != null and username != ''"> and username = #{username} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="isBinding != null and isBinding != ''"> and is_binding = #{isBinding} </if>
 		  		  <if test="nikeName != null and nikeName != ''"> and nike_name = #{nikeName} </if>
 		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
 		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
@@ -78,6 +79,7 @@
 		  		  <if test="username != null and username != ''"> and username = #{username} </if>
 		  		  <if test="name != null and name != ''"> and name = #{name} </if>
 		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="isBinding != null and isBinding != ''"> and is_binding = #{isBinding} </if>
 		  		  <if test="nikeName != null and nikeName != ''"> and nike_name = #{nikeName} </if>
 		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
 		  		  <if test="headImg != null and headImg != ''"> and head_img = #{headImg} </if>
@@ -122,7 +124,8 @@
 		(
 			`username`, 
 			`name`, 
-			`password`, 
+			`password`,
+			`is_binding`,  
 			`nike_name`, 
 			`dept_id`, 
 			`head_img`, 
@@ -158,6 +161,7 @@
 			#{username}, 
 			#{name}, 
 			#{password}, 
+			#{isBinding}, 
 			#{nikeName}, 
 			#{deptId}, 
 			#{headImg}, 
@@ -196,6 +200,7 @@
 			<if test="username != null">`username` = #{username}, </if>
 			<if test="name != null">`name` = #{name}, </if>
 			<if test="password != null">`password` = #{password}, </if>
+			<if test="isBinding != null">`is_binding` = #{isBinding}, </if>
 			<if test="nikeName != null">`nike_name` = #{nikeName}, </if>
 			<if test="deptId != null">`dept_id` = #{deptId}, </if>
 			<if test="headImg != null">`head_img` = #{headImg}, </if>

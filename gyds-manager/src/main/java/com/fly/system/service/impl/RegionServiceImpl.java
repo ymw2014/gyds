@@ -77,8 +77,7 @@ public class RegionServiceImpl implements RegionService {
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Integer areaId = Integer.valueOf(params.get("parentRegionCode").toString());
-		Tree <RegionDO> t = BuildTree.build(trees,areaId);
+		Tree <RegionDO> t = BuildTree.build(trees,-1);
 		return t;
 	}
 	

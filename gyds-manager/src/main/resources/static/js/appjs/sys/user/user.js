@@ -193,23 +193,16 @@ function getTreeData() {
 	});
 }
 function loadTree(tree) {
-	console.log(tree);
 	$('#jstree').jstree({
 		'core' : {
-	        'data' : {
-	            'url' : '/system/region/tree',
-	            'data' : function (node) {
-	                return { 'id' : node.id };
-	            }
-	        }
-	    },
+			'data' : tree
+		},
 		"plugins" : [ "search" ]
 	});
-	//$('#jstree').jstree().open_all();
+	$('#jstree').jstree().open_all();
 }
-/*$('#jstree').on("open_node.jstree", function(e, data) {
-	console.log(data.node.id)
-	console.log(e)
+$('#jstree').on("changed.jstree", function(e, data) {
+	console.log(data)
 	if (data.selected == -1) {
 		var opt = {
 			query : {
@@ -226,4 +219,24 @@ function loadTree(tree) {
 		$('#exampleTable').bootstrapTable('refresh',opt);
 	}
 
-});*/
+});
+
+$('#jstree').bind("select_node.jstree", function(e, data) {
+	console.log("另一个方法"+data)
+	if (data.selected == -1) {
+		var opt = {
+			query : {
+				deptId : '',
+			}
+		};
+		$('#exampleTable').bootstrapTable('refresh', opt);
+	} else {
+		var opt = {
+			query : {
+				deptId : data.selected[0],
+			}
+		};
+		$('#exampleTable').bootstrapTable('refresh',opt);
+	}
+
+});
