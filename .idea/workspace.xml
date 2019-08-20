@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="804f9b55-9407-4fa0-a3e9-95a6bce5c60f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gyds-manager/src/main/resources/templates/pc/include.html" beforeDir="false" afterPath="$PROJECT_DIR$/gyds-manager/src/main/resources/templates/pc/include.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gyds-manager/src/main/resources/templates/pc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/gyds-manager/src/main/resources/templates/pc/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -87,6 +85,7 @@
       <workItem from="1565664860171" duration="1200000" />
       <workItem from="1565829554359" duration="3602000" />
       <workItem from="1565943737386" duration="4695000" />
+      <workItem from="1566180097984" duration="1283000" />
     </task>
     <servers />
   </component>

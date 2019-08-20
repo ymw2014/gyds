@@ -62,4 +62,12 @@ wechat:
     componentAppId: "wx8f042090d19f8ee0"
     componentSecret: "755d16e3110aa06a3dd34d2f5c597ce2"
     componentToken: ""
-    componentAesKey: ""      
+    componentAesKey: ""  
+    
+    
+    
+wxpay:
+  appid: wx561ae40290380b04
+  secret: 2b01a7d96a1e34d3cecf80be87852d53
+  mch_id: 1309497501
+  key: fenlegou20160226fenlegou20160226
