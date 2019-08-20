@@ -290,7 +290,7 @@ function closeimg(){
  */
 function examineStatus(id,status) {
 	console.log(id);
-	layer.confirm('确定要进行团队审核吗？', {
+	layer.confirm('确定要进行代理商审核吗？', {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({

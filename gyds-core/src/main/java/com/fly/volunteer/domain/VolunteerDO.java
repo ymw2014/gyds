@@ -73,9 +73,40 @@ public class VolunteerDO implements Serializable {
 	
 	private String isIdentification;
 	
+	private String mobile;
+	
+	private String liveAddress;
+	
+	private String district;
+	
+	private String street;
 	
 	
 	
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getDistrict() {
+		return district;
+	}
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public String getLiveAddress() {
+		return liveAddress;
+	}
+	public void setLiveAddress(String liveAddress) {
+		this.liveAddress = liveAddress;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	public String getIsIdentification() {
 		return isIdentification;
 	}

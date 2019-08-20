@@ -61,7 +61,7 @@
 		<div class="NavCent">
 			<!-- 账户中心 -->
 			<div class="Navtext">
-			<input type="text" th:value="${user.isBinding}" id="isBinding" />
+			<input type="hidden" th:value="${user.isBinding}" id="isBinding" />
 				<figure>
 					<a href=""><img src="images/geren.jpg" alt=""></a>
 					<figcaption>
@@ -175,11 +175,8 @@ function pay(){
 			data : $("#signupForm",parent.document).serialize(),
 			success : function(r) {
 				if (r.code == 0) {
-					var index = layer.load(1, {
-						shade : [ 0.1, '#fff' ]
-					//0.1透明度的白色背景
-					});
-					window.location.href = r.url;
+					$(".zhezhaozh",parent.document).css("display","none");
+					$("body",parent.document).css("overflow", "scroll")
 				} else if (r.status == 500) {
 					layer.msg(r.message);
 					self.find(".check-tips").text(r.message);

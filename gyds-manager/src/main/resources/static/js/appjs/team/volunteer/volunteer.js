@@ -49,8 +49,8 @@ function load() {
 						columns : [
 								{
 									checkbox : true
-								},/*
-																{
+								},
+																/*{
 									field : 'id', 
 									title : '自增编号' 
 								},*/
@@ -76,11 +76,11 @@ function load() {
 									title : '所属团队名称' 
 								},
 																{
-									field : 'address', 
+									field : 'liveAddress', 
 									title : '家庭住址' 
 								},
 																{
-									field : 'telephone', 
+									field : 'mobile', 
 									title : '电话' 
 								},
 																{
@@ -92,10 +92,6 @@ function load() {
 										} 
 										return '男';
 									}
-								},
-																{
-									field : 'age', 
-									title : '年龄' 
 								},
 																{
 									field : 'volunteerNumber', 
@@ -119,8 +115,12 @@ function load() {
 									title : '市' 
 								},
 																{
-									field : 'county', 
+									field : 'district', 
 									title : '县' 
+								},
+								{
+									field : 'street', 
+									title : '街道' 
 								},
 								{
 									field : 'createTime',
@@ -131,9 +131,9 @@ function load() {
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
-										var e = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="详情" onclick="Info(\''
+										var e = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="详情" onclick="Info('
 												+ row.id
-												+ '\')"><i class="fa fa-edit"></i></a> ';
+												+ ')"><i class="fa fa-edit"></i></a> ';
 										var q ='<a class="btn btn-success btn-sm"'+s_quitTeam_h+' href="#" title=""  mce_href="#" ><span class="" onclick="quitTeam('+row.id+')">请离</span></a>'
 										return e + q;
 									}

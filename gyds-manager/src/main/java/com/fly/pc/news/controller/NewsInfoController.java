@@ -432,11 +432,11 @@ public class NewsInfoController extends BaseController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
 		params.put("ids", ids);
 		params.put("status", 1);
 		params.put("isDel", 0);
-		params.put("offset", 1);
+		params.put("offset", 0);
 		params.put("limit", 10);
 		if (flag == 0) {
 			params.put("sort", "n.is_top desc,n.public_time desc");
