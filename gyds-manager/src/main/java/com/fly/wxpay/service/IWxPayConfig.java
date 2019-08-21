@@ -4,22 +4,21 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.github.wxpay.sdk.WXPayConfig;
 
 public class IWxPayConfig implements  WXPayConfig{
 
-	/*
-	 * @Value("${wxpay.appid}") private String app_id;
-	 * 
-	 * @Value("${wxpay.key}") private String wx_pay_key;
-	 * 
-	 * @Value("${wxpay.mch_id}") private String wx_pay_mch_id;
-	 */
+	
+	  @Value("${wxpay.appid}") 
+	  private String app_id;
+	  
+	  @Value("${wxpay.key}") 
+	  private String wx_pay_key;
+	  
+	  @Value("${wxpay.mch_id}") 
+	  private String wx_pay_mch_id;
+	 
 	private byte[] certData;
 	
 	public  IWxPayConfig() throws Exception{
@@ -33,17 +32,17 @@ public class IWxPayConfig implements  WXPayConfig{
 	
 	@Override
 	public String getAppID() {
-		return "wx561ae40290380b04";
+		return app_id;
 	}
 
 	@Override
 	public String getMchID() {
-		 return "1309497501";
+		 return wx_pay_mch_id;
 	}
 
 	@Override
 	public String getKey() {
-		 return "fenlegou20160226fenlegou20160226";
+		 return wx_pay_key;
 	}
 
 	@Override

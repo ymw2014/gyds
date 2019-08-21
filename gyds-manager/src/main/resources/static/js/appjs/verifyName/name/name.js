@@ -146,9 +146,7 @@ function load() {
 									field : 'teamTitleImg', 
 									title : '团队封面图',
 									formatter : function(value, row, index) {
-										
 										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
-									
 								}
 								},
 
