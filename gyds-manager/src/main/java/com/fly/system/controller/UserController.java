@@ -51,6 +51,7 @@ public class UserController extends BaseController {
 		params.put("pids", ShiroUtils.getUser().getDeptId());
 		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
 		params.put("ids", ids);
+		params.put("isManage", 1);
 		Query query = new Query(params);
 		List<UserDO> sysUserList = userService.list(query);
 		int total = userService.count(query);

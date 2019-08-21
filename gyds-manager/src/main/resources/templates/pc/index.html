@@ -29,7 +29,7 @@
 				  <button class="left"></button>
 				  <button class="right"></button>
 				  <div class="bo">
-					  <p>测试内容</p>
+					  <p th:each="news: ${newList}" th:text="${news.title}">测试内容</p>
 					 <ul class="list">
 						  <li th:each="new: ${newList}" class="select"></li>
 					 </ul> 

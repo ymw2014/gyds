@@ -160,15 +160,18 @@ public class NewsInfoController extends BaseController {
 		params.put("sort", "create_time desc");
 		params.put("group", "member_id");
 		List<RewardInfoDO> re = rewardInfoDao.list1(params);
-		List<Integer> userIds = new ArrayList<Integer>();
+		List<Long> userIds = new ArrayList<Long>();
 		for (RewardInfoDO user : re) {
 			userIds.add(user.getMemberId());
 		}
 		params.clear();
+		List<UserDO> user = new ArrayList<UserDO>();
 		params.put("userIds", userIds);
 		params.put("offset", 0);
 		params.put("limit", 15);
-		List<UserDO> user = userMapper.list(params);
+		if(userIds.size()>0) {
+			 user = userMapper.list(params);
+		}
 
 		// 评论 默认时间顺序
 		params.clear();
@@ -208,7 +211,10 @@ public class NewsInfoController extends BaseController {
 		} else if (i == 2) {// 积分加1
 			r.put("code", 2);
 			r.put("msg", "积分+1");
-		} else {
+		} else if(i == 3){
+			r.put("code", 3);
+			r.put("msg", "未登录用户分享成功");
+		}else {
 			return R.error();
 		}
 		return r;
@@ -253,6 +259,8 @@ public class NewsInfoController extends BaseController {
 			}
 		}
 		if(flag) {
+			BigDecimal price = new BigDecimal(params.get("price").toString());
+			baseService.distributionOfDomestic(OrderType.DA_SHANG_FAN_YONG, price, Integer.parseInt(params.get("newsId").toString()));
 			return r.ok();
 		}else {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -432,11 +440,11 @@ public class NewsInfoController extends BaseController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
 		params.put("ids", ids);
 		params.put("status", 1);
 		params.put("isDel", 0);
-		params.put("offset", 1);
+		params.put("offset", 0);
 		params.put("limit", 10);
 		if (flag == 0) {
 			params.put("sort", "n.is_top desc,n.public_time desc");

@@ -122,11 +122,11 @@ function load() {
 									align : 'center',
 									formatter: function (value,row,index){
 										if(value == 0){
-											var s= '<a class="btn btn-success btn-sm"'+s_status_h+' href="#" title=""  mce_href="#" ><span class="" onclick="status('+row.id+',1)">未发布</span></a>'
+											var s= '<span stype="color:red"> 未发布</span>'
 											return s;
 										}
 										if(value == 1){
-											var s= '<a class="btn btn-success btn-sm"'+s_status_h+' href="#" title=""  mce_href="#" ><span class="" onclick="status('+row.id+',0)">发布</span></a>'
+											var s= '<span stype="color:green">已发布</span>'
 											return s;
 										}
 									}
@@ -139,9 +139,14 @@ function load() {
 									align : 'center',
 									width : '260px',
 									formatter : function(value, row, index) {
-										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
-												+ row.id
-												+ '\')"><i class="fa fa-edit"></i></a> ';
+										if(row.status == 0){
+											var e= '<a class="btn btn-success btn-sm"'+s_status_h+' href="#" title=""  mce_href="#" ><span class="" onclick="status('+row.id+',1)">未发布</span></a>'
+											
+										}
+										if(row.status == 1){
+											var e= '<a class="btn btn-success btn-sm"'+s_status_h+' href="#" title=""  mce_href="#" ><span class="" onclick="status('+row.id+',0)">发布</span></a>'
+										}
+										
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
@@ -152,7 +157,7 @@ function load() {
 										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
 												+ row.id
 												+ '\')"><i class="fa fa-key"></i></a> ';
-										return e + d + s + c;
+										return d + s + c+e;
 									}
 								} ]
 					});

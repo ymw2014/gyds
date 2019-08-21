@@ -36,7 +36,7 @@ public class IndexServiceImpl implements IndexService{
 		List<AdvertisementDO> dataList=new ArrayList<AdvertisementDO>();
 		params.put("positionNum", positionNum);
 		if(areaId!=null) {
-			RegionDO region = regionDao.get(Integer.parseInt(areaId.toString()));
+			RegionDO region = regionDao.get(areaId);
 			params.put("positionNum", 1);
 			params.put("regionCode", region.getRegionCode());//所选择区域首页广告
     		List<AdvertisementDO> allList = advertisementDao.list(params);

@@ -21,6 +21,7 @@
 					<label style="margin-top:30px;">
 						<span style="float: left;">封面</span>
 							<img src="images/gahgha_03.png"  height="200" width="500" alt="" id="img">
+							<input type="hidden" id="imgStr" name="titleImg">
 							<input type="file" name="file" style="display: none;" id ="file">
 					</label>
 					<label>
@@ -91,7 +92,7 @@ var ue = UE.getEditor('deitor',{
                 accept : 'file',
                 done : function(r) {
                     var fileName = r.fileName;
-                     $("#img").val(fileName);
+                     $("#imgStr").val(fileName);
              	     $("#img").attr("src",fileName);
                 },
                 error : function(r) {

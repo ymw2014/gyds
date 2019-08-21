@@ -29,5 +29,7 @@ public interface PointsDao {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	List<PointsDO>  list1(Map<String,Object> map);
 }
 

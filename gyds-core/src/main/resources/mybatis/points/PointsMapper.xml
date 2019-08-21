@@ -101,5 +101,17 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<select id="list1" resultType="com.fly.points.domain.PointsDO">
+		select `id`,`create_time`,`points_type`,`integral`,`member_id`
+		from points 
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="pointsType != null and pointsType != ''"> and points_type = #{pointsType} </if>
+		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="startTime != null"> AND create_time &gt;= #{startTime}</if>
+				  <if test="endTime != null">AND create_time &lt;= #{endTime}</if>
+		  		</where>
+	</select>
 
 </mapper>

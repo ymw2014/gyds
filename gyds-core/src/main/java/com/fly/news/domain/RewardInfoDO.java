@@ -23,7 +23,7 @@ public class RewardInfoDO implements Serializable {
 	//打赏资讯ID
 	private Integer newsId;
 	//用户编号
-	private Integer memberId;
+	private Long memberId;
 	//自增编号
 	private Integer id;
 
@@ -66,20 +66,18 @@ public class RewardInfoDO implements Serializable {
 	/**
 	 * 设置：用户编号
 	 */
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
-	/**
-	 * 获取：用户编号
-	 */
-	public Integer getMemberId() {
-		return memberId;
-	}
+	
 	/**
 	 * 设置：自增编号
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Long getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
 	}
 	/**
 	 * 获取：自增编号

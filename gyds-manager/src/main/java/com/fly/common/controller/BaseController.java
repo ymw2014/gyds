@@ -119,6 +119,9 @@ public class BaseController {
 				//1:分享次数2: 评论次数3:文章点赞次数4:打赏次数
 				params.put("numberOfShares",1);
 				i=infoDao.updateDynamic(params);
+				if(user==null) {
+					return 3;
+				}
 				params.put("sharesNumber", 1);
 				params.put("id", user.getUserId());
 				volunteerDao.update_count(params);
@@ -166,11 +169,13 @@ public class BaseController {
 			rewardInfoDO.setNewsId(Integer.valueOf(params.get("newsId").toString()));
 
 			rewardInfoDO.setRewardPrice(new BigDecimal(params.get("price").toString()));
-			dynamic.setActType(1);
 			if(user!=null) {
-				dynamic.setMemberId(user.getUserId()); 
+				rewardInfoDO.setMemberId(user.getUserId());
 			}
-			dynamic.setCreatTime(new Date());
+			/*
+			 * dynamic.setActType(1); if(user!=null) {
+			 * dynamic.setMemberId(user.getUserId()); } dynamic.setCreatTime(new Date());
+			 */
 			if(rewardInfoService.save(rewardInfoDO)>0) {
 				params.put("rewardCount",4);
 				i=infoDao.updateDynamic(params);
@@ -521,13 +526,13 @@ public class BaseController {
 		params.put("memberId", userId);
 		params.put("startTime", startTime);
 		params.put("endTime", endTime);
-		List<PointsDO> userpoints=pointsDao.list(params);
+		List<PointsDO> userpoints=pointsDao.list1(params);
 		if(userpoints!=null &&userpoints.size()>0) {
 			for(PointsDO pointsDO: userpoints) {
 				integral+=pointsDO.getIntegral();
 			}
 		} 
-		if(integral<10) {
+		if(integral<100) {
 			Integer sys_integral = setupDao.get(1).getPunchTheClockIntegral();
 			Points.setIntegral(sys_integral);
 			if(pointsDao.save(Points)>0) {

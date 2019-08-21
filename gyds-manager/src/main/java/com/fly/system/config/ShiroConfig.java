@@ -88,8 +88,8 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         //设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        shiroFilterFactoryBean.setLoginUrl("/");//设置默认跳转页面
-        shiroFilterFactoryBean.setSuccessUrl("/index");//设置成功跳转页面
+        //shiroFilterFactoryBean.setLoginUrl("/");//设置默认跳转页面
+        //shiroFilterFactoryBean.setSuccessUrl("/index");//设置成功跳转页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         /**
