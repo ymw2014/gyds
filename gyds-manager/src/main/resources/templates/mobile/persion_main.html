@@ -58,7 +58,7 @@
 				<a href="#"><img th:src="@{/mobile/images/tixian.png}" alt="">提现</a>
 			</div>
 			<div class="tianxian2">
-				<a href="#"><img th:src="@{/mobile/images/qianabo.png}" alt="">充值</a>
+				<a href="javaScript:pay()"><img th:src="@{/mobile/images/qianabo.png}" alt="">充值</a>
 			</div>
 		</div>
 		<!-- 功能 -->
@@ -150,4 +150,38 @@
 			
 		</div>
 	</body>
+	
+	<script type="text/javascript">
+		var appId = '';
+		var paySign = '';
+		var timeStamp = '';
+		var nonceStr = '';
+		var packageStr = '';
+		var signType = '';
+		function pay() {
+			$.ajax({
+	            type:"post",
+	            url: "/app/wxpay/pay",
+	            dataType:"json",
+	            ontentType : "application/x-www-form-urlencoded",
+	            success:function(result) {
+	                console.log(result);
+	                var data  = result;
+	                //var data = JSON.parse(result);
+	                if(data.status == '200'){
+	                    appId = data.data.appId;
+	                    paySign = data.data.paySign;
+	                    timeStamp = data.data.timeStamp;
+	                    nonceStr = data.data.nonceStr;
+	                    packageStr = data.data.package;
+	                    signType = data.data.signType;
+	                    callpay();
+	                }else{
+	                    alert("统一下单失败");
+	                }
+	            }
+	        });
+	    }
+
+	</script>
 </html>

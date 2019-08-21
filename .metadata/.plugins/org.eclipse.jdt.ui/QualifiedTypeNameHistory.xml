@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
+<fullyQualifiedTypeName name="com.github.wxpay.sdk.WXPay"/>
+<fullyQualifiedTypeName name="com.github.wxpay.sdk.WXPayUtil"/>
+</qualifiedTypeNameHistroy>
