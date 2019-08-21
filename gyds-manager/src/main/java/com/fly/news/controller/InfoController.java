@@ -130,7 +130,7 @@ public class InfoController {
 		PageUtils pageUtils = new PageUtils(auditData, dataCount);
 	    return pageUtils;
 	}
-
+	
 	@Transactional
 	@ResponseBody
 	@RequestMapping("/auditUpdate")
@@ -162,6 +162,7 @@ public class InfoController {
 			 exentApply.setTopEndTime(c.getTime());
 			 newInfo.setPymentEndTime(c.getTime());
 			 newInfo.setPymentStartTime(new Date());
+			 newInfo.setPaymentDuration(exentApply.getTopDay());
 			 newInfo.setTopRegion(exentApply.getRegionCode());
 			 infoService.update(newInfo);
 			 exentApply.setStatus(1);

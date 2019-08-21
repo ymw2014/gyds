@@ -204,7 +204,11 @@ public class TeamController {
 	@ResponseBody
 	@RequiresPermissions("team:volunteer:quitTeam")
 	public R quitTeam(Integer id){
-		VolunteerDO volunteer = volunteerService.getVo(ShiroUtils.getUserId());
+		VolunteerDO volunteer = volunteerService.get(id);
+		TeamDO team = teamService.get(volunteer.getTeamId());
+		if(team.getUserId().equals(volunteer.getUserId())) {
+			return R.error("你是团长啊,退出团就解散啦");
+		}
 		volunteer.setTeamId(-1);
 		if(volunteerService.update(volunteer)>0){
 			return R.ok();

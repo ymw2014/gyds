@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.domain.TeamDO;
+import com.fly.team.service.TeamService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -35,6 +37,8 @@ import com.fly.volunteer.service.VolunteerService;
 public class VolunteerController {
 	@Autowired
 	private VolunteerService volunteerService;
+	@Autowired
+	private TeamService teamService;
 	
 	@GetMapping()
 	@RequiresPermissions("volunteer:volunteer:volunteer")
@@ -129,8 +133,12 @@ public class VolunteerController {
 	@PostMapping( "/quitTeam")
 	@ResponseBody
 	@RequiresPermissions("volunteer:volunteer:quitTeam")
-	public R quitTeam( Long id){
-		VolunteerDO volunteer = volunteerService.getVo(ShiroUtils.getUserId());
+	public R quitTeam( Integer id){
+		VolunteerDO volunteer = volunteerService.get(id);
+		TeamDO team = teamService.get(volunteer.getTeamId());
+		if(team.getUserId()==volunteer.getUserId()) {
+			return R.error("你是团长啊,退出团就解散啦");
+		}
 		volunteer.setTeamId(-1);
 		if(volunteerService.update(volunteer)>0){
 			return R.ok();
