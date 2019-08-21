@@ -34,6 +34,7 @@
 			</div>
 			<div class="listcontLH">
 				<input type="hidden" id="infoId" th:value="${info.id}">
+				<input type="hidden" id="areaId" th:value="${areaId}">
 				<h4 th:text="${info.title}"></h4>
 				<p>
 					<span
@@ -72,7 +73,7 @@
 			</div>
 			<ul>
 				<li th:each="news:${newsList}">·<a th:text="${news.title}"
-					th:href="@{/pc/news/info/(id=${news.id})}"></a></li>
+					th:href="@{/pc/news/info/(id=${news.id},areaId=${areaId})}"></a></li>
 
 			</ul>
 		</div>
@@ -89,7 +90,7 @@
 					<ul>
 						<li th:each="newsTop,iterStat:${newsTop}"><i
 							th:text="${iterStat.count}"></i><a
-							th:href="@{/pc/news/info(id=${newsTop.id})}"
+							th:href="@{/pc/news/info(id=${newsTop.id},areaId=${areaId})}"
 							th:text="${newsTop.title}"></a></li>
 
 					</ul>

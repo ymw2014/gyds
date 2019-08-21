@@ -90,10 +90,10 @@ public class PcTeamController {
 	
 	
 	@RequestMapping("teamDetail")
-	public String detail(@RequestParam Map<String,Object> params, Model model, Integer  teamId) {
-		Object areaId = params.get("areaId");
+	public String detail(@RequestParam Map<String,Object> params, Model model, @RequestParam Integer  teamId,@RequestParam Integer areaId) {
+		model.addAttribute("areaId",areaId);
 		if (areaId == null) {
-			areaId = "0";
+			areaId = 0;
 		}
 		
 		params.clear();

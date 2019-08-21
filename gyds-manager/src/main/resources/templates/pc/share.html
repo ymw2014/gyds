@@ -36,36 +36,62 @@ function share(reType){
 		para={
 				"newsId":$('#newsId').val(),
 				"trType":reType,
-				"type" : $("#Type").val()
+				"type" : $("#type").val()
 		};
+		$.ajax({
+			cache : true,
+			type : "GET",
+			url : "/pc/news/share",
+			data : para,
+			async : true,
+			error : function(request) {
+				alert("分享失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					alert("分享成功");
+					history.go(0);
+				} else if(data.code == 2){
+					alert(data.msg);
+				}else if(data.code == 3){
+					alert(data.msg);
+				}else{
+					alert(data.msg);
+				}
+
+			}
+		});
 	} else {
 		para={
 				"actId":$('#newsId').val(),
 				"trType":reType,
-				"type" : $("#Type").val()
+				"type" : $("#type").val()
 		};
-	}
-	$.ajax({
-		cache : true,
-		type : "GET",
-		url : "/pc/news/share",
-		data : para,
-		async : true,
-		error : function(request) {
-			alert("分享失败");
-		},
-		success : function(data) {
-			if (data.code == 0) {
-				alert("分享成功");
-				history.go(0);
-			} else if(data.code == 2){
-				alert(data.msg);
-			}else{
-				alert(data.msg);
-			}
+		$.ajax({
+			cache : true,
+			type : "GET",
+			url : "/pc/actShare",
+			data : para,
+			async : true,
+			error : function(request) {
+				alert("分享失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					alert("分享成功");
+					history.go(0);
+				} else if(data.code == 2){
+					alert(data.msg);
+				}else if(data.code == 3){
+					alert(data.msg);
+				}else{
+					alert(data.msg);
+				}
 
-		}
-	});
+			}
+		});
+	}
+	
 }
 
 </script>

@@ -58,7 +58,7 @@
 		</div>
 		<div class="zyzhti" id="zyzhti">
 			<figure th:each="volunt : ${voluntList}">
-				<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
+				<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 				<figcaption>
 					<span th:text="${volunt.volunteerName}"></span>
 					<p th:text="'团队：'    +  ${volunt.teamName}" ></p>

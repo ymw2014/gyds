@@ -106,7 +106,7 @@ public class PcVolunteerController {
 	 * @return
 	 */
 	@RequestMapping("volunteerDetail")
-	public String volunteerDetail(@RequestParam Map<String,Object> params, Integer id, Model model) {
+	public String volunteerDetail(@RequestParam Map<String,Object> params, @RequestParam Integer areaId, @RequestParam Integer id, Model model) {
 		UserDO user = ShiroUtils.getUser();
 		params.clear();
 		params.put("id", id);
@@ -185,6 +185,7 @@ public class PcVolunteerController {
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);
+		model.addAttribute("areaId", areaId);
 		return "pc/volunteerDetail";
 	}
 	

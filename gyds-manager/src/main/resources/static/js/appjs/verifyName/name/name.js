@@ -143,7 +143,7 @@ function load() {
 								},
 
 																{
-									field : 'teamImg', 
+									field : 'teamTitleImg', 
 									title : '团队封面图',
 									formatter : function(value, row, index) {
 										

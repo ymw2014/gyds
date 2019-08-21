@@ -74,7 +74,7 @@ public class NewsInfoController extends BaseController {
 	private BaseService baseService;
 	
 	@RequestMapping("/info")
-	public String newInfo(@RequestParam Integer id, Model model) {
+	public String newInfo(@RequestParam Integer id, @RequestParam Integer areaId,Model model) {
 		InfoDO info = infoService.get(id);
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 团队置顶排序
@@ -95,7 +95,7 @@ public class NewsInfoController extends BaseController {
 		List<InfoDO> newsLike = infoService.list(params);
 		// 获取团队信息
 		TeamDO teamDO = teamService.get(info.getTeamId());
-		// 县级置顶3条
+		// 街道级置顶3条
 		Integer code = upRegCode(info.getTeamId());
 		params.clear();
 		params.put("status", 1);
@@ -105,6 +105,16 @@ public class NewsInfoController extends BaseController {
 		params.put("topRegion", code);
 		params.put("sort", "n.is_top desc,n.public_time desc");
 		List<InfoDO> newsTop = infoService.list(params);
+		// 县级置顶3条
+		code = upRegCode(code);
+		params.clear();
+		params.put("status", 1);
+		params.put("isDel", 0);
+		params.put("offset", 0);
+		params.put("limit", 3);
+		params.put("topRegion", code);
+		params.put("sort", "n.is_top desc,n.public_time desc");
+		newsTop.addAll(infoService.list(params));
 		// 市级置顶3条
 		code = upRegCode(code);
 		params.clear();
@@ -115,14 +125,14 @@ public class NewsInfoController extends BaseController {
 		params.put("topRegion", code);
 		params.put("sort", "n.is_top desc,n.public_time desc");
 		newsTop.addAll(infoService.list(params));
-		// 省级置顶3条
+		// 省置顶3条
 		code = upRegCode(code);
 		params.clear();
 		params.put("status", 1);
 		params.put("isDel", 0);
 		params.put("offset", 0);
 		params.put("limit", 3);
-		params.put("topRegion", code);
+		params.put("topRegion", code + "");
 		params.put("sort", "n.is_top desc,n.public_time desc");
 		newsTop.addAll(infoService.list(params));
 		// 总平台置顶3条
@@ -197,6 +207,8 @@ public class NewsInfoController extends BaseController {
 		model.addAttribute("newsLike", newsLike);
 		// 新闻详情
 		model.addAttribute("info", info);
+		//区域
+		model.addAttribute("areaId", areaId);
 		return "pc/newInfo";
 	}
 

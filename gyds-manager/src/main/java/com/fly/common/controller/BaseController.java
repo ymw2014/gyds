@@ -232,6 +232,7 @@ public class BaseController {
 			if(dynamicService.save(dynamic)>0){
 				//1:分享次数2: 评论次数3:文章点赞次数4:打赏次数
 				params.put("numberOfShares",1);
+				params.put("id",params.get("actId"));
 				i=activityDao.updateActDynamic(params);
 				if(i>0) {
 					if(user!=null) {

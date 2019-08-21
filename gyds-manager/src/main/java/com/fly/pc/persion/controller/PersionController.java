@@ -455,26 +455,19 @@ public class PersionController extends BaseController{
 	public String activityAdd(Model model) {
 		UserDO user = ShiroUtils.getUser();
 		List<TypeDO> list = typeService.list(null);
-		Map<String,Object> params = new HashMap<String, Object>();
-		params.put("memberId", user.getUserId());
-		List<ActivityDO> activi = activityService.list(params);
-		if (!CollectionUtils.isEmpty(activi)) {
-			Integer examineStatus = activi.get(0).getExamineStatus();
-			if (examineStatus == 0) {
-				model.addAttribute("message","活动已提交，请耐心等待后台审核，谢谢配合！");
-				return "pc/message";
-			} else if (examineStatus == 1) {
-				model.addAttribute("message","恭喜，您发布的活动已审核通过,可以继续发布活动");
-				model.addAttribute("status","1");
-				model.addAttribute("activiType",list);
-				return "pc/activityAdd";
-			} else {
-				model.addAttribute("activiType",list);
-				model.addAttribute("message","您发布的活动未通过，请重新发布");
-				model.addAttribute("status","2");
-				return "pc/activityAdd";
-			}
-		}
+		/*
+		 * Map<String,Object> params = new HashMap<String, Object>();
+		 * params.put("memberId", user.getUserId()); List<ActivityDO> activi =
+		 * activityService.list(params); if (!CollectionUtils.isEmpty(activi)) { Integer
+		 * examineStatus = activi.get(0).getExamineStatus(); if (examineStatus == 0) {
+		 * model.addAttribute("message","活动已提交，请耐心等待后台审核，谢谢配合！"); return "pc/message"; }
+		 * else if (examineStatus == 1) {
+		 * model.addAttribute("message","恭喜，您发布的活动已审核通过,可以继续发布活动");
+		 * model.addAttribute("status","1"); model.addAttribute("activiType",list);
+		 * return "pc/activityAdd"; } else { model.addAttribute("activiType",list);
+		 * model.addAttribute("message","您发布的活动未通过，请重新发布");
+		 * model.addAttribute("status","2"); return "pc/activityAdd"; } }
+		 */
 		model.addAttribute("activiType",list);
 		return "pc/activityAdd";
 	}

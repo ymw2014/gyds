@@ -15,7 +15,7 @@
 		<input type="hidden" th:value="${areaId}" id="areaId">
 		<div class="team">
 			<figure th:each="team : ${teamList}">
-				<a th:href="'/pc/teamDetail?teamId=' + ${team.id}"><img th:src="${team.teamTitleImg}" alt=""></a>
+				<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamTitleImg}" alt=""></a>
 				<figcaption th:text="${team.teamName}"></figcaption>
 			</figure>
 		</div>
