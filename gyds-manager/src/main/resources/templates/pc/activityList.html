@@ -54,7 +54,7 @@
 		<!-- 内容 -->
 		<div class="hdneirong" id="neirong">
 			<figure th:each="act: ${actList}">
-				<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt="" style="width: 100%;"></a>
+				<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}"><img th:src="${act.actTitleImg}" alt="" style="width: 100%;"></a>
 				<figcaption>
 					<p th:text="${act.actTitle}"></p>
 					<p style="font-size:14px; color:#676767;" th:text="${act.actIntro}"></p>

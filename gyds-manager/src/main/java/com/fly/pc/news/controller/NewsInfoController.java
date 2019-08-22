@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.poi.ss.formula.functions.Rate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,7 @@ import com.fly.news.domain.PriceDO;
 import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
+import com.fly.pc.utils.PageUtils;
 import com.fly.sys.domain.SetupDO;
 import com.fly.sys.service.SetupService;
 import com.fly.system.dao.UserDao;
@@ -74,7 +76,7 @@ public class NewsInfoController extends BaseController {
 	private BaseService baseService;
 	
 	@RequestMapping("/info")
-	public String newInfo(@RequestParam Integer id, Model model) {
+	public String newInfo(@RequestParam Integer id, @RequestParam Integer areaId,Model model) {
 		InfoDO info = infoService.get(id);
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 团队置顶排序
@@ -95,7 +97,7 @@ public class NewsInfoController extends BaseController {
 		List<InfoDO> newsLike = infoService.list(params);
 		// 获取团队信息
 		TeamDO teamDO = teamService.get(info.getTeamId());
-		// 县级置顶3条
+		// 街道级置顶3条
 		Integer code = upRegCode(info.getTeamId());
 		params.clear();
 		params.put("status", 1);
@@ -105,6 +107,16 @@ public class NewsInfoController extends BaseController {
 		params.put("topRegion", code);
 		params.put("sort", "n.is_top desc,n.public_time desc");
 		List<InfoDO> newsTop = infoService.list(params);
+		// 县级置顶3条
+		code = upRegCode(code);
+		params.clear();
+		params.put("status", 1);
+		params.put("isDel", 0);
+		params.put("offset", 0);
+		params.put("limit", 3);
+		params.put("topRegion", code);
+		params.put("sort", "n.is_top desc,n.public_time desc");
+		newsTop.addAll(infoService.list(params));
 		// 市级置顶3条
 		code = upRegCode(code);
 		params.clear();
@@ -115,14 +127,14 @@ public class NewsInfoController extends BaseController {
 		params.put("topRegion", code);
 		params.put("sort", "n.is_top desc,n.public_time desc");
 		newsTop.addAll(infoService.list(params));
-		// 省级置顶3条
+		// 省置顶3条
 		code = upRegCode(code);
 		params.clear();
 		params.put("status", 1);
 		params.put("isDel", 0);
 		params.put("offset", 0);
 		params.put("limit", 3);
-		params.put("topRegion", code);
+		params.put("topRegion", code + "");
 		params.put("sort", "n.is_top desc,n.public_time desc");
 		newsTop.addAll(infoService.list(params));
 		// 总平台置顶3条
@@ -197,6 +209,8 @@ public class NewsInfoController extends BaseController {
 		model.addAttribute("newsLike", newsLike);
 		// 新闻详情
 		model.addAttribute("info", info);
+		//区域
+		model.addAttribute("areaId", areaId);
 		return "pc/newInfo";
 	}
 
@@ -288,6 +302,8 @@ public class NewsInfoController extends BaseController {
 			if(number.compareTo(priceMax)==1) {
 				return r.error("3");
 			}
+			BigDecimal rate = setup.getRedPacketExtract();
+			params.put("price", rate.multiply(price).add(price));
 			i = deductMoney(params);
 			if (i == 1) {
 				//创建红包
@@ -309,7 +325,47 @@ public class NewsInfoController extends BaseController {
 			return r.error(i+"");
 		}
 	}
-
+	
+	// 红包
+		@RequestMapping(value="/red", method = RequestMethod.POST)
+		@ResponseBody
+		public R red(@RequestParam Map<String, Object> params) {
+			R r = new R();
+			UserDO user = null; 
+			user = ShiroUtils.getUser();
+			if(user==null) {
+				r.put("code", 1);
+				r.put("url", "/admin");
+				return r;
+			}
+			user = userMapper.get(user.getUserId());
+			List<Map<String,Object>> listPrice = querySetupPrice();
+			r.put("code", 0);
+			r.put("listPrice", listPrice);
+			r.put("newsId", params);
+			r.put("user", user);
+			return r;
+		}
+		
+		//查询配置红包额度
+		public List<Map<String,Object>> querySetupPrice() {
+			List<Map<String,Object>> listPrice = new ArrayList<Map<String,Object>>();
+			SetupDO setup = setupService.get(1);
+			String[] split = null;
+			BigDecimal rate = null;
+			if (setup!=null) {
+				split = setup.getRedPriceSetup().split(",");
+				rate = setup.getRedPacketExtract();
+				for(String s : split) {
+					Map<String,Object> data = new HashMap<String, Object>();
+					data.put("price", s);
+					data.put("rate", rate.multiply(new BigDecimal(s)));
+					listPrice.add(data);
+				}
+			}
+			return listPrice;
+		}
+		
 	// 置顶
 	@RequestMapping(value = "/top/{id}", method = RequestMethod.GET)
 	public String top(@PathVariable("id") Integer id, Model model) {
@@ -399,19 +455,7 @@ public class NewsInfoController extends BaseController {
 		return map;
 	}
 
-	// 红包
-	@RequestMapping(value="/red/{id}", method = RequestMethod.GET)
-	public String red(@PathVariable("id") Integer id,Model model) {
-		UserDO user = null; 
-		user = ShiroUtils.getUser();
-		if(user==null) {
-			return "redirect:/admin";
-		}
-		List<Map<String,Object>> listPrice = querySetupPrice();
-		model.addAttribute("listPrice", listPrice);
-		model.addAttribute("newsId", id);
-		return "pc/red_packet";
-	}
+	
 
 	// 评论
 	@ResponseBody
@@ -435,7 +479,6 @@ public class NewsInfoController extends BaseController {
 	}
 
 	@RequestMapping("/infoList")
-	@Transactional
 	public String newInfoList(@RequestParam Integer areaId, @RequestParam Integer flag, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
@@ -457,7 +500,31 @@ public class NewsInfoController extends BaseController {
 		List<InfoDO> infoList = infoService.list(params);
 		model.addAttribute("newsList", infoList);
 		model.addAttribute("areaId", areaId);
+		model.addAttribute("flag", flag);
 		return "pc/newsList";
+	}
+	
+	@RequestMapping("/queryInfoList")
+	@ResponseBody
+	public List<InfoDO> queryInfoList(@RequestParam Integer areaId, @RequestParam Integer flag,@RequestParam Map<String, Object> para, Model model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		// 查询列表数据
+		params.put("pids", areaId);
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		PageUtils page = new PageUtils(para);
+		page.put("ids", ids);
+		page.put("status", 1);
+		page.put("isDel", 0);
+		if (flag == 0) {
+			params.put("sort", "n.is_top desc,n.public_time desc");
+		} else if (flag == 1) {
+			params.put("sort", "n.is_red_peper desc,n.public_time desc");
+		} else if (flag == 2) {
+			params.put("sort", "n.number_of_likes desc,n.public_time desc");
+		}
+		// 查询列表数据
+		List<InfoDO> infoList = infoService.list(page);
+		return infoList;
 	}
 
 	// 关注团队
@@ -497,21 +564,7 @@ public class NewsInfoController extends BaseController {
 		
 		return listTop;
 	}
-	//查询配置红包额度
-	public List<Map<String,Object>> querySetupPrice() {
-		List<Map<String,Object>> listPrice = new ArrayList<Map<String,Object>>();
-		SetupDO setup = setupService.get(1);
-		String[] split = null;
-		if (setup!=null) {
-			split = setup.getRedPriceSetup().split(",");
-			for(String s : split) {
-				Map<String,Object> data = new HashMap<String, Object>();
-				data.put("price", s);
-				listPrice.add(data);
-			}
-		}
-		return listPrice;
-	}
+	
 	
 	@ResponseBody
 	@PostMapping("/queryRed")

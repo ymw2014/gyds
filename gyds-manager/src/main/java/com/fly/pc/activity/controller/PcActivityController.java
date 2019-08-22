@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -116,8 +117,9 @@ public class PcActivityController extends BaseController{
 	}
 	
 	@RequestMapping("activityDetail")
-	public String join(Integer id, HttpServletRequest request, 
+	public String join(Integer id, HttpServletRequest request, @RequestParam Integer areaId,
 			Model model) {
+		model.addAttribute("areaId", areaId);
 		ActivityDO activityDO = activityService.get(id);
 		model.addAttribute("activity", activityDO);
 		
@@ -184,6 +186,7 @@ public class PcActivityController extends BaseController{
 		applyStatus = ApplyDO.get(0).getStatus();
 		model.addAttribute("applyId", ApplyDO.get(0).getId());
 		model.addAttribute("applyStatus", applyStatus);
+		model.addAttribute("areaId", areaId);
 		return "pc/activityJoin";
 	}
 	
@@ -276,7 +279,25 @@ public class PcActivityController extends BaseController{
 		model.addAttribute("newsId", newsId);
 		return "pc/share";
 	}
-	
+	@RequestMapping(value = "/actShare", method = RequestMethod.GET)
+	@ResponseBody
+	public R shareActLog(@RequestParam Map<String, Object> para) {
+		Integer i = dynamic(para, 6);
+		R r = new R();
+		if (i == 1) {// 不加积分
+			r.put("code", 0);
+		} else if (i == 2) {// 积分加1
+			r.put("code", 2);
+			r.put("msg", "积分+1");
+		} else if(i == 3){
+			r.put("code", 3);
+			r.put("msg", "未登录用户分享成功");
+		}else {
+			return R.error();
+		}
+		return r;
+
+	}
 	
 	@ResponseBody
 	@RequestMapping("activity/publish")

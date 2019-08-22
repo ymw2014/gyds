@@ -19,6 +19,7 @@
 		<div class="volDeta">
 			<div class="volDeta1">
 				<div class="volDetatwo">
+				<input type="hidden" id="areaId" th:value="${areaId}">
 					<div class="volDetatx">
 						<img th:src="${volunteer.headImg}" alt="">
 					</div>
@@ -85,7 +86,7 @@
 								</span>
 									<ul>
 										<li th:onclick="'share('+ ${comment.newsId}+', 1, 1)'" style="cursor:pointer"><img th:src="@{/pc/images/zhuanfa.jpg}" alt="">&nbsp;转发</li>
-										<li><a th:href="'/pc/news/info?id='+ ${comment.newsId}" style="cursor:pointer"><img th:src="@{/pc/images/pinglun.jpg}" alt="">&nbsp;评论</a></li>
+										<li><a th:href="@{/pc/news/info(id=${comment.newsId},areaId=${areaId})}" style="cursor:pointer"><img th:src="@{/pc/images/pinglun.jpg}" alt="">&nbsp;评论</a></li>
 										<li th:if="${comment.isClick eq '0'}" th:onclick="'likes('+ ${comment.newsId}+', 2, 1)'" style="cursor:pointer"><img src="images/dianzan.jpg" alt="" >&nbsp;赞</li>
 										<li th:if="${comment.isClick eq '1'}" ><img th:src="@{/pc/images/gongyitubiao_19.png}" alt="" >&nbsp;赞</li>
 										<li th:if="${comment.isClick eq '2'}" th:onclick="'log()'" style="cursor:pointer"><img th:src="@{/pc/images/dianzan.jpg}" alt="" >&nbsp;赞</li>
@@ -112,7 +113,7 @@
 										<li th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '1'}"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/pc/images/gongyitubiao_03.jpg}" alt="">&nbsp;收藏</li>
 										<li th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '2'}" ><img th:src="@{/pc/images/gongyitubiao_16.jpg}" alt="">&nbsp;收藏</li>
 										<li  th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+')'" style="cursor:pointer"><img th:src="@{/pc/images/zhuanfa.jpg}" alt="">&nbsp;转发</li>    
-										<li th:if=" ${dynamic.actType} eq '1'"><a th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img th:src="@{/pc/images/pinglun.jpg}" alt="">&nbsp;评论</a></li>
+										<li th:if=" ${dynamic.actType} eq '1'"><a th:href="@{/pc/news/info(id=${dynamic.newsId},areaId=${areaId})}"><img th:src="@{/pc/images/pinglun.jpg}" alt="">&nbsp;评论</a></li>
 										<li th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 0}"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" style="cursor:pointer"><img th:src="@{/pc/images/dianzan.jpg}" alt="" >&nbsp;点赞</li>
 										<li th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 1}"  ><img th:src="@{/pc/images/gongyitubiao_19.png}" alt="" >&nbsp;点赞</li>
 										<li th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 2}"  th:onclick="'log()'" style="cursor:pointer"><img th:src="@{/pc/images/dianzan.jpg}" alt="" >&nbsp;点赞</li>

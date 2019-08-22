@@ -51,7 +51,7 @@
 				 <!-- <h4>2018顶新公益基金会奖学金申请正式启动</h4>
 				 <span>顶新明日朝阳奖学金”是由顶新公益基金会设立，为成绩优异、家境清贫、品德端正的大学生为成绩优异、家境清贫、品德端正的大学生...</span> -->
 				 <ul>
-					 <li th:each="newInfo: ${newList}"><a th:href="@{/pc/news/info(id=${newInfo.id})}" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><span th:text="${#dates.format(newInfo.publicTime, 'MM-dd')}"></span></li>
+					 <li th:each="newInfo: ${newList}"><a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><span th:text="${#dates.format(newInfo.publicTime, 'MM-dd')}"></span></li>
 				 </ul> 
 			 </div> 
 		 </div>
@@ -89,7 +89,7 @@
 		<div class="secant_cent">
 			<div th:each="act: ${actList}">
 				<figure>
-					<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt=""></a>
+					<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<figcaption>
 						<h4><a href="#" th:text="${act.actTitle}"></a></h4>
 						<p th:text="${act.actIntro}"></p>
@@ -111,7 +111,7 @@
 		</div>
 		<div class="zhiyuanImg">
 			<div th:each="volunt: ${voluntList}">
-				<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
+				<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 				<p th:text="${volunt.volunteerName}"></p>
 			</div>
 		</div>
@@ -129,7 +129,7 @@
 		<div class="tuanduiImg">
 			<div th:each="team: ${teamList}">
 				<figure>
-					<a th:href="'/pc/teamDetail?teamId=' + ${team.id}"><img th:src="${team.teamTitleImg}" alt=""></a>
+					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamTitleImg}" alt=""></a>
 					<figcaption><p th:text="${team.teamName}"></p></figcaption>
 				</figure>
 			</div>
