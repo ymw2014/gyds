@@ -22,18 +22,26 @@ public class DetailDO implements Serializable {
 	private Long userId;
 	//广告位置
 	private Integer positionNum;
+	//订单ID
+	private Integer  orderId;
 	//发布区域
 	private Integer regionCode;
+	//区域名称
+	private String regionName;
 	//广告链接
 	private String advUrl;
 	//提交时间
 	private Date createTime;
 	//图片
 	private String advImg;
+	//序号
+	private Integer sort;
 	//开始时间
 	private Date showStartTime;
 	//结束时间
 	private Date showEndTime;
+	//展示天数
+	private Integer showDay;
 	//价格:(按照展现时间计算总价=每天*上架天数)
 	private BigDecimal price;
 	//处理状态 0未审核1:已审核2:已拒绝
@@ -171,4 +179,36 @@ public class DetailDO implements Serializable {
 	public Integer getStatus() {
 		return status;
 	}
+	public Integer getShowDay() {
+		return showDay;
+	}
+	public void setShowDay(Integer showDay) {
+		this.showDay = showDay;
+	}
+	public Integer getSort() {
+		return sort;
+	}
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+	public String getRegionName() {
+		return regionName;
+	}
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

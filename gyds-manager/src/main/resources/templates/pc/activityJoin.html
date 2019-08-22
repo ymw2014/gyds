@@ -20,6 +20,7 @@
 					<img th:src="${activity.actTitleImg}" alt="">
 					<input type="hidden" th:value="${activity.id}"  id="actId"/>
 					<input type="hidden" th:value="${applyId}"  id="applyId"/>
+					<input type="hidden" th:value="${areaId}"  id="areaId"/>
 				</div>
 				<div class="conBox2">
 					<div class="conBox2-1">
@@ -250,7 +251,7 @@
 		$.ajax({
 			cache : true,
 			type : "GET",
-			url : "/pc/news/share",
+			url : "/pc/actShare",
 			data : para,
 			async : true,
 			error : function(request) {
@@ -261,6 +262,8 @@
 					alert("分享成功");
 					history.go(0);
 				} else if(data.code == 2){
+					alert(data.msg);
+				}else if(data.code == 3){
 					alert(data.msg);
 				}else{
 					alert(data.msg);

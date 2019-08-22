@@ -110,6 +110,62 @@ public class BaseService {
 		logger.info("文章资讯生成分佣结束****************************************************************************");
 	}
 	
+	
+	/**
+	 * 	广告分佣
+	 * 	团队创建分佣调用
+	 * @param type 分佣类型（广告）
+	 * @param price 参与分佣的金额
+	 * @param newId 资讯ID
+	 */
+	public void distributionOfDomesticAdv(Integer expIncType,BigDecimal price,Integer regionCode) {
+		logger.info("广告生成分佣开始****************************************************************************");
+		
+		SetupDO setup = setupDao.list(new HashMap<String, Object>(16)).get(0);
+		setup.getCityExtract();//市代理分佣比例
+		setup.getAreaExtract();//县代理分佣比例
+		setup.getHeadExtract();//平台分佣比例
+		setup.getProvinceExtract();//省分佣比例
+		setup.getTeamExtract();//团队分佣比例
+		setup.getAgencyExtract();//街道办分佣比例
+		String remake="";
+		TeamDO team = teamDao.get(regionCode);
+		if(team!=null&&!expIncType.equals(OrderType.JIAN_TUAN_FAN_YONG)) {//团队分佣(创建团队团队不做分佣)
+			try {
+				BigDecimal fanyong=price.multiply(setup.getTeamExtract());
+				increaseMoney(team.getUserId(),fanyong);
+				remake=threadTaskService.getRemake(team.getUserId(),fanyong,expIncType,OrderType.SHOU_RU,OrderType.CommissionType.TUAN_DUI_FEN_YONG);
+				threadTaskService.createOrder(team.getUserId(), fanyong, expIncType, OrderType.SHOU_RU, remake);
+			} catch (Exception e) {
+				logger.info("广告团队分佣失败:用户编号"+team.getUserId());
+				e.printStackTrace();
+			}
+			
+		}
+		RegionDO teamRegion = regionService.get(team.getId());//团队
+		RegionDO agencyRegion = regionService.get(teamRegion.getParentRegionCode());//街道办
+		BigDecimal agencyFanyong=price.multiply(setup.getAgencyExtract());
+		threadTaskService.agencyDomestic(agencyRegion.getRegionCode(),expIncType, agencyFanyong);
+		//获取街道办上级
+		RegionDO areaRegion = regionService.get(agencyRegion.getParentRegionCode());//县级代理
+		BigDecimal areaFanyong=price.multiply(setup.getAreaExtract());
+		threadTaskService.agencyDomestic(areaRegion.getRegionCode(),expIncType, areaFanyong);
+		//获取县代理上级
+		RegionDO cityRegion = regionService.get(areaRegion.getParentRegionCode());//市级代理
+		BigDecimal cityFanyong=price.multiply(setup.getCityExtract());
+		threadTaskService.agencyDomestic(cityRegion.getRegionCode(),expIncType, cityFanyong);
+		//获取市代理上级(省代理)
+		RegionDO ProvincRegion = regionService.get(cityRegion.getParentRegionCode());//省级代理
+		BigDecimal provincFanyong=price.multiply(setup.getProvinceExtract());
+		threadTaskService.agencyDomestic(ProvincRegion.getRegionCode(),expIncType, provincFanyong);
+				
+		
+		/**
+		 * 平台分佣
+		 */
+		logger.info("广告生成分佣结束****************************************************************************");
+	}
+	
 	/**
 	 * 	文章置顶金额分佣(广告分佣)
 	 * @param price
@@ -299,7 +355,12 @@ public class BaseService {
 			
 			break;
 		case 5://置顶本团(向上正常分佣)
-			distributionOfDomestic(OrderType.ZHI_DING_FAN_YONG,price,newId);
+			if(newId!=null) {
+				distributionOfDomestic(OrderType.ZHI_DING_FAN_YONG,price,newId);
+			}else {
+				distributionOfDomesticAdv(OrderType.GUANG_GAO_FAN_YONG,price,regionCode);
+			}
+			
 			break;	
 			
 

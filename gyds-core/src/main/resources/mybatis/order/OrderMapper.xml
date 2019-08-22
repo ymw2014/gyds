@@ -13,7 +13,7 @@
 	</select>
 
 	<select id="list" resultType="com.fly.order.domain.OrderDO">
-		select g.id,g.order_number,g.user_id,m.name,g.team_id,t.team_name,g.business_time,g.order_type,g.is_del,g.Examine_user,s.username,g.Examine_status,g.remake,g.level,g.cash_up_type,g.cash_out_type,g.exp_inc_Type,g.price,g.create_time from gyds_order g left join member m on g.user_id = m.id left join team t on g.team_id = t.id left join sys_user s on g.Examine_user = s.user_id
+		select g.id,g.order_number,g.user_id,g.team_id,t.team_name,g.business_time,g.order_type,g.is_del,g.Examine_user,s.username,g.Examine_status,g.remake,g.level,g.cash_up_type,g.cash_out_type,g.exp_inc_Type,g.price,g.create_time from gyds_order g  left join team t on g.team_id = t.id left join sys_user s on g.Examine_user = s.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and g.id = #{id} </if>
 		  		  <if test="orderNumber != null and orderNumber != ''"> and g.order_number = #{orderNumber} </if>

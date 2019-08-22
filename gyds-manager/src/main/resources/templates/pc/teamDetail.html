@@ -44,6 +44,7 @@
 	 <!-- 内容 -->
 	 <div class="main">
 		<div class="main_img">
+		<input type="hidden" id="areaId" th:value="${areaId}">
 			<div id="container">
 				<div class="lun">
 					<img th:each="newInfo: ${newList}" th:src="${newInfo.titleImg}" alt="">
@@ -67,7 +68,7 @@
 				 <!-- <h4>2018顶新公益基金会奖学金申请正式启动</h4>
 				 <span>顶新明日朝阳奖学金”是由顶新公益基金会设立，为成绩优异、家境清贫、品德端正的大学生为成绩优异、家境清贫、品德端正的大学生...</span> -->
 				 <ul>
-					 <li th:each="newInfo: ${newList}"><a th:href="@{/pc/news/info(id=${newInfo.id})}" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><span th:text="${#dates.format(newInfo.publicTime, 'MM-dd')}"></span></li>
+					 <li th:each="newInfo: ${newList}"><a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><span th:text="${#dates.format(newInfo.publicTime, 'MM-dd')}"></span></li>
 				 </ul>
 			 </div> 
 		 </div>
@@ -151,7 +152,7 @@
 		<div class="secant_cent">
 			<div th:each="act: ${actList}">
 				<figure>
-					<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt=""></a>
+					<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<figcaption>
 						<h4><a href="#" th:text="${act.actTitle}"></a></h4>
 						<p th:text="${act.actIntro}"></p>
@@ -173,7 +174,7 @@
 		</div>
 		<div class="zhiyuanImg">
 			<div th:each="volunt: ${voluntList}">
-				<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
+				<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 				<p th:text="${volunt.volunteerName}"></p>
 			</div>
 		</div>
@@ -203,21 +204,19 @@ function teamApply() {
         	'id': teamId
         },
         success : function(result) {
-        	var status = result.status;
+        	var code = result.code;
         	var url = result.url;
+        	var msg=result.msg;
         	console.log(status)
-        	if (status == 1) {
-        		alert("申请成功");
-        		history.go(0);
-        	} else if (status == 2){
-        		alert("您还没登录，请先登录");
-        	} else if (status == 3){
-        		alert("您还不是志愿者，请先申请志愿者");
+        	if (code == 1) {
+        		alert(msg);
+        	} else if (code == 2){
+        		alert(msg);
+        	} else if (code == 3){
+        		alert(msg);
         		window.location.href=url;
-        	} else if (status == 4){
-        		alert("报名失败，您已是团队成员");
         	} else {
-        		alert("操作失败");
+        		alert(msg);
         	}
         }
     }); 

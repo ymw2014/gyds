@@ -34,6 +34,7 @@ import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.Dictionary;
 import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -109,13 +110,14 @@ public class IndexController {
 		params.clear();
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
-		List<AdvertisementDO> dataList = indexService.getIndexAdvList(areaId,ShowPosition.SHOUYE,params);//获取首页广告
+		List<AdvertisementDO> dataList = indexService.getIndexAdvList(areaId,Dictionary.AdvPosition.SHOUYE,params);//获取首页广告
 		model.addAttribute("areaId", areaId);
 		model.addAttribute("adv1", dataList.get(0));
 		model.addAttribute("adv2", dataList.get(1));
 		model.addAttribute("adv3", dataList.get(2));
 		model.addAttribute("adv4", dataList.get(3));
 		model.addAttribute("adv5", dataList.get(4));
+		model.addAttribute("adv6", dataList.get(5));
 		String isMoblie = "pc/index";
 		if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {//判断是否为手机
 			isMoblie= "mobile/index";

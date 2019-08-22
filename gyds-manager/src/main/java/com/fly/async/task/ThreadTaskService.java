@@ -284,7 +284,7 @@ public class ThreadTaskService {
 		 * @param remake	订单描述
 		 * @return 
 		 */
-		public boolean createOrder(Long userId,BigDecimal price,Integer expIncType,Integer orderType,String remake){
+		public Integer createOrder(Long userId,BigDecimal price,Integer expIncType,Integer orderType,String remake){
 			OrderDO order=new OrderDO();
 			order.setOrderNumber(new Date().getTime()+"");
 			order.setUserId(userId);
@@ -322,9 +322,9 @@ public class ThreadTaskService {
 			order.setPrice(price);
 			order.setCreateTime(new Date());
 			if(orderDao.save(order)>0) {
-				return true;
+				return order.getId();
 			}else {
-				return false;
+				return null;
 			}
 		}
 		
