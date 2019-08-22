@@ -260,8 +260,6 @@ public class IndexServiceImpl implements IndexService{
 		RegionDO city = regionDao.get(area.getParentRegionCode());//获取市
 		params.put("regionCode", city.getRegionCode());
 		List<AdvertisementDO> cityAdvList = advertisementDao.list(params);//获取市广告
-		dataList.add(cityAdvList.size()>0?cityAdvList.get(0):new AdvertisementDO());//添加市广告
-		
 		if(cityAdvList!=null&&cityAdvList.size()>0) {//所选择区域首页省级广告
 			dataList.add(cityAdvList.get(0));
 		}else {
@@ -273,7 +271,6 @@ public class IndexServiceImpl implements IndexService{
 		RegionDO province = regionDao.get(area.getParentRegionCode());//获取省
 		params.put("regionCode", province.getRegionCode());
 		List<AdvertisementDO> provinceAdvList = advertisementDao.list(params);//获取省广告
-		dataList.add(provinceAdvList.size()>0?provinceAdvList.get(0):new AdvertisementDO());//添加省广告
 		
 		if(provinceAdvList!=null&&provinceAdvList.size()>0) {//所选择区域首页省级广告
 			dataList.add(provinceAdvList.get(0));

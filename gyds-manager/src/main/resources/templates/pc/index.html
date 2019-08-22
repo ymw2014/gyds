@@ -22,7 +22,8 @@
      <!-- 广告 -->
 	 <div class="guangao">
 		 <!-- <a><img  th:src="${adv1.advImg}" alt=""> </a> -->
-		 <a href="javaScript:;"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" th:data-url="${adv1.url}" alt="" class="btn1"></a>
+		 <a	th:if="${adv1.advImg!=null}" th:href="${adv1.url}" target="_blank"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" th:data-url="${adv1.url}" alt="" class="btn1"></a>
+		 <a th:if="${adv1.advImg==null}" ><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" th:data-url="${adv1.url}" alt="" class="btn1"></a>
 	 </div>
 	 <input type="hidden" th:value="${areaId}" id="areaId">
 	 <!-- 内容 -->
@@ -58,7 +59,8 @@
 	</div>
 	<!-- 广告 -->
 	<div class="guangao">
-		<a><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" alt="" class="btn1" th:data-url="${adv2.url}"> </a>
+	 <a	th:if="${adv2.advImg!=null}" th:href="${adv2.url}" target="_blank"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" th:data-url="${adv2.url}" alt="" class="btn1"></a>
+		<a  th:if="${adv2.advImg==null}"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" alt="" class="btn1" th:data-url="${adv2.url}"> </a>
 	</div>
 	<!-- 地图 -->
 	<div class="gps">
@@ -78,7 +80,8 @@
 	</div>
 	<!-- 广告 -->
 	<div class="guangao">
-			 <a><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" alt="" class="btn1" th:data-url="${adv3.url}"> </a>
+		<a	th:if="${adv3.advImg!=null}" th:href="${adv3.url}" target="_blank"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" th:data-url="${adv3.url}" alt="" class="btn1"></a>
+	 	<a th:if="${adv3.advImg==null}"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" alt="" class="btn1" th:data-url="${adv3.url}"> </a>
 	</div>
     <!-- 报名活动 -->
 	<div class="secant">
@@ -101,7 +104,8 @@
 	</div>
 	<!-- 广告 -->
 	<div class="guangao">
-			 <a><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" alt="" class="btn1" th:data-url="${adv4.url}"> </a>
+	<a	th:if="${adv4.advImg!=null}" th:href="${adv4.url}" target="_blank"><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" th:data-url="${adv4.url}" alt="" class="btn1"></a>
+	<a th:if="${adv4.advImg==null}"><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" alt="" class="btn1" th:data-url="${adv4.url}"> </a>
 	</div>
 	<!-- 志愿者 -->
 	<div class="zhiyuan">
@@ -118,7 +122,8 @@
 	</div>
 		<!-- 广告 -->
 	<div class="guangao">
-			<a><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" alt="" class="btn1" th:data-url="${adv5.url}"> </a>
+	<a	th:if="${adv5.advImg!=null}" th:href="${adv5.url}" target="_blank"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" th:data-url="${adv5.url}" alt="" class="btn1"></a>
+	<a th:if="${adv5.advImg==null}"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" alt="" class="btn1" th:data-url="${adv5.url}"> </a>
 	</div>
 	<!-- 团队展示 -->
 	<div class="tuandui">
@@ -138,7 +143,8 @@
 	<!-- 广告 -->
 	<div class="guangao">
 			 <!-- <a href=""><img  th:src="${adv5.advImg==''}?'/pc/images/tp2.jpg':${adv5.advImg}" alt="" class="btn1"> </a> -->
-			  <img  th:src="${adv6.advImg==null}?'/pc/images/tp2.jpg':${adv6.advImg}" alt="" th:data-url="${adv6.url}" class="btn1">
+			 <a	th:if="${adv6.advImg!=null}" th:href="${adv6.url}" target="_blank"><img  th:src="${adv6.advImg==null}?'/pc/images/tp2.jpg':${adv6.advImg}" th:data-url="${adv6.url}" alt="" class="btn1"></a>
+			 <a th:if="${adv6.advImg==null}"> <img  th:src="${adv6.advImg==null}?'/pc/images/tp2.jpg':${adv6.advImg}" alt="" th:data-url="${adv6.url}" class="btn1"></a>
 	</div>
 	
 	<div class="m-modal">
