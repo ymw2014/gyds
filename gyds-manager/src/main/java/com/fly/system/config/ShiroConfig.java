@@ -100,7 +100,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("*.json","anon");
         filterChainDefinitionMap.put("/wx/**","anon");
         filterChainDefinitionMap.put("/wxpay/**","anon");
+        filterChainDefinitionMap.put("/wxshare/**","anon");
         filterChainDefinitionMap.put("/app/wxpay/**","anon");
+        filterChainDefinitionMap.put("/appwx/**","anon");
         filterChainDefinitionMap.put("/notify/receive_ticket","anon");
         filterChainDefinitionMap.put("/admin","anon");
         filterChainDefinitionMap.put("/css/**", "anon");

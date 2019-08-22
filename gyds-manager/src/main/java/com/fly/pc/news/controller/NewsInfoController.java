@@ -251,7 +251,42 @@ public class NewsInfoController extends BaseController {
 		}
 		return r;
 	}
-
+	
+	// 打赏
+			@RequestMapping(value="/rewardList", method = RequestMethod.POST)
+			@ResponseBody
+			public R rewardList(@RequestParam Map<String, Object> params) {
+				R r = new R();
+				UserDO user = null; 
+				user = ShiroUtils.getUser();
+				if(user==null) {
+					r.put("code", 1);
+					r.put("url", "/admin");
+					return r;
+				}
+				List<Map<String,Object>> listPrice = querySetupReward();
+				r.put("code", 0);
+				r.put("listPrice", listPrice);
+				r.put("newsId", params);
+				return r;
+			}
+			
+			//查询配置置顶额度
+			public List<Map<String,Object>> querySetupReward() {
+				List<Map<String,Object>> listPrice = new ArrayList<Map<String,Object>>();
+				SetupDO setup = setupService.get(1);
+				String[] split = null;
+				if (setup!=null) {
+					split = setup.getRewardPriceSetup().split(",");
+					for(String s : split) {
+						Map<String,Object> data = new HashMap<String, Object>();
+						data.put("price", s);
+						listPrice.add(data);
+					}
+				}
+				return listPrice;
+			}
+	
 	// 打赏
 	// return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 	@SuppressWarnings("static-access")
@@ -366,6 +401,99 @@ public class NewsInfoController extends BaseController {
 			return listPrice;
 		}
 		
+		@ResponseBody
+		@PostMapping("/queryRed")
+		public Map<String, Object> queryRed(@RequestParam Map<String, Object> params){
+			Map<String, Object> outMap = new HashMap<String, Object>();
+			UserDO user = null;
+			Long userId = null;
+			List<Map<String,Object>> userRed = null ;
+			user = ShiroUtils.getUser();
+			if(user==null) {
+				userId = (long) 0;
+			}else{
+				userId = user.getUserId();
+			}
+			InfoDO info = infoService.get(Integer.valueOf(params.get("newsId").toString()));
+			//红包详情
+			PacketDO Packet = packetDao.get(info.getRedPeperId());
+			params.put("id", info.getRedPeperId());
+			params.put("isGet", "2");
+			//已抢红包详情
+			List<Map<String,Object>> list = redDao.redListUser(params);
+			params.clear();
+			params.put("id", info.getRedPeperId());
+			params.put("isGet", "2");
+			params.put("getUserId", userId);
+			//当前登录用户抢红包金额
+			userRed = redDao.redListUser(params);
+			//当前登录用户抢红包金额
+			if(!userRed.isEmpty()) {
+				outMap.put("userRed", userRed.get(0));
+			}else {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("head_img", "/pc/images/touxiang5.png");
+				map.put("price","0");
+				outMap.put("userRed",map);
+			}
+			//红包详情
+			outMap.put("Packet", Packet);
+			//已抢红包详情
+			outMap.put("listRed", list);
+			//已抢红包数量
+			outMap.put("redSize", list.size());
+			outMap.put("code", 0);
+			return outMap;
+		}
+		
+		@SuppressWarnings("static-access")
+		@RequestMapping(value = "/vieRed", method = RequestMethod.POST)
+		@ResponseBody
+		@Transactional
+		public R vieRed(@RequestParam Map<String, Object> params) {
+			R r = new R();
+			Boolean flag = false;
+			Long userId = null;
+			try {
+				 userId = ShiroUtils.getUserId();
+			} catch (Exception e) {
+				//3:获取不到用户
+				 return r.error("3");
+			}
+			Integer gr = is_get_red(Integer.valueOf(params.get("newsId").toString()));
+			if(gr==1) {
+				//4:领取过红包
+				 return r.error("4");
+			}
+			InfoDO info = infoService.get(Integer.valueOf(params.get("newsId").toString()));
+			if(info.getIsRedPeper()==1) {
+				BigDecimal price  = getRed(info);
+				if(price.compareTo(new BigDecimal(0))==0) {
+					//红包抢完啦!
+					return r.error("1");
+				}
+				params.put("price", price);
+				params.put("userId", userId);
+				Integer i = creadOrder(params);
+				if(i>0) {
+					i = addMoney(params);
+					if(i==1) {
+						flag=true;
+					}
+				}
+			}else {
+				//红包抢完啦!
+				return r.error("1");
+			}
+			if(flag) {
+				//成功
+				return r.ok();
+			}else {
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				//抢红包失败
+				return r.error("2");
+			}
+		}
 	// 置顶
 	@RequestMapping(value = "/top/{id}", method = RequestMethod.GET)
 	public String top(@PathVariable("id") Integer id, Model model) {
@@ -566,97 +694,5 @@ public class NewsInfoController extends BaseController {
 	}
 	
 	
-	@ResponseBody
-	@PostMapping("/queryRed")
-	public Map<String, Object> queryRed(@RequestParam Map<String, Object> params){
-		Map<String, Object> outMap = new HashMap<String, Object>();
-		UserDO user = null;
-		Long userId = null;
-		List<Map<String,Object>> userRed = null ;
-		user = ShiroUtils.getUser();
-		if(user==null) {
-			userId = (long) 0;
-		}else{
-			userId = user.getUserId();
-		}
-		InfoDO info = infoService.get(Integer.valueOf(params.get("newsId").toString()));
-		//红包详情
-		PacketDO Packet = packetDao.get(info.getRedPeperId());
-		params.put("id", info.getRedPeperId());
-		params.put("isGet", "2");
-		//已抢红包详情
-		List<Map<String,Object>> list = redDao.redListUser(params);
-		params.clear();
-		params.put("id", info.getRedPeperId());
-		params.put("isGet", "2");
-		params.put("getUserId", userId);
-		//当前登录用户抢红包金额
-		userRed = redDao.redListUser(params);
-		//当前登录用户抢红包金额
-		if(!userRed.isEmpty()) {
-			outMap.put("userRed", userRed.get(0));
-		}else {
-			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("head_img", "/pc/images/touxiang5.png");
-			map.put("price","0");
-			outMap.put("userRed",map);
-		}
-		//红包详情
-		outMap.put("Packet", Packet);
-		//已抢红包详情
-		outMap.put("listRed", list);
-		//已抢红包数量
-		outMap.put("redSize", list.size());
-		outMap.put("code", 0);
-		return outMap;
-	}
 	
-	@SuppressWarnings("static-access")
-	@RequestMapping(value = "/vieRed", method = RequestMethod.POST)
-	@ResponseBody
-	@Transactional
-	public R vieRed(@RequestParam Map<String, Object> params) {
-		R r = new R();
-		Boolean flag = false;
-		Long userId = null;
-		try {
-			 userId = ShiroUtils.getUserId();
-		} catch (Exception e) {
-			//3:获取不到用户
-			 return r.error("3");
-		}
-		Integer gr = is_get_red(Integer.valueOf(params.get("newsId").toString()));
-		if(gr==1) {
-			//4:领取过红包
-			 return r.error("4");
-		}
-		InfoDO info = infoService.get(Integer.valueOf(params.get("newsId").toString()));
-		if(info.getIsRedPeper()==1) {
-			BigDecimal price  = getRed(info);
-			if(price.compareTo(new BigDecimal(0))==0) {
-				//红包抢完啦!
-				return r.error("1");
-			}
-			params.put("price", price);
-			params.put("userId", userId);
-			Integer i = creadOrder(params);
-			if(i>0) {
-				i = addMoney(params);
-				if(i==1) {
-					flag=true;
-				}
-			}
-		}else {
-			//红包抢完啦!
-			return r.error("1");
-		}
-		if(flag) {
-			//成功
-			return r.ok();
-		}else {
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			//抢红包失败
-			return r.error("2");
-		}
-	}
 }

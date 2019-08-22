@@ -32,18 +32,19 @@ public class IWxPayConfig implements  WXPayConfig{
 	
 	@Override
 	public String getAppID() {
-		return app_id;
+		return "wx561ae40290380b04";
 	}
 
 	@Override
 	public String getMchID() {
-		 return wx_pay_mch_id;
+		 return "1309497501";
 	}
 
 	@Override
 	public String getKey() {
-		 return wx_pay_key;
+		 return "fenlegou20160226fenlegou20160226";
 	}
+
 
 	@Override
 	public InputStream getCertStream() {
