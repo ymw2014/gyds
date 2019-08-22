@@ -59,13 +59,21 @@ function load() {
 									field : 'createTime', 
 									title : '创建时间' 
 								},
+								{
+									field : 'showStartTime', 
+									title : '展示开始时间' 
+								},
+								{
+									field : 'showEndTime', 
+									title : '结束时间' 
+								},
 																{
 									field : 'positionNum', 
 									title : '位置' ,
 									formatter: function (item, index) {
 										console.log(item);
 				                            if (item === 1) {
-				                                return '<span class="label label-primary">首页</span>';
+				                                return '<span class="label label-primary">首页/资讯列表页</span>';
 				                            }
 				                            if (item === 2) {
 				                                return '<span class="label label-success">资讯列表页</span>';
@@ -91,7 +99,7 @@ function load() {
 									field : 'perCapitaCost', 
 									title : '费用(人均费用基数)' 
 								},
-																{
+															{
 									title : '操作',
 									field : 'id',
 									align : 'center',

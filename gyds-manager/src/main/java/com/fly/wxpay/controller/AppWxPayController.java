@@ -14,13 +14,19 @@ import java.util.Map;
 import org.apache.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fly.domain.UserDO;
+import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.wxpay.service.IWxPayConfig;
 import com.fly.wxpay.utils.HttpUtils;
+import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayUtil;
 
 @Controller
@@ -29,31 +35,37 @@ public class AppWxPayController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
+	@Autowired
+    private UserService userService;
 	
 	@RequestMapping("/pay")
-	public String pay(Integer totalFee) throws Exception {
-		String unifiedorder_url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+	@ResponseBody
+	public Map<String, String> pay(Integer totalFee) throws Exception {
 		IWxPayConfig config = new IWxPayConfig();
+		WXPay wxpay = new WXPay(config);
 		UserDO user = ShiroUtils.getUser();
 		Map<String, String> data = new HashMap<String, String>();
-        data.put("appid", config.getAppID());//微信支付分配的公众账号ID（企业号corpid即为此appId）
-        data.put("mch_id", config.getMchID());//微信支付分配的商户号
-        String  str = WXPayUtil.generateNonceStr();
-        data.put("nonce_str", str); // 通过微信工具类生成  随机字符串
+        UserDO userDO = userService.get(user.getUserId());
         data.put("body", "余额充值");//商品描述
         data.put("out_trade_no", new Date().getTime() + ""); // 订单唯一编号, 不允许重复
-        data.put("total_fee", String.valueOf(totalFee * 100)); // 订单金额, 单位分
+        data.put("total_fee", String.valueOf(1 * 100)); // 订单金额, 单位分
         data.put("spbill_create_ip", localIp()); // 下单ip
-        data.put("openid", user.getOpenId()); // 微信公众号统一标示openid
-        data.put("notify_url", "URL这里填写，你的回调域名"); // 订单结果通知, 微信主动回调此接口
-        data.put("trade_type", "SAPI"); // 固定填写
-        // 生成带有 sign 的 XML 格式字符串
-        String xmlparam = WXPayUtil.generateSignedXml(data, config.getKey());
-        // 发送请求
-        String resultStr = HttpUtils.postData(unifiedorder_url, xmlparam);
-        logger.info("appPay 返回信息 :  " + resultStr);
+        data.put("openid", userDO.getOpenId()); // 微信公众号统一标示openid
+        data.put("notify_url", "http://zhgy.61966.com/app/wxpay/callback"); // 订单结果通知, 微信主动回调此接口
+        data.put("trade_type", "JSAPI"); // 固定填写
+        JSONObject dataInfo = new JSONObject();
+		dataInfo.put("data", data);
+		 logger.info("user 信息:  " + userDO.getOpenId());
+        logger.info("appPay 参数 :  " + dataInfo.toString());
+        Map<String, String> resp = wxpay.unifiedOrder(data);
+        dataInfo.put("resp", resp);
+        logger.info("appPay 返回信息 :  " + resp);
+        if ("SUCCESS".equals(resp.get("result_code") ) &&  "SUCCESS".equals(resp.get("return_code"))){//result_code=SUCCESS, mch_id=1309497501, return_code=SUCCESS
+        	Map<String, String> prepayId = getPrepayId(config,resp.get("prepay_id"));
+        	return prepayId;
+        }
         
-		return "";
+		return null;
 	}
 	
 	/*
@@ -80,4 +92,22 @@ public class AppWxPayController {
 		}
 		return ip;
 	}
+	
+	
+	public Map<String,String> getPrepayId(IWxPayConfig config,String prepayId) throws Exception {
+		String timeStamp = new Long(System.currentTimeMillis()/1000).toString();
+        // 创建返回值
+        //组装二次签名
+        Map<String, String> resultMap = new HashMap<String, String>();
+        resultMap.put("appId", config.getAppID());
+        resultMap.put("timeStamp", timeStamp);
+        resultMap.put("nonceStr", WXPayUtil.generateNonceStr());
+        resultMap.put("package", "prepay_id=" + prepayId);
+        resultMap.put("signType", "MD5");
+        // 生成签名
+        String paySign = WXPayUtil.generateSignature(resultMap, config.getKey());
+        resultMap.put("paySign", paySign);
+        return resultMap;
+	}
+	
 }

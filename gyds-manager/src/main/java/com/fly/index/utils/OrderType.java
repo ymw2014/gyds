@@ -20,7 +20,7 @@ public class OrderType {
 	/**
 	 * 	广告
 	 */
-	public static final Integer GUANG_GAO = 4;
+	public static final Integer GUANG_GAO_GOU_MAI = 4;
 	/**
 	 * 	置顶
 	 */

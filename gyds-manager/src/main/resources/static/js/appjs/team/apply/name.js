@@ -1,5 +1,5 @@
 
-var prefix = "/adv/detail"
+var prefix = "/team/apply"
 $(function() {
 	load();
 });
@@ -32,7 +32,8 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset
+								offset:params.offset,
+								type:1
 					           // name:$('#searchName').val(),
 					           // username:$('#searchName').val()
 							};
@@ -47,99 +48,118 @@ function load() {
 								{
 									checkbox : true
 								},
+																
 																{
-									field : 'id', 
-									title : '' 
-								},
-																{
-									field : 'userId', 
-									title : '用户编号' 
-								},
-																{
-									field : 'positionNum', 
-									title : '广告位置' ,
-									formatter: function (item, index) {
-				                            if (item === 1) {
-				                                return '<span class="label label-primary">首页/资讯列表页</span>';
-				                            }
-				                            if (item === 3) {
-				                                return '<span class="label label-info">资讯详情页</span>';
-				                            }
-				                            if (item === 4) {
-				                                return '<span class="label label-danger">活动报名页</span>';
-				                            }
-				                            if (item === 5) {
-				                                return '<span class="label label-inverse">团队详情页</span>';
-				                            }
-				                            if (item === 6) {
-				                                return '<span class="label label-primary">志愿者详情页</span>';
-				                            }
-				                            if (item === 7) {
-				                                return '<span class="label label-warning">签到页</span>';
-				                            }
-				                        }
-								},
-																{
-									field : 'regionName', 
-									title : '发布区域' 
+									field : 'name', 
+									title : '姓名' 
 								},
 								{
-									field : 'orderId', 
-									title : '订单编号' 
+									field : 'sex', 
+									title : '性别' ,
+									formatter : function(value, row, index) {
+										if (value == '1') {
+											return '女'
+										} 
+										if (value == '0') {
+											return '男'
+										}
+									}
 								},
-								
+								{
+									field : 'headImg', 
+									title : '头像' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
+									
+								}
+								},	
 																{
-									field : 'advUrl', 
-									title : '广告链接' 
+									field : 'nation', 
+									title : '民族' 
 								},
 																{
-									field : 'createTime', 
-									title : '提交时间' 
+									field : 'email', 
+									title : '邮箱' 
 								},
 																{
-									field : 'advImg', 
-									title : '图片' ,
+									field : 'mobile', 
+									title : '手机' 
+								},
+
+								{
+									field : 'cardNo', 
+									title : '身份证号' 
+								},
+								{
+									field : 'cardFrontImg', 
+									title : '身份证正面照' ,
 									formatter : function(value, row, index) {
 										
 										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
 									
 								}
 								},
+								{
+									field : 'cardBackImg', 
+									title : '身份证背面照' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
+									
+								}
+								},
+								
 																{
-									field : 'price', 
-									title : '总价格' 
+									field : 'birth', 
+									title : '出身日期' 
 								},
 																{
+									field : 'politicalStatus', 
+									title : '政治面貌' 
+								},
+																{
+									field : 'address', 
+									title : '详细地址' 
+								},
+																{
+									field : 'province', 
+									title : '省份' 
+								},
+																{
+									field : 'city', 
+									title : '所在城市' 
+								},
+																{
+									field : 'district', 
+									title : '所在地区' 
+								},
+																{
+									field : 'street', 
+									title : '街道' 
+								},
+								{
+									field : 'createTime', 
+									title : '申请时间' 
+									
+								},
+								{
 									field : 'status', 
-									title : '处理状态 ' ,
+									title : '审核' ,
 									formatter : function(value, row, index) {
-										if (value == "0") {
-											return '<span >未审核</span>';
-										}
-										if (value == "1") {
-											return '<span style="color:green;">已审核</span>';
+										if (row.status == "1") {
+											return '<a class="label label-success"  onclick="examineStatus('+row.id+',2)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger"  onclick="examineStatus('+row.id+',3)" >拒绝</a>';
 										}
 										if (value == "2") {
+											return '<span style="color:green;">已审核</span>';
+										}
+										if (value == "3") {
 											return '<span style="color:green;">已拒绝</span>';
 										}
 									}
-																},
-																{
-									title : '操作',
-									field : 'id',
-									align : 'center',
-									formatter : function(value, row, index) {
-										var e="";
-										if(row.status==0){
-											e = '<a class="label label-success"  onclick="examineStatus('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
-											'<a class="label label-danger"  onclick="examineStatus('+row.id+',2)" >拒绝</a>';
-										}
-										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
-												+ row.id
-												+ '\')"><i class="fa fa-remove"></i></a> ';
-										return e + d ;
-									}
-								} ]
+								},
+						]
 					});
 }
 function reLoad() {
@@ -224,7 +244,6 @@ function batchRemove() {
 	});
 }
 
-
 function showBigPic(obj,filepath) {
 	
     //将文件路径传给img大图
@@ -253,7 +272,7 @@ function showBigPic(obj,filepath) {
     //var intY = window.event.clientY;
     //设置大图左上角起点位置
     div.style.left = intX +10+ "px";
-    div.style.top = intY - 100+"px";
+    div.style.top = intY - 150+"px";
 }
 
 function closeimg(){
@@ -268,13 +287,11 @@ function closeimg(){
  */
 function examineStatus(id,status) {
 	console.log(id);
-	console.log(status);
 	layer.confirm('确定要进行团队审核吗？', {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({
 			url : prefix+"/examine",
-			async: false,
 			type : "post",
 			data : {
 				'id' : id,

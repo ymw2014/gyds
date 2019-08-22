@@ -31,7 +31,7 @@
 		</div>
 		<div class="gycent">
 			<input type="hidden" id="infoId" th:value="${info.id}">
-			<h4 th:text="${info.title}"></h4>
+			<h4 id="title" th:text="${info.title}"></h4>
 			<div class="gycent1"><span th:text="${info.source}"></span>&nbsp;<span th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"> </span>
 			<a th:if=" ${is_attention} eq '0'" href="/login" id="guanzhu">+关注</a>
 			<input type="hidden" th:value="${team.id}" id="teamId">
@@ -144,7 +144,7 @@
 		</div>
 		<div class="zixunnr" th:each="newsTop,iterStat:${newsTop}"><a th:href="@{/pc/news/info(id=${newsTop.id})}">
 			<div th:href="@{/pc/news/info(id=${newsTop.id})}">
-				<span th:text="${newsTop.title}"></span>
+				<span  th:text="${newsTop.title}"></span>
 				<p th:text="${newsTop.source +''+ #dates.format(newsTop.publicTime, 'yyyy-MM-dd hh:mm')}"></p>
 				<div th:if=" ${newsTop.isTop} eq '1'">
 				<img th:src="@{/pc/images/list_09.jpg}" alt="">
@@ -164,13 +164,14 @@
 				<input type="text" placeholder="随便说点什么...">
 				<a href=""><img th:src="@{/mobile/images/hdxq_27.jpg}" alt=""><span></span></a>
 				<a href=""><img th:src="@{/mobile/images/pinglun.png}" alt=""><span></span></a>
-				<a href=""><img th:src="@{/mobile/images/zhuanfa.png}" alt=""><span></span></a>
+				<!-- <a href="javaScript:shareFriend();"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""><span></span></a> -->
 			</div>
 		</div>
 	</body>
 	<script src="/js/plugins/layer/layer.js"></script>
 	<script src="/js/layui.js"></script>
 	<script src="/js/plugins/layer/laydate/laydate.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script type="text/javascript">
 	function redNew(){
 		var id = $('#infoId').val();
@@ -420,5 +421,160 @@
 	function login(){
 		window.location.href = "/admin";
 }
+	
+	
+	var appId = '';
+	var signature = '';
+	var nonceStr = '';
+	var timestamp = '';
+	var url = '';
+	var link = window.location.href;
+	$(function(){  
+		  var url = encodeURI(location.href.split('#')[0]);
+		  console.log("url=="+url);
+		  $.ajax({
+		         url: "/wxshare/getSignature",
+		         type: "POST",
+		         data:{"url":url},
+		         dataType: "json",
+		         success: function(data){
+		             console.log(data);
+		             aapId = data.appId
+		             url =  data.url;
+		             console.log("aapId " + aapId);
+		             nonceStr=data.nonceStr;
+		             signature=data.signature;
+		             timestamp=data.timestamp;
+		             wx.config({
+		 			    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		 			    appId: data.appId, // 必填，公众号的唯一标识
+		 			    timestamp: data.timestamp, // 必填，生成签名的时间戳
+		 			    nonceStr: data.nonceStr, // 必填，生成签名的随机串
+		 			    signature: data.signature,// 必填，签名
+		 			    jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表
+		 			});
+		 		 
+		 		  wx.error(function(res){
+		 			console.log(res)
+		 			alert("验证失败了");
+		 		  });
+		 		  
+		 		 wx.ready(function(){
+					  //分享到朋友圈
+					  wx.onMenuShareTimeline({
+						    title: $('#title').val(), // 分享标题
+						    link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+						    imgUrl: '', // 分享图标
+						    success: function () {
+						    	alert("分享成功");
+						    // 用户确认分享后执行的回调函数
+							},
+						cancel: function () {
+							alert("分享失败");
+						    // 用户取消分享后执行的回调函数
+					    }
+					});
+					  //分享到朋友
+					  wx.onMenuShareAppMessage({
+						  title: "测试", // 分享标题
+						  desc: '123456', // 分享描述
+						  link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+						  imgUrl: "", // 分享图标
+						  type: '', // 分享类型,music、video或link，不填默认为link
+						  dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+						  success: function () {
+							  alert("分享成功");
+						  // 用户确认分享后执行的回调函数
+						  },
+						  cancel: function () {
+							  alert("分享失败");
+						  // 用户取消分享后执行的回调函数
+						  }
+						  });
+				  });
+		          },
+		          error:function(err){
+		            console.log('异常');
+		          }
+		        });
+	  }); 
+	 /*  function loadWx(){
+		  console.log(appId);
+		  console.log(timestamp);
+		  console.log(nonceStr);
+		  console.log(signature);
+		  wx.config({
+			    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			    appId: appId, // 必填，公众号的唯一标识
+			    timestamp: timestamp, // 必填，生成签名的时间戳
+			    nonceStr: nonceStr, // 必填，生成签名的随机串
+			    signature: signature,// 必填，签名
+			    jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表
+			});
+		 
+		  wx.error(function(res){
+			console.log(res)
+			alert("验证失败了");
+		  });
+		  
+	  } */
+	function wxshare(type){
+		  //分享到朋友圈
+		  wx.onMenuShareTimeline({
+			    title: "测试", // 分享标题
+			    link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+			    imgUrl: '', // 分享图标
+			    success: function () {
+			    	alert("分享成功");
+			    // 用户确认分享后执行的回调函数
+				},
+			cancel: function () {
+				alert("分享失败");
+			    // 用户取消分享后执行的回调函数
+		    }
+		});
+		  //分享到朋友
+		  wx.onMenuShareAppMessage({
+			  title: "测试", // 分享标题
+			  desc: '123', // 分享描述
+			  link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+			  imgUrl: "", // 分享图标
+			  type: '', // 分享类型,music、video或link，不填默认为link
+			  dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			  success: function () {
+				  alert("分享成功");
+			  // 用户确认分享后执行的回调函数
+			  },
+			  cancel: function () {
+				  alert("分享失败");
+			  // 用户取消分享后执行的回调函数
+			  }
+			  });
+	}
+	  function shareFriend() {
+		  WeixinJSBridge.invoke('sendAppMessage',{
+		  "appid": '',
+		  "img_url": '',
+		  "img_width": "200",
+		  "img_height": "200",
+		  "link": url,
+		  "desc": '1234565',
+		  "title": 'ceshi'
+		  }, function(res) {
+		  //_report('send_msg', res.err_msg);
+		  })
+		  }
+	  
+	  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+		// 发送给好友
+		WeixinJSBridge.on('menu:share:appmessage', function(argv){
+			shareFriend();
+		});
+		// 分享到朋友圈
+		WeixinJSBridge.on('menu:share:timeline', function(argv){
+			shareTimeline();
+		});
+		
+		});
 	</script>
 </html>

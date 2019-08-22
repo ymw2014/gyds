@@ -106,7 +106,7 @@ public class WebBaseController extends BaseController{
 		params.get("orderType");
 		orderParams.put("orderType", 2);
 		orderParams.put("price", advDetail.getPrice());
-		orderParams.put("expIncType", OrderType.GUANG_GAO);
+		orderParams.put("expIncType", OrderType.GUANG_GAO_GOU_MAI);
 		try {
 			Integer i=creadOrder(orderParams);
 			if(i>0) {

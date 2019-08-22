@@ -1,21 +1,16 @@
 package com.fly.pc.team.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSONObject;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
@@ -23,15 +18,14 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
-import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
+import com.fly.proxybusi.domain.ProxybusiDO;
+import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
-import com.fly.team.domain.ApplyTeamDO;
 import com.fly.team.domain.TeamDO;
-import com.fly.team.service.ApplyTeamService;
 import com.fly.team.service.TeamService;
 import com.fly.utils.R;
 import com.fly.utils.userToObject;
@@ -60,6 +54,8 @@ public class PcTeamController {
 	private NameDao nameDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private ProxybusiService proxybusiService;
 	
 	
 	@RequestMapping("teamList")
@@ -166,37 +162,49 @@ public class PcTeamController {
 	
 	@ResponseBody
 	@RequestMapping("team/apply")
-	public String apply(Integer id,HttpServletRequest request) {
-		JSONObject dataInfo = new JSONObject();
-		Integer status = 0;
+	public R apply(Integer id,HttpServletRequest request) {
+		R r=new R();
 		try {
 			UserDO user = ShiroUtils.getUser();
+			Map<String, Object> params=new HashMap<>(16);
 			if (user == null) {
-				dataInfo.put("status", "2");//还没登录
-				return dataInfo.toString();
+				r.put("code", 2);
+				r.put("msg", "您还没登录，请先登录");
+				r.put("url", "/login");
+				return r;
 			}
-			
+			params.put("userId", user.getUserId());
+			List<ProxybusiDO> proList = proxybusiService.list(params);
+			if(proList!=null&&proList.size()>0) {
+				r.put("code", 2);
+				r.put("msg", "您已经是代理,无需入团");
+				return r;
+			}
 			boolean flag = volunteerService.isVo(user.getUserId());
 			if (!flag) {
-				dataInfo.put("status", "3");
-				dataInfo.put("url", "/pc/attestation?teamId="+id+"&type="+"1");
-				return dataInfo.toString();
+				r.put("code", "3");
+				r.put("msg", "您还不是志愿者，请先申请志愿者");
+				r.put("url", "/pc/attestation?teamId="+id+"&type="+"1");
+				return r;
 			}
 			VolunteerDO volunteer = volunteerService.getVo(user.getUserId());
 			if(volunteer.getTeamId()==null||volunteer.getTeamId()==-1) {
 				user = userDao.get(user.getUserId());
 				NameDO name = userToObject.userToverify(user, id);
-				name.setType(1);
-				status = nameDao.save(name);
+				if(nameDao.save(name)>0) {
+					r.put("code", 1);
+					r.put("msg", "操作成功");
+				}
 			}else {
-				status = 4;
+				r.put("code", "4");
+				r.put("msg", "报名失败，您已是团队成员");
 			}
 		}catch(Exception e) {
-			status = 5;
+			r.put("code", "5");
+			r.put("msg", "操作失败");
 			e.printStackTrace();
 		}
-		dataInfo.put("status", status);
-		return dataInfo.toString();
+		return r;
 	}
 	
 	@ResponseBody

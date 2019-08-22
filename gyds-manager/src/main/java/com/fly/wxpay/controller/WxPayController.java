@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -47,7 +49,7 @@ public class WxPayController {
 			ModelMap model, String totalFee) {
 		logger.info("进入支付方法，payWeChat");
 		try {
-			content = this.getImageUrl("余额充值", "6578754569698556", totalFee);
+			content = this.getImageUrl("余额充值", new Date().getTime() + "", "1");
 			logger.info("wxpay code_url: " + content);
 			MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 			Hashtable hints = new Hashtable();
@@ -63,7 +65,7 @@ public class WxPayController {
 	}
 	
 	@RequestMapping("/callback")
-	public String callBack(HttpServletRequest request, HttpServletResponse response,String xmlData) throws Exception {
+	public void  callBack(HttpServletRequest request, HttpServletResponse response,String xmlData) throws Exception {
 		logger.info("进入微信支付异步通知");
 		logger.info("callback() start, notixmlData={}", xmlData);
 	    String resXml="";
@@ -87,23 +89,37 @@ public class WxPayController {
 	                e.printStackTrace();
 	            }
 	        }
+			/* 返回成功的标志
+			 * <result_code><![CDATA[SUCCESS]]></result_code>
+			 * <return_code><![CDATA[SUCCESS]]></return_code>
+			 */
+
 	        resXml=sb.toString();
+	        Map<String,String> result = WXPayUtil.xmlToMap(resXml);
+	        if ("SUCCESS".equals(result.get("result_code"))) { //支付成功改变订单状态
+	        	
+	        }
 	        logger.info("微信支付异步通知请求包: {}", resXml);
-	        return payBack(resXml);
+	        response.setCharacterEncoding("UTF-8");
+	        response.setContentType("application/xml; charset=utf-8");
+	        PrintWriter out = response.getWriter();
+	        out.print(payBack(resXml));//方法返回值是void，然后用response输出的,不然回调方法会一直重复执行
+	        out.close();
+	        
 	    }catch (Exception e){
 	        logger.error("微信支付回调通知失败",e);
-	        String result = "-1";
-	        return result;
+	        String result = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";
+	      
 	    }
 	}
 	
 	public String payBack(String notifyData) throws Exception {
-	    logger.info("payBack() start, notifyData={}", notifyData);
-	    IWxPayConfig config = new IWxPayConfig();
-		WXPay wxpay = new WXPay(config);
+		logger.info("payBack() start, notifyData={}", notifyData);
 	    String xmlBack="";
 	    Map<String, String> notifyMap = null;
 	    try {
+	    	IWxPayConfig config = new IWxPayConfig();
+			WXPay wxpay = new WXPay(config);
 
 	        notifyMap = WXPayUtil.xmlToMap(notifyData);         // 转换成map
 	        if (wxpay.isPayResultNotifySignatureValid(notifyMap)) {
@@ -115,22 +131,22 @@ public class WxPayController {
 
 	            if (out_trade_no == null) {
 	                logger.info("微信支付回调失败订单号: {}", notifyMap);
-	                xmlBack = "-1";
+	                xmlBack = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";
 	                return xmlBack;
 	            }
 
 	            // 业务逻辑处理 ****************************
 	            logger.info("微信支付回调成功订单号: {}", notifyMap);
-	            xmlBack = "1";
+	            xmlBack = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>" + "<return_msg><![CDATA[SUCCESS]]></return_msg>" + "</xml> ";
 	            return xmlBack;
 	        } else {
 	            logger.error("微信支付回调通知签名错误");
-	            xmlBack = "-1";
+	            xmlBack = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";
 	            return xmlBack;
 	        }
 	    } catch (Exception e) {
 	        logger.error("微信支付回调通知失败",e);
-	        xmlBack = "-1";
+	        xmlBack = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";
 	    }
 	    return xmlBack;
 	}
@@ -141,7 +157,7 @@ public class WxPayController {
 		WXPay wxpay = new WXPay(config);
 		String code_url = "";
 		paramMap.put("body", body); // 商品描述
-		paramMap.put("notify_url", "http://yqhdb.com/payment/wechat/pay.php"); // 支付成功后，回调地址
+		paramMap.put("notify_url", "http://zhgy.61966.com/wxpay/callback"); // 支付成功后，回调地址
 		paramMap.put("out_trade_no", out_trade_no); // 商户订单号
 		paramMap.put("spbill_create_ip", this.localIp()); // 本机的Ip
 		paramMap.put("total_fee", total_fee); // 金额必须为整数 单位为分
