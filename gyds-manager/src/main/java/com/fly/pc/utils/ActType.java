@@ -16,7 +16,7 @@ public class ActType {
 	public static final Integer XIN_WEN = 1;
 	
 	/**
-	 * 	互动
+	 * 	活动
 	 */
 	public static final Integer HUO_DONG = 2;
 	

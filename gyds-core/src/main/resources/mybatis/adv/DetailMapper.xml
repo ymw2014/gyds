@@ -4,21 +4,23 @@
 <mapper namespace="com.fly.adv.dao.DetailDao">
 
 	<select id="get" resultType="com.fly.adv.domain.DetailDO">
-		select `id`,`user_id`,`position_num`,`region_code`,`adv_url`,`create_time`,`adv_img`,`show_start_time`,`show_end_time`,`price`,`status` from adv_detail where id = #{value}
+		select `id`,`user_id`,`position_num`,`order_id`,`region_code`,`adv_url`,`create_time`,`adv_img`,`show_start_time`,`show_end_time`,`show_day`,`price`,`status` from adv_detail where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.adv.domain.DetailDO">
-		select `id`,`user_id`,`position_num`,`region_code`,`adv_url`,`create_time`,`adv_img`,`show_start_time`,`show_end_time`,`price`,`status` from adv_detail
+		select `id`,`user_id`,`position_num`,`order_id`,`region_code`,`adv_url`,`create_time`,`adv_img`,`show_start_time`,`show_end_time`,`show_day`,`price`,`status` from adv_detail
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="positionNum != null and positionNum != ''"> and position_num = #{positionNum} </if>
+		  		  <if test="orderId != null and orderId != ''"> and order_id = #{orderId} </if>
 		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
 		  		  <if test="advUrl != null and advUrl != ''"> and adv_url = #{advUrl} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="advImg != null and advImg != ''"> and adv_img = #{advImg} </if>
 		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
 		  		  <if test="showEndTime != null and showEndTime != ''"> and show_end_time = #{showEndTime} </if>
+		  		  <if test="showDay != null and showDay != ''"> and show_day = #{showDay} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		</where>
@@ -41,12 +43,14 @@
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="positionNum != null and positionNum != ''"> and position_num = #{positionNum} </if>
+		  		  <if test="orderId != null and orderId != ''"> and order_id = #{orderId} </if>
 		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
 		  		  <if test="advUrl != null and advUrl != ''"> and adv_url = #{advUrl} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
 		  		  <if test="advImg != null and advImg != ''"> and adv_img = #{advImg} </if>
 		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
 		  		  <if test="showEndTime != null and showEndTime != ''"> and show_end_time = #{showEndTime} </if>
+		  		  <if test="showDay != null and showDay != ''"> and show_day = #{showDay} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		</where>
@@ -58,12 +62,14 @@
 			`id`, 
 			`user_id`, 
 			`position_num`, 
+			`order_id`,
 			`region_code`, 
 			`adv_url`, 
 			`create_time`, 
 			`adv_img`, 
 			`show_start_time`, 
 			`show_end_time`, 
+			`show_day`,
 			`price`, 
 			`status`
 		)
@@ -72,12 +78,14 @@
 			#{id}, 
 			#{userId}, 
 			#{positionNum}, 
+			#{orderId},
 			#{regionCode}, 
 			#{advUrl}, 
 			#{createTime}, 
 			#{advImg}, 
 			#{showStartTime}, 
 			#{showEndTime}, 
+			#{showDay}, 
 			#{price}, 
 			#{status}
 		)
@@ -88,12 +96,14 @@
 		<set>
 			<if test="userId != null">`user_id` = #{userId}, </if>
 			<if test="positionNum != null">`position_num` = #{positionNum}, </if>
+			<if test="orderId != null">`order_id` = #{orderId}, </if>
 			<if test="regionCode != null">`region_code` = #{regionCode}, </if>
 			<if test="advUrl != null">`adv_url` = #{advUrl}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="advImg != null">`adv_img` = #{advImg}, </if>
 			<if test="showStartTime != null">`show_start_time` = #{showStartTime}, </if>
 			<if test="showEndTime != null">`show_end_time` = #{showEndTime}, </if>
+			<if test="showDay != null">`show_day` = #{showDay}, </if>
 			<if test="price != null">`price` = #{price}, </if>
 			<if test="status != null">`status` = #{status}</if>
 		</set>
