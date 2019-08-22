@@ -37,6 +37,7 @@ import com.fly.news.domain.InfoDO;
 import com.fly.news.service.CommentService;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
+import com.fly.pc.utils.PageUtils;
 import com.fly.photo.domain.PhotoDO;
 import com.fly.photo.service.PhotoService;
 import com.fly.system.service.RegionService;
@@ -98,6 +99,24 @@ public class PcVolunteerController {
 		model.addAttribute("areaId", areaId);
 		return "pc/volunteerList";
 	}
+	
+	@RequestMapping("queryVolunteerList")
+	@ResponseBody
+	public List<Map<String,Object>> volunteerList(@RequestParam Map<String,Object> params){
+		params.put("pids", params.get("areaId"));
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		if (CollectionUtils.isEmpty(ids)) {
+			ids.add(-1);
+		}
+		PageUtils page = new PageUtils(params);
+		page.put("isVo",1);//
+		page.put("ids", ids);
+		List<Map<String,Object>> voluntList = volunteerService.voluntList(page);
+		return voluntList;
+	}
+	
+	
+	
 	/**
 	    *     志愿者详情
 	 * @param params

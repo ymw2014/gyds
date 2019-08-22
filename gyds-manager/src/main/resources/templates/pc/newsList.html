@@ -25,11 +25,13 @@
 			<!-- <div style="width: 1200px;margin:0 auto;line-height:70px; font-size:14px;color:#aaaaaa;">
 				您所在的位置：首页>公益互助>公益>政策法规
 			</div> -->
+			<input type="hidden" th:value="${flag}" id="flag">
+			<input type="hidden" id="areaId" th:value="${areaId}">
 			<div class="zixunlogin">
 				<a href=""><img th:src="@{/pc/images/tp2.jpg}" alt=""></a>
 			</div>
 		 <!-- 主题内容 -->
-			<div class="zixuncent">
+			<div class="zixuncent" id="listrow">
 				<!-- 从这开始循环 -->
 				<div class="zixunbox" th:each="info:${newsList}">
 					<div class="zixuncent1">
@@ -57,6 +59,7 @@
 				</div>
 				<!-- 循环结束 -->
 			</div>
+				<div id="add-more" style="text-align: center;">努力加载中...</div>
 			<!-- 右侧 -->
 			<div class="zixunright">
 				<div class="zixunrimg">
@@ -94,7 +97,9 @@
 	
 	
 	//分页加载
-$(function(){
+$().ready(function(){
+var flag = $('#flag').val();	
+var areaId = $('#areaId').val();
 var hasMore;
 var page = 1; //初始页码
 var maxnum = 2;//设置加载次数
@@ -111,7 +116,7 @@ page=page+1;//每次拉到底部page加1
 //console.log(page)
 hasMore=false;
 $.ajax({
-url:"http://wechat.ixunluo.com/weishopcs/app/index.php?i=3&c=entry&m=ewei_shopv2&do=mobile&r=taobaoke",
+url:"/pc/news/queryInfoList?areaId="+areaId+"&flag="+flag+"",
 type:"post",
 data:{page:page},//请求页数
 success:function(res){
@@ -122,18 +127,32 @@ if(list.length>0) {
     hasMore=true;
 //console.log(JSON.parse(res));
     //追加数据
-    for(var i=0;i<list.length;i++) {
-        html+="<a href='./index.php?i=3&amp;c=entry&amp;m=ewei_shopv2&amp;do=mobile&amp;r=taobaoke.detail&amp;id="+list[i].id+"'>";
-        html+="<div class='list_flex_son'>";
-        html+="<img data-original='"+res[i]+"' class='list_flex_son_img' src='"+list[i].thumb+"' style='height: 175.313px;'>";
-        html+="<div class='list_flex_son_title'>"+list[i].title+"</div>";
-        html+="<div class='list_flex_son_row'>";
-        html+="<span class='sfsr_price'>￥"+list[i].marketprice+"</span>";
-        html+="<span class='sfsr_tbprice'>淘宝价："+list[i].productprice+"元</span>";
-        html+="</div>";
-        html+="</div>";
-        html+="</a>";
-    }
+   $.each(res, function(i, item){ 
+    html+="<div class='zixunbox'>";
+	html+="<div class='zixuncent1'>";
+	html+="<a href='/pc/news/info?id="+item.id+"&areaId="+areaId+"'><img src="+item.titleImg+"></a>";
+	html+="</div>";
+	html+="<div class='zixuncent2'>";
+	html+="<p>"+item.title+"</p>";
+	html+="</div>";
+	html+="<div class='zixuncent3'>";
+	html+="<p style='float: left;'>";
+	html+="<img src="+item.teamTitleImg+" style='width:23px; height:23px;'><span>"+item.source+"</span><span>"+item.teamName+"</span><span>"+item.publicTime+"</span>";
+	if(item.isTop==1){
+	html+="<img src='/pc/images/list_09.jpg' >";
+	}
+	if(item.isRedPeper==1){
+	html+="<img src='/pc/images/list_06.jpg' >";
+	}
+	html+="</p>";
+	html+="<p style='float:right;'>";
+	html+="<a href='/pc/news/info?id="+item.id+"&areaId="+areaId+"'><img src='/pc/images/list_12.jpg'><span>"+item.criticismOfCount+"</span></a>";
+	html+="<a href='/pc/news/info?id="+item.id+"&areaId="+areaId+"'><img src='/pc/images/list03.jpg'  style='width: 19px;height: 22px;'><span>"+item.numberOfLikes+"</span></a>";
+	html+="<a href='/pc/news/info?id="+item.id+"&areaId="+areaId+"'><img src='/pc/images/list06.jpg'><span>"+item.numberOfShares+"</span></a>";
+	html+="</p>";
+	html+="</div>";
+	html+="</div>";
+    })
     $listrow.append(html);//数据追加到list
     var imgWidth=$('.list_flex_son_img').width();
     $('.list_flex_son_img').height(imgWidth);

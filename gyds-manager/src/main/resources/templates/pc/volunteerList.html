@@ -188,5 +188,88 @@ function info(value) {
 	})
 	return html;
 }
+
+
+//分页加载
+$().ready(function(){
+var areaId = $('#areaId').val();
+var hasMore;
+var page = 1; //初始页码
+var maxnum = 2;//设置加载次数
+ 
+var downrange= 100;                //下边界-参考正在加载提示层/px
+var $main = $("#showbox");            //主体
+var $loaddiv = $("#add-more") ;       //加载提示层
+var totalheight = 0; 
+var $listrow=$("#zyzhti");
+//ajax-fun
+function ajaxLoad(){
+var html="";
+page=page+1;//每次拉到底部page加1
+//console.log(page)
+hasMore=false;
+$.ajax({
+url:"/pc/queryVolunteerList?areaId="+areaId+"",
+type:"post",
+data:{page:page},//请求页数
+success:function(res){
+var list = eval(res);
+//console.log(list.length);
+//var list=JSON.parse(res);
+if(list.length>0) {
+    hasMore=true;
+//console.log(JSON.parse(res));
+    //追加数据
+   $.each(res, function(i, item){ 
+   	html+="<figure>";
+	html+="<a href='/pc/volunteerDetail?id="+item.id+"&areaId="+areaId+"><img src="+item.headImg+"></a>";
+	html+="<figcaption>";
+	html+="<span>"+item.volunteerName+"</span>";
+	html+="<p>团队:"+item.teamName+"</p>";
+	html+="</figcaption>";
+	html+="</figure>";
+    })
+    $listrow.append(html);//数据追加到list
+    var imgWidth=$('.list_flex_son_img').width();
+    $('.list_flex_son_img').height(imgWidth);
+}    
+}
+})
+}
+ 
+//加载中隐藏显示
+$loaddiv.ajaxStart(function(){
+$(this).show();
+}).ajaxStop(function(){
+$(this).hide();
+})
+ifLoad();
+//scroll滚动触发加载事件
+function ifLoad(){
+hasMore=true;
+var w = $(window);
+var lastTime = new Date();
+window.addEventListener("scroll", function scrollHandler() {
+var scrollh = $(document).height();
+var bua = navigator.userAgent.toLowerCase();
+if (bua.indexOf('iphone') != -1 || bua.indexOf('ios') != -1) {
+scrollh = scrollh -140;
+} else {
+scrollh = scrollh - 80;
+}
+if(($(document).scrollTop() + w.height()) >= scrollh){
+if (new Date()-lastTime <100) {
+    return;
+}
+lastTime = new Date();
+if (hasMore) {
+    ajaxLoad();
+}
+}
+}, 1000);
+}
+ 
+});
+
 </script>
 

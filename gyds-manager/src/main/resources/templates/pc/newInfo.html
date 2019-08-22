@@ -11,6 +11,10 @@
 <link rel="stylesheet" th:href="@{/pc/css/ziyunlist.css}">
 <link rel="stylesheet" th:href="@{/pc/css/css1.css}">
 <link rel="stylesheet" th:href="@{/pc/css/css2.css}">
+<link rel="stylesheet" th:href="@{/pc/css/jquery.my-modal.1.1.css}">
+<link rel="stylesheet" th:href="@{/pc/css/jquery.my-modal.1.2.css}">
+<script th:src="@{/pc/js/jquery.my-modal.1.1.js}"></script>
+<script th:src="@{/pc/js/jquery.my-modal.1.2.js}"></script>
 <link href="/css/layui.css" rel="stylesheet">
 </head>
 <body>
@@ -72,7 +76,7 @@
 				</div>
 			</div>
 			<ul>
-				<li th:each="news:${newsList}">·<a th:text="${news.title}"
+				<li th:each="news:${newsList}">·<a th:text="${#strings.abbreviate(news.title,18)}" 
 					th:href="@{/pc/news/info/(id=${news.id},areaId=${areaId})}"></a></li>
 
 			</ul>
@@ -91,7 +95,7 @@
 						<li th:each="newsTop,iterStat:${newsTop}"><i
 							th:text="${iterStat.count}"></i><a
 							th:href="@{/pc/news/info(id=${newsTop.id},areaId=${areaId})}"
-							th:text="${newsTop.title}"></a></li>
+							th:text="${#strings.abbreviate(newsTop.title,23)}"></a></li>
 
 					</ul>
 				</div>
@@ -102,8 +106,8 @@
 
 		<!-- 左2 -->
 		<div class="listcontL1">
-			<div class="listcontL1-1" th:onclick="reward()">
-				<img th:src="@{/pc/images/dashang.png}" alt="" th:onclick="reward()">打赏
+			<div class="listcontL1-1 btn2" th:onclick="reward()">
+				<img th:src="@{/pc/images/dashang.png}" alt="" >打赏
 			</div>
 			<div class="listcontL1-2">
 				<p th:text="${'已有'+reCountUser+'人打赏'}"></p>
@@ -112,7 +116,50 @@
 				<img th:each="user:${user}" th:src="${user.headImg}" alt="">
 			</div>
 		</div>
-		<!-- 红包 -->
+		<!-- 打赏!! -->
+		<div class="m-modal1">
+			<div class="m-modal1-dialog m-modal1-dialog1">
+				<div class="m-top">
+					<span class="m-modal1-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt">
+					   <img th:src="@{/pc/images/touxiang 82.png}" alt="">
+				   </div>
+				   <div class="m-middletxt2">
+				   		<ul id="">
+							<li><a href="#">2元</a></li>
+							<li><a href="#">12元</a></li>
+							<li><a href="#">66元</a></li>
+							<li><a href="#">300元</a></li>
+							<li><a href="#">200元</a></li>
+							<li><a href="#">100元</a></li>
+						</ul>
+				   </div>
+				   <div class="m-middletxt3">
+					   <img th:src="@{/pc/images/03.png}" alt="">
+				   </div>
+				</div>
+			</div>
+			<div class="m-modal1-dialog m-modal1-dialog5 adddd">
+				<div class="m-top">
+					<span class="m-modal1-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt-1">
+					  <img th:src="@{/pc/images/xccc.png}" alt="">
+				   </div>
+				   <div class="m-middletxt2-1">
+					   <img th:src="@{/pc/images/26.jpg}" alt="">
+				   </div>
+				   <div class="m-middletxt3-1">
+					   <img th:src="@{/pc/images/zasfaff.png}" alt="">
+				   </div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 看红包 -->
 		<div id="modal" class="modal modal__bg" role="dialog"
 			aria-hidden="true" style="background: rgba(0, 0, 0, 0.9);">
 			<div class="modal__dialog" style="width: 600px;">
@@ -161,7 +208,7 @@
 				<img th:src="@{/pc/images/listzs_05.jpg}" alt="">已置顶
 			</div>
 			<div th:if=" ${isTop} eq '2'">
-				<img th:src="@{/pc/images/listzs_06.jpg}" alt=""
+				<img th:src="@{/pc/images/listzs_06.jpg}" data_type="2" alt=""
 					th:onclick="topNew()" id="top">未置顶
 			</div>
 			<input type="hidden" id="isRed" th:value="${isRed}"> <input
@@ -177,12 +224,33 @@
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">发放中
 			</div>
 			<div th:if=" ${isRed} eq '2'">
-				<img class="modal__trigger" th:src="@{/pc/images/listcc_07.jpg}"
+				<img class="modal__trigger btn1" data_type="1" th:src="@{/pc/images/listcc_07.jpg}"
 					alt="" onclick="redNew()"
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
 			</div>
 		</div>
 		<script th:src="@{/pc/js/js1.js}"></script>
+		<!-- 发红包 -->
+		<div class="m-modal">
+				<div class="m-modal-dialog m-modal-dialog3">
+					<div class="m-top">
+						<span class="m-modal-close">X</span>
+					</div>
+					<div class="m-middle3">
+					  <p id="sum"></p>
+					  <input type="text" placeholder="红包个数不能大于红包总额的5倍!!!" id="number">
+					</div>
+					<div class="m-middle4">
+					    <ul id="red">
+							
+						</ul>
+					</div>
+					<a href="javascript:;" ><div class="m-middle5" onclick="redPacket()">
+					<input type="hidden"  id="price">
+					</div></a>
+				</div>
+			</div>
+		
 		<!-- 左3 评论 -->
 		<div class="listpl">
 			<div class="listpl-1">
@@ -420,18 +488,78 @@ function vieRed(){
 	
 	}
 	function redNew(){
-		var id = $('#infoId').val();
-		layer.open({
-			type : 2,
-			title : '红包发放',
-			maxmin : true,
-			shadeClose : false, // 点击遮罩关闭层
-			area : [ '1000px', '620px' ],
-			content : '/pc/news/red/' + id // iframe的url
+		para={"newsId":$('#infoId').val()};
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/red",
+			data : para,
+			error : function(request) {
+				alert("查询红包异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					var red = '';
+					var sum = '';
+					var account = data.user.account;
+						sum += '您的余额剩余<span>'+account+'</span>元';
+						$("#sum").empty();
+						$('#sum').append(sum);
+					$.each(data.listPrice, function(i, item){
+						red += '<li>';
+						red += '<p id="mony">'+item.price+'</p>元';
+						red += '<p class="sx">手续费'+item.rate+'元</p>';
+						red += '</li>';
+					});
+					$("#red").empty();
+					$('#red').append(red);
+				}else{
+					var url = data.url;
+					window.location.href = url;
+				}
+
+			}
 		});
-	
 	}
 	
+	 function redPacket(){
+		 var para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val()};
+		  $.ajax({
+				type : "POST",
+				url : "/pc/news/redPacket",
+				data : para,
+				error : function(request) {
+					layer.msg('发红包失败！您扣除的：'+ $('#price').val() +'元 已原路退回您的账户');
+				},
+				success : function(data) {
+					if (data.code == 0) {
+						alert("发红包成功");
+						///history.go(0);
+						var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+						parent.layer.close(index);
+					} else {
+						if(data.msg == -1){
+						layer.msg('发红包失败！您的余额不足');
+						}else if(data.msg == 0){
+						layer.msg('发红包失败！您的：'+ $('#price').val() +'元 已原路退回您的账户');
+						}else if(data.msg == 2){
+							layer.confirm('您未登录请问是否跳转登录页面？', {
+								  btn: ['是','否'] //按钮
+								}, function(){
+									window.location.href = "/admin";
+								}, function(){
+								  layer.msg('发红包是需要登陆的', {
+								    time: 20000, //20s后自动关闭
+								    btn: ['知道了']
+								  });
+								});
+						}else if(data.msg == 3){
+							alert('红包数量不得大于红包总额的5倍');
+						}
+					}
+
+				}
+			});
+}
 	function comment(){
 		var comment={};
 		comment={"criticismContent":$('#comm').val(),"newsId":$('#infoId').val()};
@@ -497,5 +625,41 @@ function vieRed(){
 	function login(){
 				window.location.href = "/admin";
 	}
+	//发红包
+	var m1 = new MyModal.modal(function() {
+		alert("你点击了确定");
+	});
+	
+	$('.btn1').on("click", function() {
+		m1.show();
+	});
+	
+	$("#red").on("click","li",function(){
+		$(this).addClass("qian").siblings("li").removeClass("qian");
+		var a = $(this).children("#mony").text();
+		$("#price").val(a);
+	})
+	//结束
+	
+	
+	//打赏
+	var m2 = new MyModal1.modal(function() {
+		alert("你点击了确定");
+	});
+	$('.btn2').on("click", function() {
+		m2.show();
+	});
+	$(".m-middletxt2 li").click(function(){
+		$(this).addClass("addred").siblings("li").removeClass("addred");
+	})
+	$(".m-middletxt3 img").click(function(){
+		$(".m-modal-dialog1").css("display","none")
+		$(".adddd").css("display","block")
+	})
+	$(".m-modal-close").click(function(){
+			$(".m-modal-dialog1").css("display","block")
+			$(".adddd").css("display","none")
+	})
+	//结束
 	</script>
 </html>
