@@ -66,13 +66,14 @@
 				<div style="overflow: hidden;line-height:92px;">
 					<a href="" style="float: left; font-size:26px;color:#cbcbcb;">立即注册</a>
 					<a href="" style="float: right; font-size:26px; color:#cbcbcb;">忘记密码？</a>
+					<a href="javaScript:wxlog();" style="float: right; font-size:26px; color:#cbcbcb;">微信登录</a>
 				</div>
 			</div>
 		</div>
 	</body>
 </html>
 <script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
-<script>
+<script type="text/javascript">
    $(window).change(function(){
 		if(($('.aa1').val()!=="")&&($('.aa').val()!=="")){
 			$(".tijiao").css("background","#d7423b");
@@ -154,5 +155,17 @@
 		})
 	}
 	
+	function wxlog() {
+		var jumpUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?'
+			  var params = {
+			    appid: 'wx561ae40290380b04', // 公众号appid
+			    redirect_uri: 'http://zhgy.61966.com/appwx/weixinLogin', //回调地址，域名配置同一地址 定位到目录
+			    response_type: 'code',
+			    scope: 'snsapi_userinfo',// 需要用户确认登录
+			    state: 'STATE'
+			  }
+			  jumpUrl += $.param(params) + '#wechat_redirect'
+			  location.href = jumpUrl // 获取code跳转到回调地址
+	}
 	
 </script>

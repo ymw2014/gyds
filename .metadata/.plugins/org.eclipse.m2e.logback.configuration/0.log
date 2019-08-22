@@ -807,3 +807,1367 @@
 2019-08-21 11:29:14,929 [Worker-85: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
 2019-08-21 11:29:15,010 [Worker-85: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2019-08-21 11:29:15,010 [Worker-85: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:40:59,160 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:40:59,160 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 11:40:59,160 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 11:40:59,165 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:40:59,165 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:41:00,260 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:41:00,261 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 11:41:00,262 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 11:41:00,267 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:41:00,267 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 11:41:00,459 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:41:00,501 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:41:00,548 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:41:00,644 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:41:00,644 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:41:07,372 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:41:07,372 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 11:41:07,373 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 11:41:07,374 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:41:07,374 [Worker-95: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:42:06,498 [Worker-95: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 11:42:06,498 [Worker-95: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 11:42:08,363 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:42:08,366 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 11:42:08,368 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 11:42:08,395 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:42:08,395 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 11:42:13,817 [Worker-89: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 11:42:13,818 [Worker-89: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 11:42:19,863 [Worker-97: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:42:19,864 [Worker-97: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 11:42:19,865 [Worker-97: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 11:42:19,868 [Worker-97: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:42:19,868 [Worker-97: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 11:42:23,597 [Worker-95: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 11:42:23,597 [Worker-95: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 11:42:26,322 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:42:26,364 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:42:26,414 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:42:28,534 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:42:28,534 [Worker-89: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:42:33,859 [Worker-95: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 11:42:33,859 [Worker-95: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 11:42:45,035 [Worker-96: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:42:45,076 [Worker-96: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:42:45,125 [Worker-96: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:42:45,216 [Worker-96: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:42:45,217 [Worker-96: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:46:32,091 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:46:32,132 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:46:32,179 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:46:32,265 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:46:32,265 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:46:42,755 [Worker-96: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 11:46:42,755 [Worker-96: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 11:46:44,714 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:46:44,715 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 11:46:44,717 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 11:46:44,742 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:46:44,742 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 11:46:48,512 [Worker-101: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 11:46:48,512 [Worker-101: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 11:46:54,692 [Worker-102: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:46:54,695 [Worker-102: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 11:46:54,697 [Worker-102: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 11:46:54,702 [Worker-102: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:46:54,702 [Worker-102: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 11:46:58,295 [Worker-96: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 11:46:58,295 [Worker-96: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 11:47:01,089 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:47:01,161 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:47:01,212 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:47:02,897 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:47:02,897 [Worker-98: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:47:05,675 [Worker-100: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 11:47:05,675 [Worker-100: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 11:47:16,838 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:47:16,881 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:47:16,926 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:47:17,012 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:47:17,012 [Worker-94: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:58:09,331 [Worker-106: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:58:09,376 [Worker-106: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:58:09,424 [Worker-106: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:58:09,513 [Worker-106: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:58:09,513 [Worker-106: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:59:14,697 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:59:14,738 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:59:14,785 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:59:14,869 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:59:14,869 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:59:25,498 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:59:25,539 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:59:25,586 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:59:25,673 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:59:25,673 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 11:59:51,242 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:59:51,273 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 11:59:51,320 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 11:59:51,398 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 11:59:51,398 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 12:00:04,608 [Worker-109: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 12:00:04,649 [Worker-109: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 12:00:04,696 [Worker-109: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 12:00:04,783 [Worker-109: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 12:00:04,783 [Worker-109: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 12:01:16,048 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 12:01:16,108 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 12:01:16,155 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 12:01:16,240 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 12:01:16,240 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 12:01:58,124 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 12:01:58,169 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 12:01:58,217 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 12:01:58,310 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 12:01:58,310 [Worker-108: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 12:41:25,554 [Worker-121: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 12:41:25,597 [Worker-121: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 12:41:25,644 [Worker-121: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 12:41:25,758 [Worker-121: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 12:41:25,758 [Worker-121: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:13:28,764 [Worker-130: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:13:28,807 [Worker-130: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:13:28,853 [Worker-130: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:13:28,967 [Worker-130: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:13:28,967 [Worker-130: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:13:37,999 [Worker-136: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:13:38,042 [Worker-136: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:13:38,088 [Worker-136: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:13:38,204 [Worker-136: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:13:38,204 [Worker-136: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:35:54,479 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:35:54,522 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:35:54,569 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:35:54,691 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:35:54,691 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:36:03,631 [Worker-144: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 13:36:03,631 [Worker-144: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:36:05,861 [Worker-145: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:36:05,863 [Worker-145: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 13:36:05,864 [Worker-145: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 13:36:05,894 [Worker-145: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:36:05,894 [Worker-145: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 13:36:10,534 [Worker-143: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 13:36:10,534 [Worker-143: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:36:16,774 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:36:16,775 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 13:36:16,777 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 13:36:16,779 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:36:16,779 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 13:36:25,275 [Worker-143: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:36:25,275 [Worker-143: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:36:28,326 [Worker-139: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:36:28,367 [Worker-139: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:36:28,414 [Worker-139: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:36:30,477 [Worker-139: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:36:30,477 [Worker-139: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:36:44,257 [Worker-142: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:36:44,257 [Worker-142: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:36:55,646 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:36:55,687 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:36:55,735 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:36:55,820 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:36:55,820 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:41:45,000 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:41:45,041 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:41:45,088 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:41:45,171 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:41:45,171 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:44:17,507 [Worker-144: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 13:44:17,508 [Worker-144: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:44:19,811 [Worker-152: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:44:19,813 [Worker-152: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 13:44:19,816 [Worker-152: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 13:44:19,848 [Worker-152: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:44:19,848 [Worker-152: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 13:44:48,595 [Worker-153: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 13:44:48,595 [Worker-153: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:44:54,857 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:44:54,858 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 13:44:54,859 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 13:44:54,861 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:44:54,861 [Worker-144: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 13:45:38,496 [Worker-153: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:45:38,496 [Worker-153: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:45:41,268 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:45:41,310 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:45:41,357 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:45:43,618 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:45:43,618 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:45:47,844 [Worker-153: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:45:47,844 [Worker-153: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:45:59,575 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:45:59,616 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:45:59,661 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:45:59,970 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:45:59,971 [Worker-150: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:50:37,783 [Worker-156: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:50:37,826 [Worker-156: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:50:37,873 [Worker-156: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:50:37,960 [Worker-156: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:50:37,960 [Worker-156: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:50:52,101 [Worker-156: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:50:52,101 [Worker-156: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:50:54,926 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:50:54,970 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:50:55,021 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:50:56,653 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:50:56,653 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:51:02,028 [Worker-156: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:51:02,028 [Worker-156: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:51:11,938 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:51:11,988 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:51:12,050 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:51:12,138 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:51:12,138 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:52:02,847 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:02,887 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:52:02,933 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:52:03,015 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:03,015 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:52:04,646 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:04,687 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:52:04,735 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:52:04,819 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:04,819 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:52:09,726 [Worker-158: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 13:52:09,727 [Worker-158: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:52:11,614 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:11,615 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 13:52:11,616 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 13:52:11,639 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:11,639 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 13:52:18,731 [Worker-158: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 13:52:18,731 [Worker-158: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:52:24,501 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:24,501 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 13:52:24,501 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 13:52:24,501 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:24,501 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 13:52:31,421 [Worker-159: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:52:31,422 [Worker-159: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:52:34,174 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:34,218 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:52:34,270 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:52:36,268 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:36,268 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:52:41,368 [Worker-160: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:52:41,368 [Worker-160: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:52:52,712 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:52,754 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:52:52,800 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:52:52,885 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:52:52,885 [Worker-159: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:53:10,798 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:10,839 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:53:10,886 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:53:10,969 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:10,969 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:53:15,201 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:15,242 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:53:15,289 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:53:15,371 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:15,371 [Worker-154: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:53:23,888 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:23,933 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:53:23,983 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:53:24,069 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:24,069 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:53:29,453 [Worker-159: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 13:53:29,453 [Worker-159: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:53:31,421 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:31,423 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 13:53:31,424 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 13:53:31,452 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:31,452 [Worker-160: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 13:53:48,062 [Worker-158: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 13:53:48,063 [Worker-158: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:53:53,740 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:53,741 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 13:53:53,742 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 13:53:53,745 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:53:53,745 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 13:54:04,004 [Worker-157: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:54:04,004 [Worker-157: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 13:54:06,642 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:54:06,687 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:54:06,770 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:54:08,536 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:54:08,536 [Worker-155: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 13:54:13,816 [Worker-155: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 13:54:13,816 [Worker-155: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 13:54:25,379 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:54:25,423 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 13:54:25,471 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 13:54:25,559 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 13:54:25,560 [Worker-143: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:05:52,862 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:05:52,906 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:05:52,956 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:05:53,051 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:05:53,051 [Worker-157: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:10:23,717 [Worker-168: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:10:23,717 [Worker-168: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:10:23,717 [Worker-168: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:10:23,717 [Worker-168: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:10:23,717 [Worker-168: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:10:26,539 [Worker-161: Launching ManagerMain] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier null to /gyds-core/target/classes
+2019-08-21 14:10:26,623 [Worker-161: Launching ManagerMain] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier null to /gyds-core/target/classes
+2019-08-21 14:12:19,992 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:12:20,033 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:12:20,080 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:12:20,182 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:12:20,182 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:12:37,782 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:12:37,825 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:12:37,873 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:12:37,971 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:12:37,971 [Worker-172: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:13:25,914 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:13:25,955 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:13:26,001 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:13:26,101 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:13:26,101 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:13:39,213 [Worker-175: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:13:39,254 [Worker-175: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:13:39,301 [Worker-175: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:13:39,399 [Worker-175: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:13:39,399 [Worker-175: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:13:46,171 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:13:46,172 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:13:46,174 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:13:46,176 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:13:46,176 [Worker-174: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:13:56,366 [Worker-161: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:13:56,366 [Worker-161: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:13:58,240 [Worker-161: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:13:58,242 [Worker-161: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:13:58,243 [Worker-161: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:13:58,272 [Worker-161: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:13:58,272 [Worker-161: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:14:25,071 [Worker-170: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:14:25,072 [Worker-170: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:14:31,198 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:14:31,202 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:14:31,205 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:14:31,209 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:14:31,209 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:14:39,937 [Worker-168: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:14:39,937 [Worker-168: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:14:43,002 [Worker-171: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:14:43,046 [Worker-171: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:14:43,111 [Worker-171: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:14:44,763 [Worker-171: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:14:44,763 [Worker-171: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:14:48,966 [Worker-170: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:14:48,966 [Worker-170: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:15:00,983 [Worker-173: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:15:01,024 [Worker-173: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:15:01,071 [Worker-173: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:15:01,155 [Worker-173: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:15:01,155 [Worker-173: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:19:29,017 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:19:29,068 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:19:29,117 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:19:29,202 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:19:29,203 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:19:57,404 [Worker-179: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:19:57,404 [Worker-179: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:19:59,436 [Worker-177: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:19:59,438 [Worker-177: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:19:59,439 [Worker-177: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:19:59,472 [Worker-177: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:19:59,472 [Worker-177: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:20:13,606 [Worker-176: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:20:13,606 [Worker-176: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:21:25,906 [Worker-164: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:21:25,906 [Worker-164: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:21:28,947 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:21:28,989 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:21:29,041 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:21:30,802 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:21:30,802 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:21:39,969 [Worker-183: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:21:39,970 [Worker-183: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:21:51,788 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:21:51,829 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:21:51,877 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:21:51,962 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:21:51,962 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:26:26,902 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:26:26,902 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:26:26,902 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:26:26,905 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:26:26,905 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:26:46,143 [Worker-180: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:26:46,144 [Worker-180: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:26:48,114 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:26:48,118 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:26:48,122 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:26:48,156 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:26:48,156 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:26:58,677 [Worker-185: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:26:58,677 [Worker-185: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:27:04,416 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:27:04,418 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:27:04,419 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:27:04,423 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:27:04,423 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:27:13,320 [Worker-184: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:27:13,321 [Worker-184: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:27:16,199 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:27:16,244 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:27:16,295 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:27:18,139 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:27:18,139 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:27:21,827 [Worker-186: Launching Executing test in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:27:21,827 [Worker-186: Launching Executing test in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B test
+2019-08-21 14:27:28,418 [Worker-180: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:27:28,418 [Worker-180: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:27:39,428 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:27:39,470 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:27:39,517 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:27:39,602 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:27:39,603 [Worker-164: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:28:51,346 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:28:51,346 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:28:51,347 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:28:51,349 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:28:51,349 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:29:07,635 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:29:07,635 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:29:07,636 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:29:07,639 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:29:07,639 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:29:35,835 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:29:35,835 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:29:35,836 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:29:35,837 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:29:35,837 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:29:39,061 [Worker-187: Launching ManagerMain] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier null to /gyds-core/target/classes
+2019-08-21 14:29:39,137 [Worker-187: Launching ManagerMain] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier null to /gyds-core/target/classes
+2019-08-21 14:31:31,590 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:31:31,591 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:31:31,591 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:31:31,593 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:31:31,593 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:32:37,219 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:32:37,219 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:32:37,219 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:32:37,222 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:32:37,222 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:33:39,604 [Worker-180: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:33:39,604 [Worker-180: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:33:41,947 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:33:41,948 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:33:41,949 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:33:41,971 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:33:41,971 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:33:49,411 [Worker-184: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:33:49,411 [Worker-184: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:33:55,412 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:33:55,414 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:33:55,416 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:33:55,418 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:33:55,418 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:33:59,335 [Worker-187: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:33:59,335 [Worker-187: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:34:02,114 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:34:02,182 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:34:02,254 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:34:05,592 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:34:05,592 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:34:08,217 [Worker-188: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:34:08,217 [Worker-188: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:34:28,656 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:34:28,697 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:34:28,743 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:34:28,847 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:34:28,847 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:35:34,026 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:35:34,026 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:35:34,027 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:35:34,028 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:35:34,028 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:35:45,466 [Worker-164: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:35:45,466 [Worker-164: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:35:47,755 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:35:47,757 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:35:47,758 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:35:47,784 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:35:47,784 [Worker-180: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:35:53,924 [Worker-187: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:35:53,924 [Worker-187: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:35:59,733 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:35:59,735 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:35:59,736 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:35:59,739 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:35:59,739 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:36:07,397 [Worker-164: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:36:07,397 [Worker-164: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:36:10,294 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:36:10,338 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:36:10,389 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:36:12,210 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:36:12,210 [Worker-187: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:36:17,454 [Worker-187: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:36:17,454 [Worker-187: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:36:28,579 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:36:28,620 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:36:28,667 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:36:28,752 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:36:28,752 [Worker-185: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:38:46,377 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:38:46,377 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:38:46,377 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 14:38:46,381 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:38:46,381 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:38:57,070 [Worker-190: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:38:57,071 [Worker-190: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:38:59,050 [Worker-188: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:38:59,050 [Worker-188: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:38:59,050 [Worker-188: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:38:59,082 [Worker-188: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:38:59,082 [Worker-188: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:39:08,169 [Worker-190: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:39:08,169 [Worker-190: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:39:14,059 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:39:14,060 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:39:14,061 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:39:14,063 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:39:14,063 [Worker-184: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:39:19,624 [Worker-188: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:39:19,624 [Worker-188: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:39:22,411 [Worker-191: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:39:22,453 [Worker-191: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:39:22,503 [Worker-191: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:39:25,094 [Worker-191: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:39:25,094 [Worker-191: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:39:28,989 [Worker-184: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:39:28,989 [Worker-184: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:39:39,954 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:39:39,994 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:39:40,040 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:39:40,268 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:39:40,268 [Worker-190: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:45:44,140 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:45:44,204 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:45:44,249 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:45:44,333 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:45:44,333 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:46:47,360 [Worker-193: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:46:47,360 [Worker-193: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:46:49,331 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:46:49,333 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:46:49,334 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:46:49,364 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:46:49,364 [Worker-198: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:47:31,839 [Worker-202: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 14:47:31,839 [Worker-202: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:47:38,267 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:47:38,267 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 14:47:38,267 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 14:47:38,267 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:47:38,267 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 14:48:18,052 [Worker-201: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:48:18,052 [Worker-201: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 14:48:20,986 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:48:21,034 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:48:21,082 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:48:22,729 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:48:22,730 [Worker-202: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:48:28,639 [Worker-200: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 14:48:28,639 [Worker-200: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 14:48:39,635 [Worker-193: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:48:39,677 [Worker-193: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:48:39,724 [Worker-193: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:48:40,033 [Worker-193: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:48:40,033 [Worker-193: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:55:47,967 [Worker-205: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:55:48,008 [Worker-205: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:55:48,054 [Worker-205: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:55:48,139 [Worker-205: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:55:48,139 [Worker-205: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:56:08,997 [Worker-209: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:56:09,053 [Worker-209: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:56:09,101 [Worker-209: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:56:09,185 [Worker-209: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:56:09,185 [Worker-209: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 14:56:32,861 [Worker-207: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:56:32,902 [Worker-207: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 14:56:32,949 [Worker-207: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 14:56:33,036 [Worker-207: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 14:56:33,036 [Worker-207: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:07:47,379 [Worker-212: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:07:47,421 [Worker-212: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:07:47,468 [Worker-212: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:07:47,552 [Worker-212: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:07:47,552 [Worker-212: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:13:56,171 [Worker-223: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 15:13:56,171 [Worker-223: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 15:13:58,299 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:13:58,300 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 15:13:58,301 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 15:13:58,322 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:13:58,323 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 15:14:07,520 [Worker-222: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 15:14:07,520 [Worker-222: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 15:14:13,519 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:14:13,520 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 15:14:13,521 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 15:14:13,524 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:14:13,524 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 15:14:35,258 [Worker-222: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 15:14:35,258 [Worker-222: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 15:14:38,273 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:14:38,315 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:14:38,364 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:14:40,257 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:14:40,257 [Worker-226: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:14:43,824 [Worker-215: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 15:14:43,824 [Worker-215: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 15:14:55,819 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:14:55,866 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:14:55,913 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:14:55,999 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:14:55,999 [Worker-178: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:20:11,389 [Worker-231: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:20:11,433 [Worker-231: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:20:11,481 [Worker-231: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:20:11,569 [Worker-231: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:20:11,569 [Worker-231: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:20:27,254 [Worker-231: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 15:20:27,254 [Worker-231: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 15:20:29,436 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:20:29,437 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 15:20:29,438 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 15:20:29,463 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:20:29,463 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 15:20:41,224 [Worker-229: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 15:20:41,225 [Worker-229: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 15:20:47,215 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:20:47,217 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 15:20:47,219 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 15:20:47,223 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:20:47,223 [Worker-227: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 15:20:52,361 [Worker-229: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 15:20:52,361 [Worker-229: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 15:20:55,023 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:20:55,112 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:20:55,161 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:20:56,772 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:20:56,772 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:21:00,582 [Worker-231: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 15:21:00,583 [Worker-231: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 15:21:11,739 [Worker-232: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:21:11,781 [Worker-232: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:21:11,826 [Worker-232: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:21:12,089 [Worker-232: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:21:12,089 [Worker-232: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:27:49,433 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:27:49,474 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:27:49,521 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:27:49,603 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:27:49,603 [Worker-233: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:34:54,205 [Worker-241: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 15:34:54,205 [Worker-241: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 15:34:56,490 [Worker-240: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:34:56,494 [Worker-240: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 15:34:56,497 [Worker-240: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 15:34:56,533 [Worker-240: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:34:56,534 [Worker-240: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 15:35:06,883 [Worker-242: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 15:35:06,884 [Worker-242: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 15:35:12,824 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:35:12,825 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 15:35:12,826 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 15:35:12,828 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:35:12,828 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 15:35:28,674 [Worker-244: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 15:35:28,674 [Worker-244: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 15:35:28,675 [Worker-244: Launching Executing clean in D__web_gyds_gyds-manager] WARN  o.e.m.i.l.MavenLaunchExtensionsSupport - Unknown or unsupported source locator org.eclipse.jdt.internal.launching.sourcelookup.advanced.AdvancedSourceLookupDirector
+2019-08-21 15:35:32,817 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:35:32,859 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:35:32,906 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:35:34,539 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:35:34,539 [Worker-239: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:35:39,280 [Worker-242: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 15:35:39,280 [Worker-242: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 15:35:50,363 [Worker-244: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:35:50,406 [Worker-244: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:35:50,454 [Worker-244: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:35:50,539 [Worker-244: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:35:50,539 [Worker-244: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:51:56,351 [Worker-251: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:51:56,394 [Worker-251: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:51:56,442 [Worker-251: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:51:56,527 [Worker-251: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:51:56,527 [Worker-251: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:52:29,904 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:52:29,947 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:52:29,997 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:52:30,083 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:52:30,083 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:53:52,725 [Worker-250: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:53:52,767 [Worker-250: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:53:52,815 [Worker-250: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:53:52,902 [Worker-250: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:53:52,902 [Worker-250: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:53:58,158 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:53:58,202 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:53:58,249 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:53:58,339 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:53:58,339 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:54:11,963 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:54:12,006 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:54:12,052 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:54:12,140 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:54:12,140 [Worker-256: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:55:26,618 [Worker-255: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:55:26,660 [Worker-255: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:55:26,706 [Worker-255: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:55:26,790 [Worker-255: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:55:26,790 [Worker-255: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:56:43,534 [Worker-257: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 15:56:43,534 [Worker-257: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 15:56:45,822 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:56:45,823 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 15:56:45,824 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 15:56:45,932 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:56:45,932 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 15:56:55,202 [Worker-256: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 15:56:55,202 [Worker-256: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 15:57:05,393 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:57:05,395 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 15:57:05,397 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 15:57:05,400 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:57:05,401 [Worker-258: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 15:57:11,522 [Worker-257: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 15:57:11,522 [Worker-257: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 15:57:14,450 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:57:14,514 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:57:14,583 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:57:18,126 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:57:18,126 [Worker-252: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 15:57:26,013 [Worker-257: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 15:57:26,013 [Worker-257: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 15:57:47,345 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:57:47,387 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 15:57:47,434 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 15:57:47,520 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 15:57:47,520 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 16:02:34,016 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:02:34,061 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 16:02:34,108 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 16:02:34,197 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:02:34,197 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 16:03:50,867 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:03:50,909 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 16:03:50,955 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 16:03:51,039 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:03:51,039 [Worker-257: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 16:04:44,287 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:04:44,330 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 16:04:44,395 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 16:04:44,478 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:04:44,478 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 16:04:58,199 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:04:58,240 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 16:04:58,287 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 16:04:58,369 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:04:58,369 [Worker-263: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 16:05:08,350 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:05:08,393 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 16:05:08,439 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 16:05:08,523 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:05:08,523 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 16:06:17,029 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:06:17,070 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 16:06:17,119 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 16:06:17,202 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 16:06:17,202 [Worker-261: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:05:37,565 [Worker-288: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:05:37,700 [Worker-288: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:05:37,775 [Worker-288: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:05:38,797 [Worker-288: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:05:38,797 [Worker-288: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:11:08,425 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:08,498 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:11:08,547 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:11:08,720 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:08,720 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:11:12,683 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:12,724 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:11:12,771 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:11:12,947 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:12,947 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:11:25,849 [Worker-293: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:25,891 [Worker-293: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:11:25,988 [Worker-293: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:11:26,165 [Worker-293: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:26,165 [Worker-293: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:11:29,956 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:30,009 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:11:30,057 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:11:30,340 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:30,340 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:11:54,831 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:54,874 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:11:54,921 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:11:55,106 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:11:55,106 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:12:53,867 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:12:53,968 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:12:54,015 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:12:54,190 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:12:54,190 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:13:06,159 [Worker-296: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:13:06,200 [Worker-296: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:13:06,248 [Worker-296: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:13:06,416 [Worker-296: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:13:06,416 [Worker-296: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:14:37,098 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:14:37,140 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:14:37,186 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:14:37,377 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:14:37,378 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:15:33,245 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:15:33,290 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:15:33,336 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:15:33,515 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:15:33,515 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:17:11,521 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:17:11,564 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:17:11,611 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:17:11,840 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:17:11,841 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:18:19,597 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:18:19,643 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:18:19,715 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:18:19,890 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:18:19,890 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:19:34,105 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:19:34,147 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:19:34,192 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:19:34,362 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:19:34,362 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:20:20,958 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:20:21,003 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:20:21,074 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:20:21,247 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:20:21,247 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:20:23,951 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:20:24,006 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:20:24,201 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:20:24,374 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:20:24,374 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:20:37,555 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:20:37,597 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:20:37,648 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:20:37,822 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:20:37,822 [Worker-300: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:20:48,544 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:20:48,592 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:20:48,641 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:20:48,815 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:20:48,815 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:21:09,119 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:21:09,160 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:21:09,207 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:21:09,377 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:21:09,377 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:21:12,570 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:21:12,613 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:21:12,660 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:21:12,829 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:21:12,829 [Worker-294: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:21:16,907 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:21:16,948 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:21:16,995 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:21:17,170 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:21:17,170 [Worker-302: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:21:28,753 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:21:28,795 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:21:28,841 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:21:29,009 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:21:29,009 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:22:12,651 [Worker-304: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:12,692 [Worker-304: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:22:12,740 [Worker-304: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:22:12,910 [Worker-304: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:12,910 [Worker-304: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:22:32,482 [Worker-303: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:32,526 [Worker-303: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:22:32,573 [Worker-303: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:22:32,804 [Worker-303: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:32,804 [Worker-303: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:22:37,235 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:37,276 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:22:37,324 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:22:37,494 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:37,494 [Worker-283: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:22:42,482 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:42,526 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:22:42,577 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:22:42,758 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:42,758 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:22:45,328 [Worker-301: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:45,371 [Worker-301: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:22:45,418 [Worker-301: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:22:45,588 [Worker-301: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:22:45,588 [Worker-301: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:25:25,778 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:25:25,834 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:25:25,885 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:25:26,064 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:25:26,065 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:26:43,282 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:26:43,328 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:26:43,378 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:26:43,557 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:26:43,557 [Worker-299: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:30:47,497 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:30:47,620 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:30:47,693 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:30:47,987 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:30:47,987 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:31:02,050 [Worker-311: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:31:02,114 [Worker-311: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:31:02,181 [Worker-311: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:31:02,421 [Worker-311: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:31:02,421 [Worker-311: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:31:04,125 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:31:04,188 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:31:04,255 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:31:04,492 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:31:04,492 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:32:12,295 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:32:12,356 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:32:12,424 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:32:12,664 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:32:12,664 [Worker-309: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:32:32,019 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:32:32,082 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:32:32,148 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:32:32,382 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:32:32,382 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:32:52,738 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:32:52,799 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:32:52,867 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:32:53,108 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:32:53,108 [Worker-298: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:34:24,712 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:34:24,776 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:34:24,846 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:34:25,107 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:34:25,107 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:35:29,308 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:35:29,371 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:35:29,440 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:35:29,680 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:35:29,680 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:35:51,273 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:35:51,336 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:35:51,403 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:35:51,644 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:35:51,644 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:37:19,001 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:37:19,063 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:37:19,130 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:37:19,371 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:37:19,371 [Worker-312: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:37:41,136 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:37:41,218 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:37:41,287 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:37:41,528 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:37:41,528 [Worker-310: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:38:24,798 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:38:24,877 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:38:24,945 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:38:25,182 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:38:25,182 [Worker-308: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:39:02,048 [Worker-313: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:39:02,131 [Worker-313: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:39:02,201 [Worker-313: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:39:02,446 [Worker-313: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:39:02,446 [Worker-313: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:40:45,687 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:40:45,755 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:40:45,832 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:40:46,095 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:40:46,095 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:40:57,857 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:40:57,920 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:40:57,987 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:40:58,219 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:40:58,219 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:45:47,010 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:45:47,011 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:45:47,011 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:45:47,021 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:45:47,022 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:46:09,524 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:46:09,524 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:46:09,524 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:46:09,527 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:46:09,527 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:46:24,765 [Worker-320: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:46:24,765 [Worker-320: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:46:24,766 [Worker-320: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:46:24,767 [Worker-320: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:46:24,767 [Worker-320: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:46:38,271 [Worker-323: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:46:38,272 [Worker-323: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:46:38,272 [Worker-323: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:46:38,274 [Worker-323: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:46:38,274 [Worker-323: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:46:59,353 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:46:59,353 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:46:59,354 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:46:59,356 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:46:59,356 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:48:29,366 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:48:29,366 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:48:29,366 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:48:29,370 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:48:29,370 [Worker-315: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:49:04,598 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:49:04,676 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:49:04,747 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:49:04,996 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:49:04,996 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:49:08,074 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:49:08,075 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:49:08,075 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:49:08,076 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:49:08,077 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:49:17,003 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:49:17,004 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:49:17,004 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:49:17,006 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:49:17,006 [Worker-321: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:49:26,379 [Worker-325: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:49:26,380 [Worker-325: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:49:26,380 [Worker-325: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:49:26,382 [Worker-325: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:49:26,382 [Worker-325: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:50:07,400 [Worker-322: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:50:07,479 [Worker-322: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:50:07,548 [Worker-322: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:50:07,789 [Worker-322: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:50:07,789 [Worker-322: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:51:59,827 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:51:59,891 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 18:51:59,962 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 18:52:00,199 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:52:00,199 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:58:20,144 [Worker-330: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:58:20,144 [Worker-330: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:58:20,144 [Worker-330: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:58:20,147 [Worker-330: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:58:20,147 [Worker-330: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:58:40,761 [Worker-329: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:58:40,761 [Worker-329: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:58:40,761 [Worker-329: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:58:40,764 [Worker-329: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:58:40,764 [Worker-329: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 18:59:59,023 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:59:59,024 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 18:59:59,024 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 18:59:59,027 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 18:59:59,027 [Worker-318: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:01:35,757 [Worker-331: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:01:35,757 [Worker-331: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:01:35,757 [Worker-331: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:01:35,760 [Worker-331: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:01:35,760 [Worker-331: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:02:44,016 [Worker-333: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:02:44,016 [Worker-333: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:02:44,016 [Worker-333: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:02:44,018 [Worker-333: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:02:44,018 [Worker-333: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:08:05,118 [Worker-336: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:08:05,118 [Worker-336: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:08:05,119 [Worker-336: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:08:05,121 [Worker-336: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:08:05,122 [Worker-336: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:08:15,100 [Worker-338: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:08:15,100 [Worker-338: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:08:15,100 [Worker-338: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:08:15,102 [Worker-338: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:08:15,102 [Worker-338: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:08:26,066 [Worker-337: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:08:26,067 [Worker-337: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:08:26,067 [Worker-337: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:08:26,070 [Worker-337: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:08:26,070 [Worker-337: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:13:13,021 [Worker-339: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 19:13:13,021 [Worker-339: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 19:13:23,230 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:13:23,232 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:13:23,234 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 19:13:23,679 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:13:23,679 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 19:13:36,526 [Worker-341: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 19:13:36,526 [Worker-341: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:13:55,669 [Worker-339: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:13:55,670 [Worker-339: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:13:55,671 [Worker-339: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 19:13:55,674 [Worker-339: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:13:55,674 [Worker-339: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 19:14:08,864 [Worker-340: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:14:08,864 [Worker-340: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 19:14:15,089 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:14:15,169 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:14:15,255 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:14:20,152 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:14:20,152 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:14:24,619 [Worker-339: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:14:24,619 [Worker-339: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:14:43,065 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:14:43,107 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:14:43,157 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:14:43,244 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:14:43,244 [Worker-340: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:19:38,991 [Worker-345: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:19:38,991 [Worker-345: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:19:38,992 [Worker-345: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:19:38,994 [Worker-345: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:19:38,994 [Worker-345: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:20:01,969 [Worker-346: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:20:01,970 [Worker-346: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:20:01,970 [Worker-346: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:20:01,972 [Worker-346: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:20:01,972 [Worker-346: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:23:44,428 [Worker-348: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:23:44,428 [Worker-348: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:23:44,428 [Worker-348: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:23:44,430 [Worker-348: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:23:44,430 [Worker-348: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:23:54,378 [Worker-350: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:23:54,378 [Worker-350: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:23:54,378 [Worker-350: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:23:54,381 [Worker-350: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:23:54,381 [Worker-350: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:24:06,046 [Worker-350: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 19:24:06,047 [Worker-350: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 19:24:12,666 [Worker-343: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:24:12,668 [Worker-343: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:24:12,669 [Worker-343: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 31 resources
+2019-08-21 19:24:12,751 [Worker-343: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:24:12,751 [Worker-343: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-core\src\test\resources
+2019-08-21 19:24:27,600 [Worker-341: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 19:24:27,600 [Worker-341: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:25:13,636 [Worker-348: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:25:13,636 [Worker-348: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 19:25:16,837 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:25:16,901 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:25:17,024 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:25:20,665 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:25:20,665 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:25:21,870 [Worker-343: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:25:21,870 [Worker-343: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:25:44,081 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:25:44,122 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:25:44,167 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:25:44,253 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:25:44,253 [Worker-341: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:25:50,645 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:25:50,645 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:25:50,645 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:25:50,647 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:25:50,647 [Worker-349: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:29:36,529 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:29:36,529 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:29:36,529 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:29:36,532 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:29:36,532 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:29:45,757 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:29:45,757 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:29:45,757 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:29:45,759 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:29:45,759 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:31:06,085 [Worker-353: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:31:06,085 [Worker-353: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:31:06,086 [Worker-353: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:31:06,088 [Worker-353: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:31:06,088 [Worker-353: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:31:08,306 [Worker-341: Launching ManagerMain] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier null to /gyds-core/target/classes
+2019-08-21 19:31:08,390 [Worker-341: Launching ManagerMain] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier null to /gyds-core/target/classes
+2019-08-21 19:34:37,212 [Worker-351: Launching ManagerMain] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier null to /gyds-core/target/classes
+2019-08-21 19:34:37,344 [Worker-351: Launching ManagerMain] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/gyds-core: com.gyds.core:gyds-core:1.0.0-SNAPSHOT with classifier null to /gyds-core/target/classes
+2019-08-21 19:39:20,232 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:39:20,232 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:39:20,232 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:39:20,232 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:39:20,232 [Worker-351: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:39:41,799 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:39:41,877 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:39:41,971 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:39:42,189 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:39:42,189 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:41:12,998 [Worker-364: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 19:41:12,998 [Worker-364: Launching Executing clean in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 19:41:12,998 [Worker-364: Launching Executing clean in D__web_gyds_gyds-core] WARN  o.e.m.i.l.MavenLaunchExtensionsSupport - Unknown or unsupported source locator org.eclipse.jdt.internal.launching.sourcelookup.advanced.AdvancedSourceLookupDirector
+2019-08-21 19:41:17,306 [Worker-358: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:41:17,306 [Worker-358: Launching Executing clean in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean
+2019-08-21 19:41:17,306 [Worker-358: Launching Executing clean in D__web_gyds_gyds-manager] WARN  o.e.m.i.l.MavenLaunchExtensionsSupport - Unknown or unsupported source locator org.eclipse.jdt.internal.launching.sourcelookup.advanced.AdvancedSourceLookupDirector
+2019-08-21 19:41:21,305 [Worker-355: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:41:21,399 [Worker-355: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:41:21,461 [Worker-355: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:41:44,115 [Worker-355: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:41:44,115 [Worker-355: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:41:44,692 [Worker-364: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-core
+2019-08-21 19:41:44,692 [Worker-364: Launching Executing install in D__web_gyds_gyds-core] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:41:44,692 [Worker-364: Launching Executing install in D__web_gyds_gyds-core] WARN  o.e.m.i.l.MavenLaunchExtensionsSupport - Unknown or unsupported source locator org.eclipse.jdt.internal.launching.sourcelookup.advanced.AdvancedSourceLookupDirector
+2019-08-21 19:41:59,334 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:41:59,334 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:41:59,334 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:41:59,334 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:41:59,334 [Worker-358: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:42:05,872 [Worker-366: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:42:05,872 [Worker-366: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:42:05,872 [Worker-366: Launching Executing install in D__web_gyds_gyds-manager] WARN  o.e.m.i.l.MavenLaunchExtensionsSupport - Unknown or unsupported source locator org.eclipse.jdt.internal.launching.sourcelookup.advanced.AdvancedSourceLookupDirector
+2019-08-21 19:42:24,020 [Worker-363: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:42:24,067 [Worker-363: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:42:24,113 [Worker-363: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:42:24,191 [Worker-363: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:42:24,191 [Worker-363: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:45:48,372 [Worker-365: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:45:48,372 [Worker-365: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:45:48,372 [Worker-365: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:45:48,372 [Worker-365: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:45:48,372 [Worker-365: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:45:55,173 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:45:55,173 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:45:55,173 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:45:55,173 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:45:55,173 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:46:23,789 [Worker-368: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:46:23,789 [Worker-368: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:46:35,490 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:46:35,537 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:46:35,584 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:46:35,677 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:46:35,677 [Worker-369: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:48:35,298 [Worker-371: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:48:35,345 [Worker-371: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:48:35,392 [Worker-371: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:48:35,486 [Worker-371: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:48:35,486 [Worker-371: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:48:37,326 [Worker-374: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:48:37,358 [Worker-374: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:48:37,405 [Worker-374: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:48:37,498 [Worker-374: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:48:37,498 [Worker-374: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:51:06,754 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:51:06,754 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:51:06,754 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:51:06,754 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:51:06,754 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:51:26,675 [Worker-378: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:51:26,675 [Worker-378: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:51:26,675 [Worker-378: Launching Executing install in D__web_gyds_gyds-manager] WARN  o.e.m.i.l.MavenLaunchExtensionsSupport - Unknown or unsupported source locator org.eclipse.jdt.internal.launching.sourcelookup.advanced.AdvancedSourceLookupDirector
+2019-08-21 19:51:42,455 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:51:42,487 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:51:42,533 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:51:42,627 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:51:42,627 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:52:06,526 [Worker-377: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:52:06,526 [Worker-377: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:52:06,526 [Worker-377: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:52:06,526 [Worker-377: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:52:06,526 [Worker-377: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:52:29,193 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:52:29,193 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:52:29,193 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:52:29,209 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:52:29,209 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:52:43,327 [Worker-378: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:52:43,327 [Worker-378: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:52:55,105 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:52:55,152 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:52:55,199 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:52:55,277 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:52:55,277 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:54:32,169 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:54:32,169 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:54:32,169 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:54:32,169 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:54:32,169 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:54:38,581 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:54:38,581 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:54:38,581 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:54:38,597 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:54:38,597 [Worker-372: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:54:55,663 [Worker-374: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:54:55,663 [Worker-374: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:55:07,233 [Worker-376: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:55:07,279 [Worker-376: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:55:07,326 [Worker-376: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:55:07,404 [Worker-376: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:55:07,404 [Worker-376: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:59:03,188 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:59:03,188 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-08-21 19:59:03,188 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-08-21 19:59:03,204 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:59:03,204 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 19:59:37,828 [Worker-379: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 19:59:37,828 [Worker-379: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 19:59:49,646 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:59:49,724 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 19:59:49,771 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 19:59:49,849 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 19:59:49,849 [Worker-379: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:02:03,552 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:02:03,598 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:02:03,645 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:02:03,723 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:02:03,723 [Worker-381: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:03:00,025 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:03:00,056 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:03:00,103 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:03:00,181 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:03:00,181 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:03:18,246 [Worker-385: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:03:18,292 [Worker-385: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:03:18,339 [Worker-385: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:03:18,417 [Worker-385: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:03:18,417 [Worker-385: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:03:37,746 [Worker-384: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:03:37,792 [Worker-384: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:03:37,824 [Worker-384: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:03:37,902 [Worker-384: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:03:37,902 [Worker-384: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:04:07,979 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:04:08,041 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:04:08,088 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:04:08,166 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:04:08,166 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:04:13,969 [Worker-381: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 20:04:13,969 [Worker-381: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 20:04:25,661 [Worker-387: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:04:25,692 [Worker-387: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:04:25,739 [Worker-387: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:04:25,817 [Worker-387: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:04:25,817 [Worker-387: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:09:38,055 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:09:38,117 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:09:38,164 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:09:38,242 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:09:38,242 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:15:46,816 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:15:46,863 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:15:46,925 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:15:47,019 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:15:47,019 [Worker-386: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources
+2019-08-21 20:15:55,771 [Worker-389: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\web\gyds\gyds-manager
+2019-08-21 20:15:55,771 [Worker-389: Launching Executing install in D__web_gyds_gyds-manager] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2019-08-21 20:16:12,932 [Worker-392: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:16:12,979 [Worker-392: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 5 resources
+2019-08-21 20:16:13,042 [Worker-392: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2272 resources
+2019-08-21 20:16:13,135 [Worker-392: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-08-21 20:16:13,135 [Worker-392: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\web\gyds\gyds-manager\src\test\resources

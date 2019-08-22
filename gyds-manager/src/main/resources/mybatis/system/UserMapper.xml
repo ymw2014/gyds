@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.system.dao.UserDao">
 
 	<select id="get" resultType="com.fly.domain.UserDO">
-		select `user_id`,`username`,`name`,`password`,`is_binding`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user where user_id = #{value}
+		select `open_id`,`user_id`,`username`,`name`,`password`,`is_binding`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user where user_id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.domain.UserDO">
-		select `user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user
+		select `open_id`,`user_id`,`username`,`name`,`password`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage` from sys_user
         <where>  
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="username != null and username != ''"> and username = #{username} </if>
