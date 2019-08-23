@@ -75,9 +75,9 @@
 			<div class="header-img">
 				<img th:src="@{/pc/images/gongyi.png}" alt="">
 			</div>
-			<div class="header-login" id="no_login" style="display: none">
+			<!-- <div class="header-login" id="no_login" style="display: none">
 				<a href="/login">登录</a>
-				<!-- <a href="#">注册</a> -->
+				<a href="#">注册</a>
 			</div>
 			<div class="loginOk" id="login_ok" style="display: none">
 				<div class="loginOkImg">
@@ -87,6 +87,19 @@
 				<div class="loginname">
 					<p id="userName"></p>
 				</div>
+			</div> -->
+			<div class="header-login" id="no_login" style="display: none;">
+				<a href="/login">登录</a>
+			</div>
+			<div class="loginOk" style="display: none" id="login_ok">
+				<div class="loginOkImg">
+					<a  href="/pc/personalCenter"><img id="headImg"  src="" alt=""></a>
+				</div>
+				<div class="loginname">
+					<p id="userName">小暖8886</p>
+					<span>普通用户</span>
+				</div>
+				
 			</div>
 			<div class="guanliyy">
 				<a href="/logout">退出</a>

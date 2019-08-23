@@ -15,6 +15,7 @@
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
 									<select name="topCount" id="topDays">
+									    <option>请选择天数</option>
 										<option th:each=" top : ${topCount}" th:value="${top.count}" th:text="${top.count}"></option>
 									</select>
 								</div>
@@ -23,17 +24,10 @@
 								<label class="col-sm-2 control-label">置顶地区：<span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<label class="radio-inline"> <input type="radio"
-										 th:value="${region}" name="regionCode">本平台
-									</label> <label class="radio-inline"> <input type="radio"
-										 th:value="${proRegion}" name="regionCode">本省
-									</label> <label class="radio-inline"> <input type="radio"
-										 th:value="${cityRegion}" name="regionCode">本市
-									</label> <label class="radio-inline"> <input type="radio"
-										 th:value="${areaRegion}" name="regionCode">本县(区)
-									</label> <label class="radio-inline"> <input type="radio"
-										o th:value="${teamRegion}" name="regionCode">本团
-									</label>
+										<select name="topReg" id="topReg" onchange="topReg1()">
+										 <option>请选择地区</option>
+										<option th:each=" region : ${region}" th:value="${region.region}" th:text="${region.name}"></option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -56,7 +50,6 @@
 	<div th:include="include::footer"></div>
 	<script type="text/javascript">
 		function saveTop() {
-			debugger
 			$.ajax({
 				type : "POST",
 				url : "/pc/news/topInfo",
@@ -90,17 +83,16 @@
 
 		$("#topDays").change(function(){
 			$('#count').val('');
-			$('input[type=radio][name="regionCode"]:checked').prop("checked", false);
+			$("#topReg  option:checked").prop("checked", false);
 			$("#sub").show();
 		});
 		
-		 $(function(){ 
-			 $(":radio").click(function(){
+		function topReg1(){
 					$.ajax({
 						type : "POST",
 						url : "/pc/news/count",
 						data : {
-							"regionCode" : $(this).val(),
+							"regionCode" : $("#topReg  option:checked").val(),
 							'topDays': $("#topDays").val()
 						},// 你的formid
 						success : function(data) {
@@ -120,8 +112,7 @@
 							$('#count').val(data.count);
 						}
 					});
-		    })
-	   })
+		    }
 	</script>
 </body>
 

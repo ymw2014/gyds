@@ -16,6 +16,25 @@
 <script th:src="@{/pc/js/jquery.my-modal.1.1.js}"></script>
 <script th:src="@{/pc/js/jquery.my-modal.1.2.js}"></script>
 <link href="/css/layui.css" rel="stylesheet">
+<style>
+ .addred{
+  color:#fff !important;
+
+ }
+ #reward li{
+ color:#dc1333;
+ }
+ .m-middletxt3 button {
+	width:168px;
+	height:40px;
+	border:none;
+	text-align:center;
+	line-height:40px;
+	background:red;
+	outline: none;
+	color:#fff;
+}
+</style>
 </head>
 <body>
 	<div th:replace="pc/include :: header"></div>
@@ -82,11 +101,9 @@
 			</ul>
 		</div>
 		<div class="listcontRI">
-			<a href="#"><img th:src="@{/pc/images/zyz_03.jpg}" alt=""></a>
-			<a href="#"><img th:src="@{/pc/images/zyz_06.jpg}" alt=""></a>
-			<a href="#"><img th:src="@{/pc/images/zyz_09.jpg}" alt=""></a>
-			<a href="#"><img th:src="@{/pc/images/zyz_12.jpg}" alt=""></a>
-			<a href="#"><img th:src="@{/pc/images/zyz_15.jpg}" alt=""></a>
+			<a th:each="act: ${advList}"  th:href="${act.advImg!=null?act.url:'javascript:;'}" th:target="${act.advImg!=null?'_blank':''}">
+				<img th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}" th:class="${act.advImg!=null?'':'btn1'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+			</a>
 			<!-- 右侧排名 -->
 			<div class="listcontpm">
 				<div class="zixunbut">
@@ -124,36 +141,16 @@
 				</div>
 				<div class="m-middle2">
 				   <div class="m-middletxt">
-					   <img th:src="@{/pc/images/touxiang 82.png}" alt="">
+					   <img th:src="@{/pc/images/touxiang 82.png}" id="touxiang">
 				   </div>
 				   <div class="m-middletxt2">
-				   		<ul id="">
-							<li><a href="#">2元</a></li>
-							<li><a href="#">12元</a></li>
-							<li><a href="#">66元</a></li>
-							<li><a href="#">300元</a></li>
-							<li><a href="#">200元</a></li>
-							<li><a href="#">100元</a></li>
+				   		<ul id="reward">
+							
 						</ul>
 				   </div>
 				   <div class="m-middletxt3">
-					   <img th:src="@{/pc/images/03.png}" alt="">
-				   </div>
-				</div>
-			</div>
-			<div class="m-modal1-dialog m-modal1-dialog5 adddd">
-				<div class="m-top">
-					<span class="m-modal1-close">X</span>
-				</div>
-				<div class="m-middle2">
-				   <div class="m-middletxt-1">
-					  <img th:src="@{/pc/images/xccc.png}" alt="">
-				   </div>
-				   <div class="m-middletxt2-1">
-					   <img th:src="@{/pc/images/26.jpg}" alt="">
-				   </div>
-				   <div class="m-middletxt3-1">
-					   <img th:src="@{/pc/images/zasfaff.png}" alt="">
+				   <input type="hidden"  id="givePrice">
+					   <button onclick="giveReward()">提交</button>
 				   </div>
 				</div>
 			</div>
@@ -437,9 +434,9 @@ function vieRed(){
 			}
 		});
 	}
-	function reward(){
+ 	function giveReward(){
+ 		var som = $('#givePrice').val();
 		var para= {};
-		layer.prompt({title: '输入打赏金额(单位:元)，并确认', formType: 3}, function(som, index){
 			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som};
 			  $.ajax({
 					type : "POST",
@@ -473,9 +470,37 @@ function vieRed(){
 
 					}
 				});
-			  layer.close(index);
-			});
+	} 
+	
+	function reward(){
+		var para='';
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/rewardList",
+			data : para,
+			error : function(request) {
+				alert("查询异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					var reward = '';
+					var touxiang = data.user.headImg;
+					$('#touxiang').attr('src',touxiang);
+					$.each(data.listPrice, function(i, item){
+						reward += '<li><a href="#">'+item.price+'</a>元</li>';
+					});
+					$("#reward").empty();
+					$('#reward').append(reward);
+				}else{
+					var url = data.url;
+					window.location.href = url;
+				}
+
+			}
+		});
 	}
+	
+	
 	function topNew(){
 		var id = $('#infoId').val();
 		layer.open({
@@ -483,7 +508,7 @@ function vieRed(){
 			title : '申请置顶',
 			maxmin : true,
 			shadeClose : false, // 点击遮罩关闭层
-			area : [ '1000px', '620px' ],
+			area : [ '340px', '420px' ],
 			content : '/pc/news/top/' + id // iframe的url
 		});
 	
@@ -725,17 +750,12 @@ function vieRed(){
 	$('.btn2').on("click", function() {
 		m2.show();
 	});
-	$(".m-middletxt2 li").click(function(){
+	$("#reward").on("click","li",function(){
 		$(this).addClass("addred").siblings("li").removeClass("addred");
+		var a = $(this).children("a").text();
+		$("#givePrice").val(a);
 	})
-	$(".m-middletxt3 img").click(function(){
-		$(".m-modal-dialog1").css("display","none")
-		$(".adddd").css("display","block")
-	})
-	$(".m-modal-close").click(function(){
-			$(".m-modal-dialog1").css("display","block")
-			$(".adddd").css("display","none")
-	})
+	
 	//结束
 	</script>
 </html>

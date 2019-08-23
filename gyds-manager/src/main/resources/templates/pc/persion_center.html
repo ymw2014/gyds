@@ -166,6 +166,8 @@
 </body>
 </html>
 <script>
+	webHeight = $('body').height();
+	$(".J_iframe").css("height",webHeight+'px')
 	$(".btn").mouseover(function() {
 		$(this).children("ul").show();
 	});

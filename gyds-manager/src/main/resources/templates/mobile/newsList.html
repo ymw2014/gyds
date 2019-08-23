@@ -45,7 +45,7 @@
 				<img th:src="@{/mobile/images/zixungg_07.jpg}" alt="">
 			</a>
 		</div>
-		<div class="zixunnr" th:each="info:${newsList}"><a th:href="@{/pc/news/info(id=${info.id})}">
+		<div class="zixunnr" th:each="info:${newsList}"><a th:href="@{/pc/news/info(id=${info.id},areaId=${areaId})}">
 			<div>
 				<span th:text="${info.title}"></span>
 				<p><span th:text="${info.source}"></span>&nbsp;&nbsp;<span th:text="${info.teamName}"></span>&nbsp;<span th:text="${#dates.format(info.publicTime,'yyyy-MM-dd')}"></span>&nbsp;&nbsp;<span th:text="${'评论' + info.criticismOfCount}"></span> <img th:if=" ${info.isTop} eq '1'" th:src="@{/mobile/images/list_09.jpg}" style="width: 38px;height: 20px"><img th:if=" ${info.isRedPeper} eq '1'" th:src="@{/mobile/images/list_06.jpg}" style="width: 38px;height: 20px"></p>

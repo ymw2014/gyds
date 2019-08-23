@@ -80,7 +80,7 @@
 	margin: 0 auto;
 	overflow: hidden;
 }
-.qiandao img{
+.qiandao>a>img{
 	width: 100%;
 	margin-top:20px;
 }

@@ -10,14 +10,18 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fly.adv.domain.AdvertisementDO;
 import com.fly.domain.UserDO;
+import com.fly.index.service.IndexService;
 import com.fly.signin.domain.SigninDO;
 import com.fly.signin.service.SigninService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.Dictionary;
 import com.fly.utils.R;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
@@ -30,9 +34,14 @@ public class CheckinController {
 	private SigninService signinService;
 	@Autowired
 	private VolunteerService volunteerService;
+	@Autowired
+	private IndexService indexService;
 	
 	@RequestMapping("show")
-	public String show() {
+	public String show(Model model) {
+		VolunteerDO vo = volunteerService.getVo(ShiroUtils.getUserId());
+		List<AdvertisementDO> advList = indexService.getCenterAdvList(vo.getTeamId(), Dictionary.AdvPosition.QIAN_DAO);
+		model.addAttribute("advList", advList);
 		return "pc/checkin";
 	}
 	

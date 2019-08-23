@@ -26,6 +26,7 @@ import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.domain.ApplyDO;
 import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
+import com.fly.adv.domain.AdvertisementDO;
 import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
@@ -37,6 +38,7 @@ import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.Dictionary;
 import com.fly.utils.R;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
@@ -122,6 +124,8 @@ public class PcActivityController extends BaseController{
 		model.addAttribute("areaId", areaId);
 		ActivityDO activityDO = activityService.get(id);
 		model.addAttribute("activity", activityDO);
+		List<AdvertisementDO> advList = indexService.getCenterAdvList(activityDO.getTeamId(), Dictionary.AdvPosition.HUODONG_BAOMING);
+		model.addAttribute("advList", advList);
 		
 		//查询已报名的人数
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -181,7 +185,7 @@ public class PcActivityController extends BaseController{
 			model.addAttribute("applyStatus", applyStatus);
 			return "pc/activityJoin";
 		}
-		
+		model.addAttribute("areaId", areaId);
 		//1:审核通过 2:审核拒绝0:待审核
 		applyStatus = ApplyDO.get(0).getStatus();
 		model.addAttribute("applyId", ApplyDO.get(0).getId());
