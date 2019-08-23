@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head th:replace="pc/include :: head">
+	<link rel="stylesheet" href="css/fenye.css">
+		<script type="text/javascript" src="js/fenye.js"></script>
 	</head>
 	<body>
 		<div class="boxRight" style="background:#fff;margin-top:0;">
@@ -33,9 +35,10 @@
 							<p th:text="${team.remark}"></p>
 						</div>
 					</div>
-				</div>
+				 	</div>
+					
 				  <!-- 活动 -->
-				<div class="yy-gz" style="margin-top:20px;">
+				<div class="yy-gz"  style="margin-top:20px;">
 					<div class="yy-gz1" style="padding-top: 30px;" th:each="act: ${actList}">
 							<img th:src="${act.act_title_img}" alt="">
 							<p th:text="${act.act_title}"></p>
@@ -57,7 +60,7 @@
 					</div>
 				</div> -->
 			      <!-- 志愿者 -->
-				<div class="yy-gz" style="margin-top:20px;">
+				<div class="yy-gz" style="margin-top:20px;" >
 					<div class="wyy-gz">
 						<div th:each="vo: ${voList}">
 							<img th:src="${vo.head_img}" alt="">
@@ -65,9 +68,9 @@
 							<p th:text="${vo.remark}">个人签名 我是河南志愿者</p>
 							<div><a href="#"><img src="images/wyyzan.png" alt=""></a></div>
 						</div>
-						
 					</div>
 				</div>
+					
 			</div>
 	</body>
 </html>

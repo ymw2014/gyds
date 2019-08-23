@@ -92,6 +92,8 @@ public class PcVolunteerController {
 		}
 		params.clear();
 		params.put("isVo",1);//
+		params.put("offset", 0);
+		params.put("limit", 10);
 		params.put("ids", ids);
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		model.addAttribute("voluntList", voluntList);

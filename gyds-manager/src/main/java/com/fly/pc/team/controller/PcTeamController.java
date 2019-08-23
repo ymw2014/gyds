@@ -20,6 +20,7 @@ import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
+import com.fly.pc.utils.PageUtils;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.system.dao.UserDao;
@@ -71,6 +72,8 @@ public class PcTeamController {
 		}
 		params.clear();
 		params.put("ids", ids);
+		params.put("offset", 0);
+		params.put("limit", 10);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
 		params.clear();
@@ -82,6 +85,27 @@ public class PcTeamController {
 		model.addAttribute("centerList", list2);
 		model.addAttribute("areaId", areaId);
 		return "pc/teamList";
+	}
+	
+	@RequestMapping("queryTeamList")
+	@ResponseBody
+	public R teamList(@RequestParam Map<String,Object> params,HttpServletRequest request) {
+		R r = new R();
+		PageUtils page = new PageUtils(params);
+		String areaId = request.getParameter("areaId");
+		if (areaId == null) {
+			areaId = "0";
+		}
+		params.put("pids", areaId);
+		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		if (CollectionUtils.isEmpty(ids)) {
+			ids.add(-1);
+		}
+		page.put("ids", ids);
+		List<TeamDO> teamList = teamService.list(page);
+		r.put("code","0");
+		r.put("teamList",teamList);
+		return r;
 	}
 	
 	

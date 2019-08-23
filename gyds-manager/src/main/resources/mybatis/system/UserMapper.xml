@@ -225,9 +225,9 @@
 			<if test="nation != null">`nation` = #{nation}, </if>
 			<if test="regionCode != null">`region_code` = #{regionCode}, </if>
 			<if test="politicalStatus != null">`political_status` = #{politicalStatus}, </if>
-			<if test="isManage != null">`is_manage` = #{isManage}</if>
-			<if test="openId != null">`open_id` = #{openId}</if>
-			<if test="street != null">and `street` = #{street}</if>
+			<if test="isManage != null">`is_manage` = #{isManage},</if>
+			<if test="openId != null">`open_id` = #{openId},</if>
+			<if test="street != null">`street` = #{street}</if>
 		</set>
 		where user_id = #{userId}
 	</update>

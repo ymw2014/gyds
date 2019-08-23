@@ -97,11 +97,15 @@ public class IndexController {
 		model.addAttribute("newList", newList);//新闻资讯status
 		params.clear();
 		params.put("examineStatus",1);
+		params.put("offset", 0);
+		params.put("limit", 10);
 		params.put("ids", ids);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		params.clear();
 		params.put("isVo",1);//
+		params.put("offset", 0);
+		params.put("limit", 16);
 		params.put("ids", ids);
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		int count = volunteerService.count(null);

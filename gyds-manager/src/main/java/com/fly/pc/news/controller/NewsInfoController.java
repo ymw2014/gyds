@@ -269,10 +269,12 @@ public class NewsInfoController extends BaseController {
 					r.put("url", "/admin");
 					return r;
 				}
+				user = userMapper.get(user.getUserId());
 				List<Map<String,Object>> listPrice = querySetupReward();
 				r.put("code", 0);
 				r.put("listPrice", listPrice);
 				r.put("newsId", params);
+				r.put("user", user);
 				return r;
 			}
 			
@@ -502,6 +504,8 @@ public class NewsInfoController extends BaseController {
 	// 置顶
 	@RequestMapping(value = "/top/{id}", method = RequestMethod.GET)
 	public String top(@PathVariable("id") Integer id, Model model) {
+		List<Map<String, Object>> regin = new ArrayList<Map<String,Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		UserDO user = null; 
 		user = ShiroUtils.getUser();
 		if(user==null) {
@@ -509,17 +513,35 @@ public class NewsInfoController extends BaseController {
 		}
 		InfoDO info = infoService.get(id);
 		Integer code = info.getTeamId();
-		model.addAttribute("teamRegion", code);
+		map.put("region", code);
+		map.put("name", "本团");
+		regin.add(map);
+		map = new HashMap<String, Object>();
 		code = upRegCode(code);
-		model.addAttribute("angrnyRegion", code);
+		map.put("region", code);
+		map.put("name", "本街道办");
+		regin.add(map);
+		map = new HashMap<String, Object>();
 		code = upRegCode(code);
-		model.addAttribute("areaRegion", code);
+		map.put("region", code);
+		map.put("name", "本县(区)");
+		regin.add(map);
+		map = new HashMap<String, Object>();
 		code = upRegCode(code);
-		model.addAttribute("cityRegion", code);
+		map.put("region", code);
+		map.put("name", "本市");
+		regin.add(map);
+		map = new HashMap<String, Object>();
 		code = upRegCode(code);
-		model.addAttribute("proRegion", code);
+		map.put("region", code);
+		map.put("name", "本省");
+		regin.add(map);
+		map = new HashMap<String, Object>();
 		code = upRegCode(code);
-		model.addAttribute("region", code);
+		map.put("region", code);
+		map.put("name", "本平台");
+		regin.add(map);
+		model.addAttribute("region", regin);
 		model.addAttribute("newsId", id);
 		model.addAttribute("topCount", topDays());
 		return "pc/top";
@@ -532,23 +554,22 @@ public class NewsInfoController extends BaseController {
 	public R comTopInfo(@RequestParam Map<String, Object> params) {
 		TopDO top = new TopDO();
 		UserDO user = null;
-		BigDecimal cost = new BigDecimal(params.get("count").toString());
-		BigDecimal day = new BigDecimal(params.get("topCount").toString()) ;
 		Map<String,Object> count = new HashMap<String,Object>();
-		count.put("price", cost);
+		count = count(params.get("topCount").toString(),params.get("topReg").toString());
+		count.put("price", count.get("count"));
 		Integer i = deductMoney(count);
 		if(i==1) {
 			params.put("orderType", 2);
 			params.put("examineStatus", 2);
 			params.put("expIncType", 5);
-			params.put("price", cost.multiply(day));
+			params.put("price", count.get("price"));
 			Integer orderNuber = creadOrder(params);
 			if (orderNuber > 0) {
 				top.setOrdernumber(orderNuber);
 				top.setNewsId(Integer.parseInt(params.get("newsId").toString()));
 				top.setStatus(3);
-				top.setTopPrice(cost.multiply(day));
-				top.setRegionCode(Integer.valueOf(params.get("regionCode").toString()));
+				top.setTopPrice(new BigDecimal(count.get("price").toString()));
+				top.setRegionCode(Integer.valueOf(params.get("topReg").toString()));
 				top.setTopDay(Integer.valueOf(params.get("topCount").toString()));
 				user = ShiroUtils.getUser();
 				if (user != null) {
