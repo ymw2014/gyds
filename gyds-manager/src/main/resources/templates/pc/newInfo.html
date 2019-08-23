@@ -101,11 +101,9 @@
 			</ul>
 		</div>
 		<div class="listcontRI">
-			<a href="#"><img th:src="@{/pc/images/zyz_03.jpg}" alt=""></a>
-			<a href="#"><img th:src="@{/pc/images/zyz_06.jpg}" alt=""></a>
-			<a href="#"><img th:src="@{/pc/images/zyz_09.jpg}" alt=""></a>
-			<a href="#"><img th:src="@{/pc/images/zyz_12.jpg}" alt=""></a>
-			<a href="#"><img th:src="@{/pc/images/zyz_15.jpg}" alt=""></a>
+			<a th:each="act: ${advList}"  th:href="${act.advImg!=null?act.url:'javascript:;'}" th:target="${act.advImg!=null?'_blank':''}">
+				<img th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}" th:class="${act.advImg!=null?'':'btn1'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+			</a>
 			<!-- 右侧排名 -->
 			<div class="listcontpm">
 				<div class="zixunbut">

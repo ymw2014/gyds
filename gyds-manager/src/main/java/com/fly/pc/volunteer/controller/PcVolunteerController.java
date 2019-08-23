@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
+import com.fly.adv.domain.AdvertisementDO;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.guestlog.domain.GuestlogDO;
@@ -43,6 +44,7 @@ import com.fly.photo.service.PhotoService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.Dictionary;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -129,6 +131,7 @@ public class PcVolunteerController {
 		UserDO user = ShiroUtils.getUser();
 		params.clear();
 		params.put("id", id);
+		VolunteerDO vo = volunteerService.get(id);
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		if (user != null) {//当前用户必须是志愿者才记录
 			params.clear();
@@ -151,16 +154,20 @@ public class PcVolunteerController {
 				}
 			}
 		}
-		
+		List<AdvertisementDO> advList = indexService.getCenterAdvList(vo.getTeamId(), Dictionary.AdvPosition.ZHI_YUAN_ZHE);
+		model.addAttribute("advList", advList);
 		params.clear();
 		params.put("guestId", id);
+		params.put("offset", 0);
+		params.put("limit", 6);
 		List<GuestlogDO> guestLogList = logService.list(params);
 		model.addAttribute("zyzList",guestLogList);
 		params.clear();
 		params.put("userId", id);
+		params.put("offset", 0);
+		params.put("limit", 6);
 		List<GuestlogDO> guestList = logService.list(params);//At访客
 		model.addAttribute("guestList",guestList);
-		
 		params.clear();
 		params.put("memberId", voluntList.get(0).get("userId"));
 		List<PhotoDO> photolist = PhotoService.list(params);
@@ -198,8 +205,6 @@ public class PcVolunteerController {
 		model.addAttribute("sharesList",shares);//转发
 		model.addAttribute("likesList",likes);//点赞
 		model.addAttribute("collectList",collect);//收藏
-		
-		
 		params.put("parentRegionCode", 0);
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);

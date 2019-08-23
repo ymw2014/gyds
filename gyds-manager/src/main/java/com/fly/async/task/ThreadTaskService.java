@@ -301,6 +301,20 @@ public class ThreadTaskService {
 			order.setRemake(remake);
 			order.setLevel(1);
 			switch (expIncType) {
+			case 0:
+				order.setExpIncType(OrderType.TI_XIAN);
+				break;
+			case 1:
+				order.setExpIncType(OrderType.CHONG_ZHI);
+				break;
+			case 2:
+				order.setExpIncType(OrderType.DA_SHANG);
+				break;
+			case 3:
+				order.setExpIncType(OrderType.HONG_BAO);
+				break;	
+			case 4:
+				order.setExpIncType(OrderType.GUANG_GAO_GOU_MAI);
 			case 8:
 				order.setExpIncType(OrderType.HONG_BAO_FAN_YONG);
 				break;

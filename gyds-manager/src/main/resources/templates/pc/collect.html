@@ -3,7 +3,7 @@
 	<head th:replace="pc/include :: head">
 	</head>
 	<body>
-		<div class="boxRight" style="background:#fff;width: 1006px;height: 925px;margin-top:0;">
+		<div class="boxRight" style="background:#fff;margin-top:0;">
 				<div class="gzzx">
 					<h4>关注中心</h4>
 					<ul class="dianli">
@@ -72,6 +72,7 @@
 	</body>
 </html>
 <script>
+	//$('.J_iframe',parent.document).css("height",webHeight+'px')
 	$(".btn").mouseover(function(){
 		 $(this).children("ul").show();
 	});
@@ -89,6 +90,9 @@
 		$(this).addClass("hongdise").siblings("li").removeClass("hongdise");
 		var index = $(this).index();
 		$('.yy-gz').hide().eq($(this).index()).show();
+		var webHeight = $(document).height();
+		alert($(document).height());
+		$('.J_iframe',parent.document).css("height",webHeight+'px')
 	});
 	$(".wyy-gz>div").click(function(){
 		$(this).addClass("redborder").siblings("div").removeClass("redborder")

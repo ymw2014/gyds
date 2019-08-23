@@ -5,12 +5,16 @@
 		<title></title>
 		<meta name="viewport" content="width=750">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
-		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
-		<script type="text/javascript" th:src="@{/mobile/js/idangerous.swiper.scrollbar-2.1.js}"></script>
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/lunbo.css}">
 		<link rel="stylesheet" th:href="@{/mobile/dist/idangerous.swiper.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.2.0.css}">
+		<link th:href="@{/css/layui.css}" rel="stylesheet">
+		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/idangerous.swiper.scrollbar-2.1.js}"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
 		<script src="../pc/js/common.js"></script>
 	</head>
 	<body> 
@@ -19,10 +23,16 @@
 				<img th:src="@{/mobile/images/logo.png}" alt="">
 			</div>
 			<div class="header-center">
-				<input type="text" list="sexlist" placeholder="-- 全国 --">
+				<!-- <input type="text" list="sexlist" placeholder="-- 全国 --">
 				<dataList id="sexlist">
 					<option th:each="area: ${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
-				</dataList>
+				</dataList> -->
+				
+				<select style="width: 100px;" onchange="_area()" id="area">
+					<option value="0">-- 全国 --</option>
+					<option th:each="area: ${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+				</select>
 			</div>
 			<div class="header-loginimg" id="no_login" style="display: none">
 				<a href="/admin"><img th:src="@{/mobile/images/mylogin.jpg}" alt=""></a>
@@ -37,12 +47,14 @@
 		<div class="nav">
 			<a href="/">网站首页</a>
 			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a>
-			<a href="javaScript:activiList()">活动报名</a>
-			<a href="javaScript:voluntList()">志愿者</a>
-			<a href="javaScript:teamList()">团队展示</a>
+			<a th:href="@{/pc/activityList(areaId=${areaId})}">活动报名</a>
+			<a th:href="@{/pc/volunteerList(areaId=${areaId})}">志愿者</a>
+			<a th:href="@{/pc/teamList(areaId=${areaId})}">团队展示</a>
 		</div>
 		<div class="guanggao">
-			<a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a>
+			<!-- <a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a> -->
+			<a	th:if="${adv1.advImg!=null}" th:href="${adv1.url}" target="_blank"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" th:data-url="${adv1.url}" alt="" class="btn1"></a>
+			<a th:if="${adv1.advImg==null}" ><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" th:data-url="${adv1.url}" alt="" class="btn1"></a>
 			<!-- <img src="images/tp2.jpg" alt=""> -->
 		</div>
 		<!-- 轮播 -->
@@ -63,13 +75,15 @@
 					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
 				</div>
 				<ul>
-					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id})}" th:text="${newInfo.title}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
+					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}" th:text="${#strings.abbreviate(newInfo.title,25)}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
 				</ul>
 				
 			</div>
 		</div>
 		<div class="guanggao">
-			<a href=""><img  th:src="${adv2.advImg==''}?'/pc/images/tp2.jpg':${adv2.advImg}" alt=""> </a>
+			 <a	th:if="${adv2.advImg!=null}" th:href="${adv2.url}" target="_blank"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" th:data-url="${adv2.url}" alt="" class="btn1"></a>
+			<a  th:if="${adv2.advImg==null}"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" alt="" class="btn1" th:data-url="${adv2.url}"> </a>
+			<!-- <a href=""><img  th:src="${adv2.advImg==''}?'/pc/images/tp2.jpg':${adv2.advImg}" alt=""> </a> -->
 			<!-- <img src="images/tp2.jpg" alt=""> -->
 		</div>
 		<!-- 志愿服务数据统计 -->
@@ -98,6 +112,10 @@
 				<rem>452</rem>
 			</div>
 		</div>
+		<div class="guangao">
+			<a	th:if="${adv3.advImg!=null}" th:href="${adv3.url}" target="_blank"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" th:data-url="${adv3.url}" alt="" class="btn1"></a>
+		 	<a th:if="${adv3.advImg==null}"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" alt="" class="btn1" th:data-url="${adv3.url}"> </a>
+		</div>
 		<!-- 活动报名 -->
 		<div class="baoming">
 			<div class="tongjitxt" style="width:95%;">
@@ -105,7 +123,7 @@
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
-					<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt=""></a>
+					<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<span th:text="${act.actTitle}"></span>
 					<p th:text="${act.actIntro}"></p>
 					<rem>
@@ -116,8 +134,8 @@
 			</div>
 		</div>
 		<div class="guanggao">
-			<a href=""><img  th:src="${adv3.advImg==''}?'/pc/images/tp2.jpg':${adv3.advImg}" alt=""> </a>
-			<!-- <img src="images/tp2.jpg" alt=""> -->
+			<a	th:if="${adv4.advImg!=null}" th:href="${adv4.url}" target="_blank"><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" th:data-url="${adv4.url}" alt="" class="btn1"></a>
+			<a th:if="${adv4.advImg==null}"><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" alt="" class="btn1" th:data-url="${adv4.url}"> </a>
 		</div>
 		<div class="zhiyuan">
 			<div class="tongjitxt" style="width:95%;">
@@ -125,14 +143,14 @@
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
-					<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
+					<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 					<p th:text="${volunt.volunteerName}"></p>
 				</div>
 			</div>
 		</div>
 		<div class="guanggao">
-			<a href=""><img  th:src="${adv4.advImg==''}?'/pc/images/tp2.jpg':${adv4.advImg}" alt=""> </a>
-			<!-- <img src="images/tp2.jpg" alt=""> -->
+			<a	th:if="${adv5.advImg!=null}" th:href="${adv5.url}" target="_blank"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" th:data-url="${adv5.url}" alt="" class="btn1"></a>
+			<a th:if="${adv5.advImg==null}"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" alt="" class="btn1" th:data-url="${adv5.url}"> </a>
 		</div>
 		<div class="tuandui index_td">
 			<div class="tongjitxt" style="width:95%;">
@@ -140,14 +158,14 @@
 			</div>
 			<div class="tuanduiCen" >
 				<figure th:each="team: ${teamList}">
-					<a th:href="'/pc/teamDetail?teamId=' + ${team.id}"><img th:src="${team.teamTitleImg}" alt=""></a>
+					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamTitleImg}" alt=""></a>
 					<figcaption th:text="${team.teamName}"></figcaption>
 				</figure>
 			</div>
 		</div>
 		<div class="guanggao">
-			<a href=""><img  th:src="${adv5.advImg==''}?'/pc/images/tp2.jpg':${adv5.advImg}" alt=""> </a>
-			<!-- <img src="images/tp2.jpg" alt=""> -->
+			 <a	th:if="${adv6.advImg!=null}" th:href="${adv6.url}" target="_blank"><img  th:src="${adv6.advImg==null}?'/pc/images/tp2.jpg':${adv6.advImg}" th:data-url="${adv6.url}" alt="" class="btn1"></a>
+			 <a th:if="${adv6.advImg==null}"> <img  th:src="${adv6.advImg==null}?'/pc/images/tp2.jpg':${adv6.advImg}" alt="" th:data-url="${adv6.url}" class="btn1"></a>
 		</div>
 		<div class="footer">
 			<ul th:each="cente: ${centerList}">
@@ -162,9 +180,56 @@
 				<span>技术支持：景安网络</span>
 			</div>
 		</div>
+		
+		<div class="m-modal" >
+		<div class="m-modal-dialog" style="width: 80%">
+			<div class="m-top">
+				<span class="m-modal-close">X</span>
+			</div>
+			<div class="m-middle" style="width: 80%">
+			    <form action="" id="signupForm">
+			    <input type="hidden" placeholder="" class="input1" id="url">
+			    <input type="hidden" placeholder="" class="input1" id="price">
+			    <input type="hidden" placeholder="" class="input1" name="positionNum" id="positionNum">
+			    <input type="hidden" placeholder="" class="input1" id="regionName">
+			    <input type="hidden" placeholder="" class="input1" id="sort" name="sort">
+			    <input type="hidden" placeholder="" class="input1" name="regionCode" id="regionCode">
+			    	<label>
+						<span>广告展示位置</span>
+						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
+					</label>
+					<label>
+						<span>广告投放天数</span>
+						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
+					</label>
+					<label>
+						<span>广告链接地址</span>
+						<input type="text" placeholder="http://" name="advUrl" class="input1">
+					</label>
+					<label style="width: 80%">
+						<span>上传广告图</span>
+						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
+						<input type="hidden" id="imgStr" name="advImg">
+						<input type="file" name="file" style="display: none;" id ="file">
+					</label>
+					<label>
+						<span>广告价格</span>
+						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
+					</label>
+					<label>
+						<input type="button" id="save" value="确认购买" class="input3">
+					</label>
+			    </form>
+			</div>
+		</div>
+	</div>
 	</body>
 </html>
 <script th:src="@{/mobile/dist/idangerous.swiper.min.js}"></script>
+<script th:src="@{/mobile/js/jquery.my-modal.2.0.js}"></script>
+<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+<script th:src="@{/js/validate.js}"></script>
 <script>
 	  var mySwiper = new Swiper('.swiper-container',{
 		pagination: '.pagination',
@@ -180,28 +245,127 @@
 		e.preventDefault()
 		mySwiper.swipeNext()
 	  })
-function _area(){
-	console.log($("#area").val());
-	window.location.href = "/?areaId="+$("#area").val();
+var m1 = new MyModal.modal(function() {
+});
+$('.btn1').on("click", function() {
+	var url=$(this).attr("data-url");
+	$("#url").val(url);
+	 $.get(url, function(result){
+		 console.log(result);
+		 if(result.code==-0){
+			 $("#price").val(result.price);
+			 $("#positionNum").val(result.positionNum);
+			 $("#regionName").val(result.regionName);
+			 $("#positionName").val(result.positionName);
+			 $("#regionCode").val(result.regionCode);
+			 $("#sort").val(result.sort);
+			 m1.show();
+		 }
+		 if(result.code==-1){
+			 window.location.href = result.url;
+		 }
+		 if(result.code==500){
+			 layer.msg(result.msg);
+		 }
+	});
+});
+
+layui.use('upload', function() {
+    var upload = layui.upload;
+
+    //执行实例
+    var uploadInst = upload.render({
+        elem : '#file', //绑定元素
+        url : '/common/sysFile/upload', //上传接口
+        size : 1000,
+        accept : 'file',
+        done : function(r) {
+            var fileName = r.fileName;
+             $("#imgStr").val(fileName);
+     	     $("#img").attr("src",fileName);
+        },
+        error : function(r) {
+            //layer.msg(r.msg);
+        }
+    });
+    
+});
+
+$().ready(function(){
+	$("#save").on('click', function() {
+		console.log(123);
+		$("#signupForm").submit();
+	});
+})
+
+function jisuan(){
+	var day=$("#showDay").val();
+	var price = $("#price").val();
+	var allPrice=day*price;
+	console.log(allPrice);
+	$("#jiage").text(allPrice+"元");
 }
+
+
+function save() {
+		$.ajax({
+			type : "POST",
+			url : "/pc/advSubmit",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					layer.msg(r.msg);
+					
+				} else {
+					layer.msg(r.msg);
+				}
+			},
+		});
+	}
+	
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#signupForm").validate({
+			rules : {
+				positionName : {
+					required : true
+				},
+				showDay : {
+					required : true
+				},
+				advUrl : {
+					required : true
+				},
+				advImg : {
+					content : true
+				}
+			},
+			messages : {
+				positionName : {
+					required : icon + "<span style='color:red'>展示位置不能为空</span>",
+				},
+				showDay : {
+					required : icon + "<span style='color:red'>投放天数不能为空</span>",
+				},
+				advUrl : {
+					required : icon + "<span style='color:red'>广告链接不能为空</span>",
+				},
+				advImg : {
+					required : icon + "<span style='color:red'>广告图片不能为空</span>",
+				}
+			}
+		})
+	}
 	  
-function activiList() {
-	var areaId = getUrlParam("areaId") == null ? "":getUrlParam("areaId");
-	window.location.href = "/pc/activityList?areaId="+areaId;
-}
-
-function voluntList() {
-	var areaId = getUrlParam("areaId") == null ? "":getUrlParam("areaId");
-	window.location.href = "/pc/volunteerList?areaId="+areaId;
-}
-
-function teamList() {
-	var areaId = getUrlParam("areaId") == null ? "":getUrlParam("areaId");
-	window.location.href = "/pc/teamList?areaId="+areaId;
-}
-function getUrlParam(name) {
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-  var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-  if (r != null) return decodeURI(r[2]); return null; //返回参数值
-}
+	  
 </script>

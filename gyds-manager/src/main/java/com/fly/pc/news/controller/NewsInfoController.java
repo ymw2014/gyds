@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.adv.domain.AdvertisementDO;
 import com.fly.base.BaseService;
 import com.fly.common.controller.BaseController;
 import com.fly.domain.UserDO;
+import com.fly.index.service.IndexService;
 import com.fly.index.utils.OrderType;
 import com.fly.news.dao.CommentDao;
 import com.fly.news.dao.PacketDao;
@@ -45,6 +47,7 @@ import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.Dictionary;
 import com.fly.utils.R;
 
 @Controller
@@ -74,6 +77,8 @@ public class NewsInfoController extends BaseController {
 	private RedDao redDao;
 	@Autowired
 	private BaseService baseService;
+	@Autowired
+	private IndexService indexService;
 	
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id, @RequestParam Integer areaId,Model model) {
@@ -650,6 +655,8 @@ public class NewsInfoController extends BaseController {
 		} else if (flag == 2) {
 			params.put("sort", "n.number_of_likes desc,n.public_time desc");
 		}
+		List<AdvertisementDO> dataList = indexService.getIndexAdvList(areaId,Dictionary.AdvPosition.SHOUYE,params);//获取首页广告
+		model.addAttribute("advList", dataList);
 		// 查询列表数据
 		List<InfoDO> infoList = infoService.list(page);
 		return infoList;

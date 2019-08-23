@@ -227,6 +227,7 @@ public class IndexServiceImpl implements IndexService{
 		Map<String,Object> params=new HashMap<>(16);
 		params.put("positionNum", positionNum);
 		params.put("regionCode", regionCode);//加载内容广告的页面(3:资讯详情页4:活动报名页5:签到页6:志愿者详情页7:团队详情页)
+		RegionDO region = regionDao.get(regionCode);//获取团队实体
 		List<AdvertisementDO> teamAdvList = advertisementDao.list(params);
 		if(teamAdvList!=null&&teamAdvList.size()>0) {//所选择区域首页省级广告
 			dataList.add(teamAdvList.get(0));
@@ -236,14 +237,14 @@ public class IndexServiceImpl implements IndexService{
 			dataList.add(adv);
 		}
 		
-		RegionDO jeidaoban = regionDao.get(regionCode);//获取街道办
+		RegionDO jeidaoban = regionDao.get(region.getParentRegionCode());//获取街道办
 		params.put("regionCode", jeidaoban.getRegionCode());
 		List<AdvertisementDO> jdbAdvList = advertisementDao.list(params);//获取街道办广告
-		if(teamAdvList!=null&&teamAdvList.size()>0) {//所选择区域首页省级广告
+		if(jdbAdvList!=null&&jdbAdvList.size()>0) {//所选择区域首页省级广告
 			dataList.add(jdbAdvList.get(0));
 		}else {
 			AdvertisementDO adv = new AdvertisementDO();
-			adv.setUrl("/pc/advShow?regionCode="+regionCode+"&sort="+0+"&position="+positionNum);
+			adv.setUrl("/pc/advShow?regionCode="+jeidaoban.getRegionCode()+"&sort="+0+"&position="+positionNum);
 			dataList.add(adv);
 		}
 		RegionDO area = regionDao.get(jeidaoban.getParentRegionCode());//获取县/区

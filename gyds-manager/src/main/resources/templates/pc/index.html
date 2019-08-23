@@ -122,8 +122,8 @@
 	</div>
 		<!-- 广告 -->
 	<div class="guangao">
-	<a	th:if="${adv5.advImg!=null}" th:href="${adv5.url}" target="_blank"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" th:data-url="${adv5.url}" alt="" class="btn1"></a>
-	<a th:if="${adv5.advImg==null}"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" alt="" class="btn1" th:data-url="${adv5.url}"> </a>
+		<a	th:if="${adv5.advImg!=null}" th:href="${adv5.url}" target="_blank"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" th:data-url="${adv5.url}" alt="" class="btn1"></a>
+		<a th:if="${adv5.advImg==null}"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" alt="" class="btn1" th:data-url="${adv5.url}"> </a>
 	</div>
 	<!-- 团队展示 -->
 	<div class="tuandui">
@@ -200,21 +200,7 @@ function _area(){
 }
 
 
-function activiList() {
-	var areaId = getUrlParam("areaId") == null ? "":getUrlParam("areaId");
-	window.location.href = "/pc/activityList?areaId="+areaId;
-}
 
-function voluntList() {
-	var areaId = getUrlParam("areaId") == null ? "":getUrlParam("areaId");
-	window.location.href = "/pc/volunteerList?areaId="+areaId;
-}
-
-function getUrlParam(name) {
-	  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-	  var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-	  if (r != null) return decodeURI(r[2]); return null; //返回参数值
-}
 
 var m1 = new MyModal.modal(function() {
 });

@@ -148,8 +148,10 @@
 					<a	th:if="${adv6.advImg!=null}" th:href="${adv6.url}" target="_blank"><img  th:src="${adv6.advImg==null}?'/pc/images/tp2.jpg':${adv66.advImg}" th:data-url="${adv6.url}" alt="" class="btn1"></a>
 					<a th:if="${adv6.advImg==null}"><img  th:src="${adv6.advImg==null}?'/images/zyz_03.jpg':${adv6.advImg}" alt="" class="btn1" th:data-url="${adv6.url}"> </a>
 				 -->
-					<a th:each="act: ${advList}" th:if="${act.advImg!=null}" th:href="${act.url}" target="_blank"><img th:src="${act.advImg}" alt=""></a>
-					<a th:each="act: ${advList}" th:if="${act.advImg==null}" ><img th:src="@{/pc/images/zyz_09.jpg}" th:data-url="${act.url}" alt=""  class="btn1"></a>
+					<a th:each="act: ${advList}"  th:href="${act.advImg!=null?act.url:'javascript:;'}" th:target="${act.advImg!=null?'_blank':''}">
+						<img th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}" th:class="${act.advImg!=null?'':'btn1'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+					</a>
+					<!-- <a th:each="act: ${advList}" th:if="${act.advImg==null}" ><img th:src="@{/pc/images/zyz_09.jpg}" th:data-url="${act.url}" alt=""  class="btn1"></a> -->
 					
 					<!-- <a href="#"><img src="images/zyz_06.jpg" alt=""></a>
 					<a href="#"><img src="images/zyz_09.jpg" alt=""></a>
