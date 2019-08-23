@@ -143,7 +143,7 @@
 				</div>
 				<div class="m-middle2">
 				   <div class="m-middletxt">
-					   <img th:src="@{/pc/images/touxiang 82.png}" alt="">
+					   <img th:src="@{/pc/images/touxiang 82.png}" id="touxiang">
 				   </div>
 				   <div class="m-middletxt2">
 				   		<ul id="reward">
@@ -151,7 +151,8 @@
 						</ul>
 				   </div>
 				   <div class="m-middletxt3">
-					   <button>提交</button>
+				   <input type="hidden"  id="givePrice">
+					   <button onclick="giveReward()">提交</button>
 				   </div>
 				</div>
 			</div>
@@ -435,9 +436,9 @@ function vieRed(){
 			}
 		});
 	}
-/* 	function reward(){
+ 	function giveReward(){
+ 		var som = $('#givePrice').val();
 		var para= {};
-		layer.prompt({title: '输入打赏金额(单位:元)，并确认', formType: 3}, function(som, index){
 			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som};
 			  $.ajax({
 					type : "POST",
@@ -471,9 +472,7 @@ function vieRed(){
 
 					}
 				});
-			  layer.close(index);
-			});
-	} */
+	} 
 	
 	function reward(){
 		var para='';
@@ -487,6 +486,8 @@ function vieRed(){
 			success : function(data) {
 				if (data.code == 0) {
 					var reward = '';
+					var touxiang = data.user.headImg;
+					$('#touxiang').attr('src',touxiang);
 					$.each(data.listPrice, function(i, item){
 						reward += '<li><a href="#">'+item.price+'</a>元</li>';
 					});
@@ -509,7 +510,7 @@ function vieRed(){
 			title : '申请置顶',
 			maxmin : true,
 			shadeClose : false, // 点击遮罩关闭层
-			area : [ '1000px', '620px' ],
+			area : [ '340px', '420px' ],
 			content : '/pc/news/top/' + id // iframe的url
 		});
 	
@@ -753,8 +754,8 @@ function vieRed(){
 	});
 	$("#reward").on("click","li",function(){
 		$(this).addClass("addred").siblings("li").removeClass("addred");
-		var a = $(this).children("#mony").text();
-		$("#price").val(a);
+		var a = $(this).children("a").text();
+		$("#givePrice").val(a);
 	})
 	
 	//结束
