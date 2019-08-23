@@ -34,7 +34,7 @@
 					<div class="biaodan2">
 						<div style="display: block;">
 							<div class="tdlogo" th:each="joinTeam : ${joinTeam}">
-							   <a th:href="'/pc/teamDetail?teamId=' + ${joinTeam.team_id}"target="_Parent">
+							   <a th:href="'/pc/teamDetail?teamId=' + ${joinTeam.team_id}+'&areaId=0'"target="_Parent">
 								<div> <img th:src="${joinTeam.team_title_img}"></div>
 								<div><p th:text="${joinTeam.team_name}"></p></div>
 								<div>

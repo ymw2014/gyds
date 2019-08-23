@@ -5,8 +5,15 @@
 		<title>公益打赏</title>
 		<link rel="stylesheet" type="text/css" href="css/index.css"/>
 		<link rel="stylesheet" type="text/css" href="css/lunbo.css"/>
+		<link rel="stylesheet" th:href="@{/pc/css/jquery.my-modal.1.1.css}">
+		<link th:href="@{/css/layui.css}" rel="stylesheet">
 		<script src="js/jquery-3.1.1.js"></script>
 		<script src="js/lunbo.js"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
+		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
 		<style>
 			.gps_txtyy{
 				width: 100%;
@@ -39,7 +46,8 @@
 	<div th:replace="pc/include :: header"></div>
      <!-- 广告 -->
 	 <div class="guangao">
-		 <img src="images/tp2.jpg" alt=""> 
+		 <a	th:if="${adv1.advImg!=null}" th:href="${adv1.url}" target="_blank"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" th:data-url="${adv1.url}" alt="" class="btn1"></a>
+		 <a th:if="${adv1.advImg==null}" ><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" th:data-url="${adv1.url}" alt="" class="btn1"></a>
 	 </div>
 	 <!-- 内容 -->
 	 <div class="main">
@@ -75,7 +83,8 @@
 	</div>
 	<!-- 广告 -->
 	<div class="guangao">
-		<img src="images/09.jpg" alt=""> 
+		<a	th:if="${adv2.advImg!=null}" th:href="${adv2.url}" target="_blank"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" th:data-url="${adv2.url}" alt="" class="btn1"></a>
+		<a  th:if="${adv2.advImg==null}"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" alt="" class="btn1" th:data-url="${adv2.url}"> </a>
 	</div>
 	<!-- 地图 -->
 	<div class="gps">
@@ -143,6 +152,10 @@
 			</div>	
 		</div>
 	</div>
+	<div class="guangao">
+		<a	th:if="${adv3.advImg!=null}" th:href="${adv3.url}" target="_blank"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" th:data-url="${adv3.url}" alt="" class="btn1"></a>
+	 	<a th:if="${adv3.advImg==null}"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" alt="" class="btn1" th:data-url="${adv3.url}"> </a>
+	</div>
     <!-- 报名活动 -->
 	<div class="secant">
 		<div class="secant_txt">
@@ -164,7 +177,8 @@
 	</div>
 	<!-- 广告 -->
 	<div class="guangao">
-			 <img src="images/tp2.jpg" alt=""> 
+			<a	th:if="${adv4.advImg!=null}" th:href="${adv4.url}" target="_blank"><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" th:data-url="${adv4.url}" alt="" class="btn1"></a>
+			<a th:if="${adv4.advImg==null}"><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" alt="" class="btn1" th:data-url="${adv4.url}"> </a>
 	</div>
 	<!-- 志愿者 -->
 	<div class="zhiyuan">
@@ -181,7 +195,8 @@
 	</div>
 		<!-- 广告 -->
 	<div class="guangao">
-			 <img src="images/tp2.jpg" alt=""> 
+			<a	th:if="${adv5.advImg!=null}" th:href="${adv5.url}" target="_blank"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" th:data-url="${adv5.url}" alt="" class="btn1"></a>
+			<a th:if="${adv5.advImg==null}"><img  th:src="${adv5.advImg==null}?'/pc/images/tp2.jpg':${adv5.advImg}" alt="" class="btn1" th:data-url="${adv5.url}"> </a>
 	</div>
 	<!-- 底部 -->
 	<div th:replace="pc/include :: footer"></div>
@@ -192,7 +207,50 @@
 			<span style="float: right;">京ICP备12048184号  技术支持：景安网络</span>
 		</div>
 	</div>
+	<div class="m-modal">
+		<div class="m-modal-dialog">
+			<div class="m-top">
+				<span class="m-modal-close">X</span>
+			</div>
+			<div class="m-middle">
+			    <form action="" id="signupForm">
+			    <input type="text" placeholder="" class="input1" id="url">
+			    <input type="text" placeholder="" class="input1" id="price">
+			    <input type="text" placeholder="" class="input1" name="positionNum" id="positionNum">
+			    <input type="text" placeholder="" class="input1" id="regionName">
+			    <input type="text" placeholder="" class="input1" id="sort" name="sort">
+			    <input type="text" placeholder="" class="input1" name="regionCode" id="regionCode">
+			    	<label>
+						<span>广告展示位置</span>
+						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
+					</label>
+					<label>
+						<span>广告投放天数</span>
+						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
+					</label>
+					<label>
+						<span>广告链接地址</span>
+						<input type="text" placeholder="http://" name="advUrl" class="input1">
+					</label>
+					<label>
+						<span>上传广告图</span>
+						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
+						<input type="hidden" id="imgStr" name="advImg">
+						<input type="file" name="file" style="display: none;" id ="file">
+					</label>
+					<label>
+						<span>广告价格</span>
+						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
+					</label>
+					<label>
+						<input type="button" id="save" value="确认购买" class="input3">
+					</label>
+			    </form>
+			</div>
+		</div>
+	</div>
 </body>
+<script th:src="@{/pc/js/jquery.my-modal.1.1.js}"></script>
 <script>
 function teamApply() {
 	var teamId = $("#teamId").val();
@@ -248,5 +306,128 @@ function teamRemove() {
         }
     }); 
 }
+
+var m1 = new MyModal.modal(function() {
+});
+$('.btn1').on("click", function() {
+	var url=$(this).attr("data-url");
+	$("#url").val(url);
+	 $.get(url, function(result){
+		 console.log(result);
+		 if(result.code==-0){
+			 $("#price").val(result.price);
+			 $("#positionNum").val(result.positionNum);
+			 $("#regionName").val(result.regionName);
+			 $("#positionName").val(result.positionName);
+			 $("#regionCode").val(result.regionCode);
+			 $("#sort").val(result.sort);
+			 m1.show();
+		 }
+		 if(result.code==-1){
+			 window.location.href = result.url;
+		 }
+		 if(result.code==500){
+			 layer.msg(result.msg);
+		 }
+	});
+});
+
+layui.use('upload', function() {
+    var upload = layui.upload;
+
+    //执行实例
+    var uploadInst = upload.render({
+        elem : '#file', //绑定元素
+        url : '/common/sysFile/upload', //上传接口
+        size : 1000,
+        accept : 'file',
+        done : function(r) {
+            var fileName = r.fileName;
+             $("#imgStr").val(fileName);
+     	     $("#img").attr("src",fileName);
+        },
+        error : function(r) {
+            //layer.msg(r.msg);
+        }
+    });
+    
+});
+
+$().ready(function(){
+	$("#save").on('click', function() {
+		console.log(123);
+		$("#signupForm").submit();
+	});
+})
+
+function jisuan(){
+	var day=$("#showDay").val();
+	var price = $("#price").val();
+	var allPrice=day*price;
+	console.log(allPrice);
+	$("#jiage").text(allPrice+"元");
+}
+
+
+function save() {
+		$.ajax({
+			type : "POST",
+			url : "/pc/advSubmit",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					layer.msg(r.msg);
+					
+				} else {
+					layer.msg(r.msg);
+				}
+			},
+		});
+	}
+	
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#signupForm").validate({
+			rules : {
+				positionName : {
+					required : true
+				},
+				showDay : {
+					required : true
+				},
+				advUrl : {
+					required : true
+				},
+				advImg : {
+					content : true
+				}
+			},
+			messages : {
+				positionName : {
+					required : icon + "<span style='color:red'>展示位置不能为空</span>",
+				},
+				showDay : {
+					required : icon + "<span style='color:red'>投放天数不能为空</span>",
+				},
+				advUrl : {
+					required : icon + "<span style='color:red'>广告链接不能为空</span>",
+				},
+				advImg : {
+					required : icon + "<span style='color:red'>广告图片不能为空</span>",
+				}
+			}
+		})
+	}
+
 </script>
 </html>

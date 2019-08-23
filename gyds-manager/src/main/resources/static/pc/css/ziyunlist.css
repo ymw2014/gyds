@@ -63,6 +63,12 @@
 .zixunright img{
 	margin-top:15px;
 }
+
+.zixunrimg >a>img{
+	width:278px;
+	height: 97px;
+	margin-top:15px;
+}
 .zixunbut{
 	margin-top:20px;
 }

@@ -182,6 +182,8 @@ public class NewsInfoController extends BaseController {
 			userIds.add(user.getMemberId());
 		}
 		params.clear();
+		List<AdvertisementDO> advList = indexService.getCenterAdvList(info.getTeamId(), Dictionary.AdvPosition.NEW_INFO);
+		model.addAttribute("advList", advList);
 		List<UserDO> user = new ArrayList<UserDO>();
 		params.put("userIds", userIds);
 		params.put("offset", 0);
@@ -655,6 +657,9 @@ public class NewsInfoController extends BaseController {
 		model.addAttribute("newsList", infoList);
 		model.addAttribute("areaId", areaId);
 		model.addAttribute("flag", flag);
+		params.clear();
+		List<AdvertisementDO> dataList = indexService.getIndexAdvList(areaId,Dictionary.AdvPosition.NEWS_LIST,params);//获取首页广告
+		model.addAttribute("advList", dataList);
 		return "pc/newsList";
 	}
 	
@@ -676,8 +681,6 @@ public class NewsInfoController extends BaseController {
 		} else if (flag == 2) {
 			params.put("sort", "n.number_of_likes desc,n.public_time desc");
 		}
-		List<AdvertisementDO> dataList = indexService.getIndexAdvList(areaId,Dictionary.AdvPosition.SHOUYE,params);//获取首页广告
-		model.addAttribute("advList", dataList);
 		// 查询列表数据
 		List<InfoDO> infoList = infoService.list(page);
 		return infoList;
