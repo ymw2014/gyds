@@ -7,6 +7,8 @@
 		<link rel="stylesheet" th:href="@{/mobile/css/Personal.css}">
 		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.1.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.1.css}">
 	</head>
 	<body>
 		<header>
@@ -57,8 +59,8 @@
 			<div class="tianxian1">
 				<a href="#"><img th:src="@{/mobile/images/tixian.png}" alt="">提现</a>
 			</div>
-			<div class="tianxian2">
-				<a href="javaScript:pay()"><img th:src="@{/mobile/images/qianabo.png}" alt="">充值</a>
+			<div class="tianxian2 btn1">
+				<a ><img th:src="@{/mobile/images/qianabo.png}" alt="">充值</a>
 			</div>
 		</div>
 		<!-- 功能 -->
@@ -149,8 +151,75 @@
 			</figure>
 			
 		</div>
+		
+		<div class="m-modal">
+			<div class="m-modal-dialog m-modal-dialog1">
+				<div class="m-top">
+					<span class="m-modal-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt">
+					   <img src="images/touxiang 82.png" alt="">
+				   </div>
+				   <div class="m-middletxt2">
+				   		<ul>
+							<li class="addred"><a href="#">2元</a></li>
+							<li><a href="#">12元</a></li>
+							<li><a href="#">66元</a></li>
+							<li><a href="#">300元</a></li>
+							<li><a href="#">200元</a></li>
+							<li><a href="#">100元</a></li>
+						</ul>
+				   </div>
+				   <div class="m-middletxt3">
+					   <img src="images/03.png" alt="">
+				   </div>
+				</div>
+			</div>
+			<div class="m-modal-dialog m-modal-dialog5 adddd">
+				<div class="m-top">
+					<span class="m-modal-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt-1">
+					  <img src="images/xccc.png" alt="">
+				   </div>
+				   <div class="m-middletxt2-1">
+				   	<p id="blance"></p>
+					   <img src="images/26.jpg" alt="">
+				   </div>
+				   <div class="m-middletxt3-1">
+					   <img src="images/zasfaff.png" alt="">
+				   </div>
+				</div>
+			</div>
+		</div>
 	</body>
+	<script>
+	var m1 = new MyModal.modal(function() {
+		alert("你点击了确定");
+	});
+	$('.btn1').on("click", function() {
+
+		m1.show();
+	});
+	$(".m-middletxt2 li").click(function(){
+		$(this).addClass("addred").siblings("li").removeClass("addred");
+	})
+	$(".m-middletxt3 img").click(function(){
+		$(".m-modal-dialog1").css("display","none")
+		//$(".adddd").css("display","block")
+		
+		var fee = $('.addred a').text();
+		var blance = fee.match(/[\d.]+/g);
+		pay(blance);
+	})
+	$(".m-modal-close").click(function(){
+			$(".m-modal-dialog1").css("display","block")
+			$(".adddd").css("display","none")
+	})
 	
+</script>
 	<script type="text/javascript">
 		var appId = '';
 		var paySign = '';
@@ -158,22 +227,24 @@
 		var nonceStr = '';
 		var packageStr = '';
 		var signType = '';
-		function pay() {
+		var orderNum = '';
+		function pay(blance) {
 			$.ajax({
 	            type:"post",
 	            url: "/app/wxpay/pay",
 	            dataType:"json",
+	            data : {'totalFee': blance},
 	            ontentType : "application/x-www-form-urlencoded",
 	            success:function(result) {
 	                console.log(result);
 	                var data  = result;
-	                //var data = JSON.parse(result);
                     appId = data.appId;
                     paySign = data.paySign;
                     timeStamp = data.timeStamp;
                     nonceStr = data.nonceStr;
                     packageStr = data.package;
                     signType = data.signType;
+                    orderNum = data.orderNum
                     callpay();
 	            }
 	        });
@@ -192,6 +263,22 @@
 	            function(res){
 	                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
 	                    alert('支付成功');
+	                    if (orderNum != '') {
+		                    $.ajax({
+		        	            type:"post",
+		        	            url: "/app/wxpay/orderUpdate",
+		        	            dataType:"json",
+		        	            data : {'totalFee': blance},
+		        	            ontentType : "application/x-www-form-urlencoded",
+		        	            success:function(result) {
+		        	                console.log(result);
+		        	                var data  = result;
+		        	                if (data.code == 1) {
+					                    history.go(0);
+		        	                }
+		        	            }
+		        	        });
+	                    }
 	                }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
 	                    alert('支付取消');
 	                }else if(res.err_msg == "get_brand_wcpay_request:fail" ){

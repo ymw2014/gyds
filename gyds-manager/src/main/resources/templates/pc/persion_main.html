@@ -13,6 +13,8 @@
 <script th:src="@{/js/validate.js}"></script>
 <script src="/js/plugins/layer/layer.js"></script>
 <script src="/js/layui.js"></script>
+<link rel="stylesheet" th:href="@{/pc/css/jquery.my-modal.1.1.css}">
+<script th:src="@{/pc/js/jquery.my-modal.1.1.js}"></script>
 <style type="text/css">
 	.zhezhaozh{
 				position:absolute;
@@ -54,6 +56,17 @@
 			.guanbi{
 				position:relative;left: 458px;top: 49px;
 			}
+			.qiana div {
+            width: auto;
+           color: #70a4ef;
+         }
+         .m-middletxt2-1 img{
+           margin-top:0px;
+         }
+         .m-middletxt2-1 p{
+                font-size: 30px;
+                line-height: 80px;
+         }
 </style>
 </head>
 <body>
@@ -98,7 +111,7 @@
 				</div>
 				<div class="qiana">
 					<div>
-						<a href="javaScript:pay()"><img src="images/tixian.jpg" alt="">充值</a>
+						<div class="btn1" ><img src="images/tixian.jpg" alt="">充值</div>
 						
 					</div>
 					<div>
@@ -119,10 +132,53 @@
 			<p th:utext="${team.teamName+'<span>'+team.addres+'</span>'}"></p>
 
 		</div>
-		<div id="code" style="display: none">
+		<!-- <div id="code" style="display: none">
 			<img id="codeUrl" src="http://zhgy.61966.com/wxpay/pay" style="width:300px;height:300px;"/>
-		</div>
+		</div> -->
+		
 	</div>
+	<div class="m-modal">
+			<div class="m-modal-dialog m-modal-dialog1">
+				<div class="m-top">
+					<span class="m-modal-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt">
+					   <img src="images/touxiang 82.png" alt="">
+				   </div>
+				   <div class="m-middletxt2">
+				   		<ul>
+							<li class="addred"><a href="#">2元</a></li>
+							<li><a href="#">0.01</a>元</li>
+							<li><a href="#">66</a>元</li>
+							<li><a href="#">300</a>元</li>
+							<li><a href="#">200</a>元</li>
+							<li><a href="#">100</a>元</li>
+						</ul>
+				   </div>
+				   <div class="m-middletxt3">
+					   <img src="images/03.png" alt="">
+				   </div>
+				</div>
+			</div>
+			<div class="m-modal-dialog m-modal-dialog5 adddd">
+				<div class="m-top">
+					<span class="m-modal-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt-1">
+					  <img src="images/xccc.png" alt="">
+				   </div>
+				   <div class="m-middletxt2-1">
+				       <p id="blance"></p>
+					   <img id="codeUrl" src="" alt="">
+				   </div>
+				   <div class="m-middletxt3-1">
+					   <img src="images/zasfaff.png" alt="">
+				   </div>
+				</div>
+			</div>
+		</div>
 </body>
 
 <script type="text/javascript">
@@ -133,6 +189,85 @@ function pay(){
 </script>
 </html>
 <script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
+<script>
+	var m1 = new MyModal.modal(function() {
+		alert("你点击了确定");
+	});
+	$('.btn1').on("click", function() {
+		m1.show();
+		
+	});
+	$(".m-middletxt2 li").click(function(){
+		$(this).addClass("addred").siblings("li").removeClass("addred");
+		
+	})
+	$(".m-middletxt3 img").click(function(){
+		
+		$(".m-modal-dialog1").css("display","none")
+		$(".adddd").css("display","block")
+		var fee = $('.addred a').text();
+		var blance = fee.match(/[\d.]+/g);
+		$('#blance').text("充值金额 " +blance + "元");
+		var orderNum = createOrder(blance);
+		if (orderNum != '-1') {
+			var msg = '';
+			$('#codeUrl').attr("src","http://127.0.0.1:9091/wxpay/pay?data=" + blance + "&orderNum" + orderNum);
+			var timer = setInterval(function () {
+					var msg = queryOrder(orderNum)
+					console.log(msg)
+						if (msg == '1') {
+						/* 	$('#codeUrl').attr("src","");
+							layer.msg(r.msg); */
+							window.clearInterval(timer);
+							history.go(0);
+						}
+					
+				},500);
+		} else {
+			layer.msg("未知错误");
+		}
+		
+		
+	})
+	$(".m-modal-close").click(function(){
+			$(".m-modal-dialog1").css("display","block")
+			$(".adddd").css("display","none")
+	})
+	function createOrder(fee){
+		var orderNum = '';
+		$.ajax({
+			type : "POST",
+			url : "/wxpay/createOrder",
+			data : {'fee': fee},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					debugger
+					orderNum = r.msg;
+				} else
+					orderNum =-1;
+				}
+		});
+		return orderNum;
+	}
+	function queryOrder(orderNum){
+		var stauts = '';
+		$.ajax({
+			type : "POST",
+			url : "/wxpay/queryOrder",
+			data : {'orderNum': orderNum},
+			async:false,
+			success : function(r) {
+				debugger
+				if (r.code == 0) {
+					stauts =  r.msg;
+				} else
+					stauts = -1;
+				}
+		});
+		return stauts;
+	}
+</script>
 <script type="text/javascript">
 	$(function(){
 		var isBinding=$("#isBinding").val();
