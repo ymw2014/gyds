@@ -51,6 +51,7 @@ public class AdvController extends BaseController{
 		if(ShiroUtils.getUser()==null) {
 			r.put("code", -1);
 			r.put("url", "/login");
+			return r;
 		}
 		RegionDO region = regionService.get(regionCode);
 		r.put("regionName", region.getRegionName());
