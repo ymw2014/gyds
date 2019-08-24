@@ -189,7 +189,7 @@ function pay(){
 </script>
 </html>
 <script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
-<script>
+<script type="text/javascript">
 	var timer = '';
 	var m1 = new MyModal.modal(function() {
 		alert("你点击了确定");
@@ -211,15 +211,13 @@ function pay(){
 		$('#blance').text("充值金额 " +blance + "元");
 		var orderNum = createOrder(blance[0]);
 		if (orderNum != '-1') {
-			var msg = '';
 			$('#codeUrl').attr("src","http://zhgy.61966.com/wxpay/pay?data=" + (blance[0] * 100) + "&orderNum=" + orderNum);
 			timer = setInterval(function () {
 					var msg = queryOrder(orderNum)
-					console.log(msg)
-						if (msg == '1') {
-							window.clearInterval(timer);
-							history.go(0);
-						}
+					if (msg == '1') {
+						window.clearInterval(timer);
+						history.go(0);
+					}
 				},500);
 		} else {
 			layer.msg("未知错误");
@@ -360,7 +358,6 @@ function pay(){
 		})
 	}
 	
-
 </script>
 </html>
 

@@ -1,7 +1,6 @@
 package com.fly.wxpay.controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -11,7 +10,6 @@ import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -26,8 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,9 +33,7 @@ import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
-import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.system.service.UserService;
-import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.R;
 import com.fly.wxpay.service.IWxPayConfig;
 import com.github.binarywang.utils.qrcode.MatrixToImageWriter;
@@ -62,7 +56,11 @@ public class WxPayController extends BaseController {
 	@Autowired
 	private UserService userService;
 	
-	
+	/**
+	     * 创建订单
+	 * @param param
+	 * @return
+	 */
 	@RequestMapping("/createOrder")
 	@ResponseBody
 	public R createOrder(@RequestParam Map<String, Object> param) {
@@ -90,6 +88,11 @@ public class WxPayController extends BaseController {
 		return r;
 	}
 	
+	/**
+	     * 查询订单状态
+	 * @param orderNum 订单号
+	 * @return
+	 */
 	@RequestMapping("/queryOrder")
 	@ResponseBody
 	public R queryOrder(String orderNum) {
@@ -109,7 +112,7 @@ public class WxPayController extends BaseController {
 	} 
 	
 	/**
-	 * 
+	 * pc扫码支付
 	 * @param response
 	 * @param request
 	 * @param data 金额
@@ -137,6 +140,13 @@ public class WxPayController extends BaseController {
 		return null;
 	}
 	
+	/**
+	 * 支付回调方法
+	 * @param request
+	 * @param response
+	 * @param xmlData
+	 * @throws Exception
+	 */
 	@RequestMapping("/callback")
 	public void  callBack(HttpServletRequest request, HttpServletResponse response,String xmlData) throws Exception {
 		logger.info("进入微信支付异步通知");
@@ -170,7 +180,6 @@ public class WxPayController extends BaseController {
 	        			orderDO.setExamineStatus(1);
 	        			int update = orderService.update(orderDO);
 	        			if (update > 0) {
-	        				Long userId = orderDO.getUserId();
 	        				UserDO userDO = userService.get(orderDO.getUserId());
 	        				logger.info("获取用户信息:    {}",userDO.toString());
 	        				BigDecimal account = userDO.getAccount();
@@ -251,6 +260,14 @@ public class WxPayController extends BaseController {
 	    return xmlBack;
 	}
 
+	/**
+	 * 获取支付二维码路径
+	 * @param body
+	 * @param out_trade_no
+	 * @param total_fee
+	 * @return
+	 * @throws Exception
+	 */
 	public String getImageUrl(String body, String out_trade_no, Integer total_fee) throws Exception {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		IWxPayConfig config = new IWxPayConfig();
@@ -273,6 +290,10 @@ public class WxPayController extends BaseController {
 		return code_url;
 	}
 
+	/**
+	 * 获取ip地址
+	 * @return
+	 */
 	private String localIp() {
 		String ip = null;
 		Enumeration allNetInterfaces;
@@ -294,8 +315,4 @@ public class WxPayController extends BaseController {
 		return ip;
 	}
 
-	public static void main(String[] args) {
-				double parseDouble = Double.parseDouble("0.01");
-		System.out.println(parseDouble);
-	}
 }
