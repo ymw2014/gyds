@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -20,12 +21,24 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.common.controller.BaseController;
+import com.fly.domain.UserDO;
+import com.fly.index.utils.OrderType;
+import com.fly.order.domain.OrderDO;
+import com.fly.order.service.OrderService;
+import com.fly.pc.news.controller.BaseDynamicController;
+import com.fly.system.service.UserService;
+import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.R;
 import com.fly.wxpay.service.IWxPayConfig;
 import com.github.binarywang.utils.qrcode.MatrixToImageWriter;
 import com.github.wxpay.sdk.WXPay;
@@ -38,18 +51,75 @@ import com.google.zxing.common.BitMatrix;
 
 @Controller
 @RequestMapping("/wxpay")
-public class WxPayController {
+public class WxPayController extends BaseController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private UserService userService;
 	
-
+	
+	@RequestMapping("/createOrder")
+	@ResponseBody
+	public R createOrder(String fee) {
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("orderType", 2);
+		params.put("expIncType", OrderType.CHONG_ZHI);
+		params.put("examineStatus", 2);
+		params.put("cashUpType", 1);
+		params.put("cashOutType", 1);
+		params.put("price", fee);
+		Integer orderNum = creadOrder(params);
+		R r = new R();
+		String num = "";
+		if (orderNum > 0) {
+			OrderDO orderDO = orderService.get(orderNum);
+			num = orderDO.getOrderNumber();
+			r.put("code", 0);
+			r.put("msg", orderDO.getOrderNumber());
+			return r;
+		}
+		logger.info("pc  createOrder id:{}, orderNum:{}",orderNum, num);
+		r.put("code", -1);
+		r.put("msg", "未知错误");
+		return r;
+	}
+	
+	@RequestMapping("/queryOrder")
+	@ResponseBody
+	public R queryOrder(String orderNum) {
+		Map<String,Object> pararm = new HashMap<String, Object>();
+		pararm.put("orderNumber",orderNum);
+		List<OrderDO> list = orderService.list(pararm);
+		R r = new R();
+		if (!CollectionUtils.isEmpty(list)) {
+			Integer examineStatus = list.get(0).getExamineStatus();
+			r.put("code", 0);
+			r.put("msg", examineStatus);
+			return r;
+		}
+		r.put("code", -1);
+		r.put("msg", "未知错误");
+		return r;
+	} 
+	
+	/**
+	 * 
+	 * @param response
+	 * @param request
+	 * @param data 金额
+	 * @param orderNum 订单号
+	 * @return
+	 */
 	@RequestMapping("/pay")
-	public String payWeChat(String ids, String content, HttpServletResponse response, HttpServletRequest request,
-			ModelMap model, String totalFee) {
+	public String payWeChat(String content, HttpServletResponse response, HttpServletRequest request,
+			Integer data,String orderNum) {
 		logger.info("进入支付方法，payWeChat");
 		try {
-			content = this.getImageUrl("余额充值", new Date().getTime() + "", "1");
+			String Fee = request.getParameter("data");
+			content = this.getImageUrl("余额充值", orderNum, data);
 			logger.info("wxpay code_url: " + content);
 			MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 			Hashtable hints = new Hashtable();
@@ -76,29 +146,54 @@ public class WxPayController {
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 	        StringBuilder sb = new StringBuilder();
 	        String line = null;
-	        try {
-	            while ((line = reader.readLine()) != null) {
-	                sb.append(line + "\n");
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        } finally {
-	            try {
-	                is.close();
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
+	        while ((line = reader.readLine()) != null) {
+	        	sb.append(line + "\n");
 	        }
-			/* 返回成功的标志
-			 * <result_code><![CDATA[SUCCESS]]></result_code>
-			 * <return_code><![CDATA[SUCCESS]]></return_code>
-			 */
-
 	        resXml=sb.toString();
 	        Map<String,String> result = WXPayUtil.xmlToMap(resXml);
-	        if ("SUCCESS".equals(result.get("result_code"))) { //支付成功改变订单状态
-	        	
+	        String orderNum = "";
+	        String err_code = result.get("err_code");
+	         String err_code_des = result.get("err_code_des");
+	         String trade_state_desc =result.get("trade_state_desc");
+	        if("SUCCESS".equals(result.get("return_code"))){//微信返回状态码为成功
+		        if ("SUCCESS".equals(result.get("result_code"))) { //支付成功改变订单状态
+		        	 if("SUCCESS".equals(result.get("trade_state"))) {
+		        		orderNum = result.get("out_trade_no");//获取订单号
+		        		logger.info("pc  callback() orderNumber {}", orderNum);
+		        		Map<String,Object> pararm = new HashMap<String, Object>();
+		        		pararm.put("orderNumber",orderNum);
+		        		List<OrderDO> list = orderService.list(pararm);
+		        		if (!CollectionUtils.isEmpty(list)) {
+		        			OrderDO orderDO = list.get(0);
+		        			orderDO.setExamineStatus(1);
+		        			int update = orderService.update(orderDO);
+		        			if (update > 0) {
+		        				UserDO user = ShiroUtils.getUser();
+		        				user.setAccount((orderDO.getPrice().divide(new BigDecimal(100))));
+		        				userService.update(user);
+		        				logger.info("订单状态修改成功");
+		        			}else {
+		        				 logger.info("订单状态修改失败");
+		        			}
+		        		}
+		        	 }else if("USERPAYING".equals(result.get("trade_state"))){
+	                     //支付中
+		        		 logger.info("***************支付平台订单支付中");
+	                }
+	                else{
+	                   //交易状态为不是成功
+	                	logger.info("***************支付平台订单ID:"+orderNum+"查询微信支付接口异常:trade_state="+result.get("trade_state")+",trade_state_desc="+trade_state_desc);
+	                }
+	            }else{
+	                //业务结果状态码为失败
+	            	logger.info("***************支付平台订单ID:"+orderNum+"查询微信支付接口异常:err_code="+result.get("trade_state")+",err_code_des="+err_code_des);
+	            }
+	        }else{
+	        	//微信返回状态码为失败
+	        	logger.info("***************支付平台订单ID:"+orderNum+"查询微信支付接口异常:"+err_code);
+
 	        }
+	
 	        logger.info("微信支付异步通知请求包: {}", resXml);
 	        response.setCharacterEncoding("UTF-8");
 	        response.setContentType("application/xml; charset=utf-8");
@@ -151,7 +246,7 @@ public class WxPayController {
 	    return xmlBack;
 	}
 
-	public String getImageUrl(String body, String out_trade_no, String total_fee) throws Exception {
+	public String getImageUrl(String body, String out_trade_no, Integer total_fee) throws Exception {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		IWxPayConfig config = new IWxPayConfig();
 		WXPay wxpay = new WXPay(config);
@@ -160,12 +255,11 @@ public class WxPayController {
 		paramMap.put("notify_url", "http://zhgy.61966.com/wxpay/callback"); // 支付成功后，回调地址
 		paramMap.put("out_trade_no", out_trade_no); // 商户订单号
 		paramMap.put("spbill_create_ip", this.localIp()); // 本机的Ip
-		paramMap.put("total_fee", total_fee); // 金额必须为整数 单位为分
+		paramMap.put("total_fee", (total_fee * 100) + ""); // 金额必须为整数 单位为分
 		paramMap.put("trade_type", "NATIVE"); // 交易类型
 
 		try {
 			Map<String, String> resp = wxpay.unifiedOrder(paramMap);
-			System.out.println(resp);
 			code_url = resp.get("code_url");
 		} catch (Exception e) {
 			e.printStackTrace();

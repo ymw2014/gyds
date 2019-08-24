@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.service.ActivityService;
+import com.fly.adv.domain.AdvertisementDO;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
@@ -28,6 +29,7 @@ import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.Dictionary;
 import com.fly.utils.R;
 import com.fly.utils.userToObject;
 import com.fly.verifyName.dao.NameDao;
@@ -119,16 +121,21 @@ public class PcTeamController {
 		params.clear();
 		params.put("status", 1);
 		params.put("teamId", teamId);
+		params.put("offset", 0);
+		params.put("limit", 10);
 		List<InfoDO> newList = infoService.list(params);
 		model.addAttribute("newList", newList);//新闻资讯status
 		params.clear();
 		params.put("examineStatus",1);
 		params.put("teamId", teamId);
+		params.put("offset", 0);
+		params.put("limit", 10);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		params.clear();
-		
 		params.put("teamId", teamId);
+		params.put("offset", 0);
+		params.put("limit", 10);
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		int count = volunteerService.count(null);
 		model.addAttribute("voluntList", voluntList);//志愿者
@@ -164,6 +171,13 @@ public class PcTeamController {
 			model.addAttribute("nameId",name.getId());
 			}
 		}
+		List<AdvertisementDO> dataList = indexService.getCenterAdvList(teamId, Dictionary.AdvPosition.TUANDUI_XIANGQING);
+		model.addAttribute("adv1", dataList.get(0));
+		model.addAttribute("adv2", dataList.get(1));
+		model.addAttribute("adv3", dataList.get(2));
+		model.addAttribute("adv4", dataList.get(3));
+		model.addAttribute("adv5", dataList.get(4));
+		model.addAttribute("adv6", dataList.get(5));
 		return "pc/teamDetail";
 	}
 	

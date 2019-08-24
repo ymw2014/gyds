@@ -60,7 +60,7 @@ public class Dictionary {
     	 */
     	public static final Integer HUODONG_BAOMING = 4;
     	/**
-    	 * 签到页
+    	 * 
     	 */
     	public static final Integer QIAN_DAO = 5;
     	/**
