@@ -107,6 +107,7 @@ public class IndexServiceImpl implements IndexService{
 	    			adv.setUrl("/pc/advShow?regionCode="+proRegion.getParentRegionCode()+"&sort="+0+"&position="+Dictionary.AdvPosition.SHOUYE);
 	    			allList.add(adv);
 	    		}
+	    		dataList=allList;
 		    	break;
 		    case 3:  //县级
 		    	if(allList.size()>=3) {//县级代理两个广告位

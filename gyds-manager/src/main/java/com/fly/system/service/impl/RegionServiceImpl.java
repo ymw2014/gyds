@@ -168,15 +168,15 @@ public class RegionServiceImpl implements RegionService {
 		case 0:
 			return null;
 		case 1:
-			return region.toString().substring(0, 2);
+			return regionCode.toString().substring(0, 2);
 		case 2:
-			return region.toString().substring(0, 4);
+			return regionCode.toString().substring(0, 4);
 		case 3:
-			return region.toString().substring(0, 6);
+			return regionCode.toString().substring(0, 6);
 		case 4:
-			return region.toString().substring(0, 9);
+			return regionCode.toString().substring(0, 9);
 		case 5:
-			return region.toString().substring(0, 12);
+			return regionCode.toString().substring(0, 12);
 
 		default:
 			break;

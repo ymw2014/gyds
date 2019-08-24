@@ -81,7 +81,7 @@ public class IndexController {
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);//全国包含的省
 		params.put("pids", areaId);
-		List<Long> ids = regionService.getAllTeamByUserRole(params);
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.clear();
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);
