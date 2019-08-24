@@ -6,15 +6,12 @@ import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fly.common.controller.BaseController;
 import com.fly.domain.UserDO;
@@ -33,7 +29,6 @@ import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.R;
 import com.fly.wxpay.service.IWxPayConfig;
-import com.fly.wxpay.utils.HttpUtils;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayUtil;
 
@@ -48,6 +43,12 @@ public class AppWxPayController extends BaseController{
 	@Autowired
 	private UserService userService;
 	
+	/**
+	      * 组装参数 同意下单
+	 * @param totalFee 充值金额
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/pay")
 	@ResponseBody
 	public Map<String, String> pay(Integer totalFee) throws Exception {
@@ -85,6 +86,13 @@ public class AppWxPayController extends BaseController{
 		return null;
 	}
 	
+	
+	/**
+	 * 创建订单
+	 * @param fee 充值金额
+	 * @return
+	 * @throws Exception
+	 */
 	public String  createOrder(String fee) throws Exception{
 		BigDecimal f = new BigDecimal(fee);
 		BigDecimal divide = f.divide(new BigDecimal(100));
@@ -104,6 +112,12 @@ public class AppWxPayController extends BaseController{
 		return "";
 	}
 	
+	
+	/**
+	 * 支付成功后 更新订单状态
+	 * @param orderNum 订单号
+	 * @return
+	 */
 	@RequestMapping("/orderUpdate")
 	@ResponseBody
 	public R queryOrder(String orderNum) {
@@ -136,7 +150,10 @@ public class AppWxPayController extends BaseController{
 		return r;
 	} 
 	
-	
+	/**
+	 * 获取ip地址
+	 * @return
+	 */
 	private String localIp() {
 		String ip = null;
 		Enumeration allNetInterfaces;
@@ -158,7 +175,13 @@ public class AppWxPayController extends BaseController{
 		return ip;
 	}
 	
-	
+	/**
+	 * 再次生成签名，
+	 * @param config 微信配置参数
+	 * @param prepayId 
+	 * @return
+	 * @throws Exception
+	 */
 	public Map<String,String> getPrepayId(IWxPayConfig config,String prepayId) throws Exception {
 		String timeStamp = new Long(System.currentTimeMillis()/1000).toString();
         // 创建返回值
