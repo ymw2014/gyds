@@ -468,7 +468,6 @@ function vieRed(){
 			type : "GET",
 			url : "/pc/news/likes",
 			data : para,
-			async : true,
 			error : function(request) {
 				parent.layer.alert("点赞失败");
 			},
@@ -478,6 +477,7 @@ function vieRed(){
 					history.go(0);
 				} else if(data.code == 2){
 					alert(data.msg);
+					history.go(0);
 				}else {
 					parent.layer.alert(data.msg)
 				}

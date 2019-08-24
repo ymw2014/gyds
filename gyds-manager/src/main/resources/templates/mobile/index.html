@@ -122,14 +122,14 @@
 				<i></i>活动报名<span><a href="/pc/activityList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="baomingcen">
-				<div th:each="act: ${actList}">
+				<div th:each="act:${actList}">
 					<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<span th:text="${act.actTitle}"></span>
 					<p th:text="${act.actIntro}"></p>
-					<rem>
-						<span th:text="${act.actType==0}?'免费':'收费'"></span>
-						<span th:text="${act.numberOfApplicants}+人已报名"></span>
-					</rem>
+						<rem>
+							<span th:text="${act.actType==0}?'免费':'收费'"></span>
+							<span th:text="${act.numberOfApplicants}+人已报名"></span>
+						</rem>
 				</div>
 			</div>
 		</div>
@@ -142,7 +142,7 @@
 				<i></i>志愿者<span><a href="/pc/volunteerList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="zhiyuanCen">
-				<div th:each="volunt: ${voluntList}">
+				<div th:each="volunt: ${voluntList}" >
 					<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 					<p th:text="${volunt.volunteerName}"></p>
 				</div>

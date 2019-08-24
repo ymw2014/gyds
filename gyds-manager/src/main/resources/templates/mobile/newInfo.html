@@ -534,6 +534,7 @@
 					history.go(0);
 				} else if(data.code == 2){
 					alert(data.msg);
+					history.go(0);
 				}else {
 					parent.layer.alert(data.msg)
 				}
@@ -548,7 +549,7 @@
 			title : '申请置顶',
 			maxmin : true,
 			shadeClose : false, // 点击遮罩关闭层
-			area : [  '340px', '420px'  ],
+			area : [ '340px', '420px' ],
 			content : '/pc/news/top/' + id // iframe的url
 		});
 	
