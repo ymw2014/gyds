@@ -61,8 +61,8 @@ wechat:
     componentToken: wangyanke
     componentAesKey: 
 wx:
-  appid: wx56c5f184879412f4
-  secret: f579870d16cc2fc222ff2b20963be73a
+  appid: wx561ae40290380b04
+  secret: 2b01a7d96a1e34d3cecf80be87852d53
   backUrl: http://mlbdenet.nat300.top/auth/callback
   
   

@@ -190,6 +190,7 @@ function pay(){
 </html>
 <script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
 <script>
+	var timer = '';
 	var m1 = new MyModal.modal(function() {
 		alert("你点击了确定");
 	});
@@ -208,20 +209,17 @@ function pay(){
 		var fee = $('.addred a').text();
 		var blance = fee.match(/[\d.]+/g);
 		$('#blance').text("充值金额 " +blance + "元");
-		var orderNum = createOrder(blance);
+		var orderNum = createOrder(blance[0]);
 		if (orderNum != '-1') {
 			var msg = '';
-			$('#codeUrl').attr("src","http://127.0.0.1:9091/wxpay/pay?data=" + blance + "&orderNum" + orderNum);
-			var timer = setInterval(function () {
+			$('#codeUrl').attr("src","http://zhgy.61966.com/wxpay/pay?data=" + (blance[0] * 100) + "&orderNum=" + orderNum);
+			timer = setInterval(function () {
 					var msg = queryOrder(orderNum)
 					console.log(msg)
 						if (msg == '1') {
-						/* 	$('#codeUrl').attr("src","");
-							layer.msg(r.msg); */
 							window.clearInterval(timer);
 							history.go(0);
 						}
-					
 				},500);
 		} else {
 			layer.msg("未知错误");
@@ -232,13 +230,15 @@ function pay(){
 	$(".m-modal-close").click(function(){
 			$(".m-modal-dialog1").css("display","block")
 			$(".adddd").css("display","none")
+			window.clearInterval(timer);//清除定时器
 	})
 	function createOrder(fee){
 		var orderNum = '';
+		debugger
 		$.ajax({
 			type : "POST",
 			url : "/wxpay/createOrder",
-			data : {'fee': fee},
+			data : {'data': fee},
 			async:false,
 			success : function(r) {
 				if (r.code == 0) {

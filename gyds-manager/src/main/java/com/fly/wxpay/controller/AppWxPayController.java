@@ -59,7 +59,7 @@ public class AppWxPayController extends BaseController{
         	UserDO userDO = userService.get(user.getUserId());
         	data.put("body", "余额充值");//商品描述
         	data.put("out_trade_no", new Date().getTime() + ""); // 订单唯一编号, 不允许重复
-        	data.put("total_fee", String.valueOf(totalFee * 100)); // 订单金额, 单位分
+        	data.put("total_fee", totalFee+ ""); // 订单金额, 单位分
         	data.put("spbill_create_ip", localIp()); // 下单ip
         	data.put("openid", userDO.getOpenId()); // 微信公众号统一标示openid
         	data.put("notify_url", "http://zhgy.61966.com/app/wxpay/callback"); // 订单结果通知, 微信主动回调此接口
@@ -86,13 +86,15 @@ public class AppWxPayController extends BaseController{
 	}
 	
 	public String  createOrder(String fee) throws Exception{
+		BigDecimal f = new BigDecimal(fee);
+		BigDecimal divide = f.divide(new BigDecimal(100));
 		Map<String,Object> params = new HashMap<String, Object>();
 		params.put("orderType", 2);
 		params.put("expIncType", OrderType.CHONG_ZHI);
 		params.put("examineStatus", 2);
 		params.put("cashUpType", 1);
 		params.put("cashOutType", 1);
-		params.put("price", fee);
+		params.put("price", divide);
 		Integer orderNum = creadOrder(params);
 		R r = new R();
 		if (orderNum > 0) {
@@ -116,9 +118,15 @@ public class AppWxPayController extends BaseController{
 			orderDO.setExamineStatus(1);
 			update = orderService.update(orderDO);
 			if (update > 0) {
-				UserDO user = ShiroUtils.getUser();
-				user.setAccount((orderDO.getPrice().divide(new BigDecimal(100))));
-				userService.update(user);
+				UserDO userDO = userService.get(orderDO.getUserId());
+				logger.info("获取用户信息:    {}",userDO.toString());
+				BigDecimal account = userDO.getAccount();
+				if (account == null) {
+					account = new BigDecimal(0);
+				}
+				BigDecimal add = account.add(orderDO.getPrice());
+				userDO.setAccount(add);
+				userService.update(userDO);
 				logger.info("订单状态修改成功");
 			}else {
 				 logger.info("订单状态修改失败");
