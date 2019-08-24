@@ -56,9 +56,10 @@ public class AppWxPayController extends BaseController{
         	WXPay wxpay = new WXPay(config);
         	UserDO user = ShiroUtils.getUser();
         	Map<String, String> data = new HashMap<String, String>();
+        	String orderNum = createOrder(totalFee+ "");
         	UserDO userDO = userService.get(user.getUserId());
         	data.put("body", "余额充值");//商品描述
-        	data.put("out_trade_no", new Date().getTime() + ""); // 订单唯一编号, 不允许重复
+        	data.put("out_trade_no", orderNum); // 订单唯一编号, 不允许重复
         	data.put("total_fee", totalFee+ ""); // 订单金额, 单位分
         	data.put("spbill_create_ip", localIp()); // 下单ip
         	data.put("openid", userDO.getOpenId()); // 微信公众号统一标示openid
@@ -71,7 +72,6 @@ public class AppWxPayController extends BaseController{
         	Map<String, String> resp = wxpay.unifiedOrder(data);
         	dataInfo.put("resp", resp);
         	logger.info("appPay 返回信息 :  " + resp);
-        	String orderNum = createOrder(totalFee+ "");
         	logger.info("appPay 支付订单号 :  {}", orderNum);
         	if ("SUCCESS".equals(resp.get("result_code") ) &&  "SUCCESS".equals(resp.get("return_code"))){//result_code=SUCCESS, mch_id=1309497501, return_code=SUCCESS
         		Map<String, String> prepayId = getPrepayId(config,resp.get("prepay_id"));

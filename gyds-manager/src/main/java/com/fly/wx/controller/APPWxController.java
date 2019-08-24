@@ -56,14 +56,14 @@ public class APPWxController {
         if (!"authdeny".equals(code)) {
              // 获取网页授权access_token
         	Map<String,String>  oauth2Token = getOauth2AccessToken("wx561ae40290380b04", "2b01a7d96a1e34d3cecf80be87852d53", code);
-        	log.info("***********************************oauth2Token信息："+oauth2Token.toString());
+        	log.info("****oauth2Token信息："+oauth2Token.toString());
             // 网页授权接口访问凭证
             String accessToken = oauth2Token.get("access_token");
             // 用户标识
             String openId = oauth2Token.get("openid");
             // 获取用户信息
          // 拼接请求地址
-            String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+            String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
             requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
             // 通过网页授权获取用户信息
             com.alibaba.fastjson.JSONObject json =  JSON.parseObject(HttpUtils.doGet(requestUrl));
