@@ -23,6 +23,10 @@ import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
 import com.fly.utils.Dictionary;
 
+import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.bean.result.WxMpQrCodeTicket;
+
 public class BaseService {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired 
@@ -37,6 +41,8 @@ public class BaseService {
 	private RegionService regionService;
 	@Autowired
 	private ThreadTaskService threadTaskService;
+	@Autowired
+	private WxMpService wxMpService;
 	
 	/**
 	   *       更新账户余额
@@ -408,6 +414,23 @@ public class BaseService {
 			}
 		}
 	}
+	
+	public String createQrcode(String str) {
+		logger.debug("调用微信接口获取永久带参二维码");
+	    WxMpQrCodeTicket ticket;
+		try {
+			ticket = wxMpService.getQrcodeService().qrCodeCreateLastTicket(str);
+			String url = wxMpService.getQrcodeService().qrCodePictureUrl(ticket.getTicket());
+			logger.info("二维码链接地址:url= "+url);
+			 return url;
+		} catch (WxErrorException e1) {
+			logger.error("带参永久二维码生成失败");
+			e1.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	
 	
 	

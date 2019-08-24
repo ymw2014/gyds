@@ -50,6 +50,8 @@ import com.fly.team.service.TeamService;
 import com.fly.utils.Dictionary;
 import com.fly.utils.R;
 
+import me.chanjar.weixin.mp.api.WxMpService;
+
 @Controller
 @RequestMapping("/pc/news/")
 public class NewsInfoController extends BaseController {
@@ -79,7 +81,7 @@ public class NewsInfoController extends BaseController {
 	private BaseService baseService;
 	@Autowired
 	private IndexService indexService;
-	
+
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id, @RequestParam Integer areaId,Model model) {
 		InfoDO info = infoService.get(id);
@@ -522,7 +524,7 @@ public class NewsInfoController extends BaseController {
 		UserDO user = null; 
 		user = ShiroUtils.getUser();
 		if(user==null) {
-			return "redirect:/admin";
+			return "redirect:/login";
 		}
 		InfoDO info = infoService.get(id);
 		Integer code = info.getTeamId();
@@ -733,6 +735,20 @@ public class NewsInfoController extends BaseController {
 		}
 		
 		return listTop;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/shareCode")
+	public R getQrCode(@RequestParam Map<String,Object> params) {
+		R r=new R();
+		String url = baseService.createQrcode(params.get("webUrl").toString());
+		if(url!=null) {
+			r.put("url", url);
+			return r.ok();
+		}else {
+			return r.error();
+		}
+
 	}
 	
 	
