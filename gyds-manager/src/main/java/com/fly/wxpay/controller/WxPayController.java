@@ -27,7 +27,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.common.controller.BaseController;
@@ -63,7 +65,8 @@ public class WxPayController extends BaseController {
 	
 	@RequestMapping("/createOrder")
 	@ResponseBody
-	public R createOrder(String fee) {
+	public R createOrder(@RequestParam Map<String, Object> param) {
+		String fee = param.get("data").toString();
 		Map<String,Object> params = new HashMap<String, Object>();
 		params.put("orderType", 2);
 		params.put("expIncType", OrderType.CHONG_ZHI);
@@ -79,9 +82,9 @@ public class WxPayController extends BaseController {
 			num = orderDO.getOrderNumber();
 			r.put("code", 0);
 			r.put("msg", orderDO.getOrderNumber());
+			logger.info("pc  createOrder id:{}, orderNum:{}",orderNum, num);
 			return r;
 		}
-		logger.info("pc  createOrder id:{}, orderNum:{}",orderNum, num);
 		r.put("code", -1);
 		r.put("msg", "未知错误");
 		return r;
@@ -118,7 +121,7 @@ public class WxPayController extends BaseController {
 			Integer data,String orderNum) {
 		logger.info("进入支付方法，payWeChat");
 		try {
-			String Fee = request.getParameter("data");
+			logger.warn("支付金额:  " + data );
 			content = this.getImageUrl("余额充值", orderNum, data);
 			logger.info("wxpay code_url: " + content);
 			MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
@@ -152,45 +155,47 @@ public class WxPayController extends BaseController {
 	        resXml=sb.toString();
 	        Map<String,String> result = WXPayUtil.xmlToMap(resXml);
 	        String orderNum = "";
-	        String err_code = result.get("err_code");
-	         String err_code_des = result.get("err_code_des");
-	         String trade_state_desc =result.get("trade_state_desc");
-	        if("SUCCESS".equals(result.get("return_code"))){//微信返回状态码为成功
+	        String err_code_des = "";
+	        if("SUCCESS".equals(result.get("return_code"))){
+	        	//微信返回状态码为成功
+	        	err_code_des = result.get("err_code_des");
 		        if ("SUCCESS".equals(result.get("result_code"))) { //支付成功改变订单状态
-		        	 if("SUCCESS".equals(result.get("trade_state"))) {
-		        		orderNum = result.get("out_trade_no");//获取订单号
-		        		logger.info("pc  callback() orderNumber {}", orderNum);
-		        		Map<String,Object> pararm = new HashMap<String, Object>();
-		        		pararm.put("orderNumber",orderNum);
-		        		List<OrderDO> list = orderService.list(pararm);
-		        		if (!CollectionUtils.isEmpty(list)) {
-		        			OrderDO orderDO = list.get(0);
-		        			orderDO.setExamineStatus(1);
-		        			int update = orderService.update(orderDO);
-		        			if (update > 0) {
-		        				UserDO user = ShiroUtils.getUser();
-		        				user.setAccount((orderDO.getPrice().divide(new BigDecimal(100))));
-		        				userService.update(user);
-		        				logger.info("订单状态修改成功");
-		        			}else {
-		        				 logger.info("订单状态修改失败");
-		        			}
-		        		}
-		        	 }else if("USERPAYING".equals(result.get("trade_state"))){
-	                     //支付中
-		        		 logger.info("***************支付平台订单支付中");
-	                }
-	                else{
-	                   //交易状态为不是成功
-	                	logger.info("***************支付平台订单ID:"+orderNum+"查询微信支付接口异常:trade_state="+result.get("trade_state")+",trade_state_desc="+trade_state_desc);
-	                }
+	        		orderNum = result.get("out_trade_no");//获取订单号
+	        		logger.info("pc  callback() orderNumber {}", orderNum);
+	        		Map<String,Object> pararm = new HashMap<String, Object>();
+	        		pararm.put("orderNumber",orderNum);
+	        		List<OrderDO> list = orderService.list(pararm);
+	        		if (!CollectionUtils.isEmpty(list)) {
+	        			OrderDO orderDO = list.get(0);
+	        			orderDO.setExamineStatus(1);
+	        			int update = orderService.update(orderDO);
+	        			if (update > 0) {
+	        				Long userId = orderDO.getUserId();
+	        				UserDO userDO = userService.get(orderDO.getUserId());
+	        				logger.info("获取用户信息:    {}",userDO.toString());
+	        				BigDecimal account = userDO.getAccount();
+	        				if (account == null) {
+	        					account = new BigDecimal(0);
+	        				}
+	        				BigDecimal add = account.add(orderDO.getPrice());
+	        				userDO.setAccount(add);
+	        				userService.update(userDO);
+	        				logger.info("订单状态修改成功");
+	        			}else {
+	        				 logger.info("订单状态修改失败");
+	        			}
+	        		}else {
+	        			logger.info("订单状查询失败");
+	        		}
+		        
 	            }else{
 	                //业务结果状态码为失败
-	            	logger.info("***************支付平台订单ID:"+orderNum+"查询微信支付接口异常:err_code="+result.get("trade_state")+",err_code_des="+err_code_des);
+	            	logger.info("***************支付平台订单ID:"+orderNum,"err_code_des="+err_code_des);
 	            }
 	        }else{
+	        	
 	        	//微信返回状态码为失败
-	        	logger.info("***************支付平台订单ID:"+orderNum+"查询微信支付接口异常:"+err_code);
+	        	logger.info("***************支付平台订单ID:"+orderNum+"查询微信支付接口异常:  {}", err_code_des);
 
 	        }
 	
@@ -255,7 +260,7 @@ public class WxPayController extends BaseController {
 		paramMap.put("notify_url", "http://zhgy.61966.com/wxpay/callback"); // 支付成功后，回调地址
 		paramMap.put("out_trade_no", out_trade_no); // 商户订单号
 		paramMap.put("spbill_create_ip", this.localIp()); // 本机的Ip
-		paramMap.put("total_fee", (total_fee * 100) + ""); // 金额必须为整数 单位为分
+		paramMap.put("total_fee", total_fee  + ""); // 金额必须为整数 单位为分
 		paramMap.put("trade_type", "NATIVE"); // 交易类型
 
 		try {
@@ -289,5 +294,8 @@ public class WxPayController extends BaseController {
 		return ip;
 	}
 
-	
+	public static void main(String[] args) {
+				double parseDouble = Double.parseDouble("0.01");
+		System.out.println(parseDouble);
+	}
 }

@@ -164,7 +164,7 @@
 				   <div class="m-middletxt2">
 				   		<ul>
 							<li class="addred"><a href="#">2元</a></li>
-							<li><a href="#">12元</a></li>
+							<li><a href="#">0.01元</a></li>
 							<li><a href="#">66元</a></li>
 							<li><a href="#">300元</a></li>
 							<li><a href="#">200元</a></li>
@@ -212,7 +212,7 @@
 		
 		var fee = $('.addred a').text();
 		var blance = fee.match(/[\d.]+/g);
-		pay(blance);
+		pay(blance[0]);
 	})
 	$(".m-modal-close").click(function(){
 			$(".m-modal-dialog1").css("display","block")
@@ -233,7 +233,7 @@
 	            type:"post",
 	            url: "/app/wxpay/pay",
 	            dataType:"json",
-	            data : {'totalFee': blance},
+	            data : {'totalFee': (blance * 100)},
 	            ontentType : "application/x-www-form-urlencoded",
 	            success:function(result) {
 	                console.log(result);
@@ -268,7 +268,7 @@
 		        	            type:"post",
 		        	            url: "/app/wxpay/orderUpdate",
 		        	            dataType:"json",
-		        	            data : {'totalFee': blance},
+		        	            data : {'orderNum': orderNum},
 		        	            ontentType : "application/x-www-form-urlencoded",
 		        	            success:function(result) {
 		        	                console.log(result);
