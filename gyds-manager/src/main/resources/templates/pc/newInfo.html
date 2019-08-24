@@ -217,12 +217,12 @@
 			</div> -->
 			<div th:if=" ${isRed} eq '1'">
 				<img class="modal__trigger" onclick="queryRed()" data-modal="#modal" id="queryRed"
-					th:src="@{/pc/images/listcc_08.png}" alt=""
+					th:src="@{/pc/images/listcc_08.png}"
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">发放中
 			</div>
 			<div th:if=" ${isRed} eq '2'">
 				<img class="modal__trigger btn1" data_type="1" th:src="@{/pc/images/listcc_07.jpg}"
-					alt="" onclick="redNew()"
+					 onclick="redNew()"
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
 			</div>
 		</div>
@@ -514,7 +514,7 @@ function vieRed(){
 	
 	}
 	function redNew(){
-		para={"newsId":$('#infoId').val()};
+		var para={"newsId":$('#infoId').val()};
 		$.ajax({
 			type : "POST",
 			url : "/pc/news/red",
@@ -559,9 +559,7 @@ function vieRed(){
 				success : function(data) {
 					if (data.code == 0) {
 						alert("发红包成功");
-						///history.go(0);
-						var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-						parent.layer.close(index);
+						history.go(0);
 					} else {
 						if(data.msg == -1){
 						layer.msg('发红包失败！您的余额不足');

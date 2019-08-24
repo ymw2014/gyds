@@ -193,6 +193,8 @@ public class NewsInfoController extends BaseController {
 		// 评论 默认时间顺序
 		params.clear();
 		params.put("newsId", id);
+		params.put("offset", 0);
+		params.put("limit", 10);
 		params.put("sort", "create_time desc");
 		List<CommentDO> comm = commentDao.list(params);
 
@@ -218,7 +220,15 @@ public class NewsInfoController extends BaseController {
 		model.addAttribute("areaId", areaId);
 		return "pc/newInfo";
 	}
-
+	
+	@RequestMapping("/queryCommList")
+	@ResponseBody
+	public List<CommentDO> queryCommList(@RequestParam Map<String, Object> para, Model model) {
+		para.put("sort", "create_time desc");
+		List<CommentDO> comm = commentDao.list(para);
+		return comm;
+		
+	}
 	// 文章分享
 	@RequestMapping(value = "/share", method = RequestMethod.GET)
 	@ResponseBody
@@ -348,10 +358,11 @@ public class NewsInfoController extends BaseController {
 			params.put("price", rate.multiply(price).add(price));
 			i = deductMoney(params);
 			if (i == 1) {
-				//创建红包
-				if(creatRed(params)==1) {
-					// 产生订单
-					if (creadOrder(params) > 0) {
+				// 产生订单
+				if(creadOrder(params)>0) {
+					params.put("price", price);
+					//创建红包
+					if (creatRed(params) > 0) {
 						flag = true;
 					}
 				}

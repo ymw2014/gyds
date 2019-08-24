@@ -14,8 +14,30 @@
 		<link rel="stylesheet" th:href="@{/mobile/css/gongyi.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/zixun.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/css1.css}">
-		
 		<link rel="stylesheet" th:href="@{/mobile/css/css2.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.1.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.2.css}">
+		<script th:src="@{/mobile/js/jquery.my-modal.1.1.js}"></script>
+		<script th:src="@{/mobile/js/jquery.my-modal.1.2.js}"></script>
+		<style>
+ .addred{
+  color:#fff !important;
+
+ }
+ #reward li{
+ color:#dc1333;
+ }
+ .m-middletxt3 button {
+	width:168px;
+	height:40px;
+	border:none;
+	text-align:center;
+	line-height:40px;
+	background:red;
+	outline: none;
+	color:#fff;
+}
+</style>
 	</head>
 	<body>
 		<div class="header_txt">
@@ -41,9 +63,31 @@
 			</div>
 			<div class="gycent3">
 				<span>有您的支持是我们最大的动力</span>
-				<a href="" class="modal__trigger" onclick="reward()"><img src="" alt="" >打赏</a>
+				<a href="" class="modal__trigger btn2" onclick="reward()"><img src="" alt="" >打赏</a>
 				<p th:text="${'已有'+reCountUser+'人打赏'}"></p>
 			</div>
+			<!-- 打赏!! -->
+		<div class="m-modal1">
+			<div class="m-modal1-dialog m-modal1-dialog1">
+				<div class="m-top">
+					<span class="m-modal1-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt">
+					   <img th:src="@{/pc/images/touxiang 82.png}" id="touxiang">
+				   </div>
+				   <div class="m-middletxt2">
+				   		<ul id="reward">
+							
+						</ul>
+				   </div>
+				   <div class="m-middletxt3">
+				   <input type="hidden"  id="givePrice">
+					   <button onclick="giveReward()">提交</button>
+				   </div>
+				</div>
+			</div>
+		</div>
 			<div class="gycent4">
 				<div style="overflow: hidden;">
 					<img th:each="user:${user}" th:src="${user.headImg}" alt="">
@@ -79,12 +123,32 @@
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">发放中
 			</div>
 			<div th:if=" ${isRed} eq '2'">
-				<img class="modal__trigger" th:src="@{/pc/images/listcc_07.jpg}"
+				<img class="modal__trigger btn1" th:src="@{/pc/images/listcc_07.jpg}"
 					alt="" onclick="redNew()"
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
 			</div>
 		</div>
-		<!-- 红包 -->
+		<!-- 发红包 -->
+		<div class="m-modal">
+				<div class="m-modal-dialog m-modal-dialog3">
+					<div class="m-top">
+						<span class="m-modal-close">X</span>
+					</div>
+					<div class="m-middle3">
+					  <p id="sum"></p>
+					  <input type="text" placeholder="红包个数不能大于红包总额的5倍!!!" id="number">
+					</div>
+					<div class="m-middle4">
+					    <ul id="red">
+							
+						</ul>
+					</div>
+					<a href="javascript:;" ><div class="m-middle5" onclick="redPacket()">
+					<input type="hidden"  id="price">
+					</div></a>
+				</div>
+			</div>
+		<!-- 看红包 -->
 			<div id="modal" class="modal modal__bg" role="dialog"  aria-hidden="true" style="background:rgba(0,0,0,0.9);">
 				<div class="modal__dialog" style="width: 600px;">
 					<div class="modal__content">
@@ -131,10 +195,10 @@
 		<div class="listpl-3">
 			<p>全部评论</p>
 		</div>
-		<div class="listpl-4">
-			<div  th:each="comm : ${comm}">
-			<img src="images/touxiang5.png" th:src="${comm.headImg}" alt="">
-			<div>
+		<div class="listpl-4" id="comment">
+			<div  style="float: left" th:each="comm : ${comm}">
+			<img  style="width: 50px;height: 50px; float: left;" th:src="${comm.headImg}" >
+			<div >
 				<span th:text="${comm.name +'  '+ #dates.format(comm.createTime, 'yyyy-MM-dd hh:mm')}"></span>
 				<p style="font-size:22px;" th:text="${comm.criticismContent}"></p>
 			</div>
@@ -142,7 +206,7 @@
 			</div>
 			<a href="#">查看更多</a>
 		</div>
-		<div class="zixunnr" th:each="newsTop,iterStat:${newsTop}"><a th:href="@{/pc/news/info(id=${newsTop.id})}">
+		<div class="zixunnr" th:each="newsTop,iterStat:${newsTop}"><a th:href="@{/pc/news/info(id=${newsTop.id},areaId=${areaId})}">
 			<div th:href="@{/pc/news/info(id=${newsTop.id})}">
 				<span  th:text="${newsTop.title}"></span>
 				<p th:text="${newsTop.source +''+ #dates.format(newsTop.publicTime, 'yyyy-MM-dd hh:mm')}"></p>
@@ -153,7 +217,7 @@
 				<img th:src="@{/pc/images/list_06.jpg}" alt="">
 				</div>
 			</div>
-			<img src="images/zixungg_20.jpg" alt=""></a>
+			<img th:src="${newsTop.titleImg}" alt=""></a>
 		</div>
 		<div class="listpl-5">
 			<a href="#">查看更多资讯</a>
@@ -173,18 +237,95 @@
 	<script src="/js/plugins/layer/laydate/laydate.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script type="text/javascript">
-	function redNew(){
-		var id = $('#infoId').val();
-		layer.open({
-			type : 2,
-			title : '红包发放',
-			maxmin : true,
-			shadeClose : false, // 点击遮罩关闭层
-			area : [ '1000px', '620px' ],
-			content : '/pc/news/red/' + id // iframe的url
-		});
 	
+	//发红包
+	var m1 = new MyModal.modal(function() {
+		alert("你点击了确定");
+	});
+	
+	$('.btn1').on("click", function() {
+		m1.show();
+	});
+	
+	$("#red").on("click","li",function(){
+		$(this).addClass("qian").siblings("li").removeClass("qian");
+		var a = $(this).children("#mony").text();
+		$("#price").val(a);
+	})
+	//结束
+	//发红包
+	function redNew(){
+		var para={"newsId":$('#infoId').val()};
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/red",
+			data : para,
+			error : function(request) {
+				alert("查询红包异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					var red = '';
+					var sum = '';
+					var account = data.user.account;
+						sum += '您的余额剩余<span>'+account+'</span>元';
+						$("#sum").empty();
+						$('#sum').append(sum);
+					$.each(data.listPrice, function(i, item){
+						red += '<li>';
+						red += '<p id="mony">'+item.price+'</p>元';
+						red += '<p class="sx">手续费'+item.rate+'元</p>';
+						red += '</li>';
+					});
+					$("#red").empty();
+					$('#red').append(red);
+				}else{
+					var url = data.url;
+					window.location.href = url;
+				}
+
+			}
+		});
 	}
+	//红包提交
+	 function redPacket(){
+		 var para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val()};
+		  $.ajax({
+				type : "POST",
+				url : "/pc/news/redPacket",
+				data : para,
+				error : function(request) {
+					layer.msg('发红包失败！您扣除的：'+ $('#price').val() +'元 已原路退回您的账户');
+				},
+				success : function(data) {
+					if (data.code == 0) {
+						alert("发红包成功");
+						history.go(0);
+					} else {
+						if(data.msg == -1){
+						layer.msg('发红包失败！您的余额不足');
+						}else if(data.msg == 0){
+						layer.msg('发红包失败！您的：'+ $('#price').val() +'元 已原路退回您的账户');
+						}else if(data.msg == 2){
+							layer.confirm('您未登录请问是否跳转登录页面？', {
+								  btn: ['是','否'] //按钮
+								}, function(){
+									window.location.href = "/admin";
+								}, function(){
+								  layer.msg('发红包是需要登陆的', {
+								    time: 20000, //20s后自动关闭
+								    btn: ['知道了']
+								  });
+								});
+						}else if(data.msg == 3){
+							alert('红包数量不得大于红包总额的5倍');
+						}
+					}
+
+				}
+			});
+}
+	//红包
 	function queryRed(){
 		para={"newsId":$('#infoId').val()};
 		$.ajax({
@@ -242,7 +383,7 @@
 			var myVar = setTimeout(vieRed, 1000);
 		}
 	})
-
+	//抢红包
 	function vieRed(){
 		para={"newsId":$('#infoId').val(),"orderType":1,"expIncType":3};
 		$.ajax({
@@ -272,31 +413,52 @@
 	}
 	
 	
-	function attention(){
-		var teamId = $('#teamId').val();
-		var para = {"teamId":teamId};
+	//打赏
+	var m2 = new MyModal1.modal(function() {
+		alert("你点击了确定");
+	});
+	$('.btn2').on("click", function() {
+		m2.show();
+	});
+	$("#reward").on("click","li",function(){
+		$(this).addClass("addred").siblings("li").removeClass("addred");
+		var a = $(this).children("a").text();
+		$("#givePrice").val(a);
+	})
+	//结束
+	
+	//打赏
+	function reward(){
+		var para='';
 		$.ajax({
 			type : "POST",
-			url : "/pc/news/attention",
+			url : "/pc/news/rewardList",
 			data : para,
 			error : function(request) {
-				parent.layer.alert("关注失败");
+				alert("查询异常");
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					$("#guanzhu").remove();
-				} else if (data.code == 1) {
-					window.location.href = "/admin";
-				} else{
-					parent.layer.alert(data.msg)
+					var reward = '';
+					var touxiang = data.user.headImg;
+					$('#touxiang').attr('src',touxiang);
+					$.each(data.listPrice, function(i, item){
+						reward += '<li><a href="#">'+item.price+'</a>元</li>';
+					});
+					$("#reward").empty();
+					$('#reward').append(reward);
+				}else{
+					var url = data.url;
+					window.location.href = url;
 				}
 
 			}
 		});
-	}
-	function reward(){
+	};
+	//打赏提交
+	function giveReward(){
+ 		var som = $('#givePrice').val();
 		var para= {};
-		layer.prompt({title: '输入打赏金额(单位:元)，并确认', formType: 3}, function(som, index){
 			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som};
 			  $.ajax({
 					type : "POST",
@@ -330,9 +492,31 @@
 
 					}
 				});
-			  layer.close(index);
-			});
+	};
+	
+	function attention(){
+		var teamId = $('#teamId').val();
+		var para = {"teamId":teamId};
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/attention",
+			data : para,
+			error : function(request) {
+				parent.layer.alert("关注失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					$("#guanzhu").remove();
+				} else if (data.code == 1) {
+					window.location.href = "/admin";
+				} else{
+					parent.layer.alert(data.msg)
+				}
+
+			}
+		});
 	}
+	
 	function like(){
 		para={"newsId":$('#infoId').val()};
 		$.ajax({
@@ -364,20 +548,10 @@
 			title : '申请置顶',
 			maxmin : true,
 			shadeClose : false, // 点击遮罩关闭层
-			area : [ '1000px', '620px' ],
+			area : [  '340px', '420px'  ],
 			content : '/pc/news/top/' + id // iframe的url
 		});
 	
-	}
-	function redPacket(){
-		layer.prompt({title: '请输入红包金额,不少于10元，并确认', formType: 3}, function(red, index){
-			  layer.close(index);
-			  layer.prompt({title: '请输入发放数量，并确认', formType: 3}, function(count, index){
-			    layer.close(index);
-			    layer.msg('您发放啦：'+ red +'元红包!<br>数量：'+count+'个');
-			  });
-			});
-		
 	}
 	function comment(){
 		var comment={};
@@ -576,5 +750,91 @@
 		});
 		
 		});
+	</script>
+	<script type="text/javascript">
+	//分页加载
+	$().ready(function(){
+	var id = $('#infoId').val();
+	var hasMore;
+	var page = 1; //初始页码
+	var maxnum = 2;//设置加载次数
+	 
+	var downrange= 100;                //下边界-参考正在加载提示层/px
+	var $main = $("#showbox");            //主体
+	var $loaddiv = $("#add-more") ;       //加载提示层
+	var totalheight = 0; 
+	var $listrow=$("#comment");
+	//ajax-fun
+	function ajaxLoad(){
+	var html="";
+	page=page+1;//每次拉到底部page加1
+	//console.log(page)
+	hasMore=false;
+	$.ajax({
+	url:"/pc/news/queryCommList?id="+id+"",
+	type:"post",
+	data:{page:page},//请求页数
+	success:function(res){
+	var list = eval(res);
+	//console.log(list.length);
+	//var list=JSON.parse(res);
+	if(list.length>0) {
+	    hasMore=true;
+	//console.log(JSON.parse(res));
+	    //追加数据
+	   $.each(res, function(i, item){ 
+	  	html +='<div>';
+		html +='<img src="'+item.headImg+'" alt="">';
+		html +='<div>
+		html +='<span >'+item.name+item.createTime+'</span>';
+		html +='<p style="font-size:22px;" >'+item.criticismContent+'</p>';
+		html +='</div>';
+		html +='<hr>';
+		html +='</div>';
+	    })
+	    $listrow.append(html);//数据追加到list
+	    var imgWidth=$('.list_flex_son_img').width();
+	    $('.list_flex_son_img').height(imgWidth);
+	}    
+	}
+	})
+	}
+	 
+	//加载中隐藏显示
+	$loaddiv.ajaxStart(function(){
+	$(this).show();
+	}).ajaxStop(function(){
+	$(this).hide();
+	})
+	ifLoad();
+	//scroll滚动触发加载事件
+	function ifLoad(){
+	hasMore=true;
+	var w = $(window);
+	var lastTime = new Date();
+	window.addEventListener("scroll", function scrollHandler() {
+	var scrollh = $(document).height();
+	var bua = navigator.userAgent.toLowerCase();
+	if (bua.indexOf('iphone') != -1 || bua.indexOf('ios') != -1) {
+	scrollh = scrollh -140;
+	} else {
+	scrollh = scrollh - 80;
+	}
+	if(($(document).scrollTop() + w.height()) >= scrollh){
+	if (new Date()-lastTime <100) {
+	    return;
+	}
+	lastTime = new Date();
+	if (hasMore) {
+	    ajaxLoad();
+	}
+	}
+	}, 1000);
+	}
+	 
+	});
+
+	
+	
 	</script>
 </html>
