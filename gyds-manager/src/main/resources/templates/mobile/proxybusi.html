@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
 		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/mobile/css/address.css}">
 		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/jss1.js}"></script>
@@ -132,10 +133,10 @@
 		<div class="biaotiyy">
 			<form action="" method=""  id="signupForm">
 					<input type="hidden"  th:value="${user.userId}" name="userId"> 
-					<input type="hidden"  th:value="${proxybusiDO.id}" name="id">
 					<input type="hidden"  th:value="${setupDO.cityBail}" id="ct">
 					<input type="hidden"  th:value="${setupDO.areaBail}" id="ar">
 					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
+					<input type="hidden" th:value="${setupDO.agencyBail}"  id="ag">
 					<input type="hidden" value="0" name="client">
 				<label>
 					<span>真实姓名</span>
@@ -158,20 +159,49 @@
 						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;" type="radio" value="1" name="regionLevel" checked="checked"/>省
 						<input style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;"  type="radio" value="2" name="regionLevel" />市
 						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;" type="radio" value="3" name="regionLevel" />县
+						<input  style="float: none; width: 30px; margin-top: 40px; font-size: 30px;margin-left: 1px;" type="radio" value="4" name="regionLevel" />办事处
 				</label>
 				<label>
 						<span style="color:red">代理保证金</span>
 						<input type="text" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
 					</label>
+				
 				<label>
 					<span>代理地区</span>
 					<div>
                        <div class="content-block">
-					   <input type="text" value=""  id="demo1" class="zfsdf" name="address">
-					   <input id="value1" type="hidden" value="20,234,504" style="display:none;" name="proxyArea"/>
+					   <input type="hidden" value=""  id="demo1" class="zfsdf" name="proxyArea">
 					   </div>
 					</div>
 				</label>
+				
+				 <label for="Addr" id="areaLabel" class="address">
+					<span>所在地区</span>
+					<input type="text" name="address" id="Addr" readonly placeholder="请选择地区">
+				</label>
+				<div id="addressSelectWrapper">
+					<div id="addressSelect">
+						<div class="tip">
+							<h3>所在地区</h3>
+							<button type="button" id="cancel"></button>
+						</div>
+						<div id="address">
+							<ul class="selected-address">
+								<li class="lastarea" id="lastprovince">请选择</li>
+								<li class="lastarea" id="lastcity">请选择</li>
+								<li class="lastarea" id="lastarea">请选择</li>
+								<li class="lastarea" id="lasttown">请选择</li>
+							</ul>
+							<div class="address-content">
+								<ul id="province"></ul>
+								<ul id="city"></ul>
+								<ul id="area"></ul>
+								<ul id="town"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 			   <label>
 			   	<span>代理地址</span>
 			   	<div>
@@ -209,63 +239,14 @@
 				$("#bail").val($("#pr").val())
 			} else if(level == 2){
 				$("#bail").val($("#ct").val())
-			} else{
+			} else if(level == 3){
 				$("#bail").val($("#ar").val())
+			}else{
+				$("#bail").val($("#ag").val())
 			}
 		})
 	})
-    var area1 = new LArea();
-   /*  area1.init({
-    /* var area1 = new LArea();
-    area1.init({
-        'trigger': '#demo1', 
-        'valueTo': '#value1', 
-        'keys': {
-            id: 'id',
-            name: 'name'
-        }, 
-        'type': 1, 
-        'data': LAreaData
-    }); */
-    area1.value=[1,13,3];
-    var area2 = new LArea();
-    area2.init({
-        'trigger': '#demo1',
-        'valueTo': '#value1',
-        'keys': {
-            id: 'value',
-            name: 'text'
-        },
-        'type': 2,
-        'data': [provs_data, citys_data, dists_data]
-    });
-    </script>
-	<script>
-	    /* var area1 = new LArea();
-	    area1.init({
-	        'trigger': '#demfo2', 
-	        'valueTo': '#valfue2', 
-	        'keys': {
-	            id: 'id',
-	            name: 'name'
-	        }, 
-	        'type': 2, 
-	        'data': LAreaData
-	    });*/
-	   /*  area1.value=[1,13,3];  */
-	    });
-	    area1.value=[1,13,3]; */
-	    var area2 = new LArea();
-	    area2.init({
-	        'trigger': '#demo2',
-	        'valueTo': '#value2',
-	        'keys': {
-	            id: 'value',
-	            name: 'text'
-	        },
-	        'type': 2,
-	        'data': [provs_data, citys_data, dists_data]
-	    });
+    
 	    </script>
 	    
 <script>
@@ -361,6 +342,44 @@ function validateRule() {
 
 
 </script>
+<script th:src="@{/mobile/js/city.js}"></script>
+<script>
+	$(function(){
+		// 地址选择器遮罩层打开与关闭
+		$("#areaLabel").click(function(e){
+			$("#addressSelectWrapper").show();
+			e.stopPropagation();
+		});
+		$(document).click(function () {
+			$("#addressSelectWrapper").hide();
+		});
+		$("#cancel").click(function () {
+			$("#addressSelectWrapper").hide();
+		});
+		$("#addressSelect").click(function (e) {
+			e.stopPropagation();
+		});
 
+		initAddress();
+	});
+
+	//初始化地址选择
+	function initAddress() {
+		var  demo1 = '';
+		$("#Addr").cityLinkage({
+			containerId: 'addressSelectWrapper',
+			getSelectedCode:function(){return $("#Addr").data("code");},
+			callback:function(data) {
+				$("#Addr").val(data.addr).data("code",data.town.code);
+				var a = data.province.code;
+				var b = data.city.code;
+				var c = data.area.code;
+				var d = data.town.code;
+				var demo1 = a+','+b+','+c+','+d
+				$("#demo1").val(demo1)
+			}
+		});
+	}
+</script>
 
 
