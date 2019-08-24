@@ -16,26 +16,26 @@ public class RegionDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//
-	private Integer regionCode;
+	private Long regionCode;
 	//
 	private String regionName;
 	//
 	private Integer regionLevel;
 	//
-	private Integer parentRegionCode;
+	private Long parentRegionCode;
 	
 	private Integer regionType;
 
 	/**
 	 * 设置：
 	 */
-	public void setRegionCode(Integer regionCode) {
+	public void setRegionCode(Long regionCode) {
 		this.regionCode = regionCode;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getRegionCode() {
+	public Long getRegionCode() {
 		return regionCode;
 	}
 	/**
@@ -65,13 +65,13 @@ public class RegionDO implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setParentRegionCode(Integer parentRegionCode) {
+	public void setParentRegionCode(Long parentRegionCode) {
 		this.parentRegionCode = parentRegionCode;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getParentRegionCode() {
+	public Long getParentRegionCode() {
 		return parentRegionCode;
 	}
 	

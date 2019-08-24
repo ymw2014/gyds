@@ -133,7 +133,7 @@ public class PersionTeamController extends BaseController{
 		params.put("regionType",1);
 		params.put("parentRegionCode",para.get("area"));
 		List<RegionDO> regList = regionService.list(params);
-		Integer code= regList.get(0).getRegionCode();
+		Long code= regList.get(0).getRegionCode();
 		params.clear();
 		params.put("regionType",1);
 		params.put("parentRegionCode",code);
@@ -158,7 +158,7 @@ public class PersionTeamController extends BaseController{
 	public R savaTeam(TeamDO team,String reg) {
 		Integer i = 0 ;
 		String flag = "0";
-		Integer regCode = null;
+		Long regCode = null;
 		UserDO user = ShiroUtils.getUser();
 		if(user!=null) {
 			user.getUserId();
@@ -182,7 +182,7 @@ public class PersionTeamController extends BaseController{
 		if("1".equals(flag)) {
 			if(reg!=null) {
 				String [] regStr = reg.split(",");
-				regCode = Integer.parseInt(regStr[regStr.length-1]);
+				regCode = Long.parseLong(regStr[regStr.length-1]);
 				team.setRegCode(regCode);
 			}
 				/*

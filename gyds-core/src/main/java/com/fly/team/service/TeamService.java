@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface TeamService {
 	
-	TeamDO get(Integer id);
+	TeamDO get(Long id);
 	
 	List<TeamDO> list(Map<String, Object> map);
 	
@@ -24,7 +24,7 @@ public interface TeamService {
 	
 	int update(TeamDO team);
 	
-	int remove(Integer id);
+	int remove(Long id);
 	
 	int batchRemove(Integer[] ids);
 

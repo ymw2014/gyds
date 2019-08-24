@@ -23,7 +23,7 @@ public class VolunteerDO implements Serializable {
 	//
 	private Long userId;
 	//所属团队编号
-	private Integer teamId;
+	private Long teamId;
 	//所属团队名称
 	private String teamName;
 	//家庭住址
@@ -200,13 +200,13 @@ public class VolunteerDO implements Serializable {
 	/**
 	 * 设置：所属团队编号
 	 */
-	public void setTeamId(Integer teamId) {
+	public void setTeamId(Long teamId) {
 		this.teamId = teamId;
 	}
 	/**
 	 * 获取：所属团队编号
 	 */
-	public Integer getTeamId() {
+	public Long getTeamId() {
 		return teamId;
 	}
 	/**

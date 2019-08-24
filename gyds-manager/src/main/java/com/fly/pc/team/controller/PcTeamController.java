@@ -68,10 +68,7 @@ public class PcTeamController {
 			areaId = "0";
 		}
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
-		if (CollectionUtils.isEmpty(ids)) {
-			ids.add(-1);
-		}
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.clear();
 		params.put("ids", ids);
 		params.put("offset", 0);
@@ -99,10 +96,7 @@ public class PcTeamController {
 			areaId = "0";
 		}
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
-		if (CollectionUtils.isEmpty(ids)) {
-			ids.add(-1);
-		}
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		page.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(page);
 		r.put("code","0");
@@ -112,7 +106,7 @@ public class PcTeamController {
 	
 	
 	@RequestMapping("teamDetail")
-	public String detail(@RequestParam Map<String,Object> params, Model model, @RequestParam Integer  teamId,@RequestParam Integer areaId) {
+	public String detail(@RequestParam Map<String,Object> params, Model model, @RequestParam Long  teamId,@RequestParam Integer areaId) {
 		model.addAttribute("areaId",areaId);
 		if (areaId == null) {
 			areaId = 0;
@@ -187,7 +181,7 @@ public class PcTeamController {
 	public String query(String areaId, String satuts) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.clear();
 		params.put("status", satuts);
 		params.put("ids", ids);
@@ -200,7 +194,7 @@ public class PcTeamController {
 	
 	@ResponseBody
 	@RequestMapping("team/apply")
-	public R apply(Integer id,HttpServletRequest request) {
+	public R apply(Long id,HttpServletRequest request) {
 		R r=new R();
 		try {
 			UserDO user = ShiroUtils.getUser();

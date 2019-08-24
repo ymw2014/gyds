@@ -88,7 +88,7 @@ public class TeamController {
 	@RequiresPermissions("team:team:team")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		params.put("pids", ShiroUtils.getUser().getDeptId());
-		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
+		String ids = regionService.getTeamAndAreaByUserRole(ShiroUtils.getUser().getDeptId());
 		params.put("ids", ids);
 		//查询列表数据
         Query query = new Query(params);
@@ -106,7 +106,7 @@ public class TeamController {
 
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("team:team:edit")
-	String edit(@PathVariable("id") Integer id,Model model){
+	String edit(@PathVariable("id") Long id,Model model){
 		TeamDO team = teamService.get(id);
 		String imgStr = team.getTeamImg();
 		String[] img = imgStr.split(",");
@@ -123,7 +123,7 @@ public class TeamController {
 	}
 	@GetMapping("/audit/{id}")
 	@RequiresPermissions("team:team:audit")
-	String audit(@PathVariable("id") Integer id,Model model){
+	String audit(@PathVariable("id") Long id,Model model){
 		TeamDO team = teamService.get(id);
 		String imgStr = team.getTeamImg();
 		String[] img = imgStr.split(",");
@@ -147,7 +147,7 @@ public class TeamController {
 	public R save( TeamDO team){
 		if(teamService.save(team)>0){
 			RegionDO region=new RegionDO();
-			region.setRegionCode(team.getTeamCode());
+			region.setRegionCode(team.getId());
 			region.setParentRegionCode(team.getRegCode());
 			region.setRegionName(team.getTeamName());
 			region.setRegionType(2);
@@ -175,9 +175,9 @@ public class TeamController {
 	@PostMapping( "/remove")
 	@ResponseBody
 	@RequiresPermissions("team:team:remove")
-	public R remove( Integer id){
+	public R remove( Long id){
 		TeamDO team=teamService.get(id);
-		if(regionService.checkRegionHasUser(team.getTeamCode())) {
+		if(regionService.checkRegionHasUser(team.getId())) {
 			if(regionService.remove(team.getId())>0) {
 				if(teamService.remove(id)>0){
 					return R.ok();
@@ -209,7 +209,7 @@ public class TeamController {
 		if(team.getUserId().equals(volunteer.getUserId())) {
 			return R.error("你是团长啊,退出团就解散啦");
 		}
-		volunteer.setTeamId(-1);
+		volunteer.setTeamId(-1L);
 		if(volunteerService.update(volunteer)>0){
 			return R.ok();
 		}

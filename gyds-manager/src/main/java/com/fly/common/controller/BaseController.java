@@ -300,9 +300,9 @@ public class BaseController {
 		return i;
 	}
 
-	public Integer upRegCode(Integer code) {
+	public Long upRegCode(Long code) {
 		RegionDO region = regionService.get(code);
-		Integer parCode = region.getParentRegionCode();
+		Long parCode = region.getParentRegionCode();
 		return parCode;
 	}
 	//创建订单
@@ -348,7 +348,7 @@ public class BaseController {
 		return i;
 	}
 	//是否关注
-	public Integer is_attention(Integer id) {
+	public Integer is_attention(Long id) {
 		Map<String, Object> params  = new HashMap<String, Object>();
 		Integer i = 0 ;
 		UserDO user = null; 

@@ -19,7 +19,7 @@ public class PriceDO implements Serializable {
 	//自增编号
 	private Integer id;
 	//置顶区域
-	private Integer regionCode;
+	private Long regionCode;
 	//价格
 	private BigDecimal priceOfDay;
 
@@ -38,13 +38,13 @@ public class PriceDO implements Serializable {
 	/**
 	 * 设置：置顶区域
 	 */
-	public void setRegionCode(Integer regionCode) {
+	public void setRegionCode(Long regionCode) {
 		this.regionCode = regionCode;
 	}
 	/**
 	 * 获取：置顶区域
 	 */
-	public Integer getRegionCode() {
+	public Long getRegionCode() {
 		return regionCode;
 	}
 	/**

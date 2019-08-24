@@ -19,7 +19,7 @@ public class AdvPriceDO implements Serializable {
 	//
 	private Integer id;
 	//区域编号
-	private Integer regionCode;
+	private Long regionCode;
 	//区域编号
 	private String regionName;
 	//展现位置
@@ -46,13 +46,13 @@ public class AdvPriceDO implements Serializable {
 	/**
 	 * 设置：区域编号
 	 */
-	public void setRegionCode(Integer regionCode) {
+	public void setRegionCode(Long regionCode) {
 		this.regionCode = regionCode;
 	}
 	/**
 	 * 获取：区域编号
 	 */
-	public Integer getRegionCode() {
+	public Long getRegionCode() {
 		return regionCode;
 	}
 	/**

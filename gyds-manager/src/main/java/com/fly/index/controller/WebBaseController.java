@@ -65,7 +65,7 @@ public class WebBaseController extends BaseController{
 			logger.debug("广告所在页面序号 :"+params.get("sort")+"");
 			return R.error("缺少参数");
 		}
-		Integer regionCode=Integer.parseInt(params.get("regionCode").toString());
+		Long regionCode=Long.parseLong(params.get("regionCode").toString());
 		Integer positionNum=Integer.parseInt(params.get("positionNum").toString());
 		Integer sort=Integer.parseInt(params.get("sort").toString());
 		DetailDO advDetail=new DetailDO ();

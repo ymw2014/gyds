@@ -67,21 +67,21 @@ public class IndexController {
 	@RequestMapping("/")
 	public String indexValidate(@RequestParam Map<String,Object> params, HttpServletRequest request,Model model) {
 		String code = request.getParameter("areaId");
-		Integer areaId = 0;
+		Long areaId = 0L;
 		if (!StringUtils.isEmpty(code)) {
-			areaId = Integer.valueOf(request.getParameter("areaId"));
+			areaId =Long.parseLong(request.getParameter("areaId"));
 		}
 		if(params.get("areaId")!=null) {
 			params.put("parentRegionCode", params.get("areaId"));
 		}else {
-			areaId=0;
+			areaId=0L;
 			params.put("parentRegionCode",0);
 		}
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);//全国包含的省
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		List<Long> ids = regionService.getAllTeamByUserRole(params);
 		params.clear();
 		params.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(params);

@@ -16,7 +16,7 @@ public class TeamDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//自增编号
-	private Integer id;
+	private Long id;
 	//团队名称
 	private String teamName;
 	//团长名称
@@ -34,7 +34,7 @@ public class TeamDO implements Serializable {
 	//团队图片，多张以逗号分隔
 	private String teamImg;
 	//地区Code
-	private Integer regCode;
+	private Long regCode;
 	//地区
 	private String addres;
 	//地区
@@ -110,13 +110,13 @@ public class TeamDO implements Serializable {
 	/**
 	 * 设置：自增编号
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**
 	 * 获取：自增编号
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 	/**
@@ -206,13 +206,13 @@ public class TeamDO implements Serializable {
 	/**
 	 * 设置：地区Code
 	 */
-	public void setRegCode(Integer regCode) {
+	public void setRegCode(Long regCode) {
 		this.regCode = regCode;
 	}
 	/**
 	 * 获取：地区Code
 	 */
-	public Integer getRegCode() {
+	public Long getRegCode() {
 		return regCode;
 	}
 }

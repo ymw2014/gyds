@@ -124,7 +124,7 @@ public class BaseService {
 	 * @param price 参与分佣的金额
 	 * @param newId 资讯ID
 	 */
-	public void distributionOfDomesticAdv(Integer expIncType,BigDecimal price,Integer regionCode) {
+	public void distributionOfDomesticAdv(Integer expIncType,BigDecimal price,Long regionCode) {
 		logger.info("广告生成分佣开始****************************************************************************");
 		
 		SetupDO setup = setupDao.list(new HashMap<String, Object>(16)).get(0);
@@ -179,7 +179,7 @@ public class BaseService {
 	 * @param newId
 	 * @param topPos
 	 */
-	public void distributionOfDomesticTop(BigDecimal price,Integer type,Integer newId,Integer regionCode) {
+	public void distributionOfDomesticTop(BigDecimal price,Integer type,Integer newId,Long regionCode) {
 		SetupDO setup = setupDao.list(new HashMap<String, Object>(16)).get(0);
 		Map<String, Object> params=new HashMap<>(16);
 		RegionDO region = regionService.get(regionCode);
@@ -187,10 +187,10 @@ public class BaseService {
 		case 0://置顶全国(向下所有节点分佣)
 			//团队分佣
 			params.put("pids", regionCode);
-			List<Integer> teamList4 = regionService.getAllTeamByUserRole(params);
+			List<Long> teamList4 = regionService.getAllTeamByUserRole(params);
 			BigDecimal allPrice4=price.multiply(setup.getTeamExtract());
 			if(!CollectionUtils.isEmpty(teamList4)) {
-				for (Integer teamId : teamList4) {
+				for (Long teamId : teamList4) {
 					//多线程分佣
 					threadTaskService.roolTeamByElement(teamId,type,Dictionary.ZONG_PING_TAI,allPrice4);
 				}
@@ -199,16 +199,16 @@ public class BaseService {
 			BigDecimal agencFanyong4=price.multiply(setup.getAgencyExtract());//获取街道办代理可分佣总金额
 			params.put("pids", regionCode);
 			params.put("level", Dictionary.JIE_DAO_BAN);
-			List<Integer> jiedaobanList4 = regionService.getAllReginByLevel(params);
-			for (Integer regCode : jiedaobanList4) {
+			List<Long> jiedaobanList4 = regionService.getAllReginByLevel(params);
+			for (Long regCode : jiedaobanList4) {
 				threadTaskService.roolAreaByRegion(regCode,type,Dictionary.JIE_DAO_BAN,Dictionary.ZONG_PING_TAI,agencFanyong4);
 			}
 			//县分佣
 			BigDecimal areaFenPrice=price.multiply(setup.getAreaExtract());//获取街道办代理可分佣总金额
 			params.put("pids", regionCode);
 			params.put("level", Dictionary.XIAN);
-			List<Integer> xianList4 = regionService.getAllReginByLevel(params);
-			for (Integer regCode : xianList4) {
+			List<Long> xianList4 = regionService.getAllReginByLevel(params);
+			for (Long regCode : xianList4) {
 				threadTaskService.roolAreaByRegion(regCode,type,Dictionary.XIAN,Dictionary.ZONG_PING_TAI,areaFenPrice);
 			}
 			
@@ -216,8 +216,8 @@ public class BaseService {
 			BigDecimal cityFenPrice=price.multiply(setup.getCityExtract());//获取街道办代理可分佣总金额
 			params.put("pids", regionCode);
 			params.put("level", Dictionary.SHI);
-			List<Integer> shiList1 = regionService.getAllReginByLevel(params);
-			for (Integer regCode : shiList1) {
+			List<Long> shiList1 = regionService.getAllReginByLevel(params);
+			for (Long regCode : shiList1) {
 				threadTaskService.roolAreaByRegion(regCode,type,Dictionary.SHI,Dictionary.ZONG_PING_TAI,cityFenPrice);
 			}
 			
@@ -225,18 +225,18 @@ public class BaseService {
 			BigDecimal proPriceAll=price.multiply(setup.getProvinceExtract());//获取街道办代理可分佣总金额
 			params.put("pids", regionCode);
 			params.put("level", Dictionary.SHI);
-			List<Integer> proList = regionService.getAllReginByLevel(params);
-			for (Integer regCode : proList) {
+			List<Long> proList = regionService.getAllReginByLevel(params);
+			for (Long regCode : proList) {
 				threadTaskService.roolAreaByRegion(regCode,type,Dictionary.SHENG,Dictionary.ZONG_PING_TAI,proPriceAll);
 			}
 			break;
 		case 1://置顶本省(向上正常分佣,向下各市代理分佣,各县代理分佣,各街道办分佣,各团分佣)
 			//团队分佣
 			params.put("pids", regionCode);
-			List<Integer> teamList3 = regionService.getAllTeamByUserRole(params);
+			List<Long> teamList3 = regionService.getAllTeamByUserRole(params);
 			BigDecimal allPrice3=price.multiply(setup.getTeamExtract());
 			if(!CollectionUtils.isEmpty(teamList3)) {
-				for (Integer teamId : teamList3) {
+				for (Long teamId : teamList3) {
 					//多线程分佣
 					threadTaskService.roolTeamByElement(teamId,type,Dictionary.SHENG,allPrice3);
 				}
@@ -245,8 +245,8 @@ public class BaseService {
 			BigDecimal agencFanyong3=price.multiply(setup.getAgencyExtract());//获取街道办代理可分佣总金额
 			params.put("pids", regionCode);
 			params.put("level", Dictionary.JIE_DAO_BAN);
-			List<Integer> jiedaobanList1 = regionService.getAllReginByLevel(params);
-			for (Integer regCode : jiedaobanList1) {
+			List<Long> jiedaobanList1 = regionService.getAllReginByLevel(params);
+			for (Long regCode : jiedaobanList1) {
 				threadTaskService.roolAreaByRegion(regCode,type,Dictionary.JIE_DAO_BAN,Dictionary.SHENG,agencFanyong3);
 			}
 			
@@ -254,8 +254,8 @@ public class BaseService {
 			BigDecimal areaFen=price.multiply(setup.getAreaExtract());//获取街道办代理可分佣总金额
 			params.put("pids", regionCode);
 			params.put("level", Dictionary.XIAN);
-			List<Integer> jiedaobanList3 = regionService.getAllReginByLevel(params);
-			for (Integer regCode : jiedaobanList3) {
+			List<Long> jiedaobanList3 = regionService.getAllReginByLevel(params);
+			for (Long regCode : jiedaobanList3) {
 				threadTaskService.roolAreaByRegion(regCode,type,Dictionary.XIAN,Dictionary.SHENG,areaFen);
 			}
 			
@@ -263,8 +263,8 @@ public class BaseService {
 			BigDecimal cityFen=price.multiply(setup.getCityExtract());//获取街道办代理可分佣总金额
 			params.put("pids", regionCode);
 			params.put("level", Dictionary.SHI);
-			List<Integer> shiList = regionService.getAllReginByLevel(params);
-			for (Integer regCode : shiList) {
+			List<Long> shiList = regionService.getAllReginByLevel(params);
+			for (Long regCode : shiList) {
 				threadTaskService.roolAreaByRegion(regCode,type,Dictionary.SHI,Dictionary.SHENG,cityFen);
 			}
 			//省代理返佣
@@ -277,10 +277,10 @@ public class BaseService {
 		case 2://置顶本市(向上正常分佣,向下各县代理分佣,各街道办分佣,各团分佣)
 			//市下所有团队分佣
 			params.put("pids", regionCode);
-			List<Integer> teamList1 = regionService.getAllTeamByUserRole(params);
+			List<Long> teamList1 = regionService.getAllTeamByUserRole(params);
 			BigDecimal allPrice1=price.multiply(setup.getTeamExtract());
 			if(!CollectionUtils.isEmpty(teamList1)) {
-				for (Integer teamId : teamList1) {
+				for (Long teamId : teamList1) {
 					//多线程分佣
 					threadTaskService.roolTeamByElement(teamId,type,Dictionary.SHI,allPrice1);
 				}
@@ -289,8 +289,8 @@ public class BaseService {
 			BigDecimal agencFanyong2=price.multiply(setup.getAgencyExtract());//获取街道办代理可分佣总金额
 			params.put("pids", regionCode);
 			params.put("level", Dictionary.JIE_DAO_BAN);
-			List<Integer> jiedaobanList = regionService.getAllReginByLevel(params);
-			for (Integer regCode : jiedaobanList) {
+			List<Long> jiedaobanList = regionService.getAllReginByLevel(params);
+			for (Long regCode : jiedaobanList) {
 				threadTaskService.roolAreaByRegion(regCode,type,Dictionary.JIE_DAO_BAN,Dictionary.SHI,agencFanyong2);
 			}
 			
@@ -310,10 +310,10 @@ public class BaseService {
 		case 3://置顶本县(向上正常分佣,向下各街道办分佣,各团分佣)
 			//获取该县代理下所有团队进行返佣
 			params.put("pids", regionCode);
-			List<Integer> teamList = regionService.getAllTeamByUserRole(params);
+			List<Long> teamList = regionService.getAllTeamByUserRole(params);
 			BigDecimal allPrice=price.multiply(setup.getTeamExtract());
 			if(!CollectionUtils.isEmpty(teamList)) {
-				for (Integer teamId : teamList) {
+				for (Long teamId : teamList) {
 					//多线程分佣
 					threadTaskService.roolTeamByElement(teamId,type,Dictionary.XIAN,allPrice);
 				}
@@ -381,7 +381,7 @@ public class BaseService {
 	 * @param regionCode 区域编号
 	 * @param allPrice 需要瓜分的返佣金额
 	 */
-	public void findChildenRegion(Integer regionCode,Integer level,BigDecimal allPrice) {
+	public void findChildenRegion(Long regionCode,Integer level,BigDecimal allPrice) {
 		Map<String, Object> params=new HashMap<>();
 		params.put("parentRegionCode", regionCode);
 		List<RegionDO> regionList = regionService.list(params);
@@ -400,7 +400,7 @@ public class BaseService {
 	 * @param regionCode
 	 * @param allPrice
 	 */
-	public void agencyFindTeamDomestic(Integer regionCode,BigDecimal allPrice,Integer orderType) {
+	public void agencyFindTeamDomestic(Long regionCode,BigDecimal allPrice,Integer orderType) {
 		Map<String, Object> params=new HashMap<>();
 		params.put("parentRegionCode", regionCode);
 		List<RegionDO> teamList = regionService.list(params);
