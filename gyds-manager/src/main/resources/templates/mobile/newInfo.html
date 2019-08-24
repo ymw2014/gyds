@@ -17,8 +17,14 @@
 		<link rel="stylesheet" th:href="@{/mobile/css/css2.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.1.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.2.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.2.1.css}">
 		<script th:src="@{/mobile/js/jquery.my-modal.1.1.js}"></script>
 		<script th:src="@{/mobile/js/jquery.my-modal.1.2.js}"></script>
+		<script th:src="@{/js/plugins/layer/layer.js}"></script>
+		<script th:src="@{/js/layui.js}"></script>
+		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
 		<style>
  .addred{
   color:#fff !important;
@@ -177,11 +183,9 @@
 			</div>
 			<script type="text/javascript" th:src="@{/mobile/js/js1.js}"></script>
 		<div class="gyimg">
-			<a href=""><img th:src="@{/mobile/images/qiandao_03.jpg}" alt=""></a>
-			<a href=""><img th:src="@{/mobile/images/qiandao_06.jpg}" alt=""></a>
-			<a href=""><img th:src="@{/mobile/images/qiandao_08.jpg}" alt=""></a>
-			<a href=""><img th:src="@{/mobile/images/qiandao_11.jpg}" alt=""></a>
-			<a href=""><img th:src="@{/mobile/images/qoandao_13.jpg}" alt=""></a>
+			<a th:each="act: ${advList}" class="btn5" th:href="${act.advImg!=null?act.url:'javascript:;'}" th:target="${act.advImg!=null?'_blank':''}">
+				<img th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+			</a>
 		</div>
 		<div class="listpl-2">
 			<div class="listpl-2-1">
@@ -231,13 +235,175 @@
 				<!-- <a href="javaScript:shareFriend();"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""><span></span></a> -->
 			</div>
 		</div>
+		<div class="m-modal5">
+		<div class="m-modal-dialog5" style="width: 80%">
+			<div class="m-top">
+				<span class="m-modal-close">X</span>
+			</div>
+			<div class="m-middle" style="width: 80%">
+			    <form action="" id="signupForm">
+			    <input type="hidden" placeholder="" class="input1" id="url">
+			    <input type="hidden" placeholder="" class="input1" id="price">
+			    <input type="hidden" placeholder="" class="input1" name="positionNum" id="positionNum">
+			    <input type="hidden" placeholder="" class="input1" id="regionName">
+			    <input type="hidden" placeholder="" class="input1" id="sort" name="sort">
+			    <input type="hidden" placeholder="" class="input1" name="regionCode" id="regionCode">
+			    	<label>
+						<span>广告展示位置</span>
+						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
+					</label>
+					<label>
+						<span>广告投放天数</span>
+						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
+					</label>
+					<label>
+						<span>广告链接地址</span>
+						<input type="text" placeholder="http://" name="advUrl" class="input1">
+					</label>
+					<label>
+						<span>上传广告图</span>
+						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
+						<input type="hidden" id="imgStr" name="advImg">
+						<input type="file" name="file" style="display: none;" id ="file">
+					</label>
+					<label>
+						<span>广告价格</span>
+						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
+					</label>
+					<label>
+						<input type="button" id="save" value="确认购买" class="input3">
+					</label>
+			    </form>
+			</div>
+		</div>
+	</div>
 	</body>
 	<script src="/js/plugins/layer/layer.js"></script>
 	<script src="/js/layui.js"></script>
 	<script src="/js/plugins/layer/laydate/laydate.js"></script>
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script th:src="@{/mobile/js/jquery.my-modal.2.1.js}"></script>
 	<script type="text/javascript">
+	var m5 = new MyModal5.modal(function() {
+	});
+	$('.btn5').on("click", function() {
+		var url=$(this).attr("data-url");
+		$("#url").val(url);
+		 $.get(url, function(result){
+			 if(result.code==-0){
+				 $("#price").val(result.price);
+				 $("#positionNum").val(result.positionNum);
+				 $("#regionName").val(result.regionName);
+				 $("#positionName").val(result.positionName);
+				 $("#regionCode").val(result.regionCode);
+				 $("#sort").val(result.sort);
+				 m5.show();
+			 }
+			 if(result.code==-1){
+				 window.location.href = result.url;
+			 }
+			 if(result.code==500){
+				 layer.msg(result.msg);
+			 }
+		});
+	});
 	
+	layui.use('upload', function() {
+	    var upload = layui.upload;
+
+	    //执行实例
+	    var uploadInst = upload.render({
+	        elem : '#file', //绑定元素
+	        url : '/common/sysFile/upload', //上传接口
+	        size : 1000,
+	        accept : 'file',
+	        done : function(r) {
+	            var fileName = r.fileName;
+	             $("#imgStr").val(fileName);
+	     	     $("#img").attr("src",fileName);
+	        },
+	        error : function(r) {
+	            //layer.msg(r.msg);
+	        }
+	    });
+	    
+	});
+
+	$().ready(function(){
+		$("#save").on('click', function() {
+			console.log(123);
+			$("#signupForm").submit();
+		});
+	})
+
+	function jisuan(){
+		var day=$("#showDay").val();
+		var price = $("#price").val();
+		var allPrice=day*price;
+		console.log(allPrice);
+		$("#jiage").text(allPrice+"元");
+	}
+
+
+	function save() {
+			$.ajax({
+				type : "POST",
+				url : "/pc/advSubmit",
+				data : $('#signupForm').serialize(),
+				success : function(r) {
+					if (r.code == 0) {
+						layer.msg(r.msg);
+						
+					} else {
+						layer.msg(r.msg);
+					}
+				},
+			});
+		}
+		
+		$().ready(function() {
+			validateRule();
+		});
+
+		$.validator.setDefaults({
+			submitHandler : function() {
+				save();
+			}
+		});
+		function validateRule() {
+
+			var icon = " ";
+			$("#signupForm").validate({
+				rules : {
+					positionName : {
+						required : true
+					},
+					showDay : {
+						required : true
+					},
+					advUrl : {
+						required : true
+					},
+					advImg : {
+						content : true
+					}
+				},
+				messages : {
+					positionName : {
+						required : icon + "<span style='color:red'>展示位置不能为空</span>",
+					},
+					showDay : {
+						required : icon + "<span style='color:red'>投放天数不能为空</span>",
+					},
+					advUrl : {
+						required : icon + "<span style='color:red'>广告链接不能为空</span>",
+					},
+					advImg : {
+						required : icon + "<span style='color:red'>广告图片不能为空</span>",
+					}
+				}
+			})
+		}
 	//发红包
 	var m1 = new MyModal.modal(function() {
 		alert("你点击了确定");
@@ -273,7 +439,7 @@
 						$('#sum').append(sum);
 					$.each(data.listPrice, function(i, item){
 						red += '<li>';
-						red += '<p id="mony">'+item.price+'</p>元';
+						red += '<p id="mony">'+item.price+'</p>元</br>';
 						red += '<p class="sx">手续费'+item.rate+'元</p>';
 						red += '</li>';
 					});
@@ -534,6 +700,7 @@
 					history.go(0);
 				} else if(data.code == 2){
 					alert(data.msg);
+					history.go(0);
 				}else {
 					parent.layer.alert(data.msg)
 				}
@@ -548,7 +715,7 @@
 			title : '申请置顶',
 			maxmin : true,
 			shadeClose : false, // 点击遮罩关闭层
-			area : [  '340px', '420px'  ],
+			area : [ '340px', '420px' ],
 			content : '/pc/news/top/' + id // iframe的url
 		});
 	
@@ -756,7 +923,6 @@
 	 
 	});
 
-	
 	
 	</script>
 </html>
