@@ -28,7 +28,7 @@
 		$(document).ready(function() {
 			getTreeData()
 		});
-		function getTreeData() {
+		/* function getTreeData() {
 			$.ajax({
 				type : "GET",
 				url : "/system/region/tree",
@@ -46,6 +46,38 @@
 				"plugins" : [ "search" ]
 			});
 			$('#regionTree').jstree().open_all();
+		} */
+		function getTreeData(){
+			$(function() {
+				$('#regionTree').jstree({
+					'core' : {
+						'check_callback': true,
+						"data" : function (obj, callback){
+								$.ajax({
+									url : "/system/region/ajaxRegionTree",
+									data:{"regionCode":obj.id},
+									dataType : "json",
+									type : "POST",
+									success : function(data) {
+										if(data) {
+											callback.call(this, data);
+										}else{
+											$("#jstree").html("暂无数据！");
+										}
+									}
+								});
+						}
+					},
+					"plugins" : [ "sort" ]
+				}).bind("select_node.jstree", function(event, data) {
+					console.log("展开了");
+					var inst = data.instance;
+					var selectedNode = inst.get_node(data.selected);
+					//console.info(selectedNode.aria-level);
+					var level = $("#"+selectedNode.id).attr("aria-level");
+						loadConfig(inst, selectedNode);
+				});
+			});
 		}
 		$('#regionTree').on("changed.jstree", function(e, data) {
 			if(data.node.id!=-1){

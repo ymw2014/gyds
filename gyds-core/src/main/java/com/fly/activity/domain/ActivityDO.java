@@ -71,7 +71,7 @@ public class ActivityDO implements Serializable {
 	
 	private String startTimeStr;
 	
-	private int teamId;
+	private Long teamId;
 	
 	private String actAddr;
 	
@@ -111,10 +111,10 @@ public class ActivityDO implements Serializable {
 	public void setActAddr(String actAddr) {
 		this.actAddr = actAddr;
 	}
-	public int getTeamId() {
+	public Long getTeamId() {
 		return teamId;
 	}
-	public void setTeamId(int teamId) {
+	public void setTeamId(Long teamId) {
 		this.teamId = teamId;
 	}
 	public String getCreateTimeStr() {

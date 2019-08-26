@@ -48,7 +48,7 @@ public class MenuServiceImpl implements MenuService {
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Tree <MenuDO> t = BuildTree.build(trees,0);
+		Tree <MenuDO> t = BuildTree.build(trees,0L);
 		return t;
 	}
 

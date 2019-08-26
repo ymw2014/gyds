@@ -18,7 +18,7 @@ public interface RegionService {
 	 * @param regionCode
 	 * @return
 	 */
-	RegionDO get(Integer regionCode);
+	RegionDO get(Long regionCode);
 	/**
 	 * 通过条件参数获取list
 	 * @param map
@@ -48,7 +48,7 @@ public interface RegionService {
 	 * @param regionCode
 	 * @return
 	 */
-	int remove(Integer regionCode);
+	int remove(Long regionCode);
 	/**
 	 * 批量删除
 	 * @param regionCodes
@@ -66,7 +66,7 @@ public interface RegionService {
 	 * @param regionCode
 	 * @return
 	 */
-	boolean checkRegionHasUser(Integer regionCode);
+	boolean checkRegionHasUser(Long regionCode);
 	/**
 	 * 获取树形结构数据(包含团级)
 	 * @param params
@@ -76,13 +76,13 @@ public interface RegionService {
 	/**
 	 * 获取登录用户权限下所有团队编号(通过当前区域编号获取所有团队编号)
 	 */
-	List<Integer> getAllTeamByUserRole(Map<String,Object> params);
+	List<Long> getAllTeamByUserRole(Map<String,Object> params);
 	
 	/**
 	 * 获取登录用户权限下所有区域及团队编号( 获取该区域下所有区域及团队)
 	 * @return
 	 */
-	List<Integer> getTeamAndAreaByUserRole(Map<String,Object> params);
+	String getTeamAndAreaByUserRole(Long regionCode );
 	/**
 	 *  获取地区团队活跃人数
 	 * @param region  地区编码
@@ -90,14 +90,14 @@ public interface RegionService {
 	 * @param day     天数
 	 * @return
 	 */
-	Map<String, Object>  activeStat(Integer region, Integer level, Integer day);
+	Map<String, Object>  activeStat(Long region, Integer level, Integer day);
 	
 	/**
 	 * 	获取该区域下所有区域
 	 * @param params
 	 * @return
 	 */
-	List<Integer> getAllRegin(Map<String, Object> params);
-	List<Integer> getAllReginByLevel(Map<String, Object> params);
+	List<Long> getAllRegin(Map<String, Object> params);
+	List<Long> getAllReginByLevel(Map<String, Object> params);
 
 }

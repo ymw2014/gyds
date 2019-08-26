@@ -250,11 +250,11 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 	 * @param regCode
 	 * @return
 	 */
-	public Integer randomCode(Integer regCode) {
+	public Long randomCode(Long regCode) {
 		Integer random =(int) (Math.random()*(999-100+1)+100);
-		String strCode = regCode.toString().substring(2, regCode.toString().length());
+		String strCode = regCode.toString().substring(0, regCode.toString().length());
 		strCode = strCode+random;
-		Integer code = Integer.valueOf(strCode);
+		Long code = Long.parseLong(strCode) ;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id",code);
 		List<TeamDO> list = teamDao.list(map);

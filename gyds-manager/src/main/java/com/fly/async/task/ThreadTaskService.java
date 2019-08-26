@@ -55,7 +55,7 @@ public class ThreadTaskService {
 		 * @param allPrice
 		 */
 		@Async("taskExecutor")
-		public void roolTeamByElement(Integer regionCode,Integer orderType,Integer levelType, BigDecimal allPrice) {
+		public void roolTeamByElement(Long regionCode,Integer orderType,Integer levelType, BigDecimal allPrice) {
 			String remake="";
 			TeamDO team = teamDao.get(regionCode);
 			Map<String, Object> map = regionService.activeStat(team.getId(),5,10);
@@ -103,7 +103,7 @@ public class ThreadTaskService {
 		 * @param price
 		 */
 		@Async("taskExecutor")
-		public void agencyDomestic(Integer regionCode,Integer type,BigDecimal fanyongPrice) {
+		public void agencyDomestic(Long regionCode,Integer type,BigDecimal fanyongPrice) {
 			Map<String, Object> params=new HashMap<String, Object>(16);
 			params.put("proxyRegion", regionCode);
 			String remake="";
@@ -130,7 +130,7 @@ public class ThreadTaskService {
 		 * @param level 代理等级
 		 * @param allPrice
 		 */
-		public void roolAreaByElement(Integer regionCode, Integer level, Integer type,BigDecimal allPrice) {
+		public void roolAreaByElement(Long regionCode, Integer level, Integer type,BigDecimal allPrice) {
 			Map<String, Object> params=new HashMap<String, Object>(16);
 			params.put("proxyRegion", regionCode);
 			Map<String, Object> map = regionService.activeStat(regionCode,level,10);
@@ -193,7 +193,7 @@ public class ThreadTaskService {
 		 * @param allPrice 可分佣的总金额
 		 */
 		@Async("taskExecutor")
-		public void roolAreaByRegion(Integer regionCode,Integer type,Integer levelType,Integer prentCodeType, BigDecimal allPrice) {
+		public void roolAreaByRegion(Long regionCode,Integer type,Integer levelType,Integer prentCodeType, BigDecimal allPrice) {
 			Map<String, Object> params=new HashMap<String, Object>(16);
 			params.put("proxyRegion", regionCode);
 			Map<String, Object> map = regionService.activeStat(regionCode,5,10);

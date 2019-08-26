@@ -35,12 +35,12 @@ public class TopDO implements Serializable {
 	//制定天数
 	private Integer topDay;
 	//置顶区域
-	private Integer regionCode;
+	private Long regionCode;
 
-	public Integer getRegionCode() {
+	public Long getRegionCode() {
 		return regionCode;
 	}
-	public void setRegionCode(Integer regionCode) {
+	public void setRegionCode(Long regionCode) {
 		this.regionCode = regionCode;
 	}
 	/**

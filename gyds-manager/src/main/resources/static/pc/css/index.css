@@ -36,18 +36,22 @@ input::-webkit-calendar-picker-indicator{
 	margin-top:58px;
 	
 }
-.header-center input{
-	width:115px;height: 30px;
-	line-height:30px;
+.header-center select{
+	width:160px !important;height: 32px;
+	line-height:32px;
 	font-size:14px;
 	padding-left:20px;
 	border:1px solid red;
 	background:url(../images/input_03.jpg) no-repeat right;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+    appearance:none;
 }
+.header-center select::-ms-expand {display: none;}
 .header-img{
 	width: 338px;height: 93px;
 	float: left;
-	margin-left:274px;
+	margin-left:222px;
 	margin-top:27px;
 }
 .header-login{
@@ -68,7 +72,7 @@ input::-webkit-calendar-picker-indicator{
 	color:#fff;
 	font-size:16px;
 }
-/*登录成功的样式*/
+/*鐧诲綍鎴愬姛鐨勬牱寮�*/
  .loginOk{
 	 width:176px;
 	 height: 64px;
@@ -122,7 +126,7 @@ nav>div>ul{
 	width: 100%;
 }
 nav>div>ul>li{
-	width: 14.28%;
+	width: 20%;
 	float:left;
 	line-height:60px;
 	text-align: center;
@@ -222,7 +226,7 @@ nav a{
 	margin-top:36px;
 	position: absolute;
 }
-/*地图样式*/
+/*鍦板浘鏍峰紡*/
 .gps_txt{
 	width: 229px;
 	height:470px;

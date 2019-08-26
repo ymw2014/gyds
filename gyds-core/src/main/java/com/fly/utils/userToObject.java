@@ -6,7 +6,7 @@ import com.fly.domain.UserDO;
 import com.fly.verifyName.domain.NameDO;
 
 public class userToObject {
-	public static NameDO  userToverify(UserDO user,Integer id) {
+	public static NameDO  userToverify(UserDO user,Long id) {
 		NameDO name = new NameDO();
 		name.setAddress(user.getLiveAddress());
 		name.setBirth(user.getBirth());

@@ -25,7 +25,7 @@ public class AdvertisementDO implements Serializable {
 	//图片
 	private String advImg;
 	//区域编码
-	private Integer regionCode;
+	private Long regionCode;
 	//
 	private Date createTime;
 	//位置编号
@@ -82,13 +82,13 @@ public class AdvertisementDO implements Serializable {
 	/**
 	 * 设置：区域编码
 	 */
-	public void setRegionCode(Integer regionCode) {
+	public void setRegionCode(Long regionCode) {
 		this.regionCode = regionCode;
 	}
 	/**
 	 * 获取：区域编码
 	 */
-	public Integer getRegionCode() {
+	public Long getRegionCode() {
 		return regionCode;
 	}
 	/**

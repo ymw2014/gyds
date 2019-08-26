@@ -35,6 +35,9 @@
 		  		  <if test="proxybusi != null and proxybusi != ''"> and proxybusi = #{proxybusi} </if>
 		  		  <if test="regionCode != null">and region_code = #{regionCode}</if>
 		  		  <if test="orderId != null">and order_id = #{orderId}</if>
+		  		  <if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -77,6 +80,9 @@
 		  		  <if test="proxybusi != null and proxybusi != ''"> and proxybusi = #{proxybusi} </if>
 		  		  <if test="regionCode != null">and region_code = #{regionCode}</if>
 		  		   <if test="orderId != null">and order_id = #{orderId}</if>
+		  		   <if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
 	</select>
 	 

@@ -16,7 +16,7 @@ import com.fly.domain.RegionDO;
 @Mapper
 public interface RegionDao {
 
-	RegionDO get(Integer regionCode);
+	RegionDO get(Long regionCode);
 	
 	List<RegionDO> list(Map<String,Object> map);
 	
@@ -26,13 +26,13 @@ public interface RegionDao {
 	
 	int update(RegionDO region);
 	
-	int remove(Integer region_code);
+	int remove(Long region_code);
 	
 	int batchRemove(Integer[] regionCodes);
 
-	int getRegionUserNumber(Integer regionCode);
+	int getRegionUserNumber(Long regionCode);
 
 	List<RegionDO> regionIdByList(Map<String, Object> params);
 	
-	int activeCount(List<Integer> ids, String startTime, String endTime);
+	int activeCount(List<Long> ids, String startTime, String endTime);
 }

@@ -46,7 +46,7 @@ public class AdvController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping("/pc/advShow")
-	public R advShow(Integer regionCode,Integer sort,Integer position){
+	public R advShow(Long regionCode,Integer sort,Integer position){
 		R r=new R();
 		if(ShiroUtils.getUser()==null) {
 			r.put("code", -1);

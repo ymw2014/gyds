@@ -33,7 +33,7 @@ public class IndexServiceImpl implements IndexService{
 	private CenterDao centerDao;
 
 	@Override
-	public List<AdvertisementDO> getIndexAdvList(Integer areaId,Integer positionNum,Map<String,Object> params) {
+	public List<AdvertisementDO> getIndexAdvList(Long areaId,Integer positionNum,Map<String,Object> params) {
 		List<AdvertisementDO> dataList=new ArrayList<AdvertisementDO>();
 		List<AdvertisementDO> list=new ArrayList<AdvertisementDO>();
 		params.put("positionNum", positionNum);
@@ -107,6 +107,7 @@ public class IndexServiceImpl implements IndexService{
 	    			adv.setUrl("/pc/advShow?regionCode="+proRegion.getParentRegionCode()+"&sort="+0+"&position="+Dictionary.AdvPosition.SHOUYE);
 	    			allList.add(adv);
 	    		}
+	    		dataList=allList;
 		    	break;
 		    case 3:  //县级
 		    	if(allList.size()>=3) {//县级代理两个广告位
@@ -222,7 +223,7 @@ public class IndexServiceImpl implements IndexService{
 	}
 
 	@Override
-	public List<AdvertisementDO> getCenterAdvList(Integer regionCode, Integer positionNum) {
+	public List<AdvertisementDO> getCenterAdvList(Long regionCode, Integer positionNum) {
 		List<AdvertisementDO> dataList=new ArrayList<AdvertisementDO>();
 		Map<String,Object> params=new HashMap<>(16);
 		params.put("positionNum", positionNum);

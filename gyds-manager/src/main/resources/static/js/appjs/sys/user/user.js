@@ -183,7 +183,7 @@ function batchRemove() {
 		});
 	}, function() {});
 }
-function getTreeData() {
+/*function getTreeData() {
 	$.ajax({
 		type : "GET",
 		url : "/system/region/tree",
@@ -239,4 +239,62 @@ $('#jstree').bind("select_node.jstree", function(e, data) {
 		$('#exampleTable').bootstrapTable('refresh',opt);
 	}
 
-});
+});*/
+function getTreeData(){
+	$(function() {
+		$('#jstree').jstree({
+			'core' : {
+				'check_callback': true,
+				"data" : function (obj, callback){
+						$.ajax({
+							url : "/system/region/ajaxRegionTree",
+							data:{"regionCode":obj.id},
+							dataType : "json",
+							type : "POST",
+							success : function(data) {
+								if(data) {
+									callback.call(this, data);
+								}else{
+									$("#jstree").html("暂无数据！");
+								}
+							}
+						});
+				}
+			},
+			"plugins" : [ "sort" ]
+		}).bind("select_node.jstree", function(event, data) {
+			console.log("展开了");
+			var inst = data.instance;
+			var selectedNode = inst.get_node(data.selected);
+			//console.info(selectedNode.aria-level);
+			var level = $("#"+selectedNode.id).attr("aria-level");
+				loadConfig(inst, selectedNode);
+		});
+	});
+}
+
+function loadConfig(inst, selectedNode){
+	console.log("展开了");
+	var temp = selectedNode.text;
+	//inst.open_node(selectedNode);
+	//alert(temp);
+	$.ajax({
+		url : "/system/region/ajaxRegionChidenTree",
+		dataType : "json",
+		type : "POST",
+		success : function(data) {
+			if(data) {
+			   selectedNode.children = [];
+			   $.each(data, function (i, item) {
+				   		var obj = {text:item};
+				   		//$('#jstree_div').jstree('create_node', selectedNode, obj, 'last');
+						inst.create_node(selectedNode,item,"last");
+		       });
+			   inst.open_node(selectedNode);
+			}else{
+				$("#jstree_div").html("暂无数据！");
+			}
+		}
+	});
+}
+

@@ -27,6 +27,9 @@
 		  		  <if test="userId != null and userId != ''"> and p.user_id = #{userId} </if>
 		  		  <if test="proxyTelephone != null and proxyTelephone != ''"> and p.proxy_telephone = #{proxyTelephone} </if>
 		  		  <if test="proxyRegion != null and proxyRegion != ''"> and p.proxy_region = #{proxyRegion} </if>
+		  		  <if test="ids != null">
+		         	and left(p.proxy_region,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -55,6 +58,9 @@
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="proxyTelephone != null and proxyTelephone != ''"> and proxy_telephone = #{proxyTelephone} </if>
 		  		  <if test="proxyRegion != null and proxyRegion != ''"> and proxy_region = #{proxyRegion} </if>
+		  		  <if test="ids != null">
+		         	and left(proxy_region,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
 	</select>
 	 

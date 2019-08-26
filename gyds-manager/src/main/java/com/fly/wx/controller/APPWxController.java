@@ -1,26 +1,12 @@
 package com.fly.wx.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -28,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fly.domain.UserDO;
@@ -46,24 +31,34 @@ public class APPWxController {
     @Autowired
     private UserService userService;
     
+    
+    /**
+     * app登录
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/weixinLogin")
     public String weixinLogin(HttpServletRequest request,HttpServletResponse response) throws Exception {  
         // 用户同意授权后，能获取到code
         Map<String, String[]> params = request.getParameterMap();//针对get获取get参数  
         String[] codes = params.get("code");//拿到code的值 
         String code = codes[0];//code  
+        String appId = "wx561ae40290380b04";
+        String appSecret = "2b01a7d96a1e34d3cecf80be87852d53";
         // 用户同意授权
         if (!"authdeny".equals(code)) {
              // 获取网页授权access_token
-        	Map<String,String>  oauth2Token = getOauth2AccessToken("wx561ae40290380b04", "2b01a7d96a1e34d3cecf80be87852d53", code);
-        	log.info("***********************************oauth2Token信息："+oauth2Token.toString());
+        	Map<String,String>  oauth2Token = getOauth2AccessToken(appId, appSecret, code);
+        	log.info("****oauth2Token信息："+oauth2Token.toString());
             // 网页授权接口访问凭证
             String accessToken = oauth2Token.get("access_token");
             // 用户标识
             String openId = oauth2Token.get("openid");
             // 获取用户信息
          // 拼接请求地址
-            String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+            String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
             requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
             // 通过网页授权获取用户信息
             com.alibaba.fastjson.JSONObject json =  JSON.parseObject(HttpUtils.doGet(requestUrl));
@@ -127,7 +122,7 @@ public class APPWxController {
 
     
     /**
-     * 获取网页授权凭证
+                   * 获取网页授权凭证
      * 
      * @param appId 公众账号的唯一标识
      * @param appSecret 公众账号的密钥
@@ -159,7 +154,6 @@ public class APPWxController {
     
     /**
      * URL编码（utf-8）
-     * 
      * @param source
      * @return
      */

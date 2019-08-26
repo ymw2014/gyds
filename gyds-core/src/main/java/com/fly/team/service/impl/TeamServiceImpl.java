@@ -18,7 +18,7 @@ public class TeamServiceImpl implements TeamService {
 	private TeamDao teamDao;
 	
 	@Override
-	public TeamDO get(Integer id){
+	public TeamDO get(Long id){
 		return teamDao.get(id);
 	}
 	
@@ -43,7 +43,7 @@ public class TeamServiceImpl implements TeamService {
 	}
 	
 	@Override
-	public int remove(Integer id){
+	public int remove(Long id){
 		return teamDao.remove(id);
 	}
 	
