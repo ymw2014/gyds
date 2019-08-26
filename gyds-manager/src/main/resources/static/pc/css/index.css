@@ -20,6 +20,12 @@ input::-webkit-calendar-picker-indicator{
 	margin:0 auto;
 	height:156px;
 	overflow: hidden;
+	position: relative;
+}
+。guanliyy{
+	position: absolute;
+    right: 0;
+    top:5px;
 }
 .header-left{
 	width: 186px; 
