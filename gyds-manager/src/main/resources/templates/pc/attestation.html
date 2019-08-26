@@ -3,10 +3,11 @@
 <head th:replace="pc/include :: head"></head>
 <link rel="stylesheet" th:href="@{/pc/css/jibenziliao.css}">
 <link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
-			<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
-			<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
-			<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
-			<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}" />
+<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
 <style>
 .yy-gz {
 	display: none;
@@ -66,7 +67,7 @@
 <body>
 	<!-- 头部 -->
 	<div class="boxRight"
-		style="background: #fff; width: 1006px; height: 1125px; margin-top: 0;">
+		style="background: #fff; width: 1006px; height: 1125px; margin-top: 0;float: none; margin: 0 auto;">
 		<div class="cwmx">
 			<h4>实名认证</h4>
 		</div>
@@ -204,11 +205,11 @@
 					<p>身份证反面</p>
 				</div>
 			</label> <label> <span>邮箱地址</span> <input name="email" type="text">
-			</label> <label> <span>性别</span> <input type="radio" name="sex"
+			</label> <label style="overflow: hidden;"> <span>性别</span> <input type="radio" name="sex"
 				value="0" class="xingbie">男 <input type="radio" name="sex"
 				value="1" class="xingbie">女
-			</label> <label> <span>手机号码</span> <input name="mobile" type="text">
-			</label> <label> <span>联系地址</span> <input name="province"
+			</label>
+			<label> <span>联系地址</span> <input name="province"
 				id="province" type="hidden"> <select class="juzhu" id="pron"
 				onchange="pronv()">
 
@@ -226,7 +227,8 @@
 					<option value="">街道</option>
 			</select>
 			</label> <label> <span>详细地址</span> <input name="address" type="text">
-			</label> 
+			</label>
+			<label> <span>手机号码</span> <input name="mobile" type="text"></label> 
 			<label> <input type="button" id="save" value="提交申请"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 100px; border-radius: 3px;">
 			</label>

@@ -22,16 +22,22 @@ input::-webkit-calendar-picker-indicator{
 	overflow: hidden;
 	position: relative;
 }
-。guanliyy{
+.guanliyy{
 	position: absolute;
     right: 0;
     top:5px;
+}
+.guanliyy a{
+	color:#333;
 }
 .header-left{
 	width: 186px; 
 	height: 54px;
 	float: left;
 	margin-top:47px;
+}
+nav a:hover{
+	color:#fff !important;
 }
 .header-left img{
 	width: 100%;
@@ -349,7 +355,7 @@ nav a{
 	width: 100%;
 	line-height:30px;
 	position:relative;
-	bottom:34px;
+	bottom:30px;
 	background:rgba(0,0,0,0.5);
 	text-align: center;
 	color:#fff;
