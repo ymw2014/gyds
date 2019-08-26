@@ -32,6 +32,7 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
+import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.service.DynamicService;
 import com.fly.pc.news.controller.BaseDynamicController;
@@ -82,6 +83,10 @@ public class PcActivityController extends BaseController{
 			ids.add(-1);
 		}
 		params.clear();
+		/*
+		 * if(JudgeIsMoblieUtil.judgeIsMoblie(request)) { params.put("offset", 0);
+		 * params.put("limit", 8); }
+		 */
 		params.put("ids", ids);
 		params.put("examineStatus",1);
 		List<ActivityDO> actList = activityService.list(params);//活动
