@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
 		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/mobile/css/address.css}">
 		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/jss1.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/jss2.js}"></script>
@@ -143,15 +144,43 @@
 					<span>联系电话</span>
 					<input type="text" name="colonelTel">
 				</label>
+			
 				<label>
 					<span>联系地址</span>
 					<div>
                        <div class="content-block">
-					   <input type="text" value=""  id="demo1" class="zfsdf" name="addres">
+					   
+					   <label for="Addr" id="areaLabel" class="address">
+					<span>所在地区</span>
+					<input type="text" name="addres" id="Addr" readonly placeholder="请选择地区" class="zfsdf">
+				</label>
+				<div id="addressSelectWrapper">
+					<div id="addressSelect">
+						<div class="tip">
+							<h3>所在地区</h3>
+							<button type="button" id="cancel"></button>
+						</div>
+						<div id="address">
+							<ul class="selected-address">
+								<li class="lastarea" id="lastprovince">请选择</li>
+								<li class="lastarea" id="lastcity">请选择</li>
+								<li class="lastarea" id="lastarea">请选择</li>
+								<li class="lastarea" id="lasttown">请选择</li>
+							</ul>
+							<div class="address-content">
+								<ul id="province"></ul>
+								<ul id="city"></ul>
+								<ul id="area"></ul>
+								<ul id="town"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
 					   <input id="value1" type="hidden"   name="reg" style="display:none;"/>
 					   </div>
 					</div>
 				</label>
+			 
 			   <div class="mstp">
 				   <span>团队logo</span>
 				   <div>
@@ -210,19 +239,6 @@
 		$(".sctp44").click();
 	})
    
-    var area2 = new LArea();
-    area2.init({
-        'trigger': '#demo1',
-        'valueTo': '#value1',
-        'keys': {
-            id: 'value',
-            name: 'text'
-        },
-        'type': 2,
-        'data': [provs_data, citys_data, dists_data]
-       
-    });
-    
      
     	layui.use('upload', function() {
             var upload = layui.upload;
@@ -372,4 +388,38 @@
     	}
 	
 	</script>
+	<script th:src="@{/mobile/js/city.js}"></script>
+<script>
+	$(function(){
+		// 地址选择器遮罩层打开与关闭
+		$("#areaLabel").click(function(e){
+			$("#addressSelectWrapper").show();
+			e.stopPropagation();
+		});
+		$(document).click(function () {
+			$("#addressSelectWrapper").hide();
+		});
+		$("#cancel").click(function () {
+			$("#addressSelectWrapper").hide();
+		});
+		$("#addressSelect").click(function (e) {
+			e.stopPropagation();
+		});
+
+		initAddress();
+	});
+
+	//初始化地址选择
+	function initAddress() {
+		var  demo1 = '';
+		$("#Addr").cityLinkage({
+			containerId: 'addressSelectWrapper',
+			getSelectedCode:function(){return $("#Addr").data("code");},
+			callback:function(data) {
+				$("#Addr").val(data.addr).data("code",data.town.code);
+				$("#red").val(data.town.code)
+			}
+		});
+	}
+</script>
 </html>

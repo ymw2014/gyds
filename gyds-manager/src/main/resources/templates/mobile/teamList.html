@@ -13,7 +13,7 @@
 	<body>
 		<div class="header_txt">
 			<div class="headerleft">
-				<img src="images/qianwnag.png" alt="">
+				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 			</div>
 			<div class="headercent">团队展示</div>
 			<!-- <div class="headerright">
@@ -36,7 +36,7 @@
 		<div class="tuandui">
 			<div class="tuandui1" id="neirong">
 				<div th:each="team : ${teamList}">
-					<a th:href="'/pc/teamDetail?teamId=' + ${team.id}"><img th:src="${team.teamTitleImg}" alt=""></a>
+					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamTitleImg}" alt=""></a>
 					<p th:text="${team.teamName}"></p>
 				</div>
 			</div>
