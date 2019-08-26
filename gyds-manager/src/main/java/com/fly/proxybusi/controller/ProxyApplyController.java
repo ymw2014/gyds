@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.domain.UserDO;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.system.service.RegionService;
+import com.fly.system.service.UserService;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamNameService;
 import com.fly.team.service.TeamService;
@@ -53,6 +55,8 @@ public class ProxyApplyController {
 	private TeamNameService teamNameService;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping()
 	@RequiresPermissions("proxybusi:apply:apply")
@@ -178,6 +182,10 @@ public class ProxyApplyController {
 			return R.error("此用户已经是代理商");
 		}
 		if(teamNameService.createProxyBus(id, status)>0) {
+			UserDO user = new UserDO();
+			user.setUserId(name.getUserId());
+			user.setIsManage(1);
+			userService.update(user);
 			return R.ok();
 		}
 		return R.error();

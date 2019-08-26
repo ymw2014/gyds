@@ -261,7 +261,7 @@ public class PersionController extends BaseController{
 	 * @return 
 	 */
 	@RequestMapping("/pc/attestation")
-	public String realNameAuthentication(@RequestParam Integer teamId,@RequestParam Integer type,Model model) {
+	public String realNameAuthentication(@RequestParam Long teamId,@RequestParam Integer type,Model model) {
 		/*
 		 * if(user.getIsIdentification()!=null&&user.getIsIdentification()==-1)
 		 * {//实名认证已提交 model.addAttribute("model", "实名认证"); model.addAttribute("message",

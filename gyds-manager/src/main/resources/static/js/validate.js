@@ -61,6 +61,10 @@ $(function(){
 	$.validator.addMethod("isIdCardNo", function(value, element) {
         return this.optional(element) || idCardNoUtil.checkIdCardNo(value);//调用验证的方法
     }, "请正确填写身份证号码");
+	
+	$.validator.addMethod("isSelect", function(value, element) {
+        return this.optional(element) || (value>0);//调用验证的方法
+    }, "请正确");
 })
 
 
@@ -261,4 +265,7 @@ var idCardNoUtil = {
             return null;
         }
     }
+    
+
+    
 };　

@@ -307,6 +307,9 @@ public class PcActivityController extends BaseController{
 	public R activiPublish(ActivityDO activityDO) {
 		UserDO user = ShiroUtils.getUser();
 		VolunteerDO vo = volunteerService.getVo(user.getUserId());
+		if(vo==null) {
+			return R.error("未找到志愿者信息");
+		}
 		activityDO.setTeamId(vo.getTeamId());
 		activityDO.setMemberId(user.getUserId());
 		activityDO.setStatus(1);

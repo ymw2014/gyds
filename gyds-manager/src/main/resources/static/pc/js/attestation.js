@@ -24,8 +24,8 @@ function queryCost(){
 
 
 $("#downTeam").on('click', function() {
-		$('#creatTeam').show();
 		$('#signupForm').hide();
+		$('#creatTeam').show();
 	});
 	
 	$("#upTeam").on('click', function() {
@@ -151,6 +151,7 @@ $("#downTeam").on('click', function() {
 	}
 
 	$.validator.setDefaults({
+		ignore:":hidden:not(select)",
 		submitHandler : function() {
 			save();
 		}

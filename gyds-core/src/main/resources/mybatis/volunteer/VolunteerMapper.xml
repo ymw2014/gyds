@@ -141,29 +141,15 @@
 	<update id="update" parameterType="com.fly.volunteer.domain.VolunteerDO">
 		update volunteer 
 		<set>
-			<if test="volunteerName != null">`volunteer_name` = #{volunteerName}, </if>
 			<if test="userId != null">`user_id` = #{userId}, </if>
 			<if test="teamId != null">`team_id` = #{teamId}, </if>
-			<if test="address != null">`address` = #{address}, </if>
-			<if test="telephone != null">`telephone` = #{telephone}, </if>
-			<if test="sex != null">`sex` = #{sex}, </if>
-			<if test="age != null">`age` = #{age}, </if>
 			<if test="volunteerNumber != null">`volunteer_number` = #{volunteerNumber}, </if>
-			<if test="cardNo != null">`card_no` = #{cardNo}, </if>
 			<if test="sharesNumber != null">`shares_number` = #{sharesNumber}, </if>
 			<if test="commentNumber != null">`comment_number` = #{commentNumber}, </if>
 			<if test="clickNumber != null">`click_number` = #{clickNumber}, </if>
 			<if test="actNumber != null">`act_number` = #{actNumber}, </if>
 			<if test="level != null">`level` = #{level}, </if>
-			<if test="province != null">`province` = #{province}, </if>
-			<if test="city != null">`city` = #{city}, </if>
-			<if test="county != null">`county` = #{county}, </if>
-			<if test="regioncode != null">`regionCode` = #{regioncode},</if>
-			<if test="headImg != null">`head_img` = #{headImg},</if>
-			<if test="remark != null">`remark` = #{remark},</if>
-			<if test="auditStatus != null">`audit_status` = #{auditStatus},</if>
-			<if test="enterTeamTime != null">`enter_team_time` = #{enterTeamTime},</if>
-			<if test="introduction != null">`introduction` = #{introduction}</if>
+			<if test="remake != null">`remake` = #{remake},</if>
 		</set>
 		where id = #{id}
 	</update>

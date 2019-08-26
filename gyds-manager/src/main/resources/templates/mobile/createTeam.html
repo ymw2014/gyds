@@ -138,8 +138,12 @@
 					<span>联系地址</span>
 					<div>
                        <div class="content-block">
-					   
-					   <label for="Addr" id="areaLabel" class="address">
+					   <input  type="hidden" id="reg"  name="reg" style="display:none;"/>
+					   </div>
+					</div>
+				</label>
+			 
+			 		<label for="Addr" id="areaLabel" class="address">
 					<span>所在地区</span>
 					<input type="text" name="addres" id="Addr" readonly placeholder="请选择地区" class="zfsdf">
 				</label>
@@ -165,10 +169,7 @@
 						</div>
 					</div>
 				</div>
-					   <input id="value1" type="hidden"   name="reg" style="display:none;"/>
-					   </div>
-					</div>
-				</label>
+			 
 			 
 			   <div class="mstp">
 				   <span>团队logo</span>
@@ -202,11 +203,16 @@
 				</label>
 			   <label class="aad">
 			   	<span style="width: 180px;">团队服务项目</span>
-					<select name="teamType">
+					<select name="teamType" id="teamType" onchange="queryCost()">
+					<option value="0">请选择</option>
 						<option th:each="type:${type}" th:value="${type.id}"
 						th:text="${type.typeName}"></option>
 					</select>
 			   </label>
+			   
+			   <label> <span>费用</span> 
+					<input id ="price" value="0">
+			</label>
 			   <div class="tijiao">
 				   <input value="立即建团" type="button" id="save" >
 			   </div>
@@ -228,6 +234,26 @@
 		$(".sctp44").click();
 	})
    
+	function queryCost(){
+		var id = $("#teamType option:selected").val();
+		var para ={"id":id};
+		$.ajax({
+			type : "POST",
+			url : "/pc/regTeam/queryCost",
+			data : para,
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					var price = data.price==null?0:data.price;
+					$("#price").attr("value", price);
+				} else {
+					parent.layer.alert(data.msg)
+				}
+			}
+		});
+	}
      
     	layui.use('upload', function() {
             var upload = layui.upload;
@@ -290,7 +316,6 @@
     		    var img = '<div class="imgbox">';
     		    img += '<div class="removePic" onclick="removePic(this,\'/common/sysFile/remove\')">×</div>';
     		    img += '<input type="hidden" name="'+name+'" value="' + fileName + '">';
-    		    img += '<input type="hidden" name="id" value="' + id + '">';
     		    img += '<img src="' + fileName + '">';
     		    img += '</div>';
     		    if (multi) {
@@ -377,7 +402,7 @@
     	}
 	
 	</script>
-	<script th:src="@{/mobile/js/city.js}"></script>
+<script th:src="@{/mobile/js/city.js}"></script>
 <script>
 	$(function(){
 		// 地址选择器遮罩层打开与关闭
@@ -400,15 +425,16 @@
 
 	//初始化地址选择
 	function initAddress() {
-		var  demo1 = '';
 		$("#Addr").cityLinkage({
 			containerId: 'addressSelectWrapper',
 			getSelectedCode:function(){return $("#Addr").data("code");},
 			callback:function(data) {
 				$("#Addr").val(data.addr).data("code",data.town.code);
-				$("#red").val(data.town.code)
+				$("#reg").val(data.town.code)
 			}
 		});
 	}
+	
+	
 </script>
 </html>
