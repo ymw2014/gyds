@@ -25,7 +25,7 @@ public class DetailDO implements Serializable {
 	//订单ID
 	private Integer  orderId;
 	//发布区域
-	private Integer regionCode;
+	private Long regionCode;
 	//区域名称
 	private String regionName;
 	//广告链接
@@ -86,13 +86,13 @@ public class DetailDO implements Serializable {
 	/**
 	 * 设置：发布区域
 	 */
-	public void setRegionCode(Integer regionCode) {
+	public void setRegionCode(Long regionCode) {
 		this.regionCode = regionCode;
 	}
 	/**
 	 * 获取：发布区域
 	 */
-	public Integer getRegionCode() {
+	public Long getRegionCode() {
 		return regionCode;
 	}
 	/**

@@ -56,7 +56,7 @@ public class ActivityController {
 	
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		params.put("pids", ShiroUtils.getUser().getDeptId());
-		List<Integer> ids = regionService.getTeamAndAreaByUserRole(params);
+		String ids = regionService.getTeamAndAreaByUserRole(ShiroUtils.getUser().getDeptId());
 		params.put("ids", ids);
 		//查询列表数据
         Query query = new Query(params);

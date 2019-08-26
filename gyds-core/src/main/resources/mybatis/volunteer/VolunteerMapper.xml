@@ -42,13 +42,9 @@
 		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
 		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND v.enter_team_time &gt;= #{startEntTeamTime}</if>
 				  <if test="endEntTeamTime != null and endEntTeamTime != ''">AND v.enter_team_time &lt;= #{endEntTeamTime}</if>
-				  <if test="ids != null and ids.size() > 0">
-		  		  	and
-		  		  	v.team_id in 
-		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
-				            #{item}       
-				    </foreach> 
-		  		  </if>
+				  <if test="ids != null">
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		  <if test="idList != null and idList.size() > 0">
 		  		  	and
 		  		  	v.id in 
@@ -98,10 +94,13 @@
 		  		   <if test="endTime != null and endTime != ''"> and create_Time <![CDATA[<=]]> #{endTime} </if>
 		  			<if test="startEntTeamTime != null and startEntTeamTime != ''"> AND enter_team_time &gt;= #{startEntTeamTime}</if>
 				  <if test="endEntTeamTime != null and endEntTeamTime != ''">AND enter_team_time &lt;= #{endEntTeamTime}</if>
-				  <if test="ids != null and ids.size() > 0">
+				  <if test="ids != null">
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
+		          <if test="idList != null and idList.size() > 0">
 		  		  	and
-		  		  	team_id in 
-		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+		  		  	v.id in 
+		  		   	<foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
 				            #{item}       
 				    </foreach> 
 		  		  </if>
@@ -239,13 +238,9 @@
 		  	<if test="teamId != null and teamId != ''"> and v.team_id = #{teamId} </if>
 		  	<if test="isVo != null and isVo != ''"> and u.is_identification = #{isVo} </if>
 		  	<if test="sex != null and sex != ''"> and u.sex = #{sex} </if>
-		  	<if test="ids != null and ids.size() > 0">
-	  		  	and
-	  		  	v.team_id in 
-	  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
-			            #{item}       
-			    </foreach> 
-	  		</if>
+		  	<if test="ids != null">
+         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+          </if>
 		</where>
 		 <choose>
             <when test="sort != null and sort.trim() != ''">

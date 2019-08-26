@@ -25,7 +25,7 @@ public class NameDO implements Serializable {
 	//用户表id
 	private Long userId;
 	//团队id
-	private Integer teamId;
+	private Long teamId;
 	//姓名
 	private String name;
 	//email
@@ -114,13 +114,13 @@ public class NameDO implements Serializable {
 	/**
 	 * 设置：团队id
 	 */
-	public void setTeamId(Integer teamId) {
+	public void setTeamId(Long teamId) {
 		this.teamId = teamId;
 	}
 	/**
 	 * 获取：团队id
 	 */
-	public Integer getTeamId() {
+	public Long getTeamId() {
 		return teamId;
 	}
 	/**

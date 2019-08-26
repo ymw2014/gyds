@@ -105,7 +105,7 @@ public class NewsInfoController extends BaseController {
 		// 获取团队信息
 		TeamDO teamDO = teamService.get(info.getTeamId());
 		// 街道级置顶3条
-		Integer code = upRegCode(info.getTeamId());
+		Long code = upRegCode(info.getTeamId());
 		params.clear();
 		params.put("status", 1);
 		params.put("isDel", 0);
@@ -527,7 +527,7 @@ public class NewsInfoController extends BaseController {
 			return "redirect:/login";
 		}
 		InfoDO info = infoService.get(id);
-		Integer code = info.getTeamId();
+		Long code = info.getTeamId();
 		map.put("region", code);
 		map.put("name", "本团");
 		regin.add(map);
@@ -584,7 +584,7 @@ public class NewsInfoController extends BaseController {
 				top.setNewsId(Integer.parseInt(params.get("newsId").toString()));
 				top.setStatus(3);
 				top.setTopPrice(new BigDecimal(count.get("price").toString()));
-				top.setRegionCode(Integer.valueOf(params.get("topReg").toString()));
+				top.setRegionCode(Long.valueOf(params.get("topReg").toString()));
 				top.setTopDay(Integer.valueOf(params.get("topCount").toString()));
 				user = ShiroUtils.getUser();
 				if (user != null) {
@@ -648,11 +648,11 @@ public class NewsInfoController extends BaseController {
 	}
 
 	@RequestMapping("/infoList")
-	public String newInfoList(@RequestParam Integer areaId, @RequestParam Integer flag, Model model) {
+	public String newInfoList(@RequestParam Long areaId, @RequestParam Integer flag, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.put("ids", ids);
 		params.put("status", 1);
 		params.put("isDel", 0);
@@ -682,7 +682,7 @@ public class NewsInfoController extends BaseController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// 查询列表数据
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		PageUtils page = new PageUtils(para);
 		page.put("ids", ids);
 		page.put("status", 1);

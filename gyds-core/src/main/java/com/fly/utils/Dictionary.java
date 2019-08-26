@@ -40,8 +40,10 @@ public class Dictionary {
      * 	街道办代理
      */
     public static Integer JIE_DAO_BAN=4;
-    
-    
+    /**
+     * 	团队
+     */
+    public static Integer TUAN_DUI=5;
     public static class AdvPosition{
     	/**
     	 * 系统首页

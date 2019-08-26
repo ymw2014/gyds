@@ -77,10 +77,7 @@ public class PcActivityController extends BaseController{
 		
 		params.clear();
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
-		if (CollectionUtils.isEmpty(ids)) {
-			ids.add(-1);
-		}
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.clear();
 		params.put("ids", ids);
 		params.put("examineStatus",1);
@@ -103,10 +100,7 @@ public class PcActivityController extends BaseController{
 			areaId = "0";
 		}
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
-		if (CollectionUtils.isEmpty(ids)) {
-			ids.add(-1);
-		}
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.clear();
 		params.put("examineStatus",1);
 		params.put("ids", ids);

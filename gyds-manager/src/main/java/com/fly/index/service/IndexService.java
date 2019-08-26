@@ -21,7 +21,7 @@ public interface IndexService {
 	 * @param params 
 	 * @return
 	 */
-	List<AdvertisementDO>  getIndexAdvList(Integer regionCode,Integer position,Map<String,Object> params);
+	List<AdvertisementDO>  getIndexAdvList(Long regionCode,Integer position,Map<String,Object> params);
 	
 	/**
 	 * 获取网站底部帮助中心内容
@@ -35,7 +35,7 @@ public interface IndexService {
 	 * @param positionNum  加载内容广告的页面(3:资讯详情页4:活动报名页5:签到页6:志愿者详情页7:团队详情页)
 	 * @return
 	 */
-	List<AdvertisementDO> getCenterAdvList(Integer teamId,Integer positionNum); 
+	List<AdvertisementDO> getCenterAdvList(Long teamId,Integer positionNum); 
 	
 	
 

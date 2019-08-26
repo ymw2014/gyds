@@ -139,7 +139,7 @@ public class VolunteerController {
 		if(team.getUserId()==volunteer.getUserId()) {
 			return R.error("你是团长啊,退出团就解散啦");
 		}
-		volunteer.setTeamId(-1);
+		volunteer.setTeamId(-1L);
 		if(volunteerService.update(volunteer)>0){
 			return R.ok();
 		}

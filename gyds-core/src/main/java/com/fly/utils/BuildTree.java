@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BuildTree {
 
-	public static <T> Tree <T> build(List<Tree<T>> nodes,Integer ids) {
+	public static <T> Tree <T> build(List<Tree<T>> nodes,Long ids) {
 
 		if (nodes == null) {
 			return null;

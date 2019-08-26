@@ -16,9 +16,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TeamDao {
 
-	TeamDO get(Integer id);
+	TeamDO get(Long id);
 	
-	TeamDO getByTeamCode(Integer teamCode);
+	TeamDO getByTeamCode(Long teamCode);
 
 	List<TeamDO> list(Map<String,Object> map);
 	
@@ -28,7 +28,7 @@ public interface TeamDao {
 	
 	int update(TeamDO team);
 	
-	int remove(Integer id);
+	int remove(Long id);
 	
 	int batchRemove(Integer[] ids);
 	

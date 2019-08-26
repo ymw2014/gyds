@@ -48,13 +48,9 @@
  				  <if test="startTime != null and startTime != ''"> AND n.create_time &gt;= #{startTime}</if>
 				  <if test="endTime != null and endTime != ''">AND n.create_time &lt;= #{endTime}</if>
 				  <if test="topRegion != null and topRegion != ''">AND n.top_region = #{topRegion}</if>
-				  <if test="ids != null and ids.size > 0">
-		  		  	and
-		  		  	n.team_id in 
-		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
-				            #{item}       
-				    </foreach> 
-		  		  </if>
+				 <if test="ids != null">
+		         	and left(n.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -104,6 +100,9 @@
 		  		 <if test="startTime != null and startTime != ''"> AND create_time &gt;= #{startTime}</if>
 				  <if test="endTime != null and endTime != ''">AND create_time &lt;= #{endTime}</if>
 				  <if test="topRegion != null and topRegion != ''">AND top_region = #{topRegion}</if>
+				  <if test="ids != null">
+		         	and left(n.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
 	</select>
 	 

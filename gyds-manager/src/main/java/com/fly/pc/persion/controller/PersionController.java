@@ -115,7 +115,7 @@ public class PersionController extends BaseController{
 		model.addAttribute("user", user);
 		params.put("userId", user.getUserId());
 		List<Map<String, Object>> voluntList = voService.voluntList(params);
-		model.addAttribute("team",voluntList.size()==0?null: teamService.get(Integer.parseInt(voluntList.get(0).get("teamId")+"")));
+		model.addAttribute("team",voluntList.size()==0?null: teamService.get(Long.parseLong(voluntList.get(0).get("teamId")+"") ));
 		return "pc/persion_main";
 	}
 

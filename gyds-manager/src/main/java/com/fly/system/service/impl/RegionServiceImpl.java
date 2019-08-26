@@ -17,6 +17,7 @@ import com.fly.system.dao.RegionDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.BuildTree;
+import com.fly.utils.Dictionary;
 
 
 
@@ -26,7 +27,7 @@ public class RegionServiceImpl implements RegionService {
 	private RegionDao regionDao;
 	
 	@Override
-	public RegionDO get(Integer regionCode){
+	public RegionDO get(Long regionCode){
 		return regionDao.get(regionCode);
 	}
 	
@@ -51,7 +52,7 @@ public class RegionServiceImpl implements RegionService {
 	}
 	
 	@Override
-	public int remove(Integer regionCode){
+	public int remove(Long regionCode){
 		return regionDao.remove(regionCode);
 	}
 	
@@ -77,7 +78,7 @@ public class RegionServiceImpl implements RegionService {
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Tree <RegionDO> t = BuildTree.build(trees,-1);
+		Tree <RegionDO> t = BuildTree.build(trees,-1L);
 		return t;
 	}
 	
@@ -85,7 +86,7 @@ public class RegionServiceImpl implements RegionService {
 	public Tree<RegionDO> getRegionTree(Map<String,Object> params) {
 		List<Tree <RegionDO>> trees = new ArrayList<Tree <RegionDO>>();
 		List<RegionDO> RegionDOs = regionDao.regionIdByList(params);
-		RegionDO regionDO = regionDao.get(Integer.parseInt(params.get("pids").toString()));
+		RegionDO regionDO = regionDao.get(Long.parseLong(params.get("pids").toString()));
 		RegionDOs.add(regionDO);
 		for (RegionDO sysRegion : RegionDOs) {
 			Tree<RegionDO> tree = new Tree <RegionDO>();
@@ -103,13 +104,13 @@ public class RegionServiceImpl implements RegionService {
 	}
 
 	@Override
-	public boolean checkRegionHasUser(Integer regionCode) {
+	public boolean checkRegionHasUser(Long regionCode) {
 		int result = regionDao.getRegionUserNumber(regionCode);
 		return result==0?true:false;
 	}
 
 	@Override
-	public List<Integer> getAllTeamByUserRole(Map<String,Object> params) {
+	public List<Long> getAllTeamByUserRole(Map<String,Object> params) {
 		List<RegionDO> RegionDOs =new ArrayList<>();
 		String pids = String.valueOf(params.get("pids"));
 		if("0".equals(pids)) {
@@ -118,21 +119,21 @@ public class RegionServiceImpl implements RegionService {
 			params.put("pids", params.get("pids")); 
 			RegionDOs = regionDao.regionIdByList(params);
 		}
-		List<Integer> collect = RegionDOs.parallelStream().filter(bean -> bean.getRegionType() == 2).map(bean -> bean.getRegionCode()).collect(Collectors.toList());
+		List<Long> collect = RegionDOs.parallelStream().filter(bean -> bean.getRegionType() == 2).map(bean -> bean.getRegionCode()).collect(Collectors.toList());
 		return collect;
 	}
 	
 	@Override
-	public List<Integer> getAllRegin(Map<String,Object> params) {
+	public List<Long> getAllRegin(Map<String,Object> params) {
 		List<RegionDO> RegionDOs =new ArrayList<>();
 		String pids = String.valueOf(params.get("pids"));
-		if(Integer.valueOf(pids) == 0) {
+		if(Long.valueOf(pids) == 0) {
 			RegionDOs = regionDao.list(null);
 		}else {
 			params.put("pids", params.get("pids"));
 			RegionDOs = regionDao.regionIdByList(params);	 
 		}
-		List<Integer> list=new ArrayList<>();
+		List<Long> list=new ArrayList<>();
 		for (RegionDO sysRegion : RegionDOs) {
 			if(sysRegion.getRegionType()==1) {
 				list.add(sysRegion.getRegionCode());
@@ -142,7 +143,7 @@ public class RegionServiceImpl implements RegionService {
 	}
 	
 	@Override
-	public List<Integer> getAllReginByLevel(Map<String,Object> params) {
+	public List<Long> getAllReginByLevel(Map<String,Object> params) {
 		List<RegionDO> RegionDOs =new ArrayList<>();
 		String pids = String.valueOf(params.get("pids"));
 		if(Integer.valueOf(pids) == 0) {
@@ -151,7 +152,7 @@ public class RegionServiceImpl implements RegionService {
 			params.put("pids", params.get("pids"));
 			RegionDOs = regionDao.regionIdByList(params);	 
 		}
-		List<Integer> list=new ArrayList<>();
+		List<Long> list=new ArrayList<>();
 		for (RegionDO sysRegion : RegionDOs) {
 			if(sysRegion.getRegionType()==1&&sysRegion.getRegionLevel().equals(params.get("level"))) {
 				list.add(sysRegion.getRegionCode());
@@ -161,8 +162,26 @@ public class RegionServiceImpl implements RegionService {
 	}
 	
 	@Override
-	public List<Integer> getTeamAndAreaByUserRole(Map<String,Object> params) {
-		List<RegionDO> RegionDOs =new ArrayList<>();
+	public String getTeamAndAreaByUserRole(Long regionCode) {
+		RegionDO region = regionDao.get(regionCode);
+		switch (region.getRegionLevel()) {
+		case 0:
+			return null;
+		case 1:
+			return regionCode.toString().substring(0, 2);
+		case 2:
+			return regionCode.toString().substring(0, 4);
+		case 3:
+			return regionCode.toString().substring(0, 6);
+		case 4:
+			return regionCode.toString().substring(0, 9);
+		case 5:
+			return regionCode.toString().substring(0, 12);
+
+		default:
+			break;
+		}
+		/*List<RegionDO> RegionDOs =new ArrayList<>();
 		if(params.get("pids").toString().equals("0")) {
 			RegionDOs = regionDao.list(new HashMap<String,Object>(16));
 		}else {
@@ -175,18 +194,19 @@ public class RegionServiceImpl implements RegionService {
 		for (RegionDO sysRegion : RegionDOs) {
 			list.add(sysRegion.getRegionCode());
 		}
-		return list;
+		return list;*/
+		return null;
 	}
 
 	@Override
-	public Map<String, Object> activeStat(Integer region, Integer level, Integer day) {
+	public Map<String, Object> activeStat(Long region, Integer level, Integer day) {
 		Map<String,Object> param = new HashMap<String, Object>();
 		int teamCount = 0;//团队
 		int roadCount = 0;//街道
 		int distCount = 0;//区县
 		int cityCount = 0;//市
 		int provCount = 0;//省
-		Integer parentRegionCode = null;
+		Long parentRegionCode = null;
 		switch (level) {
 			case 5:
 				teamCount = activeCount(5, region, day);
@@ -203,7 +223,7 @@ public class RegionServiceImpl implements RegionService {
 			case 1:
 				provCount = activeCount(null, chooseCode(parentRegionCode, region), day);
 			case 0:
-				int allCount = activeCount(null, 0, day);
+				int allCount = activeCount(null, 0L, day);
 				param.clear();
 				param.put("allCount", allCount);
 				param.put("provCount", provCount);
@@ -216,7 +236,7 @@ public class RegionServiceImpl implements RegionService {
 		return param;
 	}
 	
-	public int activeCount(Integer level, Integer region, Integer day) {
+	public int activeCount(Integer level, Long region, Integer day) {
 		Map<String,Object> param = new HashMap<String, Object>();
 		if (level!=null&&level==5) {
 			param.put("regionLevel", level);
@@ -229,7 +249,7 @@ public class RegionServiceImpl implements RegionService {
 		param.put("regionType", 2);//团队
 		LocalDate now = LocalDate.now();
 		LocalDate dayAgo = LocalDate.now().minusDays(Long.valueOf(day));
-		List<Integer>  teamId = regionDao.list(param).parallelStream().map(bean -> bean.getRegionCode()).collect(Collectors.toList());
+		List<Long>  teamId = regionDao.list(param).parallelStream().map(bean -> bean.getRegionCode()).collect(Collectors.toList());
 		if (CollectionUtils.isEmpty(teamId)) {
 			return 0;
 		}
@@ -237,15 +257,15 @@ public class RegionServiceImpl implements RegionService {
 		return allCount;
 	}
 	
-	public Integer  getParentCode(Integer region) {
+	public Long  getParentCode(Long region) {
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("regionCode", region);
-		Integer parentRegionCode = regionDao.list(param).get(0).getParentRegionCode();
+		Long parentRegionCode = regionDao.list(param).get(0).getParentRegionCode();
 		return parentRegionCode;
 	}
 	
 	
-	public Integer chooseCode(Integer parentRegionCode, Integer region) {
+	public Long chooseCode(Long parentRegionCode, Long region) {
 		return parentRegionCode == null ? region : parentRegionCode;
 	}
 	

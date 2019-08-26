@@ -66,7 +66,7 @@ public class InfoDO implements Serializable {
 	//0:未发布1:发布
 	private Integer status;
 	//新闻发布团队
-	private Integer teamId;
+	private Long teamId;
 	
 	//团队名称
 	private String teamName;
@@ -84,7 +84,7 @@ public class InfoDO implements Serializable {
 	//自增编号
 	private Long id;
 	//置顶区域
-	private Integer topRegion;
+	private Long topRegion;
 	
 	private String createTimeStr;
 	
@@ -100,10 +100,10 @@ public class InfoDO implements Serializable {
 	public void setCreateTimeStr(String createTimeStr) {
 		this.createTimeStr = createTimeStr;
 	}
-	public Integer getTopRegion() {
+	public Long getTopRegion() {
 		return topRegion;
 	}
-	public void setTopRegion(Integer topRegion) {
+	public void setTopRegion(Long topRegion) {
 		this.topRegion = topRegion;
 	}
 	public Integer getI() {
@@ -410,13 +410,13 @@ public class InfoDO implements Serializable {
 	/**
 	 * 设置：新闻发布团队
 	 */
-	public void setTeamId(Integer teamId) {
+	public void setTeamId(Long teamId) {
 		this.teamId = teamId;
 	}
 	/**
 	 * 获取：新闻发布团队
 	 */
-	public Integer getTeamId() {
+	public Long getTeamId() {
 		return teamId;
 	}
 	/**

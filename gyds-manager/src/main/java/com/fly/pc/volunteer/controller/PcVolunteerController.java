@@ -86,10 +86,7 @@ public class PcVolunteerController {
 		params.clear();
 		
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
-		if (CollectionUtils.isEmpty(ids)) {
-			ids.add(-1);
-		}
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.clear();
 		params.put("isVo",1);//
 		params.put("offset", 0);
@@ -108,10 +105,7 @@ public class PcVolunteerController {
 	@ResponseBody
 	public List<Map<String,Object>> volunteerList(@RequestParam Map<String,Object> params){
 		params.put("pids", params.get("areaId"));
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
-		if (CollectionUtils.isEmpty(ids)) {
-			ids.add(-1);
-		}
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(params.get("areaId").toString()));
 		PageUtils page = new PageUtils(params);
 		page.put("isVo",1);//
 		page.put("ids", ids);
@@ -306,10 +300,7 @@ public class PcVolunteerController {
 		}
 		
 		params.put("pids", areaId);
-		List<Integer> ids = regionService.getAllTeamByUserRole(params);
-		if (CollectionUtils.isEmpty(ids)) {
-			ids.add(-1);
-		}
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.put("isVo",1);//
 		params.put("sex",sex);
 		params.put("sort", sort);

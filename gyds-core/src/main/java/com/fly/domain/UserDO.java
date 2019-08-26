@@ -32,7 +32,7 @@ public class UserDO implements Serializable {
 	//是否绑定账号
 	private Integer isBinding;
 	//组织ID
-	private Integer deptId;
+	private Long deptId;
 	private String deptName;
 	//用户头像
 	private String headImg;
@@ -161,13 +161,13 @@ public class UserDO implements Serializable {
 	/**
 	 * 设置：组织ID
 	 */
-	public void setDeptId(Integer deptId) {
+	public void setDeptId(Long deptId) {
 		this.deptId = deptId;
 	}
 	/**
 	 * 获取：组织ID
 	 */
-	public Integer getDeptId() {
+	public Long getDeptId() {
 		return deptId;
 	}
 	/**

@@ -73,10 +73,10 @@ public class ProxyApplyController {
 			Map<String, Object> proxyMap = JSONUtils.jsonToMap(nameDO.getText());
 			proxyMap.put("id", nameDO.getId());
 			Map<String, Object> map = BeanUtil.transBean2Map(nameDO);//
-			String pronvice=regionService.get(Integer.parseInt(proxyMap.get("pronvice").toString())).getRegionName();
-			String city=regionService.get(Integer.parseInt(proxyMap.get("city").toString())).getRegionName();
-			String country=regionService.get(Integer.parseInt(proxyMap.get("country").toString())).getRegionName();
-			String street=regionService.get(Integer.parseInt(proxyMap.get("street").toString())).getRegionName();
+			String pronvice=regionService.get(Long.parseLong(proxyMap.get("pronvice").toString())).getRegionName();
+			String city=regionService.get(Long.parseLong(proxyMap.get("city").toString())).getRegionName();
+			String country=regionService.get(Long.parseLong(proxyMap.get("country").toString())).getRegionName();
+			String street=regionService.get(Long.parseLong(proxyMap.get("street").toString())).getRegionName();
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("1")) {
 				map.put("daili", pronvice);
 			}
