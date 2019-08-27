@@ -136,12 +136,15 @@ public class WxController {
     			logger.info(user.getNickname()+"*****"+user.getOpenId());
     			if(StringUtils.isNotBlank(eventKey)){
                     //放到redis缓存中
-    			HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+				user = wxMpService.getUserService().userInfo(map.get("FromUserName"));
+				logger.info("qrcode redis key ==> "+eventKey);
+				logger.info("qrcode redis key ==> "+user.toString());
+				HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
     			opsForHash.put("user", "openId", user.toString());
     			Hashtable params = new Hashtable();
                 params.put("openId", user.getOpenId());
                 params.put("location", user.getCity());
-                params.put("equipmentType", eventKey);
+                params.put("equipmentType", eventKey.replace("qrscene_", ""));
                 logger.info("params ==>************************* "+params);
                 JSONObject object = JSONObject.fromObject(params);
     			webSocketController.onMessage(object.toString(), null);

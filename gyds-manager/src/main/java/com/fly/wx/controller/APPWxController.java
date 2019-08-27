@@ -221,7 +221,7 @@ public class APPWxController {
 			user.setIsBinding(0);
 			user.setAccount(new BigDecimal(0));
 			user.setNikeName(wxMpuser.getNickname());
-			user.setOpenId(wxMpuser.getOpenId());
+			user.setOpenId(jsonObject.getString("openId"));
 			user.setHeadImg(jsonObject.getString("headImgUrl"));
 			user.setSex(wxMpuser.getSex());
 			user.setStatus(1);
