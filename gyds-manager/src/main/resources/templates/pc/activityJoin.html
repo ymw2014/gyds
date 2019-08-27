@@ -13,6 +13,7 @@
 		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
 		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
 		<script th:src="@{/js/validate.js}"></script>
+		<script th:src="@{/js/qrCode.js}"></script>
 	</head>
 	<body>
 		<!-- 头部 -->
@@ -89,14 +90,9 @@
 					<div th:utext="${activity.actContent}"></div>
 					<div class="xqfenxing">
 						<span>分享至</span> 
-						<a href="javascript:;" th:onclick="'share(1)'"><img
-							th:src="@{/pc/images/conter_26.jpg}" alt=""></a> 
-						<a href="javascript:;" th:onclick="share(2)"><img
-							th:src="@{/pc/images/conter_28.jpg}" alt=""></a> 
-						<a href="javascript:;" th:onclick="share(3)"><img
-							th:src="@{/pc/images/conter_30.jpg}" alt=""></a> 
-						<a href="javascript:;" th:onclick="share(4)"><img
-							th:src="@{/pc/images/conter_33.jpg}" alt=""></a>
+						<a href="javascript:;" th:onclick="wxshare(1)"><img
+							th:src="@{/pc/images/conter_26.jpg}" alt=""></a>
+							<div id="qrcode"></div>
 					</div>
 				</div>
 				
@@ -414,5 +410,32 @@
 					}
 				}
 			})
+		}
+		
+		
+		var flag = true;
+		function wxshare(type){
+			if (flag) {
+				 flag = false;
+				var url=window.location.href;
+				console.log(url);
+				//new QRCode(document.getElementById('qrcode'), 'http://www.baidu.com');
+				  // 设置参数方式
+				  var qrcode = new QRCode('qrcode', {
+				    text: url,
+				    width: 150,
+				    height: 150,
+				    colorDark : '#000000',
+				    colorLight : '#ffffff',
+				   correctLevel : QRCode.CorrectLevel.H
+				 });
+				 // 使用 
+				 qrcode.makeCode(url);
+			} else {
+				$('#qrcode').empty()
+				flag = true;
+			}
+			 //APIqrcode.clear();
+			
 		}
 </script>
