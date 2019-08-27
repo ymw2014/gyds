@@ -18,7 +18,7 @@
 		<header style="height: 554px;">
 			<div class="header1">
 				<div class="header1-1">
-					<img src="images/qianwnag.png" alt="">
+					<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 				</div>
 				<div class="header1-2">
 					志愿者详情
@@ -71,13 +71,12 @@
 				<li><a href="javaScript:;">转发</a></li>
 				<li><a href="javaScript:;">收藏</a></li>
 				<li><a href="javaScript:;">点赞</a></li>
-				<li><a href="javaScript:;">相册</a></li>
 			</ul>
 		</div>
 		<div class="toog">
 			<div class="header5" th:each="comment: ${commentList}">
 				<div class="header5-1">
-					<p style="line-height:60px; font-size:20px;" th:text="${comment.createTimeStr}"></p>
+					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd hh:mm')}"></p>
 					<div>
 						<p style="font-size:30px;" th:text="${comment.title}"></p>
 						<div class="header5-1-1">
@@ -100,7 +99,7 @@
 			
 			<div class="header5" th:each="dynamic: ${sharesList}">
 				<div class="header5-1">
-					<p style="line-height:60px; font-size:20px;" th:text="${dynamic.createTime}"></p>
+					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(dynamic.createTime,'yyyy-MM-dd hh:mm')}"></p>
 					<div>
 						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
 						<div class="header5-1-1">
@@ -112,7 +111,7 @@
 							<a href="javaScript:;" th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '1'}"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/mobile/images/gongyitubiao_03.jpg}" alt=""></a>
 							<a href="javaScript:;" th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '2'}" ><img th:src="@{/pc/images/gongyitubiao_16.jpg}" alt=""></a>
 							<a th:onclick="'share('+ ${dynamic.newsId}+', 1, '+ ${dynamic.actType}+', '+${areaId}+')'" style="cursor:pointer"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""></a>  
-							<a th:if=" ${dynamic.actType} eq '1'" th:href="'/pc/news/info?id='+ ${dynamic.newsId}"><img th:src="@{/mobile/images/pinglun.png}" alt=""></a>
+							<a th:if=" ${dynamic.actType} eq '1'" th:href="'/pc/news/info?id='+ ${dynamic.newsId}+'&areaId='+${areaId}"><img th:src="@{/mobile/images/pinglun.png}" alt=""></a>
 							<a href="javaScript:;" th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 0}"  th:onclick="'likes('+ ${dynamic.newsId}+', 2, 1)'" ><img th:src="@{/mobile/images/gongyitubiao_10.jpg}" alt="" ></a>
 							<a href="javaScript:;" th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 1}"  ><img th:src="@{/pc/images/gongyitubiao_19.png}" alt="" ></a>
 							<a href="javaScript:;" th:if=" ${dynamic.actType eq 1 && dynamic.isClick eq 2}"  th:onclick="'log()'"><img th:src="@{/mobile/images/gongyitubiao_10.jpg}" alt="" ></a>
@@ -125,7 +124,7 @@
 			
 			<div class="header5" th:each="dynamic: ${collectList}">
 				<div class="header5-1">
-					<p style="line-height:60px; font-size:20px;" th:text="${dynamic.createTime}"></p>
+					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(dynamic.createTime,'yyyy-MM-dd hh:mm')}"></p>
 					<div>
 						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
 						<div class="header5-1-1">
@@ -146,7 +145,7 @@
 			
 			<div class="header5" th:each="dynamic: ${likesList}">
 				<div class="header5-1">
-					<p style="line-height:60px; font-size:20px;" th:text="${dynamic.createTime}"></p>
+					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(dynamic.createTime,'yyyy-MM-dd hh:mm')}"></p>
 					<div>
 						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
 						<div class="header5-1-1">
@@ -170,7 +169,7 @@
 			</div>
 		</div>
 		<div class="toog">
-		相册
+		
 		</div>
 	</body>
 </html>
@@ -201,7 +200,7 @@
 				} else if(result.code == 2){
 					alert(data.msg);
 				}else {
-					parent.layer.alert(data.msg)
+					parent.layer.alert(result.msg)
 				}
             }
         });

@@ -125,7 +125,7 @@
 			<!-- <!-- 红色的 -->
 			<div class="rutuanbtn">
 				<a href="#">入团申请</a>
-			</div> -->
+			</div> 
 			<!-- 灰色的 -->
 			<div class="rutuanbtn"  th:if="${status} eq '1'">
 				<a href="javaScript:;" onclick="teamRemove()">取消申请</a>
@@ -169,7 +169,7 @@
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
-					<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
+					<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 					<p th:text="${volunt.volunteerName}"></p>
 				</div>
 			</div>
