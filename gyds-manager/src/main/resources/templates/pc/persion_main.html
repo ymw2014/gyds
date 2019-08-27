@@ -114,7 +114,7 @@
 			<div class="Navtext">
 			<input type="hidden" th:value="${user.isBinding}" id="isBinding" />
 				<figure>
-					<a href=""><img src="images/geren.jpg" alt=""></a>
+					<a href=""><img th:src="${user.headImg}" alt=""></a>
 					<figcaption>
 						<input type="hidden" th:value="${user.userId}" id="id">
 						<span th:text="${user.name}"> <img src="images/xingbie.jpg" alt=""></span>
@@ -182,7 +182,7 @@
 				</div>
 				<div class="m-middle2">
 				   <div class="m-middletxt">
-					   <img src="images/touxiang 82.png" alt="">
+					   <img th:src="${user.headImg}"alt="">
 				   </div>
 				   <div class="m-middletxt2">
 				   		<ul>
@@ -224,7 +224,7 @@
 				</div>
 				<div class="m-middle2">
 				   <div class="m-middletxt">
-					   <img src="images/touxiang 82.png" alt="">
+					   <img th:src="${user.headImg}" alt="">
 				   </div>
 				   <div class="m-middletxt1">
 				   		<ul id="cashOut">
@@ -236,9 +236,10 @@
 							<li><a href="#">100元</a></li>
 						</ul>
 				   </div>
-				   <div class="m-middletxt2">
+				   <div class="m-middletxt2">   
 					  <span>提 现</span>
 				   </div>
+				    <p th:text=" '提现金额超过50将收取手续费，手续费为' +  ${withdrawalFee}" style="text-align: center;margin-top: 18px;font-size: 20px;color: red;"></p>
 				</div>
 			</div>
 		</div>

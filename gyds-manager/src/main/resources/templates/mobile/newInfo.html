@@ -60,6 +60,7 @@
 		<div class="gycent">
 			<input type="hidden" id="infoId" th:value="${info.id}">
 			<input type="hidden" id="titleImg" th:value="${info.titleImg}">
+			<input type="hidden" id="titleNew" th:value="${info.title}">
 			<h4 id="title" th:text="${info.title}"></h4>
 			<div class="gycent1"><span th:text="${info.source}"></span>&nbsp;<span th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"> </span>
 			<a th:if=" ${is_attention} eq '0'" href="/login" id="guanzhu">+关注</a>
@@ -804,7 +805,7 @@
 		 		 wx.ready(function(){
 					  //分享到朋友圈
 					  wx.onMenuShareTimeline({
-						    title: $('#title').val(), // 分享标题
+						    title: $('#titleNew').val(), // 分享标题
 						    link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 						    imgUrl: $('#titleImg').val(), // 分享图标
 						    success: function () {
@@ -818,7 +819,7 @@
 					});
 					  //分享到朋友
 					  wx.onMenuShareAppMessage({
-						  title:$('#title').val(), // 分享标题
+						  title: $('#titleNew').val(), // 分享标题
 						  desc: '一起来参加', // 分享描述
 						  link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 						  imgUrl: $('#titleImg').val(), // 分享图标

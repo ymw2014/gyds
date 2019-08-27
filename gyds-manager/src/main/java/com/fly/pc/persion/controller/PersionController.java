@@ -107,10 +107,12 @@ public class PersionController extends BaseController{
 	 */
 	@GetMapping("/pc/persion_main")
 	String main(Model model) {
+		SetupDO setupDO = setupService.get(1);
 		Long userId = ShiroUtils.getUserId();
 		UserDO user =  userService.get(userId);
 		model.addAttribute("ccount", user.getAccount());//余额
 		model.addAttribute("platformIntegral", user.getPlatformIntegral());//平台积分
+		model.addAttribute("withdrawalFee", setupDO.getWithdrawalFee());//提现手续费
 		Map<String, Object> params=new HashMap<String, Object>(16);
 		model.addAttribute("user", user);
 		params.put("userId", user.getUserId());

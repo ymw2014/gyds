@@ -29,6 +29,7 @@ input::-webkit-calendar-picker-indicator{
 }
 .guanliyy a{
 	color:#333;
+	font-size:14px;
 }
 .header-left{
 	width: 186px; 
@@ -142,6 +143,7 @@ nav>div>ul>li{
 	float:left;
 	line-height:60px;
 	text-align: center;
+    font-size: 16px;
 }
 nav a{
 	color:#fff;
@@ -167,7 +169,6 @@ nav a{
 	width: 612px;
 	height: 394px;
 	float: left;
-	background-color: aqua;
 	overflow: hidden;
 }
 .main_news{
@@ -428,6 +429,16 @@ footer{
 	text-align: center;
 	color:#C4C4C4;
 }
+.bot figure>img{
+	width:140px;
+}
+.bot figure>figcaption{
+	line-height:30px;
+}
+
+
+
+
 .foter{
 	width:1200px;
 	margin: 0 auto;

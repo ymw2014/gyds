@@ -40,7 +40,7 @@ public class CheckinController {
 	@RequestMapping("show")
 	public String show(Model model) {
 		VolunteerDO vo = volunteerService.getVo(ShiroUtils.getUserId());
-		if(vo.getTeamId()==null) {
+		if(vo == null ) {
 			model.addAttribute("message", "您还不是团队成员!!!");
 			return "pc/message";
 		}

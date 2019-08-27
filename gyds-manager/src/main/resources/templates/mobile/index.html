@@ -28,7 +28,7 @@
 					<option th:each="area: ${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
 				</dataList> -->
 				
-				<select style="width: 100px;" onchange="_area()" id="area">
+				<select style="width: 130px;height: 40px;" onchange="_area()" id="area">
 					<option value="0">-- 全国 --</option>
 					<option th:each="area: ${areaList}" th:value="${area.regionCode}"
 						th:text="${area.regionName}"></option>
@@ -180,7 +180,6 @@
 				<span>技术支持：景安网络</span>
 			</div>
 		</div>
-		
 		<div class="m-modal" >
 		<div class="m-modal-dialog" style="width: 80%">
 			<div class="m-top">
@@ -245,8 +244,8 @@
 		e.preventDefault()
 		mySwiper.swipeNext()
 	  })
-var m1 = new MyModal.modal(function() {
-});
+		var m1 = new MyModal.modal(function() {
+		});
 $('.btn1').on("click", function() {
 	var url=$(this).attr("data-url");
 	$("#url").val(url);

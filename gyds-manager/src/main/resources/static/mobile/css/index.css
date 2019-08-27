@@ -96,6 +96,12 @@ input::-webkit-calendar-picker-indicator{
 	line-height:30px;
 	font-size:29px;
 }
+.swiper-slide-active img{
+	width:100%;
+}
+.guangao img{
+	width:100%;
+}
 .tongjitxt i{
 	display: block;
 	width: 6px;

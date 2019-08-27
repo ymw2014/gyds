@@ -80,7 +80,7 @@
 }
 .gybut{
 	width: 100%;
-	overflow: hidden;
+
 }
 .gybut div{
 	width: 33.33%;
@@ -89,10 +89,13 @@
 	font-size:26px;
 	height: 48px;
 	line-height: 48px;
+	display: flex;
+    justify-content: center;
 }
 .gybut div>img{
 	width: 48px;
 	height: 48px;
+	margin-right:5px;
 }
 .gyimg{
 	width: 95%;
