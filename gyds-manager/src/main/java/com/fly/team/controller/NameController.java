@@ -75,6 +75,7 @@ public class NameController {
 	@RequiresPermissions("verifyName:name:name")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		Long userId = ShiroUtils.getUserId();
+		String reg = "\"regCode\":\"";
 		Integer areaId = 0; 
 		if(userId!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(userId);
@@ -83,8 +84,9 @@ public class NameController {
 		//查询列表数据
 		params.put("type", Dictionary.JIAN_TUAN_SHEN_QING);
         Query query = new Query(params);
-		List<NameDO> nameList = nameService.list(query);
-		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
+        String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
+        query.put("ids", reg+ids);
+        List<NameDO> nameList = nameService.list(query);
 		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
 		for (NameDO nameDO : nameList) {
 			Map<String, Object> teamMap = JSONUtils.jsonToMap(nameDO.getText());
