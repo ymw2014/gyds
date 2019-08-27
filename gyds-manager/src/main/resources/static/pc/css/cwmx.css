@@ -60,9 +60,23 @@
 }
 .biaodan1>ul>li{
 	float: left;
-	width:19%;
-	line-height:40px;
-	padding-left:50px;
+    width: 24%;
+    line-height: 40px;
+    padding-left: 86px;
+}
+
+.biaodan1as{
+	width: 100%;
+	background:#f1f2f3;
+	overflow: hidden;
+}
+.biaodan1as>ul>li{
+	float: left;
+    width: 25%;
+    line-height: 40px;
+}
+.biaodan1as>ul>li>span{
+	margin-left:40px;
 }
 .biaodan2-1{
 	width: 100%;
