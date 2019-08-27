@@ -36,6 +36,7 @@ import com.fly.order.service.OrderService;
 import com.fly.system.service.UserService;
 import com.fly.utils.R;
 import com.fly.wxpay.service.IWxPayConfig;
+import com.fly.wxpay.service.PayService;
 import com.github.binarywang.utils.qrcode.MatrixToImageWriter;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayUtil;
@@ -55,6 +56,8 @@ public class WxPayController extends BaseController {
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PayService PayOrderService;
 	
 	/**
 	     * 创建订单
@@ -65,26 +68,7 @@ public class WxPayController extends BaseController {
 	@ResponseBody
 	public R createOrder(@RequestParam Map<String, Object> param) {
 		String fee = param.get("data").toString();
-		Map<String,Object> params = new HashMap<String, Object>();
-		params.put("orderType", 2);
-		params.put("expIncType", OrderType.CHONG_ZHI);
-		params.put("examineStatus", 2);
-		params.put("cashUpType", 1);
-		params.put("cashOutType", 1);
-		params.put("price", fee);
-		Integer orderNum = creadOrder(params);
-		R r = new R();
-		String num = "";
-		if (orderNum > 0) {
-			OrderDO orderDO = orderService.get(orderNum);
-			num = orderDO.getOrderNumber();
-			r.put("code", 0);
-			r.put("msg", orderDO.getOrderNumber());
-			logger.info("pc  createOrder id:{}, orderNum:{}",orderNum, num);
-			return r;
-		}
-		r.put("code", -1);
-		r.put("msg", "未知错误");
+		R r = PayOrderService.createOrder(fee, OrderType.ZHI_CHU);
 		return r;
 	}
 	
@@ -96,19 +80,7 @@ public class WxPayController extends BaseController {
 	@RequestMapping("/queryOrder")
 	@ResponseBody
 	public R queryOrder(String orderNum) {
-		Map<String,Object> pararm = new HashMap<String, Object>();
-		pararm.put("orderNumber",orderNum);
-		List<OrderDO> list = orderService.list(pararm);
-		R r = new R();
-		if (!CollectionUtils.isEmpty(list)) {
-			Integer examineStatus = list.get(0).getExamineStatus();
-			r.put("code", 0);
-			r.put("msg", examineStatus);
-			return r;
-		}
-		r.put("code", -1);
-		r.put("msg", "未知错误");
-		return r;
+		return PayOrderService.queryOrder(orderNum);
 	} 
 	
 	/**
