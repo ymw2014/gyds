@@ -119,7 +119,7 @@
 						<li th:each="newsTop,iterStat:${newsTop}"><i
 							th:text="${iterStat.count}"></i><a
 							th:href="@{/pc/news/info(id=${newsTop.id},areaId=${areaId})}"
-							th:text="${#strings.abbreviate(newsTop.title,23)}"></a></li>
+							th:text="${#strings.abbreviate(newsTop.title,19)}"></a></li>
 
 					</ul>
 				</div>

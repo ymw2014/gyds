@@ -101,7 +101,7 @@
 				  <if test="endTime != null and endTime != ''">AND create_time &lt;= #{endTime}</if>
 				  <if test="topRegion != null and topRegion != ''">AND top_region = #{topRegion}</if>
 				  <if test="ids != null">
-		         	and left(n.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		          </if>
 		  		</where>
 	</select>
@@ -115,14 +115,12 @@
 			`type`, 
 			`level`, 
 			`reward_max`, 
-			`reward_count`, 
 			`reward_price`, 
 			`pyment_end_time`, 
 			`pyment_start_time`, 
 			`payment_criterion`, 
 			`payment_duration`, 
 			`payment_top`, 
-			`red_peper`, 
 			`create_time`, 
 			`title_img`, 
 			`source`, 
@@ -149,8 +147,6 @@
 			#{paymentCriterion}, 
 			#{paymentDuration}, 
 			#{paymentTop}, 
-			#{redPeperId}, 
-			#{redPeper}, 
 			#{createTime}, 
 			#{titleImg}, 
 			#{source}, 

@@ -76,7 +76,7 @@ public class NameController {
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		Long userId = ShiroUtils.getUserId();
 		String reg = "\"regCode\":\"";
-		Integer areaId = 0; 
+		Long areaId = 0l; 
 		if(userId!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(userId);
 			areaId = proxybusi.getProxyRegion();
@@ -84,7 +84,7 @@ public class NameController {
 		//查询列表数据
 		params.put("type", Dictionary.JIAN_TUAN_SHEN_QING);
         Query query = new Query(params);
-        String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
+        String ids = regionService.getTeamAndAreaByUserRole(areaId);
         query.put("ids", reg+ids);
         List<NameDO> nameList = nameService.list(query);
 		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();

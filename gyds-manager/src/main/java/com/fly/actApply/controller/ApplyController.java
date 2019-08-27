@@ -1,6 +1,8 @@
 package com.fly.actApply.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.domain.ApplyDO;
+import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
+import com.fly.common.controller.BaseController;
+import com.fly.domain.UserDO;
+import com.fly.system.dao.UserDao;
+import com.fly.system.service.UserService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -32,9 +40,13 @@ import com.fly.utils.R;
  
 @Controller
 @RequestMapping("/actApply/apply")
-public class ApplyController {
+public class ApplyController extends BaseController{
 	@Autowired
 	private ApplyService applyService;
+	@Autowired
+	private ActivityService activityService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping()
 	@RequiresPermissions("actApply:apply:apply")
@@ -92,6 +104,24 @@ public class ApplyController {
 	@RequestMapping("/update")
 	@RequiresPermissions("actApply:apply:edit")
 	public R update( ApplyDO apply){
+		Long id = apply.getId();
+		ApplyDO app = applyService.get(id);
+		if(apply.getStatus()==2){
+			Map<String, Object> map = new HashMap<String, Object>();
+			ActivityDO activityDO = activityService.get(Integer.parseInt(app.getActId().toString()));
+			BigDecimal price = activityDO.getActPrice();
+			UserDO user = userService.get(Long.parseLong(app.getUserId().toString()));
+			BigDecimal account =  user.getAccount();
+			account = account.add(price);
+			user.setAccount(account);
+			Integer i = userService.update(user);
+			if(i==1) {
+				map.put("price", price);
+				map.put("orderType", 2);
+				map.put("expIncType", 8);
+				creadOrder(map);
+			}
+		}
 		apply.setExamine(new Date());
 		applyService.update(apply);
 		return R.ok();

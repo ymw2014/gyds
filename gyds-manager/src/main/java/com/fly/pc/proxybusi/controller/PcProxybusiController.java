@@ -157,7 +157,7 @@ public class PcProxybusiController extends BaseController{
 			params.put("price", bail);
 			balance = account.subtract(bail);
 			String pron = area != null ? area[0] : pronvice;
-			proxybusiDO.setProxyRegion(Integer.valueOf(pron));
+			proxybusiDO.setProxyRegion(Long.valueOf(pron));
 			break;
 		case 2:
 			BigDecimal cityBail = setupDO.getCityBail();
@@ -167,7 +167,7 @@ public class PcProxybusiController extends BaseController{
 			params.put("price", cityBail);
 			balance = account.subtract(cityBail);
 			String cit = area != null ? area[1] : city;
-			proxybusiDO.setProxyRegion(Integer.valueOf(cit));
+			proxybusiDO.setProxyRegion(Long.valueOf(cit));
 			break;
 		case 3:
 			BigDecimal areaBail = setupDO.getAreaBail();
@@ -177,7 +177,7 @@ public class PcProxybusiController extends BaseController{
 			params.put("price", areaBail);
 			balance = account.subtract(areaBail);
 			String coun = area != null ? area[2] : country;
-			proxybusiDO.setProxyRegion(Integer.valueOf(coun));
+			proxybusiDO.setProxyRegion(Long.valueOf(coun));
 			break;
 		case 4:
 			BigDecimal agencyBail = setupDO.getAgencyBail();
@@ -187,7 +187,7 @@ public class PcProxybusiController extends BaseController{
 			params.put("price", agencyBail);
 			balance = account.subtract(agencyBail);
 			String stree = area != null ? area[3] : street;
-			proxybusiDO.setProxyRegion(Integer.valueOf(stree));
+			proxybusiDO.setProxyRegion(Long.valueOf(stree));
 			break;
 		default:
 			break;

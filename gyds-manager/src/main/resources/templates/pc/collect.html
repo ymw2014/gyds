@@ -12,14 +12,14 @@
 						<li class="hongdise"><a href="javaScript:;">团队 <span th:text="${teamSize}"></span></a></li>
 						<li><a href="javaScript:;">活动 <span th:text="${actLSize}"></span></a></li>
 						<!-- <li><a href="javaScript:;">新闻 <span>9</span></a></li> -->
-						<li><a href="javaScript:;">志愿者 <span th:text="${voSize}"></span></a></li>
+						<!-- <li><a href="javaScript:;">志愿者 <span th:text="${voSize}"></span></a></li> -->
 					</ul>
 				</div>
 				 <!-- 团队 -->
 				<div class="yy-gz" style="margin-top:20px;display: block;">
 					<div class="yymytd" th:each="team: ${teamList}">
 						<div class="yy-mytd1">
-							<img src="images/mytdlogo.jpg" alt="">
+							<a th:href="'/pc/teamDetail?teamId=' + ${team.news_id}+'&areaId=0'" target="_Parent"><img src="images/mytdlogo.jpg" alt=""></a>
 						</div>
 						<div class="yy-mytd2">
 							<h4 th:text="${team.team_name}">郑州志愿者联盟</h4>
@@ -45,7 +45,7 @@
 							<div>发布时间<span style="margin-right:10px;" th:text=" ${#dates.format(act.create_time, 'yyyy-MM-dd HH:mm:ss')}"></span>结束时间<span th:text=" ${#dates.format(act.end_time, 'yyyy-MM-dd HH:mm:ss')}"></span></div>
 							<span style="color:#dd1230;line-height:42px;" th:text="${act.baoming_count} +'人报名'" id="applyNum"></span>
 							<a id="anniu" href="javaScript:;" th:onclick="'javascript:apply(1,'+${act.news_id}+','+${act.appId}+')'" class="anniiu" th:if="${act.app_status eq 0}">取消报名</a>
-							<a id="anniu" href="javaScript:;" onclick="apply(2)" class="anniiu" th:if="${act.app_status eq 1}">已报名</a>
+							<a id="anniu" href="javaScript:;"  class="anniiu" th:if="${act.app_status eq 1}">已报名</a>
 							<a id="anniu" href="javaScript:;" th:onclick="'javascript:apply(2,'+${act.news_id}+',-1)'" class="anniiu" th:if="${act.app_status eq -1}">立即报名</a>
 					</div>
 				</div>
