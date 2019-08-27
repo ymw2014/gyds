@@ -171,7 +171,7 @@ public class OrderController {
 		orderNew.setExamineStatus(examineStatus);
 		if (examineStatus == 1) {
 			int price = orderNew.getPrice().intValue();
-			payService.cashout(price * 100 , orderNew.getOrderNumber());
+			payService.cashout(price, orderNew);
 		}
 		orderService.update(orderNew);
 		return R.ok();

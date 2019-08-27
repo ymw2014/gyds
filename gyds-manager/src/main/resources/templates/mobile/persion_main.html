@@ -60,7 +60,7 @@
 			</div>
 			<div class="header2">
 				<div class="header2-1">
-					<img th:src="@{/mobile/images/touxiang5.png}" alt="">
+					<img th:src="${user.headImg}" alt="">
 					<div th:text="${user.isIdentification==1?'已实名':'未实名'}"></div>
 				</div>
 				<div class="header2-2" style="margin-top:13px;">
@@ -194,7 +194,7 @@
 				</div>
 				<div class="m-middle2">
 				   <div class="m-middletxt">
-					   <img src="images/touxiang 82.png" alt="">
+					   <img th:src="${user.headImg}" alt="">
 				   </div>
 				   <div class="m-middletxt2">
 				   		<ul id="pay">
@@ -219,7 +219,7 @@
 				</div>
 				<div class="m-middle2">
 				   <div class="m-middletxt">
-					   <img src="images/touxiang 82.png" alt="">
+					   <img th:src="${user.headImg}" alt="">
 				   </div>
 				   <div class="m-middletxt1">
 				   		<ul id="cashOut">
@@ -234,6 +234,8 @@
 				   <div class="m-middletxt2">
 					  <span>提 现</span>
 				   </div>
+				   
+				   <p th:text=" '提现金额超过50将收取手续费，手续费为' +  ${withdrawalFee}" style="text-align: center;margin-top: 18px;font-size: 20px;color: red;"></p>
 				</div>
 			</div>
 		</div>
@@ -263,7 +265,7 @@
 		$(".m-modal-dialog1").css("display","none")
 		var fee = $('.addred a').text();
 		var blance = fee.match(/[\d.]+/g);
-		//pay(blance[0]);
+		pay(blance[0]);
 	})
 	
 	/* 提现 */
@@ -271,7 +273,7 @@
 		$(".m-modal-dialog1").css("display","none")
 		var fee = $('.addredd a').text();
 		var blance = fee.match(/[\d.]+/g);
-		//createOrder(blance[0])
+		createOrder(blance[0])
 	})
 	$(".m-modal-close").click(function(){
 			history.go(0);

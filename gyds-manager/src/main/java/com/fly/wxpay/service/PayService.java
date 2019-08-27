@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 import com.fly.domain.UserDO;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
+import com.fly.sys.domain.SetupDO;
+import com.fly.sys.service.SetupService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.R;
@@ -38,6 +40,8 @@ public class PayService {
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SetupService setupService;
 	
 	/**
 	 * 创建订单
@@ -109,19 +113,27 @@ public class PayService {
 	 * @param amount
 	 * @param orderNum
 	 */
-	public void cashout(Integer amount, String orderNum) {
-		logger.info("进入提现方法:  提现金额  {}     ,    订单号 ： {}",amount,orderNum);
+	public void cashout(Integer amount, OrderDO orderNew) {
+		logger.info("进入提现方法:  提现金额  {}     ,    订单号 ： {}",amount,orderNew.getOrderNumber());
 		String wxUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers"; //获取退款的api接口
     	try {
+    		BigDecimal orderPrice = new BigDecimal((amount * 100) + "");;
+    		if (amount > 50) {
+    			SetupDO setupDO = setupService.get(1);
+    			BigDecimal toltal = new BigDecimal((amount * 100) + "");
+    			BigDecimal withdrawalFee = new BigDecimal(setupDO.getWithdrawalFee() + "");
+    			BigDecimal multiply = toltal.multiply(withdrawalFee);
+    			orderPrice = toltal.subtract(multiply);
+    		}
     		IWxPayConfig config = new IWxPayConfig();
     		WXPay wxpay = new WXPay(config);
-    		UserDO user = ShiroUtils.getUser();
+    		UserDO userDO2 = userService.get(orderNew.getUserId());
     		SortedMap<String, String> packageParams = new TreeMap<String, String>(); 
 	        packageParams.put("nonce_str",WXPayUtil.generateNonceStr());  //随机生成后数字，保证安全性
-	        packageParams.put("partner_trade_no",orderNum); //生成商户订单号
-	        packageParams.put("openid",user.getOpenId());            // 支付给用户openid
+	        packageParams.put("partner_trade_no",orderNew.getOrderNumber()); //生成商户订单号
+	        packageParams.put("openid",userDO2.getOpenId());            // 支付给用户openid
 	        packageParams.put("check_name","NO_CHECK");    //是否验证真实姓名呢
-	        packageParams.put("amount",amount + "");            //企业付款金额，单位为分
+	        packageParams.put("amount",orderPrice.intValue() + "");            //企业付款金额，单位为分
 	        packageParams.put("desc","余额提现");                //企业付款操作说明信息。必填。
 	        packageParams.put("spbill_create_ip",localIp()); //调用接口的机器Ip地址
 	        packageParams.put("mchid", config.getMchID());   
