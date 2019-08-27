@@ -68,6 +68,8 @@
 					<option th:each="area: ${areaList}" th:value="${area.regionName}"></option>
 				</datalist> -->
 				<select style="width: 100px;" onchange="_area()" id="area">
+					<option  th:value="0"
+						th:text="全国"></option>
 					<option th:each="area: ${areaList}" th:value="${area.regionCode}"
 						th:text="${area.regionName}"></option>
 				</select>

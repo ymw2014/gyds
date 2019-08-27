@@ -58,11 +58,12 @@ wechat:
   open:
     componentAppId: wx8f042090d19f8ee0
     componentSecret: 5d77193a6f39799d6892d94bcd7e3471
-    componentToken: wangyanke
+    componentToken: 
     componentAesKey: 
 wx:
   appid: wx561ae40290380b04
   secret: 2b01a7d96a1e34d3cecf80be87852d53
+  token: omJNpZEhZeHj1ZxFECKkP48B5VFbk1HP 
   backUrl: http://mlbdenet.nat300.top/auth/callback
   
   

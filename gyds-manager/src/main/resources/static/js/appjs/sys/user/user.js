@@ -264,37 +264,41 @@ function getTreeData(){
 			"plugins" : [ "sort" ]
 		}).bind("select_node.jstree", function(event, data) {
 			console.log("展开了");
-			var inst = data.instance;
-			var selectedNode = inst.get_node(data.selected);
-			//console.info(selectedNode.aria-level);
-			var level = $("#"+selectedNode.id).attr("aria-level");
-				loadConfig(inst, selectedNode);
+			console.log(data)
+			if (data.selected == -1) {
+				var opt = {
+					query : {
+						deptId : '',
+					}
+				};
+				$('#exampleTable').bootstrapTable('refresh', opt);
+			} else {
+				var opt = {
+					query : {
+						deptId : data.selected[0],
+					}
+				};
+				$('#exampleTable').bootstrapTable('refresh',opt);
+			}
 		});
 	});
 }
 
 function loadConfig(inst, selectedNode){
-	console.log("展开了");
-	var temp = selectedNode.text;
-	//inst.open_node(selectedNode);
-	//alert(temp);
-	$.ajax({
-		url : "/system/region/ajaxRegionChidenTree",
-		dataType : "json",
-		type : "POST",
-		success : function(data) {
-			if(data) {
-			   selectedNode.children = [];
-			   $.each(data, function (i, item) {
-				   		var obj = {text:item};
-				   		//$('#jstree_div').jstree('create_node', selectedNode, obj, 'last');
-						inst.create_node(selectedNode,item,"last");
-		       });
-			   inst.open_node(selectedNode);
-			}else{
-				$("#jstree_div").html("暂无数据！");
+	if (data.selected == -1) {
+		var opt = {
+			query : {
+				deptId : '',
 			}
-		}
-	});
+		};
+		$('#exampleTable').bootstrapTable('refresh', opt);
+	} else {
+		var opt = {
+			query : {
+				deptId : data.selected[0],
+			}
+		};
+		$('#exampleTable').bootstrapTable('refresh',opt);
+	}
 }
 

@@ -32,6 +32,8 @@ import com.fly.wxpay.service.IWxPayConfig;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayUtil;
 
+import me.chanjar.weixin.mp.api.WxMpService;
+
 @Controller
 @RequestMapping("/app/wxpay")
 public class AppWxPayController extends BaseController{
@@ -42,6 +44,8 @@ public class AppWxPayController extends BaseController{
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private WxMpService wxMpService;
 	
 	/**
 	      * 组装参数 同意下单
@@ -197,5 +201,6 @@ public class AppWxPayController extends BaseController{
         resultMap.put("paySign", paySign);
         return resultMap;
 	}
+	
 	
 }
