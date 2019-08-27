@@ -67,6 +67,7 @@ public class DetailController {
 	@RequiresPermissions("adv:detail:detail")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
+		params.put("regionCode", ShiroUtils.getUser().getDeptId());
         Query query = new Query(params);
 		List<DetailDO> detailList = detailService.list(query);
 		for (DetailDO detailDO : detailList) {

@@ -197,11 +197,18 @@
 	width: 100%;
 	text-align: center;
 }
+.m-middletxt1{
+	width: 100%;
+	text-align: center;
+}
 .m-middletxt img{
 	width: 80px;
 	height: 80px;
 }
 .m-middletxt2{
+	width: 100%;
+}
+.m-middletxt1{
 	width: 100%;
 }
 .m-modal1-dialog1{
@@ -218,14 +225,35 @@
 	border:1px solid #ee8896;
 	border-radius:6px;
 }
+.m-middletxt1 li{
+	width: 170px;
+	height: 85px;
+	margin-left:23px;
+	float: left;
+	margin-top:23px;
+	line-height:85px;
+	text-align: center;
+	border:1px solid #ee8896;
+	border-radius:6px;
+}
 .m-middletxt2 li>a{
+	font-size:30px;
+	color:#dc1333;
+}
+.m-middletxt1 li>a{
 	font-size:30px;
 	color:#dc1333;
 }
 .addred{
 	background:#dd1230;
 }
+.addredd{
+	background:#dd1230;
+}
 .addred a{
+	color:#fff !important;
+}
+.addredd a{
 	color:#fff !important;
 }
 .m-middletxt3{

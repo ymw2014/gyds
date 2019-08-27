@@ -23,6 +23,7 @@ import com.fly.domain.RegionDO;
 import com.fly.sys.domain.SetupDO;
 import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -57,6 +58,7 @@ public class AdvPriceController extends BaseController{
 	@RequiresPermissions("adv:advPrice:advPrice")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
+		params.put("regionCode", ShiroUtils.getUser().getDeptId());
         Query query = new Query(params);
 		List<AdvPriceDO> advPriceList = advPriceService.list(query);
 		if(advPriceList!=null&&advPriceList.size()>0) {

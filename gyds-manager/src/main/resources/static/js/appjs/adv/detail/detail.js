@@ -120,7 +120,7 @@ function load() {
 											return '<span style="color:green;">已审核</span>';
 										}
 										if (value == "2") {
-											return '<span style="color:green;">已拒绝</span>';
+											return '<span style="color:red;">已拒绝</span>';
 										}
 									}
 																},

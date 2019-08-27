@@ -126,8 +126,8 @@ public class AdvController extends BaseController{
 			detail.setUserId(ShiroUtils.getUserId());
 			detail.setStatus(0);
 			detail.setCreateTime(new Date());
-			String remake = threadTaskService.getRemake(ShiroUtils.getUserId(), allPrice, OrderType.GUANG_GAO_GOU_MAI,OrderType.ZHI_CHU, "广告购买");
-			Integer orderId = threadTaskService.createOrder(ShiroUtils.getUserId(), allPrice, OrderType.GUANG_GAO_GOU_MAI, OrderType.ZHI_CHU, remake);
+			String remake = threadTaskService.getRemake(ShiroUtils.getUserId(), allPrice, OrderType.ZHI_CHU,OrderType.GUANG_GAO_GOU_MAI, "广告购买");
+			Integer orderId = threadTaskService.createOrder(ShiroUtils.getUserId(), allPrice, OrderType.ZHI_CHU, OrderType.GUANG_GAO_GOU_MAI, remake);
 			detail.setOrderId(orderId);
 			if(detailService.save(detail)>0) {
 				return R.ok();
