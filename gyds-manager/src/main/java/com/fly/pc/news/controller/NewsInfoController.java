@@ -743,8 +743,9 @@ public class NewsInfoController extends BaseController {
 		R r=new R();
 		String url = baseService.createQrcode(params.get("webUrl").toString());
 		if(url!=null) {
+			r.put("code", 0);
 			r.put("url", url);
-			return r.ok();
+			return r;
 		}else {
 			return r.error();
 		}
