@@ -80,6 +80,8 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 			UserDO user = userDao.get(name.getUserId());
 			if(user.getIsIdentification()==null||user.getIsIdentification()!= 1) {//未实名认证,保存实名认证信息
 				user=userToObject.isIdentification(user,name);
+				user.setIsManage(1);
+				user.setDeptId(team.getId());
 				userDao.update(user);
 			}
 			if(isVo) {//若已经是志愿者,修改志愿者团队编号
@@ -196,16 +198,16 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 			proxy.setUserId(user.getUserId());
 			proxy.setLevel(Integer.parseInt(proxyMap.get("regionLevel").toString()));
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("1")) {
-				proxy.setProxyRegion(Integer.parseInt(proxyMap.get("pronvice").toString()));
+				proxy.setProxyRegion(Long.parseLong(proxyMap.get("pronvice").toString()));
 			}
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("2")) {
-				proxy.setProxyRegion(Integer.parseInt(proxyMap.get("city").toString()));
+				proxy.setProxyRegion(Long.parseLong(proxyMap.get("city").toString()));
 			}
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("3")) {
-				proxy.setProxyRegion(Integer.parseInt(proxyMap.get("country").toString()));
+				proxy.setProxyRegion(Long.parseLong(proxyMap.get("country").toString()));
 			}
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("4")) {
-				proxy.setProxyRegion(Integer.parseInt(proxyMap.get("street").toString()));
+				proxy.setProxyRegion(Long.parseLong(proxyMap.get("street").toString()));
 			}
 			if(user.getIsIdentification()==null||user.getIsIdentification()!=1) {
 				user=userToObject.isIdentification(user,name);

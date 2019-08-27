@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head th:replace="pc/include :: head">
+	<style type="text/css">
+	  .biaodan1 li{
+	    width:25% !important;
+	    padding:0px;
+	  }
+	  .biaodan1 li>span{
+	    margin-left:50px;
+	  }
+	</style>
 	<body>
 		<div class="boxRight" style="background:#fff;margin-top:0;">
 				<div class="cwmx">
@@ -18,12 +27,12 @@
 					</ul>
 				</div>
 				<div class="biaodan">
-					<div class="biaodan1" >
+					<div class="biaodan1as" >
 						<ul>
-							<li>发生时间</li>
-							<li>类型</li>
-							<li>金额</li>
-							<li>状态</li>
+							<li><span>发生时间</span></li>
+							<li><span>类型</span></li>
+							<li><span>金额</span></li>
+							<li><span>状态</span></li>
 						</ul>
 					</div>
 					<div class="biaodan2">
