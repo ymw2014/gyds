@@ -59,6 +59,7 @@
 		</div>
 		<div class="gycent">
 			<input type="hidden" id="infoId" th:value="${info.id}">
+			<input type="hidden" id="titleImg" th:value="${info.titleImg}">
 			<h4 id="title" th:text="${info.title}"></h4>
 			<div class="gycent1"><span th:text="${info.source}"></span>&nbsp;<span th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"> </span>
 			<a th:if=" ${is_attention} eq '0'" href="/login" id="guanzhu">+关注</a>
@@ -805,10 +806,10 @@
 					  wx.onMenuShareTimeline({
 						    title: $('#title').val(), // 分享标题
 						    link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-						    imgUrl: '', // 分享图标
+						    imgUrl: $('#titleImg').val(), // 分享图标
 						    success: function () {
 						    	alert("分享成功");
-						    // 用户确认分享后执行的回调函数
+						    	share(1)
 							},
 						cancel: function () {
 							alert("分享失败");
@@ -820,12 +821,12 @@
 						  title:$('#title').val(), // 分享标题
 						  desc: '一起来参加', // 分享描述
 						  link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-						  imgUrl: "", // 分享图标
+						  imgUrl: $('#titleImg').val(), // 分享图标
 						  type: '', // 分享类型,music、video或link，不填默认为link
 						  dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 						  success: function () {
 							  alert("分享成功");
-						  // 用户确认分享后执行的回调函数
+							  share(5)
 						  },
 						  cancel: function () {
 							  alert("分享失败");
@@ -839,6 +840,35 @@
 		          }
 		        });
 	  }); 
+	
+	function share(reType){
+		para={"newsId":$('#infoId').val(),"trType":reType};
+		$.ajax({
+			cache : true,
+			type : "GET",
+			url : "/pc/news/share",
+			data : para,
+			async : true,
+			error : function(request) {
+				alert("分享失败");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					alert("分享成功");
+					history.go(0);
+				} else if(data.code == 2){
+					alert(data.msg);
+				}else if(data.code == 3){
+					alert(data.msg);
+				}else{
+					alert(data.msg);
+				}
+
+			}
+		});
+	}
+	
+	
 	</script>
 	<script type="text/javascript">
 	//分页加载

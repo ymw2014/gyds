@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
+import com.fly.wxpay.service.PayService;
 
 /**
  * 订单表
@@ -33,6 +35,9 @@ import com.fly.utils.R;
 public class OrderController {
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private PayService payService;
 	//充值
 	@GetMapping("/CashUp")
 	@RequiresPermissions("order:order:orderCashUp")
@@ -82,6 +87,7 @@ public class OrderController {
 	@RequiresPermissions("order:order:orderCashOut")
 	public PageUtils listCashOut(@RequestParam Map<String, Object> params){
 		params.put("expIncType", 0);
+		params.put("cash_out_type", 0);
 		//查询列表数据
         Query query = new Query(params);
 		List<OrderDO> orderList = orderService.list(query);
@@ -160,8 +166,14 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("order:order:audit")
-	public R update( OrderDO order){
-		orderService.update(order);
+	public R update( OrderDO order,Integer id, Integer examineStatus){
+		OrderDO orderNew = orderService.get(id);
+		orderNew.setExamineStatus(examineStatus);
+		if (examineStatus == 1) {
+			int price = orderNew.getPrice().intValue();
+			payService.cashout(price, orderNew);
+		}
+		orderService.update(orderNew);
 		return R.ok();
 	}
 	

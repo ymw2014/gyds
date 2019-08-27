@@ -80,6 +80,8 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 			UserDO user = userDao.get(name.getUserId());
 			if(user.getIsIdentification()==null||user.getIsIdentification()!= 1) {//未实名认证,保存实名认证信息
 				user=userToObject.isIdentification(user,name);
+				user.setIsManage(1);
+				user.setDeptId(team.getId());
 				userDao.update(user);
 			}
 			if(isVo) {//若已经是志愿者,修改志愿者团队编号

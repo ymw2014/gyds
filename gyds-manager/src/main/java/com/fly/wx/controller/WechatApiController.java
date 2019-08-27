@@ -9,12 +9,14 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.ServerEndpoint;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -113,6 +115,7 @@ public class WechatApiController {
 				if(userList!=null&&userList.size()>0) {
 					UserDO user = userList.get(0);
 					Subject subject = SecurityUtils.getSubject();
+					logger.info("WeiXinLoginController ==> username: " + user.getUsername());
 					EasyTypeToken token = new EasyTypeToken(user.getUsername());
 					subject.login(token);
 					if(user.getIsBinding()!=1) {

@@ -44,13 +44,9 @@
 		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
 		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
 		  		  <if test="street != null and street != ''">and street = #{street}</if>
-		  		  <if test="ids != null and ids.size > 0">
-		  		  	and
-		  		  	dept_id in 
-		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
-				            #{item}       
-				    </foreach> 
-		  		  </if>
+		  		  <if test="ids != null">
+		         	and left(dept_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		  <if test="userIds != null and userIds.size > 0">
 		  		  	and
 		  		  	user_id in 
@@ -109,13 +105,9 @@
 		  		  <if test="isManage != null and isManage != ''"> and is_manage = #{isManage} </if>
 		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
 		  		  <if test="street != null and street != ''">and street = #{street}</if>
-		  		  <if test="ids != null and ids.size > 0">
-		  		  	and
-		  		  	dept_id in 
-		  		   	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
-				            #{item}       
-				    </foreach> 
-		  		  </if>
+		  		  <if test="ids != null">
+		         	and left(dept_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
 	</select>
 	 

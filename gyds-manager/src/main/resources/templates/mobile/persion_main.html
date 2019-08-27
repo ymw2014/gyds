@@ -8,8 +8,43 @@
 		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.2.js}"></script>
 		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.1.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.2.css}">
 	</head>
+	<style>
+	.m-middletxt3 span{
+	  display:block;
+	  width:200px;
+	  height:54px;
+	  background:red;
+	  color:#fff;
+	  margin:0 auto;
+	  text-align: center;
+	  line-height: 54px;
+      font-size: 26px;
+      border-radius: 3px;
+	  
+     }
+     .m-middletxt2{
+      overflow: hidden;
+     }
+     .m-middletxt2 span{
+	  display:block;
+	  width:200px;
+	  height:54px;
+	  background:red;
+	  color:#fff;
+	  margin:0 auto;
+	  text-align: center;
+	  line-height: 54px;
+      font-size: 26px;
+      border-radius: 3px;
+      margin-top:30px;
+      
+	  
+     }
+	</style>
 	<body>
 		<header>
 			<div class="header1">
@@ -25,7 +60,7 @@
 			</div>
 			<div class="header2">
 				<div class="header2-1">
-					<img th:src="@{/mobile/images/touxiang5.png}" alt="">
+					<img th:src="${user.headImg}" alt="">
 					<div th:text="${user.isIdentification==1?'已实名':'未实名'}"></div>
 				</div>
 				<div class="header2-2" style="margin-top:13px;">
@@ -56,8 +91,8 @@
 		</div>
 		<!-- 提现 -->
 		<div class="tianxian">
-			<div class="tianxian1">
-				<a href="#"><img th:src="@{/mobile/images/tixian.png}" alt="">提现</a>
+			<div class="tianxian1 btn2">
+				<a ><img th:src="@{/mobile/images/tixian.png}" alt="">提现</a>
 			</div>
 			<div class="tianxian2 btn1">
 				<a ><img th:src="@{/mobile/images/qianabo.png}" alt="">充值</a>
@@ -159,10 +194,10 @@
 				</div>
 				<div class="m-middle2">
 				   <div class="m-middletxt">
-					   <img src="images/touxiang 82.png" alt="">
+					   <img th:src="${user.headImg}" alt="">
 				   </div>
 				   <div class="m-middletxt2">
-				   		<ul>
+				   		<ul id="pay">
 							<li class="addred"><a href="#">2元</a></li>
 							<li><a href="#">0.01元</a></li>
 							<li><a href="#">66元</a></li>
@@ -172,25 +207,35 @@
 						</ul>
 				   </div>
 				   <div class="m-middletxt3">
-					   <img src="images/03.png" alt="">
+					  <span>充 值</span>
 				   </div>
 				</div>
 			</div>
-			<div class="m-modal-dialog m-modal-dialog5 adddd">
+		</div>
+		<div class="m-modal1">
+			<div class="m-modal1-dialog m-modal1-dialog1">
 				<div class="m-top">
-					<span class="m-modal-close">X</span>
+					<span class="m-modal1-close">X</span>
 				</div>
 				<div class="m-middle2">
-				   <div class="m-middletxt-1">
-					  <img src="images/xccc.png" alt="">
+				   <div class="m-middletxt">
+					   <img th:src="${user.headImg}" alt="">
 				   </div>
-				   <div class="m-middletxt2-1">
-				   	<p id="blance"></p>
-					   <img src="images/26.jpg" alt="">
+				   <div class="m-middletxt1">
+				   		<ul id="cashOut">
+							<li class="addredd"><a href="#">2元</a></li>
+							<li><a href="#">0.01元</a></li>
+							<li><a href="#">66元</a></li>
+							<li><a href="#">300元</a></li>
+							<li><a href="#">200元</a></li>
+							<li><a href="#">100元</a></li>
+						</ul>
 				   </div>
-				   <div class="m-middletxt3-1">
-					   <img src="images/zasfaff.png" alt="">
+				   <div class="m-middletxt2">
+					  <span>提 现</span>
 				   </div>
+				   
+				   <p th:text=" '提现金额超过50将收取手续费，手续费为' +  ${withdrawalFee}" style="text-align: center;margin-top: 18px;font-size: 20px;color: red;"></p>
 				</div>
 			</div>
 		</div>
@@ -200,21 +245,44 @@
 		alert("你点击了确定");
 	});
 	$('.btn1').on("click", function() {
-
 		m1.show();
+	});
+	var m2 = new MyModal1.modal(function() {
+		alert("你点击了确定");
+	});
+	$('.btn2').on("click", function() {
+		m2.show();
 	});
 	$(".m-middletxt2 li").click(function(){
 		$(this).addClass("addred").siblings("li").removeClass("addred");
 	})
-	$(".m-middletxt3 img").click(function(){
+	
+	$(".m-middletxt1 li").click(function(){
+		$(this).addClass("addredd").siblings("li").removeClass("addredd");
+	})
+	/* 充值 */
+	$(".m-middletxt3 span").click(function(){
 		$(".m-modal-dialog1").css("display","none")
-		//$(".adddd").css("display","block")
-		
 		var fee = $('.addred a').text();
 		var blance = fee.match(/[\d.]+/g);
 		pay(blance[0]);
 	})
+	
+	/* 提现 */
+	$(".m-middletxt2 span").click(function(){
+		$(".m-modal-dialog1").css("display","none")
+		var fee = $('.addredd a').text();
+		var blance = fee.match(/[\d.]+/g);
+		createOrder(blance[0])
+	})
 	$(".m-modal-close").click(function(){
+			history.go(0);
+			$(".m-modal-dialog1").css("display","block")
+			$(".adddd").css("display","none")
+	})
+	
+	$(".m-modal1-close").click(function(){
+			history.go(0);
 			$(".m-modal-dialog1").css("display","block")
 			$(".adddd").css("display","none")
 	})
@@ -299,5 +367,22 @@
 	            onBridgeReady();
 	        }
 	    }
+	    
+		function createOrder(fee){
+			var orderNum = '';
+			$.ajax({
+				type : "POST",
+				url : "/cashout/createOrder",
+				data : {'fee': fee},
+				async:false,
+				success : function(r) {
+					if (r.code == 0) {
+						orderNum = r.msg;
+					} else
+						orderNum =-1;
+					}
+			});
+			return orderNum;
+		}
 	</script>
 </html>

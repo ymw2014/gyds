@@ -79,7 +79,7 @@ public class ApplyTeamController {
 	}
 	@GetMapping("/applyMember/{id}")
 	@RequiresPermissions("team:apply:applyMember")
-	String applyMember(@PathVariable("id") Integer id,Model model){
+	String applyMember(@PathVariable("id") Long id,Model model){
 		model.addAttribute("teamId", id);
 	    return "team/apply/name";
 	}

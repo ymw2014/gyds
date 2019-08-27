@@ -42,12 +42,17 @@
 								<li th:switch="${order.expIncType}">
 									<p th:case="'0'">提现</p>
 									<p th:case="'1'">充值</p>
-									<p th:case="'5'">置顶</p>
 									<p th:case="'2'">打赏 </p>
-									<p th:case="'4'">广告费用 </p>
 									<p th:case="'3'">红包 </p>
+									<p th:case="'4'">广告购买 </p>
+									<p th:case="'5'">置顶</p>
 									<p th:case="'6'">代理商入驻 </p>
 									<p th:case="'7'">建团 </p>
+									<p th:case="'8'">红包返佣 </p>
+									<p th:case="'9'">打赏返佣 </p>
+									<p th:case="'10'">置顶返佣 </p>
+									<p th:case="'11'">广告返佣 </p>
+									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}">200</li>
 								<li>成功</li>
@@ -68,12 +73,17 @@
 								<li th:switch="${order.expIncType}">
 									<p th:case="'0'">提现</p>
 									<p th:case="'1'">充值</p>
-									<p th:case="'5'">置顶</p>
 									<p th:case="'2'">打赏 </p>
-									<p th:case="'4'">广告费用 </p>
 									<p th:case="'3'">红包 </p>
+									<p th:case="'4'">广告购买 </p>
+									<p th:case="'5'">置顶</p>
 									<p th:case="'6'">代理商入驻 </p>
 									<p th:case="'7'">建团 </p>
+									<p th:case="'8'">红包返佣 </p>
+									<p th:case="'9'">打赏返佣 </p>
+									<p th:case="'10'">置顶返佣 </p>
+									<p th:case="'11'">广告返佣 </p>
+									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}">200</li>
 								<li>成功</li>
@@ -88,12 +98,17 @@
 								<li th:switch="${order.expIncType}">
 									<p th:case="'0'">提现</p>
 									<p th:case="'1'">充值</p>
-									<p th:case="'5'">置顶</p>
 									<p th:case="'2'">打赏 </p>
-									<p th:case="'4'">广告费用 </p>
 									<p th:case="'3'">红包 </p>
+									<p th:case="'4'">广告购买 </p>
+									<p th:case="'5'">置顶</p>
 									<p th:case="'6'">代理商入驻 </p>
 									<p th:case="'7'">建团 </p>
+									<p th:case="'8'">红包返佣 </p>
+									<p th:case="'9'">打赏返佣 </p>
+									<p th:case="'10'">置顶返佣 </p>
+									<p th:case="'11'">广告返佣 </p>
+									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}">200</li>
 								<li>成功</li>
@@ -108,12 +123,17 @@
 								<li th:switch="${order.expIncType}">
 									<p th:case="'0'">提现</p>
 									<p th:case="'1'">充值</p>
-									<p th:case="'5'">置顶</p>
 									<p th:case="'2'">打赏 </p>
-									<p th:case="'4'">广告费用 </p>
 									<p th:case="'3'">红包 </p>
+									<p th:case="'4'">广告购买 </p>
+									<p th:case="'5'">置顶</p>
 									<p th:case="'6'">代理商入驻 </p>
 									<p th:case="'7'">建团 </p>
+									<p th:case="'8'">红包返佣 </p>
+									<p th:case="'9'">打赏返佣 </p>
+									<p th:case="'10'">置顶返佣 </p>
+									<p th:case="'11'">广告返佣 </p>
+									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}">200</li>
 								<li>成功</li>
@@ -128,14 +148,19 @@
 								<li th:switch="${order.expIncType}">
 									<p th:case="'0'">提现</p>
 									<p th:case="'1'">充值</p>
-									<p th:case="'5'">置顶</p>
 									<p th:case="'2'">打赏 </p>
-									<p th:case="'4'">广告费用 </p>
 									<p th:case="'3'">红包 </p>
+									<p th:case="'4'">广告购买 </p>
+									<p th:case="'5'">置顶</p>
 									<p th:case="'6'">代理商入驻 </p>
 									<p th:case="'7'">建团 </p>
+									<p th:case="'8'">红包返佣 </p>
+									<p th:case="'9'">打赏返佣 </p>
+									<p th:case="'10'">置顶返佣 </p>
+									<p th:case="'11'">广告返佣 </p>
+									<p th:case="'12'">建团返佣 </p>
 								</li>
-								<li th:text="${order.price}">200</li>
+								<li th:text="${order.price}"></li>
 								<li>成功</li>
 							</ul>
 							<div class="zanwijili" th:if="${hbList==''}">

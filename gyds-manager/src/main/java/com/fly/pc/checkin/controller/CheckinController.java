@@ -40,6 +40,10 @@ public class CheckinController {
 	@RequestMapping("show")
 	public String show(Model model) {
 		VolunteerDO vo = volunteerService.getVo(ShiroUtils.getUserId());
+		if(vo == null ) {
+			model.addAttribute("message", "您还不是团队成员!!!");
+			return "pc/message";
+		}
 		List<AdvertisementDO> advList = indexService.getCenterAdvList(vo.getTeamId(), Dictionary.AdvPosition.QIAN_DAO);
 		model.addAttribute("advList", advList);
 		return "pc/checkin";

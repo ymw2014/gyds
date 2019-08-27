@@ -107,10 +107,12 @@ public class PersionController extends BaseController{
 	 */
 	@GetMapping("/pc/persion_main")
 	String main(Model model) {
+		SetupDO setupDO = setupService.get(1);
 		Long userId = ShiroUtils.getUserId();
 		UserDO user =  userService.get(userId);
 		model.addAttribute("ccount", user.getAccount());//余额
 		model.addAttribute("platformIntegral", user.getPlatformIntegral());//平台积分
+		model.addAttribute("withdrawalFee", setupDO.getWithdrawalFee());//提现手续费
 		Map<String, Object> params=new HashMap<String, Object>(16);
 		model.addAttribute("user", user);
 		params.put("userId", user.getUserId());
@@ -261,7 +263,7 @@ public class PersionController extends BaseController{
 	 * @return 
 	 */
 	@RequestMapping("/pc/attestation")
-	public String realNameAuthentication(@RequestParam Integer teamId,@RequestParam Integer type,Model model) {
+	public String realNameAuthentication(@RequestParam Long teamId,@RequestParam Integer type,Model model) {
 		/*
 		 * if(user.getIsIdentification()!=null&&user.getIsIdentification()==-1)
 		 * {//实名认证已提交 model.addAttribute("model", "实名认证"); model.addAttribute("message",
