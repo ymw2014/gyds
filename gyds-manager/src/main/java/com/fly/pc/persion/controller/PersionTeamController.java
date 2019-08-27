@@ -165,7 +165,7 @@ public class PersionTeamController extends BaseController{
 			user = userDao.get(user.getUserId());
 			NameDO name = userToObject.userToverify(user, null);
 		R r = countCost(team.getTeamType());
-		if(r.get("price")!=null||r.get("price").toString()!="0") {
+		if(r.get("price")!=null) {
 			i = deductMoney(r);
 			if(i==1) {
 				r.put("orderType", 2);

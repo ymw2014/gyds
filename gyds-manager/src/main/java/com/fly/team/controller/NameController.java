@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.domain.UserDO;
+import com.fly.proxybusi.dao.ProxybusiDao;
+import com.fly.proxybusi.domain.ProxybusiDO;
+import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.domain.TypeDO;
 import com.fly.team.service.TeamNameService;
@@ -54,6 +59,10 @@ public class NameController {
 	private TeamService teamService;
 	@Autowired
 	private TeamNameService teamNameService;
+	@Autowired
+	private RegionService regionService;
+	@Autowired
+	private ProxybusiDao proxybusiDao;
 	
 	@GetMapping()
 	@RequiresPermissions("verifyName:name:name")
@@ -65,10 +74,17 @@ public class NameController {
 	@GetMapping("/list")
 	@RequiresPermissions("verifyName:name:name")
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		Long userId = ShiroUtils.getUserId();
+		Integer areaId = 0; 
+		if(userId!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(userId);
+			areaId = proxybusi.getProxyRegion();
+		}
 		//查询列表数据
 		params.put("type", Dictionary.JIAN_TUAN_SHEN_QING);
         Query query = new Query(params);
 		List<NameDO> nameList = nameService.list(query);
+		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
 		for (NameDO nameDO : nameList) {
 			Map<String, Object> teamMap = JSONUtils.jsonToMap(nameDO.getText());

@@ -84,12 +84,14 @@ nav>div{
 	display: none;
 	font-size:14px;
 	color:#8e8e8e;
+	    
 }
 .boxRight{
 	width: 1000px;
 	float: right;
 	margin-top:18px;
 	overflow: hidden;
+	    padding-bottom: 50px;
 }
 .NavCent{
 	width: 1000px;

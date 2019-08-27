@@ -154,7 +154,7 @@
 					<option value="基诺族">基诺族</option>
 			</select>
 			</label> 
-			<label> <span>最高学历</span> <select name="nation">
+			<label> <span>最高学历</span> <select name="education">
 					<option selected="selected">-请选择-</option>
 					<option value="小学">小学</option>
 					<option value="初中">初中</option>
@@ -168,7 +168,7 @@
 					<option value="其他">其他</option>
 			</select>
 			</label>
-			<label> <span>从业状态</span> <select name="nation">
+			<label> <span>从业状态</span> <select name="post">
 					<option selected="selected">-请选择-</option>
 					<option value="国家公务员">国家公务员</option>
 					<option value="专业技术人员">专业技术人员</option>
@@ -226,7 +226,7 @@
 			</select>
 			</label> <label> <span>详细地址</span> <input name="address" type="text">
 			
-			</label> <label th:if="${type} eq '2'"> <input type="button" id="downTeam" value="下页">
+			</label> <label th:if="${type} eq '2'"> <input type="button" id="downTeam" cssclass="cancel" value="下页">
 			</label> 
 		</form>
 
@@ -247,10 +247,10 @@
 					<option value="">区/县</option>
 			</select> <select class="juzhu" id="street1" name="regCode">
 					<option value="">街道</option>
-			</select> <input type="hidden" id="addres" name="addres">
+			</select> 
 			</label> 
-			<label> <span>详细地址</span> <input type="text"
-				name="colonelTel">
+			<label> <span>详细地址</span> <input type="text" id="addres" 
+				name="addres">
 			</label>
 			
 			
@@ -318,7 +318,7 @@
 	
 	$().ready(function() {
 		$("#save").on('click', function() {
-			$("#signupForm").submit();
+			$("#creatTeam").submit();
 		});
 	})
 	$().ready(function() {
@@ -331,6 +331,18 @@
 						{
 							rules : {
 								name : {
+									required : true
+								},
+								politicalStatus : {
+									required : true
+								},
+								nation : {
+									required : true
+								},
+								education : {
+									required : true
+								},
+								post : {
 									required : true
 								},
 								mobile : {
@@ -346,7 +358,7 @@
 								},
 								email : {
 									required : true
-								},//district
+								},
 								sex : {
 									required : true
 								},
@@ -357,6 +369,18 @@
 							messages : {
 								name : {
 									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+								},
+								politicalStatus : {
+									required : "<span style='color:red;margin-left:10px;'>请选择政治面貌</span>"
+								},
+								nation : {
+									required : "<span style='color:red;margin-left:10px;'>请选择民族</span>"
+								},
+								education : {
+									required : "<span style='color:red;margin-left:10px;'>请选择学历</span>"
+								},
+								post : {
+									required : "<span style='color:red;margin-left:10px;'>请选择职位</span>"
 								},
 								mobile : {
 									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
@@ -379,6 +403,60 @@
 									required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
 								}
 							}
-						})
+						});
+		$("#creatTeam").validate(
+				{
+					rules : {
+						teamName : {
+							required : true
+						},
+						colonelTel : {
+							required : true,
+							isMobile : true
+						},
+						regCode : {
+							required : true
+						},
+						addres :{
+							required : true
+						},
+						teamTitleImg : {
+							required : true,
+						},
+						teamIntroduce : {
+							required : true
+						},
+						teamType : {
+							required : true,
+							isSelect : true
+						}
+					},
+					messages : {
+						teamName : {
+							required : "<span style='color:red;margin-left:10px;'>请输入名称</span>"
+						},
+						colonelTel : {
+							required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+							isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+						},
+						regCode : {
+							required : "<span style='color:red;margin-left:10px;'>请输入详细地址</span>"
+						},
+						addres : {
+							required : "<span style='color:red;margin-left:10px;'>请输入地址</span>",
+						},
+						teamTitleImg : {
+							required : "<span style='color:red;margin-left:10px;'>请上传团队封面图</span>"
+						},
+						teamIntroduce : {
+							required : "<span style='color:red;margin-left:10px;'>简介不能为空</span>"
+						},
+						teamType : {
+							required : "<span style='color:red;margin-left:10px;'>请选择类型</span>",
+							isSelect : "<span style='color:red;margin-left:10px;'>请选择类型</span>"
+						}
+					}
+				})
 	}
+	
 </script>

@@ -15,6 +15,8 @@
 <script src="/js/layui.js"></script>
 <link rel="stylesheet" th:href="@{/pc/css/jquery.my-modal.1.1.css}">
 <script th:src="@{/pc/js/jquery.my-modal.1.1.js}"></script>
+<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.2.js}"></script>
+<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.2.css}">
 <style type="text/css">
 	.zhezhaozh{
 				position:absolute;
@@ -60,6 +62,9 @@
             width: auto;
            color: #70a4ef;
          }
+         .qiana a{
+          color: #70a4ef;
+         }
          .m-middletxt2-1 img{
            margin-top:0px;
          }
@@ -68,6 +73,39 @@
                 line-height: 80px;
          }
 </style>
+<style>
+	.m-middletxt3 span{
+	  display:block;
+	  width:200px;
+	  height:54px;
+	  background:red;
+	  color:#fff;
+	  margin:0 auto;
+	  text-align: center;
+	  line-height: 54px;
+      font-size: 26px;
+      border-radius: 3px;
+	  
+     }
+     .m-middletxt2{
+      overflow: hidden;
+     }
+     .m-middletxt2 span{
+	  display:block;
+	  width:200px;
+	  height:54px;
+	  background:red;
+	  color:#fff;
+	  margin:0 auto;
+	  text-align: center;
+	  line-height: 54px;
+      font-size: 26px;
+      border-radius: 3px;
+      margin-top:30px;
+      
+	  
+     }
+	</style>
 </head>
 <body>
 	<div class="boxRight">
@@ -115,7 +153,7 @@
 						
 					</div>
 					<div>
-						<a href="javascript:;" onclick=""><img src="images/chongzhi.jpg" alt="">提现</a>
+						<div class="btn2" ><img src="images/chongzhi.jpg" alt="">提现</div>
 					</div>
 				</div>
 			</div>
@@ -179,6 +217,31 @@
 				</div>
 			</div>
 		</div>
+		<div class="m-modal1">
+			<div class="m-modal1-dialog m-modal1-dialog1">
+				<div class="m-top">
+					<span class="m-modal1-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt">
+					   <img src="images/touxiang 82.png" alt="">
+				   </div>
+				   <div class="m-middletxt1">
+				   		<ul id="cashOut">
+							<li class="addredd"><a href="#">2元</a></li>
+							<li><a href="#">0.01元</a></li>
+							<li><a href="#">66元</a></li>
+							<li><a href="#">300元</a></li>
+							<li><a href="#">200元</a></li>
+							<li><a href="#">100元</a></li>
+						</ul>
+				   </div>
+				   <div class="m-middletxt2">
+					  <span>提 现</span>
+				   </div>
+				</div>
+			</div>
+		</div>
 </body>
 
 <script type="text/javascript">
@@ -198,10 +261,23 @@ function pay(){
 		m1.show();
 		
 	});
+	
+	var m2 = new MyModal1.modal(function() {
+		alert("你点击了确定");
+	});
+	$('.btn2').on("click", function() {
+		m2.show();
+	});
+	
 	$(".m-middletxt2 li").click(function(){
 		$(this).addClass("addred").siblings("li").removeClass("addred");
 		
 	})
+	
+	$(".m-middletxt1 li").click(function(){
+		$(this).addClass("addredd").siblings("li").removeClass("addredd");
+	})
+	
 	$(".m-middletxt3 img").click(function(){
 		
 		$(".m-modal-dialog1").css("display","none")
@@ -225,6 +301,17 @@ function pay(){
 		
 		
 	})
+	
+	
+	$(".m-middletxt2 span").click(function(){
+		$(".m-modal-dialog1").css("display","none")
+		var fee = $('.addredd a').text();
+		var blance = fee.match(/[\d.]+/g);
+		createOrder(blance[0])
+	})
+	
+	
+	
 	$(".m-modal-close").click(function(){
 			$(".m-modal-dialog1").css("display","block")
 			$(".adddd").css("display","none")
@@ -264,6 +351,23 @@ function pay(){
 				}
 		});
 		return stauts;
+	}
+	
+	function createOrder(fee){
+		var orderNum = '';
+		$.ajax({
+			type : "POST",
+			url : "/cashout/createOrder",
+			data : {'fee': fee},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					orderNum = r.msg;
+				} else
+					orderNum =-1;
+				}
+		});
+		return orderNum;
 	}
 </script>
 <script type="text/javascript">

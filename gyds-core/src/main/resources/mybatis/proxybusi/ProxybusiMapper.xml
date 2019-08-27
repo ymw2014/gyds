@@ -129,4 +129,8 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<select id="getByUserId" resultType="com.fly.proxybusi.domain.ProxybusiDO">
+		select proxy_telephone, proxy_region,`id`,`name`,`status`,`level`,`audit_time`,`create_time`,`audit_status`,`region_level`,`user_id`,`audit_result`,`audit_opinion`, proxy_addr from proxybusi where user_id = #{value}
+	</select>
 </mapper>

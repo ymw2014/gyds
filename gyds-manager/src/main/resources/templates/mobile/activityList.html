@@ -12,7 +12,7 @@
 	<body>
 		<div class="header_txt">
 			<div class="headerleft">
-				<img th:src="@{/mobile/images/qianwnag.png}" alt="">
+			<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 			</div>
 			<div class="headercent">活动报名</div>
 			<div class="headerright">
@@ -50,7 +50,7 @@
 				<img th:src="${act.actTitleImg}" alt="">
 				<span th:text="${act.actTitle}"></span>
 				<p th:text="${act.actIntro}"></p>
-				<rem th:utext="${act.actType==0}?'免费<a href=/pc/activityDetail?id='+${act.id}+'>马上报名</a>': '￥'+${act.actPrice} +'<a href=/pc/activityDetail?id='+${act.id}+'>马上报名</a>' "></rem>
+				<rem th:utext="${act.actType==0}?'免费<a href=/pc/activityDetail?id='+${act.id}+'>马上报名</a>': '￥'+${act.actPrice} +'<a href=/pc/activityDetail?id='+${act.id+'&areaId='+areaId}+'>马上报名</a>'"></rem>
 			</div>
 			<!-- 加载更多 -->
 			<!-- <button>加载更多</button> -->
@@ -140,106 +140,92 @@ function info(obj) {
 	return html;
 }
 </script>
-<script>
-    $(function () {
-        tabPage({
-            pageMain: '.hdneirong',
-            pageNav: '#pageNav',
-            pagePrev: '#prev',
-            pageNext: '#next',
-            curNum: 8, /*每页显示的条数*/
-            activeClass: 'active', /*高亮显示的class*/
-            ini: 0/*初始化显示的页面*/
-        });
-        function tabPage(tabPage) {
-            var pageMain = $(tabPage.pageMain);+
-			  console.log(pageMain)
-            /*获取内容列表*/
-            var pageNav = $(tabPage.pageNav);
-            /*获取分页*/
-            var pagePrev = $(tabPage.pagePrev);
-            /*上一页*/
-            var pageNext = $(tabPage.pageNext);
-            /*下一页*/
+<script type="text/javascript">
+//分页加载
+$().ready(function(){
+var flag = $('#flag').val();	
+var areaId = $('#areaId').val();
+var hasMore;
+var page = 1; //初始页码
+var maxnum = 2;//设置加载次数
  
+var downrange= 100;                //下边界-参考正在加载提示层/px
+var $main = $("#showbox");            //主体
+var $loaddiv = $("#add-more") ;       //加载提示层
+var totalheight = 0; 
+var $listrow=$("#neirong");
+//ajax-fun
+function ajaxLoad(){
+var html="";
+page=page+1;//每次拉到底部page加1
+//console.log(page)
+hasMore=false;
+$.ajax({
+url:"/pc/news/queryInfoList?areaId="+areaId+"&flag="+flag+"",
+type:"post",
+data:{page:page},//请求页数
+success:function(res){
+var list = eval(res);
+//console.log(list.length);
+//var list=JSON.parse(res);
+if(list.length>0) {
+    hasMore=true;
+//console.log(JSON.parse(res));
+    //追加数据
+   $.each(res, function(i, item){ 
+    html+="<div class='zixunbox'>";
+		 html+="<div class='box-nr-1'>";
+		 html+="<img src="+item.actTitleImg+">";
+		 html+="<span>"+item.actTitle+"</span>";
+		 html+="<p>"+item.actIntro+"</p>";
+		if(item.actType == 0){
+			 html+="<rem>免费<a href='/pc/activityDetail?id="+item.id+"&areaId="+areaId+"'>马上报名</a></rem>";
+		}else{
+			html+="<rem>￥"+item.actPrice+"<a href='/pc/activityDetail?id="+item.id+"&areaId="+areaId+"'>马上报名</a></rem>";
+		}
+		 html+="</div>";
+    })
+    $listrow.append(html);//数据追加到list
+    var imgWidth=$('.list_flex_son_img').width();
+    $('.list_flex_son_img').height(imgWidth);
+}    
+}
+})
+}
  
-            var curNum = tabPage.curNum;
-			 console.log(curNum)
-            /*每页显示数*/
-            var len = Math.ceil(pageMain.find("figure").length / curNum);
-            /*计算总页数*/
-            console.log(len);
-            var pageList = '';
-            /*生成页码*/
-            var iNum = 0;
-            /*当前的索引值*/
+//加载中隐藏显示
+$loaddiv.ajaxStart(function(){
+$(this).show();
+}).ajaxStop(function(){
+$(this).hide();
+})
+ifLoad();
+//scroll滚动触发加载事件
+function ifLoad(){
+hasMore=true;
+var w = $(window);
+var lastTime = new Date();
+window.addEventListener("scroll", function scrollHandler() {
+var scrollh = $(document).height();
+var bua = navigator.userAgent.toLowerCase();
+if (bua.indexOf('iphone') != -1 || bua.indexOf('ios') != -1) {
+scrollh = scrollh -140;
+} else {
+scrollh = scrollh - 80;
+}
+if(($(document).scrollTop() + w.height()) >= scrollh){
+if (new Date()-lastTime <100) {
+    return;
+}
+lastTime = new Date();
+if (hasMore) {
+    ajaxLoad();
+}
+}
+}, 1000);
+}
  
-            for (var i = 0; i < len; i++) {
-                pageList += '<a href="javascript:;">' + (i + 1) + '</a>';
-            }
-            pageNav.html(pageList);
-            /*头一页加高亮显示*/
-            pageNav.find("a:first").addClass(tabPage.activeClass);
- 
-            /*******标签页的点击事件*******/
-                pageNav.find("a").each(function(){
-                    $(this).click(function () {
-                        pageNav.find("a").removeClass(tabPage.activeClass);
-                        $(this).addClass(tabPage.activeClass);
-                        iNum = $(this).index();
-                        $(pageMain).find("figure").hide();
-                        for (var i = ($(this).html() - 1) * curNum; i < ($(this).html()) * curNum; i++) {
-                            $(pageMain).find("figure").eq(i).show()
-                        }
- 
-                    });
-            })
-            $(pageMain).find("figure").hide();
-            /************首页的显示*********/
-            for (var i = 0; i < curNum; i++) {
-                $(pageMain).find("figure").eq(i).show()
-            }
-            /*下一页*/
-            pageNext.click(function () {
-                $(pageMain).find("figure").hide();
-                if (iNum == len - 1) {
-                    alert('已经是最后一页');
-                    for (var i = (len - 1) * curNum; i < len * curNum; i++) {
-                        $(pageMain).find("figure").eq(i).show()
-                    }
-                    return false;
-                } else {
-                    pageNav.find("a").removeClass(tabPage.activeClass);
-                    iNum++;
-                    pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
-//                    ini(iNum);
-                }
-                for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
-                    $(pageMain).find("figure").eq(i).show()
-                }
-            });
-            /*上一页*/
-            pagePrev.click(function () {
-                $(pageMain).find("figure").hide();
-                if (iNum == 0) {
-                    alert('当前是第一页');
-                    for (var i = 0; i < curNum; i++) {
-                        $(pageMain).find("figure").eq(i).show()
-                    }
-                    return false;
-                } else {
-                    pageNav.find("a").removeClass(tabPage.activeClass);
-                    iNum--;
-                    pageNav.find("a").eq(iNum).addClass(tabPage.activeClass);
-                }
-                for (var i = iNum * curNum; i < (iNum + 1) * curNum; i++) {
-                    $(pageMain).find("figure").eq(i).show()
-                }
-            })
- 
-        }
- 
- 
-    })
+});
+
 </script>
 </html>

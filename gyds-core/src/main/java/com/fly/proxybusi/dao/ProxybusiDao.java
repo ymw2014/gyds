@@ -29,5 +29,7 @@ public interface ProxybusiDao {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	ProxybusiDO getByUserId(Long id);
 }
 

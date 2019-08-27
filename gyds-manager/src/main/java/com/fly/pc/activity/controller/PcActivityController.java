@@ -32,6 +32,7 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
+import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.service.DynamicService;
 import com.fly.pc.news.controller.BaseDynamicController;
@@ -79,6 +80,10 @@ public class PcActivityController extends BaseController{
 		params.put("pids", areaId);
 		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		params.clear();
+		/*
+		 * if(JudgeIsMoblieUtil.judgeIsMoblie(request)) { params.put("offset", 0);
+		 * params.put("limit", 8); }
+		 */
 		params.put("ids", ids);
 		params.put("examineStatus",1);
 		List<ActivityDO> actList = activityService.list(params);//活动
@@ -302,6 +307,9 @@ public class PcActivityController extends BaseController{
 	public R activiPublish(ActivityDO activityDO) {
 		UserDO user = ShiroUtils.getUser();
 		VolunteerDO vo = volunteerService.getVo(user.getUserId());
+		if(vo==null) {
+			return R.error("未找到志愿者信息");
+		}
 		activityDO.setTeamId(vo.getTeamId());
 		activityDO.setMemberId(user.getUserId());
 		activityDO.setStatus(1);

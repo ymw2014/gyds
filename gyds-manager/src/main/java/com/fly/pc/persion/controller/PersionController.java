@@ -115,7 +115,11 @@ public class PersionController extends BaseController{
 		model.addAttribute("user", user);
 		params.put("userId", user.getUserId());
 		List<Map<String, Object>> voluntList = voService.voluntList(params);
-		model.addAttribute("team",voluntList.size()==0?null: teamService.get(Long.parseLong(voluntList.get(0).get("teamId")+"") ));
+		if(voluntList.size()==0||voluntList.get(0).get("teamId")==null) {
+			model.addAttribute("team",null);	
+		}else {
+			model.addAttribute("team",teamService.get(Long.parseLong(voluntList.get(0).get("teamId")+"")));
+		}
 		return "pc/persion_main";
 	}
 
@@ -257,7 +261,7 @@ public class PersionController extends BaseController{
 	 * @return 
 	 */
 	@RequestMapping("/pc/attestation")
-	public String realNameAuthentication(@RequestParam Integer teamId,@RequestParam Integer type,Model model) {
+	public String realNameAuthentication(@RequestParam Long teamId,@RequestParam Integer type,Model model) {
 		/*
 		 * if(user.getIsIdentification()!=null&&user.getIsIdentification()==-1)
 		 * {//实名认证已提交 model.addAttribute("model", "实名认证"); model.addAttribute("message",
