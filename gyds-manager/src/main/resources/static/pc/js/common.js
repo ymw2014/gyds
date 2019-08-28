@@ -14,7 +14,6 @@ $(function(){
 				$("#preparation_no").text(data.sucess.preparationNo);
 				$("#copyright_into").text(data.sucess.copyrightInto);
 				$("#official_account_img").attr("src",data.sucess.officialAccountImg);
-				console.log(data.sucess.name);
 				if(data.sucess.userName==undefined||data.sucess.userName==null){
 					$("#login_ok").hide();//no_login
 					$("#no_login").show();//

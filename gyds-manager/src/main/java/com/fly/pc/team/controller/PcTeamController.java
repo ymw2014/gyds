@@ -229,6 +229,7 @@ public class PcTeamController {
 			if(volunteer.getTeamId()==null||volunteer.getTeamId()==-1) {
 				user = userDao.get(user.getUserId());
 				NameDO name = userToObject.userToverify(user, id);
+				name.setType(1);
 				if(nameDao.save(name)>0) {
 					r.put("code", 1);
 					r.put("msg", "操作成功");

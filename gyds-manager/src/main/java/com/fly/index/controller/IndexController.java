@@ -137,7 +137,7 @@ public class IndexController {
 		UserDO user = ShiroUtils.getUser();
 		if(user!=null) {
 			logger.info("logger:userDO 对象==="+user.toString());
-			map.put("name", user.getName());
+			map.put("name", user.getName()==null?user.getNikeName():user.getName());
 			map.put("userName", user.getUsername());
 			map.put("head_img", user.getHeadImg());
 		}

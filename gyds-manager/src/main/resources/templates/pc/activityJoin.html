@@ -224,7 +224,12 @@
                 		history.go(0);
                 	}
             	} else if (status == 2){
-            		alert("您还没登录，请先登录");
+            		layer.confirm('您未登录请问是否跳转登录页面？', {
+						  btn: ['是','否'] //按钮
+						}, function(){
+							window.location.href = "/admin";
+						}, function(){
+						});
             	} else if (status == 3){
             		alert("您还不是志愿者，请先申请志愿者");
             		window.location.href=url;
@@ -255,7 +260,12 @@
             		parent.layer.msg("操作成功");
             		history.go(0)
             	} else if (code == 3) {
-            		parent.layer.msg("您还没登录，请先登录");
+            		layer.confirm('您未登录请问是否跳转登录页面？', {
+						  btn: ['是','否'] //按钮
+						}, function(){
+							window.location.href = "/admin";
+						}, function(){
+						});
             	}
             }
         });

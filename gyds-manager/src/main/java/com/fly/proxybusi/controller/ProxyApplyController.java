@@ -182,12 +182,6 @@ public class ProxyApplyController {
 			return R.error("此用户已经是代理商");
 		}
 		if(teamNameService.createProxyBus(id, status)>0) {
-			UserDO user = new UserDO();
-			list = proxybusiService.list(paramas);
-			user.setUserId(name.getUserId());
-			user.setIsManage(1);
-			user.setDeptId(list.get(0).getProxyRegion());
-			userService.update(user);
 			return R.ok();
 		}
 		return R.error();

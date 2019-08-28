@@ -230,6 +230,9 @@ public class IndexServiceImpl implements IndexService{
 		params.put("regionCode", regionCode);//加载内容广告的页面(3:资讯详情页4:活动报名页5:签到页6:志愿者详情页7:团队详情页)
 		RegionDO region = regionDao.get(regionCode);//获取团队实体
 		List<AdvertisementDO> teamAdvList = advertisementDao.list(params);
+		if(regionCode==-1) {
+			return null;
+		}
 		if(teamAdvList!=null&&teamAdvList.size()>0) {//所选择区域首页省级广告
 			dataList.add(teamAdvList.get(0));
 		}else {
