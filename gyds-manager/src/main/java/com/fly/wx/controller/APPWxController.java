@@ -21,11 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.fly.common.redis.shiro.RedisManager;
-import com.fly.common.redis.shiro.SerializeUtils;
 import com.fly.domain.UserDO;
 import com.fly.system.service.UserService;
-import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.R;
 import com.fly.wx.utils.EasyTypeToken;
 import com.fly.wx.utils.HttpUtils;
@@ -198,7 +195,7 @@ public class APPWxController {
 		if(userList!=null&&userList.size()>0) {
 			UserDO user = userList.get(0);
 			Subject subject = SecurityUtils.getSubject();
-			log.info("WeiXinLoginController ==> username: " + user.getUsername());
+			log.info("WeiXinLoginController ==> username: " + user.toString());
 			EasyTypeToken token = new EasyTypeToken(user.getUsername());
 			subject.login(token);
 			if(user.getIsBinding()!=1) {
@@ -208,7 +205,7 @@ public class APPWxController {
 			}
 		}else {//新用户登录
 			HashOperations<String, Object, Object> opsForHash = redisTemplate.opsForHash();
-			String userJson = (String) opsForHash.get("user", "openId");
+			String userJson = (String) opsForHash.get("user",params.get("strKey"));
 			userJson=userJson.replace("true", "1");
 			JSONObject jsonObject = JSON.parseObject(userJson);
 			log.info("WeiXinLoginController ==> resultJson: " + userJson);

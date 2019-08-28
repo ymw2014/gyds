@@ -140,7 +140,7 @@ public class WxController {
 				logger.info("qrcode redis key ==> "+eventKey);
 				logger.info("qrcode redis key ==> "+user.toString());
 				HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
-    			opsForHash.put("user", "openId", user.toString());
+    			opsForHash.put("user",eventKey.replace("qrscene_", ""), user.toString());
     			Hashtable params = new Hashtable();
                 params.put("openId", user.getOpenId());
                 params.put("location", user.getCity());
@@ -181,7 +181,7 @@ public class WxController {
 					logger.info("qrcode redis key ==> "+eventKey);
 					logger.info("qrcode redis key ==> "+user.toString());
 					HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
-	    			opsForHash.put("user", "openId", user.toString());
+	    			opsForHash.put("user", eventKey, user.toString());
 					Hashtable params = new Hashtable();
 					params.put("openId", user.getOpenId());
                     params.put("location", user.getCity());
