@@ -190,7 +190,9 @@ public class PersionTeamController extends BaseController{
 				 */
 				team.setTeamIntroduce(team.getTeamIntroduce().trim());
 				team.setUserId(user.getUserId());
-				name.setText(JSONUtils.beanToJson(team));
+				String text = JSONUtils.beanToJson(team);
+				text.replace(team.getRegCode().toString(), ""+team.getRegCode()+"");
+				name.setText(text);
 				name.setType(2);
 				if(nameDao.save(name)>0);
 				return R.ok();

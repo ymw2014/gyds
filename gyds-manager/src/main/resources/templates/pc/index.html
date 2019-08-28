@@ -95,7 +95,7 @@
 					<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<figcaption>
 						<h4><a href="#" th:text="${act.actTitle}"></a></h4>
-						<p th:text="${act.actIntro}"></p>
+						<p th:text="${#dates.format(act.activiStartTime, 'MM-dd')+'开始&nbsp;&nbsp;'  +act.actAddr}"></p>
 						<span><i th:text="${act.actType==0}?'免费':'收费'"></i><a href="#" th:text="${act.numberOfApplicants}+人已报名"></a></span>
 					</figcaption>
 				</figure>

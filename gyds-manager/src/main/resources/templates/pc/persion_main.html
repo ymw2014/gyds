@@ -186,12 +186,13 @@
 				   </div>
 				   <div class="m-middletxt2">
 				   		<ul>
-							<li class="addred"><a href="#">2元</a></li>
+							<li><a href="#">2</a>元</li>
 							<li><a href="#">0.01</a>元</li>
 							<li><a href="#">66</a>元</li>
 							<li><a href="#">300</a>元</li>
 							<li><a href="#">200</a>元</li>
-							<li><a href="#">100</a>元</li>
+							<li><input type="text" style="    height: 81px;width:100%;
+    border: none;text-align: center; color:#dc1333" placeholder="自定义 (单位元)"></li>
 						</ul>
 				   </div>
 				   <div class="m-middletxt3">
@@ -272,6 +273,10 @@ function pay(){
 	
 	$(".m-middletxt2 li").click(function(){
 		$(this).addClass("addred").siblings("li").removeClass("addred");
+		
+		if($(this).index()==5){
+			$(this).removeClass("addred");
+		}
 		
 	})
 	
