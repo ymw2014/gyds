@@ -321,7 +321,7 @@ function pay(){
 		
 		$(".m-modal-dialog1").css("display","none")
 		$(".adddd").css("display","block")
-		$('#blance').text("充值金额 " +blance + "元");
+		$('#blance').text("充值金额 " +payFee + "元");
 		var orderNum = createOrder(payFee);
 		if (orderNum != '-1') {
 			$('#codeUrl').attr("src","http://zhgy.61966.com/wxpay/pay?data=" + (payFee * 100) + "&orderNum=" + orderNum);
