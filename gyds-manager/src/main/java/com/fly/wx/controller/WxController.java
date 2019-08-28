@@ -8,20 +8,26 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
-import com.fly.pc.websocket.controller.WebSocketController;
+import com.fly.common.redis.shiro.RedisSessionDAO;
+import com.fly.utils.StringUtils;
+import com.fly.websocket.controller.WebSocketController;
 import com.fly.wx.utils.MessageUtil;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpQrCodeTicket;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import net.sf.json.JSONObject;
 
 /**
  *
@@ -35,8 +41,11 @@ public class WxController {
     private Logger logger = LoggerFactory.getLogger(WxController.class);
     
     @Autowired
-    private WebSocketController webSocketController;
-
+    WebSocketController webSocketController;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    RedisSessionDAO sessionDao;
     @RequestMapping("/wx/accept")
     @ResponseBody
     public void accept(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -92,15 +101,15 @@ public class WxController {
          return "/pc/code";
 	}
     
-	public String processRequest(HttpServletRequest req) {
-		//String message = "success";
-		String respMessage = null;
-			// 把微信返回的xml信息转义成map
-			Map<String, String> map = MessageUtil.parseXml(req);
-			//Map<String, String> map = XmlUtil.xmlToMap(req);
-			System.out.println(JSON.toJSONString(map));
-			boolean isreturn = false;
-			if (map.get("MsgType") != null) {
+    public String processRequest(HttpServletRequest req) {
+    	//String message = "success";
+    	String respMessage = null;
+    	// 把微信返回的xml信息转义成map
+    	Map<String, String> map = MessageUtil.parseXml(req);
+    	//Map<String, String> map = XmlUtil.xmlToMap(req);
+    	System.out.println(JSON.toJSONString(map));
+    	boolean isreturn = false;
+    	/*if (map.get("MsgType") != null) {
 				if ("event".equals(map.get("MsgType"))) {
 					logger.info("2.1解析消息内容为：事件推送");
 					if ("subscribe".equals(map.get("Event")) || "CLICK".equals(map.get("Event"))) {
@@ -108,97 +117,97 @@ public class WxController {
 						isreturn = true;
 					}
 				}
-			}
-			String eventType = map.get("Event");
-            // 关注
-            if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-              
-                String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID";
-                String token;
-				try {
-					token = wxMpService.getAccessToken();
-					logger.info("FromUserName************************"+map.get("FromUserName"));
-					 requestUrl = requestUrl.replace("ACCESS_TOKEN",token)
-		                        .replace("OPENID", map.get("FromUserName"));
-				} catch (WxErrorException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-                WxMpUser user;
-				try {
-					logger.info("FromUserName************************"+map.get("FromUserName"));
-					user = wxMpService.getUserService().userInfo(map.get("FromUserName"));
-					logger.info(user.getNickname()+"*****"+user.getOpenId());
-					 Hashtable params = new Hashtable();
-		                params.put("phoneIme", user.getNickname());
-		                params.put("state", 1);
-				} catch (WxErrorException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-                
-                /*if(StringUtils.isNotBlank(eventKey)){
-                    params.put("equipmentType", eventKey.replace("qrscene_", ""));
-                    HttpUtil.postRequest(Constant.getValue("UPDATE_USER"), params);
+			}*/
+    	String eventType = map.get("Event");
+    	// 关注
+    	
+    	WxMpUser user;
+    	if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
+    		String eventKey=map.get("EventKey");
+    		try {
+    			String token = wxMpService.getAccessToken();
+    		} catch (WxErrorException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		try {
+    			logger.info("FromUserName************************"+map.get("FromUserName"));
+    			user = wxMpService.getUserService().userInfo(map.get("FromUserName"));
+    			logger.info(user.getNickname()+"*****"+user.getOpenId());
+    			if(StringUtils.isNotBlank(eventKey)){
                     //放到redis缓存中
-                    //redisCacheTool.setDataToRedis(eventKey.replace("qrscene_", ""), 3600, params);
-
-                    params.put("nickname", nickname);
-                    JSONObject object = JSONObject.fromObject(params);
-　　　　　　　　　　 //调用socket进行通信
-                    webSocketController.onMessage(object.toString(), null);
-                    logger.info("qrcode redis key ==> "+eventKey.replace("qrscene_", ""));
-
-                }else{
-                    params.put("equipmentType", "0");
-                    HttpUtil.postRequest(Constant.getValue("UPDATE_USER"), params);
-                }*/
-                
+				user = wxMpService.getUserService().userInfo(map.get("FromUserName"));
+				logger.info("qrcode redis key ==> "+eventKey);
+				logger.info("qrcode redis key ==> "+user.toString());
+				HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+    			opsForHash.put("user",eventKey.replace("qrscene_", ""), user.toString());
+    			Hashtable params = new Hashtable();
+                params.put("openId", user.getOpenId());
+                params.put("location", user.getCity());
+                params.put("equipmentType", eventKey.replace("qrscene_", ""));
+                logger.info("params ==>************************* "+params);
+                JSONObject object = JSONObject.fromObject(params);
+    			webSocketController.onMessage(object.toString(), null);
+                logger.info("qrcode redis key ==> "+eventKey.replace("qrscene_", ""));
             }
-            // 取消关注
-           if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
-                // TODO 取消订阅后用户不会再收到公众账号发送的消息，因此不需要回复
-                Hashtable params = new Hashtable();
-                params.put("phoneIme", map.get("FromUserName"));
-                params.put("state", 0);
-                
-            }
-            // 扫描带参数二维码
-            else if (eventType.toLowerCase().equals(MessageUtil.EVENT_TYPE_SCAN)) {
-                // TODO 处理扫描带参数二维码事件
-            	System.out.println("二维码扫描成功了");
-                /*if(StringUtils.isNotBlank(eventKey)){
-                    
-                    String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID";
-                    
-                    requestUrl = requestUrl.replace("ACCESS_TOKEN", tokenService.getToken())
-                            .replace("OPENID", fromUserName);
-                    JSONObject jsonObject = CommonUtil.httpsRequest(requestUrl, "GET",null);
-                    String nickname = jsonObject.getString("nickname");
-                    String address = jsonObject.getString("country")+"-"+jsonObject.getString("province")+"-"+jsonObject.getString("city");
-                    String headimgurl = jsonObject.getString("headimgurl");
-                    Hashtable params = new Hashtable();
-                    params.put("nickname", nickname);
-                    params.put("location", address);
+    			
+    		} catch (WxErrorException e) {
+    			logger.info("用户扫码关注登录失败 ==> "+eventKey.replace("qrscene_", ""));
+    			e.printStackTrace();
+    		}
+    	}
+    	// 取消关注
+    	if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
+    		// TODO 取消订阅后用户不会再收到公众账号发送的消息，因此不需要回复
+    		
+
+    	}
+    	// 扫描带参数二维码
+    	if (eventType.equals(MessageUtil.EVENT_TYPE_SCAN)) {
+    		// TODO 处理扫描带参数二维码事件
+    		String eventKey=map.get("EventKey");
+    		System.out.println("二维码扫描成功了");
+    		if(StringUtils.isNotBlank(eventKey)){
+    			
+    			try {
+    				String token = wxMpService.getAccessToken();
+				} catch (WxErrorException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+    			logger.info("FromUserName************************"+map.get("FromUserName"));
+    			try {
+					user = wxMpService.getUserService().userInfo(map.get("FromUserName"));
+					logger.info("qrcode redis key ==> "+eventKey);
+					logger.info("qrcode redis key ==> "+user.toString());
+					HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+	    			opsForHash.put("user", eventKey, user.toString());
+					Hashtable params = new Hashtable();
+					params.put("openId", user.getOpenId());
+                    params.put("location", user.getCity());
                     params.put("equipmentType", eventKey);
-                    //放入缓存中
-                    //redisCacheTool.setDataToRedis(eventKey, 3600, params);
-                    
                     JSONObject object = JSONObject.fromObject(params);
-　　　　　　　　　　 //调用socket进行通信　　
-　　　　　　　　　　 webSocketController.onMessage(object.toString(), null);
-                    
-                    LOGGER.info("qrcode redis key ==> "+eventKey);
-                }*/
-			return respMessage;
-	
+	    			webSocketController.onMessage(object.toString(), null);
+
+				} catch (WxErrorException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    		}
+    		return respMessage;
+    	}
+
+    return respMessage;
+
+}
+
+
+    @Test
+    private void sdgsd() {
+    	HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+		opsForHash.put("openId", "openId", "aaaaa");
+		System.out.println(opsForHash.get("openId", "openId"));
 	}
-		return respMessage;
-
-	}
-
-
    
 
 

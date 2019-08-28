@@ -183,8 +183,10 @@ public class ProxyApplyController {
 		}
 		if(teamNameService.createProxyBus(id, status)>0) {
 			UserDO user = new UserDO();
+			list = proxybusiService.list(paramas);
 			user.setUserId(name.getUserId());
 			user.setIsManage(1);
+			user.setDeptId(list.get(0).getProxyRegion());
 			userService.update(user);
 			return R.ok();
 		}

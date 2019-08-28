@@ -88,7 +88,7 @@
 					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
 				</div>
 				<ul>
-					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id})}" th:text="${#strings.abbreviate(newInfo.title,25)}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
+					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}" th:text="${#strings.abbreviate(newInfo.title,25)}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
 				</ul>
 				
 			</div>
@@ -105,27 +105,27 @@
 			<div class="tongjicon">
 				<img src="images/index_17.jpg" alt="">
 				<span>实名志愿者总数</span>
-				<rem>45342</rem>
+				<rem th:text="${voluntCount}"></rem>
 			</div>
-			<div class="tongjicon">
+			<!-- <div class="tongjicon">
 				<img src="images/index_21.jpg" alt="">
 				<span>志愿团体总数</span>
 				<rem>121</rem>
-			</div>
+			</div> -->
 			<div class="tongjicon">
 				<img src="images/index_24.jpg" alt="">
 				<span>发布活动者次数</span>
-				<rem>45342</rem>
+				<rem th:text="${actCount}"></rem>
 			</div>
 			<div class="tongjicon">
 				<img src="images/index_26.jpg" alt="">
 				<span>发布资讯数量</span>
-				<rem>452</rem>
+				<rem th:text="${newCount}"></rem>
 			</div>
 			<!-- <!-- 红色的 -->
 			<div class="rutuanbtn">
 				<a href="#">入团申请</a>
-			</div> -->
+			</div> 
 			<!-- 灰色的 -->
 			<div class="rutuanbtn"  th:if="${status} eq '1'">
 				<a href="javaScript:;" onclick="teamRemove()">取消申请</a>
@@ -149,7 +149,7 @@
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">
-					<a th:href="@{/pc/activityDetail(id=${act.id})}"><img th:src="${act.actTitleImg}" alt=""></a>
+					<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<span th:text="${act.actTitle}"></span>
 					<p th:text="${act.actIntro}"></p>
 					<rem>
@@ -169,7 +169,7 @@
 			</div>
 			<div class="zhiyuanCen">
 				<div th:each="volunt: ${voluntList}">
-					<a th:href=" '/pc/volunteerDetail?id=' + ${volunt.id}"><img th:src="${volunt.headImg}" alt=""></a>
+					<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 					<p th:text="${volunt.volunteerName}"></p>
 				</div>
 			</div>

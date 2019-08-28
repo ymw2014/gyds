@@ -54,7 +54,7 @@ public class ProxybusiDO implements Serializable {
 	
 	private String proxyTelephone;
 	
-	private int  proxyRegion;
+	private Long  proxyRegion;
 	
 	
 	public String getProxyTelephone() {
@@ -63,10 +63,11 @@ public class ProxybusiDO implements Serializable {
 	public void setProxyTelephone(String proxyTelephone) {
 		this.proxyTelephone = proxyTelephone;
 	}
-	public int getProxyRegion() {
+	
+	public Long getProxyRegion() {
 		return proxyRegion;
 	}
-	public void setProxyRegion(int proxyRegion) {
+	public void setProxyRegion(Long proxyRegion) {
 		this.proxyRegion = proxyRegion;
 	}
 	public String getProxyAddr() {

@@ -419,7 +419,7 @@ public class BaseService {
 		logger.debug("调用微信接口获取永久带参二维码");
 	    WxMpQrCodeTicket ticket;
 		try {
-			ticket = wxMpService.getQrcodeService().qrCodeCreateLastTicket(str);
+			ticket = wxMpService.getQrcodeService().qrCodeCreateTmpTicket(str,5000);
 			String url = wxMpService.getQrcodeService().qrCodePictureUrl(ticket.getTicket());
 			logger.info("二维码链接地址:url= "+url);
 			 return url;

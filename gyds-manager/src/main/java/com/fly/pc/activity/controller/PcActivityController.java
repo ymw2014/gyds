@@ -1,5 +1,6 @@
 package com.fly.pc.activity.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.crypto.tls.UserMappingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -164,6 +167,7 @@ public class PcActivityController extends BaseController{
 		params.put("memberId", user.getUserId());
 		params.put("actType", 2);
 		params.put("newsId", id);
+		params.put("type", 2);
 		List<DynamicDO> dynamic = dynamicService.list(params);
 		if (CollectionUtils.isEmpty(dynamic)) {
 			model.addAttribute("collectStatus", 1);//未收藏
@@ -206,12 +210,14 @@ public class PcActivityController extends BaseController{
 	public String apply(Integer type, Long actId, Long applyId) {
 		JSONObject dataInfo = new JSONObject();
 		UserDO user = ShiroUtils.getUser();
+		BigDecimal price = null;
+		Integer i = null ; 
 		ActivityDO activityDO = activityService.get(actId.intValue());
 		if (user == null) {
 			dataInfo.put("status", "2");//还没登录
 			return dataInfo.toString();
 		}
-		
+		user = userService.get(user.getUserId());
 		boolean flag = volunteerService.isVo(user.getUserId());
 		if (!flag) {
 			dataInfo.put("status", "3");//还不是志愿者
@@ -227,6 +233,24 @@ public class PcActivityController extends BaseController{
 		Integer num = activityDO.getNumberOfApplicants();
 		try {
 			if (type == 1) {
+				if(activityDO.getActType()==1) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					price = activityDO.getActPrice();
+					BigDecimal account =  user.getAccount();
+					account = account.add(price);
+					user.setAccount(account);
+					i = userService.update(user);
+					if(i==1) {
+						map.put("price", price);
+						map.put("orderType", 2);
+						map.put("expIncType", 8);
+						creadOrder(map);
+					}else {
+						dataInfo.put("status", "5");
+						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+						return dataInfo.toString();
+					}
+				}
 				status = applyService.remove(applyId);
 				num--;
 				activityDO.setNumberOfApplicants(num);
@@ -237,6 +261,22 @@ public class PcActivityController extends BaseController{
 				 * if (num++ > activityDO.getApplicantsNumMax()) { dataInfo.put("status",
 				 * "4");//报名人数已满 return dataInfo.toString(); }
 				 */
+				if(activityDO.getActType()==1) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					price = activityDO.getActPrice();
+					map.put("price", price);
+					i = deductMoney(map);
+					if(i==1) {
+						map.put("orderType", 2);
+						map.put("expIncType", 8);
+						creadOrder(map);
+					}else {
+						dataInfo.put("status", "6");//扣费失败
+						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+						return dataInfo.toString();
+					}
+				}
+				
 				ApplyDO apply = new ApplyDO();
 				apply.setActId(actId);
 				apply.setCreateTime(new Date());

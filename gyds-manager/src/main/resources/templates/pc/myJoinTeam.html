@@ -64,7 +64,7 @@
 							</div>
 						<div style="display: none;">
 							<div class="tdlogo" th:each="joinTeam2 : ${joinTeam2}">
-								<a th:href="'/pc/teamDetail?teamId=' + ${joinTeam2.team_id}">
+								<a th:href="'/pc/teamDetail?teamId=' + ${joinTeam2.team_id}+'&areaId=0'">
 								<div>
 								<img th:src="${joinTeam2.team_title_img}">
 							</div>
@@ -81,7 +81,7 @@
 						</div>
 						<div style="display: none;">
 							<div class="tdlogo" th:each="joinTeam3 : ${joinTeam3}">
-							<a th:href="'/pc/teamDetail?teamId=' + ${joinTeam3.team_id}">
+							<a th:href="'/pc/teamDetail?teamId=' + ${joinTeam3.team_id}+'&areaId=0'">
 								<div>
 								<img th:src="${joinTeam3.team_title_img}">
 							</div>

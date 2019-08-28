@@ -490,24 +490,25 @@ public class UserDO implements Serializable {
 	public void setIsBinding(Integer isBinding) {
 		this.isBinding = isBinding;
 	}
-	@Override
-	public String toString() {
-		return "UserDO [userId=" + userId + ", username=" + username + ", name=" + name + ", password=" + password
-				+ ", nikeName=" + nikeName + ", deptId=" + deptId + ", deptName=" + deptName + ", headImg=" + headImg
-				+ ", account=" + account + ", platformIntegral=" + platformIntegral + ", email=" + email + ", mobile="
-				+ mobile + ", status=" + status + ", userIdCreate=" + userIdCreate + ", gmtCreate=" + gmtCreate
-				+ ", gmtModified=" + gmtModified + ", roleIds=" + roleIds + ", sex=" + sex + ", birth=" + birth
-				+ ", picId=" + picId + ", liveAddress=" + liveAddress + ", hobby=" + hobby + ", province=" + province
-				+ ", city=" + city + ", district=" + district + ", isIdentification=" + isIdentification + ", cardNo="
-				+ cardNo + ", cardFrontImg=" + cardFrontImg + ", cardBackImg=" + cardBackImg + ", nation=" + nation
-				+ ", regionCode=" + regionCode + ", politicalStatus=" + politicalStatus + ", isManage=" + isManage
-				+ "]";
-	}
+	
 	public String getOpenId() {
 		return openId;
 	}
 	public void setOpenId(String openId) {
 		this.openId = openId;
+	}
+	@Override
+	public String toString() {
+		return "UserDO [userId=" + userId + ", username=" + username + ", name=" + name + ", password=" + password
+				+ ", nikeName=" + nikeName + ", isBinding=" + isBinding + ", deptId=" + deptId + ", deptName="
+				+ deptName + ", headImg=" + headImg + ", account=" + account + ", platformIntegral=" + platformIntegral
+				+ ", email=" + email + ", mobile=" + mobile + ", status=" + status + ", userIdCreate=" + userIdCreate
+				+ ", gmtCreate=" + gmtCreate + ", gmtModified=" + gmtModified + ", roleIds=" + roleIds + ", sex=" + sex
+				+ ", birth=" + birth + ", picId=" + picId + ", liveAddress=" + liveAddress + ", hobby=" + hobby
+				+ ", province=" + province + ", city=" + city + ", district=" + district + ", street=" + street
+				+ ", isIdentification=" + isIdentification + ", cardNo=" + cardNo + ", cardFrontImg=" + cardFrontImg
+				+ ", cardBackImg=" + cardBackImg + ", nation=" + nation + ", regionCode=" + regionCode
+				+ ", politicalStatus=" + politicalStatus + ", isManage=" + isManage + ", openId=" + openId + "]";
 	}
 	
 	
