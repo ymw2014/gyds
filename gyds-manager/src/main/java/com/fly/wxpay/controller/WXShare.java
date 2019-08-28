@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.wxpay.service.IWxPayConfig;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -37,13 +38,14 @@ public class WXShare {
 
 	@RequestMapping(value = "/getSignature", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,String> WeixinController(HttpServletRequest request, HttpServletResponse response) throws IOException, NoSuchAlgorithmException {
+	public Map<String,String> WeixinController(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    response.setHeader("Access-Control-Allow-Origin", "*");
 	    Map<String,String> ret = new HashMap<String,String>();
 	    //获取前台传来的三个参数
 	    //String url = "http://zhgy.61966.com";
+	    IWxPayConfig config = new IWxPayConfig();
 	    String url = request.getParameter("url");
-	    String appId = "wx561ae40290380b04";
+	    String appId = config.getAppID();
 	    String appSecret = "2b01a7d96a1e34d3cecf80be87852d53";
 	    
 	    logger.info("url "+url);
