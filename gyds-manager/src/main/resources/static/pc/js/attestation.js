@@ -435,3 +435,13 @@ $("#downTeam").on('click', function() {
 			}
 		});
 	}
+	
+	/**
+	 * 移除图片
+	 */
+	function removePic(_self,deleteurl){
+	    $(_self).parent().remove();
+	    if(deleteurl){
+	        $.post(deleteurl,{path:$(_self).parent().find('img').attr('src')});
+	    }
+	}
