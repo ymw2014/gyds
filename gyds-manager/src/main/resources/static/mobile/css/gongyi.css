@@ -153,11 +153,13 @@
 	width:95%;
 	margin:0 auto;
 	overflow: hidden;
+	font-size:26px;
 }
-.listpl-4>img{
+.listpl-4 img{
 	width:50px;
 	height: 50px;
 	float: left;
+	margin-right:10px;
 }
 .listpl-4>div{
 	width:628px;

@@ -31,14 +31,18 @@
    width: 65%;
    height: 184px;
   float: left;
+      color: #333;
 }
-.zixunnr div>span{
+.zixunnr>a div>span{
 	font-size: 28px;
 }
-.zixunnr div>p>img{
+.zixunnr>a>div>p{
+	    line-height: 40px;
+}
+.zixunnr>a div>p>img{
 	display:initial !important;
 }
-.zixunnr>div>p>img:nth-child(1){
+.zixunnr>a>div>p>img:nth-child(1){
 	width: 38px;
 	height: 20px;
 	margin-right:18px;
