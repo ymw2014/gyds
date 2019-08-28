@@ -7,6 +7,9 @@ body {
 	margin: 0;
 	height: 100%;
 }
+html,body{
+	background:#fff !important;
+}
 * {
 	margin: 0;
 	padding: 0;

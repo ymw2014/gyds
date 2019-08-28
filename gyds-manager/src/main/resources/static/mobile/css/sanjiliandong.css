@@ -12,9 +12,14 @@
     z-index: 9900;
     overflow: hidden;
     -webkit-animation-fill-mode: both;
-            animation-fill-mode: both
+            animation-fill-mode: both;
+            }
+body{
+	background:#fff !important;
 }
-
+html{
+	background:#fff !important;
+}
 .area_ctrl {
     vertical-align: middle;
     background-color: #d5d8df;

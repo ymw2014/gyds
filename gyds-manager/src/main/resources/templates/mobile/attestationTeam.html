@@ -113,6 +113,7 @@
 				height:92px;
 				font-size:30px;
 				border:none;
+			    background: #fff;
 				
 			}
 			.xingbie input{
@@ -126,9 +127,11 @@
 			      font-size:30px;
 			      width:150px;
 			      border:none;
+			       background: #fff;
 			}
 			.xiaye{
 			     text-align: center;
+			     margin:10px 0px;
 			}
 			.xiaye input{
 			   float:none;
@@ -312,7 +315,7 @@
 			<label> <span>负责人电话</span> <input type="text"
 				name="colonelTel">
 			</label>
-			 <label> <span>团队地址</span> <select class="juzhu" id="pro1"
+			 <label class="lianxi"> <span>团队地址</span> <select class="juzhu" id="pro1"
 				onchange="byPro()">
 					<option value="">省</option>
 					<option th:each="area:${areaList}" th:value="${area.regionCode}"
