@@ -164,7 +164,7 @@
 				<p>我的团队</p>
 			</div>
 			<div class="myrightimg">
-				<a th:href="@{/pc/teamDetail?teamId=}+${team.id}" target="_Parent"><img th:src="${team.teamTitleImg}" alt=""></a>
+				<a th:href="@{/pc/teamDetail?teamId=}+${team.id}+'&areaId=0'" target="_Parent"><img th:src="${team.teamTitleImg}" alt=""></a>
 				<!-- <img id="code" src="http://127.0.0.1:9091/wxpay/pay" style="width:300px;height:300px;"/> -->
 			</div>
 			<p th:utext="${team.teamName+'<span>'+team.addres+'</span>'}"></p>
