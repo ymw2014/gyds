@@ -12,14 +12,22 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fly.domain.UserDO;
 import com.fly.system.service.UserService;
+import com.fly.utils.R;
 import com.fly.wx.utils.EasyTypeToken;
 import com.fly.wx.utils.HttpUtils;
+
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
 
 
 @Controller
@@ -30,7 +38,8 @@ public class APPWxController {
      
     @Autowired
     private UserService userService;
-    
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
     
     /**
      * app登录
@@ -166,6 +175,71 @@ public class APPWxController {
         }
         return result;
     }
+    
+    /**
+     * PC微信扫码登录
+     * @return 
+     */
+    @ResponseBody
+    @RequestMapping("/QrLogin")
+    public R QrLogin(@RequestParam Map<String,Object> params) {
+    	R r=new R();
+		String openId=params.get("openId")==null?"":params.get("openId").toString();
+		if(openId==null) {
+			r.put("code", -1);
+			r.put("msg", "登录失败");
+			return r;
+		}
+		log.info("登录传入参数****************************************************: " + params.toString());
+		List<UserDO> userList = userService.list(params);
+		if(userList!=null&&userList.size()>0) {
+			UserDO user = userList.get(0);
+			Subject subject = SecurityUtils.getSubject();
+			log.info("WeiXinLoginController ==> username: " + user.toString());
+			EasyTypeToken token = new EasyTypeToken(user.getUsername());
+			subject.login(token);
+			if(user.getIsBinding()!=1) {
+				r.put("code", 1);
+				r.put("url", "/pc/personalCenter");
+				return r;
+			}
+		}else {//新用户登录
+			HashOperations<String, Object, Object> opsForHash = redisTemplate.opsForHash();
+			String userJson = (String) opsForHash.get("user",params.get("strKey"));
+			userJson=userJson.replace("true", "1");
+			JSONObject jsonObject = JSON.parseObject(userJson);
+			log.info("WeiXinLoginController ==> resultJson: " + userJson);
+			WxMpUser wxMpuser = WxMpUser.fromJson(userJson);
+			log.info("WeiXinLoginController ==> resultJson: " + wxMpuser);
+			UserDO user=new UserDO();
+			user.setUsername(wxMpuser.getNickname());
+			user.setIsIdentification(0);
+			user.setIsManage(0);
+			user.setIsBinding(0);
+			user.setAccount(new BigDecimal(0));
+			user.setNikeName(wxMpuser.getNickname());
+			user.setOpenId(jsonObject.getString("openId"));
+			user.setHeadImg(jsonObject.getString("headImgUrl"));
+			user.setSex(wxMpuser.getSex());
+			user.setStatus(1);
+			user.setCity(wxMpuser.getCity());
+			user.setProvince(wxMpuser.getProvince());
+			if(userService.saveUser(user)>0) {
+				log.info("WeiXinLoginController ==> resultJson:  用户保存成功"  +user.toString());
+			}else {
+				log.info("WeiXinLoginController ==> resultJson:  用户保存失败" );
+				
+			}
+			Subject subject = SecurityUtils.getSubject();
+			EasyTypeToken token = new EasyTypeToken(user.getUsername());
+			subject.login(token);
+			r.put("code", 1);
+			r.put("url", "/pc/personalCenter");
+			return r;
+		}
+		return r;
+
+	}
     
     
 }

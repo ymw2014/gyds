@@ -1,4 +1,4 @@
-package com.fly.pc.websocket.controller;
+package com.fly.websocket.controller;
 
 import java.io.IOException;
 import java.util.Hashtable;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import net.sf.json.JSONObject;
 
 @Component
-@ServerEndpoint("/websocket/{sceneId}")
+@ServerEndpoint("/pc/websocket/{sceneId}")
 public class WebSocketController {
     
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
@@ -61,11 +61,11 @@ public class WebSocketController {
 
         JSONObject jsonobject = JSONObject.fromObject(message);
         Hashtable params= (Hashtable)JSONObject.toBean(jsonobject,Hashtable.class);
-        
+        System.out.println("*****************************"+params.get("equipmentType"));
         //群发消息
         WebSocketController webSocketController = webSocketMap.get(params.get("equipmentType"));
         try {
-            webSocketController.sendMessage((String)params.get("nickname"));
+            webSocketController.sendMessage((String)params.get("openId"));
         } catch (IOException e) {
             e.printStackTrace();
         }
