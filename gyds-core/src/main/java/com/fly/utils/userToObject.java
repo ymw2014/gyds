@@ -25,7 +25,7 @@ public class userToObject {
 		name.setRegionCode(user.getRegionCode());
 		name.setSex(user.getSex());
 		name.setStatus(1);
-		name.setStreet("");
+		name.setStreet(user.getStreet());
 		name.setTeamId(id);
 		name.setUserId(user.getUserId());
 		return name;

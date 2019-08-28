@@ -1,6 +1,8 @@
 package com.fly.pc.persion.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,24 +11,29 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
+import com.fly.sys.service.SetupService;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
 import com.fly.team.dao.TeamTypeDao;
+import com.fly.team.domain.AutheDO;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.domain.TypeDO;
+import com.fly.team.service.AutheService;
 import com.fly.team.service.TeamService;
 import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
@@ -55,6 +62,10 @@ public class PersionTeamController extends BaseController{
 	private UserDao userDao;
 	@Autowired
 	private ProxybusiService proxybusiService;
+	@Autowired
+	private SetupService setupService;
+	@Autowired
+	private AutheService AutheService;
 
 
 	@RequestMapping("/createTeam")
@@ -107,6 +118,14 @@ public class PersionTeamController extends BaseController{
 			for(int i =0;i<img.length;i++) {
 				imgList.add(img[i]);
 			}
+			BigDecimal price = setupService.get(1).getAuthPrice();
+			params.clear();
+			params.put("team_id",team.getId());
+			List<AutheDO> authList= AutheService.list(params);
+			if(authList.size()>0) {
+			model.addAttribute("authSta", authList.get(0).getStatus());
+			}
+			model.addAttribute("price", price);
 			model.addAttribute("imgList", imgList);
 			model.addAttribute("team", team);
 			return "pc/teamInfo";
@@ -164,27 +183,27 @@ public class PersionTeamController extends BaseController{
 			user.getUserId();
 			user = userDao.get(user.getUserId());
 			NameDO name = userToObject.userToverify(user, null);
-		R r = countCost(team.getTeamType());
-		if(r.get("price")!=null) {
-			i = deductMoney(r);
-			if(i==1) {
-				r.put("orderType", 2);
-				r.put("expIncType", 7);
-				i = creadOrder(r);
-				if(i>0) {
-					flag="1";
-					name.setOrderId(i);
+			R r = countCost(team.getTeamType());
+			if(r.get("price")!=null) {
+				i = deductMoney(r);
+				if(i==1) {
+					r.put("orderType", 2);
+					r.put("expIncType", 7);
+					i = creadOrder(r);
+					if(i>0) {
+						flag="1";
+						name.setOrderId(i);
+					}
 				}
+			}else {
+				flag="1";
 			}
-		}else {
-			flag="1";
-		}
-		if("1".equals(flag)) {
-			if(reg!=null) {
-				String [] regStr = reg.split(",");
-				regCode = Long.parseLong(regStr[regStr.length-1]);
-				team.setRegCode(regCode);
-			}
+			if("1".equals(flag)) {
+				if(reg!=null) {
+					String [] regStr = reg.split(",");
+					regCode = Long.parseLong(regStr[regStr.length-1]);
+					team.setRegCode(regCode);
+				}
 				/*
 				 * Integer id = randomCode(team.getRegCode()); team.setId(id);
 				 */
@@ -215,5 +234,35 @@ public class PersionTeamController extends BaseController{
 	@ResponseBody
 	public R queryCost(@RequestParam Map<String,Object> para) {
 		return countCost(Integer.valueOf(para.get("id").toString()));
+	}
+	@PostMapping("/savaAuth")
+	@ResponseBody
+	@Transactional
+	public R savaTeam(AutheDO authe) {
+		R r = new R();
+		Map<String, Object> params = new HashMap<String, Object>();
+		Integer i = null;
+		Boolean flag =false;
+		BigDecimal price = setupService.get(1).getAuthPrice();
+		params.put("price", price);
+		i = deductMoney(params);
+		if (i == 1) {
+			params.put("orderType","2");
+			params.put("exp_inc_Type", "9");
+			params.put("price", price);
+			// 产生订单
+			i = creadOrder(params);
+			if (i > 0) {
+				authe.setCreateTime(new Date());
+				authe.setOrder(i);
+				authe.setPrice(price);
+				authe.setStatus(1);
+				AutheService.save(authe);
+			}
+		}else {
+			r.error("余额不足");
+		}
+		return r.ok() ;
+
 	}
 }
