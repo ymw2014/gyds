@@ -131,9 +131,15 @@ public class PcTeamController {
 		params.put("offset", 0);
 		params.put("limit", 10);
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
-		int count = volunteerService.count(null);
+		params.clear();
+		params.put("teamId", teamId);
+		Integer count = volunteerService.count(params);
+		Integer newCount = infoService.count(params);
+		Integer actCount = activityService.count(params);
 		model.addAttribute("voluntList", voluntList);//志愿者
-		model.addAttribute("voluntCount", count);
+		model.addAttribute("voluntCount", count);//本团志愿者总数
+		model.addAttribute("newCount", newCount);//本团发布新闻总数
+		model.addAttribute("actCount", actCount);//本团发布活动总数
 		params.clear();
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
