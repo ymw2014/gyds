@@ -15,9 +15,15 @@ var MyModal = (function() {
 			$(".m-modal").find('*').on("click", function(event) {
 				event.stopPropagation(); //阻止事件冒泡
 			});
+<<<<<<< HEAD
 			/*$(".m-modal,.m-modal-close,.m-btn-cancel").on("click", function(event) {
 				that.hide();
 			});*/
+=======
+//			$(".m-modal,.m-modal-close,.m-btn-cancel").on("click", function(event) {
+//				that.hide();
+//			});
+>>>>>>> 5d5f8d663e49bc08f076943efd90867af6ee6bdc
 			$(".m-btn-sure").on("click", function(event) {
 				that.fn();
 				that.hide();

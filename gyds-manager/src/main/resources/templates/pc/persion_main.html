@@ -165,7 +165,7 @@
 				<p>我的团队</p>
 			</div>
 			<div class="myrightimg">
-				<a th:href="@{/pc/teamDetail?teamId=}+${team.id}" target="_Parent"><img th:src="${team.teamTitleImg}" alt=""></a>
+				<a th:href="@{/pc/teamDetail?teamId=}+${team.id}+'&areaId=0'" target="_Parent"><img th:src="${team.teamTitleImg}" alt=""></a>
 				<!-- <img id="code" src="http://127.0.0.1:9091/wxpay/pay" style="width:300px;height:300px;"/> -->
 			</div>
 			<p th:utext="${team.teamName+'<span>'+team.addres+'</span>'}"></p>
@@ -187,15 +187,24 @@
 				   </div>
 				   <div class="m-middletxt2">
 				   		<ul>
+<<<<<<< HEAD
 							<li><a href="#">2元</a></li>
+=======
+							<li><a href="#">2</a>元</li>
+>>>>>>> 5d5f8d663e49bc08f076943efd90867af6ee6bdc
 							<li><a href="#">0.01</a>元</li>
 							<li><a href="#">66</a>元</li>
 							<li><a href="#">300</a>元</li>
 							<li><a href="#">200</a>元</li>
+<<<<<<< HEAD
 							<li>
 								<input id="pay" type="text" style="height: 81px;width:100%;
     								border: none;text-align: center; color:#dc1333" placeholder="自定义 (单位元)" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
 							</li>
+=======
+							<li><input type="text" style="    height: 81px;width:100%;
+    border: none;text-align: center; color:#dc1333" placeholder="自定义 (单位元)"></li>
+>>>>>>> 5d5f8d663e49bc08f076943efd90867af6ee6bdc
 						</ul>
 				   </div>
 				   <div class="m-middletxt3">
@@ -280,9 +289,17 @@ function pay(){
 	
 	$(".m-middletxt2 li").click(function(){
 		$(this).addClass("addred").siblings("li").removeClass("addred");
+<<<<<<< HEAD
 		$('#pay').val('');
 		var fee = $('.addred a').text();
 		payFee = fee.match(/[\d.]+/g)[0];
+=======
+		
+		if($(this).index()==5){
+			$(this).removeClass("addred");
+		}
+		
+>>>>>>> 5d5f8d663e49bc08f076943efd90867af6ee6bdc
 	})
 	
 	$(".m-middletxt1 li").click(function(){

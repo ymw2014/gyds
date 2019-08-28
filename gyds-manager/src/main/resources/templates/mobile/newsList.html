@@ -5,10 +5,10 @@
 		<title></title>
 		<meta name="viewport" content="width=750">
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
-		<link rel="stylesheet" th:href="@{/mobile/css/HuaDongNav.css}">
 		<link th:href="@{/css/layui.css}" rel="stylesheet">
 		<link rel="stylesheet" th:href="@{/mobile/css/zixun.css}">
 		<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.2.0.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/huodong.css}">
 		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/flexible.js}"></script>
@@ -21,22 +21,17 @@
 		<script th:src="@{/js/validate.js}"></script>
 	</head>
 	<body>
-		<header style="background:#c01b25;">
-			<div class="login">
-				<img th:src="@{/mobile/images/zixun_03.jpg}" alt="">
+			<div class="header_txt">
+			<div class="headerleft">
+				<a href="javascript:history.back(-1)"><img src="/mobile/images/qianwnag.png" alt=""></a>
 			</div>
-			<div class="header-center">
-				<select style="width: 135px;
-				height: 30px;-webkit-appearance: none;
-				background:url(images/input_03.jpg)no-repeat right;
-				background-size:30px 30px;background-color: #fff;">
-					  <option value="1">全国</option>
-					  <option value="2">Saab</option>
-					  <option value="3">Opel</option>
-					  <option value="4">Audi</option>
-                </select> 
+			<div class="headercent">咨询动态</div>
+			<div class="headerright">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
+				<img src="images/dian.png" alt="">
 			</div>
-		</header>
+		</div>
 		<input type="hidden" th:value="${flag}" id="flag">
 			<input type="hidden" id="areaId" th:value="${areaId}">
 		<div class="zixungg">

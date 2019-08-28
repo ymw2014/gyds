@@ -191,7 +191,6 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 		name.setStatus(status);
 		if(status==2) {//审核通过,若用户还不是实名认证,保存实名认证信息
 			user=userToObject.isIdentification(user,name);
-			userDao.update(user);
 			Map<String, Object> proxyMap = JSONUtils.jsonToMap(name.getText());
 			ProxybusiDO proxy=(ProxybusiDO)JSONUtils.jsonToBean(name.getText(), new ProxybusiDO());
 			proxy.setCreateTime(new Date());
@@ -213,6 +212,9 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 				user=userToObject.isIdentification(user,name);
 			}
 			proxybusiDao.save(proxy);
+			user.setIsManage(1);
+			user.setDeptId(proxy.getProxyRegion());
+			userDao.update(user);
 		}
 		
 		if(status==3) {//如果是收费,驳回需要把资金回滚

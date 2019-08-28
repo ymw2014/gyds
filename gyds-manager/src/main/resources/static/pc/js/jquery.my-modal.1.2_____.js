@@ -15,7 +15,13 @@ var MyModal1 = (function() {
 			$(".m-modal1").find('*').on("click", function(event) {
 				event.stopPropagation(); //阻止事件冒泡
 			});
+<<<<<<< HEAD:gyds-manager/src/main/resources/static/pc/js/jquery.my-modal.1.2.js
 
+=======
+//			$(".m-modal1,.m-modal1-close,.m-btn-cancel").on("click", function(event) {
+//				that.hide();
+//			});
+>>>>>>> 5d5f8d663e49bc08f076943efd90867af6ee6bdc:gyds-manager/src/main/resources/static/pc/js/jquery.my-modal.1.2_____.js
 			$(".m-btn-sure").on("click", function(event) {
 				that.fn();
 				that.hide();

@@ -56,9 +56,12 @@ header{
 	position:relative;
 	text-align: center;
 	top: -29px;
-    left: 11px;
+   /*  left: 11px; */
 	border-radius:20px;
 	font-size:23px;
+}
+.header2-1>img{
+	border-radius: 50%;
 }
 .header2-2-1,.header2-2-2,.header2-2-3{
 	text-align: center;

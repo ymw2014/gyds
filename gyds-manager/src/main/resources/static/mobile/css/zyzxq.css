@@ -6,6 +6,9 @@
 	margin-top:20px;
 	border-radius:8px;
 }
+html,body{
+	background:#fff !important;
+}
 .header3 div{
 	width:25%;
 	height: 118px;

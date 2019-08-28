@@ -46,6 +46,18 @@
 	outline: none;
 	color:#fff;
 }
+.xqfenxing{
+    position: relative;
+}
+#qrcode{
+    position: absolute;
+    margin-left: 124px;
+    margin-top: -133px;
+}
+#qrcode img{
+    padding:10px;
+    background:#fff;
+}
 </style>
 </head>
 <body>
@@ -84,7 +96,7 @@
 					style="margin: 0 auto; width: 400px; margin-top: 40px;">
 					<span>分享至</span> <a href="javascript:;" th:onclick="wxshare(1)"><img
 						th:src="@{/pc/images/conter_26.jpg}" alt=""></a>
-						 <div id="qrcode"></div>
+					<div id="qrcode"></div>
 				</div>
 			</div>
 		</div>
@@ -404,7 +416,7 @@ $().ready(function(){
 	var isGetRed = $('#isGetRed').val();
 	//满足两个条件 1:有红包 2:未领取过
 	if(isRed==1&&isGetRed==2){
-		var myVar = setTimeout(vieRed, 1000);
+		var myVar = setTimeout(vieRed, 1000*30);
 	}
 })
 
@@ -420,7 +432,6 @@ function vieRed(){
 		},
 		success : function(data) {
 			if (data.code == 0) {
-				alert("成功");
 				queryRed();
 				$('#queryRed').click();
 			} else if(data.msg == 1){

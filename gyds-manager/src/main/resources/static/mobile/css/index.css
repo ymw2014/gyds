@@ -4,6 +4,9 @@
 	text-decoration: none;
 	list-style: none;
 }
+html,body{
+	background:#fff !important;
+}
 header{
 	width: 100%;
 	height: 109px;
@@ -48,6 +51,9 @@ input::-webkit-calendar-picker-indicator{
 .header-loginimg>a> img{
 	width: 100%;
 	height:100%;
+}
+.header-center select{
+	background:#fff;
 }
 .nav{
 	width: 100%;
