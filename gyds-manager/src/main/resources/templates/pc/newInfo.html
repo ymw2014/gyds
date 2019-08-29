@@ -838,7 +838,7 @@ function vieRed(){
 				success : function(r) {
 					if (r.code == 0) {
 						layer.msg(r.msg);
-						
+						 $(".m-modal3,.m-modal3-close,.m-btn-cancel").hide();
 					} else {
 						layer.msg(r.msg);
 					}
@@ -889,9 +889,10 @@ function vieRed(){
 				}
 			})
 		}
-		
-		
-	
 	//结束
+	
+	$(".m-modal1,.m-modal1-close,.m-btn-cancel").on("click", function(event) {
+		$('.m-modal1').hide();
+			});
 	</script>
 </html>

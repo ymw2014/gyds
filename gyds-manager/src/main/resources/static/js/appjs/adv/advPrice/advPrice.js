@@ -70,13 +70,13 @@ function load() {
 				                                return '<span class="label label-danger">活动报名页</span>';
 				                            }
 				                            if (item === 5) {
-				                                return '<span class="label label-inverse">团队详情页</span>';
+				                                return '<span class="label label-inverse">签到页</span>';
 				                            }
 				                            if (item === 6) {
 				                                return '<span class="label label-primary">志愿者详情页</span>';
 				                            }
 				                            if (item === 7) {
-				                                return '<span class="label label-warning">签到页</span>';
+				                                return '<span class="label label-warning">团队详情页</span>';
 				                            }
 				                        }
 								},

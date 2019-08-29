@@ -92,6 +92,23 @@ public class UserDO implements Serializable {
 	
 	private String openId;
 	
+	private String education;
+	
+	private String post;
+	
+	
+	public String getPost() {
+		return post;
+	}
+	public void setPost(String post) {
+		this.post = post;
+	}
+	public String getEducation() {
+		return education;
+	}
+	public void setEducation(String education) {
+		this.education = education;
+	}
 	public String getStreet() {
 		return street;
 	}

@@ -107,7 +107,7 @@ function load() {
 											+ row.id
 											+ '\')"><i class="fa fa-key"></i></a> ';
 										}
-										var u ='<a class="btn btn-success btn-sm"'+s_volunteer_h+' href="#" title=""  mce_href="#" ><span class="" onclick="listVolunteer('+row.id+')">成员列表</span></a>'
+										var u ='<a class="btn btn-success btn-sm"'+s_volunteer_h+' href="#" title=""  mce_href="#" ><span class="" onclick="listVolunteer('+row.id+')">成员列表</span></a>&nbsp;'
 										var o ='<a class="btn btn-success btn-sm"'+s_applyMember_h+' href="#" title=""  mce_href="#" ><span class="" onclick="applyMember('+row.id+')">申请列表</span></a>'; 
 										
 										return e + d + f + u + o;
@@ -175,7 +175,7 @@ function remove(id) {
 function audit(id) {
 	layer.open({
 		type : 2,
-		title : '审核',
+		title : '入团申请列表',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
@@ -186,7 +186,7 @@ function audit(id) {
 function applyMember(id) {
 	layer.open({
 		type : 2,
-		title : '审核',
+		title : '入团申请列表',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '1000px', '620px' ],

@@ -135,6 +135,7 @@ public class PcProxybusiController extends BaseController{
 		SetupDO setupDO = setupService.get(1);
 		String errMsg = "账号余额不足，请充值";
 		UserDO user = ShiroUtils.getUser();
+		user = userService.get(user.getUserId());
 		BigDecimal account = user.getAccount();
 		if (account == null) {
 			return R.error(errMsg);

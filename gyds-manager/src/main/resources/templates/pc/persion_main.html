@@ -363,9 +363,9 @@ function pay(){
 			$(".adddd").css("display","none")
 			window.clearInterval(timer);//清除定时器
 	})
+	
 	function createOrder(fee){
 		var orderNum = '';
-		debugger
 		$.ajax({
 			type : "POST",
 			url : "/wxpay/createOrder",
@@ -389,7 +389,6 @@ function pay(){
 			data : {'orderNum': orderNum},
 			async:false,
 			success : function(r) {
-				debugger
 				if (r.code == 0) {
 					stauts =  r.msg;
 				} else
@@ -425,6 +424,7 @@ function pay(){
 			return true;
 		}
 	}
+	
 </script>
 <script type="text/javascript">
 	$(function(){
@@ -476,13 +476,9 @@ function pay(){
 				} else if (r.status == 500) {
 					layer.msg(r.message);
 					self.find(".check-tips").text(r.message);
-					//刷新验证码
-					$(".reloadverify").click();
 				} else {
 					layer.msg(r.msg);
 					self.find(".check-tips").text(r.msg);
-					//刷新验证码
-					$(".reloadverify").click();
 				}
 			},
 		});

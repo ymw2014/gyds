@@ -903,7 +903,7 @@
 	   $.each(res, function(i, item){ 
 	  	html +='<div>';
 		html +='<img src="'+item.headImg+'" alt="">';
-		html +='<div>
+		html +='<div>';
 		html +='<span >'+item.name+item.createTime+'</span>';
 		html +='<p style="font-size:22px;" >'+item.criticismContent+'</p>';
 		html +='</div>';
@@ -953,5 +953,8 @@
 	});
 
 	
+	$(".m-modal1,.m-modal-close,.m-btn-cancel").on("click", function(event) {
+		$('.m-modal').hide();
+			});
 	</script>
 </html>

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.bouncycastle.crypto.tls.UserMappingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,11 +78,18 @@ public class PersionController extends BaseController{
 	@Autowired
 	private TypeService typeService;
 	@Autowired
-	private ActivityService activityService;
+	UserDao userMapper;
 	
 	@ResponseBody
 	@RequestMapping("/pc/binding")
 	public R binding(UserDO user,Model model) {
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("userName", user.getUsername());
+		List<UserDO> userList = userService.list(map);
+		if(userList!=null&&userList.size()>0) {
+			return R.error("该账号已存在");
+		}
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		user.setIsBinding(1);
 		if (userService.updatePersonal(user)> 0) {
@@ -531,4 +539,25 @@ public class PersionController extends BaseController{
 	 * HashMap<String,Object>(); SetupDO setup = setupService.get(1); if
 	 * (setup!=null) { } return listPrice; }
 	 */
+	
+	@RequestMapping("/pc/basics")
+	public String basics(Model model) {
+		UserDO user= ShiroUtils.getUser();
+		user = userService.get(user.getUserId());
+		model.addAttribute("user", user);
+		return "pc/basics";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/pc/savabasics")
+	public R savaBasics(UserDO user) {
+		if (userMapper.update(user)>0) {
+			return R.ok();
+		}
+		return R.error();
+	}
+	
+	
+	
+	
 }
