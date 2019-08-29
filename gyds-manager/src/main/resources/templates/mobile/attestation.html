@@ -102,10 +102,32 @@
 				background:#ff0000;
 				color:#fff;
 			}
+			.aad select{
+				width:500px;
+				line-height:92px;
+				height:92px;
+				font-size:30px;
+				border:none;
+			    background: #fff;
+				
+			}
+			.xingbie input{
+			    width:30px !important;
+			    height:30px !important;
+			    float: left!important;
+			    margin-top:30px;
+			}
 			.zfsdf{
 				background:url(images/sjxl_03.jpg) no-repeat;
 				 background-position:right;
 				 background-size:24px 15px;
+			}
+			.lianxi select{
+			      height:86px;
+			      font-size:30px;
+			      width:150px;
+			      border:none;
+			       background: #fff;
 			}
 		</style>
 	</head>
@@ -124,7 +146,7 @@
 			<label>
 				<span>真实姓名</span> <input name="name" type="text">
 			</label> 
-			<label> <span>政治面貌</span> <select name="politicalStatus">
+			<label class="aad"> <span>政治面貌</span> <select name="politicalStatus">
 					<option selected="selected">-请选择-</option>
 					<option value="中共党员">中共党员</option>
 					<option value="中共预备党员">中共预备党员</option>
@@ -140,7 +162,7 @@
 					<option value="无党派人士">无党派人士</option>
 					<option value="群众">群众</option>
 			</select>
-			</label> <label> <span>民族</span> <select name="nation">
+			</label> <label class="aad"> <span>民族</span> <select name="nation">
 					<option selected="selected">-请选择-</option>
 					<option value="汉族">汉族</option>
 					<option value="蒙古族">蒙古族</option>
@@ -201,7 +223,7 @@
 					<option value="基诺族">基诺族</option>
 			</select>
 			</label> 
-			<label> <span>最高学历</span> <select name="nation">
+			<label class="aad"> <span>最高学历</span> <select name="nation">
 					<option selected="selected">-请选择-</option>
 					<option value="小学">小学</option>
 					<option value="初中">初中</option>
@@ -215,7 +237,7 @@
 					<option value="其他">其他</option>
 			</select>
 			</label>
-			<label> <span>从业状态</span> <select name="nation">
+			<label class="aad"> <span>从业状态</span> <select name="nation">
 					<option selected="selected">-请选择-</option>
 					<option value="国家公务员">国家公务员</option>
 					<option value="专业技术人员">专业技术人员</option>
@@ -252,13 +274,13 @@
 			   </div>
 			   <label> <span>邮箱地址</span> <input name="email" type="text">
 			</label> 
-			<label> <span>性别</span> <input type="radio" name="sex"
-				value="0" class="xingbie">男 <input type="radio" name="sex"
-				value="1" class="xingbie">女
+			<label class="xingbie"> <span>性别</span> <input type="radio" name="sex"
+				value="0" class="xingbie"><span>男</span><input type="radio" name="sex"
+				value="1" class="xingbie"><span>女</span>
 			</label> 
 			<label> <span>手机号码</span> <input name="mobile" type="text">
 			</label> 
-			<label> <span>联系地址</span> 
+			<label  class="lianxi"> <span>联系地址</span> 
 			<input name="province" id="province" type="hidden"> 
 			<select class="juzhu" id="pron" onchange="pronv()">
 			<option value="">省</option>

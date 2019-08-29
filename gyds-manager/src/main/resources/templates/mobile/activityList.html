@@ -49,7 +49,7 @@
 			<div class="box-nr-1" th:each="act: ${actList}">
 				<img th:src="${act.actTitleImg}" alt="">
 				<span th:text="${act.actTitle}"></span>
-				<p th:text="${act.actIntro}"></p>
+				<p th:text="${#strings.abbreviate(act.actIntro,20)}"></p>
 				<rem th:utext="${act.actType==0}?'免费<a href=/pc/activityDetail?id='+${act.id}+'>马上报名</a>': '￥'+${act.actPrice} +'<a href=/pc/activityDetail?id='+${act.id+'&areaId='+areaId}+'>马上报名</a>'"></rem>
 			</div>
 			<!-- 加载更多 -->
