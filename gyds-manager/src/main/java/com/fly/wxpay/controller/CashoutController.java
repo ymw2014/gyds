@@ -50,7 +50,7 @@ public class CashoutController {
 	@RequestMapping("/createOrder")
 	@ResponseBody
 	public R createOrder(String fee) {
-		R r = PayOrderService.createOrder(fee, OrderType.SHOU_RU);
+		R r = PayOrderService.createOrder(fee, OrderType.TI_XIAN);
 		return r;
 	}
 	

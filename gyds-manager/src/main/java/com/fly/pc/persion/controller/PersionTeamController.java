@@ -120,7 +120,7 @@ public class PersionTeamController extends BaseController{
 			}
 			BigDecimal price = setupService.get(1).getAuthPrice();
 			params.clear();
-			params.put("team_id",team.getId());
+			params.put("teamId",team.getId());
 			List<AutheDO> authList= AutheService.list(params);
 			if(authList.size()>0) {
 			model.addAttribute("authSta", authList.get(0).getStatus());
@@ -244,7 +244,6 @@ public class PersionTeamController extends BaseController{
 		R r = new R();
 		Map<String, Object> params = new HashMap<String, Object>();
 		Integer i = null;
-		Boolean flag =false;
 		BigDecimal price = setupService.get(1).getAuthPrice();
 		params.put("price", price);
 		i = deductMoney(params);
@@ -262,9 +261,9 @@ public class PersionTeamController extends BaseController{
 				AutheService.save(authe);
 			}
 		}else {
-			r.error("余额不足");
+			return r.error("余额不足,请充值");
 		}
-		return r.ok() ;
+		return r.ok();
 
 	}
 }

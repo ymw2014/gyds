@@ -132,11 +132,7 @@
 				</label>
 				<label>
 					<span>联系地址</span>
-					<div>
-                       <div class="content-block">
 					   <input type="text" th:value="${team.addres}" disabled="disabled" >
-					   </div>
-					</div>
 				</label>
 			   <div class="mstp">
 				   <span>团队logo</span>
@@ -154,10 +150,13 @@
 					   </div>
 				   </div>
 			   </div>
-			   <label class="aad">
-			   	<span style="width: 180px;">团队服务项目</span>
-			   	<input type="text" th:text="${team.teamIntroduce}" disabled="disabled">
-			   	<input>
+			   <label> 
+				   <span>团队简介</span> 
+				   <textarea th:text="${team.teamIntroduce}"  disabled="disabled"> </textarea>
+			  </label>
+			   <label>
+				   	<span >团队服务项目</span>
+				   	<input type="text" th:text="${team.typeName}" disabled="disabled">
 			   </label>
 			</form>
 		</div>

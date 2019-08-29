@@ -137,6 +137,7 @@ function save() {
 		success : function(r) {
 			if (r.code == 0) {
 				layer.msg(r.msg);
+				history.go(0);
 			} else {
 				layer.msg(r.msg);
 			}

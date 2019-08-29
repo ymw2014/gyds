@@ -59,10 +59,10 @@ function load() {
 									field : 'name', 
 									title : '用户姓名' 
 								},
-																{
+																/*{
 									field : 'teamName', 
 									title : '团队名称' 
-								},
+								},*/
 																{
 									field : 'businessTime', 
 									title : '下单时间' 
