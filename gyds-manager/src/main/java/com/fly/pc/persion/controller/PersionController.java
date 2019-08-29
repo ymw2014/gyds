@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.bouncycastle.crypto.tls.UserMappingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,6 +79,8 @@ public class PersionController extends BaseController{
 	private TypeService typeService;
 	@Autowired
 	private ActivityService activityService;
+	@Autowired
+	UserDao userMapper;
 	
 	@ResponseBody
 	@RequestMapping("/pc/binding")
@@ -531,4 +534,25 @@ public class PersionController extends BaseController{
 	 * HashMap<String,Object>(); SetupDO setup = setupService.get(1); if
 	 * (setup!=null) { } return listPrice; }
 	 */
+	
+	@RequestMapping("/pc/basics")
+	public String basics(Model model) {
+		UserDO user= ShiroUtils.getUser();
+		user = userService.get(user.getUserId());
+		model.addAttribute("user", user);
+		return "pc/basics";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/pc/savabasics")
+	public R savaBasics(UserDO user) {
+		if (userMapper.update(user)>0) {
+			return R.ok();
+		}
+		return R.error();
+	}
+	
+	
+	
+	
 }

@@ -95,6 +95,7 @@ public class PersionTeamController extends BaseController{
 		if (user.getIsIdentification()==null||user.getIsIdentification()!=1) {
 			Map<String, Object> map=new HashMap<>(16);
 			map.put("parentRegionCode", 0);
+			map.put("regionType", 1);
 			List<RegionDO> areaList = regionService.list(map);
 			List<TypeDO> type = typeDao.list1();
 			model.addAttribute("teamType", type);
