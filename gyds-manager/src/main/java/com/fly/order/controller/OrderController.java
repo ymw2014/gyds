@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -169,6 +170,7 @@ public class OrderController {
 	@RequiresPermissions("order:order:audit")
 	public R update( OrderDO order,Integer id, Integer examineStatus){
 		OrderDO orderNew = orderService.get(id);
+		orderNew.setExamineUser(ShiroUtils.getUserId());
 		orderNew.setExamineStatus(examineStatus);
 		if (examineStatus == 1) {
 			BigDecimal orderPrice =orderNew.getPrice();
