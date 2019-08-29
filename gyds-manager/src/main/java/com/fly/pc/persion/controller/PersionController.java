@@ -76,12 +76,18 @@ public class PersionController extends BaseController{
 	private UserService userService;
 	@Autowired
 	private TypeService typeService;
-	@Autowired
-	private ActivityService activityService;
+
 	
 	@ResponseBody
 	@RequestMapping("/pc/binding")
 	public R binding(UserDO user,Model model) {
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("userName", user.getUsername());
+		List<UserDO> userList = userService.list(map);
+		if(userList!=null&&userList.size()>0) {
+			return R.error("该账号已存在");
+		}
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		user.setIsBinding(1);
 		if (userService.updatePersonal(user)> 0) {
