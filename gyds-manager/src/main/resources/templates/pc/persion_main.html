@@ -233,7 +233,7 @@
 				   <div class="m-middletxt1">
 				   		<ul id="cashOut">
 							<li><a href="#">2元</a></li>
-							<li><a href="#">0.01元</a></li>
+							<li><a href="#">10元</a></li>
 							<li><a href="#">66元</a></li>
 							<li><a href="#">300元</a></li>
 							<li><a href="#">200元</a></li>
@@ -420,7 +420,7 @@ function pay(){
 			alert("请选择充值金额或输入充值金额");
 			return true;
 		}
-		if(fee > $('#ccount').val()) {
+		if((fee * 100) > ($('#ccount').val() * 100) ) {
 			alert("余额不足");
 			return true;
 		}
