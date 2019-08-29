@@ -94,6 +94,7 @@
 			.tijiao{
 				width: 100%;
 				height:80px;
+				margin:10px 0px;
 			}
 			.tijiao>input{
 				width: 100%;
@@ -142,7 +143,7 @@
 		<div class="mygz">
 			<div class="alendar"> 
 				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
-				<span>代理申请商</span>
+				<span>团队申请</span>
 			</div>
 		</div>
 		<div class="biaotiyy">
@@ -306,7 +307,7 @@
 			</select>
 			</label> <label> <span>详细地址</span> <input name="address" type="text">
 			</label> 
-			 <label th:if="${type} eq '2'" class="xiaye"> <input type="button" id="downTeam" value="下页"></label>
+			 <label th:if="${type} eq '2'" class="tijiao"> <input type="button" id="downTeam" value="下页"></label>
 			</form>
 			
 			<form id="creatTeam"  style="display: none;">
@@ -351,9 +352,9 @@
 						style="display: none;" multiple> <span id="progress_imgs"></span>
 				</div>
 			</label> <label> <span>团队简介</span> <textarea name="teamIntroduce"
-					id="" cols="30" rows="10">
+					id="" cols="30" rows="10" style="width:500px; margin-left: 10px;">
 						 </textarea>
-			</label> <label> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"
+			</label> <label class="aad"> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"
 				name="teamType" id="teamType">
 				<option value="0">请选择</option>
 					<option th:each="type:${teamType}" th:value="${type.id}"
@@ -363,7 +364,7 @@
 			<label> <span>费用</span> 
 					<input id ="price" value="0">
 			</label>
-			<label th:if="${type} eq '2'"> <input type="button" id="upTeam" value="上页">
+			<label th:if="${type} eq '2'" class="tijiao"> <input type="button" id="upTeam" value="上页">
 			</label>  
 			<div class="tijiao">
 				   <input type="button" id="save" value="立即发布">

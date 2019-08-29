@@ -121,14 +121,16 @@ public class UserController extends BaseController {
 
 
 	@RequiresPermissions("sys:user:remove")
-	@Log("删除用户")
+	@Log("删除管理员")
 	@PostMapping("/remove")
 	@ResponseBody
 	R remove(Long id) {
-		if (Constant.ADMIN.equals(getUsername())) {
+		UserDO user = userService.get(id);
+		if (Constant.ADMIN.equals(user.getUsername())) {
 			return R.error(1, "超管用户不允许删除");
 		}
-		if (userService.remove(id) > 0) {
+		user.setIsManage(0);
+		if (userService.updatePersonal(user) > 0) {
 			return R.ok();
 		}
 		return R.error();

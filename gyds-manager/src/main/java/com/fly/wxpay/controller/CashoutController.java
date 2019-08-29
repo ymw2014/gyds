@@ -1,19 +1,13 @@
 package com.fly.wxpay.controller;
 
-import java.math.BigDecimal;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
-import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.system.service.UserService;
-import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.R;
-import com.fly.wxpay.service.IWxPayConfig;
 import com.fly.wxpay.service.PayService;
-import com.github.wxpay.sdk.WXPay;
-import com.github.wxpay.sdk.WXPayUtil;
 
 @Controller
 @RequestMapping("/cashout/")

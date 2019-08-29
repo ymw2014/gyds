@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.common.controller.BaseController;
+import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
@@ -30,6 +31,7 @@ import com.fly.order.service.OrderService;
 import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
+import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
@@ -53,6 +55,8 @@ public class ProxybusiController extends BaseController{
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RegionService regionService;
 	
 	@GetMapping()
 	@RequiresPermissions("proxybusi:proxybusi:proxybusi")
@@ -67,6 +71,30 @@ public class ProxybusiController extends BaseController{
 		//查询列表数据
         Query query = new Query(params);
 		List<ProxybusiDO> proxybusiList = proxybusiService.list(query);
+		for (ProxybusiDO proxybusiDO : proxybusiList) {
+			if(proxybusiDO.getRegionLevel()==1) {
+				RegionDO retion = regionService.get(proxybusiDO.getProxyRegion());
+				proxybusiDO.setProxyRegionName(retion.getRegionName());
+			}
+			if(proxybusiDO.getRegionLevel()==2) {
+				RegionDO cityRetion = regionService.get(proxybusiDO.getProxyRegion());
+				RegionDO proRetion = regionService.get(cityRetion.getParentRegionCode());
+				proxybusiDO.setProxyRegionName(proRetion.getRegionName()+"&nbsp;"+cityRetion.getRegionName());
+			}
+			if(proxybusiDO.getRegionLevel()==3) {
+				RegionDO areaRetion = regionService.get(proxybusiDO.getProxyRegion());
+				RegionDO cityRetion = regionService.get(areaRetion.getParentRegionCode());
+				RegionDO proRetion = regionService.get(cityRetion.getParentRegionCode());
+				proxybusiDO.setProxyRegionName(proRetion.getRegionName()+"&nbsp;"+cityRetion.getRegionName()+"&nbsp;"+areaRetion.getRegionName());
+			}
+			if(proxybusiDO.getRegionLevel()==4) {
+				RegionDO jdbRetion = regionService.get(proxybusiDO.getProxyRegion());
+				RegionDO areaRetion = regionService.get(jdbRetion.getParentRegionCode());
+				RegionDO cityRetion = regionService.get(areaRetion.getParentRegionCode());
+				RegionDO proRetion = regionService.get(cityRetion.getParentRegionCode());
+				proxybusiDO.setProxyRegionName(proRetion.getRegionName()+"&nbsp;"+cityRetion.getRegionName()+"&nbsp;"+areaRetion.getRegionName()+"&nbsp;"+jdbRetion.getRegionName());
+			}
+		}
 		int total = proxybusiService.count(query);
 		PageUtils pageUtils = new PageUtils(proxybusiList, total);
 		return pageUtils;
