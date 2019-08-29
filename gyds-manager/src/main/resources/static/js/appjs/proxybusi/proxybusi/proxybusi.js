@@ -83,7 +83,11 @@ function load() {
 										if (value == "4") {
 											return '<span style="color:green;">街道办代理</span>';
 										}
-								}
+									}
+								},
+								{
+									field : 'proxyRegionName', 
+									title : '代理区域' 
 								},
 								{
 									field : 'proxyAddr', 

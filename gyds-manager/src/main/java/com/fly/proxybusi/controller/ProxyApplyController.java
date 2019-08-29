@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
@@ -55,8 +56,7 @@ public class ProxyApplyController {
 	private TeamNameService teamNameService;
 	@Autowired
 	private RegionService regionService;
-	@Autowired
-	private UserService userService;
+
 	
 	@GetMapping()
 	@RequiresPermissions("proxybusi:apply:apply")
@@ -77,21 +77,28 @@ public class ProxyApplyController {
 			Map<String, Object> proxyMap = JSONUtils.jsonToMap(nameDO.getText());
 			proxyMap.put("id", nameDO.getId());
 			Map<String, Object> map = BeanUtil.transBean2Map(nameDO);//
-			String pronvice=regionService.get(Long.parseLong(proxyMap.get("pronvice").toString())).getRegionName();
-			String city=regionService.get(Long.parseLong(proxyMap.get("city").toString())).getRegionName();
-			String country=regionService.get(Long.parseLong(proxyMap.get("country").toString())).getRegionName();
-			String street=regionService.get(Long.parseLong(proxyMap.get("street").toString())).getRegionName();
+			
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("1")) {
+				String pronvice=regionService.get(Long.parseLong(proxyMap.get("proxyRegion").toString())).getRegionName();
 				map.put("daili", pronvice);
 			}
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("2")) {
-				map.put("daili", pronvice+city);
+				RegionDO cityRetion = regionService.get(Long.parseLong(proxyMap.get("proxyRegion").toString()));
+				RegionDO proRetion = regionService.get(cityRetion.getParentRegionCode());
+				map.put("daili", proRetion.getRegionName()+"&nbsp;"+cityRetion.getRegionName());
 			}
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("3")) {
-				map.put("daili", pronvice+city+country);
+				RegionDO areaRetion = regionService.get(Long.parseLong(proxyMap.get("proxyRegion").toString()));
+				RegionDO cityRetion = regionService.get(areaRetion.getParentRegionCode());
+				RegionDO proRetion = regionService.get(cityRetion.getParentRegionCode());
+				map.put("daili", proRetion.getRegionName()+"&nbsp;"+cityRetion.getRegionName()+"&nbsp;"+areaRetion.getRegionName());
 			}
 			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("4")) {
-				map.put("daili", pronvice+city+country+street);
+				RegionDO jdbRetion = regionService.get(Long.parseLong(proxyMap.get("proxyRegion").toString()));
+				RegionDO areaRetion = regionService.get(jdbRetion.getParentRegionCode());
+				RegionDO cityRetion = regionService.get(areaRetion.getParentRegionCode());
+				RegionDO proRetion = regionService.get(cityRetion.getParentRegionCode());
+				map.put("daili", proRetion.getRegionName()+"&nbsp;"+cityRetion.getRegionName()+"&nbsp;"+areaRetion.getRegionName()+"&nbsp;"+jdbRetion.getRegionName());
 			}
 			map.putAll(proxyMap);
 			list.add(map);
