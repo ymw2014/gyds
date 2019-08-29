@@ -289,6 +289,9 @@ input::-webkit-calendar-picker-indicator{
 .tuandui img{
 	width:100%;
 }
+.tuanduiCen img{
+	height:160px;
+}
 .index_td figure:nth-child(3n+0){
 	margin-right:0%;
 }

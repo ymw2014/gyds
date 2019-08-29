@@ -118,10 +118,10 @@ function load() {
 									field : 'mobile', 
 									title : '电话' 
 								},
-																{
+																/*{
 									field : 'username', 
 									title : '登录账号' 
-								},/*
+								},*//*
 																{
 									field : 'password', 
 									title : '登录密码' 
@@ -165,11 +165,16 @@ function load() {
 									title : '操作',
 									field : 'id',
 									align : 'center',
+									width : '100',
 									formatter : function(value, row, index) {
+										var a = '';
 										if (row.isIdentification == "-1") {
-											return '<a class="label label-success '+s_examine_h+'"onclick="examineStatus('+row.userId+',1)" >通过</a>&nbsp;&nbsp'+
+											a =  '<a class="label label-success '+s_examine_h+'"onclick="examineStatus('+row.userId+',1)" >通过</a>&nbsp;&nbsp'+
 											'<a class="label label-danger '+s_examine_h+'"onclick="examineStatus('+row.userId+',2)" >拒绝</a>';
 										}
+										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove('
+										+ row.userId + ')"><i class="fa fa-remove"></i></a> ';
+										return d + a;
 									}
 								} ]
 					});
@@ -197,6 +202,7 @@ function edit(id) {
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
+*/
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]
@@ -218,7 +224,7 @@ function remove(id) {
 		});
 	})
 }
-
+/*
 function resetPwd(id) {
 }
 function batchRemove() {

@@ -94,6 +94,7 @@
 			.tijiao{
 				width: 100%;
 				height:80px;
+				margin:10px 0px;
 			}
 			.tijiao>input{
 				width: 100%;
@@ -101,12 +102,38 @@
 			    line-height:80px;
 				background:#ff0000;
 				color:#fff;
+				
 			}
 			.zfsdf{
 				background:url(images/sjxl_03.jpg) no-repeat;
 				 background-position:right;
 				 background-size:24px 15px;
 			}
+			.biaotiyy select{
+			width: 533px;
+		    height: 85px;
+		    border: none;
+		    background: #fff;
+		    font-size: 22px;
+			}
+			.xingbie input {
+    width: 30px !important;
+    height: 30px !important;
+    float: left!important;
+    margin-top: 30px;
+       border:none !important;
+   background:#fff !important;
+}
+.diqu select{
+   width:167px !important;
+   background:#fff;
+}
+.diqu select:last-child(1){
+   width:438px !important;
+}
+.juzhu{
+  float: right !important;
+}
 		</style>
 	</head>
 	<body>
@@ -252,13 +279,14 @@
 			   </div>
 			   <label> <span>邮箱地址</span> <input name="email" type="text">
 			</label> 
-			<label> <span>性别</span> <input type="radio" name="sex"
-				value="0" class="xingbie">男 <input type="radio" name="sex"
-				value="1" class="xingbie">女
+			<label class="xingbie">
+				<span>性别</span>
+				<input type="radio" name="sex"value="0" class="xingbie"><span>男 </span>
+				<input type="radio" name="sex"value="1" class="xingbie"><span>女 </span>
 			</label> 
 			<label> <span>手机号码</span> <input name="mobile" type="text">
 			</label> 
-			<label> <span>联系地址</span> 
+			<label class="diqu"> <span>联系地址</span> 
 			<input name="province" id="province" type="hidden"> 
 			<select class="juzhu" id="pron" onchange="pronv()">
 			<option value="">省</option>
@@ -275,15 +303,13 @@
 			</select>
 			</label> <label> <span>详细地址</span> <input name="address" type="text">
 			</label> 
-			 <label th:if="${type} eq '3'"> </label><input type="button" id="downProxy" value="下页">
+			 <label th:if="${type} eq '3'" class='tijiao'><input type="button" id="downProxy" value="下页"></label>
 			</form>
-			
 			<form  class="biaodanyy" id="proxybusi" style="display: none;">
 					<input type="hidden"  th:value="${setupDO.cityBail}" id="ct">
 					<input type="hidden"  th:value="${setupDO.areaBail}" id="ar">
 					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
-				   <input type="hidden" th:value="${setupDO.agencyBail}"  id="ag">
-				   
+				    <input type="hidden" th:value="${setupDO.agencyBail}"  id="ag">
 				   <label>
 						<span>代理商名称</span>
 						<input type="text" id="name"  name="name">
@@ -294,13 +320,17 @@
 					</label>
 					<label>
 						<span>代理级别</span>
-						<input type="radio" style="width:20px;" value="1" name="regionLevel" checked="checked"/>省
-						<input type="radio" style="width:20px;margin-left: 20px" value="2" name="regionLevel" />市
-						<input type="radio" style="width:20px;margin-left: 20px" value="3" name="regionLevel" />县
-						<input type="radio" style="width:20px;margin-left: 20px" value="4" name="regionLevel" />办事处
+						<input type="radio" style="width:20px;float: left;margin-top:40px;" value="1" name="regionLevel" checked="checked"/>
+						<span style="width:auto;margin:0px;">省</span>
+						<input type="radio" style="width:20px;margin-left: 20px;float: left;    margin-top: 39px;" value="2" name="regionLevel" />
+						<span style="width:auto;margin:0px;">市</span>
+						<input type="radio" style="width:20px;margin-left: 20px;float: left;    margin-top: 39px;" value="3" name="regionLevel" />
+						<span style="width:auto;margin:0px;">县</span>
+						<input type="radio" style="width:20px;margin-left: 20px;float: left;    margin-top: 39px;" value="4" name="regionLevel" />
+						<span style="width:auto;margin:0px;">办事处</span>
 					</label>
 					<label>
-						<span style="margin-left: -147px;color:red">代理保证金</span>
+						<span style="margin-left:0px;color:red">代理保证金</span>
 						<input type="text" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
 					</label>
 					<label>
@@ -320,11 +350,11 @@
 						</select>
 					</label>
 					<label>
-						<span>代理详细地址</span>
-						<input type="text" id="proxyAddr" name="proxyAddr">
+						<span style="width:200px">代理详细地址</span>
+						<input type="text" id="proxyAddr" name="proxyAddr" style="width:490px">
 					</label>
-					<label th:if="${type} eq '3'"> <input type="button" id="upProxy" value="上页"></label>
-					<label> <input type="button" id="save" value="提交申请">
+					<label th:if="${type} eq '3'" class='tijiao'> <input type="button" id="upProxy" value="上页"></label>
+					<label class='tijiao'> <input type="button" id="save" value="提交申请">
 			</label>
 				</form>
 			

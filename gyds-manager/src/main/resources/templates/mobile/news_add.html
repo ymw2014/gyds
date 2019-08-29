@@ -100,35 +100,35 @@
 			<form id="signupForm">
 				<label>
 					<span>标题</span>
-					<input name="title" type="text" >
+					<input name="title" type="text" required="required" autocomplete="off" >
 				</label>
 				<label>
 					<span>作者</span>
-					<input type="text" name="author">
+					<input type="text" name="author" required="required" autocomplete="off">
 				</label>
 				<label>
 					<span>来源</span>
-					<input type="text" name="source">
+					<input type="text" name="source" required="required" autocomplete="off">
 				</label>
 				<label>
 					<span>简介</span>
-					<textarea name="introduction" style="width: 588px;height: 115px;margin-top:20px;border: none;outline:none;" ></textarea>
+					<textarea name="introduction" style="width: 588px;height: 115px;margin-top:20px;border: none;outline:none;" required="required"></textarea>
 				</label>
 				<label style="margin-top:30px;">
 						<span style="float: left;">封面</span>
-							<img src="images/gahgha_03.png"  height="200" width="500" alt="" id="img">
-							<input type="file" name="file" style="display: none;" id ="file">
-					</label>
+						<img src="images/gahgha_03.png"  height="200" width="500" alt="" id="img">
+						<input type="file" name="file" style="display: none;" id ="file" required="required">
+				</label>
 				<label>
 					<span>
 						详情
 					</span>
-					<textarea name="content" id="deitor" style="width: 588px;height: 325px;margin-top:20px;border: none;outline:none;">
+					<textarea name="content" id="deitor" style="width: 588px;height: 325px;margin-top:20px;border: none;outline:none;" required="required">
 					</textarea>
 				</label>
 			   
 			   <div class="tijiao">
-				   <input type="button" id="save" value="立即发布">
+				   <input type="submit" id="save" onclick="save()" value="立即发布">
 			   </div>
 			</form>
 		</div>
@@ -136,9 +136,6 @@
 	 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
 	<script type="text/javascript" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-	  <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
-	 <script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
-	 <script th:src="@{/js/validate.js}"></script>
 	
 	<script type="text/javascript">
 	
@@ -182,11 +179,6 @@
             });
             
         });
-	$().ready(function(){
-		$("#save").on('click', function() {
-			$("#signupForm").submit();
-		});
-	})
 	
 	
 	function save() {
@@ -216,54 +208,6 @@
 		});
 	}
 	
-	$().ready(function() {
-		validateRule();
-	});
-
-	$.validator.setDefaults({
-		submitHandler : function() {
-			save();
-		}
-	});
-	function validateRule() {
-		var icon = "<i class='fa fa-times-circle'></i> ";
-		$("#signupForm").validate({
-			rules : {
-				title : {
-					required : true
-				},
-				author : {
-					required : true
-				},
-				source : {
-					required : true
-				},
-				introduction : {
-					required : true
-				},
-				content : {
-					content : true
-				}
-			},
-			messages : {
-				title : {
-					required : icon + "<span style='color:red'>标题不能为空</span>",
-				},
-				author : {
-					required : icon + "<span style='color:red'>请输入新闻作者</span>",
-				},
-				source : {
-					required : icon + "<span style='color:red'>请填写新闻来源</span>",
-				},
-				introduction : {
-					required : icon + "<span style='color:red'>请输入资讯简介</span>",
-				},
-				content : {
-					required : icon + "<span style='color:red'>新闻内容不能为空</span>",
-				}
-			}
-		})
-	}
 </script>
 
 

@@ -120,6 +120,9 @@
 				background:#fff;
 				
 			}
+			#signupForm select{
+			   width: 501px !important;
+			}
 		</style>
 	</head>
 	<body>
@@ -144,19 +147,14 @@
 					<input type="text" name="colonelTel">
 				</label>
 			
-				<label>
+				<label for="Addr" id="areaLabel11" class="address">
 					<span>联系地址</span>
 					<div>
                        <div class="content-block">
-					   <input  type="hidden" id="reg"  name="reg" style="display:none;"/>
-					   </div>
-					</div>
+					      <input  type="hidden" id="reg"  name="reg" style="display:none;"/>
+ 					</div>
 				</label>
 			 
-			 		<label for="Addr" id="areaLabel" class="address">
-					<span>所在地区</span>
-					<input type="text" name="addres" id="Addr" readonly placeholder="请选择地区" class="zfsdf">
-				</label>
 				<div id="addressSelectWrapper">
 					<div id="addressSelect">
 						<div class="tip">
@@ -416,7 +414,7 @@
 <script>
 	$(function(){
 		// 地址选择器遮罩层打开与关闭
-		$("#areaLabel").click(function(e){
+		$("#areaLabel11").click(function(e){
 			$("#addressSelectWrapper").show();
 			e.stopPropagation();
 		});

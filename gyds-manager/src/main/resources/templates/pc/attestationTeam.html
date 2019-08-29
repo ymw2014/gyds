@@ -68,6 +68,7 @@
    line-height: 40px;
    padding:0px !important;
 }
+
 .xiayiye{
   text-align: center;
 }
@@ -270,7 +271,7 @@
 				type="file" name="file" style="display: none;" id="file2">
 			</label>
 			
-			<label> <span id="demo2">团队照片</span>
+			<label  style="overflow: hidden;"> <span id="demo2">团队照片</span>
 				<div>
 					<div id="imgsbox_imgs" style="display: inline;"
 						class="imgsbox tdlogo1"></div>
@@ -281,7 +282,7 @@
 						style="display: none;" multiple> <span id="progress_imgs"></span>
 				</div>
 			</label> <label> <span>团队简介</span> <textarea name="teamIntroduce"
-					id="" cols="30" rows="10">
+					id="" cols="30" rows="10" style="width: 388px;">
 						 </textarea>
 			</label> <label> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"
 				name="teamType" id="teamType">
@@ -293,7 +294,7 @@
 			<label> <span>费用</span> 
 					<input id ="price" value="0">
 			</label>
-			<label th:if="${type} eq '2'"> <input type="button" id="upTeam" value="上页">
+			<label th:if="${type} eq '2'" class="xiayiye"> <input type="button" id="upTeam" value="上页" style="border:none;background:#fff;">
 			
 			</label> <label> <input type="button" id="save" value="提交申请"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 100px; border-radius: 3px;">
