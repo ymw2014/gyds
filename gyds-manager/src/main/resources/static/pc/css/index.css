@@ -367,10 +367,11 @@ nav a{
 	overflow: hidden;
 	margin-top:20px;
 }
-.tuanduiImg{
+/* .tuandui img{
 	width: 100%;
+	
 	margin-top:10px;
-}
+} */
 .tuanduiImg div{
 	width: 228px;
 	height: 234px;
@@ -390,6 +391,7 @@ nav a{
 }
 .tuanduiImg img{
 	width:100%;
+	height:180px !important;
 }
 .tuanduiImg figure>figcaption>p{
 	line-height:42px;

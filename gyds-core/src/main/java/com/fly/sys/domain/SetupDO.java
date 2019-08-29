@@ -84,9 +84,17 @@ public class SetupDO implements Serializable {
 	private String rewardPriceSetup;
 	//置顶天数
 	private String topCount;
+	//认证费用
+	private BigDecimal authPrice;
 	
 	
-
+	
+	public BigDecimal getAuthPrice() {
+		return authPrice;
+	}
+	public void setAuthPrice(BigDecimal authPrice) {
+		this.authPrice = authPrice;
+	}
 	public String getTopCount() {
 		return topCount;
 	}

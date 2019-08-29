@@ -416,7 +416,7 @@ $().ready(function(){
 	var isGetRed = $('#isGetRed').val();
 	//满足两个条件 1:有红包 2:未领取过
 	if(isRed==1&&isGetRed==2){
-		var myVar = setTimeout(vieRed, 1000);
+		var myVar = setTimeout(vieRed, 1000*30);
 	}
 })
 
@@ -432,7 +432,6 @@ function vieRed(){
 		},
 		success : function(data) {
 			if (data.code == 0) {
-				alert("成功");
 				queryRed();
 				$('#queryRed').click();
 			} else if(data.msg == 1){

@@ -1,6 +1,7 @@
 package com.fly.team.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.domain.RegionDO;
+import com.fly.domain.RoleDO;
+import com.fly.domain.UserDO;
 import com.fly.system.service.RegionService;
+import com.fly.system.service.RoleService;
+import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamTypeDao;
 import com.fly.team.domain.TeamDO;
@@ -42,15 +47,16 @@ import com.fly.volunteer.service.VolunteerService;
 public class TeamController {
 	@Autowired
 	private TeamService teamService;
-	
 	@Autowired
 	private RegionService regionService;
-	
 	@Autowired
 	private TeamTypeDao typeDao;
-	
 	@Autowired
 	private VolunteerService volunteerService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	RoleService roleService;
 	
 	@GetMapping()
 	@RequiresPermissions("team:team:team")
@@ -63,6 +69,11 @@ public class TeamController {
 	@RequiresPermissions("team:volunteer:info")
 	String info(@PathVariable("id") Integer id,Model model){
 		VolunteerDO volunteer = volunteerService.get(id);
+		UserDO user = userService.get(volunteer.getUserId());
+		model.addAttribute("user", user);
+		List<RoleDO> roles = roleService.list(user.getUserId());
+		model.addAttribute("roles", roles);
+		model.addAttribute("volunteer", volunteer);
 		model.addAttribute("volunteer", volunteer);
 	    return "team/volunteer/info";
 	}
@@ -211,6 +222,16 @@ public class TeamController {
 		}
 		volunteer.setTeamId(-1L);
 		if(volunteerService.update(volunteer)>0){
+			return R.ok();
+		}
+		return R.error();
+	}
+	
+	@PostMapping("/updateManager")
+	@ResponseBody
+	R update(UserDO user) {
+		user.setIsManage(1);
+		if (userService.update(user) > 0) {
 			return R.ok();
 		}
 		return R.error();

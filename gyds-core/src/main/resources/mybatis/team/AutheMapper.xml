@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.team.dao.AutheDao">
+
+	<select id="get" resultType="com.fly.team.domain.AutheDO">
+		select a.`id`,a.`tel`,a.`name`,a.`parent_dept`,a.`official`,a.`price`,a.`team_id`,a.`create_time`,a.`status`,a.`order`,t.team_name from authe a left join team t on a.team_id = t.id where a.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.team.domain.AutheDO">
+		select a.`id`,a.`tel`,a.`name`,a.`parent_dept`,a.`official`,a.`price`,a.`team_id`,a.`create_time`,a.`status`,a.`order`,t.team_name from authe a left join team t on a.team_id = t.id
+        <where>  
+		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
+		  		  <if test="tel != null and tel != ''"> and a.tel = #{tel} </if>
+		  		  <if test="name != null and name != ''"> and a.name = #{name} </if>
+		  		  <if test="parentDept != null and parentDept != ''"> and a.parent_dept = #{parentDept} </if>
+		  		  <if test="official != null and official != ''"> and a.official = #{official} </if>
+		  		  <if test="price != null and price != ''"> and a.price = #{price} </if>
+		  		  <if test="teamId != null and teamId != ''"> and a.team_id = #{teamId} </if>
+		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
+		  		  <if test="status != null and status != ''"> and a.status = #{status} </if>
+		  		  <if test="order != null and order != ''"> and a.order = #{order} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by a.id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from authe
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="tel != null and tel != ''"> and tel = #{tel} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="parentDept != null and parentDept != ''"> and parent_dept = #{parentDept} </if>
+		  		  <if test="official != null and official != ''"> and official = #{official} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="order != null and order != ''"> and order = #{order} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.team.domain.AutheDO" useGeneratedKeys="true" keyProperty="id">
+		insert into authe
+		(
+			`tel`, 
+			`name`, 
+			`parent_dept`, 
+			`official`, 
+			`price`, 
+			`team_id`, 
+			`create_time`, 
+			`status`, 
+			`order`
+		)
+		values
+		(
+			#{tel}, 
+			#{name}, 
+			#{parentDept}, 
+			#{official}, 
+			#{price}, 
+			#{teamId}, 
+			#{createTime}, 
+			#{status}, 
+			#{order}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.team.domain.AutheDO">
+		update authe 
+		<set>
+			<if test="tel != null">`tel` = #{tel}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="parentDept != null">`parent_dept` = #{parentDept}, </if>
+			<if test="official != null">`official` = #{official}, </if>
+			<if test="price != null">`price` = #{price}, </if>
+			<if test="teamId != null">`team_id` = #{teamId}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="order != null">`order` = #{order}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from authe where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from authe where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -20,11 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.adv.domain.AdvertisementDO;
 import com.fly.adv.domain.DetailDO;
-import com.fly.adv.service.AdvDetailService;
 import com.fly.adv.service.AdvertisementService;
 import com.fly.adv.service.DetailService;
 import com.fly.base.BaseService;
-import com.fly.domain.RegionDO;
 import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
@@ -151,7 +149,7 @@ public class DetailController {
 		if(list.size()>0) {
 			return R.error("改广告位已被购买,审核失败");
 
-		}*/
+		}
 		
 		RegionDO region = regionService.get(detail.getRegionCode());
 		switch (region.getRegionLevel()) {
@@ -178,7 +176,7 @@ public class DetailController {
 
 		default:
 			break;
-		}
+		}*/
 		detail.setStatus(status);
 		if(status==1) {//审核通过
 			Calendar c = Calendar.getInstance();
@@ -191,7 +189,7 @@ public class DetailController {
 			advertisement.setShowStartTime(new Date());
 			advertisement.setShowEndTime(c.getTime());
 			advertisement.setUrl(detail.getAdvUrl());
-			//baseService.distributionOfDomesticTop(detail.getPrice(),  OrderType.GUANG_GAO_FAN_YONG, null, detail.getRegionCode());
+			baseService.distributionOfDomesticTop(detail.getPrice(),  OrderType.GUANG_GAO_FAN_YONG, null, detail.getRegionCode());
 			if(advertisementService.save(advertisement)>0) {
 				order.setExamineStatus(2);
 				order.setExamineUser(ShiroUtils.getUserId());

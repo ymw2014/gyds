@@ -4,7 +4,7 @@
 <mapper namespace="com.fly.team.dao.TeamDao">
 
 	<select id="get" resultType="com.fly.team.domain.TeamDO">
-		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.team_introduce,t.reg_code,r.region_name,t.status,t.remark,t.addres,t.detailed_addr from team t left join team_type tt on t.team_type = tt.id left join 
+		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.team_introduce,t.reg_code,r.region_name,t.status,t.remark,t.addres,t.detailed_addr,t.is_auth,t.auth_ent_time from team t left join team_type tt on t.team_type = tt.id left join 
 		cux_region r on t.reg_code = r.region_code
 		where
 		t.id = #{value}
@@ -16,7 +16,7 @@
 	</select>
 
 	<select id="list" resultType="com.fly.team.domain.TeamDO">
-		select t.id,t.team_name teamName,t.colonel_name,colonel_tel,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.addres ,mem.`name` as teamName
+		select t.id,t.team_name teamName,t.colonel_name,colonel_tel,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.addres ,mem.`name` as teamName,t.is_auth,t.auth_ent_time
 		from team t left join team_type tt on t.team_type = tt.id 
 		left join cux_region r on t.reg_code = r.region_code
 		left join sys_user mem on mem.user_id=t.user_id
@@ -32,6 +32,8 @@
 		  		  <if test="regCode != null and regCode != ''"> and t.reg_code = #{regCode} </if>
 		  		   <if test="status != null and status !=''"> and t.status = #{status} </if>
 		  		   <if test="colonelTel != null and colonelTel != ''">and t.colonel_tel = #{colonelTel}</if>
+		  		   <if test="isAuth != null and isAuth != ''">and t.is_auth = #{isAuth}</if>
+					<if test="authEntTime != null ">and t.auth_ent_time = #{authEntTime}</if>
 		  		   <if test="ids != null">
 		         	and left(t.id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		          </if>
@@ -66,6 +68,8 @@
 		  		  <if test="regCode != null and regCode != ''"> and t.reg_code = #{regCode} </if>
 		  		   <if test="status != null and status !=''"> and t.status = #{status} </if>
 		  		   <if test="colonelTel != null and colonelTel != ''">and t.colonel_tel = #{colonelTel}</if>
+		  		   <if test="isAuth != null and isAuth != ''">and t.is_auth = #{isAuth}</if>
+					<if test="authEntTime != null ">and t.auth_ent_time = #{authEntTime}</if>
 		  		   <if test="ids != null">
 		         	and left(t.id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		          </if>
@@ -134,10 +138,12 @@
 			<if test="regCode != null">`reg_code` = #{regCode},</if>
 			<if test="status != null">`status` = #{status},</if>
 			<if test="remark != null">`remark` = #{remark},</if>
-			<if test="colonelTel != null">`colonel_tel` = #{colonelTel}</if>
-			<if test="teamIntroduce != null">`team_introduce` = #{teamIntroduce}</if>
-			<if test="address != null">`address` = #{addres}</if>
-			<if test="detailedAddr != null">`detailed_addr` = #{detailedAddr}</if>
+			<if test="colonelTel != null">`colonel_tel` = #{colonelTel},</if>
+			<if test="teamIntroduce != null">`team_introduce` = #{teamIntroduce},</if>
+			<if test="addres != null">`addres` = #{addres},</if>
+			<if test="detailedAddr != null">`detailed_addr` = #{detailedAddr},</if>
+			<if test="isAuth != null">is_auth = #{isAuth},</if>
+			<if test="authEntTime != null">auth_ent_time = #{authEntTime}</if>
 		</set>
 		where id = #{id}
 	</update>

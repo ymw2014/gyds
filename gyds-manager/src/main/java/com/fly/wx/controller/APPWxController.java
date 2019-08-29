@@ -202,6 +202,10 @@ public class APPWxController {
 				r.put("code", 1);
 				r.put("url", "/pc/personalCenter");
 				return r;
+			}else {
+				r.put("code", 1);
+				r.put("url", "/");
+				return r;
 			}
 		}else {//新用户登录
 			HashOperations<String, Object, Object> opsForHash = redisTemplate.opsForHash();
@@ -237,7 +241,6 @@ public class APPWxController {
 			r.put("url", "/pc/personalCenter");
 			return r;
 		}
-		return r;
 
 	}
     

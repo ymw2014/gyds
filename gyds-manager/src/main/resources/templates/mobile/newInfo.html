@@ -781,10 +781,8 @@
 		         data:{"url":url},
 		         dataType: "json",
 		         success: function(data){
-		             console.log(data);
 		             aapId = data.appId
 		             url =  data.url;
-		             console.log("aapId " + aapId);
 		             nonceStr=data.nonceStr;
 		             signature=data.signature;
 		             timestamp=data.timestamp;

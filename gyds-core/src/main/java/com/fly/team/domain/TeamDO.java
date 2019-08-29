@@ -51,8 +51,23 @@ public class TeamDO implements Serializable {
 	private Integer integral ; 
 	//详细地址
 	private String detailedAddr;
+	//是否认证
+	private Integer isAuth;
+	//认证结束时间
+	private Date authEntTime;
 	
-	
+	public Integer getIsAuth() {
+		return isAuth;
+	}
+	public void setIsAuth(Integer isAuth) {
+		this.isAuth = isAuth;
+	}
+	public Date getAuthEntTime() {
+		return authEntTime;
+	}
+	public void setAuthEntTime(Date authEntTime) {
+		this.authEntTime = authEntTime;
+	}
 	public String getDetailedAddr() {
 		return detailedAddr;
 	}

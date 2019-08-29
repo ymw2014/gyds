@@ -1,6 +1,5 @@
 
-var prefix = "/order/order";
-var url = $('#url').val();
+var prefix = "/team/authe"
 $(function() {
 	load();
 });
@@ -8,11 +7,9 @@ $(function() {
 function load() {
 	$('#exampleTable')
 			.bootstrapTable(
-					
-					{	
-						
+					{
 						method : 'get', // 服务器数据的请求方式 get or post
-						url : prefix + "/listCashOut", // 服务器数据的加载地址
+						url : prefix + "/list", // 服务器数据的加载地址
 					//	showRefresh : true,
 					//	showToggle : true,
 					//	showColumns : true,
@@ -52,130 +49,65 @@ function load() {
 								},
 																
 																{
-									field : 'orderNumber', 
-									title : '订单编号' 
+									field : 'tel', 
+									title : '负责人电话' 
 								},
 																{
 									field : 'name', 
-									title : '用户姓名' 
-								},
-																/*{
-									field : 'teamName', 
-									title : '团队名称' 
-								},*/
-																{
-									field : 'businessTime', 
-									title : '下单时间' 
+									title : '负责人姓名' 
 								},
 																{
-									field : 'orderType', 
-									title : '订单类型',
-									formatter: function (value, index){
-										if(value == 1){
-											return '收入'
-										}
-										if(value == 2){
-											return '支出'
-										}
-									}
+									field : 'parentDept', 
+									title : '父级部门' 
 								},
 																{
-									field : 'username', 
-									title : '审核人' 
-								},
-																{
-									field : 'remake', 
-									title : '备注信息' 
-								},
-																{
-									field : 'cashUpType', 
-									title : '充值类型',
-									formatter: function (value, index){
-										if(value == 0){
-											return '支付宝'
-										}
-										if(value == 1){
-											return '微信'
-										}
-										if(value == 2){
-											return '其他'
-										}
-									}
-								},
-																{
-									field : 'cashOutType', 
-									title : '提现类型' ,
-									formatter: function (value, index){
-										if(value == 0){
-											return '支付宝'
-										}
-										if(value == 1){
-											return '微信'
-										}
-										if(value == 2){
-											return '其他'
-										}
-									}
-								},
-																{
-									field : 'expIncType', 
-									title : '类型',
-									formatter: function (value, index){
-										if(value == 0){
-											return '提现'
-										}
-										if(value == 1){
-											return '充值'
-										}
-										if(value == 2){
-											return '打赏'
-										}
-										if(value == 3){
-											return '红包'
-										}
-										if(value == 4){
-											return '广告费用'
-										}
-										if(value == 5){
-											return '商城支付'
-										}
-									}
+									field : 'official', 
+									title : '公函' ,
+									formatter : function(value, row, index) {
+										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
+									
+								}		
 								},
 																{
 									field : 'price', 
-									title : '金额' 
+									title : '价格' 
 								},
 																{
-									title : '操作',
-									field : 'id',
+									field : 'teamName', 
+									title : '团队id' 
+								},
+																{
+									field : 'createTime', 
+									title : '创建时间' 
+								},
+																{
+									field : 'status', 
+									title : '状态 ',
+									
+								},
+																{
+									field : 'order', 
+									title : '订单' 
+								},
+																{
+									title : '审核',
+									field : 'status',
 									align : 'center',
 									formatter : function(value, row, index) {
-										if (row.examineStatus == 2) {
-											return '<a class="label label-success '+s_audit_h+'" onclick="audit('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
-											'<a class="label label-danger '+s_audit_h+'" onclick="audit('+row.id+',3)" >拒绝</a>';
+										if (row.status == "1") {
+											return '<a class="label label-success'+s_edit_h+'"  onclick="examineStatus('+row.id+',2)" >通过</a>&nbsp;&nbsp'+
+											'<a class="label label-danger '+s_edit_h+'"  onclick="examineStatus('+row.id+',3)" >拒绝</a>';
 										}
-										if (row.examineStatus == 1) {
-											return '<span style="color:green;">已完成</span>';
+										if (value == "2") {
+											return '<span style="color:green;">已审核</span>';
 										}
-										if (row.examineStatus == 3) {
-											return '<span style="color:red;">已拒绝</span>';
+										if (value == "3") {
+											return '<span style="color:green;">已拒绝</span>';
 										}
-										
 									}
-								}],onLoadSuccess : function(){  //加载成功时执行  
-									if(url != '/listCashUp'){
-									     $('#exampleTable').bootstrapTable('hideColumn', 'cashUpType');
-									}
-								if(url != '/listCashOut'){
-									     $('#exampleTable').bootstrapTable('hideColumn', 'cashOutType');
-									 	$('#exampleTable').bootstrapTable('hideColumn', 'username');
-									 	$('#exampleTable').bootstrapTable('hideColumn', 'id');
-									}
-										}
-					}
-			);
+								} ]
+					});
 }
-	
 function reLoad() {
 	$('#exampleTable').bootstrapTable('refresh');
 }
@@ -221,27 +153,7 @@ function remove(id) {
 	})
 }
 
-function audit(id,status) {
-	layer.confirm('确定要审核吗？', {
-		btn : [ '确定', '取消' ]
-	}, function() {
-		$.ajax({
-			url : prefix+"/update",
-			type : "post",
-			data : {
-				'id' : id,
-				'examineStatus':status
-			},
-			success : function(r) {
-				if (r.code==0) {
-					layer.msg(r.msg);
-					reLoad();
-				}else{
-					layer.msg(r.msg);
-				}
-			}
-		});
-	})
+function resetPwd(id) {
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
@@ -276,4 +188,70 @@ function batchRemove() {
 	}, function() {
 
 	});
+}
+
+function showBigPic(obj,filepath) {
+	
+    //将文件路径传给img大图
+    document.getElementById('pre_view').src = filepath;
+    //获取大图div是否存在
+    var div = document.getElementById("bigPic");
+    if (!div) {
+        return;
+    }
+    //如果存在则展示
+    var ImgObj=new Image();
+    	ImgObj.src= filepath;
+    if(ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0))
+     {
+        document.getElementById("bigPic").style.display="block";
+     }else{
+    	 return;
+     }
+    //获取鼠标坐标
+    var e = event || window.event;
+   	var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+   	var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+  	var intX = e.pageX || e.clientX + scrollX;
+   	var intY = e.pageY || e.clientY + scrollY;
+    //var intX = window.event.clientX;
+    //var intY = window.event.clientY;
+    //设置大图左上角起点位置
+    div.style.left = intX +10+ "px";
+    div.style.top = intY - 150+"px";
+}
+
+function closeimg(){
+    document.getElementById("bigPic").style.display="none";
+}
+
+/**
+ * 认证审核
+ * @param id
+ * @param status
+ * @returns
+ */
+function examineStatus(id,status) {
+	console.log(id);
+	layer.confirm('确定要进行认证审核吗？', {
+		btn : [ '确定', '取消' ]
+	}, function() {
+		$.ajax({
+			url : prefix+"/update",
+			type : "post",
+			data : {
+				'id' : id,
+				'status':status,
+				
+			},
+			success : function(r) {
+				if (r.code==0) {
+					layer.msg(r.msg);
+					reLoad();
+				}else{
+					layer.msg(r.msg);
+				}
+			}
+		});
+	})
 }

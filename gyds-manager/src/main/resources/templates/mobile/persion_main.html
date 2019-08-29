@@ -64,7 +64,7 @@
 					<div th:text="${user.isIdentification==1?'已实名':'未实名'}"></div>
 				</div>
 				<div class="header2-2" style="margin-top:13px;">
-					<div class="header2-2-1"><span th:text="${'姓名:' + user.name}"></span> <span><img th:src="@{/mobile/images/nv.png}" alt=""></span> <span th:text="${'ID:'+user.userId}"></span></div>
+					<div class="header2-2-1"><span th:text="${user.name == null}?'姓名:' + ${user.nikeName}:'姓名:' + ${user.name}"></span> <span><img th:src="@{/mobile/images/nv.png}" alt=""></span> <span th:text="${'ID:'+user.userId}"></span></div>
 					<div class="header2-2-2">
 						<span>志愿者等级 </span>
 						<img th:src="@{/mobile/images/xing.png}" alt="">
@@ -73,13 +73,14 @@
 						<img th:src="@{/mobile/images/xing.png}" alt="">
 						<img th:src="@{/mobile/images/xing.png}" alt="">
 					</div>
-					<div class="header2-2-3">所属团队:河南省郑州市金水区景安团队</div>
+					<div class="header2-2-3" th:if="${team!=null}" th:src="${'所属团队:'+team.teamTitleImg}"></div>
 				</div>
 			</div>
 		</header>
 		<!-- 资产情况 -->
 		<div class="conter">
 			<div class="conter1">
+			<input type="hidden" th:value="${ccount}" id="ccount">
 				<span th:text="${ccount}"></span>
 				<p>账户总额(元)</p>
 			</div>
@@ -179,13 +180,14 @@
 					   <img th:src="${user.headImg}" alt="">
 				   </div>
 				   <div class="m-middletxt2">
-				   		<ul id="pay">
-							<li class="addred"><a href="#">2元</a></li>
+				   		<ul>
+							<li><a href="#">2元</a></li>
 							<li><a href="#">0.01元</a></li>
 							<li><a href="#">66元</a></li>
 							<li><a href="#">300元</a></li>
 							<li><a href="#">200元</a></li>
-							<li><a href="#">100元</a></li>
+							<li><input id="pay" type="text" style="height: 81px;width:100%;
+    								border: none;text-align: center; color:#dc1333" placeholder="自定义 (单位元)" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></li>
 						</ul>
 				   </div>
 				   <div class="m-middletxt3">
@@ -205,12 +207,13 @@
 				   </div>
 				   <div class="m-middletxt1">
 				   		<ul id="cashOut">
-							<li class="addredd"><a href="#">2元</a></li>
-							<li><a href="#">0.01元</a></li>
+							<li><a href="#">2元</a></li>
+							<li><a href="#">10元</a></li>
 							<li><a href="#">66元</a></li>
 							<li><a href="#">300元</a></li>
 							<li><a href="#">200元</a></li>
-							<li><a href="#">100元</a></li>
+							<li><input id="cash" type="text" style="height: 81px;width:100%;
+    								border: none;text-align: center; color:#dc1333" placeholder="自定义 (单位元)" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></li>
 						</ul>
 				   </div>
 				   <div class="m-middletxt2">
@@ -223,6 +226,8 @@
 		</div>
 	</body>
 	<script>
+	var payFee = '';
+	var cashOut = '';
 	var m1 = new MyModal.modal(function() {
 		alert("你点击了确定");
 	});
@@ -237,25 +242,61 @@
 	});
 	$(".m-middletxt2 li").click(function(){
 		$(this).addClass("addred").siblings("li").removeClass("addred");
+		$('#pay').val('');
+		var fee = $('.addred a').text();
+		payFee = fee.match(/[\d.]+/g)[0];
 	})
 	
 	$(".m-middletxt1 li").click(function(){
 		$(this).addClass("addredd").siblings("li").removeClass("addredd");
+		$('#cash').val('');
+		var fee = $('.addredd a').text();
+		cashOut = fee.match(/[\d.]+/g)[0];
+	})
+	
+	
+	$('#pay').click(function(){
+		payFee = '';
+		if($(".m-middletxt2 li").hasClass("addred")){
+			$(".m-middletxt2 li").removeClass("addred");
+		}
+	})
+	
+	$('#cash').click(function(){
+		cashOut = '';
+		if($(".m-middletxt1 li").hasClass("addredd")){
+			$(".m-middletxt1 li").removeClass("addredd");
+		}
 	})
 	/* 充值 */
 	$(".m-middletxt3 span").click(function(){
+		if (payFee == '') {
+			payFee = $('#pay').val();
+		}
+		if (payFee == '') {
+			alert("请选择充值金额或输入充值金额");
+			return;
+		}
 		$(".m-modal-dialog1").css("display","none")
-		var fee = $('.addred a').text();
-		var blance = fee.match(/[\d.]+/g);
-		pay(blance[0]);
+		pay(payFee);
 	})
 	
 	/* 提现 */
 	$(".m-middletxt2 span").click(function(){
 		$(".m-modal-dialog1").css("display","none")
-		var fee = $('.addredd a').text();
-		var blance = fee.match(/[\d.]+/g);
-		createOrder(blance[0])
+		if (cashOut == '') {
+			cashOut = $('#cash').val();
+		}
+		if (isNullOrBalance(cashOut)){
+			return;
+		};
+		$(".m-modal1").css("display","none")
+		var orderNum = createOrder(cashOut)
+		if (orderNum != '-1') {
+			alert("订单创建成功")
+		} else {
+			alert("订单创建失败")
+		}
 	})
 	$(".m-modal-close").click(function(){
 			history.go(0);
@@ -331,8 +372,10 @@
 	                    }
 	                }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
 	                    alert('支付取消');
+	                    history.go(0);
 	                }else if(res.err_msg == "get_brand_wcpay_request:fail" ){
 	                    alert('支付失败');
+	                    history.go(0);
 	                } //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
 	            }
 	        );
@@ -365,6 +408,16 @@
 					}
 			});
 			return orderNum;
+		}
+		function isNullOrBalance(fee){
+			if (fee == '') {
+				alert("请选择充值金额或输入充值金额");
+				return true;
+			}
+			if((fee * 100) > ($('#ccount').val() * 100)) {
+				alert("余额不足");
+				return true;
+			}
 		}
 	</script>
 </html>

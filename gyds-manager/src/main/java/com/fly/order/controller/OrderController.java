@@ -1,5 +1,6 @@
 package com.fly.order.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -87,7 +88,7 @@ public class OrderController {
 	@RequiresPermissions("order:order:orderCashOut")
 	public PageUtils listCashOut(@RequestParam Map<String, Object> params){
 		params.put("expIncType", 0);
-		params.put("cash_out_type", 0);
+		params.put("cashOutType", 1);
 		//查询列表数据
         Query query = new Query(params);
 		List<OrderDO> orderList = orderService.list(query);
@@ -170,7 +171,8 @@ public class OrderController {
 		OrderDO orderNew = orderService.get(id);
 		orderNew.setExamineStatus(examineStatus);
 		if (examineStatus == 1) {
-			int price = orderNew.getPrice().intValue();
+			BigDecimal orderPrice =orderNew.getPrice();
+			Integer price = orderPrice.multiply(new BigDecimal("100")).intValue();
 			payService.cashout(price, orderNew);
 		}
 		orderService.update(orderNew);

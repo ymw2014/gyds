@@ -5,15 +5,13 @@
 <title></title>
 <link rel="stylesheet" th:type="@{/pc/text/css}"
 	th:href="@{/pc/css/personal.css}" />
-<link rel="stylesheet" th:href="@{/pc/css/index.css}">
-<link rel="stylesheet" th:href="@{/pc/css/cwmx.css}">
-<link rel="stylesheet" th:href="@{/pc/css/guzhunaws.css}">
-<link rel="stylesheet" th:href="@{/pc/css/jibenziliao.css}">
-<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
-					<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
-					<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
-					<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+<link rel="stylesheet" th:href="@{/pc/css/jquery.my-modal.1.1.css}">
+<link th:href="@{/css/layui.css}" rel="stylesheet">
+					<script th:src="@{/pc/js/jquery.my-modal.1.1.js}"></script>
 <script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+		<script th:src="@{/js/validate.js}"></script>
 <style>
 .yy-gz {
 	display: none;
@@ -28,9 +26,13 @@
 	<div class="boxRight"
 		style="background: #fff; width: 1006px; height: 925px; margin-top: 0;">
 		<div class="cwmx">
-			<h4>我要建团</h4>
+			<h4>我的团队</h4>
+			<div th:if="${authSta}!=null">
+			<a id="renzheng" href="javaScript:;" th:if="${authSta}==3" class="anniiu btn1">认证</a></div>
+			<div th:if="${authSta}==null">
+			<a id="renzheng" href="javaScript:;"  class="anniiu btn1">认证</a></div>
 		</div>
-		<form action="" method="" class="biaodanyy biaodanyy1" id="signupForm">
+		<form action="" method="" class="biaodanyy biaodanyy1" >
 			<label> <span>团队名称</span> <input type="text" th:value="${team.teamName}" disabled="disabled">
 			</label> <label> <span>团队负责人</span> <input type="text" th:value="${team.colonelName}" disabled="disabled">
 			</label> <label> <span>负责人电话</span> <input type="text" th:value="${team.colonelTel}" disabled="disabled">
@@ -50,6 +52,47 @@
 			</label>
 	</form>
 	</div>
+	<div class="m-modal" >
+		<div class="m-modal-dialog" style="width:60%;">
+			<div class="m-top">
+				<span class="m-modal-close">X</span>
+			</div>
+			<div class="m-middle" >
+			    <form  id="signupForm">
+			    	<input type="hidden" name="teamId" th:value="${team.id}">
+			    	<label>
+						<span>联系人电话</span>
+						<input type="text"  id="tel" name="tel" class="input1">
+					</label>
+					<label>
+						<span>负责人姓名</span>
+						<input type="text"   id="name"  name="name"  class="input1">
+					</label>
+					<label>
+						<span>主管单位&nbsp;&nbsp;&nbsp;</span>
+						<input type="text"  name="parentDept" class="input1">
+					</label>
+					<label>
+						<span>上传公函</span>
+						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="" style="width: 70%">
+						<input type="hidden" id="imgStr" name="official">
+						<input type="file" name="file" style="display: none;" id ="file">
+					</label>
+					<label>
+						<span>公函连接</span>
+						<a href="javascript:;">公函模板下载链接</a>
+					</label>
+					<label>
+						<span>价格</span>
+						<span style="color:#ff0101;font-size:28px;" id="jiage" name="price" th:text="${price+'元'}"></span>
+					</label>
+					<label>
+						<input type="button" id="save" value="立即认证" class="input3" style="margin-left:85px">
+					</label>
+			    </form>
+			</div>
+		</div>
+	</div>
 	<!-- 备案 -->
 	<div class="beian">
 		<div class="beian1">
@@ -58,4 +101,102 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+var m1 = new MyModal.modal(function() {
+});
+$('.btn1').on("click", function() {
+			 m1.show();
+});
+layui.use('upload', function() {
+    var upload = layui.upload;
+
+    //执行实例
+    var uploadInst = upload.render({
+        elem : '#file', //绑定元素
+        url : '/common/sysFile/upload', //上传接口
+        size : 1000,
+        accept : 'file',
+        done : function(r) {
+            var fileName = r.fileName;
+             $("#imgStr").val(fileName);
+     	     $("#img").attr("src",fileName);
+        },
+        error : function(r) {
+            //layer.msg(r.msg);
+        }
+    });
+    
+});
+
+
+function save() {
+	$.ajax({
+		type : "POST",
+		url : "/pc/regTeam/savaAuth",
+		data : $('#signupForm').serialize(),
+		success : function(r) {
+			if (r.code == 0) {
+				layer.msg(r.msg);
+				history.go(0);
+			} else {
+				layer.msg(r.msg);
+			}
+		},
+	});
+}
+
+
+$().ready(function(){
+	$("#save").on('click', function() {
+		console.log(123);
+		$("#signupForm").submit();
+	});
+})
+
+
+	
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
+		}
+	});
+	function validateRule() {
+
+		var icon = "<i class='fa fa-times-circle'></i> ";
+		$("#signupForm").validate({
+			rules : {
+				tel : {
+					required : true
+				},
+				name : {
+					required : true
+				},
+				parentDept : {
+					required : true
+				},
+				official : {
+					required : true
+				}
+			},
+			messages : {
+				tel : {
+					required : icon + "<span style='color:red'>联系方式不能为空</span>",
+				},
+				name : {
+					required : icon + "<span style='color:red'>负责人不能为空</span>",
+				},
+				parentDept : {
+					required : icon + "<span style='color:red'>上级单位不能为空</span>",
+				},
+				official : {
+					required : icon + "<span style='color:red'>公函不能为空</span>",
+				}
+			}
+		})
+	}
+</script>
 </html>

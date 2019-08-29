@@ -70,12 +70,7 @@
 					},
 					"plugins" : [ "sort" ]
 				}).bind("select_node.jstree", function(event, data) {
-					console.log("展开了");
-					var inst = data.instance;
-					var selectedNode = inst.get_node(data.selected);
-					//console.info(selectedNode.aria-level);
-					var level = $("#"+selectedNode.id).attr("aria-level");
-						loadConfig(inst, selectedNode);
+					
 				});
 			});
 		}
