@@ -117,10 +117,10 @@ public class PayService {
 		logger.info("进入提现方法:  提现金额  {}     ,    订单号 ： {}",amount,orderNew.getOrderNumber());
 		String wxUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers"; //获取退款的api接口
     	try {
-    		BigDecimal orderPrice = new BigDecimal((amount * 100) + "");;
-    		if (amount > 50) {
+    		BigDecimal orderPrice = new BigDecimal(amount + "");
+    		if (amount > 5000) {
     			SetupDO setupDO = setupService.get(1);
-    			BigDecimal toltal = new BigDecimal((amount * 100) + "");
+    			BigDecimal toltal = new BigDecimal(amount  + "");
     			BigDecimal withdrawalFee = new BigDecimal(setupDO.getWithdrawalFee() + "");
     			BigDecimal multiply = toltal.multiply(withdrawalFee);
     			orderPrice = toltal.subtract(multiply);
