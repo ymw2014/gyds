@@ -353,7 +353,8 @@ public class NewsInfoController extends BaseController {
 				&& params.get("number") != "") {
 			BigDecimal number = new BigDecimal(params.get("number").toString());
 			BigDecimal price = new BigDecimal(params.get("price").toString());
-			BigDecimal priceMax = price.multiply(new BigDecimal(5));
+			//红包最大倍数
+			BigDecimal priceMax = price.multiply(new BigDecimal(2));
 			//结果 :-1 小于,0 等于,1 大于
 			if(number.compareTo(priceMax)==1) {
 				return r.error("3");
@@ -397,10 +398,13 @@ public class NewsInfoController extends BaseController {
 			}
 			user = userMapper.get(user.getUserId());
 			List<Map<String,Object>> listPrice = querySetupPrice();
+			SetupDO setup = setupService.get(1);
+			BigDecimal rate = setup.getRedPacketExtract();
 			r.put("code", 0);
 			r.put("listPrice", listPrice);
 			r.put("newsId", params);
 			r.put("user", user);
+			r.put("rate", rate);
 			return r;
 		}
 		
@@ -597,7 +601,7 @@ public class NewsInfoController extends BaseController {
 		}
 		
 		if (i == -1) {
-			return R.error("置顶失败，余额不足！");
+			return R.error("-1");
 		}
 		return R.error();
 	}

@@ -31,7 +31,7 @@
 		<div class="main_img">
 			<div id="container">
 				<div class="lun"  >
-					<img th:each="newInfo: ${newList}" th:src="${newInfo.titleImg}" alt="">
+					<a  th:each="newInfo: ${newList}" th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}"><img th:src="${newInfo.titleImg}" alt=""></a>
 				</div>
 				  <button class="left"></button>
 				  <button class="right"></button>

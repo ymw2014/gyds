@@ -29,11 +29,13 @@ import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.pc.news.controller.BaseDynamicController;
+import com.fly.proxybusi.dao.ProxybusiDao;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.Dictionary;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -57,6 +59,8 @@ public class ProxybusiController extends BaseController{
 	private UserService userService;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private ProxybusiDao proxybusiDao;
 	
 	@GetMapping()
 	@RequiresPermissions("proxybusi:proxybusi:proxybusi")
@@ -70,6 +74,16 @@ public class ProxybusiController extends BaseController{
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
+        Long userId = ShiroUtils.getUserId();
+		Long areaId = 0l; 
+		if(userId!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(userId);
+			areaId = proxybusi.getProxyRegion();
+		}
+		  String ids = regionService.getTeamAndAreaByUserRole(areaId);
+        if(ids!=null) {
+        	query.put("ids",ids);
+        }
 		List<ProxybusiDO> proxybusiList = proxybusiService.list(query);
 		for (ProxybusiDO proxybusiDO : proxybusiList) {
 			if(proxybusiDO.getRegionLevel()==1) {

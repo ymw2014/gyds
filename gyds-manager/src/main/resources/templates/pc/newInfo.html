@@ -58,6 +58,23 @@
     padding:10px;
     background:#fff;
 }
+#rate{
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    color: #feb5ae;
+    font-size:14px;
+}
+.zidong{
+    position: absolute;
+    right: 20px;
+    top: 2px;
+    color: #ef472a;
+}
+#redCount{
+    position: relative;
+}
 </style>
 </head>
 <body>
@@ -194,6 +211,7 @@
 						<div style="width: 100%; line-height: 40px; background: #ebebeb;"
 							id="redCount">
 						</div>
+						
 					</div>
 					<div class="lingqu" id="redList">
 						
@@ -257,7 +275,7 @@
 					</div>
 					<div class="m-middle3">
 					  <p id="sum"></p>
-					  <input type="text" placeholder="红包个数不能大于红包总额的5倍!!!" id="number">
+					  <input type="text" placeholder="红包个数不能大于红包总额的2倍!!!" id="number">
 					</div>
 					<div class="m-middle4">
 					    <ul id="red">
@@ -267,6 +285,7 @@
 					<a href="javascript:;" ><div class="m-middle5" onclick="redPacket()">
 					<input type="hidden"  id="price">
 					</div></a>
+				<p id="rate"></p>
 				</div>
 			</div>
 		
@@ -388,7 +407,8 @@ function queryRed(){
 				user +='id="userRed">'+text+'</rem>元</span>';
 				$("#user").empty();
 				$('#user').append(user);
-				count += '<p style="margin-left: 10px;">已领取'+data.redSize+'/'+data.Packet.count+'个,共'+data.Packet.money+'元</p>'
+				count += '<p style="margin-left: 10px;">已领取'+data.redSize+'/'+data.Packet.count+'个,共'+data.Packet.money+'元</p>';
+				count += '<p class="zidong">30秒后红包自动到账</p>';
 				$("#redCount").empty();
 				$('#redCount').append(count);
 				$('#redList').empty();
@@ -514,7 +534,12 @@ function vieRed(){
 							history.go(0);
 						} else {
 							if(data.msg == -1){
-							layer.msg('打赏失败！您的余额不足');
+							//layer.msg('打赏失败！您的余额不足');
+							layer.confirm('打赏失败！您的余额不足,是否跳转充值页面？', {
+								  btn: ['是','否'] //按钮
+								}, function(){
+									window.location.href = "/pc/personalCenter";
+								})
 							}else if(data.msg == 0){
 							layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
 							}else if(data.msg == 2){
@@ -589,14 +614,18 @@ function vieRed(){
 				if (data.code == 0) {
 					var red = '';
 					var sum = '';
+					var rate = '';
 					var account = data.user.account;
 						sum += '您的余额剩余<span>'+account+'</span>元';
 						$("#sum").empty();
 						$('#sum').append(sum);
+						rate += '<p>手续费为:金额*'+data.rate+'=扣除费用</p>';
+						$("#rate").empty();
+						$('#rate').append(rate);
 					$.each(data.listPrice, function(i, item){
 						red += '<li>';
 						red += '<p id="mony">'+item.price+'</p>元</br>';
-						red += '<p class="sx">手续费'+item.rate+'元</p>';
+						//red += '<p class="sx">手续费'+item.rate+'元</p>';
 						red += '</li>';
 					});
 					$("#red").empty();
@@ -625,7 +654,12 @@ function vieRed(){
 						history.go(0);
 					} else {
 						if(data.msg == -1){
-						layer.msg('发红包失败！您的余额不足');
+						//layer.msg('发红包失败！您的余额不足');
+						layer.confirm('发红包失败！您的余额不足,是否跳转充值页面？', {
+							  btn: ['是','否'] //按钮
+							}, function(){
+								window.location.href = "/pc/personalCenter";
+							})
 						}else if(data.msg == 0){
 						layer.msg('发红包失败！您的：'+ $('#price').val() +'元 已原路退回您的账户');
 						}else if(data.msg == 2){
@@ -640,7 +674,7 @@ function vieRed(){
 								  });
 								});
 						}else if(data.msg == 3){
-							alert('红包数量不得大于红包总额的5倍');
+							alert('红包数量不得大于红包总额的2倍');
 						}
 					}
 
