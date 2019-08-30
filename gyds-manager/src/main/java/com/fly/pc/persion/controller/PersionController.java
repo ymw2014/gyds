@@ -85,7 +85,7 @@ public class PersionController extends BaseController{
 	public R binding(UserDO user,Model model) {
 		
 		Map<String, Object> map=new HashMap<>();
-		map.put("userName", user.getUsername());
+		map.put("username", user.getUsername());
 		List<UserDO> userList = userService.list(map);
 		if(userList!=null&&userList.size()>0) {
 			return R.error("该账号已存在");

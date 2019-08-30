@@ -53,7 +53,7 @@ public class userToObject {
 		user.setRegionCode(name.getRegionCode());
 		user.setSex(name.getSex());
 		user.setIsIdentification(1);
-		//name.setStreet("");
+		name.setStreet(name.getStreet());
 		name.setUserId(name.getUserId());
 		return user;
 	}
