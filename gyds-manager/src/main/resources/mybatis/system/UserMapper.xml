@@ -145,9 +145,7 @@
 			`political_status`, 
 			`is_manage`,
 			`open_id`,
-			`street`,
-			`education`,
-			`post`
+			`street`
 		)
 		values
 		(
@@ -182,9 +180,7 @@
 			#{politicalStatus}, 
 			#{isManage},
 			#{openId},
-			#{street},
-			#{education},
-			#{post}
+			#{street}
 		)
 	</insert>
 	 
