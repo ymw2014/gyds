@@ -15,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.proxybusi.dao.ProxybusiDao;
+import com.fly.proxybusi.domain.ProxybusiDO;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.Dictionary;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -39,6 +44,10 @@ public class VolunteerController {
 	private VolunteerService volunteerService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private TeamDao teamDao;
+	@Autowired
+	private RegionService regionService;
 	
 	@GetMapping()
 	@RequiresPermissions("volunteer:volunteer:volunteer")
@@ -62,6 +71,19 @@ public class VolunteerController {
 			params.put("endTime", endTime);
 		}
         Query query = new Query(params);
+
+        Long userId = ShiroUtils.getUserId();
+		Long areaId = 0l; 
+		if(userId!=null) {
+			TeamDO team = teamDao.getByUserId(userId);
+			areaId = team.getId();
+		}
+		//查询列表数据
+        String ids = regionService.getTeamAndAreaByUserRole(areaId);
+        if(ids!=null) {
+        	query.put("ids", ids);
+        }
+        
 		List<Map<String,Object>> voluntInfo = volunteerService.voluntInfo(query);
 		int total = volunteerService.voluntInfoCount(query);
 		PageUtils pageUtils = new PageUtils(voluntInfo, total);

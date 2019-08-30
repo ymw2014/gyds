@@ -169,4 +169,11 @@
 		</set>
 		where id = #{id}
 	</update>
+	
+	<select id="getByUserId" resultType="com.fly.team.domain.TeamDO">
+		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.team_introduce,t.reg_code,r.region_name,t.status,t.remark,t.addres,t.detailed_addr,t.is_auth,t.auth_ent_time from team t left join team_type tt on t.team_type = tt.id left join 
+		cux_region r on t.reg_code = r.region_code
+		where
+		t.user_id= #{value}
+	</select>
 </mapper>

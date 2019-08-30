@@ -38,4 +38,5 @@ public interface TeamDao {
 	
 	List<TeamDO> is_apply(Map<String,Object> map);
 	int updateIntegral(Map<String,Object> map);
+	TeamDO getByUserId(Long id);
 }
