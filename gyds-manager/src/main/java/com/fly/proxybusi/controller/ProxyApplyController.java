@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -187,6 +188,14 @@ public class ProxyApplyController {
 		List<ProxybusiDO> list = proxybusiService.list(paramas);
 		if(list.size()>0) {
 			return R.error("此用户已经是代理商");
+		}
+		paramas.clear();
+		String text = name.getText().toString();
+		Map<String, Object> jsonToMap = JSONUtils.jsonToMap(text);
+		paramas.put("proxyRegion", jsonToMap.get("proxyRegion"));
+		int count = proxybusiService.count(paramas);
+		if(count > 0) {
+			return R.error("该用户申请的代理区域已被代理，请重新申请");
 		}
 		if(teamNameService.createProxyBus(id, status)>0) {
 			return R.ok();
