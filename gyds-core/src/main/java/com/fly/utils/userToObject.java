@@ -39,7 +39,7 @@ public class userToObject {
 	public static UserDO  isIdentification(UserDO user,NameDO name) {
 		user.setBirth(name.getBirth());
 		user.setLiveAddress(name.getAddress());
-		user.setCardBackImg(name.getCardBackImg());
+		user.setHeadImg(name.getCardBackImg());
 		user.setCardFrontImg(name.getCardFrontImg());
 		user.setCardNo(name.getCardNo());
 		user.setCity(name.getCity());

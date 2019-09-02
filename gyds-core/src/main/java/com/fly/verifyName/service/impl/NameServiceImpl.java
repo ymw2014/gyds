@@ -51,5 +51,10 @@ public class NameServiceImpl implements NameService {
 	public int batchRemove(Integer[] ids){
 		return nameDao.batchRemove(ids);
 	}
+
+	@Override
+	public List<NameDO> list2(Map<String, Object> map) {
+		return nameDao.list2(map);
+	}
 	
 }

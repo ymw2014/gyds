@@ -68,7 +68,15 @@ public class NameDO implements Serializable {
 	private Integer regionCode;
 	//
 	private Integer orderId;
+	//
+	private String headImg;
 	
+	public String getHeadImg() {
+		return headImg;
+	}
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
 	public Integer getOrderId() {
 		return orderId;
 	}

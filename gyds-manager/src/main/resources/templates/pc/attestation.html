@@ -84,6 +84,17 @@
 			<input type="hidden" name="teamId" th:value="${teamId}"> 
 			<input type="hidden" name="type" th:value="${type}" id="type"> 
 			<input type="hidden" name="text" id="text">
+			
+			<label>
+				<div style="float:none; margin:0 auto;border:none;">
+					<img th:src="@{/pc/images/xiugaiziliao_03.jpg}" id="img1" alt=""
+						class="sfz2" style="width: 94px;height:94px;border-radius: 50%;"> <input id="imgUrl1" name="cardBackImg"
+						type="hidden" /> <input type="file" name="file"
+						style="display: none;" id="file1">
+					<p>个人形象照</p>
+				</div>
+			</label>
+			
 			<label>
 				<span>真实姓名</span> <input name="name" type="text">
 			</label> 
@@ -197,7 +208,7 @@
 			</label>
 			
 			<label> <span>身份证号</span> <input name="cardNo" type="text">
-			</label> <label> <span>上传身份证</span>
+			</label> <label style="overflow: hidden;"> <span>上传身份证</span>
 				<div>
 					<img th:src="@{/pc/images/shenfenzheng_01.jpg}" id="img" alt=""
 						class="sfz1">
@@ -205,15 +216,7 @@
 					<input id="imgUrl" name="cardFrontImg" type="hidden" /> <input
 						type="file" name="file" style="display: none;" id="file">
 				</div>
-			</label> <label>
-				<div>
-					<img th:src="@{/pc/images/shenfenzheng_02.jpg}" id="img1" alt=""
-						class="sfz2"> <input id="imgUrl1" name="cardBackImg"
-						type="hidden" /> <input type="file" name="file"
-						style="display: none;" id="file1">
-					<p>身份证反面</p>
-				</div>
-			</label> <label> <span>邮箱地址</span> <input name="email" type="text">
+			</label>  <label> <span>邮箱地址</span> <input name="email" type="text">
 			</label> <label style="overflow: hidden;"> <span>性别</span> <input type="radio" name="sex"
 				value="0" class="xingbie">男 <input type="radio" name="sex"
 				value="1" class="xingbie">女

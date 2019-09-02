@@ -307,7 +307,24 @@ $("#downTeam").on('click', function() {
 			}
 		});
 	});
-
+	
+	layui.use('upload', function() {
+		var upload = layui.upload;
+		var uploadInst = upload.render({
+			elem : '#file3', //绑定元素
+			url : '/common/sysFile/upload', //上传接口
+			size : 1000,
+			accept : 'file',
+			done : function(r) {
+				var fileName = r.fileName;
+				$("#imgStr0").val(fileName);
+				$("#img0").attr("src", fileName);
+			},
+			error : function(r) {
+				layer.msg(r.msg);
+			}
+		});
+	});
 
 	layui.use('upload',function() {
 						var upload = layui.upload;

@@ -332,6 +332,9 @@ public class BaseController {
 		if(params.get("cashOutType")!=null) {
 			order.setCashOutType(Integer.valueOf(params.get("cashOutType").toString()));
 		}
+		if(params.get("teamId")!=null) {
+			order.setTeamId(Long.valueOf(params.get("teamId").toString()));
+		}
 		if(params.get("examineUser")!=null) {
 			order.setExamineUser(Long.valueOf(params.get("examineUser").toString()));
 		}

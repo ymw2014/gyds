@@ -152,6 +152,14 @@
 			<input type="hidden" name="teamId" th:value="${teamId}"> 
 			<input type="hidden" name="type" th:value="${type}" id="type"> 
 			<input type="hidden" name="text" id="text">
+			
+			 <div style="margin: 0 auto;width: 260px;height:200px;overflow: hidden;text-align: center;">
+				<img th:src="@{/pc/images/shenfenzheng_02.jpg}" alt="" class="sctp2" id="img1" style="width:160px;height:160px;border-radius: 50%;">
+				<p style="font-size: 20px;">上传个人形象照片</p>	
+				<input id="imgUrl1" name="cardBackImg" type="hidden"  />
+				<input type="file" name="file" id="file1" class="sctp22" style="display: none;">
+			 </div>
+			
 			<label>
 				<span>真实姓名</span> <input name="name" type="text">
 			</label> 
@@ -274,11 +282,7 @@
 						   <input id="imgUrl" name="cardFrontImg" type="hidden" />
 						   <input type="file" name="file" id ="file" class="sctp11" style="display: none;">
 					   </div>
-					   <div>
-						   <img th:src="@{/pc/images/shenfenzheng_02.jpg}" alt="" class="sctp2" id="img1">
-						   <input id="imgUrl1" name="cardBackImg" type="hidden" />
-						   <input type="file" name="file" id="file1" class="sctp22" style="display: none;">
-					   </div>
+					  
 				   </div>
 			   </div>
 			   <label> <span>邮箱地址</span> <input name="email" type="text">
@@ -342,7 +346,15 @@
 			</label>
 			
 			<label> <span id="demo2">团队照片</span>
-				<div>
+				
+				<img
+				th:src="@{/pc/images/tianjiua_03.jpg}"  class="tdlogo"
+				 style="height: 65px; width: 65px" id="img0">
+				<input type="hidden" id="imgStr0" name="teamImg"> <input
+				type="file" name="file" style="display: none;" id="file3">
+				<span id="progress_imgs">
+				
+				<!-- <div>
 					<div id="imgsbox_imgs" style="display: inline;"
 						class="imgsbox tdlogo1"></div>
 					<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1"
@@ -350,8 +362,11 @@
 						type="hidden" id="imgStr0" name="teamImg"> <input
 						type="file" class="tuanduilogo1" id="imgUpload_imgs" name="file"
 						style="display: none;" multiple> <span id="progress_imgs"></span>
-				</div>
-			</label> <label> <span>团队简介</span> <textarea name="teamIntroduce"
+				</div> -->
+			</label> 
+			
+			
+			<label> <span>团队简介</span> <textarea name="teamIntroduce"
 					id="" cols="30" rows="10" style="width:500px; margin-left: 10px;">
 						 </textarea>
 			</label> <label class="aad"> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"

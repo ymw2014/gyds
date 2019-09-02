@@ -148,6 +148,15 @@
 			<input type="hidden" name="teamId" th:value="${teamId}"> 
 			<input type="hidden" name="type" th:value="${type}" id="type"> 
 			<input type="hidden" name="text" id="text">
+			
+			  <div style="margin: 0 auto;width: 260px;height:200px;overflow: hidden;text-align: center;">
+				<img th:src="@{/pc/images/shenfenzheng_02.jpg}" alt="" class="sctp2" id="img1" style="width:160px;height:160px;border-radius: 50%;">
+				<p style="font-size: 20px;">上传个人形象照片</p>	
+				<input id="imgUrl1" name="cardBackImg" type="hidden" />
+				<input type="file" name="file" id="file1" class="sctp22" style="display: none;">
+			  </div>
+			
+			
 			<label>
 				<span>真实姓名</span> <input name="name" type="text">
 			</label> 
@@ -270,11 +279,7 @@
 						   <input id="imgUrl" name="cardFrontImg" type="hidden" />
 						   <input type="file" name="file" id ="file" class="sctp11" style="display: none;">
 					   </div>
-					   <div>
-						   <img th:src="@{/pc/images/shenfenzheng_02.jpg}" alt="" class="sctp2" id="img1">
-						   <input id="imgUrl1" name="cardBackImg" type="hidden" />
-						   <input type="file" name="file" id="file1" class="sctp22" style="display: none;">
-					   </div>
+					 
 				   </div>
 			   </div>
 			   <label> <span>邮箱地址</span> <input name="email" type="text">

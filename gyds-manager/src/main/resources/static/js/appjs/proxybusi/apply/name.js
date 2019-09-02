@@ -52,6 +52,15 @@ function load() {
 									field : 'name', 
 									title : '代理商名称' 
 								},
+								{
+									field : 'cardBackImg', 
+									title : '用户形象照' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
+									
+								}
+								},
 																
 																{
 									field : 'name', 
@@ -102,14 +111,6 @@ function load() {
 									formatter : function(value, row, index) {
 										
 										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
-									
-								}
-								},{
-									field : 'cardBackImg', 
-									title : '身份证背面照' ,
-									formatter : function(value, row, index) {
-										
-										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
 									
 								}
 								},

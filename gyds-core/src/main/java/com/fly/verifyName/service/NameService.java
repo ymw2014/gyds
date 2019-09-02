@@ -17,6 +17,7 @@ public interface NameService {
 	NameDO get(Integer id);
 	
 	List<NameDO> list(Map<String, Object> map);
+	List<NameDO> list2(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
 	

@@ -33,7 +33,8 @@ function load() {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
 								offset:params.offset,
-								type:1
+								type:1,
+								teamId:$('#teamId').val()
 					           // name:$('#searchName').val(),
 					           // username:$('#searchName').val()
 							};
@@ -52,6 +53,15 @@ function load() {
 																{
 									field : 'name', 
 									title : '姓名' 
+								},
+								{
+									field : 'cardBackImg', 
+									title : '用户形象照' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
+									
+								}
 								},
 								{
 									field : 'sex', 
@@ -100,15 +110,7 @@ function load() {
 									
 								}
 								},
-								{
-									field : 'cardBackImg', 
-									title : '身份证背面照' ,
-									formatter : function(value, row, index) {
-										
-										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
-									
-								}
-								},
+								
 								
 																{
 									field : 'birth', 

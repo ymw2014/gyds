@@ -59,6 +59,10 @@ function load() {
 									field : 'name', 
 									title : '用户姓名' 
 								},
+								{
+									field : 'nikeName', 
+									title : '用户昵称' 
+								},
 																/*{
 									field : 'teamName', 
 									title : '团队名称' 

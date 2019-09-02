@@ -24,6 +24,7 @@
 			g.is_del,
 			s.name username,
 			u.name,
+			u.nike_name,
 			g.Examine_status,
 			g.remake,
 			g. LEVEL,

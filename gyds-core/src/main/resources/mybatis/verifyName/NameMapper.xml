@@ -85,7 +85,50 @@
 		          </if>
 		  		</where>
 	</select>
-	 
+	 <select id="list2" resultType="com.fly.verifyName.domain.NameDO">
+		select v.`id`,v.`user_id`,v.`team_id`,v.`name`,v.`email`,v.`mobile`,v.`create_time`,v.`sex`,v.`birth`,v.`political_status`,v.`address`,v.`province`,v.`city`,v.`district`,v.`street`,v.`status`,v.`card_no`,v.`card_front_img`,v.`card_back_img`,v.`nation`,v.`type`,v.`text`,v.`region_code`,v.`order_id`,s.head_img from verify_name v left join sys_user s on v.user_id = s.user_id
+        <where>  
+		  		  <if test="id != null and id != ''"> and v.id = #{id} </if>
+		  		  <if test="userId != null and userId != ''"> and v.user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and v.team_id = #{teamId} </if>
+		  		  <if test="name != null and name != ''"> and v.name = #{name} </if>
+		  		  <if test="email != null and email != ''"> and v.email = #{email} </if>
+		  		  <if test="mobile != null and mobile != ''"> and v.mobile = #{mobile} </if>
+		  		  <if test="createTime != null and createTime != ''"> and v.create_time = #{createTime} </if>
+		  		  <if test="sex != null and sex != ''"> and v.sex = #{sex} </if>
+		  		  <if test="birth != null and birth != ''"> and v.birth = #{birth} </if>
+		  		  <if test="politicalStatus != null and politicalStatus != ''"> and v.political_status = #{politicalStatus} </if>
+		  		  <if test="address != null and address != ''"> and v.address = #{address} </if>
+		  		  <if test="province != null and province != ''"> and v.province = #{province} </if>
+		  		  <if test="city != null and city != ''"> and v.city = #{city} </if>
+		  		  <if test="district != null and district != ''"> and v.district = #{district} </if>
+		  		  <if test="street != null and street != ''"> and v.street = #{street} </if>
+		  		  <if test="status != null and status != ''"> and v.status = #{status} </if>
+		  		  <if test="cardNo != null and cardNo != ''"> and v.card_no = #{cardNo} </if>
+		  		  <if test="cardFrontImg != null and cardFrontImg != ''"> and v.card_front_img = #{cardFrontImg} </if>
+		  		  <if test="cardBackImg != null and cardBackImg != ''"> and v.card_back_img = #{cardBackImg} </if>
+		  		  <if test="nation != null and nation != ''"> and v.nation = #{nation} </if>
+		  		  <if test="type != null and type != ''"> and v.type = #{type} </if>
+		  		  <if test="team != null and team != ''"> and v.team = #{team} </if>
+		  		  <if test="proxybusi != null and proxybusi != ''"> and v.proxybusi = #{proxybusi} </if>
+		  		  <if test="regionCode != null">and v.region_code = #{regionCode}</if>
+		  		  <if test="orderId != null">and v.order_id = #{orderId}</if>
+		  		  <if test="ids != null">
+		         	and v.text LIKE CONCAT('%',#{ids},'%')  
+		          </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by v.id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
 	<insert id="save" parameterType="com.fly.verifyName.domain.NameDO">
 		insert into verify_name
 		(

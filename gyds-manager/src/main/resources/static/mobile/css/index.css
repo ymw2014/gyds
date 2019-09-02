@@ -189,6 +189,10 @@ input::-webkit-calendar-picker-indicator{
 	border-bottom:18px solid #f3f3f3;
 	overflow: hidden;
 }
+.zhiyuanCen img{
+	width:100%;
+	height:140px;
+}
 .baomingcen{
 	width:95%;
 	margin:0 auto;
@@ -288,6 +292,7 @@ input::-webkit-calendar-picker-indicator{
 }
 .tuandui img{
 	width:100%;
+    height:150px;
 }
 .tuanduiCen img{
 	height:160px;

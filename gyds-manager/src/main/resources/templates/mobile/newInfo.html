@@ -25,6 +25,7 @@
 		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
 		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
 		<script th:src="@{/js/validate.js}"></script>
+		<script th:src="@{/pc/js/common.js}"></script>
 		<style>
  .addred{
   color:#fff !important;
@@ -48,8 +49,17 @@
 	<body>
 		<div class="header_txt">
 			<div class="headerleft">
-				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
-			</div>
+			
+				<div class="header-loginimg" id="no_login" style="display: none">
+					<a href="/admin"><img th:src="@{/mobile/images/mylogin.jpg}" alt=""></a>
+				</div>
+				<div class="header-loginimg" id="login_ok" style="display: block;margin-top: 14px;'">
+						<a href="/pc/persion_main"><img id="headImg" style="width: 100%; height: auto;" src="" alt=""></a>
+				</div>
+			
+			
+<!-- 				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
+ -->			</div>
 			<div class="headercent">公益打赏</div>
 			<div class="headerright">
 				<img src="images/dian.png" alt="">
@@ -457,7 +467,8 @@
 	}
 	//红包提交
 	 function redPacket(){
-		 var para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val()};
+		 var teamId = $('#teamId').val();
+		 var para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val(),"teamId":teamId};
 		  $.ajax({
 				type : "POST",
 				url : "/pc/news/redPacket",
@@ -626,8 +637,9 @@
 	//打赏提交
 	function giveReward(){
  		var som = $('#givePrice').val();
+ 		var teamId = $('#teamId').val();
 		var para= {};
-			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som};
+			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som,"teamId":teamId};
 			  $.ajax({
 					type : "POST",
 					url : "/pc/news/reward",

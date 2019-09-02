@@ -24,8 +24,10 @@ public class OrderDO implements Serializable {
 	private Long userId;
 	//用户名
 	private String name;
+	//用户昵称
+	private String nikeName;
 	//团队编号
-	private Integer teamId;
+	private Long teamId;
 	//团名称
 	private String teamName;
 	//下单时间
@@ -56,6 +58,12 @@ public class OrderDO implements Serializable {
 	//创建时间
 	private Date createTime;
 	
+	public String getNikeName() {
+		return nikeName;
+	}
+	public void setNikeName(String nikeName) {
+		this.nikeName = nikeName;
+	}
 	public String getName() {
 		return name;
 	}
@@ -110,17 +118,12 @@ public class OrderDO implements Serializable {
 	public Long getUserId() {
 		return userId;
 	}
-	/**
-	 * 设置：团队编号
-	 */
-	public void setTeamId(Integer teamId) {
-		this.teamId = teamId;
-	}
-	/**
-	 * 获取：团队编号
-	 */
-	public Integer getTeamId() {
+	
+	public Long getTeamId() {
 		return teamId;
+	}
+	public void setTeamId(Long teamId) {
+		this.teamId = teamId;
 	}
 	/**
 	 * 设置：下单时间
