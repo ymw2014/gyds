@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
@@ -40,6 +41,8 @@ public class OrderController {
 	
 	@Autowired
 	private PayService payService;
+	@Autowired
+	private RegionService regionService;
 	//充值
 	@GetMapping("/CashUp")
 	@RequiresPermissions("order:order:orderCashUp")
@@ -114,6 +117,9 @@ public class OrderController {
 	@GetMapping("/listRedPacket")
 	@RequiresPermissions("order:order:orderRedPacket")
 	public PageUtils listRedPacket(@RequestParam Map<String, Object> params){
+		params.put("pids", ShiroUtils.getUser().getDeptId());
+		String ids = regionService.getTeamAndAreaByUserRole(ShiroUtils.getUser().getDeptId());
+		params.put("ids", ids);
 		params.put("expIncType", 3);
 		//查询列表数据
         Query query = new Query(params);

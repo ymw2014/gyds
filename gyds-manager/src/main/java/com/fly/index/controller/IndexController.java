@@ -1,5 +1,6 @@
 package com.fly.index.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +79,14 @@ public class IndexController {
 			params.put("parentRegionCode",0);
 		}
 		params.put("regionType",1);
-		List<RegionDO> areaList = regionService.list(params);
+		List<RegionDO> areaList1 = regionService.list(params);
+		List<RegionDO> areaList=new ArrayList<RegionDO>();
+		RegionDO retion = regionService.get(areaId);
+		retion.setSelected(true);
+		if(retion.getRegionCode()!=0) {
+			areaList.add(retion);
+		}
+		areaList.addAll(areaList1);
 		model.addAttribute("areaList", areaList);//全国包含的省
 		params.put("pids", areaId);
 		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));

@@ -86,7 +86,10 @@
 		  		  <if test="cashOutType != null"> and cash_out_type = #{cashOutType} </if>
 		  		  <if test="expIncType != null"> and exp_inc_Type = #{expIncType} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>
-		  		   <if test="createTime != null and createTime != ''"> and g.create_time = #{createTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and g.create_time = #{createTime} </if>
+		  		  <if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
 	</select>
 	 

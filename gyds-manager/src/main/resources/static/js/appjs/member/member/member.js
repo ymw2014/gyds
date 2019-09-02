@@ -118,18 +118,6 @@ function load() {
 									field : 'mobile', 
 									title : '电话' 
 								},
-																/*{
-									field : 'username', 
-									title : '登录账号' 
-								},*//*
-																{
-									field : 'password', 
-									title : '登录密码' 
-								},*//*
-																{
-									field : 'teamId', 
-									title : '所属团队编号' 
-								},*/
 																{
 									field : 'account', 
 									title : '账户余额' 
@@ -142,10 +130,7 @@ function load() {
 									field : 'platformIntegral', 
 									title : '平台积分' 
 								},
-															/*	{
-									field : 'regioncode', 
-									title : '所属区域编号' 
-								},*/
+								
 																{
 									field : 'isIdentification', 
 									title : '是否实名认证',
@@ -174,7 +159,9 @@ function load() {
 										}
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove('
 										+ row.userId + ')"><i class="fa fa-remove"></i></a> ';
-										return d + a;
+										var e = '<a class="btn btn-success btn-sm '+s_edit_h+'" href="#" title="编辑"  mce_href="#" onclick="edit('
+										+ row.userId + ')"><i class="fa fa-edit"></i></a> ';
+										return e + d  + a;
 									}
 								} ]
 					});
@@ -182,7 +169,7 @@ function load() {
 function reLoad() {
 	$('#exampleTable').bootstrapTable('refresh');
 }
-/*function add() {
+function add() {
 	layer.open({
 		type : 2,
 		title : '增加',
@@ -202,7 +189,7 @@ function edit(id) {
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
-*/
+
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]

@@ -76,7 +76,7 @@ public class ProxybusiController extends BaseController{
         Query query = new Query(params);
         Long userId = ShiroUtils.getUserId();
 		Long areaId = 0l; 
-		if(userId!=null) {
+		if(userId!=null&&userId!=1) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(userId);
 			areaId = proxybusi.getProxyRegion();
 		}

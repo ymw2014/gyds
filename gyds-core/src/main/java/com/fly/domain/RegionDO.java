@@ -21,6 +21,8 @@ public class RegionDO implements Serializable {
 	private String regionName;
 	//
 	private Integer regionLevel;
+	
+	private boolean selected;
 	//
 	private Long parentRegionCode;
 	
@@ -82,5 +84,13 @@ public class RegionDO implements Serializable {
 	public void setRegionType(Integer regionType) {
 		this.regionType = regionType;
 	}
+	public boolean isSelected() {
+		return selected;
+	}
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	
+	
 	
 }

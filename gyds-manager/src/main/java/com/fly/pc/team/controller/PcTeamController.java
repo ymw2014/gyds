@@ -124,6 +124,8 @@ public class PcTeamController {
 		params.put("teamId", teamId);
 		params.put("offset", 0);
 		params.put("limit", 10);
+		TeamDO team = teamService.get(teamId);
+		model.addAttribute("team", team);//团队信息
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		params.clear();

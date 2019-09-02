@@ -128,7 +128,8 @@
 			`agency_bail`,
 			`red_price_setup`,
 			`reward_price_setup`,
-			 top_count
+			 top_count,
+			 auth_price
 			
 		)
 		values
@@ -165,7 +166,8 @@
 			#{agencyBail},
 			#{redPriceSetup},
 			#{rewardPriceSetup},
-			#{topCount}
+			#{topCount},
+			#{authPrice}
 		)
 	</insert>
 	 
@@ -204,7 +206,7 @@
 			<if test="agencyBail != null"> agency_bail = #{agencyBail}, </if>
 			<if test="redPriceSetup != null"> red_price_setup = #{redPriceSetup}, </if>
 		  	<if test="rewardPriceSetup != null "> reward_price_setup = #{rewardPriceSetup},</if>
-		  	<if test="topCount != null "> top_count = #{topCount} </if>
+		  	<if test="topCount != null "> top_count = #{topCount}, </if>
 		  	<if test="authPrice != null">auth_price = #{authPrice}</if>
 		</set>
 		where id = #{id}

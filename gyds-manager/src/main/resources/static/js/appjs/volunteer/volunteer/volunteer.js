@@ -79,6 +79,10 @@ function load() {
 									field : 'city', 
 									title : '所在地区' 
 								},
+								{
+									field : 'street', 
+									title : '所在街道' 
+								},
 																{
 									field : 'mobile', 
 									title : '电话' 

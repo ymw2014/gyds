@@ -4,7 +4,7 @@
 <mapper namespace="com.fly.news.dao.CommentDao">
 
 	<select id="get" resultType="com.fly.news.domain.CommentDO">
-		select nc.id,nc.news_id,ni.title,nc.member_id,m.name,nc.criticism_content,nc.is_top,nc.create_time,nc.number_of_likes,nc.pren_id from new_comment nc left join new_info ni on nc.news_id = ni.id left join member m on nc.member_id = m.id        
+		select nc.id,nc.news_id,ni.title,nc.member_id,m.name,nc.criticism_content,nc.is_top,nc.create_time,nc.number_of_likes,nc.pren_id from new_comment nc left join new_info ni on nc.news_id = ni.id left join sys_user m on nc.member_id = m.user_id        
  where nc.id = #{value}
 	</select>
 

@@ -6,6 +6,7 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.fly.common.redis.shiro.RedisCacheManager;
 import com.fly.common.redis.shiro.RedisManager;
 import com.fly.common.redis.shiro.RedisSessionDAO;
+import com.fly.system.filter.WxAuthFilter;
 import com.fly.system.shiro.UserRealm;
 import com.fly.utils.Constant;
 import net.sf.ehcache.CacheManager;
@@ -30,6 +31,9 @@ import org.springframework.context.annotation.Configuration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.servlet.Filter;
 
 /**
  * @author
@@ -86,8 +90,11 @@ public class ShiroConfig {
     @Bean
     ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
+        shiroFilterFactoryBean.setFilters(filters);
         //设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        filters.put("authc", new WxAuthFilter());
         //shiroFilterFactoryBean.setLoginUrl("/");//设置默认跳转页面
         //shiroFilterFactoryBean.setSuccessUrl("/index");//设置成功跳转页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
@@ -107,6 +114,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin","anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/pc/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");
         filterChainDefinitionMap.put("/mobile/**", "anon");
         filterChainDefinitionMap.put("/eleditor/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");

@@ -86,7 +86,7 @@ public class MemberController {
 	@RequestMapping("/update")
 	@RequiresPermissions("member:member:edit")
 	public R update( UserDO member){
-		userService.update(member);
+		userService.updatePersonal(member);
 		return R.ok();
 	}
 	

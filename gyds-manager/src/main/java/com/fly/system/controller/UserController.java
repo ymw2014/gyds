@@ -54,6 +54,48 @@ public class UserController extends BaseController {
 		params.put("isManage", 1);
 		Query query = new Query(params);
 		List<UserDO> sysUserList = userService.list(query);
+		for (UserDO userDO : sysUserList) {
+			RegionDO region = regionService.get(userDO.getDeptId());
+			switch (region.getRegionLevel()) {
+			case 0:
+				String admin=regionService.get(userDO.getDeptId()).getRegionName();
+				userDO.setDeptName(admin+"(全国)");
+				break;
+			case 1:
+				String pronvice=regionService.get(userDO.getDeptId()).getRegionName();
+				userDO.setDeptName(pronvice);
+				break;
+			case 2:
+				RegionDO cityRetion = regionService.get(userDO.getDeptId());
+				RegionDO proRetion = regionService.get(cityRetion.getParentRegionCode());
+				userDO.setDeptName(proRetion.getRegionName()+"&nbsp;"+cityRetion.getRegionName());
+				break;
+			case 3:
+				RegionDO areaRetion = regionService.get(userDO.getDeptId());
+				RegionDO cityRetion1 = regionService.get(areaRetion.getParentRegionCode());
+				RegionDO proRetion1 = regionService.get(cityRetion1.getParentRegionCode());
+				userDO.setDeptName(proRetion1.getRegionName()+"&nbsp;"+cityRetion1.getRegionName()+"&nbsp;"+areaRetion.getRegionName());
+				break;
+			case 4:
+				RegionDO jdbRetion = regionService.get(userDO.getDeptId());
+				RegionDO areaRetion2 = regionService.get(jdbRetion.getParentRegionCode());
+				RegionDO cityRetion2 = regionService.get(areaRetion2.getParentRegionCode());
+				RegionDO proRetion2 = regionService.get(cityRetion2.getParentRegionCode());
+				userDO.setDeptName(proRetion2.getRegionName()+"&nbsp;"+cityRetion2.getRegionName()+"&nbsp;"+areaRetion2.getRegionName()+"&nbsp;"+jdbRetion.getRegionName());
+				break;
+			case 5:
+				RegionDO teamRegion = regionService.get(userDO.getDeptId());
+				RegionDO jdbRetion5 = regionService.get(teamRegion.getParentRegionCode());
+				RegionDO areaRetion5 = regionService.get(jdbRetion5.getParentRegionCode());
+				RegionDO cityRetion5 = regionService.get(areaRetion5.getParentRegionCode());
+				RegionDO proRetion5 = regionService.get(cityRetion5.getParentRegionCode());
+				userDO.setDeptName(proRetion5.getRegionName()+"&nbsp;"+cityRetion5.getRegionName()+"&nbsp;"+areaRetion5.getRegionName()+"&nbsp;"+jdbRetion5.getRegionName()+"&nbsp;"+teamRegion.getRegionName());
+				break;	
+
+			default:
+				break;
+			}
+		}
 		int total = userService.count(query);
 		PageUtils pageUtil = new PageUtils(sysUserList, total);
 		return pageUtil;

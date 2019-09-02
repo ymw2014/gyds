@@ -76,7 +76,9 @@ public class VolunteerController {
 		Long areaId = 0l; 
 		if(userId!=null) {
 			TeamDO team = teamDao.getByUserId(userId);
-			areaId = team.getId();
+			if(team!=null) {
+				areaId = team.getId();
+			}
 		}
 		//查询列表数据
         String ids = regionService.getTeamAndAreaByUserRole(areaId);

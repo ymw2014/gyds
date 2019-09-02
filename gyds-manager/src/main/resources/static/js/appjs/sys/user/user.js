@@ -62,8 +62,8 @@ function load(deptId) {
 						title : '用户名'
 					},
 					{
-						field : 'mobile',
-						title : '电话'
+						field : 'deptName',
+						title : '管理区域'
 					},
 					{
 						field : 'status',
