@@ -31,6 +31,8 @@ import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.dao.TeamDao;
+import com.fly.team.domain.TeamDO;
 import com.fly.team.domain.TypeDO;
 import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
@@ -53,6 +55,8 @@ public class PcProxybusiController extends BaseController{
 	private UserService userService;
 	@Autowired
 	private NameDao nameDao;
+	@Autowired
+	private TeamDao teamDao;
 	/***
 	 * 	进入代理商申请页面
 	 * @param params
@@ -68,6 +72,13 @@ public class PcProxybusiController extends BaseController{
 			return "redirect:/login";
 		}
 		Map<String,Object> param = new HashMap<String,Object>();
+		
+		params.put("userId", user.getUserId());
+		List<TeamDO> TeamDO = teamDao.list(params);
+		if(!CollectionUtils.isEmpty(TeamDO)) {
+			model.addAttribute("message", "您已经是团长，团长不能申请代理商，感谢您的参与" );
+			return "pc/message";
+		}
 		param.put("type",3);
 		param.put("status", 1);
 		param.put("userId", user.getUserId());
