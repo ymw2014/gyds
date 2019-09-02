@@ -76,7 +76,7 @@
 <body>
 	<!-- 头部 -->
 	<div class="boxRight"
-		style="background: #fff; width: 1006px; height: 1125px; margin-top: 0;">
+		style="background: #fff; width: 1006px; height: 1240px; margin-top: 0;">
 		<div class="cwmx">
 			<h4>实名认证</h4>
 		</div>
@@ -84,6 +84,18 @@
 			<input type="hidden" name="teamId" th:value="${teamId}"> 
 			<input type="hidden" name="type" th:value="${type}" id="type"> 
 			<input type="hidden" name="text" id="text">
+			
+			<label>
+				<div style="float:none; margin:0 auto;border:none;">
+					<img th:src="@{/pc/images/xiugaiziliao_03.jpg}" id="img1" alt=""
+						class="sfz2" style="width: 94px;height:94px;border-radius: 50%;"> <input id="imgUrl1" name="cardBackImg"
+						type="hidden" /> <input type="file" name="file"
+						style="display: none;" id="file1">
+					<p>个人形象照</p>
+				</div>
+			</label>
+			
+			
 			<label>
 				<span>真实姓名</span> <input name="name" type="text">
 			</label> 
@@ -204,15 +216,7 @@
 					<input id="imgUrl" name="cardFrontImg" type="hidden" /> <input
 						type="file" name="file" style="display: none;" id="file">
 				</div>
-			</label> <label>
-				<div>
-					<img th:src="@{/pc/images/shenfenzheng_02.jpg}" id="img1" alt=""
-						class="sfz2"> <input id="imgUrl1" name="cardBackImg"
-						type="hidden" /> <input type="file" name="file"
-						style="display: none;" id="file1">
-					<p>身份证反面</p>
-				</div>
-			</label> <label> <span>邮箱地址</span> <input name="email" type="text">
+			</label> <label style="overflow: hidden;"> <span>邮箱地址</span> <input name="email" type="text">
 			</label> <label  style="overflow: hidden;"> <span>性别</span> <input type="radio" name="sex"
 				value="0" class="xingbie">男 <input type="radio" name="sex"
 				value="1" class="xingbie">女
@@ -272,16 +276,25 @@
 			</label>
 			
 			<label  style="overflow: hidden;"> <span id="demo2">团队照片</span>
-				<div>
+				<img
+				th:src="@{/pc/images/tianjiua_03.jpg}"  class="tdlogo"
+				 style="height: 65px; width: 65px" id="img0">
+				<input type="hidden" id="imgStr0" name="teamImg"> <input
+				type="file" name="file" style="display: none;" id="file3">
+				<span id="progress_imgs">
+			
+				<!-- <div>
 					<div id="imgsbox_imgs" style="display: inline;"
 						class="imgsbox tdlogo1"></div>
 					<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1"
 						style="height: 65px; width: 65px" id="img0"> <input
 						type="hidden" id="imgStr0" name="teamImg"> <input
 						type="file" class="tuanduilogo1" id="imgUpload_imgs" name="file"
-						style="display: none;" multiple> <span id="progress_imgs"></span>
-				</div>
-			</label> <label> <span>团队简介</span> <textarea name="teamIntroduce"
+						style="display: none;" > <span id="progress_imgs"></span>
+				</div> -->
+			</label> 
+			
+			<label> <span>团队简介</span> <textarea name="teamIntroduce"
 					id="" cols="30" rows="10" style="width: 388px;">
 						 </textarea>
 			</label> <label> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"
@@ -294,7 +307,7 @@
 			<label> <span>费用</span> 
 					<input id ="price" value="0">
 			</label>
-			<label th:if="${type} eq '2'" class="xiayiye"> <input type="button" id="upTeam" value="上页" style="border:none;background:#fff;">
+			<label th:if="${type} eq '2'" class="xiayiye"> <input type="button" id="upTeam" value="上页" >
 			
 			</label> <label> <input type="button" id="save" value="提交申请"
 				style="background: #ff0000; height: 42px; color: #fff; border: none; margin: 30px 0px 0px 100px; border-radius: 3px;">

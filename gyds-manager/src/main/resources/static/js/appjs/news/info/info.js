@@ -79,12 +79,12 @@ function load() {
 										if(value == 0){
 											return "否"
 										}
-										if(value == 2){
+										if(value == 1){
 											return "是"
 										}
-										if(value == 1){
+										/*if(value == 1){
 											return "申请中"
-										}
+										}*/
 									}
 							   },
 																{

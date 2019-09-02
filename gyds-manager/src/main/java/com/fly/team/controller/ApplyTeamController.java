@@ -57,11 +57,11 @@ public class ApplyTeamController {
 		//查询列表数据
 		params.put("type", Dictionary.RU_TUAN_SHEN_QING);
         Query query = new Query(params);
-        List<NameDO> applyList = nameService.list(query);
+        List<NameDO> applyList = nameService.list2(query);
         List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
         for (NameDO nameDO : applyList) {
         	Map<String, Object> map = BeanUtil.transBean2Map(nameDO);
-        	map.put("headImg", userService.get(nameDO.getUserId()).getHeadImg());
+        	//map.put("headImg", userService.get(nameDO.getUserId()).getHeadImg());
         	list.add(map);
 		}
 		int total = nameService.count(query);

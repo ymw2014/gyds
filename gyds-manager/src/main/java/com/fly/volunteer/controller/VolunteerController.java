@@ -48,6 +48,8 @@ public class VolunteerController {
 	private TeamDao teamDao;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private ProxybusiDao proxybusiDao;
 	
 	@GetMapping()
 	@RequiresPermissions("volunteer:volunteer:volunteer")
@@ -78,7 +80,13 @@ public class VolunteerController {
 			TeamDO team = teamDao.getByUserId(userId);
 			if(team!=null) {
 				areaId = team.getId();
+			}else {
+				ProxybusiDO proxybusi = proxybusiDao.getByUserId(userId);
+				if(proxybusi!=null) {
+					areaId = proxybusi.getProxyRegion();
+				}
 			}
+			
 		}
 		//查询列表数据
         String ids = regionService.getTeamAndAreaByUserRole(areaId);

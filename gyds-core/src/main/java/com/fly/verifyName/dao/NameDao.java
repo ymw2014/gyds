@@ -21,6 +21,7 @@ public interface NameDao {
 	NameDO applyStatus(Map<String,Object> map);
 	
 	List<NameDO> list(Map<String,Object> map);
+	List<NameDO> list2(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 	

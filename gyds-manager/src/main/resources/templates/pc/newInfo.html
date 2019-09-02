@@ -519,8 +519,9 @@ function vieRed(){
 	}
  	function giveReward(){
  		var som = $('#givePrice').val();
+ 		var teamId = $('#teamId').val();
 		var para= {};
-			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som};
+			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som,"teamId":teamId};
 			  $.ajax({
 					type : "POST",
 					url : "/pc/news/reward",
@@ -640,7 +641,8 @@ function vieRed(){
 	}
 	
 	 function redPacket(){
-		 var para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val()};
+		 var teamId = $('#teamId').val();
+		 var para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val(),"teamId":teamId};
 		  $.ajax({
 				type : "POST",
 				url : "/pc/news/redPacket",

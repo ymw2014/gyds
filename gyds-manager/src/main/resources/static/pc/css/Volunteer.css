@@ -76,6 +76,7 @@
 }
 .zyzhti figure>a>img{
 	width: 100%;
+	height:190px;
 }
 .zyzhti figure:nth-child(6n+0){
 	margin-right:0px;

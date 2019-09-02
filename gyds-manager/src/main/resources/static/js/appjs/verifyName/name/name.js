@@ -53,6 +53,15 @@ function load() {
 									field : 'name', 
 									title : '姓名' 
 								},
+								{
+									field : 'cardBackImg', 
+									title : '用户形象照' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
+									
+								}
+								},
 																{
 									field : 'email', 
 									title : '邮箱' 
@@ -72,14 +81,6 @@ function load() {
 									formatter : function(value, row, index) {
 										
 										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
-									
-								}
-								},{
-									field : 'cardBackImg', 
-									title : '身份证背面照' ,
-									formatter : function(value, row, index) {
-										
-										return '<img src="' + value + '" onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()"  style="width:47px;">';
 									
 								}
 								},
