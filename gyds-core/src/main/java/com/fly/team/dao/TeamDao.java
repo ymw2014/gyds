@@ -22,6 +22,8 @@ public interface TeamDao {
 
 	List<TeamDO> list(Map<String,Object> map);
 	
+	List<TeamDO> listEndAuthe(Map<String,Object> map);
+	
 	int count(Map<String,Object> map);
 	
 	int save(TeamDO team);

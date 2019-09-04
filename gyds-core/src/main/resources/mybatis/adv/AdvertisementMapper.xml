@@ -107,5 +107,34 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<select id="listEndShow" resultType="com.fly.adv.domain.AdvertisementDO">
+		select `id`,`adv_name`,`url`,`adv_img`,`region_code`,`create_time`,`position_num`,`show_start_time`,`show_end_time` from advertisement
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="advName != null and advName != ''"> and adv_name = #{advName} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		  <if test="advImg != null and advImg != ''"> and adv_img = #{advImg} </if>
+		  		  <if test="regionCode != null"> and region_code = #{regionCode} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="positionNum != null and positionNum != ''"> and position_num = #{positionNum} </if>
+		  		  <if test="showStartTime != null and showStartTime != ''"> and show_start_time = #{showStartTime} </if>
+		  		  <if test="showEndTime != null and showEndTime != ''"> and show_end_time = #{showEndTime} </if>
+		  		  <if test="endTime != null">
+		  		   and show_end_time &lt;= #{endTime} 
+		  		   </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id asc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
 
 </mapper>

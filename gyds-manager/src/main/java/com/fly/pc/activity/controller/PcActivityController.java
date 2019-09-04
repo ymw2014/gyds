@@ -42,6 +42,7 @@ import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.utils.DateUtils;
 import com.fly.utils.Dictionary;
 import com.fly.utils.R;
 import com.fly.volunteer.domain.VolunteerDO;
@@ -88,6 +89,7 @@ public class PcActivityController extends BaseController{
 		 * params.put("limit", 8); }
 		 */
 		params.put("ids", ids);
+		params.put("startTime", DateUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 		params.put("examineStatus",1);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
@@ -213,6 +215,14 @@ public class PcActivityController extends BaseController{
 		BigDecimal price = null;
 		Integer i = null ; 
 		ActivityDO activityDO = activityService.get(actId.intValue());
+		if(activityDO.getStatus()==2) {
+			dataInfo.put("status", "9");//活动进行中
+			return dataInfo.toString();
+		}
+		if(activityDO.getStatus()==3) {
+			dataInfo.put("status", "10");//活动已结束
+			return dataInfo.toString();
+		}
 		if (user == null) {
 			dataInfo.put("status", "2");//还没登录
 			return dataInfo.toString();

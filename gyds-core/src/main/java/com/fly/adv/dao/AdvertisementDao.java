@@ -20,6 +20,8 @@ public interface AdvertisementDao {
 	
 	List<AdvertisementDO> list(Map<String,Object> map);
 	
+	List<AdvertisementDO> listEndShow(Map<String,Object> map);
+	
 	int count(Map<String,Object> map);
 	
 	int save(AdvertisementDO advertisement);

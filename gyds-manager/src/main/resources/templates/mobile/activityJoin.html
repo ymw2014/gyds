@@ -30,6 +30,8 @@
 		<input type="hidden" id="img" th:value="${activity.actTitleImg}">
 		<input type="hidden" id="title" th:value="${activity.actTitle}">
 		<input type="hidden" th:value="${activity.id}"  id="actId"/>
+		<input type="hidden" th:value="${applyId}"  id="applyId"/>
+		<input type="hidden" th:value="${areaId}"  id="areaId"/>
 		<div class="header_img">
 			<img th:src="${activity.actTitleImg}" alt="">
 		</div>
@@ -203,9 +205,15 @@ function apply(type) {
 					});
         	} else if (status == 3){
         		parent.layer.msg("您还不是志愿者，请先申请志愿者");
-        	} else if (status == 3){
-        		parent.layer.msg("报名失败，报名人数已满");
-        	} else {
+        	} else if (status == 4){
+        		parent.layer.msg("报名失败，您不是本团成员");
+        	}else if (status == 6){
+        		parent.layer.msg("报名失败，扣费失败请确余额");
+        	}else if (status == 9){
+        		parent.layer.msg("报名失败，活动进行中");
+        	}else if (status == 10){
+        		parent.layer.msg("报名失败，活动以结束");
+        	}else {
         		parent.layer.msg("操作失败");
         	}
         }

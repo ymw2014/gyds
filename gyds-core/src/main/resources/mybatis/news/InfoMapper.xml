@@ -255,5 +255,35 @@
 		</where>
 	</select>
 
-
+	<select id="listEndTop" resultType="com.fly.news.domain.InfoDO">
+		select `id`,`title`,`author`,`source`,`title_img`,`introduction`,`content`,`number_of_shares`,`criticism_of_count`,`number_of_likes`,`team_id`,`status`,`public_time`,`create_time`,`red_peper`,`red_peper_id`,`is_del`,`is_red_peper`,`apply_top`,`is_top`,`type`,`reward_count`,`reward_price`,`payment_top`,`pyment_end_time`,`pyment_start_time`,`payment_criterion`,`payment_duration`,`level`,`reward_max`,`reward_num_of_people`,`top_region` from new_info
+        <where>  
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="publicTime != null and publicTime != ''"> and public_time = #{publicTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="isDel != null and isDel != ''"> and is_del = #{isDel} </if>
+		  		  <if test="applyTop != null and applyTop != ''"> and apply_top = #{applyTop} </if>
+		  		  <if test="isTop != null and isTop != ''"> and is_top = #{isTop} </if>
+		  		  <if test="paymentTop != null and paymentTop != ''"> and payment_top = #{paymentTop} </if>
+		  		  <if test="pymentStartTime != null and pymentStartTime != ''"> and pyment_start_time = #{pymentStartTime} </if>
+		  		  <if test="paymentCriterion != null and paymentCriterion != ''"> and payment_criterion = #{paymentCriterion} </if>
+		  		  <if test="paymentDuration != null and paymentDuration != ''"> and payment_duration = #{paymentDuration} </if>
+		  		  <if test="topRegion != null and topRegion != ''"> and top_region = #{topRegion} </if>
+		  		  <if test="endTime != null">
+		  		   and pyment_end_time &lt;= #{endTime} 
+		  		   </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
 </mapper>

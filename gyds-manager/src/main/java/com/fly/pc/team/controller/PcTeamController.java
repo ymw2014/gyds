@@ -1,5 +1,6 @@
 package com.fly.pc.team.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.DateUtils;
 import com.fly.utils.Dictionary;
 import com.fly.utils.R;
 import com.fly.utils.userToObject;
@@ -126,6 +128,7 @@ public class PcTeamController {
 		params.put("limit", 10);
 		TeamDO team = teamService.get(teamId);
 		model.addAttribute("team", team);//团队信息
+		params.put("startTime", DateUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
 		params.clear();
