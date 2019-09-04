@@ -538,9 +538,9 @@ public class BaseController {
 				integral+=pointsDO.getIntegral();
 			}
 		} 
+		Integer sys_integral = setupDao.get(1).getPunchTheClockIntegral();
 		//每天加积分的限制
-		if(integral<50) {
-			Integer sys_integral = setupDao.get(1).getPunchTheClockIntegral();
+		if(integral<setupDao.get(1).getDayIntegralLimit()) {
 			Points.setIntegral(sys_integral);
 			if(pointsDao.save(Points)>0) {
 				Map<String,Object> userIntegral = new HashMap<String, Object>();

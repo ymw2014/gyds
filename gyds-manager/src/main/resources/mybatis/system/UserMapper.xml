@@ -245,7 +245,7 @@
 	<update id="updateIntegral" parameterType="java.util.Map">
 		update sys_user 
 		<set>
-			<if test="platformIntegral != null">`platform_integral` = platform_integral + #{platformIntegral}, </if>
+			<if test="platformIntegral != null">`platform_integral` = platform_integral + #{platformIntegral} </if>
 		</set>
 		where user_id = #{userId}
 	</update>
@@ -255,10 +255,7 @@
 	</select>
 	
 	<select id="userAgeInfo">
-		SELECT COUNT(*),political_status FROM sys_user #{startAge}&lt; sys_user&lt;#{endAge}  
-		<where>
-			AND age
-		</where>
+		SELECT COUNT(*) FROM sys_user where #{startAge}&lt; age &lt;#{endAge}  
 	</select>
 	
 </mapper>

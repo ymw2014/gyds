@@ -123,7 +123,7 @@ public class OrderController {
 		params.put("expIncType", 3);
 		//查询列表数据
         Query query = new Query(params);
-		List<OrderDO> orderList = orderService.list(query);
+		List<OrderDO> orderList = orderService.kzList(query);
 		int total = orderService.count(query);
 		PageUtils pageUtils = new PageUtils(orderList, total);
 		return pageUtils;
@@ -133,10 +133,13 @@ public class OrderController {
 	@GetMapping("/listReward")
 	@RequiresPermissions("order:order:orderReward")
 	public PageUtils listReward(@RequestParam Map<String, Object> params){
+		params.put("pids", ShiroUtils.getUser().getDeptId());
+		String ids = regionService.getTeamAndAreaByUserRole(ShiroUtils.getUser().getDeptId());
+		params.put("ids", ids);
 		params.put("expIncType", 2);
 		//查询列表数据
         Query query = new Query(params);
-		List<OrderDO> orderList = orderService.list(query);
+		List<OrderDO> orderList = orderService.kzList(query);
 		int total = orderService.count(query);
 		PageUtils pageUtils = new PageUtils(orderList, total);
 		return pageUtils;

@@ -63,13 +63,14 @@ public class SetupDO implements Serializable {
 	private BigDecimal stickTopMin;
 	//置顶基数最高标准
 	private BigDecimal stickTopMax;
-	
 	//
 	private BigDecimal withdrawalFee;
 	//签到 转发 评论 点赞 送积分
 	private Integer punchTheClockIntegral;
 	//活动参与积分
 	private Integer rechargeIntegral;
+	//每天积分限制
+	private Integer dayIntegralLimit;
 	//省代理保证金
 	private BigDecimal provincialBail;
 	//市代理保证金
@@ -461,6 +462,12 @@ public class SetupDO implements Serializable {
 	}
 	public void setAgencyExtract(BigDecimal agencyExtract) {
 		this.agencyExtract = agencyExtract;
+	}
+	public Integer getDayIntegralLimit() {
+		return dayIntegralLimit;
+	}
+	public void setDayIntegralLimit(Integer dayIntegralLimit) {
+		this.dayIntegralLimit = dayIntegralLimit;
 	}
 	
 	

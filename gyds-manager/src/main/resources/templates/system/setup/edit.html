@@ -175,6 +175,10 @@
 									<label class=" control-label">签到送积分个数<span class="text-muted">:</span></label>
 										<input id="punchTheClockIntegral" name="punchTheClockIntegral" th:value="${setup.punchTheClockIntegral}" oninput="clearNoNum2(this)"  class="form-control input-sm"  type="text">
 								</div>
+								<div class="form-group">
+									<label class=" control-label">每天积分上限<span class="text-muted">:</span></label>
+										<input id="dayIntegralLimit" name="dayIntegralLimit" th:value="${setup.dayIntegralLimit}" oninput="clearNoNum2(this)"  class="form-control input-sm"  type="text">
+								</div>
 								<!-- <div class="form-group">
 									<label class=" control-label">充值送积分比例<span class="text-muted">:</span></label>
 										<input id="rechargeIntegral" name="rechargeIntegral" th:value="${setup.rechargeIntegral}" oninput="clearNoNum(this)"   class="form-control input-sm" type="text">

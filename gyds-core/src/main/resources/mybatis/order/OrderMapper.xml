@@ -11,7 +11,7 @@
 			LEFT JOIN team t ON g.team_id = t.id 
 			LEFT JOIN sys_user s ON g.Examine_user = s.user_id WHERE g.id=#{value}
 	</select>
-
+	
 	<select id="list" resultType="com.fly.order.domain.OrderDO">
 		SELECT
 			g.id,
@@ -165,5 +165,65 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<select id="kzList" resultType="com.fly.order.domain.OrderDO">
+		SELECT
+			g.id,
+			g.order_number,
+			g.user_id,
+			g.team_id,
+			t.team_name,
+			g.business_time,
+			g.order_type,
+			g.is_del,
+			s.name username,
+			u.name,
+			u.nike_name,
+			g.Examine_status,
+			g.remake,
+			g. LEVEL,
+			g.cash_up_type,
+			g.cash_out_type,
+			g.exp_inc_Type,
+			g.price,
+			g.create_time
+		FROM
+			gyds_order g
+		LEFT JOIN team t ON g.team_id = t.id
+		LEFT JOIN sys_user s ON g.Examine_user = s.user_id
+		LEFT JOIN sys_user u ON g.user_id = u.user_id 
+        <where>  
+		  		  <if test="id != null and id != ''"> and g.id = #{id} </if>
+		  		  <if test="orderNumber != null and orderNumber != ''"> and g.order_number = #{orderNumber} </if>
+		  		  <if test="userId != null and userId != ''"> and g.user_id = #{userId} </if>
+		  		  <if test="teamId != null and teamId != ''"> and g.team_id = #{teamId} </if>
+		  		  <if test="businessTime != null and businessTime != ''"> and g.business_time = #{businessTime} </if>
+		  		  <if test="orderType != null"> and g.order_type = #{orderType} </if>
+		  		  <if test="isDel != null"> and g.is_del = #{isDel} </if>
+		  		  <if test="examineUser != null and examineUser != ''"> and g.Examine_user = #{examineUser} </if>
+		  		  <if test="examineStatus != null"> and g.Examine_status = #{examineStatus} </if>
+		  		  <if test="remake != null and remake != ''"> and g.remake = #{remake} </if>
+		  		  <if test="level != null and level != ''"> and g.level = #{level} </if>
+		  		  <if test="cashUpType != null"> and g.cash_up_type = #{cashUpType} </if>
+		  		  <if test="cashOutType != null"> and g.cash_out_type = #{cashOutType} </if>
+		  		  <if test="expIncType != null "> and g.exp_inc_Type = #{expIncType} </if>
+		  		  <if test="price != null and price != ''"> and g.price = #{price} </if>
+		  		  <if test="createTime != null and createTime != ''"> and g.create_time = #{createTime} </if>
+		  		  <if test="ids != null">
+		         	and left(g.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
 
 </mapper>
