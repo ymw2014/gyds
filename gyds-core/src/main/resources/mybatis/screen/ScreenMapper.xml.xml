@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.sys.dao.screenDao">
+
+	<select id="get" resultType="java.util.Map">
+		<!-- select count(select * from sys_user where political_status = '中共党员') zgdy,
+		count(select * from sys_user where political_status = '中共预备党员') zgybdy,
+		count(select * from sys_user where political_status = '共青团员') gqty,
+		count(select * from sys_user where political_status = '民革党员') mgdy,
+		count(select * from sys_user where political_status = '民盟盟员') mmmy,
+		count(select * from sys_user where political_status = '民建会员') mjhy,
+		count(select * from sys_user where political_status = '民进会员') mjhy,
+		count(select * from sys_user where political_status = '农工党党员') mgddy,
+		count(select * from sys_user where political_status = '致公党党员') zgddy,
+		count(select * from sys_user where political_status = '九三学社社员') jsxssy,
+		count(select * from sys_user where political_status = '台盟盟员') tmmy,
+		count(select * from sys_user where political_status = '无党派人士') wdprs,
+		count(select * from sys_user where political_status = '群众') qz,
+		count(select * from sys_user where sex=0 ) nan,
+		count(select * from sys_user where sex=1 ) niv,count(select * from sys_user where education='小学' ) xx,count(select * from sys_user where education='初中' ) cz,count(select * from sys_user where education='高中' ) gz,count(select * from sys_user where education='技工学校' ) jgxx,count(select * from sys_user where education='中等专科' ) zdzk,count(select * from sys_user where education='职业高中' ) zygz,count(select * from sys_user where education='大学专科' ) dxzk ,count(select * from sys_user where education='硕士研究生' ) ssyjy,count(select * from sys_user where education='博士研究生' ) bsyjs,count(select * from sys_user where education='其他' ) qt from sys_user --> 
+	</select>
+
+</mapper>
