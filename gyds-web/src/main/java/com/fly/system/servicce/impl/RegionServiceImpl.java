@@ -21,7 +21,7 @@ public class RegionServiceImpl implements RegionService {
 	private RegionDao regionDao;
 	
 	@Override
-	public RegionDO get(Integer regionCode){
+	public RegionDO get(Long regionCode){
 		return regionDao.get(regionCode);
 	}
 	
@@ -46,7 +46,7 @@ public class RegionServiceImpl implements RegionService {
 	}
 	
 	@Override
-	public int remove(Integer regionCode){
+	public int remove(Long regionCode){
 		return regionDao.remove(regionCode);
 	}
 	
@@ -70,7 +70,7 @@ public class RegionServiceImpl implements RegionService {
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Tree <RegionDO> t = BuildTree.build(trees,-1);
+		Tree <RegionDO> t = BuildTree.build(trees,-1L);
 		return t;
 	}
 	
@@ -78,7 +78,7 @@ public class RegionServiceImpl implements RegionService {
 	public Tree<RegionDO> getRegionTree(Map<String,Object> params) {
 		List<Tree <RegionDO>> trees = new ArrayList<Tree <RegionDO>>();
 		List<RegionDO> RegionDOs = regionDao.regionIdByList(params);
-		RegionDO regionDO = regionDao.get(Integer.parseInt(params.get("pids").toString()));
+		RegionDO regionDO = regionDao.get(Long.parseLong(params.get("pids").toString()));
 		RegionDOs.add(regionDO);
 		for (RegionDO sysRegion : RegionDOs) {
 			Tree<RegionDO> tree = new Tree <RegionDO>();

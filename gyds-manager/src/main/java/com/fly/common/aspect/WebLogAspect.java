@@ -96,8 +96,11 @@ public class WebLogAspect {
 				if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {
 					url= "mobile"; 
 					String[] spli = ob.toString().split("/"); 
+					logger.info("返回的真实url : " + spli);
 					for (int i =1; i < spli.length; i++) { 
+						logger.info("返回的url : " + url);
 						url += "/"+spli[i]; 
+						logger.info("返回的url : " + url);
 						return url; 
 					} 
 				} 

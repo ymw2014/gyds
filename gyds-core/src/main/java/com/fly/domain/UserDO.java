@@ -42,6 +42,7 @@ public class UserDO implements Serializable {
 	private Integer platformIntegral;
 	//邮箱
 	private String email;
+	private Integer age;
 	//手机号
 	private String mobile;
 	//状态 0:禁用，1:正常
@@ -514,6 +515,13 @@ public class UserDO implements Serializable {
 	public void setOpenId(String openId) {
 		this.openId = openId;
 	}
+	
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 	@Override
 	public String toString() {
 		return "UserDO [userId=" + userId + ", username=" + username + ", name=" + name + ", password=" + password
@@ -527,7 +535,5 @@ public class UserDO implements Serializable {
 				+ ", cardBackImg=" + cardBackImg + ", nation=" + nation + ", regionCode=" + regionCode
 				+ ", politicalStatus=" + politicalStatus + ", isManage=" + isManage + ", openId=" + openId + "]";
 	}
-	
-	
 	
 }

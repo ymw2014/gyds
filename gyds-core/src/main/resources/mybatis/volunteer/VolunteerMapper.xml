@@ -320,7 +320,12 @@
         <where>  
 		  		v.`user_id`=#{userId}  and u.is_identification = 1
 		</where>
-      
-		
+	</select>
+	
+	<select id="voActCountInfo">
+		SELECT COUNT(*) FROM volunteer #{startAct}&lt; sys_user&lt;#{endAct}  
+		<where>
+			AND age
+		</where>
 	</select>
 </mapper>
