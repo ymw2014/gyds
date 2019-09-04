@@ -3,6 +3,7 @@ package com.fly.utils;
 import java.util.Date;
 
 import com.fly.domain.UserDO;
+import com.fly.utils.xss.PublicUtils;
 import com.fly.verifyName.domain.NameDO;
 
 public class userToObject {
@@ -42,6 +43,7 @@ public class userToObject {
 		user.setHeadImg(name.getCardBackImg());
 		user.setCardFrontImg(name.getCardFrontImg());
 		user.setCardNo(name.getCardNo());
+		user.setAge(PublicUtils.IdNOToAge(user.getCardNo()));
 		user.setCity(name.getCity());
 		user.setDistrict(name.getDistrict());
 		user.setEmail(name.getEmail());

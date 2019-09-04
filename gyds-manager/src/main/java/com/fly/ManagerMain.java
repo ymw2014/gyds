@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
 })
 @EnableTransactionManagement
-@ServletComponentScan
 @SpringBootApplication
 @EnableCaching
 public class ManagerMain {

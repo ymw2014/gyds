@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.system.dao.UserDao">
 
 	<select id="get" resultType="com.fly.domain.UserDO">
-		select `open_id`,`user_id`,`username`,`name`,`password`,`is_binding`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage`,`education`,`post` from sys_user where user_id = #{value}
+		select `open_id`,`user_id`,`username`,`name`,`password`,`is_binding`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`age`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage`,`education`,`post` from sys_user where user_id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.domain.UserDO">
-		select `open_id`,`user_id`,`username`,`name`,`password`,`is_binding`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage`,`education`,`post` from sys_user
+		select `open_id`,`user_id`,`username`,`name`,`password`,`is_binding`,`nike_name`,`dept_id`,`head_img`,`account`,`platform_integral`,`email`,`age`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`,`street`,`is_identification`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`region_code`,`political_status`,`is_manage`,`education`,`post` from sys_user
         <where>  
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="username != null and username != ''"> and username = #{username} </if>
@@ -21,6 +21,7 @@
 		  		  <if test="account != null and account != ''"> and account = #{account} </if>
 		  		  <if test="platformIntegral != null and platformIntegral != ''"> and platform_integral = #{platformIntegral} </if>
 		  		  <if test="email != null and email != ''"> and email = #{email} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
 		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="userIdCreate != null and userIdCreate != ''"> and user_id_create = #{userIdCreate} </if>
@@ -82,6 +83,7 @@
 		  		  <if test="account != null and account != ''"> and account = #{account} </if>
 		  		  <if test="platformIntegral != null and platformIntegral != ''"> and platform_integral = #{platformIntegral} </if>
 		  		  <if test="email != null and email != ''"> and email = #{email} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
 		  		  <if test="mobile != null and mobile != ''"> and mobile = #{mobile} </if>
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="userIdCreate != null and userIdCreate != ''"> and user_id_create = #{userIdCreate} </if>
@@ -123,6 +125,7 @@
 			`head_img`, 
 			`account`, 
 			`email`, 
+			`age`, 
 			`mobile`, 
 			`status`, 
 			`user_id_create`, 
@@ -158,6 +161,7 @@
 			#{headImg}, 
 			#{account}, 
 			#{email}, 
+			#{age},
 			#{mobile}, 
 			#{status}, 
 			#{userIdCreate}, 
@@ -197,6 +201,7 @@
 			<if test="account != null">`account` = #{account}, </if>
 			<if test="platformIntegral != null">`platform_integral` = #{platformIntegral}, </if>
 			<if test="email != null">`email` = #{email}, </if>
+			<if test="age != null">`age` = #{age}, </if>
 			<if test="mobile != null">`mobile` = #{mobile}, </if>
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="userIdCreate != null">`user_id_create` = #{userIdCreate}, </if>
@@ -244,4 +249,16 @@
 		</set>
 		where user_id = #{userId}
 	</update>
+	
+	<select id="userCountInfo">
+		SELECT COUNT(*),political_status FROM sys_user GROUP BY political_status
+	</select>
+	
+	<select id="userAgeInfo">
+		SELECT COUNT(*),political_status FROM sys_user #{startAge}&lt; sys_user&lt;#{endAge}  
+		<where>
+			AND age
+		</where>
+	</select>
+	
 </mapper>

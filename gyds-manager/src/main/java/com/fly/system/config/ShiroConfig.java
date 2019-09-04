@@ -6,6 +6,7 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.fly.common.redis.shiro.RedisCacheManager;
 import com.fly.common.redis.shiro.RedisManager;
 import com.fly.common.redis.shiro.RedisSessionDAO;
+import com.fly.system.filter.MyDispetherFilter;
 import com.fly.system.filter.WxAuthFilter;
 import com.fly.system.shiro.UserRealm;
 import com.fly.utils.Constant;
@@ -94,15 +95,17 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilters(filters);
         //设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        filters.put("authc", new WxAuthFilter());
+        filters.put("myAccessControlFilter", new MyDispetherFilter());
         //shiroFilterFactoryBean.setLoginUrl("/");//设置默认跳转页面
         //shiroFilterFactoryBean.setSuccessUrl("/index");//设置成功跳转页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        shiroFilterFactoryBean.setFilters(filters);
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         /**
-         * 设置过滤文件 路径
+         * 	设置过滤文件 路径
          */
         filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/auth/callback","anon");
         filterChainDefinitionMap.put("/ueditor/*","anon");
         filterChainDefinitionMap.put("*.json","anon");
         filterChainDefinitionMap.put("/wx/**","anon");
@@ -118,21 +121,26 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/mobile/**", "anon");
         filterChainDefinitionMap.put("/eleditor/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
-        filterChainDefinitionMap.put("/**/*.js", "anon");
-        filterChainDefinitionMap.put("/fonts/**", "anon");
-        filterChainDefinitionMap.put("/img/**", "anon");
-        filterChainDefinitionMap.put("**/img/**", "anon");
+        filterChainDefinitionMap.put("*.js", "anon");
+        //filterChainDefinitionMap.put("/fonts/**", "anon");
+        //filterChainDefinitionMap.put("/img/**", "anon");
+        //filterChainDefinitionMap.put("*.img", "anon");
+        //filterChainDefinitionMap.put("*.png", "anon");
+        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/setup", "anon");
         filterChainDefinitionMap.put("/**/*.txt", "anon");
         filterChainDefinitionMap.put("/docs/**", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/upload/**", "anon");
         filterChainDefinitionMap.put("/files/**", "anon");
         filterChainDefinitionMap.put("/vifityCodeController/**", "anon");
-        filterChainDefinitionMap.put("/logout", "logout");
+        filterChainDefinitionMap.put("/logout", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/blog", "anon");
         filterChainDefinitionMap.put("/blog/open/**", "anon");
         filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/","myAccessControlFilter");
+        filterChainDefinitionMap.put("/pc/**","myAccessControlFilter");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

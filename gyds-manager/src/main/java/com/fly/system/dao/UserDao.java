@@ -33,5 +33,9 @@ public interface UserDao {
 	Long[] listAllDept();
 	
 	int updateIntegral(Map <String, Object> map);
+	
+	List<Map<String, Object>> userCountInfo();
+	
+	int userAgeInfo(Map <String, Object> map);
 
 }

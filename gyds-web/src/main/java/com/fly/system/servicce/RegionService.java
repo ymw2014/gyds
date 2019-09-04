@@ -18,7 +18,7 @@ public interface RegionService {
 	 * @param regionCode
 	 * @return
 	 */
-	RegionDO get(Integer regionCode);
+	RegionDO get(Long regionCode);
 	/**
 	 * 通过条件参数获取list
 	 * @param map
@@ -48,7 +48,7 @@ public interface RegionService {
 	 * @param regionCode
 	 * @return
 	 */
-	int remove(Integer regionCode);
+	int remove(Long regionCode);
 	/**
 	 * 批量删除
 	 * @param regionCodes

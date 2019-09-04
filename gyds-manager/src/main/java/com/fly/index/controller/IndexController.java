@@ -140,7 +140,7 @@ public class IndexController {
 		return isMoblie;
 	}
 	
-	@RequestMapping("/pc/setup")
+	@RequestMapping("/setup")
 	@ResponseBody
 	public R getSetup() {
 		SetupDO setup = setupService.list(new HashMap<>(16)).get(0);

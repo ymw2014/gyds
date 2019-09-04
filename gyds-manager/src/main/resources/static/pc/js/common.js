@@ -2,7 +2,7 @@ $(function(){
 	$.ajax({
 		cache : true,
 		type : "GET",
-		url : "/pc/setup",
+		url : "/setup",
 		async : true,
 		error : function(request) {
 			alert("Connection error");

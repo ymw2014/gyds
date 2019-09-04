@@ -100,7 +100,7 @@ public class IndexController {
 		model.addAttribute("centerList", list2);
 		List<AdvertisementDO> dataList=new ArrayList<AdvertisementDO>();
 		if(areaId!=null) {
-			RegionDO region = regionService.get(Integer.parseInt(areaId.toString()));
+			RegionDO region = regionService.get(Long.parseLong(areaId.toString()));
 			params.put("positionNum", 1);
 			params.put("regionCode", region.getRegionCode());//所选择区域首页广告
     		List<AdvertisementDO> allList = advertisementService.list(params);

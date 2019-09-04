@@ -1,4 +1,4 @@
-package com.fly.pc.user;
+package com.fly.member.controller;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 
 @Controller
-@RequestMapping("/pc/auth")
+@RequestMapping("/auth")
 public class UserMemberController {
     @Autowired
     private WxMpService wxMpService;
@@ -32,7 +32,10 @@ public class UserMemberController {
 
     @RequestMapping("/callback")
     public String callback(String code, String redUrl, HttpSession session) {
+    	log.info("***************************微信自动登录回调方法");
+    	log.info("appwxlogController ==> redUrl: 回调链接"  +redUrl);
         WxMpUser wxMpUser = null;
+        redUrl=redUrl.replace("|", "&");
         try {
             WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(code);
             wxMpUser = wxMpService.oauth2getUserInfo(wxMpOAuth2AccessToken, null);
@@ -40,10 +43,10 @@ public class UserMemberController {
             e.printStackTrace();
         }
 
-        if(wxMpUser==null){
+      /*  if(wxMpUser==null){
             return "";
         }
-        
+        */
         Map<String, Object> map =new HashMap<>(16);
 		map.put("openId", wxMpUser.getOpenId());
 		List<UserDO> userList=memberUserService.list(map);
@@ -52,9 +55,10 @@ public class UserMemberController {
 			Subject subject = SecurityUtils.getSubject();
 			EasyTypeToken token = new EasyTypeToken(user.getUsername());
 			subject.login(token);
-			if(user.getIsBinding()!=1) {
-				return "redirect:/pc/persion_main";
-			}
+			if(redUrl==null||redUrl.trim().equals("")){
+	            redUrl="/";
+	        }
+			return "redirect:"+redUrl;
 		}else {//新用户登录
 			UserDO user=new UserDO();
 			user.setUsername(wxMpUser.getNickname());
@@ -77,13 +81,11 @@ public class UserMemberController {
 			Subject subject = SecurityUtils.getSubject();
 			EasyTypeToken token = new EasyTypeToken(user.getUsername());
 			subject.login(token);
-			return "redirect:/pc/persion_main";
+			if(redUrl==null||redUrl.trim().equals("")){
+	            redUrl="/";
+	        }
+			return "redirect:"+redUrl;
 		}
-        if(redUrl==null||redUrl.trim().equals("")){
-            redUrl="/";
-        }
-        return "redirect:"+redUrl;
-
     }
 
 
