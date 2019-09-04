@@ -176,4 +176,31 @@
 		where
 		t.user_id= #{value}
 	</select>
+	
+	<select id="listEndAuthe" resultType="com.fly.team.domain.TeamDO">
+		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code`,`team_introduce`,`status`,`remark`,`colonel_tel`,`integral`,`addres`,`detailed_addr`,`is_auth`,`auth_ent_time` from team
+        <where>  
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="teamType != null and teamType != ''"> and team_type = #{teamType} </if>
+		  		  <if test="teamIntroduce != null and teamIntroduce != ''"> and team_introduce = #{teamIntroduce} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="isAuth != null and isAuth != ''"> and is_auth = #{isAuth} </if>
+		  		  <if test="authEntTime != null and authEntTime != ''"> and auth_ent_time = #{authEntTime} </if>
+		  		   <if test="endTime != null">
+		  		   and auth_ent_time &lt;= #{endTime} 
+		  		   </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
 </mapper>

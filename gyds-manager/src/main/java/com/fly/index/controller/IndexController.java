@@ -1,6 +1,7 @@
 package com.fly.index.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
+import com.fly.utils.DateUtils;
 import com.fly.utils.Dictionary;
 import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
@@ -105,6 +107,7 @@ public class IndexController {
 		model.addAttribute("newList", newList);//新闻资讯status
 		params.clear();
 		params.put("examineStatus",1);
+		params.put("startTime", DateUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 		params.put("offset", 0);
 		params.put("limit", 10);
 		params.put("ids", ids);

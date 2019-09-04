@@ -237,7 +237,11 @@
             		alert("报名失败，您不是本团成员");
             	} else if (status == 6){
             		alert("报名失败，扣费失败请确余额");
-            	} else{
+            	} else if (status == 9){
+            		alert("报名失败，活动进行中");
+            	}else if (status == 10){
+            		alert("报名失败，活动以结束");
+            	}else{
             		alert("操作失败");
             	}
             }

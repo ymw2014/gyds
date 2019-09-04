@@ -103,5 +103,7 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	
 
 </mapper>

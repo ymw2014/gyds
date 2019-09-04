@@ -19,6 +19,9 @@ public interface ActivityDao {
 	ActivityDO get(Integer id);
 	
 	List<ActivityDO> list(Map<String,Object> map);
+	
+	List<ActivityDO> ActivityTime(Map<String,Object> map);
+	
 	int count(Map<String,Object> map);
 	
 	int save(ActivityDO activity);

@@ -37,5 +37,7 @@ public interface InfoDao {
 	List<Map<String,Object>> auditData(Map<String, Object> map);
 	
 	int auditDataCount(Map<String, Object> map);
+	
+	List<InfoDO> listEndTop(Map<String,Object> map);
 }
 
