@@ -76,7 +76,11 @@
 		}
 		$('#regionTree').on("changed.jstree", function(e, data) {
 			if(data.node.id!=-1){
-				parent.loadRegion(data.node.id,data.node.text);
+				if(data.node.id=='j1_1'){
+					parent.loadRegion(0,data.node.text);
+				}else{
+					parent.loadRegion(data.node.id,data.node.text);
+				}
 				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
 				parent.layer.close(index);
 			}
