@@ -101,7 +101,7 @@ function load() {
 									field : 'cardNo', 
 									title : '身份证号' 
 								},
-								{
+								/*{
 									field : 'cardFrontImg', 
 									title : '身份证正面照' ,
 									formatter : function(value, row, index) {
@@ -109,7 +109,7 @@ function load() {
 										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
 									
 								}
-								},
+								},*/
 								
 								
 																{

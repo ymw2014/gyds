@@ -53,8 +53,7 @@ html,body{
 }
 .guanzhu2>a{
 	display:block;
-	    margin-top: 66px;
-    float: right;
+    float: left;
 }
 .guanzhu1,.guanzhu2{
 	width: 100%;
@@ -89,9 +88,9 @@ html,body{
 	color:#999;
     margin-left:10px;
 }
-.guanzhu2>img{
+.guanzhu2>a>img{
 	width: 170px;
-	height: 107px;
+	    height: 131px;
 	float: left;
 	margin-top:45px;
 	margin-right:20px;

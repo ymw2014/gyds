@@ -3,22 +3,75 @@
 
 <mapper namespace="com.fly.sys.dao.screenDao">
 
-	<select id="get" resultType="java.util.Map">
-		<!-- select count(select * from sys_user where political_status = '中共党员') zgdy,
-		count(select * from sys_user where political_status = '中共预备党员') zgybdy,
-		count(select * from sys_user where political_status = '共青团员') gqty,
-		count(select * from sys_user where political_status = '民革党员') mgdy,
-		count(select * from sys_user where political_status = '民盟盟员') mmmy,
-		count(select * from sys_user where political_status = '民建会员') mjhy,
-		count(select * from sys_user where political_status = '民进会员') mjhy,
-		count(select * from sys_user where political_status = '农工党党员') mgddy,
-		count(select * from sys_user where political_status = '致公党党员') zgddy,
-		count(select * from sys_user where political_status = '九三学社社员') jsxssy,
-		count(select * from sys_user where political_status = '台盟盟员') tmmy,
-		count(select * from sys_user where political_status = '无党派人士') wdprs,
-		count(select * from sys_user where political_status = '群众') qz,
-		count(select * from sys_user where sex=0 ) nan,
-		count(select * from sys_user where sex=1 ) niv,count(select * from sys_user where education='小学' ) xx,count(select * from sys_user where education='初中' ) cz,count(select * from sys_user where education='高中' ) gz,count(select * from sys_user where education='技工学校' ) jgxx,count(select * from sys_user where education='中等专科' ) zdzk,count(select * from sys_user where education='职业高中' ) zygz,count(select * from sys_user where education='大学专科' ) dxzk ,count(select * from sys_user where education='硕士研究生' ) ssyjy,count(select * from sys_user where education='博士研究生' ) bsyjs,count(select * from sys_user where education='其他' ) qt from sys_user --> 
+	<select id="getOrgSurvey" resultType="java.util.Map">
+		SELECT  type_name ,COUNT(*)  from team t left join team_type tt on t.team_type = tt.id 
+		<where>
+		<if test="ids != null">
+		         	and left(t.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		GROUP BY t.team_type
+	</select>
+	<select id="getTeamByVolSurvey" resultType="java.util.Map">
+		SELECT t.team_name,COUNT(*) c from volunteer v INNER  JOIN team t on v.team_id=t.id 
+		<where>
+		<if test="ids != null">
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		 GROUP BY v.team_id ORDER BY c desc
+	</select>
+	<select id="getNewsByTeamSurvey" resultType="java.util.Map">
+		SELECT t.team_name,COUNT(*) c from new_info n INNER  JOIN team t on n.team_id=t.id 
+		<where>
+		<if test="ids != null">
+		         	and left(n.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		 GROUP BY n.team_id ORDER BY c desc
+	</select>
+	<select id="getCreateTeamSurvey" resultType="java.util.Map">
+		SELECT count(*) from team 
+		<where>
+		<if test="starteTime != null">
+		and create_time &gt; = #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and create_time &lt; = #{endTime}
+		</if>
+		<if test="ids != null">
+		         	and left(id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+	</select>
+	
+	<select id="getPublicNewsSurvey" resultType="java.util.Map">
+		SELECT count(*) from new_info 
+		<where>
+		<if test="starteTime != null">
+		and create_time &gt; = #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and create_time &lt; = #{endTime}
+		</if>
+		<if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+	</select>
+	<select id="getPublicActivitySurvey" resultType="java.util.Map">
+		SELECT count(*) from new_info 
+		<where>
+		<if test="starteTime != null">
+		and create_time &gt; = #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and create_time &lt; = #{endTime}
+		</if>
+		 <if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
 	</select>
 
 </mapper>

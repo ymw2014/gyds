@@ -62,7 +62,7 @@
 		  <div class="swiper-container">
 		    <div class="swiper-wrapper">
 		      <div class="swiper-slide" th:each="newInfo: ${newList}">
-					<a href="#"><img  th:src="${newInfo.titleImg}" alt=""></a>
+					<a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}"><img  th:src="${newInfo.titleImg}" alt=""></a>
 			   </div>
 			</div>
 		    </div>
@@ -92,22 +92,22 @@
 				<i></i>志愿服务数据统计<span></span>
 			</div>
 			<div class="tongjicon">
-				<img src="images/index_17.jpg" alt="">
+				<img th:src="@{/mobile/images/index_17.jpg}" alt="">
 				<span>实名志愿者总数</span>
 				<rem >45342</rem>
 			</div>
 			<div class="tongjicon">
-				<img src="images/index_21.jpg" alt="">
+				<img th:src="@{/mobile/images/index_21.jpg}" alt="">
 				<span>志愿团体总数</span>
 				<rem>121</rem>
 			</div>
 			<div class="tongjicon">
-				<img src="images/index_24.jpg" alt="">
+				<img th:src="@{/mobile/images/index_24.jpg}" alt="">
 				<span>发布活动者次数</span>
 				<rem>45342</rem>
 			</div>
 			<div class="tongjicon">
-				<img src="images/index_26.jpg" alt="">
+				<img th:src="@{/mobile/images/index_26.jpg}" alt="">
 				<span>发布资讯数量</span>
 				<rem>452</rem>
 			</div>
@@ -154,7 +154,7 @@
 		</div>
 		<div class="tuandui index_td">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>团队<span><a href="/pc/teamList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
+				<i></i>团队<span><a href="/pc/teamList"><img src="../mobile/images/xuanze.jpg" alt="" style="height: 7px;"></a></span>
 			</div>
 			<div class="tuanduiCen" >
 				<figure th:each="team: ${teamList}">

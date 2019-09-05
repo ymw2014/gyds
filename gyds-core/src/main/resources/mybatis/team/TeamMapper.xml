@@ -103,7 +103,8 @@
 			`colonel_tel`,
 			`team_introduce`,
 			`addres`,
-			`detailed_addr`
+			`detailed_addr`,
+			`create_time`
 		)
 		values
 		(
@@ -121,7 +122,8 @@
 			#{colonelTel},
 			#{teamIntroduce},
 			#{addres},
-			#{detailedAddr}
+			#{detailedAddr},
+			#{createTime}
 		)
 	</insert>
 	 

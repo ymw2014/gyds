@@ -69,6 +69,7 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 			team.setUserId(name.getUserId());
 			team.setColonelName(name.getName());
 			team.setStatus(1);
+			team.setCreateTime(new Date());
 			teamDao.save(team);
 			RegionDO region=new RegionDO();
 			region.setRegionCode(team.getId());

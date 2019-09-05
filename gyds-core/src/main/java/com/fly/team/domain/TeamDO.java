@@ -55,7 +55,15 @@ public class TeamDO implements Serializable {
 	private Integer isAuth;
 	//认证结束时间
 	private Date authEntTime;
+	//创建时间
+	private Date createTime;
 	
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 	public Integer getIsAuth() {
 		return isAuth;
 	}

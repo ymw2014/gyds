@@ -44,6 +44,12 @@
 	outline: none;
 	color:#fff;
 }
+.zidong{
+    position: absolute;
+    right: 20px;
+    color: #ef472a;
+    bottom:0px;
+}
 </style>
 	</head>
 	<body>
@@ -447,12 +453,12 @@
 					var sum = '';
 					var account = data.user.account;
 						sum += '您的余额剩余<span>'+account+'</span>元';
+						
 						$("#sum").empty();
 						$('#sum').append(sum);
 					$.each(data.listPrice, function(i, item){
 						red += '<li>';
 						red += '<p id="mony">'+item.price+'</p>元</br>';
-						red += '<p class="sx">手续费'+item.rate+'元</p>';
 						red += '</li>';
 					});
 					$("#red").empty();
@@ -532,6 +538,7 @@
 					$("#user").empty();
 					$('#user').append(user);
 					count += '<p style="margin-left: 10px;">已领取'+data.redSize+'/'+data.Packet.count+'个,共'+data.Packet.money+'元</p>'
+					count += '<p class="zidong">30秒后红包自动到账</p>';
 					$("#redCount").empty();
 					$('#redCount').append(count);
 					$('#redList').empty();
