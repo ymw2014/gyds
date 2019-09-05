@@ -40,15 +40,21 @@
 								<label class="col-sm-3 control-label">团队编号：</label>
 								<div class="col-sm-8">
 									<input id="teamCode" readonly="readonly"
-										th:value="${team.teamCode}" class="form-control" type="text">
+										th:value="${team.id}" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">团队封面图：</label>
+								<input type="hidden" th:value="${team.teamTitleImg}" id = "teamImg">
+								<label class="col-sm-3 control-label">团队logo：</label>
 								<div class="col-sm-8">
+									<a href="javascript:;" class="btn btn-primary btn-sm jqfivefile" type="button">
+									      <span id="imgUpload_name_img1">上传图片</span><span id="progress_img1"></span>
+									      <input id="imgUpload_img1" type="file"  title="上传图片" name="file" accept="image/*" data-url="/common/sysFile/upload" />
+									 </a>
 									<div>
-										<div id="imgsbox_img" class="imgsbox">
+										<div class="imgsbox" id="imgsbox_img1">
 											<div class="imgbox">
+												<div class="removePic" onclick="removePic(this,'/common/sysFile/remove')">×</div>
 												<img th:src="${team.teamTitleImg}">
 											</div>
 										</div>
@@ -59,13 +65,19 @@
 								<label class="col-sm-3 control-label">团队图片</label>
 								<input type="hidden" th:value="${team.teamImg}" id = "teamImg">
 								<div class="col-sm-8">
+									<a href="javascript:;" class="btn btn-primary btn-sm jqfivefile" type="button">
+									        <span id="imgUpload_name_img">上传图片</span><span id="progress_img"></span>
+									        <input id="imgUpload_img" type="file"  title="上传图片" name="file" accept="image/*" data-url="/common/sysFile/upload" />
+									 </a>
 									<div>
-										<div id="imgsbox_img" class="imgsbox" >
-											<div class="imgbox" th:each="img : ${imgList}">
-												<img  th:src="${img}">
-											</div>
+									<div id="imgsbox_img" class="imgsbox" >
+										<div class="imgbox" th:each="img : ${imgList}">
+											<div class="removePic" onclick="removePic(this,'/common/sysFile/remove')">×</div>
+											<img  th:src="${img}">
 										</div>
 									</div>
+									</div>
+									<span class="help-block m-b-none text-danger">支持:jpg、jpeg、png； 尺寸：宽1927*高460px；大小：限5M内</span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -75,20 +87,7 @@
 										th:value="${team.regionName}" class="form-control" type="text">
 								</div>
 							</div>
-							<div class="form-group">	
-								<label class="col-sm-3 control-label">状态：</label>
-								<div class="col-sm-8">
-								<label class="radio-inline" >
-										<input type="radio"  value="0" th:attr ="checked=${0 == team.status?true:false}" name="status" disabled="disabled">申请中
-									</label>
-									<label class="radio-inline" >
-										<input type="radio"  value="1" th:attr ="checked=${1 == team.status?true:false}" name="status" disabled="disabled">通过
-									</label>
-									<label class="radio-inline" >
-										<input type="radio"  value="2" th:attr ="checked=${2 == team.status?true:false}" name="status" disabled="disabled">已拒绝
-									</label>
-								</div>
-							</div>
+							
 							<div class="form-group">
 								<label class="col-sm-3 control-label">备注：</label>
 								<div class="col-sm-8">
@@ -96,11 +95,11 @@
 										th:value="${team.remark}" class="form-control" type="text">
 								</div>
 							</div>
-							<!-- <div class="form-group">
+							<div class="form-group">
 								<div class="col-sm-8 col-sm-offset-3">
 									<button type="submit" class="btn btn-primary">提交</button>
 								</div>
-							</div> -->
+							</div>
 						</form>
 					</div>
 				</div>
@@ -110,6 +109,104 @@
 	<div th:include="include::footer"></div>
 	<script type="text/javascript" src="/js/appjs/team/team/edit.js">
 	</script>
+	<script type="text/javascript">
+	$(function(){
+	    var multi = 0;
+	    var name = "teamImg";
+	    var name1 = "teamTitleImg";
+	    if(multi){
+	        name = name+'[]';
+	        $("#imgUpload_img").attr('multiple','multiple');
+	    }else{
+	        $("#imgUpload_img").removeAttr('multiple');
+	    }
+	    
+	    $("#imgUpload_img").fileupload({
+	        dataType: 'json',
+	        done: function (e, data) {
+	            	console.log(data.result);
+	            if (data.result.code == 0) {
+	                var img = '<div class="imgbox">';
+	                img += '<div class="removePic" onclick="removePic(this,\'/common/sysFile/remove\')">×</div>';
+	                img += '<input type="hidden" name="'+name+'" value="' + data.result.fileName + '">';
+	                img += '<img src="' + data.result.fileName + '">';
+	                img += '</div>';
+	                if(multi){
+	                    $("#imgsbox_img").append(img);
+	                }else{
+	                    $("#imgsbox_img").html(img);
+	                }
+	            } else {
+	                layer.msg(data.msg);
+	            }
+	        },
+	        change: function (e, data) {
+	            $("#imgUpload_name_img").html('上传图片...');
+	        },
+	        progressall: function (e, data) {
+	            var progressnum = parseInt(data.loaded / data.total * 100);
+	            if (progressnum == 100) {
+	                $("#progress_img").text('');
+	                $("#imgUpload_name_img").html('上传图片');
+	            } else {
+	                $("#progress_img").text(progressnum + "%");
+	            }
+	        },
+	        error: function(e,data){
+	            layer.msg('上传请求失败');
+	        }
+	    });
+	    
+	    $("#imgUpload_img1").fileupload({
+	        dataType: 'json',
+	        done: function (e, data) {
+	            	console.log(data.result);
+	            if (data.result.code == 0) {
+	                var img = '<div class="imgbox">';
+	                img += '<div class="removePic" onclick="removePic(this,\'/common/sysFile/remove\')">×</div>';
+	                img += '<input type="hidden" name="'+name1+'" value="' + data.result.fileName + '">';
+	                img += '<img src="' + data.result.fileName + '">';
+	                img += '</div>';
+	                if(multi){
+	                    $("#imgsbox_img1").append(img);
+	                }else{
+	                    $("#imgsbox_img1").html(img);
+	                }
+	            } else {
+	                layer.msg(data.msg);
+	            }
+	        },
+	        change: function (e, data) {
+	            $("#imgUpload_name_img1").html('上传图片...');
+	        },
+	        progressall: function (e, data) {
+	            var progressnum = parseInt(data.loaded / data.total * 100);
+	            if (progressnum == 100) {
+	                $("#progress_img1").text('');
+	                $("#imgUpload_name_img1").html('上传图片');
+	            } else {
+	                $("#progress_img1").text(progressnum + "%");
+	            }
+	        },
+	        error: function(e,data){
+	            layer.msg('上传请求失败');
+	        }
+	    });
+	});
+
+	/**
+	 * 移除图片
+	 */
+	function removePic(_self,deleteurl){
+	    $(_self).parent().remove();
+	    if(deleteurl){
+	        $.post(deleteurl,{path:$(_self).parent().find('img').attr('src')});
+	    }
+	}
+	
+	
+	</script>
+	
 	
 </body>
 </html>

@@ -31,7 +31,7 @@
 				<select style="width: 130px;height: 40px;" onchange="_area()" id="area">
 					<option value="0">-- 全国 --</option>
 					<option th:each="area: ${areaList}" th:value="${area.regionCode}"
-						th:text="${area.regionName}"></option>
+						th:text="${area.regionName}" th:selected="${area.selected eq true}"></option>
 				</select>
 			</div>
 			<div class="header-loginimg" id="no_login" style="display: none">

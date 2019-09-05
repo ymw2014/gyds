@@ -28,6 +28,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public List<OrderDO> kzList(Map<String, Object> map){
+		return orderDao.kzList(map);
+	}
+	
+	@Override
 	public int count(Map<String, Object> map){
 		return orderDao.count(map);
 	}

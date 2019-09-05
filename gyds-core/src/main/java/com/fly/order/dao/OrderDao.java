@@ -20,6 +20,8 @@ public interface OrderDao {
 	
 	List<OrderDO> list(Map<String,Object> map);
 	
+	List<OrderDO> kzList(Map<String,Object> map);
+	
 	int count(Map<String,Object> map);
 	
 	int save(OrderDO order);
