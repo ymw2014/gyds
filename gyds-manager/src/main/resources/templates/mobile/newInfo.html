@@ -87,7 +87,7 @@
 			</div>
 			<div class="gycent3">
 				<span>有您的支持是我们最大的动力</span>
-				<a href="" class="modal__trigger btn2" onclick="reward()"><img src="" alt="" >打赏</a>
+				<a href="" class="btn2" onclick="reward()"><img src="" alt="" >打赏</a>
 				<p th:text="${'已有'+reCountUser+'人打赏'}"></p>
 			</div>
 			<!-- 打赏!! -->
@@ -199,7 +199,7 @@
 					</div>
 				</div>
 			</div>
-			<script type="text/javascript" th:src="@{/mobile/js/js1.js}"></script>
+			<script type="text/javascript" th:src="@{/pc/js/js1.js}"></script>
 		<div class="gyimg">
 			<a th:each="act: ${advList}" class="btn5" th:href="${act.advImg!=null?act.url:'javascript:;'}" th:target="${act.advImg!=null?'_blank':''}">
 				<img th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
@@ -566,7 +566,7 @@
 		var isGetRed = $('#isGetRed').val();
 		//满足两个条件 1:有红包 2:未领取过
 		if(isRed==1&&isGetRed==2){
-			var myVar = setTimeout(vieRed, 1000);
+			var myVar = setTimeout(vieRed, 1000*30);
 		}
 	})
 	//抢红包

@@ -4,16 +4,18 @@
 <mapper namespace="com.fly.activity.dao.ActivityDao">
 
 	<select id="get" resultType="com.fly.activity.domain.ActivityDO">
-		select a.id,a.act_intro,act_addr,a.act_title,a.act_content,a.member_id,
+		select a.id,a.act_intro,act_addr,a.act_title,a.act_content,a.member_id,m.team_name,
 		a.status,a.examine_status,u.name,a.act_price,a.act_title_img,
 		a.act_type_id,t.type_name,a.start_time,a.end_time,a.team_id,
 		DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
-		DATE_FORMAT(a.start_time,'%Y-%m-%d %H:%i:%s') startTimeStr,
-		DATE_FORMAT(a.end_time,'%Y-%m-%d %H:%i:%s') endTimeStr,
+		DATE_FORMAT(a.start_time,'%Y-%m-%d %H') startTimeStr,
+		DATE_FORMAT(a.end_time,'%Y-%m-%d %H') endTimeStr,
 		a.activi_start_time, a.activi_end_time,
-		a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id where a.id = #{value}
+		a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal,a.activi_start_time,a.activi_end_time from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id left join team m on a.team_id = m.id where a.id = #{value}
 	</select>
 
+		<!-- DATE_FORMAT(a.start_time,'%Y-%m-%d %H:%i:%s') startTimeStr,
+		DATE_FORMAT(a.end_time,'%Y-%m-%d %H:%i:%s') endTimeStr, -->
 	<select id="list" resultType="com.fly.activity.domain.ActivityDO">
         select a.id,a.act_intro,a.activi_start_time, a.activi_end_time,act_addr,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
         <where>  

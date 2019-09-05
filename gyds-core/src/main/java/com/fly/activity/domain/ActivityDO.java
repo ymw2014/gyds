@@ -79,7 +79,16 @@ public class ActivityDO implements Serializable {
 	
 	private Date activiEndTime;
 	
+	private String teamName;
 	
+	
+	
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 	public Date getActiviStartTime() {
 		return activiStartTime;
 	}
