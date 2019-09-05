@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}"/>
+		<script th:src="@{/js/jquery-3.1.1.js}"></script>
+		<script th:src="@{/js/echarts.min.js}"></script>
+		<script th:src="@{/js/china.js}"></script>
+	</head>
+	<body>
+		<!-- 头部 -->
+	  <header>
+		  <div class="header1">
+			  <div class="headerLeft">
+				  <img th:src="@{/images/left.png}" alt="">
+			  </div>
+			  <div class="headerCenter">
+			  		<p>益联 · 智慧公益大数据平台</p>
+			  </div>
+			  <div class="headerRight">
+				  <img th:src="@{/images/right.png}" alt="">
+			  </div>
+			  <div class="headerdeta">
+				  <p>2019/8/19	 19:30</p>
+			  </div>
+		  </div>
+	  </header>
+	  <div class="zhuti">
+		  <div class="zhutiLeft">
+			  <div class="zhutiLeft1">
+				  <img th:src="@{/images/landian_03.png}" alt="">
+				  <p>成员概况</p>
+			  </div>
+			  <div class="zhutiLeft2">
+			  	<p>男性:<span style="color:#edfc00;">123456789</span><span style="color:#20edfc;">(45%)</span></p>
+				<p>女性:<span style="color:#edfc00;">987654321</span><span style="color:#20edfc;">(55%)</span></p>
+			  </div>
+			  <div class="zhutiLeft3" id="zhutiLeft3" style="height:200px;">
+			  	
+			  </div>
+			   <div class="zhutiLeft4">
+				   <div>
+					   <p>年龄区间</p>
+					   <ul>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+					   </ul>
+				   </div>
+				   <div>
+					  <p class="zhp">参与活动次数</p>
+					  <ul>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+					  </ul>
+					 
+				   </div>
+			  </div>
+			  <div class="zhutiLeft5" id="zhutiLeft5" style="height:200px;">
+			  	
+			  </div>
+			  <div class="zhutiLeft4">
+				   <div>
+					   <p>志愿者等级</p>
+					   <ul>
+						   <li>一星志愿者 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>二星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>三星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>四星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>五星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+					   </ul>
+				   </div>
+				   <div>
+					  <p >签到次数</p>
+					  <ul>
+						   <li>1000次以上<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>365~1000次<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>201~365次<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>31~200次 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>0~30次 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+					  </ul>
+				   </div>
+			  </div>
+			   <div class="zhutiLeft6" id="zhutiLeft6" style="height:200px;">
+			  	
+			  </div>
+		  </div>
+		  <div class="zhutiCenter">
+			  <div class="ZCl">
+				  <img th:src="@{/images/leftmei_03.png}" alt="">
+			  </div>
+			  <div class="ZCr" style="text-align: right;">
+				  <img th:src="@{/images/rightmei_03.png}" alt="">
+			  </div>
+			  <ul class="ssqq">
+				  <li>
+					  <p>123456789</p>
+					  <span>团队入驻数</span>
+				  </li>
+				  <li>
+					  <p>123456789</p>
+					  <span>实名成员数</span>
+				  </li>
+				  <li>
+					  <p>123456789</p>
+					  <span>活动发布量</span>
+				  </li>
+				  <li>
+					  <p>123456789</p>
+					  <span>咨询发布量</span>
+				  </li>
+				  <li>
+					  <p>123456789</p>
+					  <span>今日签到</span>
+				  </li>
+			  </ul>
+			  <div class="ditudaxia" id="ditudaxia">
+				 <button id="back" style="display: none;">返回全国</button>
+				 <div id="china-map"></div>
+			  </div>
+			  <div class="ditudaxiass">
+				  <div class="zhutiLeft1">
+					  <img th:src="@{/images/landian_03.png}" alt="">
+					  <p>智慧公益渠道概况</p>
+				  </div>
+				  <ul class="mingcheng">
+					  <li>名称</li>
+					  <li>数量</li>
+					  <li>完成数</li>
+					  <li>完成比例</li>
+				  </ul>
+				  <ul class="mingcheng">
+					  <li>省级</li>
+					  <li style="color:#edfc00;">34</li>
+					  <li>2</li>
+					  <li style="color:#029dad;">15%</li>
+				  </ul>
+				   <ul class="mingcheng">
+					  <li>市级</li>
+					  <li style="color:#edfc00;">343</li>
+					  <li>2</li>
+					  <li style="color:#029dad;">15%</li>
+				  </ul>
+				   <ul class="mingcheng">
+					  <li>县区级</li>
+					  <li style="color:#edfc00;">3424</li>
+					  <li>2</li>
+					  <li style="color:#029dad;">15%</li>
+				  </ul>
+				   <ul class="mingcheng">
+					  <li>街道乡镇</li>
+					  <li style="color:#edfc00;">342456</li>
+					  <li>2</li>
+					  <li style="color:#029dad;">15%</li>
+				  </ul>
+			  </div>
+		  </div>
+		  <div class="zhutiRight">
+		  	<div class="zhutiLeft1">
+			  <img th:src="@{/images/landian_03.png}" alt="">
+			  <p>组织概况</p>
+	        </div>
+		    <div class="zhutiRight1">
+				<div id="mind" class="mind">	
+				</div>
+				<div class="zhutiRight1-1">
+					<div>
+						<p style="text-align: left;">上个月入驻量</p>
+						<p style="color:#edfc00;">8726</p>
+					</div>
+					<div>
+						<p style="text-align: left;">本月入驻量</p>
+						<p style="color:#edfc00;">8726</p>
+					</div>
+					<div>
+						<p style="text-align: left;">增长率</p>
+						<p style="color:#ff0000;">(123)</p>
+					</div>
+				</div>
+			</div>
+			<div class="zhutiLeft1" style="border-top:1px solid #20effe;">
+			  <img th:src="@{/images/landian_03.png}" alt="">
+			  <p>排行榜</p>
+			</div>
+			<div class="zhutiRight2">
+				<div>
+					<span>实名志愿者数</span>
+					<div class="paiming">
+						<span>排名</span>
+						<span>团队名称</span>
+						<span>数量</span>
+					</div>
+					<ul>
+						<li>1</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>2</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>3</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>4</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>1</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>2</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>3</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>4</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>1</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>2</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+				</div>
+				<div>
+					<span>活动发布量</span>
+					<div class="paiming">
+						<span>排名</span>
+						<span>团队名称</span>
+						<span>数量</span>
+					</div>
+					<ul>
+						<li>1</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>2</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>3</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>4</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>1</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>2</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>3</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>4</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>1</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+					<ul>
+						<li>2</li>
+						<li>郑州小梁工友互助中心</li>
+						<li>9874</li>
+					</ul>
+				</div>
+			</div>
+		  </div>
+		  <div class="zhutiFooter">
+		  		<div class="zhutiFooter1">
+					<div class="huodong">
+						<span>活动发布</span>
+					</div>
+					<div class="huodon1" id="mind1">
+					
+					</div>
+					<div class="zhutiRight1-1 huodong2">
+						<div>
+							<p style="text-align: left;">上个月入驻量</p>
+							<p style="color:#edfc00;">8726</p>
+						</div>
+						<div>
+							<p style="text-align: left;">本月入驻量</p>
+							<p style="color:#edfc00;">8726</p>
+						</div>
+						<div>
+							<p style="text-align: left;">增长率</p>
+							<p style="color:#ff0000;">(123)</p>
+						</div>
+					</div>
+				</div>
+		  		<div class="zhutiFooter2">
+					<div class="huodong">
+						<span>资讯发布</span>
+					</div>
+					<div class="huodon1" id="mind2">
+					
+					</div>
+					<div class="zhutiRight1-1 huodong2">
+						<div>
+							<p style="text-align: left;">上个月入驻量</p>
+							<p style="color:#edfc00;">8726</p>
+						</div>
+						<div>
+							<p style="text-align: left;">本月入驻量</p>
+							<p style="color:#edfc00;">8726</p>
+						</div>
+						<div>
+							<p style="text-align: left;">增长率</p>
+							<p style="color:#ff0000;">(123)</p>
+						</div>
+					</div>
+				</div>
+		  		<div class="zhutiFooter3">
+					<div class="huodong">
+						<span>实时动态信息</span>
+					</div>
+					<ul>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+					</ul>
+				</div>	  
+		  </div> 
+	  </div>
+	</body>
+</html>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+		 var myChart1 = echarts.init(document.getElementById('zhutiLeft5'));
+		 var myChart2 = echarts.init(document.getElementById('zhutiLeft6'));
+		 var mind = echarts.init(document.getElementById('mind'));
+		 var mind1 = echarts.init(document.getElementById('mind1'));
+		 var mind2 = echarts.init(document.getElementById('mind2'));
+		 
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/OrgSurvey',
+				success : function(r) {
+					
+				}
+			});
+		 
+		 // 指定图表的配置项和数据
+	        var  option = {
+				title : {
+					subtext: '政治面貌',
+					x:'center',
+					y:'80',
+				},
+				textStyle:{
+						
+				},
+				tooltip : {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				series : [
+					{
+						name: '访问来源',
+						type: 'pie',
+	                    radius:  ['50%', '70%'],
+						data: [
+							{value:335, name:'直接访问'},
+							{value:310, name:'邮件营销'},
+							{value:234, name:'联盟广告'},
+							{value:135, name:'视频广告'},
+							{value:548, name:'搜索引擎'},
+							{value:135, name:'视频广告'},
+							{value:548, name:'搜索引擎'}
+						] , 
+						itemStyle: {
+							emphasis: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					}
+				]
+			};
+	        var myChart = echarts.init(document.getElementById('zhutiLeft3'));
+	        myChart.setOption(option);
+		
+		var  option1 = {
+			title : {
+				subtext: '学历状态',
+				x:'center',
+				y:'80',
+			},
+			textStyle:{
+					
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			series : [
+				{
+					name: '访问来源',
+					type: 'pie',
+		            radius:  ['50%', '70%'],
+					data:[
+						{value:335, name:'直接访问'},
+						{value:310, name:'邮件营销'},
+						{value:234, name:'联盟广告'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'}
+					],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		myChart1.setOption(option1);
+		
+		var  option2 = {
+			title : {
+				subtext: '从业状态',
+				x:'center',
+				y:'80',
+			},
+			textStyle:{
+					
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			series : [
+				{
+					name: '访问来源',
+					type: 'pie',
+		            radius:  ['50%', '70%'],
+					data:[
+						{value:335, name:'直接访问'},
+						{value:310, name:'邮件营销'},
+						{value:234, name:'联盟广告'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'}
+					],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		myChart2.setOption(option2);
+		
+		
+		
+		var  option4 = {
+			textStyle:{
+					
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			series : [
+				{
+					name: '访问来源',
+					type: 'pie',
+		            radius : '55%',
+                    center: ['50%', '60%'],
+					data:[
+						{value:335, name:'直接访问'},
+						{value:310, name:'邮件营销'},
+						{value:234, name:'联盟广告'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'}
+					],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		mind.setOption(option4);
+		
+		var  option5 = {
+			textStyle:{
+					
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			series : [
+				{
+					name: '访问来源',
+					type: 'pie',
+		            radius : '55%',
+		            center: ['50%', '60%'],
+					data:[
+						{value:335, name:'直接访问'},
+						{value:310, name:'邮件营销'},
+						{value:234, name:'联盟广告'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'},
+						{value:135, name:'视频广告'},
+						{value:548, name:'搜索引擎'}
+					],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		mind1.setOption(option5);
+		
+		
+		var option6 = {
+			xAxis: {
+				type: 'category',
+				data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月',"8月","9月","10月","11月","12月"]
+			},
+			textStyle:{
+				color:"#fff",
+			    fontSize:12
+			},
+			  legend: {
+			    data:['邮件营销','联盟广告']
+			},
+			grid: {
+				left: '1%',
+				right: '4%',
+				bottom: '1%',
+				top:"6%",
+				containLabel: true
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [{
+				data: [2000, 3600, 4200, 3800, 5200, 6700, 8000,2000, 3600, 4200, 3800, 5200, 6700, 8000],
+				type: 'line'
+			},{
+				data: [2000, 3800, 4200, 9900, 5200, 6700, 8000,2000, 2000, 4200, 3800, 5200, 6700, 8000],
+				type: 'line'
+			},]
+};
+		mind2.setOption(option6);
+</script>
+<script>
+    var myChart = echarts.init(document.getElementById('china-map'));
+    var oBack = document.getElementById("back");
+    var provinces = ['shanghai', 'hebei', 'shanxi', 'neimenggu', 'liaoning', 'jilin', 'heilongjiang', 'jiangsu', 'zhejiang', 'anhui', 'fujian', 'jiangxi', 'shandong', 'henan', 'hubei', 'hunan', 'guangdong', 'guangxi', 'hainan', 'sichuan', 'guizhou', 'yunnan', 'xizang', 'shanxi1', 'gansu', 'qinghai', 'ningxia', 'xinjiang', 'beijing', 'tianjin', 'chongqing', 'xianggang', 'aomen'];
+    var provincesText = ['上海', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '重庆', '香港', '澳门'];
+    var seriesData = [{
+      name: '北京',
+      value: 100
+    }, {
+      name: '天津',
+      value: 0
+    }, {
+      name: '上海',
+      value: 60
+    }, {
+      name: '重庆',
+      value: 0
+    }, {
+      name: '河北',
+      value: 60
+    }, {
+      name: '河南',
+      value: 60
+    }, {
+      name: '云南',
+      value: 0
+    }, {
+      name: '辽宁',
+      value: 0
+    }, {
+      name: '黑龙江',
+      value: 0
+    }, {
+      name: '湖南',
+      value: 60
+    }, {
+      name: '安徽',
+      value: 0
+    }, {
+      name: '山东',
+      value: 60
+    }, {
+      name: '新疆',
+      value: 0
+    }, {
+      name: '江苏',
+      value: 0
+    }, {
+      name: '浙江',
+      value: 0
+    }, {
+      name: '江西',
+      value: 0
+    }, {
+      name: '湖北',
+      value: 60
+    }, {
+      name: '广西',
+      value: 60
+    }, {
+      name: '甘肃',
+      value: 0
+    }, {
+      name: '山西',
+      value: 60
+    }, {
+      name: '内蒙古',
+      value: 0
+    }, {
+      name: '陕西',
+      value: 0
+    }, {
+      name: '吉林',
+      value: 0
+    }, {
+      name: '福建',
+      value: 0
+    }, {
+      name: '贵州',
+      value: 0
+    }, {
+      name: '广东',
+      value: 597
+    }, {
+      name: '青海',
+      value: 0
+    }, {
+      name: '西藏',
+      value: 0
+    }, {
+      name: '四川',
+      value: 60
+    }, {
+      name: '宁夏',
+      value: 0
+    }, {
+      name: '海南',
+      value: 60
+    }, {
+      name: '台湾',
+      value: 0
+    }, {
+      name: '香港',
+      value: 0
+    }, {
+      name: '澳门',
+      value: 0
+    }];
+
+    oBack.onclick = function () {
+      initEcharts("china", "中国");
+    };
+
+    initEcharts("china", "");
+
+    // 初始化echarts
+    function initEcharts(pName, Chinese_) {
+      var tmpSeriesData = pName === "china" ? seriesData : [];
+    var tmpSeriesData = pName === "    " ;
+      var option8 = {
+        title: {
+          text: '',
+          left: 'center'
+        },
+          tooltip: {
+              trigger: 'item',
+              formatter: '{b}<br/>{c} (p / km2)'
+          },
+        series: [
+          {
+            name: Chinese_ || pName,
+            type: 'map',
+            mapType: pName,
+            roam: false,//是否开启鼠标缩放和平移漫游
+            data: tmpSeriesData,
+            top: "5%",//组件距离容器的距离
+			left:"3%",
+			right:"2%",
+              zoom:1,
+              selectedMode : 'single',
+
+              label: {
+                  normal: {
+                      show: false,//显示省份标签
+                      textStyle:{color:"#fbfdfe"}//省份标签字体颜色
+                  },
+                  emphasis: {//对应的鼠标悬浮效果
+                      show: true,
+                      textStyle:{color:"#fff"}
+                  }
+              },
+              itemStyle: {
+                  normal: {
+                      borderWidth: .5,//区域边框宽度
+                      borderColor: '#fff',//区域边框颜色
+                      areaColor:"#11408e",//区域颜色
+
+                  },
+
+                  emphasis: {
+                      borderWidth: .5,
+                      borderColor: '#4b0082',
+                      areaColor:"#ece39e",
+                  }
+              },
+          }
+        ]
+
+           };
+
+      myChart.setOption(option8);
+    }
+
+    
+  </script>

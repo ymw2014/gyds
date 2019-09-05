@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.fly.sys.dao.screenDao">
+<mapper namespace="com.fly.screen.dao.ScreenDao">
 
 	<select id="getOrgSurvey" resultType="java.util.Map">
-		SELECT  type_name ,COUNT(*)  from team t left join team_type tt on t.team_type = tt.id 
+		SELECT  type_name name,COUNT(*) value  from team t left join team_type tt on t.team_type = tt.id 
 		<where>
 		<if test="ids != null">
 		         	and left(t.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  

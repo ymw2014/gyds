@@ -76,6 +76,14 @@ function load() {
 						title : '报名截止时间' 
 					},
 					{
+						field : 'activiStartTime', 
+						title : '活动开始时间' 
+					},
+					{
+						field : 'activiEndTime', 
+						title : '活动截止时间' 
+					},
+					{
 						field : 'createTime', 
 						title : '活动创建时间' 
 					},

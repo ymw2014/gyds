@@ -41,9 +41,12 @@
 					<div class="conBox2-2">
 						<div class="conBox2-2-1">
 							<ul>
-								<li th:text=" '地点：' + ${activity.actAddr}"></li>
-								<li th:text=" '时间：' + ${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></li>
-								<li class="comli"><span style="float:left;">价格：</span><a href="javaScript:;" class="comimg" th:text="${activity.actType == 0} ? '免费': ${activity.actPrice}"></a></li>
+								<li th:text="'主办单位: ' +${activity.teamName}"></li>
+								<li th:text="'活动类型: '+${activity.typeName}"></li>
+								<li th:text=" '活动地点：' + ${activity.actAddr}"></li>
+								<li th:text=" '报名时间：' + ${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></li>
+								<li th:text=" '活动时间：' + ${#dates.format(activity.activiStartTime,'YYYY-MM-dd HH')} + '~' + ${#dates.format(activity.activiEndTime,'YYYY-MM-dd HH')}"></li>
+								<li class="comli"><span style="float:left;">活动费用：</span><a href="javaScript:;" class="comimg" th:text="${activity.actType == 0} ? '免费': ${activity.actPrice}"></a></li>
 								<!-- <li>数量：
 									<button class="jian">-</button>
 									<input type="text" class="shu" value="1">
