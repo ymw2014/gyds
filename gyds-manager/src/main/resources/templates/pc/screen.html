@@ -33,8 +33,10 @@
 				  <p>成员概况</p>
 			  </div>
 			  <div class="zhutiLeft2">
-			  	<p>男性:<span style="color:#edfc00;">123456789</span><span style="color:#20edfc;">(45%)</span></p>
-				<p>女性:<span style="color:#edfc00;">987654321</span><span style="color:#20edfc;">(55%)</span></p>
+			  	<p th:each="sex :${sexCount}" th:utext="${sex.name==0}?'男:<span style='+'color:#edfc00;'+'>'+${sex.c}+'</span>':'女:<span style='+'color:#edfc00;'+'>'+${sex.c}+'</span>'">
+			  	<span style="color:#edfc00;" th:text="${sex.c}"></span>
+			  	<span style="color:#20edfc;">(45%)</span>
+			  	</p>
 			  </div>
 			  <div class="zhutiLeft3" id="zhutiLeft3" style="height:200px;">
 			  	
@@ -172,11 +174,11 @@
 				<div class="zhutiRight1-1">
 					<div>
 						<p style="text-align: left;">上个月入驻量</p>
-						<p style="color:#edfc00;">8726</p>
+						<p style="color:#edfc00;" th:text="${creTeam.value}"></p>
 					</div>
 					<div>
 						<p style="text-align: left;">本月入驻量</p>
-						<p style="color:#edfc00;">8726</p>
+						<p style="color:#edfc00;" th:text="${creTeam1.value}"></p>
 					</div>
 					<div>
 						<p style="text-align: left;">增长率</p>
@@ -196,56 +198,12 @@
 						<span>团队名称</span>
 						<span>数量</span>
 					</div>
-					<ul>
-						<li>1</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
+					<ul th:each="teamVo,i : ${teamVo}">
+						<li th:text="${i.count}"></li>
+						<li th:text="${teamVo.name}"></li>
+						<li th:text="${teamVo.value}"></li>
 					</ul>
-					<ul>
-						<li>2</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>3</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>4</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>2</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>3</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>4</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>2</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
+					
 				</div>
 				<div>
 					<span>活动发布量</span>
@@ -254,56 +212,12 @@
 						<span>团队名称</span>
 						<span>数量</span>
 					</div>
-					<ul>
-						<li>1</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
+					<ul th:each="teamNews,i : ${teamNews}">
+						<li th:text="${i.count}">1</li>
+						<li th:text="${teamNews.name}"></li>
+						<li th:text="${teamNews.value}"></li>
 					</ul>
-					<ul>
-						<li>2</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>3</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>4</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>2</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>3</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>4</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
-					<ul>
-						<li>2</li>
-						<li>郑州小梁工友互助中心</li>
-						<li>9874</li>
-					</ul>
+					
 				</div>
 			</div>
 		  </div>
@@ -318,11 +232,11 @@
 					<div class="zhutiRight1-1 huodong2">
 						<div>
 							<p style="text-align: left;">上个月入驻量</p>
-							<p style="color:#edfc00;">8726</p>
+							<p style="color:#edfc00;" th:text="${creAct.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">本月入驻量</p>
-							<p style="color:#edfc00;">8726</p>
+							<p style="color:#edfc00;" th:text="${creAct1.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">增长率</p>
@@ -340,11 +254,11 @@
 					<div class="zhutiRight1-1 huodong2">
 						<div>
 							<p style="text-align: left;">上个月入驻量</p>
-							<p style="color:#edfc00;">8726</p>
+							<p style="color:#edfc00;" th:text="${newsCount1.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">本月入驻量</p>
-							<p style="color:#edfc00;">8726</p>
+							<p style="color:#edfc00;" th:text="${newsCount.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">增长率</p>
@@ -373,253 +287,252 @@
 </html>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-		 var myChart1 = echarts.init(document.getElementById('zhutiLeft5'));
-		 var myChart2 = echarts.init(document.getElementById('zhutiLeft6'));
-		 var mind = echarts.init(document.getElementById('mind'));
-		 var mind1 = echarts.init(document.getElementById('mind1'));
-		 var mind2 = echarts.init(document.getElementById('mind2'));
+		 
+		 
+		
+		
+		 
 		 
 		 $.ajax({
 				type : 'POST',
 				data : {},
 				async: true,
-				url : '/pc/screen/OrgSurvey',
-				success : function(r) {
+				url : '/pc/screen/PoliticsSurvey',
+				success : function(res) {
+					// 指定图表的配置项和数据
+			        var  option = {
+						title : {
+							subtext: '政治面貌',
+							x:'center',
+							y:'80',
+						},
+						textStyle:{
+								
+						},
+						tooltip : {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+						},
+						series : [
+							{
+								name: '访问来源',
+								type: 'pie',
+			                    radius:  ['50%', '70%'],
+								data: res,
+								itemStyle: {
+									emphasis: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
+									}
+								}
+							}
+						]
+					};
+			        var myChart = echarts.init(document.getElementById('zhutiLeft3'));
+			        myChart.setOption(option);
+				}
+		 });
+		
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/EducationSurvey',
+				success : function(res) {
+					var  option1 = {
+							title : {
+								subtext: '学历状态',
+								x:'center',
+								y:'80',
+							},
+							textStyle:{
+									
+							},
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							series : [
+								{
+									name: '访问来源',
+									type: 'pie',
+						            radius:  ['50%', '70%'],
+									data:res,
+									itemStyle: {
+										emphasis: {
+											shadowBlur: 10,
+											shadowOffsetX: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									}
+								}
+							]
+						};
+						var myChart1 = echarts.init(document.getElementById('zhutiLeft5'));
+						myChart1.setOption(option1);
 					
+				}
+		 });
+		
+		
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/PostSurvey',
+				success : function(res) {
+					var  option2 = {
+							title : {
+								subtext: '从业状态',
+								x:'center',
+								y:'80',
+							},
+							textStyle:{
+									
+							},
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							series : [
+								{
+									name: '访问来源',
+									type: 'pie',
+						            radius:  ['50%', '70%'],
+									data:res,
+									itemStyle: {
+										emphasis: {
+											shadowBlur: 10,
+											shadowOffsetX: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									}
+								}
+							]
+						};
+						var myChart2 = echarts.init(document.getElementById('zhutiLeft6'));
+						myChart2.setOption(option2);
+				}
+		 });
+		
+		
+		
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/OrgSurvey',
+				success : function(res) {
+					var  option4 = {
+							textStyle:{
+									
+							},
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							series : [
+								{
+									name: '访问来源',
+									type: 'pie',
+						            radius : '55%',
+				                    center: ['50%', '60%'],
+									data:res,
+									itemStyle: {
+										emphasis: {
+											shadowBlur: 10,
+											shadowOffsetX: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									}
+								}
+							]
+						};
+						var mind = echarts.init(document.getElementById('mind'));
+						mind.setOption(option4);
 				}
 			});
-		 
-		 // 指定图表的配置项和数据
-	        var  option = {
-				title : {
-					subtext: '政治面貌',
-					x:'center',
-					y:'80',
-				},
-				textStyle:{
-						
-				},
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '访问来源',
-						type: 'pie',
-	                    radius:  ['50%', '70%'],
-						data: [
-							{value:335, name:'直接访问'},
-							{value:310, name:'邮件营销'},
-							{value:234, name:'联盟广告'},
-							{value:135, name:'视频广告'},
-							{value:548, name:'搜索引擎'},
-							{value:135, name:'视频广告'},
-							{value:548, name:'搜索引擎'}
-						] , 
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							}
-						}
-					}
-				]
-			};
-	        var myChart = echarts.init(document.getElementById('zhutiLeft3'));
-	        myChart.setOption(option);
 		
-		var  option1 = {
-			title : {
-				subtext: '学历状态',
-				x:'center',
-				y:'80',
-			},
-			textStyle:{
-					
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			series : [
-				{
-					name: '访问来源',
-					type: 'pie',
-		            radius:  ['50%', '70%'],
-					data:[
-						{value:335, name:'直接访问'},
-						{value:310, name:'邮件营销'},
-						{value:234, name:'联盟广告'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'}
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/ActTypeScreen',
+				success : function(res) {
+					var  option5 = {
+							textStyle:{
+									
+							},
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							series : [
+								{
+									name: '访问来源',
+									type: 'pie',
+						            radius : '55%',
+						            center: ['50%', '60%'],
+									data: res,
+									itemStyle: {
+										emphasis: {
+											shadowBlur: 10,
+											shadowOffsetX: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									}
+								}
+							]
+						};
+						var mind1 = echarts.init(document.getElementById('mind1'));
+						mind1.setOption(option5);
 				}
-			]
-		};
-		myChart1.setOption(option1);
+				});
 		
-		var  option2 = {
-			title : {
-				subtext: '从业状态',
-				x:'center',
-				y:'80',
-			},
-			textStyle:{
-					
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			series : [
-				{
-					name: '访问来源',
-					type: 'pie',
-		            radius:  ['50%', '70%'],
-					data:[
-						{value:335, name:'直接访问'},
-						{value:310, name:'邮件营销'},
-						{value:234, name:'联盟广告'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'}
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
+		
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/NewsMon',
+				success : function(res) {
+					var option6 = {
+							xAxis: {
+								type: 'category',
+								data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月','8月','9月','10月','11月','12月']
+							},
+							textStyle:{
+								color:"#fff",
+							    fontSize:12
+							},
+							  legend: {
+							    data:['邮件营销','联盟广告']
+							},
+							grid: {
+								left: '1%',
+								right: '4%',
+								bottom: '1%',
+								top:"6%",
+								containLabel: true
+							},
+							yAxis: {
+								type: 'value'
+							},
+							series: [{
+								data: res.newList1,
+								type: 'line'
+							},{
+								data: res.newList,
+								type: 'line'
+							},]
+				};
+						var mind2 = echarts.init(document.getElementById('mind2'));
+						mind2.setOption(option6);
 				}
-			]
-		};
-		myChart2.setOption(option2);
-		
-		
-		
-		var  option4 = {
-			textStyle:{
-					
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			series : [
-				{
-					name: '访问来源',
-					type: 'pie',
-		            radius : '55%',
-                    center: ['50%', '60%'],
-					data:[
-						{value:335, name:'直接访问'},
-						{value:310, name:'邮件营销'},
-						{value:234, name:'联盟广告'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'}
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				}
-			]
-		};
-		mind.setOption(option4);
-		
-		var  option5 = {
-			textStyle:{
-					
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			series : [
-				{
-					name: '访问来源',
-					type: 'pie',
-		            radius : '55%',
-		            center: ['50%', '60%'],
-					data:[
-						{value:335, name:'直接访问'},
-						{value:310, name:'邮件营销'},
-						{value:234, name:'联盟广告'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'}
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				}
-			]
-		};
-		mind1.setOption(option5);
-		
-		
-		var option6 = {
-			xAxis: {
-				type: 'category',
-				data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月',"8月","9月","10月","11月","12月"]
-			},
-			textStyle:{
-				color:"#fff",
-			    fontSize:12
-			},
-			  legend: {
-			    data:['邮件营销','联盟广告']
-			},
-			grid: {
-				left: '1%',
-				right: '4%',
-				bottom: '1%',
-				top:"6%",
-				containLabel: true
-			},
-			yAxis: {
-				type: 'value'
-			},
-			series: [{
-				data: [2000, 3600, 4200, 3800, 5200, 6700, 8000,2000, 3600, 4200, 3800, 5200, 6700, 8000],
-				type: 'line'
-			},{
-				data: [2000, 3800, 4200, 9900, 5200, 6700, 8000,2000, 2000, 4200, 3800, 5200, 6700, 8000],
-				type: 'line'
-			},]
-};
-		mind2.setOption(option6);
+		 });
+				
+				
 </script>
 <script>
     var myChart = echarts.init(document.getElementById('china-map'));

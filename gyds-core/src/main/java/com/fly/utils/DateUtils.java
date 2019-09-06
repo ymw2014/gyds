@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 日期处理
@@ -144,6 +146,88 @@ public class DateUtils {
         }
         return cal.getTime();
     }
-
+    /**
+     * 获取前月的第一天 获取前月的最后一天
+     * @return
+     */
+    public static Map<String, Object> firstLastDay() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	String firstDay,lastDay;
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	//获取前月的第一天
+    	Calendar cal_1=Calendar.getInstance();//获取当前日期
+    	cal_1.add(Calendar.MONTH, -1);
+    	cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+    	firstDay = format.format(cal_1.getTime());
+    	map.put("starteTime",firstDay);
+    	//获取前月的最后一天
+    	Calendar cale = Calendar.getInstance();
+    	cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+    	lastDay = format.format(cale.getTime());
+    	map.put("endTime", lastDay);
+    	return map;
+    }
+    /**
+     * 获取本月的第一天 获取本月的最后一天
+     * @return
+     */
+    public static Map<String, Object> firstLastDay1() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	String firstDay,lastDay;
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	//获取前月的第一天
+    	Calendar cal_1=Calendar.getInstance();//获取当前日期
+    	cal_1.add(Calendar.MONTH, 0);
+    	cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+    	firstDay = format.format(cal_1.getTime());
+    	map.put("starteTime",firstDay);
+    	//获取前月的最后一天
+    	Calendar cale = Calendar.getInstance();
+    	lastDay = format.format(cale.getTime());
+    	map.put("endTime", lastDay);
+    	return map;
+    }
+    /**
+     * 获取去年的第一天 获取去年的最后一天
+     * @return
+     */
+    public static Map<String, Object> firstLastYearDay() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	String firstDay,lastDay;
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	//获取前年的第一天
+    	Calendar cal_1=Calendar.getInstance();//获取当前日期
+    	cal_1.add(Calendar.YEAR, -1);
+    	cal_1.set(Calendar.DAY_OF_YEAR,1);//设置为1号,当前日期既为本月第一天
+    	firstDay = format.format(cal_1.getTime());
+    	map.put("starteTime",firstDay);
+    	//获取前年的最后一天
+    	Calendar cale = Calendar.getInstance();
+    	cale.set(Calendar.DAY_OF_YEAR,0);
+    	lastDay = format.format(cale.getTime());
+    	map.put("endTime", lastDay);
+    	return map;
+    }
+    /**
+     * 获取今年的第一天 获取今年的最后一天
+     * @return
+     */
+    public static Map<String, Object> firstLastYearDay1() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	String firstDay,lastDay;
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	//获取前年的第一天
+    	Calendar cal_1=Calendar.getInstance();//获取当前日期
+    	cal_1.add(Calendar.YEAR, 0);
+    	cal_1.set(Calendar.DAY_OF_YEAR,1);//设置为1号,当前日期既为本月第一天
+    	firstDay = format.format(cal_1.getTime());
+    	map.put("starteTime",firstDay);
+    	//获取前年的最后一天
+    	Calendar cale = Calendar.getInstance();
+    	lastDay = format.format(cale.getTime());
+    	map.put("endTime", lastDay);
+    	return map;
+    }
+    
 
 }
