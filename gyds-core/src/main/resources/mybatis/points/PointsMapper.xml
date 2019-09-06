@@ -9,9 +9,9 @@
 
 	<select id="list" resultType="com.fly.points.domain.PointsDO">
 		select p.id,`order_id`,`pay_type`,`order_status`,`create_time`,`points_type`,`money`,`integral`,
-		m.name name,m.telephone, m.address 
+		m.name name,m.mobile telephone, m.live_address address 
 		from points p
-		left join member m on p.member_id = m.id
+		left join sys_user m on p.member_id = m.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="orderId != null and orderId != ''"> and order_id = #{orderId} </if>
