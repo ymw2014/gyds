@@ -95,4 +95,60 @@ public interface ScreenDao {
 	 * @return
 	 */
 	List<Map<String, Object>> getSexCount(Map<String,Object> map);
+	
+	/**
+	 * 统计年龄
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getAgeCount(Map<String,Object> map);
+	
+	/**
+	 * 统计年龄参加活动次数
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getAgeAndActCount(Map<String,Object> map);
+	
+	/**
+	 * 签到次数
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getPointsCount(Map<String,Object> map);
+	
+	/**
+	   *  实名成员数
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getVolCount(Map<String,Object> map);
+	
+	/**
+	   *   按日期统计签到人数
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getPoinCount(Map<String,Object> map);
+	
+	/**
+	 * 代理商统计
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getProCount(Map<String,Object> map);
+	
+	/**
+	 * 区域统计
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getCuxCount(Map<String,Object> map);
+	
+	/**
+	   *  人数统计
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getUserCount(Map<String,Object> map);
 }

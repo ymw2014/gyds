@@ -119,7 +119,7 @@
 		SELECT  political_status name,COUNT(*) value  from sys_user  
 		<where>
 		<if test="ids != null">
-		         	and left(t.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY political_status
@@ -128,7 +128,7 @@
 		SELECT  education name,COUNT(*) value  from sys_user  
 		<where>
 		<if test="ids != null">
-		         	and left(t.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY education
@@ -137,7 +137,7 @@
 		SELECT  post name,COUNT(*) value  from sys_user  
 		<where>
 		<if test="ids != null">
-		         	and left(t.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY post
@@ -146,10 +146,93 @@
 		SELECT  sex name,COUNT(*) c  from sys_user  
 		<where>
 		<if test="ids != null">
-		         	and left(t.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY sex
+	</select>
+	
+	<select id="getAgeCount" resultType="java.util.Map">
+		SELECT COUNT(*) value,age name from sys_user  
+		<where>
+		 			and age BETWEEN #{start} AND #{end}
+		<if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		 GROUP BY age 
+		 ORDER BY age
+	</select>
+	
+	<select id="getAgeAndActCount" resultType="java.util.Map">
+		SELECT COUNT(a.user_id) value,age name from sys_user u LEFT JOIN act_apply a on u.user_id = a.user_id  
+		<where>
+		 			age BETWEEN 16 AND 30
+		<if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		GROUP BY age ORDER BY age
+	</select>
+	
+	
+	<select id="getPointsCount" resultType="java.util.Map">
+		select COUNT(member_id) VALUE, member_id from points  GROUP BY member_id HAVING COUNT(member_id) BETWEEN #{star} and #{end}
+		<where>
+		<if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+	</select>
+	
+	<select id="getVolCount" resultType="java.util.Map">
+		SELECT count(*) value from volunteer 
+		<where>
+		<if test="starteTime != null">
+		and create_time &gt;= #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and create_time &lt;= #{endTime}
+		</if>
+		<if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+	</select>
+	
+	<select id="getPoinCount" resultType="java.util.Map">
+		SELECT count(*) value from points p left join volunteer v on p.member_id = v.user_id
+		<where>
+		<if test="starteTime != null">
+		and p.create_time &gt;= #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and p.create_time &lt;= #{endTime}
+		</if>
+		<if test="ids != null">
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+	</select>
+	
+	<select id="getProCount" resultType="java.util.Map">
+		SELECT count(*) value from proxybusi 
+		<where>
+		<if test="regionLevel != null and regionLevel != ''">
+			and region_level = #{regionLevel}
+		</if>
+		</where>
+	</select>
+	<select id="getCuxCount" resultType="java.util.Map">
+		SELECT count(*) value from cux_region 
+		<where>
+		<if test="regionLevel != null and regionLevel != ''">
+			and region_level = #{regionLevel}
+		</if>
+		</where>
+	</select>
+	<select id="getUserCount" resultType="java.util.Map">
+		SELECT count(*) value from sys_user 
 	</select>
 
 </mapper>

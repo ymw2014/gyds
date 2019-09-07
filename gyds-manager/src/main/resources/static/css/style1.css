@@ -99,7 +99,7 @@ header{
 	width: 50%;
 	height:200px;
 	float: left;
-	background:url(images/xiafang.png) no-repeat left;
+	background:url(../images/xiafang.png) no-repeat left;
 	background-size:90% 90%;
 	background-position:10px 10px;	
 }
@@ -267,7 +267,7 @@ header{
     width: 136px;
     height: 60px;
 	margin-left:10px;
-	background:url(images/fangpian.png) no-repeat;
+	background:url(../images/fangpian.png) no-repeat;
 	background-size:100% 100%;
 }
 .ssqq li>p{
@@ -318,14 +318,14 @@ header{
 .aqz{
 	width:100%;
 	height:618px;
-	background:url(images/sssss_02.png) no-repeat;
+	background:url(../images/sssss_02.png) no-repeat;
 	background-size:100% 100%;
 	float: left;
 }
 .aqz1{
 	width:100%;
 	height:56px;
-	background:url(images/sssss_01.png) no-repeat;
+	background:url(.//images/sssss_01.png) no-repeat;
 	background-size:100% 100%;
 	float: left;
 	text-align: center;

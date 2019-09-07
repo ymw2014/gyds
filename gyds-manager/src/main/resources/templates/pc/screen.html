@@ -33,7 +33,7 @@
 				  <p>成员概况</p>
 			  </div>
 			  <div class="zhutiLeft2">
-			  	<p th:each="sex :${sexCount}" th:utext="${sex.name==0}?'男:<span style='+'color:#edfc00;'+'>'+${sex.c}+'</span>':'女:<span style='+'color:#edfc00;'+'>'+${sex.c}+'</span>'">
+			  	<p th:each="sex :${sexCount}" th:utext="${sex.name==0}?'男:<span style='+'color:#edfc00;'+'>'+${sex.c}+'</span><span style='+'color:#20edfc;'+'>('+${sex.ratioSex}+')</span>':'女:<span style='+'color:#edfc00;'+'>'+${sex.c}+'</span><span style='+'color:#20edfc;'+'>('+${sex.ratioSex}+')</span>'">
 			  	<span style="color:#edfc00;" th:text="${sex.c}"></span>
 			  	<span style="color:#20edfc;">(45%)</span>
 			  	</p>
@@ -45,21 +45,13 @@
 				   <div>
 					   <p>年龄区间</p>
 					   <ul>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+					   		<li th:each="age : ${ageCount}" th:utext="${age.name}+'岁<span class='+'span11'+'>'+${age.value}+'</span> <span class='+'span22'+'>(35%)</span>'"></li>
 					   </ul>
 				   </div>
 				   <div>
 					  <p class="zhp">参与活动次数</p>
 					  <ul>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li th:each="ageAct : ${ageActCount}" th:utext="${ageAct.name}+'岁<span class='+'span11'+'>'+${ageAct.value}+'</span> <span class='+'span22'+'>(35%)</span>'"></li>
 					  </ul>
 					 
 				   </div>
@@ -71,21 +63,17 @@
 				   <div>
 					   <p>志愿者等级</p>
 					   <ul>
-						   <li>一星志愿者 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>二星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>三星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>四星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>五星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>一星志愿者 <span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>二星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>三星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>四星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>五星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
 					   </ul>
 				   </div>
 				   <div>
 					  <p >签到次数</p>
 					  <ul>
-						   <li>1000次以上<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>365~1000次<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>201~365次<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>31~200次 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>0~30次 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li th:each="pointsCount : ${pointsCountList}" th:utext="${pointsCount.name}+'<span class='+'span11'+'>'+${pointsCount.value}+'人</span> <span class='+'span22'+'>(35%)</span>'"></li>
 					  </ul>
 				   </div>
 			  </div>
@@ -102,23 +90,23 @@
 			  </div>
 			  <ul class="ssqq">
 				  <li>
-					  <p>123456789</p>
+					  <p id="tuandui" th:text="${createTeamCount}"></p>
 					  <span>团队入驻数</span>
 				  </li>
 				  <li>
-					  <p>123456789</p>
+					  <p id="shiming" th:text="${volCount}"></p>
 					  <span>实名成员数</span>
 				  </li>
 				  <li>
-					  <p>123456789</p>
+					  <p id="huodong" th:text="${publicActCount}"></p>
 					  <span>活动发布量</span>
 				  </li>
 				  <li>
-					  <p>123456789</p>
+					  <p id="zixun" th:text="${newsCounts}"></p>
 					  <span>咨询发布量</span>
 				  </li>
 				  <li>
-					  <p>123456789</p>
+					  <p id="qiandao" th:text="${poinCount}"></p>
 					  <span>今日签到</span>
 				  </li>
 			  </ul>
@@ -139,27 +127,27 @@
 				  </ul>
 				  <ul class="mingcheng">
 					  <li>省级</li>
-					  <li style="color:#edfc00;">34</li>
-					  <li>2</li>
-					  <li style="color:#029dad;">15%</li>
+					  <li style="color:#edfc00;" th:text="${cuxCount1.value}">34</li>
+					  <li th:text="${proCount1.value}">2</li>
+					  <li style="color:#029dad;" th:text="${ratio1}">15%</li>
 				  </ul>
 				   <ul class="mingcheng">
 					  <li>市级</li>
-					  <li style="color:#edfc00;">343</li>
-					  <li>2</li>
-					  <li style="color:#029dad;">15%</li>
+					  <li style="color:#edfc00;" th:text="${cuxCount2.value}">343</li>
+					  <li th:text="${proCount2.value}">2</li>
+					  <li style="color:#029dad;" th:text="${ratio2}">15%</li>
 				  </ul>
 				   <ul class="mingcheng">
 					  <li>县区级</li>
-					  <li style="color:#edfc00;">3424</li>
-					  <li>2</li>
-					  <li style="color:#029dad;">15%</li>
+					  <li style="color:#edfc00;" th:text="${cuxCount3.value}">3424</li>
+					  <li th:text="${proCount3.value}">2</li>
+					  <li style="color:#029dad;" th:text="${ratio3}">15%</li>
 				  </ul>
 				   <ul class="mingcheng">
 					  <li>街道乡镇</li>
-					  <li style="color:#edfc00;">342456</li>
-					  <li>2</li>
-					  <li style="color:#029dad;">15%</li>
+					  <li style="color:#edfc00;" th:text="${cuxCount4.value}">342456</li>
+					  <li th:text="${proCount4.value}">2</li>
+					  <li style="color:#029dad;" th:text="${ratio4}">15%</li>
 				  </ul>
 			  </div>
 		  </div>
@@ -271,14 +259,15 @@
 						<span>实时动态信息</span>
 					</div>
 					<ul>
+					暂未开放
+						<!-- <li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
 						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
 						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
 						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
 						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
 						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
 						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li> -->
 					</ul>
 				</div>	  
 		  </div> 
@@ -287,10 +276,6 @@
 </html>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-		 
-		 
-		
-		
 		 
 		 
 		 $.ajax({
@@ -541,106 +526,106 @@
     var provincesText = ['上海', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '重庆', '香港', '澳门'];
     var seriesData = [{
       name: '北京',
-      value: 100
+      value: 110000
     }, {
       name: '天津',
-      value: 0
+      value: 120000
     }, {
       name: '上海',
-      value: 60
+      value: 310000
     }, {
       name: '重庆',
-      value: 0
+      value: 500000
     }, {
       name: '河北',
-      value: 60
+      value: 130000
     }, {
       name: '河南',
-      value: 60
+      value: 410000
     }, {
       name: '云南',
-      value: 0
+      value: 530000
     }, {
       name: '辽宁',
-      value: 0
+      value: 210000
     }, {
       name: '黑龙江',
-      value: 0
+      value: 230000
     }, {
       name: '湖南',
-      value: 60
+      value: 430000
     }, {
       name: '安徽',
-      value: 0
+      value: 340000
     }, {
       name: '山东',
-      value: 60
+      value: 370000
     }, {
       name: '新疆',
-      value: 0
+      value: 650000
     }, {
       name: '江苏',
-      value: 0
+      value: 320000
     }, {
       name: '浙江',
-      value: 0
+      value: 330000
     }, {
       name: '江西',
-      value: 0
+      value: 360000
     }, {
       name: '湖北',
-      value: 60
+      value: 420000
     }, {
       name: '广西',
-      value: 60
+      value: 450000
     }, {
       name: '甘肃',
-      value: 0
+      value: 620000
     }, {
       name: '山西',
-      value: 60
+      value: 140000
     }, {
       name: '内蒙古',
-      value: 0
+      value: 150000
     }, {
       name: '陕西',
-      value: 0
+      value: 610000
     }, {
       name: '吉林',
-      value: 0
+      value: 220000
     }, {
       name: '福建',
-      value: 0
+      value: 350000
     }, {
       name: '贵州',
-      value: 0
+      value: 520000
     }, {
       name: '广东',
-      value: 597
+      value: 440000
     }, {
       name: '青海',
-      value: 0
+      value: 630000
     }, {
       name: '西藏',
-      value: 0
+      value: 540000
     }, {
       name: '四川',
-      value: 60
+      value: 510000
     }, {
       name: '宁夏',
-      value: 0
+      value: 640000
     }, {
       name: '海南',
-      value: 60
+      value: 460000
     }, {
       name: '台湾',
-      value: 0
+      value: 710000
     }, {
       name: '香港',
-      value: 0
+      value: 810000
     }, {
       name: '澳门',
-      value: 0
+      value: 820000
     }];
 
     oBack.onclick = function () {
@@ -652,7 +637,9 @@
     // 初始化echarts
     function initEcharts(pName, Chinese_) {
       var tmpSeriesData = pName === "china" ? seriesData : [];
-    var tmpSeriesData = pName === "    " ;
+      console.log(tmpSeriesData);
+   // var tmpSeriesData = pName === "    " ;
+    //console.log(tmpSeriesData);
       var option8 = {
         title: {
           text: '',
@@ -660,7 +647,21 @@
         },
           tooltip: {
               trigger: 'item',
-              formatter: '{b}<br/>{c} (p / km2)'
+              formatter :function(obj){
+            	  $.ajax({
+      				type : 'POST',
+      				data : {"id":obj.value},
+      				async: true,
+      				url : '/pc/screen/MapSurvey',
+      				success : function(res) {
+      					$('#tuandui').text(res.createTeamCount);
+      					$('#shiming').text(res.volCount);
+      					$('#huodong').text(res.publicActCount);
+      					$('#zixun').text(res.newsCount);
+      					$('#qiandao').text(res.poinCount);
+      				}
+            	  });
+              }
           },
         series: [
           {
