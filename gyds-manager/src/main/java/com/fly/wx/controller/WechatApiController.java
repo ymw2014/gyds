@@ -132,7 +132,7 @@ public class WechatApiController {
 					user.setNikeName(String.valueOf(json.get("nickname")));
 					user.setOpenId(String.valueOf(json.get("openid")));
 					user.setHeadImg(String.valueOf(json.get("headimgurl")));
-					user.setSex(String.valueOf(json.get("sex")).equals("男")?0:1);
+					//user.setSex(String.valueOf(json.get("sex")).equals("男")?0:1);
 					user.setStatus(1);
 					user.setCity(String.valueOf(json.get("city")));
 					user.setProvince(String.valueOf(json.get("province")));

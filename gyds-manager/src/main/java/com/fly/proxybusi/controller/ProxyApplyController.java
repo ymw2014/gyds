@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,18 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fly.domain.RegionDO;
-import com.fly.domain.UserDO;
 import com.fly.proxybusi.dao.ProxybusiDao;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.system.service.RegionService;
-import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
-import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamNameService;
-import com.fly.team.service.TeamService;
 import com.fly.utils.BeanUtil;
 import com.fly.utils.Dictionary;
 import com.fly.utils.JSONUtils;
