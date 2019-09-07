@@ -69,7 +69,7 @@ public class UserMemberController {
 			user.setNikeName(wxMpUser.getNickname());
 			user.setOpenId(wxMpUser.getOpenId());
 			user.setHeadImg(wxMpUser.getHeadImgUrl());
-			user.setSex(wxMpUser.getSex());
+			//user.setSex(wxMpUser.getSex());
 			user.setStatus(1);
 			user.setCity(wxMpUser.getCity());
 			user.setProvince(wxMpUser.getProvince());
