@@ -1,81 +1,72 @@
 package com.fly.test;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Test {
-	
+
 	public static void main(String[] args) {
 		/*
 		 * for (int i = 0; i < 50; i++) { Integer random =(int)
 		 * (Math.random()*(999-100+1)+100); System.out.println(random); }
 		 */
-		for (int i = 0; i < 10; i++) {
-            List<BigDecimal> moneys = math(BigDecimal.valueOf(10), 50);
-            if (moneys != null) {
-                BigDecimal b = new BigDecimal(0);
-                for (BigDecimal bigDecimal : moneys) {
-                    System.out.print(bigDecimal + "元    ");
-                    b = b.add(bigDecimal);
-                }
-                System.out.print("   总额：" + b+"元 ");
-                System.out.println();
-            }
-        }
-    }
+		/*
+		 * for (int i = 0; i < 10; i++) { List<BigDecimal> moneys =
+		 * math(BigDecimal.valueOf(10), 50); if (moneys != null) { BigDecimal b = new
+		 * BigDecimal(0); for (BigDecimal bigDecimal : moneys) {
+		 * System.out.print(bigDecimal + "元    "); b = b.add(bigDecimal); }
+		 * System.out.print("   总额：" + b+"元 "); System.out.println(); } } }
+		 * 
+		 *//**
+			 * 计算每人获得红包金额;最小每人0.01元
+			 * 
+			 * @param mmm    红包总额
+			 * @param number 人数
+			 * @return
+			 *//*
+				 * public static List<BigDecimal> math(BigDecimal mmm, int number) { if
+				 * (mmm.doubleValue() < number * 0.01) { return null; } Random random = new
+				 * Random(); // 金钱，按分计算 10块等于 1000分 int money =
+				 * mmm.multiply(BigDecimal.valueOf(100)).intValue(); // 随机数总额 double count = 0;
+				 * // 每人获得随机点数 double[] arrRandom = new double[number]; // 每人获得钱数
+				 * List<BigDecimal> arrMoney = new ArrayList<BigDecimal>(number); // 循环人数 随机点
+				 * for (int i = 0; i < arrRandom.length; i++) { int r = random.nextInt((number)
+				 * * 99) + 1; count += r; arrRandom[i] = r; } // 计算每人拆红包获得金额 int c = 0; for (int
+				 * i = 0; i < arrRandom.length; i++) { // 每人获得随机数相加 计算每人占百分比 Double x = new
+				 * Double(arrRandom[i] / count); // 每人通过百分比获得金额 int m = (int) Math.floor(x *
+				 * money); // 如果获得 0 金额，则设置最小值 1分钱 if (m == 0) { m = 1; } // 计算获得总额 c += m; //
+				 * 如果不是最后一个人则正常计算 if (i < arrRandom.length - 1) { arrMoney.add(new
+				 * BigDecimal(m).divide(new BigDecimal(100))); } else { //
+				 * 如果是最后一个人，则把剩余的钱数给最后一个人 arrMoney.add(new BigDecimal(money - c + m).divide(new
+				 * BigDecimal(100))); } } // 随机打乱每人获得金额 Collections.shuffle(arrMoney); return
+				 * arrMoney;
+				 */
+		
+		
+		/*
+		 * Calendar calendar = Calendar.getInstance(); int month =
+		 * calendar.get(Calendar.MONTH); calendar.set(Calendar.MONTH, month-1);
+		 * calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.
+		 * DAY_OF_MONTH)); Date strDateTo = calendar.getTime();
+		 * System.out.println(DateUtils.format(strDateTo));
+		 */
+		Map<String, Object> map = new HashMap<String, Object>();
+    	String firstDay,lastDay;
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    	//获取前年的第一天
+    	Calendar cal_1=Calendar.getInstance();//获取当前日期
+    	cal_1.add(Calendar.YEAR, 0);
+    	cal_1.set(Calendar.DAY_OF_YEAR,1);//设置为1号,当前日期既为本月第一天
+    	firstDay = format.format(cal_1.getTime());
+    	map.put("starteTime",firstDay);
+    	//获取前年的最后一天
+    	Calendar cale = Calendar.getInstance();
+    	lastDay = format.format(cale.getTime());
+    	map.put("endTime", lastDay);
+    	System.out.println(firstDay);
+    	System.out.println(lastDay);
+	}
 
-    /**
-     * 计算每人获得红包金额;最小每人0.01元
-     * @param mmm 红包总额
-     * @param number 人数
-     * @return
-     */
-    public static List<BigDecimal> math(BigDecimal mmm, int number) {
-        if (mmm.doubleValue() < number * 0.01) {
-            return null;
-        }
-        Random random = new Random();
-        // 金钱，按分计算 10块等于 1000分
-        int money = mmm.multiply(BigDecimal.valueOf(100)).intValue();
-        // 随机数总额
-        double count = 0;
-        // 每人获得随机点数
-        double[] arrRandom = new double[number];
-        // 每人获得钱数
-        List<BigDecimal> arrMoney = new ArrayList<BigDecimal>(number);
-        // 循环人数 随机点
-        for (int i = 0; i < arrRandom.length; i++) {
-            int r = random.nextInt((number) * 99) + 1;
-            count += r;
-            arrRandom[i] = r;
-        }
-        // 计算每人拆红包获得金额
-        int c = 0;
-        for (int i = 0; i < arrRandom.length; i++) {
-            // 每人获得随机数相加 计算每人占百分比
-            Double x = new Double(arrRandom[i] / count);
-            // 每人通过百分比获得金额
-            int m = (int) Math.floor(x * money);
-            // 如果获得 0 金额，则设置最小值 1分钱
-            if (m == 0) {
-                m = 1;
-            }
-            // 计算获得总额
-            c += m;
-            // 如果不是最后一个人则正常计算
-            if (i < arrRandom.length - 1) {
-                arrMoney.add(new BigDecimal(m).divide(new BigDecimal(100)));
-            } else {
-                // 如果是最后一个人，则把剩余的钱数给最后一个人
-                arrMoney.add(new BigDecimal(money - c + m).divide(new BigDecimal(100)));
-            }
-        }
-        // 随机打乱每人获得金额
-        Collections.shuffle(arrMoney);
-        return arrMoney;
-    }
-	  
 }

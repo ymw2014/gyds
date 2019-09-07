@@ -36,13 +36,21 @@
 			<img th:src="${activity.actTitleImg}" alt="">
 		</div>
 		<div class="header_cent">
-			<ul>
+			<ul>	
 				<li>
-					<img th:src="@{/mobile/images/hdxq_05.jpg}" alt=""><span th:text="${activity.actAddr}"></span>
+				<img th:src="@{/mobile/images/hdxq_09.jpg}" alt=""><span th:text="${activity.teamName}"></span>
 				</li>
 				<li>
-					<img th:src="@{/mobile/images/hdxq_09.jpg}" alt=""><span th:text="${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></span>
-
+				<img th:src="@{/mobile/images/hdxq_09.jpg}" alt=""><span th:text="${activity.typeName}"></span>
+				</li>
+				<li>
+					<img th:src="@{/mobile/images/hdxq_09.jpg}" alt=""><span th:text="${activity.actAddr}"></span>
+				</li>
+				<li>
+					<img th:src="@{/mobile/images/hdxq_05.jpg}" alt="">报名:<span th:text="${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></span>
+				</li>
+				<li>
+					<img th:src="@{/mobile/images/hdxq_05.jpg}" alt="">活动:<span th:text="${#dates.format(activity.activiStartTime,'YYYY-MM-dd HH')} + '~' + ${#dates.format(activity.activiEndTime,'YYYY-MM-dd HH')}"></span>
 				</li>
 				<li>
 					<img th:src="@{/mobile/images/hdxq_13.jpg}" alt=""><span th:text="${activity.actType == '0'} ? '免费': ${activity.actPrice}"></span>
