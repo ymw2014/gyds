@@ -57,8 +57,7 @@ public class Test {
 		 * System.out.println(DateUtils.format(strDateTo));
 		 */
 		
-		String r =NumberUtils.getPercent(15,100);
-		System.out.println(r);
+		NumberUtils.getRatio(0,1);
 	}
 
 }

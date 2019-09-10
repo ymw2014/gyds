@@ -101,7 +101,8 @@ public interface ScreenDao {
 	 * @param map
 	 * @return
 	 */
-	List<Map<String, Object>> getAgeCount(Map<String,Object> map);
+	Map<String, Object> getAgeCount(Map<String,Object> map);
+	
 	
 	/**
 	 * 统计年龄参加活动次数
@@ -111,12 +112,20 @@ public interface ScreenDao {
 	List<Map<String, Object>> getAgeAndActCount(Map<String,Object> map);
 	
 	/**
+	 * 总活动数
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getActCount(Map<String,Object> map);
+	
+	/**
 	 * 签到次数
 	 * @param map
 	 * @return
 	 */
 	List<Map<String, Object>> getPointsCount(Map<String,Object> map);
 	
+	Map<String, Object> getSigninCount(Map<String,Object> map);
 	/**
 	   *  实名成员数
 	 * @param map
@@ -151,4 +160,24 @@ public interface ScreenDao {
 	 * @return
 	 */
 	Map<String, Object> getUserCount(Map<String,Object> map);
+	
+	/**
+	 * 签到概况
+	 * @param map
+	 */
+	List<Map<String, Object>> getsigMon(Map<String,Object> map);
+	
+	/**
+	 * 参与活动次数排行
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getactOrder(Map<String,Object> map);
+	
+	/**
+	 * 月签到排名
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getsigOrder(Map<String,Object> map);
 }

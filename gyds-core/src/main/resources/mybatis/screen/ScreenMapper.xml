@@ -4,10 +4,10 @@
 <mapper namespace="com.fly.screen.dao.ScreenDao">
 
 	<select id="getOrgSurvey" resultType="java.util.Map">
-		SELECT  type_name name,COUNT(*) value  from team t left join team_type tt on t.team_type = tt.id 
+		SELECT  tt.type_name name,COUNT(*) value  from team t left join team_type tt on t.team_type = tt.id 
 		<where>
 		<if test="ids != null">
-		         	and left(t.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(t.id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY t.team_type
@@ -95,7 +95,7 @@
 		SELECT count(*) value, t.type_name name from activity a left join act_type t on a.act_type_id = t.id
 		<where>
 		 <if test="ids != null">
-		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(a.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		 GROUP BY name
@@ -116,68 +116,83 @@
 	</select>
 	
 	<select id="getPoliticsSurvey" resultType="java.util.Map">
-		SELECT  political_status name,COUNT(*) value  from sys_user  
+		SELECT  u.political_status name,COUNT(*) value  from sys_user u left join volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
-		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY political_status
 	</select>
 	<select id="getEducationSurvey" resultType="java.util.Map">
-		SELECT  education name,COUNT(*) value  from sys_user  
+		SELECT  u.education name,COUNT(*) value  from sys_user u left join volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
-		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY education
 	</select>
 	<select id="getPostSurvey" resultType="java.util.Map">
-		SELECT  post name,COUNT(*) value  from sys_user  
+		SELECT  u.post name,COUNT(*) value  from sys_user u left join volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
-		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY post
 	</select>
 	<select id="getSexCount" resultType="java.util.Map">
-		SELECT  sex name,COUNT(*) c  from sys_user  
+		SELECT  u.sex name,COUNT(*) c  from sys_user u left join volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
-		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		GROUP BY sex
 	</select>
 	
 	<select id="getAgeCount" resultType="java.util.Map">
-		SELECT COUNT(*) value,age name from sys_user  
+		SELECT COUNT(*) value from sys_user u LEFT JOIN volunteer v on u.user_id = v.user_id 
 		<where>
-		 			and age BETWEEN #{start} AND #{end}
+		 			and age BETWEEN #{star} AND #{end}
 		<if test="ids != null">
-		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
-		 GROUP BY age 
-		 ORDER BY age
 	</select>
 	
 	<select id="getAgeAndActCount" resultType="java.util.Map">
-		SELECT COUNT(a.user_id) value,age name from sys_user u LEFT JOIN act_apply a on u.user_id = a.user_id  
+		SELECT COUNT(a.user_id) value,a.user_id name from sys_user u LEFT JOIN act_apply a on u.user_id = a.user_id LEFT JOIN volunteer v on u.user_id = v.user_id 
 		<where>
-		 			age BETWEEN 16 AND 30
 		<if test="ids != null">
-		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
-		GROUP BY age ORDER BY age
+		GROUP BY a.user_id  HAVING value BETWEEN #{star} AND #{end}
+		
+	</select>
+	
+	<select id="getActCount" resultType="java.util.Map">
+		SELECT COUNT(*) value from act_apply a LEFT JOIN volunteer v on a.user_id = v.user_id
+		<if test="ids != null">
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
 	</select>
 	
 	
 	<select id="getPointsCount" resultType="java.util.Map">
-		select COUNT(member_id) VALUE, member_id from points  GROUP BY member_id HAVING COUNT(member_id) BETWEEN #{star} and #{end}
+		select COUNT(user_id) VALUE, user_id from signin  
+		<where>
+		<if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		GROUP BY user_id HAVING COUNT(user_id) BETWEEN #{star} and #{end}
+	</select>
+	
+	<select id="getSigninCount" resultType="java.util.Map">
+		select COUNT(*) value from signin 
 		<where>
 		<if test="ids != null">
 		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
@@ -235,4 +250,52 @@
 		SELECT count(*) value from sys_user 
 	</select>
 
+	<select id="getsigMon" resultType="java.util.Map">
+		SELECT count(*) value,MONTH(sigin_time) name from signin 
+		<where>
+		<if test="starteTime != null">
+		and sigin_time &gt;= #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and sigin_time &lt;= #{endTime}
+		</if>
+		<if test="ids != null">
+		         	and left(sigin_time,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		 GROUP BY MONTH(sigin_time)
+	</select>
+	
+	<select id="getactOrder" resultType="java.util.Map">
+	SELECT COUNT(*) value,u.name name from act_apply a LEFT JOIN sys_user u on a.user_id = u.user_id LEFT JOIN volunteer v on u.user_id = v. user_id
+	<where>
+	<if test="starteTime != null">
+		and a.create_time &gt;= #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and a.create_time &lt;= #{endTime}
+		</if>
+	<if test="ids != null">
+		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+	</where>
+	GROUP BY a.user_id ORDER BY value
+	</select>
+	
+	<select id="getsigOrder" resultType="java.util.Map">
+	SELECT COUNT(*) value, u.`name` name FROM signin s INNER  JOIN sys_user u on u.user_id = s.user_id
+	<where>
+	<if test="starteTime != null">
+		and s.sigin_time &gt;= #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and s.sigin_time &lt;= #{endTime}
+		</if>
+	<if test="ids != null">
+		         	and left(s.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+	</where>
+	GROUP BY s.user_id ORDER BY value
+	</select>
+	
 </mapper>

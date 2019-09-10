@@ -3,7 +3,6 @@ package com.fly.screen;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,21 +13,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.count.utils.NumberUtils;
+import com.fly.domain.UserDO;
+import com.fly.proxybusi.dao.ProxybusiDao;
+import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.screen.dao.ScreenDao;
 import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.DateUtils;
 
 @Controller
 @RequestMapping("/pc/screen")
-public class ScreenController {
+public class ScreenProController {
 	@Autowired
 	private ScreenDao screen;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private ProxybusiDao proxybusiDao;
 	
-	@RequestMapping("/queryScreen")
-	public String OrgSurvey(Model model){
+	@RequestMapping("/queryProScreen")
+	public String OrgProSurvey(Model model){
 		Map<String, Object> map = new HashMap<String, Object>();
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
+			Long id = proxybusi.getProxyRegion();
+			model.addAttribute("name", regionService.get(id).getRegionName());
+			String ids = regionService.getTeamAndAreaByUserRole(id);
+			map.put("ids",ids);
+		}
 		//实名志愿者数
 		List<Map<String, Object>> teamVo=screen.getTeamByVolSurvey(map);
 		//活动发布量
@@ -159,34 +172,6 @@ public class ScreenController {
 		actList.add(act);
 		
 		
-		//省级渠道概况
-		map.put("regionLevel", 1);
-		Map<String, Object> proCount1 =screen.getProCount(map);
-		Map<String, Object> cuxCount1 =screen.getCuxCount(map);
-		model.addAttribute("proCount1", proCount1);
-		model.addAttribute("cuxCount1", cuxCount1);
-		model.addAttribute("ratio1", NumberUtils.getPercent(proCount1.get("value"),cuxCount1.get("value")));
-		//市级渠道概况
-		map.put("regionLevel", 2);
-		Map<String, Object> proCount2 =screen.getProCount(map);
-		Map<String, Object> cuxCount2 =screen.getCuxCount(map);
-		model.addAttribute("proCount2", proCount2);
-		model.addAttribute("cuxCount2", cuxCount2);
-		model.addAttribute("ratio2", NumberUtils.getPercent(proCount2.get("value"),cuxCount2.get("value")));
-		//县区级渠道概况
-		map.put("regionLevel", 3);
-		Map<String, Object> proCount3 =screen.getProCount(map);
-		Map<String, Object> cuxCount3 =screen.getCuxCount(map);
-		model.addAttribute("proCount3", proCount3);
-		model.addAttribute("cuxCount3", cuxCount3);
-		model.addAttribute("ratio3", NumberUtils.getPercent(proCount3.get("value"),cuxCount3.get("value")));
-		//街道级渠道概况
-		map.put("regionLevel", 4);
-		Map<String, Object> proCount4 =screen.getProCount(map);
-		Map<String, Object> cuxCount4 =screen.getCuxCount(map);
-		model.addAttribute("proCount4", proCount4);
-		model.addAttribute("cuxCount4", cuxCount4);
-		model.addAttribute("ratio4", NumberUtils.getPercent(proCount4.get("value"),cuxCount4.get("value")));
 		
 		
 		//团队入驻数
@@ -286,7 +271,6 @@ public class ScreenController {
 		Map<String, Object> newsMon = screen.getPublicNewsCount(map);
 		
 		
-		map.clear();
 		map = DateUtils.firstLastDay1();
 		
 		//获取本个月创建团队第一天到当前时间
@@ -326,13 +310,20 @@ public class ScreenController {
 		model.addAttribute("publicActCount", publicActCount.get("value"));
 		model.addAttribute("newsCounts", newsCount.get("value"));
 		model.addAttribute("poinCount", poinCount.get("value"));
-		return "/pc/screen" ;
+		return "/pc/screenProxybusi" ;
 	}
 	
-	@RequestMapping("/ActTypeScreen")
+	@RequestMapping("/ProActTypeScreen")
 	@ResponseBody
-	public List<Map<String, Object>> queryActTypeScreen(){
+	public List<Map<String, Object>> queryProActTypeScreen(){
 		Map<String, Object> map = new HashMap<String, Object>();
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
+			Long id = proxybusi.getProxyRegion();
+			String ids = regionService.getTeamAndAreaByUserRole(id);
+			map.put("ids",ids);
+		}
 		List<Map<String, Object>> orgSurvey = screen.getPublicActTypeSurvey(map);
 		for (Map<String, Object> map2 : orgSurvey) {
 			if(map2.get("name")==null) {
@@ -341,10 +332,17 @@ public class ScreenController {
 		}
 		return orgSurvey ;
 	}
-	@RequestMapping("/OrgSurvey")
+	@RequestMapping("/ProOrgSurvey")
 	@ResponseBody
-	public List<Map<String, Object>> queryScreen(){
+	public List<Map<String, Object>> queryProScreen(){
 		Map<String, Object> map = new HashMap<String, Object>();
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
+			Long id = proxybusi.getProxyRegion();
+			String ids = regionService.getTeamAndAreaByUserRole(id);
+			map.put("ids",ids);
+		}
 		List<Map<String, Object>> orgSurvey = screen.getOrgSurvey(map);
 		for (Map<String, Object> map2 : orgSurvey) {
 			if(map2.get("name")==null) {
@@ -353,10 +351,19 @@ public class ScreenController {
 		}
 		return orgSurvey ;
 	}
-	@RequestMapping("/NewsMon")
+	@RequestMapping("/ProNewsMon")
 	@ResponseBody
-	public Map<String, Object> queryNewsMon(){
+	public Map<String, Object> queryProNewsMon(){
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
+			Long id = proxybusi.getProxyRegion();
+			String ids = regionService.getTeamAndAreaByUserRole(id);
+			map.put("ids",ids);
+		}
+		
 		Map<String, Object> outMap = new HashMap<String, Object>();
 		//获取 去年第一天与最后一天
 		map=DateUtils.firstLastYearDay();
@@ -399,10 +406,19 @@ public class ScreenController {
 		return outMap ;
 	}
 	
-	@RequestMapping("/PoliticsSurvey")
+	@RequestMapping("/ProPoliticsSurvey")
 	@ResponseBody
-	public List<Map<String, Object>> queryPoliticsSurvey(){
+	public List<Map<String, Object>> queryProPoliticsSurvey(){
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
+			Long id = proxybusi.getProxyRegion();
+			String ids = regionService.getTeamAndAreaByUserRole(id);
+			map.put("ids",ids);
+		}
+		
 		List<Map<String, Object>> politicsSurvey = screen.getPoliticsSurvey(map);
 		for (Map<String, Object> map2 : politicsSurvey) {
 			if(map2.get("name")==null) {
@@ -411,10 +427,19 @@ public class ScreenController {
 		}
 		return politicsSurvey ;
 	}
-	@RequestMapping("/EducationSurvey")
+	@RequestMapping("/ProEducationSurvey")
 	@ResponseBody
-	public List<Map<String, Object>> queryEducationSurvey(){
+	public List<Map<String, Object>> queryProEducationSurvey(){
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
+			Long id = proxybusi.getProxyRegion();
+			String ids = regionService.getTeamAndAreaByUserRole(id);
+			map.put("ids",ids);
+		}
+		
 		List<Map<String, Object>> educationSurvey = screen.getEducationSurvey(map);
 		for (Map<String, Object> map2 : educationSurvey) {
 			if(map2.get("name")==null) {
@@ -423,10 +448,19 @@ public class ScreenController {
 		}
 		return educationSurvey ;
 	}
-	@RequestMapping("/PostSurvey")
+	@RequestMapping("/ProPostSurvey")
 	@ResponseBody
-	public List<Map<String, Object>> queryPostSurvey(){
+	public List<Map<String, Object>> queryProPostSurvey(){
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
+			Long id = proxybusi.getProxyRegion();
+			String ids = regionService.getTeamAndAreaByUserRole(id);
+			map.put("ids",ids);
+		}
+		
 		List<Map<String, Object>> postSurvey = screen.getPostSurvey(map);
 		for (Map<String, Object> map2 : postSurvey) {
 			if(map2.get("name")==null) {
@@ -435,36 +469,22 @@ public class ScreenController {
 		}
 		return postSurvey ;
 	}
-	@RequestMapping("/AgeSurvey")
+	@RequestMapping("/ProAgeSurvey")
 	@ResponseBody
-	public Map<String, Object> queryAgeSurvey(){
+	public Map<String, Object> queryProAgeSurvey(){
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDO user = ShiroUtils.getUser();
+		if(user!=null) {
+			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
+			Long id = proxybusi.getProxyRegion();
+			String ids = regionService.getTeamAndAreaByUserRole(id);
+			map.put("ids",ids);
+		}
+		
 		Map<String, Object> ageCount = screen.getAgeCount(map);
 		return ageCount ;
 	}
 	
-	@RequestMapping("/MapSurvey")
-	@ResponseBody
-	public Map<String, Object> queryMapSurvey(Long id){
-		Map<String, Object> count = new HashMap<String, Object>();
-		Map<String, Object> map = new HashMap<String, Object>();
-		String ids = regionService.getTeamAndAreaByUserRole(id);
-		map.put("ids", ids);
-		Map<String, Object> createTeamCount = screen.getCreateTeamSurvey(map);
-		Map<String, Object> volCount = screen.getVolCount(map);
-		Map<String, Object> publicActCount = screen.getPublicActivitySurvey(map);
-		Map<String, Object> newsCount = screen.getPublicNewsCount(map);
-		Date star = DateUtils.weeHours(new Date(),0);
-		Date end = DateUtils.weeHours(new Date(),1);
-		map.put("starteTime",DateUtils.format(star));
-		map.put("endTime",DateUtils.format(end));
-		Map<String, Object> poinCount = screen.getPoinCount(map);
-		
-		count.put("createTeamCount", createTeamCount.get("value"));
-		count.put("volCount", volCount.get("value"));
-		count.put("publicActCount", publicActCount.get("value"));
-		count.put("newsCount", newsCount.get("value"));
-		count.put("poinCount", poinCount.get("value"));
-		return count ;
-	}
+	
 }
