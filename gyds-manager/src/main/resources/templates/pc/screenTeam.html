@@ -8,6 +8,15 @@
 		<script th:src="@{/js/echarts.min.js}"></script>
 		<script th:src="@{/js/china.js}"></script>
 	</head>
+	<style>
+	  .logoin img{
+	         width: 106px;
+    height: 106px;
+    border-radius: 50%;
+    margin-top: 54px;
+    margin-left: 54px;
+	  }
+	</style>
 	<body>
 		<!-- 头部 -->
 	  <header>
@@ -109,8 +118,8 @@
 						  <span>咨询发布量</span>
 					  </li>
 				 </ul>
-				 <div class="logoin">
-					 <img th:src="@{/images/logo_03.png}" alt="">
+				 <div class="logoin" style="width: 213px;height: 213px;background:url(/images/logo_03.png) no-repeat;background-size:100% 100%;">
+					 <img  th:src="${img}" style="">
 				 </div>
 			  </div>
 		  </div>

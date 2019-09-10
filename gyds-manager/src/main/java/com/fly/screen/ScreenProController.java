@@ -310,7 +310,7 @@ public class ScreenProController {
 		model.addAttribute("publicActCount", publicActCount.get("value"));
 		model.addAttribute("newsCounts", newsCount.get("value"));
 		model.addAttribute("poinCount", poinCount.get("value"));
-		return "/pc/screenProxybusi" ;
+		return "pc/screenProxybusi" ;
 	}
 	
 	@RequestMapping("/ProActTypeScreen")

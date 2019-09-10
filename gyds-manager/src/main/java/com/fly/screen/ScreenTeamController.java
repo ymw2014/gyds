@@ -42,6 +42,7 @@ public class ScreenTeamController {
 			TeamDO team = teamDao.getByUserId(user.getUserId());
 			Long id = team.getId();
 			model.addAttribute("name", team.getTeamName());
+			model.addAttribute("img", team.getTeamTitleImg());
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
 		}
@@ -53,6 +54,20 @@ public class ScreenTeamController {
 		List<Map<String, Object>> sexCount = screen.getSexCount(map);
 		//计算男女比例
 		Map<String, Object> userCount = screen.getUserCount(map);
+		if(sexCount.size()<2) {
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			Object sex = sexCount.get(0).get("name");
+			if(sex.equals(0)) {
+				map2.put("name", 1);
+				map2.put("c", 0);
+				sexCount.add(map2);
+			}
+			if(sex.equals(1)) {
+				map2.put("name", 0);
+				map2.put("c", 0);
+				sexCount.add(map2);
+			}
+		}
 		sexCount.get(0).put("ratioSex", NumberUtils.getPercent(sexCount.get(0).get("c"),userCount.get("value")));
 		sexCount.get(1).put("ratioSex", NumberUtils.getPercent(sexCount.get(1).get("c"),userCount.get("value")));
 		
@@ -324,7 +339,7 @@ public class ScreenTeamController {
 		model.addAttribute("publicActCount", publicActCount.get("value"));
 		model.addAttribute("newsCounts", newsCount.get("value"));
 		model.addAttribute("poinCount", poinCount.get("value"));
-		return "/pc/screenTeam" ;
+		return "pc/screenTeam" ;
 	}
 	
 	@RequestMapping("/TeamActTypeScreen")
