@@ -211,7 +211,7 @@ public class ScreenTeamController {
 		
 		List<Map<String, Object>> pointsCountList = new ArrayList<Map<String,Object>>();
 		Map<String, Object> pointsCountMap = new HashMap<String, Object>();
-		Map<String, Object> signinCount = screen.getSigninCount(map);
+		List<Map<String, Object>> signinCount = screen.getSigninCount(map);
 		
 		//签到次数
 		map.put("star", 1000);
@@ -222,7 +222,7 @@ public class ScreenTeamController {
 		}else {
 			pointsCountMap.put("value",pointsCount.size());
 		}
-		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.get("value")));
+		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.size()));
 		pointsCountMap.put("name", "1000次以上");
 		pointsCountList.add(pointsCountMap);
 		
@@ -235,7 +235,7 @@ public class ScreenTeamController {
 		}else {
 			pointsCountMap.put("value",pointsCount.size());
 		}
-		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.get("value")));
+		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.size()));
 		pointsCountMap.put("name", "365~1000次");
 		pointsCountList.add(pointsCountMap);
 		
@@ -248,7 +248,7 @@ public class ScreenTeamController {
 		}else {
 			pointsCountMap.put("value",pointsCount.size());
 		}
-		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.get("value")));
+		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.size()));
 		pointsCountMap.put("name", "201~365次");
 		pointsCountList.add(pointsCountMap);
 		
@@ -261,7 +261,7 @@ public class ScreenTeamController {
 		}else {
 			pointsCountMap.put("value",pointsCount.size());
 		}
-		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.get("value")));
+		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.size()));
 		pointsCountMap.put("name", "31~200次");
 		pointsCountList.add(pointsCountMap);
 		
@@ -274,7 +274,7 @@ public class ScreenTeamController {
 		}else {
 			pointsCountMap.put("value",pointsCount.size());
 		}
-		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.get("value")));
+		pointsCountMap.put("ratio",NumberUtils.getPercent(pointsCount.size(),signinCount.size()));
 		pointsCountMap.put("name", "0~30次");
 		pointsCountList.add(pointsCountMap);
 		
@@ -430,29 +430,16 @@ public class ScreenTeamController {
 		}
 		
 		Map<String, Object> outMap = new HashMap<String, Object>();
-		//获取 去年第一天与最后一天
-		map=DateUtils.firstLastYearDay();
-		List<Map<String, Object>> newsMon = screen.getPublicNewsMon(map);
 		//获取 今年第一天与最后一天
 		map=DateUtils.firstLastYearDay1();
 		List<Map<String, Object>> newsMon1 = screen.getPublicNewsMon(map);
+		List<Map<String, Object>> commMon = screen.getCommMon(map);
+		List<Map<String, Object>> dyMon = screen.getDyMon(map);
 		List<Integer> list = new ArrayList<Integer>();
 		List<Integer> list1 = new ArrayList<Integer>();
+		List<Integer> list2 = new ArrayList<Integer>();
 		int o = 0;
 		Object n= 0;
-		for (int i = 0; i < 12; i++) {
-				if(o<newsMon.size()) {
-					n = newsMon.get(o).get("name");
-				}
-				if(n.equals(i+1)) {
-					list.add(Integer.parseInt(newsMon.get(o).get("value").toString()));
-					o++;
-				}else {
-					list.add(0);
-				}
-		}	
-		 o = 0;
-		 n=null;
 		for (int i = 0; i < 12; i++) {
 				if(o<newsMon1.size()) {
 					n = newsMon1.get(o).get("name");
@@ -463,9 +450,38 @@ public class ScreenTeamController {
 				}else {
 					list1.add(0);
 				}
-		}	
-		//去年数据
-		outMap.put("newList", list);
+		}
+		
+		 o = 0;
+		 n= 0;
+		for (int i = 0; i < 12; i++) {
+			if(o<commMon.size()) {
+				n = commMon.get(o).get("name");
+			}
+			if(n.equals(i+1)) {
+				list.add(Integer.parseInt(commMon.get(o).get("value").toString()));
+				o++;
+			}else {
+				list.add(0);
+			}
+	}	
+		 o = 0;
+		 n= 0;
+		for (int i = 0; i < 12; i++) {
+			if(o<dyMon.size()) {
+				n = dyMon.get(o).get("name");
+			}
+			if(n.equals(i+1)) {
+				list2.add(Integer.parseInt(dyMon.get(o).get("value").toString()));
+				o++;
+			}else {
+				list2.add(0);
+			}
+	}	
+		//今年转发数据
+		outMap.put("list2", list2);
+		//今年评论数据
+		outMap.put("list", list);
 		//今年数据
 		outMap.put("newList1", list1);
 		return outMap ;

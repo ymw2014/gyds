@@ -31,7 +31,7 @@
 				  <img th:src="@{/images/right.png}" alt="">
 			  </div>
 			  <div class="headerdeta">
-				  <p>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}]]</p>
+				  <p>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}]]</p>
 			  </div>
 		  </div>
 	  </header>
@@ -134,15 +134,15 @@
 				<div class="zhutiRight1-1">
 					<div>
 						<p style="text-align: left;">上个月签到量</p>
-						<p style="color:#edfc00;" th:text="${poCount.value}"></p>
+						<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${poCount.value}"></p>
 					</div>
 					<div>
 						<p style="text-align: left;">本月签到量</p>
-						<p style="color:#edfc00;" th:text="${poCount1.value}"></p>
+						<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${poCount1.value}"></p>
 					</div>
 					<div>
 						<p style="text-align: left;">增长率</p>
-						<p style="color:#ff0000;" th:text="${poRatio}"></p>
+						<p style="color:#ff0000;line-height:30px;" th:text="${poRatio}"></p>
 					</div>
 				</div>
 			</div>
@@ -191,21 +191,24 @@
 					<div class="zhutiRight1-1 huodong2">
 						<div>
 							<p style="text-align: left;">上个月发布量</p>
-							<p style="color:#edfc00;" th:text="${creAct.value}"></p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creAct.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">本月发布量</p>
-							<p style="color:#edfc00;" th:text="${creAct1.value}"></p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creAct1.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">增长率</p>
-							<p style="color:#ff0000;" th:text="${actRatio}"></p>
+							<p style="color:#ff0000;line-height:30px;" th:text="${actRatio}"></p>
 						</div>
 					</div>
 				</div>
 		  		<div class="zhutiFooter2">
 					<div class="huodong">
 						<span>资讯发布</span>
+						<div class="huo1"><span></span>	转发量</div>
+						<div class="huo2"><span></span> 评论量</div>
+						<div class="huo3"><span></span> 发布量</div>
 					</div>
 					<div class="huodon1" id="mind2">
 					
@@ -213,15 +216,15 @@
 					<div class="zhutiRight1-1 huodong2">
 						<div>
 							<p style="text-align: left;">上个月发布量</p>
-							<p style="color:#edfc00;" th:text="${newsCount.value}"></p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${newsCount.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">本月发布量</p>
-							<p style="color:#edfc00;" th:text="${newsCount1.value}"></p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${newsCount1.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">增长率</p>
-							<p style="color:#ff0000;" th:text="${newsRatio}"></p>
+							<p style="color:#ff0000;line-height:30px;" th:text="${newsRatio}"></p>
 						</div>
 					</div>
 				</div>
@@ -239,7 +242,15 @@
 </html>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-		
+		$().ready(function(){
+	lod();
+	var myVar = setInterval(lod, 1000*10);
+	var myVar1 = setInterval(re, 1000*60*60);
+})
+function re(){
+	history.go(0);
+        }
+function lod(){
 		 $.ajax({
 				type : 'POST',
 				data : {},
@@ -475,9 +486,10 @@
 								color:"#fff",
 							    fontSize:12
 							},
-							  legend: {
-							    data:['邮件营销','联盟广告']
+							 legend: {
+							    data:['发布量','转发量']
 							},
+							
 							grid: {
 								left: '1%',
 								right: '4%',
@@ -489,10 +501,19 @@
 								type: 'value'
 							},
 							series: [{
-								data: res.newList,
+								name :'评论',
+								color: '#42a0ae',
+								data: res.list,
 								type: 'line'
 							},{
+								name:'发布',
+								color: '#e7696c',
 								data: res.newList1,
+								type: 'line'
+							},{
+								name:'转发',
+								color: '#999e41',
+								data: res.list2,
 								type: 'line'
 							},]
 				};
@@ -500,5 +521,5 @@
 						mind2.setOption(option6);
 				}
 		 });
-		
+}
 </script>

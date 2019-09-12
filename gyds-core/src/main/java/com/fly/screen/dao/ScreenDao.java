@@ -125,7 +125,7 @@ public interface ScreenDao {
 	 */
 	List<Map<String, Object>> getPointsCount(Map<String,Object> map);
 	
-	Map<String, Object> getSigninCount(Map<String,Object> map);
+	List<Map<String, Object>> getSigninCount(Map<String,Object> map);
 	/**
 	   *  实名成员数
 	 * @param map
@@ -180,4 +180,18 @@ public interface ScreenDao {
 	 * @return
 	 */
 	List<Map<String, Object>> getsigOrder(Map<String,Object> map);
+	
+	/**
+	 * 今年评论量
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getCommMon(Map<String,Object> map);
+	
+	/**
+	 * 今年转发量
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getDyMon(Map<String,Object> map);
 }

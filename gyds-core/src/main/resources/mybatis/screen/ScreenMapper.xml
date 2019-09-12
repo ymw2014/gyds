@@ -76,6 +76,38 @@
 		 GROUP BY MONTH(create_time)
 	</select>
 	
+	<select id="getCommMon" resultType="java.util.Map">
+		SELECT count(*) value,MONTH(c.create_time) name from new_comment c left join new_info n on c.news_id=n.id
+		<where>
+		<if test="starteTime != null">
+		and c.create_time &gt;= #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and c.create_time &lt;= #{endTime}
+		</if>
+		<if test="ids != null">
+		         	and left(n.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		 GROUP BY MONTH(c.create_time)
+	</select>
+	
+	<select id="getDyMon" resultType="java.util.Map">
+		SELECT count(*) value,MONTH(c.creat_time) name from new_dynamic c left join new_info n on c.news_id=n.id
+		<where>
+		<if test="starteTime != null">
+		and c.creat_time &gt;= #{starteTime}
+		</if>
+		<if test="endTime != null">
+		and c.creat_time &lt;= #{endTime}
+		</if>
+		<if test="ids != null">
+		         	and left(n.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+		</where>
+		 GROUP BY MONTH(c.creat_time)
+	</select>
+	
 	<select id="getPublicNewsCount" resultType="java.util.Map">
 		SELECT count(*) value from new_info 
 		<where>
@@ -175,9 +207,11 @@
 	
 	<select id="getActCount" resultType="java.util.Map">
 		SELECT COUNT(*) value from act_apply a LEFT JOIN volunteer v on a.user_id = v.user_id
+		<where>
 		<if test="ids != null">
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
+		 </where>
 	</select>
 	
 	
@@ -198,6 +232,7 @@
 		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
+		GROUP BY user_id
 	</select>
 	
 	<select id="getVolCount" resultType="java.util.Map">

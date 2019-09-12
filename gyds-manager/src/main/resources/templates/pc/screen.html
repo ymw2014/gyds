@@ -22,7 +22,7 @@
 				  <img th:src="@{/images/right.png}" alt="">
 			  </div>
 			  <div class="headerdeta">
-				  <p>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}]]</p>
+				  <p>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}]]</p>
 			  </div>
 		  </div>
 	  </header>
@@ -162,15 +162,15 @@
 				<div class="zhutiRight1-1">
 					<div>
 						<p style="text-align: left;">上个月入驻量</p>
-						<p style="color:#edfc00;" th:text="${creTeam.value}"></p>
+						<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creTeam.value}"></p>
 					</div>
 					<div>
 						<p style="text-align: left;">本月入驻量</p>
-						<p style="color:#edfc00;" th:text="${creTeam1.value}"></p>
+						<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creTeam1.value}"></p>
 					</div>
 					<div>
 						<p style="text-align: left;">增长率</p>
-						<p style="color:#ff0000;" th:text="${creRatio}"></p>
+						<p style="color:#ff0000;line-height:30px;" th:text="${creRatio}"></p>
 					</div>
 				</div>
 			</div>
@@ -220,21 +220,24 @@
 					<div class="zhutiRight1-1 huodong2">
 						<div>
 							<p style="text-align: left;">上个月发布量</p>
-							<p style="color:#edfc00;" th:text="${creAct.value}"></p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creAct.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">本月发布量</p>
-							<p style="color:#edfc00;" th:text="${creAct1.value}"></p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creAct1.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">增长率</p>
-							<p style="color:#ff0000;"th:text="${actRatio}"></p>
+							<p style="color:#ff0000;line-height:30px;"th:text="${actRatio}"></p>
 						</div>
 					</div>
 				</div>
 		  		<div class="zhutiFooter2">
 					<div class="huodong">
 						<span>资讯发布</span>
+						<div class="huo1"><span></span>	转发量</div>
+						<div class="huo2"><span></span> 评论量</div>
+						<div class="huo3"><span></span> 发布量</div>
 					</div>
 					<div class="huodon1" id="mind2">
 					
@@ -242,15 +245,15 @@
 					<div class="zhutiRight1-1 huodong2">
 						<div>
 							<p style="text-align: left;">上个月发布量</p>
-							<p style="color:#edfc00;" th:text="${newsCount.value}"></p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${newsCount.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">本月发布量</p>
-							<p style="color:#edfc00;" th:text="${newsCount1.value}"></p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${newsCount1.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">增长率</p>
-							<p style="color:#ff0000;" th:text="${newsRatio}"></p>
+							<p style="color:#ff0000;line-height:30px;" th:text="${newsRatio}"></p>
 						</div>
 					</div>
 				</div>
@@ -276,18 +279,71 @@
 </html>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-		 
-		 
-		 $.ajax({
-				type : 'POST',
-				data : {},
-				async: true,
-				url : '/pc/screen/PoliticsSurvey',
-				success : function(res) {
-					// 指定图表的配置项和数据
-			        var  option = {
+$().ready(function(){
+	lod();
+	var myVar = setInterval(lod, 1000*10);
+	var myVar1 = setInterval(re, 1000*60*60);
+})
+function re(){
+	history.go(0);
+        }
+function lod(){
+	 $.ajax({
+			type : 'POST',
+			data : {},
+			async: true,
+			url : '/pc/screen/PoliticsSurvey',
+			success : function(res) {
+				// 指定图表的配置项和数据
+		        var  option = {
+					title : {
+						subtext: '政治面貌',
+						x:'center',
+						y:'80',
+					},
+					textStyle:{
+							
+					},
+					tooltip : {
+						trigger: 'item',
+						formatter: "{a} <br/>{b} : {c} ({d}%)"
+					},
+					series : [
+						{
+							name: '访问来源',
+							type: 'pie',
+		                    radius:  ['50%', '70%'],
+							data: res,
+							label: {
+				                normal: {
+				                    formatter: '{b} : {c} ({d}%)',
+				                }
+				            },
+							itemStyle: {
+								emphasis: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)'
+									
+								}
+							}
+						},
+					]
+				};
+		        var myChart = echarts.init(document.getElementById('zhutiLeft3'));
+		        myChart.setOption(option);
+			}
+	 });
+	
+	 $.ajax({
+			type : 'POST',
+			data : {},
+			async: true,
+			url : '/pc/screen/EducationSurvey',
+			success : function(res) {
+				var  option1 = {
 						title : {
-							subtext: '政治面貌',
+							subtext: '学历状态',
 							x:'center',
 							y:'80',
 						},
@@ -302,246 +358,211 @@
 							{
 								name: '访问来源',
 								type: 'pie',
-			                    radius:  ['50%', '70%'],
-								data: res,
-								label: {
+					            radius:  ['50%', '70%'],
+					            label: {
 					                normal: {
 					                    formatter: '{b} : {c} ({d}%)',
 					                }
 					            },
+								data:res,
 								itemStyle: {
 									emphasis: {
 										shadowBlur: 10,
 										shadowOffsetX: 0,
 										shadowColor: 'rgba(0, 0, 0, 0.5)'
-										
 									}
 								}
-							},
+							}
 						]
 					};
-			        var myChart = echarts.init(document.getElementById('zhutiLeft3'));
-			        myChart.setOption(option);
-				}
-		 });
-		
-		 $.ajax({
-				type : 'POST',
-				data : {},
-				async: true,
-				url : '/pc/screen/EducationSurvey',
-				success : function(res) {
-					var  option1 = {
-							title : {
-								subtext: '学历状态',
-								x:'center',
-								y:'80',
-							},
-							textStyle:{
-									
-							},
-							tooltip : {
-								trigger: 'item',
-								formatter: "{a} <br/>{b} : {c} ({d}%)"
-							},
-							series : [
-								{
-									name: '访问来源',
-									type: 'pie',
-						            radius:  ['50%', '70%'],
-						            label: {
-						                normal: {
-						                    formatter: '{b} : {c} ({d}%)',
-						                }
-						            },
-									data:res,
-									itemStyle: {
-										emphasis: {
-											shadowBlur: 10,
-											shadowOffsetX: 0,
-											shadowColor: 'rgba(0, 0, 0, 0.5)'
-										}
+					var myChart1 = echarts.init(document.getElementById('zhutiLeft5'));
+					myChart1.setOption(option1);
+				
+			}
+	 });
+	
+	
+	 $.ajax({
+			type : 'POST',
+			data : {},
+			async: true,
+			url : '/pc/screen/PostSurvey',
+			success : function(res) {
+				var  option2 = {
+						title : {
+							subtext: '从业状态',
+							x:'center',
+							y:'80',
+						},
+						textStyle:{
+								
+						},
+						tooltip : {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+						},
+						series : [
+							{
+								name: '访问来源',
+								type: 'pie',
+					            radius:  ['50%', '70%'],
+					            label: {
+					                normal: {
+					                    formatter: '{b} : {c} ({d}%)',
+					                }
+					            },
+								data:res,
+								itemStyle: {
+									emphasis: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
 									}
 								}
-							]
-						};
-						var myChart1 = echarts.init(document.getElementById('zhutiLeft5'));
-						myChart1.setOption(option1);
-					
-				}
-		 });
-		
-		
-		 $.ajax({
-				type : 'POST',
-				data : {},
-				async: true,
-				url : '/pc/screen/PostSurvey',
-				success : function(res) {
-					var  option2 = {
-							title : {
-								subtext: '从业状态',
-								x:'center',
-								y:'80',
-							},
-							textStyle:{
-									
-							},
-							tooltip : {
-								trigger: 'item',
-								formatter: "{a} <br/>{b} : {c} ({d}%)"
-							},
-							series : [
-								{
-									name: '访问来源',
-									type: 'pie',
-						            radius:  ['50%', '70%'],
-						            label: {
-						                normal: {
-						                    formatter: '{b} : {c} ({d}%)',
-						                }
-						            },
-									data:res,
-									itemStyle: {
-										emphasis: {
-											shadowBlur: 10,
-											shadowOffsetX: 0,
-											shadowColor: 'rgba(0, 0, 0, 0.5)'
-										}
+							}
+						]
+					};
+					var myChart2 = echarts.init(document.getElementById('zhutiLeft6'));
+					myChart2.setOption(option2);
+			}
+	 });
+	
+	
+	
+	 $.ajax({
+			type : 'POST',
+			data : {},
+			async: true,
+			url : '/pc/screen/OrgSurvey',
+			success : function(res) {
+				var  option4 = {
+						textStyle:{
+								
+						},
+						tooltip : {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+						},
+						series : [
+							{
+								name: '访问来源',
+								type: 'pie',
+					            radius : '55%',
+			                    center: ['50%', '60%'],
+			                    label: {
+					                normal: {
+					                    formatter: '{b} : {c} ({d}%)',
+					                }
+					            },
+								data:res,
+								itemStyle: {
+									emphasis: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
 									}
 								}
-							]
-						};
-						var myChart2 = echarts.init(document.getElementById('zhutiLeft6'));
-						myChart2.setOption(option2);
-				}
-		 });
-		
-		
-		
-		 $.ajax({
-				type : 'POST',
-				data : {},
-				async: true,
-				url : '/pc/screen/OrgSurvey',
-				success : function(res) {
-					var  option4 = {
-							textStyle:{
-									
-							},
-							tooltip : {
-								trigger: 'item',
-								formatter: "{a} <br/>{b} : {c} ({d}%)"
-							},
-							series : [
-								{
-									name: '访问来源',
-									type: 'pie',
-						            radius : '55%',
-				                    center: ['50%', '60%'],
-				                    label: {
-						                normal: {
-						                    formatter: '{b} : {c} ({d}%)',
-						                }
-						            },
-									data:res,
-									itemStyle: {
-										emphasis: {
-											shadowBlur: 10,
-											shadowOffsetX: 0,
-											shadowColor: 'rgba(0, 0, 0, 0.5)'
-										}
+							}
+						]
+					};
+					var mind = echarts.init(document.getElementById('mind'));
+					mind.setOption(option4);
+			}
+		});
+	
+	 $.ajax({
+			type : 'POST',
+			data : {},
+			async: true,
+			url : '/pc/screen/ActTypeScreen',
+			success : function(res) {
+				var  option5 = {
+						textStyle:{
+								
+						},
+						tooltip : {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+						},
+						series : [
+							{
+								name: '访问来源',
+								type: 'pie',
+					            radius : '55%',
+					            center: ['50%', '60%'],
+					            label: {
+					                normal: {
+					                    formatter: '{b} : {c} ({d}%)',
+					                }
+					            },
+								data: res,
+								itemStyle: {
+									emphasis: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
 									}
 								}
-							]
-						};
-						var mind = echarts.init(document.getElementById('mind'));
-						mind.setOption(option4);
-				}
+							}
+						]
+					};
+					var mind1 = echarts.init(document.getElementById('mind1'));
+					mind1.setOption(option5);
+			}
 			});
+	
+	
+	 $.ajax({
+			type : 'POST',
+			data : {},
+			async: true,
+			url : '/pc/screen/NewsMon',
+			success : function(res) {
+				var option6 = {
+						xAxis: {
+							type: 'category',
+							data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月','8月','9月','10月','11月','12月']
+						},
+						textStyle:{
+							color:"#fff",
+						    fontSize:12
+						},
+						  legend: {
+						    data:['邮件营销','联盟广告']
+						},
+						grid: {
+							left: '1%',
+							right: '4%',
+							bottom: '1%',
+							top:"6%",
+							containLabel: true
+						},
+						yAxis: {
+							type: 'value'
+						},
+						series: [{
+							name :'评论',
+							color: '#42a0ae',
+							data: res.list,
+							type: 'line'
+						},{
+							name:'发布',
+							color: '#e7696c',
+							data: res.newList1,
+							type: 'line'
+						},{
+							name:'转发',
+							color: '#999e41',
+							data: res.list2,
+							type: 'line'
+						},]
+			};
+					var mind2 = echarts.init(document.getElementById('mind2'));
+					mind2.setOption(option6);
+			}
+	 });
+        }
 		
-		 $.ajax({
-				type : 'POST',
-				data : {},
-				async: true,
-				url : '/pc/screen/ActTypeScreen',
-				success : function(res) {
-					var  option5 = {
-							textStyle:{
-									
-							},
-							tooltip : {
-								trigger: 'item',
-								formatter: "{a} <br/>{b} : {c} ({d}%)"
-							},
-							series : [
-								{
-									name: '访问来源',
-									type: 'pie',
-						            radius : '55%',
-						            center: ['50%', '60%'],
-						            label: {
-						                normal: {
-						                    formatter: '{b} : {c} ({d}%)',
-						                }
-						            },
-									data: res,
-									itemStyle: {
-										emphasis: {
-											shadowBlur: 10,
-											shadowOffsetX: 0,
-											shadowColor: 'rgba(0, 0, 0, 0.5)'
-										}
-									}
-								}
-							]
-						};
-						var mind1 = echarts.init(document.getElementById('mind1'));
-						mind1.setOption(option5);
-				}
-				});
-		
-		
-		 $.ajax({
-				type : 'POST',
-				data : {},
-				async: true,
-				url : '/pc/screen/NewsMon',
-				success : function(res) {
-					var option6 = {
-							xAxis: {
-								type: 'category',
-								data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月','8月','9月','10月','11月','12月']
-							},
-							textStyle:{
-								color:"#fff",
-							    fontSize:12
-							},
-							  legend: {
-							    data:['邮件营销','联盟广告']
-							},
-							grid: {
-								left: '1%',
-								right: '4%',
-								bottom: '1%',
-								top:"6%",
-								containLabel: true
-							},
-							yAxis: {
-								type: 'value'
-							},
-							series: [{
-								data: res.newList,
-								type: 'line'
-							},{
-								data: res.newList1,
-								type: 'line'
-							},]
-				};
-						var mind2 = echarts.init(document.getElementById('mind2'));
-						mind2.setOption(option6);
-				}
-		 });
 				
 				
 </script>
