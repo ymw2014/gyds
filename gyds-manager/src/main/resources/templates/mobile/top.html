@@ -8,13 +8,13 @@
 			<div class="col-sm-12">
 				<div class="ibox float-e-margins">
 					<form class="form-horizontal m-t" id="signupForm">
-						<div class="ibox-content" style="height: 210px;">
+						<div class="ibox-content" style="height:auto;">
 							<div class="form-group">
 								<input type="hidden" th:value="${newsId}" name="newsId">
 								<label class="col-sm-2 control-label">置顶天数：<span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-									<select name="topCount" id="topDays">
+									<select name="topCount" id="topDays" style="width: 300px; height: 80px">
 									    <option>请选择天数</option>
 										<option th:each=" top : ${topCount}" th:value="${top.count}" th:text="${top.count}"></option>
 									</select>
@@ -24,7 +24,7 @@
 								<label class="col-sm-2 control-label">置顶地区：<span
 									class="text-danger">*</span></label>
 								<div class="col-sm-8">
-										<select name="topReg" id="topReg" onchange="topReg1()">
+										<select name="topReg" id="topReg" onchange="topReg1()" style="width: 300px; height: 80px">
 										 <option>请选择地区</option>
 										<option th:each=" region : ${region}" th:value="${region.region}" th:text="${region.name}"></option>
 									</select>
@@ -34,7 +34,7 @@
 								<label class="col-sm-2 control-label">费用(单位:元)：<span
 									class="text-danger"></span></label>
 								<div class="col-sm-8">
-									<input class="form-control"  type="text" name="count" id="count" value="0">
+									<input disabled="disabled" class="form-control"  type="text" name="count" id="count" value="0">
 								</div>
 							</div>
 							<div class="col-sm-8 col-sm-offset-3" id="sub">

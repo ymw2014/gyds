@@ -78,6 +78,8 @@ public class ActivityController {
 	@RequiresPermissions("activity:activity:audit")
 	String audit(@PathVariable("id") Integer id,Model model){
 		ActivityDO activity = activityService.get(id);
+		List<TypeDO> typeList = typeDao.list1();
+		model.addAttribute("typeList",typeList);
 		model.addAttribute("activity", activity);
 	    return "activity/activity/audit";
 	}

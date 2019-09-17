@@ -57,8 +57,16 @@ public class ProxybusiDO implements Serializable {
 	private Long  proxyRegion;
 	
 	private String proxyRegionName;
+	//地区图片
+	private String regImg;
 	
 	
+	public String getRegImg() {
+		return regImg;
+	}
+	public void setRegImg(String regImg) {
+		this.regImg = regImg;
+	}
 	public String getProxyTelephone() {
 		return proxyTelephone;
 	}

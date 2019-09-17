@@ -68,9 +68,9 @@
  -->			</div>
 			<div class="headercent">公益打赏</div>
 			<div class="headerright">
-				<img src="images/dian.png" alt="">
-				<img src="images/dian.png" alt="">
-				<img src="images/dian.png" alt="">
+				<img th:src="@{/mobile/images/dian.png}" alt="">
+				<img th:src="@{/mobile/images/dian.png}" alt="">
+				<img th:src="@{/mobile/images/dian.png}" alt="">
 			</div>
 		</div>
 		<div class="gycent">
@@ -82,12 +82,13 @@
 			<a th:if=" ${is_attention} eq '0'" href="/login" id="guanzhu">+关注</a>
 			<input type="hidden" th:value="${team.id}" id="teamId">
 			<a th:if=" ${is_attention} eq '2'" href="javascript:;" id="guanzhu" onclick="attention()">+关注</a>
+			<a th:if=" ${is_attention} eq '1'"  id="guanzhu" >已关注</a>
 			</div>
 			<div class="gycent2" th:utext="${info.content}">
 			</div>
 			<div class="gycent3">
 				<span>有您的支持是我们最大的动力</span>
-				<a href="" class="btn2" onclick="reward()"><img src="" alt="" >打赏</a>
+				<a  class="btn2" onclick="reward()"><img th:src="@{/pc/images/dashang.png}" >打赏</a>
 				<p th:text="${'已有'+reCountUser+'人打赏'}"></p>
 			</div>
 			<!-- 打赏!! -->
@@ -207,7 +208,7 @@
 		</div>
 		<div class="listpl-2">
 			<div class="listpl-2-1">
-				<img src="images/touxiang5.png" alt="">
+				<img th:src="@{/mobile/images/touxiang5.png}" alt="">
 			</div>
 			<div class="listpl-2-2">
 				<textarea placeholder="说两句吧..." id="comm"></textarea>
@@ -220,13 +221,13 @@
 		<div class="listpl-4" id="comment">
 			<div  style="float: left" th:each="comm : ${comm}">
 			<img  style="width: 50px;height: 50px; float: left;" th:src="${comm.headImg}" >
-			<div >
+			<div>
 				<span th:text="${comm.name +'  '+ #dates.format(comm.createTime, 'yyyy-MM-dd hh:mm')}"></span>
 				<p style="font-size:22px;" th:text="${comm.criticismContent}"></p>
 			</div>
 			<hr>
 			</div>
-			<a href="#">查看更多</a>
+			<!-- <a href="#">查看更多</a> -->
 		</div>
 		<div class="zixunnr" th:each="newsTop,iterStat:${newsTop}"><a th:href="@{/pc/news/info(id=${newsTop.id},areaId=${areaId})}">
 			<div th:href="@{/pc/news/info(id=${newsTop.id})}">
@@ -268,15 +269,15 @@
 			    <input type="hidden" placeholder="" class="input1" name="regionCode" id="regionCode">
 			    	<label>
 						<span>广告展示位置</span>
-						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
+						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
 						<span>广告投放天数</span>
-						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
+						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
 						<span>广告链接地址</span>
-						<input type="text" placeholder="http://" name="advUrl" class="input1">
+						<input type="text" placeholder="http://" name="advUrl" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
 						<span>上传广告图</span>
@@ -599,19 +600,7 @@
 	}
 	
 	
-	//打赏
-	var m2 = new MyModal1.modal(function() {
-		alert("你点击了确定");
-	});
-	$('.btn2').on("click", function() {
-		m2.show();
-	});
-	$("#reward").on("click","li",function(){
-		$(this).addClass("addred").siblings("li").removeClass("addred");
-		var a = $(this).children("a").text();
-		$("#givePrice").val(a);
-	})
-	//结束
+	
 	
 	//打赏
 	function reward(){
@@ -641,6 +630,23 @@
 			}
 		});
 	};
+	
+	//打赏
+	var m2 = new MyModal1.modal(function() {
+		alert("你点击了确定");
+	});
+	$('.btn2').on("click", function() {
+		m2.show();
+	});
+	$("#reward").on("click","li",function(){
+		$(this).addClass("addred").siblings("li").removeClass("addred");
+		var a = $(this).children("a").text();
+		$("#givePrice").val(a);
+	})
+	//结束
+	
+	
+	
 	//打赏提交
 	function giveReward(){
  		var som = $('#givePrice').val();
@@ -693,7 +699,8 @@
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					$("#guanzhu").remove();
+					//$("#guanzhu").remove();
+					history.go(0);
 				} else if (data.code == 1) {
 					window.location.href = "/admin";
 				} else{
@@ -736,7 +743,7 @@
 			title : '申请置顶',
 			maxmin : true,
 			shadeClose : false, // 点击遮罩关闭层
-			area : [ '340px', '420px' ],
+			area : [ '600px', '490px' ],
 			content : '/pc/news/top/' + id // iframe的url
 		});
 	
@@ -908,7 +915,7 @@
 	//console.log(page)
 	hasMore=false;
 	$.ajax({
-	url:"/pc/news/queryCommList?id="+id+"",
+	url:"/pc/news/queryCommList?newsId="+id+"",
 	type:"post",
 	data:{page:page},//请求页数
 	success:function(res){
@@ -920,8 +927,8 @@
 	//console.log(JSON.parse(res));
 	    //追加数据
 	   $.each(res, function(i, item){ 
-	  	html +='<div>';
-		html +='<img src="'+item.headImg+'" alt="">';
+	  	html +='<div style="float: left">';
+		html +='<img src="'+item.headImg+'" style="width: 50px;height: 50px; float: left;">';
 		html +='<div>';
 		html +='<span >'+item.name+item.createTime+'</span>';
 		html +='<p style="font-size:22px;" >'+item.criticismContent+'</p>';

@@ -422,12 +422,7 @@ public class PersionController extends BaseController{
 				e.printStackTrace();
 			}
 			PublicUtils.IdNOToAge(name.getCardNo());
-			if(name.getCardFrontImg()==null||name.getCardFrontImg()=="") {
-				return R.error("身份证正面图不能为空");
-			}
-			if(name.getCardBackImg()==null||name.getCardBackImg()=="") {
-				return R.error("身份证正面图不能为空");
-			}
+			
 			name.setCreateTime(new Date());
 			name.setStatus(1);
 			if(nameDao.save(name)>0) {

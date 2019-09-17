@@ -73,7 +73,7 @@
 						<img th:src="@{/mobile/images/xing.png}" alt="">
 						<img th:src="@{/mobile/images/xing.png}" alt="">
 					</div>
-					<div class="header2-2-3" th:if="${team!=null}" th:src="${'所属团队:'+team.teamTitleImg}"></div>
+					<a th:if="${team!=null}" th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><div class="header2-2-3"  th:text="${'所属团队:'+team.teamName}"></div></a>
 				</div>
 			</div>
 		</header>

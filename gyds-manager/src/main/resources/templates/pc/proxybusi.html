@@ -94,6 +94,14 @@
 						<span>代理电话</span>
 						<input type="text" id="proxyTelephone"  name="proxyTelephone">
 					</label>
+					<label style="overflow: hidden;"> <span>地区图片</span>
+				<div>
+					<img th:src="@{/pc/images/gahgha_03.png}" id="regImg1" alt=""
+						class="sfz1">
+					<input id="regImg" name="regImg" type="hidden" /> <input
+						type="file" name="file" style="display: none;" id="file4">
+				</div>
+					</label> 
 					<label>
 						<span>代理级别</span>
 						<input type="radio" style="width:20px;" value="1" name="regionLevel" checked="checked"/>省
@@ -264,6 +272,23 @@
 		});
 
 	}
+	layui.use('upload', function() {
+		var upload = layui.upload;
+		var uploadInst = upload.render({
+			elem : '#file4', //绑定元素
+			url : '/common/sysFile/upload', //上传接口
+			size : 1000,
+			accept : 'file',
+			done : function(r) {
+				var fileName = r.fileName;
+				$("#regImg").val(fileName);
+				$("#regImg1").attr("src", fileName);
+			},
+			error : function(r) {
+				layer.msg(r.msg);
+			}
+		});
+	});
 	function validateRule() {
 		var icon = "<i class='fa fa-times-circle' ></i> ";
 		$("#signupForm").validate({

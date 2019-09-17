@@ -46,7 +46,7 @@
 		</header>
 		<div class="nav">
 			<a href="/">网站首页</a>
-			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a>
+			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">活动动态</a>
 			<a th:href="@{/pc/activityList(areaId=${areaId})}">活动报名</a>
 			<a th:href="@{/pc/volunteerList(areaId=${areaId})}">志愿者</a>
 			<a th:href="@{/pc/teamList(areaId=${areaId})}">团队展示</a>
@@ -89,7 +89,7 @@
 		<!-- 志愿服务数据统计 -->
 		<div class="tongji">
 			<div class="tongjitxt" style="margin-bottom:37px;">
-				<i></i>志愿服务数据统计<span></span>
+				<i></i>数据统计<span></span>
 			</div>
 			<div class="tongjicon">
 				<img th:src="@{/mobile/images/index_17.jpg}" alt="">
@@ -154,7 +154,7 @@
 		</div>
 		<div class="tuandui index_td">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>团队<span><a href="/pc/teamList"><img src="../mobile/images/xuanze.jpg" alt="" style="height: 7px;"></a></span>
+				<i></i>团队展示<span><a href="/pc/teamList"><img src="../mobile/images/xuanze.jpg" alt="" style="height: 7px;"></a></span>
 			</div>
 			<div class="tuanduiCen" >
 				<figure th:each="team: ${teamList}">

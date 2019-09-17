@@ -92,7 +92,22 @@
                                              onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" />
                                 </div>
 							</div>
-														<div class="form-group">	
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">活动开始时间：</label>
+								<div class="col-sm-8">
+                                    <input type="text" class="laydate-icon layer-date form-control" id="activiStartTime" name="activiStartTime"  th:value="${activity.activiStartTime}==null?null:${#dates.format(activity.activiStartTime,'yyyy-MM-dd')}" placeholder="请选择活动开始时间" 
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" />
+                                </div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">活动截止时间：</label>
+								<div class="col-sm-8">
+                                    <input type="text" class="laydate-icon layer-date form-control" id="activiEndTime" name="activiEndTime"  th:value="${activity.activiEndTime}==null?null:${#dates.format(activity.activiEndTime,'yyyy-MM-dd')}" placeholder="请选择活动截止时间" 
+                                             onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" />
+                                </div>
+							</div>
+							
+														<!-- <div class="form-group">	
 								<label class="col-sm-3 control-label">门票数量：</label>
 								<div class="col-sm-8">
 									<input id="ticketCount" name="ticketCount" th:value="${activity.ticketCount}" class="form-control" type="text">
@@ -103,7 +118,7 @@
 								<div class="col-sm-8">
 									<input id="restrictions" name="restrictions" th:value="${activity.restrictions}" class="form-control" type="text">
 								</div>
-							</div>
+							</div> -->
 							<div class="form-group">	
 								<label class="col-sm-3 control-label">最大报名人数：</label>
 								<div class="col-sm-8">

@@ -21,7 +21,23 @@ function queryCost(){
 		
 		
 	}
-
+layui.use('upload', function() {
+	var upload = layui.upload;
+	var uploadInst = upload.render({
+		elem : '#file4', //绑定元素
+		url : '/common/sysFile/upload', //上传接口
+		size : 1000,
+		accept : 'file',
+		done : function(r) {
+			var fileName = r.fileName;
+			$("#regImg").val(fileName);
+			$("#regImg1").attr("src", fileName);
+		},
+		error : function(r) {
+			layer.msg(r.msg);
+		}
+	});
+});
 
 $("#downTeam").on('click', function() {
 		$('#signupForm').hide();

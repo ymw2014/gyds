@@ -39,6 +39,12 @@
 		  		  <if test="day != null and day != ''"> and day = #{day} </if>
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
 		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="starteTime != null">
+					and sigin_time &gt;= #{starteTime}
+				  </if>
+				  <if test="endTime != null">
+					and sigin_time &lt;= #{endTime}
+				  </if>
 		  		</where>
 	</select>
 	 

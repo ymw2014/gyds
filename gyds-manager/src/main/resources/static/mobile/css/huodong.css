@@ -60,7 +60,7 @@
 	margin-top:12px;
 	border-bottom:1px solid #BBBBBB ;
 }
-.box-nr-1>img{
+.box-nr-1>a>img{
 	float: left;
 	width: 320px;
 	height: 188px;
@@ -75,6 +75,7 @@
 	font-size:25px;
 	float: left;
 	margin-left:17px;
+	color: black;
 }
 .box-nr-1 p{
 	font-size: 22px;

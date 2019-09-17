@@ -131,8 +131,18 @@ public class PcActivityController extends BaseController{
 		List<AdvertisementDO> advList = indexService.getCenterAdvList(activityDO.getTeamId(), Dictionary.AdvPosition.HUODONG_BAOMING);
 		model.addAttribute("advList", advList);
 		
+		
 		//查询已报名的人数
 		Map<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("parentRegionCode", areaId);
+		params.put("regionType",1);
+		List<RegionDO> areaList = regionService.list(params);
+		model.addAttribute("areaList", areaList);
+		
+		List<TypeTitleDO> list2 = indexService.getFooterCenter();
+		model.addAttribute("centerList", list2);
+		
 		params.put("actId", id);
 		List<ApplyDO> list = applyService.list(params);
 		List<Integer> idList = list.stream().map(ApplyDO :: getUserId).collect(Collectors.toList());

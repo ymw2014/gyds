@@ -43,7 +43,7 @@
 						<img th:src="@{/mobile/images/xing.png}" alt="">
 						<img th:src="@{/mobile/images/xing.png}" alt="">
 					</div>
-					<div class="header2-2-3"   th:text=" '所属团队:' + ${volunteer.teamName}"></div>
+					<a th:if="${volunteer.teamId!=null}" th:href="@{/pc/teamDetail(teamId=${volunteer.teamId},areaId=${areaId})}"><div class="header2-2-3"   th:text=" '所属团队:' + ${volunteer.teamName}"></div></a>
 				</div>
 			</div>
 			<div class="header3">
@@ -77,12 +77,12 @@
 			<div class="header5" th:each="comment: ${commentList}">
 				<div class="header5-1">
 					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd hh:mm')}"></p>
-					<div>
+					<a th:href="@{/pc/news/info(id=${comment.newsId},areaId=${areaId})}"><div>
 						<p style="font-size:30px;" th:text="${comment.title}"></p>
 						<div class="header5-1-1">
-							<a href="#"><img th:src="${comment.titleImg}" alt=""></a>
+							<img th:src="${comment.titleImg}" alt="">
 						</div>
-					</div>
+					</div></a>
 					<div class="header5-2">
 						<p>
 							<a th:href="@{/pc/news/info(id=${comment.newsId},areaId=${areaId})}" style="cursor:pointer"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""></a>
@@ -101,7 +101,7 @@
 				<div class="header5-1">
 					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(dynamic.createTime,'yyyy-MM-dd hh:mm')}"></p>
 					<div>
-						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
+						<p style="font-size:30px;color: black;" th:text="${dynamic.title}"></p>
 						<div class="header5-1-1">
 							<a href="#"><img th:src="${dynamic.img}"alt=""></a>
 						</div>
@@ -125,12 +125,12 @@
 			<div class="header5" th:each="dynamic: ${collectList}">
 				<div class="header5-1">
 					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(dynamic.createTime,'yyyy-MM-dd hh:mm')}"></p>
-					<div>
-						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
+					<a th:href="@{/pc/activityDetail(id=${dynamic.newsId},areaId=${areaId})}"><div>
+						<p style="font-size:30px; color: black;" th:text="${dynamic.title}"></p>
 						<div class="header5-1-1">
-							<a href="#"><img th:src="${dynamic.img}"alt=""></a>
+							<a ><img th:src="${dynamic.img}"alt="">
 						</div>
-					</div>
+					</div></a>
 					<div class="header5-2">
 						<p>
 							<a th:if=" ${dynamic.collectStatus} eq '1'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/mobile/images/gongyitubiao_03.jpg}"alt=""></a>
@@ -146,12 +146,12 @@
 			<div class="header5" th:each="dynamic: ${likesList}">
 				<div class="header5-1">
 					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(dynamic.createTime,'yyyy-MM-dd hh:mm')}"></p>
-					<div>
-						<p style="font-size:30px;" th:text="${dynamic.title}"></p>
+					<a th:href="@{/pc/news/info(id=${dynamic.newsId},areaId=${areaId})}"><div>
+						<p style="font-size:30px;color: black;" th:text="${dynamic.title}"></p>
 						<div class="header5-1-1">
-							<a href="#"><img th:src="${dynamic.img}"alt=""></a>
+							<img th:src="${dynamic.img}"alt="">
 						</div>
-					</div>
+					</div></a>
 					<div class="header5-2">
 						<p>
 							<a th:href="@{/pc/news/info(id=${dynamic.newsId},areaId=${areaId})}" style="cursor:pointer"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""></a>

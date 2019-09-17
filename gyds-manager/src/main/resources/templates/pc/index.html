@@ -69,8 +69,10 @@
 				<h3><i></i>数据统计</h3>
 				<a href="#">更多+</a>
 			</div>
-			<div class="gps_img">
-				
+			<div class="gps_img" th:if="${proxybusi==null}">
+			</div>
+			<div th:if="${proxybusi!=null}">
+			<img th:src="${proxybusi}" style="height: 580px;width: 1200px;">
 			</div>
 			<div class="gps_txt">
 				

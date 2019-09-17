@@ -56,6 +56,7 @@
 			<div class="header-loginimg">
 				<img src="images/mylogin.jpg" alt="">
 			</div>
+			<p th:text="${team.teamName}" style="display:inline; color: red;font-size: 25px; float: right; margin-top: 30px; width: 175px;" ></p>
 		</header>
 		<div class="nav">
 			<a href="/">网站首页</a>
@@ -73,7 +74,7 @@
 		  <div class="swiper-container">
 		    <div class="swiper-wrapper">
 		      <div class="swiper-slide" th:each="newInfo: ${newList}">
-						<img th:src="${newInfo.titleImg}">
+						<a  th:each="newInfo: ${newList}" th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}"><img th:src="${newInfo.titleImg}"></a>
 			   </div>
 		    </div>
 		  </div>

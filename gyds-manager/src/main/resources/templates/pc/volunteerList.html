@@ -61,7 +61,7 @@
 				<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 				<figcaption>
 					<span th:text="${volunt.volunteerName}"></span>
-					<p th:text="'团队：'    +  ${volunt.teamName}" ></p>
+					<a th:href="@{/pc/teamDetail(teamId=${volunt.teamId},areaId=${areaId})}"><p th:text="'团队：'    +  ${volunt.teamName}" ></p></a>
 				</figcaption>
 			</figure>
 		</div>
@@ -78,9 +78,13 @@
 </html>
 <script th:src="@{/pc/js/common.js}"></script>
 <script>
+function _area(){
+	console.log($("#area").val());
+	window.location.href = "/?areaId="+$("#area").val();
+}
+
 var regionCode = '';
    $(function(){
-	$("#area").hide();
     var i=0;
     $(".butnn").click(function(){
         i++;

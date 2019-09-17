@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.alibaba.druid.sql.visitor.functions.Nil;
 import com.fly.count.utils.NumberUtils;
+import com.fly.utils.DateUtils;
 
 public class Test {
 
@@ -57,7 +58,8 @@ public class Test {
 		 * System.out.println(DateUtils.format(strDateTo));
 		 */
 		
-		NumberUtils.getRatio(0,1);
+		/* NumberUtils.getRatio(0,1); */
+		System.out.println(DateUtils.IdNOToAge("410182199402160339"));
 	}
 
 }

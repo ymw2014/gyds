@@ -30,6 +30,9 @@ import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.index.utils.ShowPosition;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
+import com.fly.proxybusi.dao.ProxybusiDao;
+import com.fly.proxybusi.domain.ProxybusiDO;
+import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.sys.domain.SetupDO;
 import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
@@ -57,7 +60,8 @@ public class IndexController {
 	private VolunteerService volunteerService;
 	@Autowired
 	private IndexService indexService;
-	
+	@Autowired
+	private ProxybusiDao ProxybusiDao;
 	@Autowired
 	private SetupService setupService;
 	private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -79,6 +83,10 @@ public class IndexController {
 		}else {
 			areaId=0L;
 			params.put("parentRegionCode",0);
+		}
+		ProxybusiDO proxybusi = ProxybusiDao.getByRegion(areaId);
+		if(proxybusi!=null) {
+			model.addAttribute("proxybusi", proxybusi.getRegImg());
 		}
 		params.put("regionType",1);
 		List<RegionDO> areaList1 = regionService.list(params);

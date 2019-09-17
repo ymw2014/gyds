@@ -130,6 +130,9 @@
 				<div th:if=" ${is_attention} eq '2'">
 					<a href="javascript:;" onclick="attention()"><p id="guanzhu">求关注</p></a>
 				</div>
+				<div th:if=" ${is_attention} eq '1'">
+					<a><p id="guanzhu">已关注</p></a>
+				</div>
 			</div>
 			<ul>
 				<li th:each="news:${newsList}">·<a th:text="${#strings.abbreviate(news.title,18)}" 
@@ -381,7 +384,11 @@
 <script th:src="@{/pc/js/common.js}"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
-$("#area").hide();
+function _area(){
+	console.log($("#area").val());
+	window.location.href = "/?areaId="+$("#area").val();
+}
+
 function queryRed(){
 	para={"newsId":$('#infoId').val()};
 	$.ajax({
@@ -735,7 +742,8 @@ function vieRed(){
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					$("#guanzhu").remove();
+					//$("#guanzhu").remove();
+					history.go(0);
 				} else if (data.code == 1) {
 					window.location.href = "/admin";
 				} else{

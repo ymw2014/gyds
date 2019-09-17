@@ -74,8 +74,11 @@
 </html>
 <script th:src="@{/pc/js/common.js}"></script>
 <script>
+function _area(){
+	console.log($("#area").val());
+	window.location.href = "/?areaId="+$("#area").val();
+}
    $(function(){
-	   $("#area").hide();
     var i=0;
     $(".butnn").click(function(){
         i++;

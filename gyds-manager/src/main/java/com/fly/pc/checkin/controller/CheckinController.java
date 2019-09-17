@@ -18,11 +18,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.fly.adv.domain.AdvertisementDO;
 import com.fly.domain.UserDO;
 import com.fly.index.service.IndexService;
+import com.fly.signin.dao.SigninDao;
 import com.fly.signin.domain.SigninDO;
 import com.fly.signin.service.SigninService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.dao.TeamDao;
+import com.fly.team.domain.TeamDO;
+import com.fly.utils.DateUtils;
 import com.fly.utils.Dictionary;
 import com.fly.utils.R;
+import com.fly.volunteer.dao.VolunteerDao;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
 
@@ -36,14 +41,29 @@ public class CheckinController {
 	private VolunteerService volunteerService;
 	@Autowired
 	private IndexService indexService;
+	@Autowired
+	private TeamDao teamdao;
+	@Autowired
+	private VolunteerDao volunteerDao;
+	@Autowired
+	private SigninDao signinDao;
 	
 	@RequestMapping("show")
 	public String show(Model model) {
 		VolunteerDO vo = volunteerService.getVo(ShiroUtils.getUserId());
-		if(vo == null ) {
+		if(vo.getTeamId() == null ) {
 			model.addAttribute("message", "您还不是团队成员!!!");
 			return "pc/message";
 		}
+		TeamDO team = teamdao.get(vo.getTeamId());
+		model.addAttribute("team",team);
+		Map<String, Object> map = new HashMap<String, Object>();
+		Integer voCount = volunteerDao.count(map);
+		model.addAttribute("voCount",voCount);
+		map.put("starteTime", DateUtils.weeHours(new Date(), 0));
+		map.put("endTime", DateUtils.weeHours(new Date(), 1));
+		Integer sigCount = signinDao.count(map);
+		model.addAttribute("sigCount",sigCount);
 		List<AdvertisementDO> advList = indexService.getCenterAdvList(vo.getTeamId(), Dictionary.AdvPosition.QIAN_DAO);
 		model.addAttribute("advList", advList);
 		return "pc/checkin";
@@ -101,6 +121,9 @@ public class CheckinController {
 		Map<String,Object> params = new HashMap<String, Object>();
 		params.put("userId", user.getUserId());
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
+		if (voluntList.get(0).get("teamId")==null||"-1".equals(voluntList.get(0).get("teamId"))) {
+			return R.error("您还不是团成员，请先申请入团");
+		}
 		signinDo.setUserId(user.getUserId());
 		signinDo.setSiginTime(new Date());
 		signinDo.setTeamId(Long.valueOf(voluntList.get(0).get("teamId").toString()));

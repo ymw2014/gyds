@@ -136,6 +136,11 @@
 	<script th:src="@{/pc/js/jquery.my-modal.1.1.js}"></script>
 </html>
 <script>
+function _area(){
+	console.log($("#area").val());
+	window.location.href = "/?areaId="+$("#area").val();
+}
+
 	$(".xuanfu a").click(function(){
 		 $(this).addClass("xfcl").siblings("a").removeClass("xfcl")
 	})
@@ -143,7 +148,6 @@
 	
 	//分页加载
 $().ready(function(){
-	$("#area").hide();
 var flag = $('#flag').val();	
 var areaId = $('#areaId').val();
 var hasMore;
