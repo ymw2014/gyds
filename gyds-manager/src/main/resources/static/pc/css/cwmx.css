@@ -102,37 +102,37 @@
 	color:#666666;
 }
 .kapian{
-	width: 828px;
-	height: 523px;
-	margin-left:73px;
-	margin-top:80px;
-	background: #00B369;
-	position:relative;
+	width: 450px;
+    height: 250px;
+    margin-left:260px;
+    margin-top: 80px;
+    background: #00B369;
+    position: relative;
 }
 .zyzname{
-	position: absolute;
-	top:242px;
-	left: 90px;
-	font-size:36px;
+	    position: absolute;
+    top: 110px;
+    left: 50px;
+    font-size: 19px;
 }
 .zyzxb{
 	position: absolute;
-	top:242px;
-	left: 385px;
-	font-size:36px;
+    top: 104px;
+    left: 214px;
+    font-size: 21px;
 }
 .zyzbh{
 	position: absolute;
-	top:380px;
-	left: 90px;
-	font-size:36px;
+    top: 180px;
+    left: 58px;
+    font-size: 18px;
 }
 .touxing{
-	width:168px;
-	height: 207px;
-	position: absolute;
-	top: 136px;
-    left: 633px;
+	    width: 96px;
+    height: 109px;
+    position: absolute;
+    top: 53px;
+    left: 334px;
 }
 .touxing1{
 	width: 122px;
@@ -143,15 +143,15 @@
 }
 .zyzfwrx{
 	position: absolute;
-	bottom:10px;
-	left: 93px;
-	font-size:18px;
+    bottom: 2px;
+    left: 142px;
+    font-size: 14px;
 }
 .zyzfjz{
 	position: absolute;
-	bottom:10px;
-	right: 290px;
-	font-size:18px;
+    bottom: 2px;
+    right: 329px;
+    font-size: 14px;
 }
 .fenxiangx{
 	width: 70px;
