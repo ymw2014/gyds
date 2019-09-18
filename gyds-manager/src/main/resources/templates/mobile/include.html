@@ -19,51 +19,7 @@
 </head>
 
 <div th:fragment="header">
-	<header>
-		<div class="header-top">
-			<div class="header-left">
-				<img id="logo" src="../mobile/images/logo.png" alt="">
-			</div>
-			<div class="header-center">
-				<!-- <input type="text" list="sexlist" placeholder="--全国--">
-				<datalist id="sexlist">
-					<option th:each="area: ${areaList}" th:value="${area.regionName}"></option>
-				</datalist> -->
-				<select style="width: 100px;" onchange="_area()" id="area">
-					<option th:each="area: ${areaList}" th:value="${area.regionCode}"
-						th:text="${area.regionName}"></option>
-				</select>
-			</div>
-			<div class="header-img">
-				<img src="../mobile/images/gongyi.png" alt="">
-			</div>
-			<div class="header-login" id="no_login" style="display: none">
-				<a href="/admin">登录</a>
-				<!-- <a href="#">注册</a> -->
-			</div>
-			<div class="loginOk" id="login_ok" style="display: none">
-				<div class="loginOkImg">
-					<a href="/pc/personalCenter"><img id="headImg"
-						style="width: 100%; height: auto;" src="" alt=""></a>
-				</div>
-
-				<div class="loginname">
-					<p id="userName"></p>
-				</div>
-			</div>
-			<a href="/logout">退出</a> <a href="/index">管理后台</a>
-
-		</div>
-
-	</header>
-	<div th:fragment="nav">
-		<div class="nav">
-			<a href="/">网站首页</a> <a
-				th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a> <a
-				href="/pc/activityList">活动报名</a> <a href="/pc/volunteerList">志愿者</a>
-			<a href="/pc/teamList">团队展示</a>
-		</div>
-	</div>
+	
 </div>
 <div th:fragment="footer">
 	<div style="margin-bottom: 93px;">

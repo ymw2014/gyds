@@ -67,11 +67,11 @@
 <!-- 				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
  -->			</div>
 			<div class="headercent">公益打赏</div>
-			<div class="headerright">
+			<!-- <div class="headerright">
 				<img th:src="@{/mobile/images/dian.png}" alt="">
 				<img th:src="@{/mobile/images/dian.png}" alt="">
 				<img th:src="@{/mobile/images/dian.png}" alt="">
-			</div>
+			</div> -->
 		</div>
 		<div class="gycent">
 			<input type="hidden" id="infoId" th:value="${info.id}">
@@ -95,7 +95,7 @@
 		<div class="m-modal1">
 			<div class="m-modal1-dialog m-modal1-dialog1">
 				<div class="m-top">
-					<span class="m-modal1-close">X</span>
+					<span class="m-modal1-close" style="height: 38px;width: 38px;font-size: 31px;text-align: center; margin-top: 3px; line-height: 34px;">X</span>
 				</div>
 				<div class="m-middle2">
 				   <div class="m-middletxt">
@@ -157,7 +157,7 @@
 		<div class="m-modal">
 				<div class="m-modal-dialog m-modal-dialog3">
 					<div class="m-top">
-						<span class="m-modal-close">X</span>
+						<span class="m-modal-close" style="height: 38px;width: 38px;font-size: 31px;text-align: center; margin-top: 3px; line-height: 34px;">X</span>
 					</div>
 					<div class="m-middle3">
 					  <p id="sum"></p>
@@ -257,7 +257,7 @@
 		<div class="m-modal5">
 		<div class="m-modal-dialog5" style="width: 80%">
 			<div class="m-top">
-				<span class="m-modal-close">X</span>
+				<span class="m-modal-close" style="height: 38px;width: 38px;font-size: 31px;text-align: center; margin-top: 3px; line-height: 34px;">X</span>
 			</div>
 			<div class="m-middle" style="width: 80%">
 			    <form action="" id="signupForm">
@@ -268,25 +268,25 @@
 			    <input type="hidden" placeholder="" class="input1" id="sort" name="sort">
 			    <input type="hidden" placeholder="" class="input1" name="regionCode" id="regionCode">
 			    	<label>
-						<span>广告展示位置</span>
+						<span style="font-size: 20px;">展示位置</span>
 						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
-						<span>广告投放天数</span>
+						<span style="font-size: 20px;">投放天数</span>
 						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
-						<span>广告链接地址</span>
+						<span style="font-size: 20px;">链接地址</span>
 						<input type="text" placeholder="http://" name="advUrl" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
-						<span>上传广告图</span>
+						<span style="font-size: 20px;">上传图片</span>
 						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
 						<input type="hidden" id="imgStr" name="advImg">
 						<input type="file" name="file" style="display: none;" id ="file">
 					</label>
 					<label>
-						<span>广告价格</span>
+						<span style="font-size: 20px;">总价格</span>
 						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
 					</label>
 					<label>
