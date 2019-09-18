@@ -125,6 +125,11 @@
 				<span>发布资讯数量</span>
 				<rem th:text="${newCount}"></rem>
 			</div>
+			<div class="tongjicon">
+					<img src="images/index_21.jpg" alt="">
+					<span>今日签到</span>
+					<rem th:text="${sigCount}"></rem>
+			</div>
 			<!-- <!-- 红色的 -->
 			<div class="rutuanbtn">
 				<a href="#">入团申请</a>
@@ -141,7 +146,7 @@
 			</div>
 			
 		</div>
-		<div class="guangao">
+		<div class="guangao" style="height: 118px;">
 			<a	th:if="${adv3.advImg!=null}" th:href="${adv3.url}" target="_blank"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" th:data-url="${adv3.url}" alt="" class="btn1"></a>
 		 	<a th:if="${adv3.advImg==null}"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" alt="" class="btn1" th:data-url="${adv3.url}"> </a>
 		</div>
@@ -162,7 +167,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="guangao">
+		<div class="guangao" style="height: 118px;">
 			<a	th:if="${adv4.advImg!=null}" th:href="${adv4.url}" target="_blank"><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" th:data-url="${adv4.url}" alt="" class="btn1"></a>
 			<a th:if="${adv4.advImg==null}"><img  th:src="${adv4.advImg==null}?'/pc/images/tp2.jpg':${adv4.advImg}" alt="" class="btn1" th:data-url="${adv4.url}"> </a>
 		</div>
@@ -185,7 +190,7 @@
 		<div class="m-modal">
 		<div class="m-modal-dialog">
 			<div class="m-top">
-				<span class="m-modal-close">X</span>
+				<span class="m-modal-close" style="height: 38px;width: 38px;font-size: 31px;text-align: center; margin-top: 3px; line-height: 34px;">X</span>
 			</div>
 			<div class="m-middle">
 			    <form action="" id="signupForm">
@@ -196,25 +201,25 @@
 			    <input type="text" placeholder="" class="input1" id="sort" name="sort">
 			    <input type="text" placeholder="" class="input1" name="regionCode" id="regionCode">
 			    	<label>
-						<span>广告展示位置</span>
-						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
+						<span style="font-size: 20px;">展示位置</span>
+						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
-						<span>广告投放天数</span>
-						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
+						<span style="font-size: 20px;">投放天数</span>
+						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
-						<span>广告链接地址</span>
-						<input type="text" placeholder="http://" name="advUrl" class="input1">
+						<span style="font-size: 20px;">链接地址</span>
+						<input type="text" placeholder="http://" name="advUrl" class="input1" style="width: 120%;height: 60px;">
 					</label>
 					<label>
-						<span>上传广告图</span>
+						<span style="font-size: 20px;">上传图片</span>
 						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
 						<input type="hidden" id="imgStr" name="advImg">
 						<input type="file" name="file" style="display: none;" id ="file">
 					</label>
 					<label>
-						<span>广告价格</span>
+						<span style="font-size: 20px;">总价格</span>
 						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
 					</label>
 					<label>

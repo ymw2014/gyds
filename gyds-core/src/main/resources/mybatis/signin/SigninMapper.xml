@@ -45,6 +45,9 @@
 				  <if test="endTime != null">
 					and sigin_time &lt;= #{endTime}
 				  </if>
+				   <if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
 	</select>
 	 

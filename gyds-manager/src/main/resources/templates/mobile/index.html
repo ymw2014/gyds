@@ -20,7 +20,7 @@
 	<body> 
 		<header>
 			<div class="login">
-				<img th:src="@{/mobile/images/logo.png}" alt="">
+				<img id="logo" style="width: 200px;">
 			</div>
 			<div class="header-center">
 				<!-- <input type="text" list="sexlist" placeholder="-- 全国 --">
@@ -93,26 +93,31 @@
 			</div>
 			<div class="tongjicon">
 				<img th:src="@{/mobile/images/index_17.jpg}" alt="">
-				<span>实名志愿者总数</span>
-				<rem >45342</rem>
+				<span>实名志愿者数</span>
+				<rem th:text="${voluntCount}"></rem>
 			</div>
 			<div class="tongjicon">
 				<img th:src="@{/mobile/images/index_21.jpg}" alt="">
-				<span>志愿团体总数</span>
-				<rem>121</rem>
+				<span>团体数</span>
+				<rem  th:text="${teamCount}"></rem>
 			</div>
 			<div class="tongjicon">
 				<img th:src="@{/mobile/images/index_24.jpg}" alt="">
-				<span>发布活动者次数</span>
-				<rem>45342</rem>
+				<span>活动数</span>
+				<rem th:text="${actCount}"></rem>
 			</div>
 			<div class="tongjicon">
 				<img th:src="@{/mobile/images/index_26.jpg}" alt="">
-				<span>发布资讯数量</span>
-				<rem>452</rem>
+				<span>资讯数</span>
+				<rem th:text="${newCount}">452</rem>
+			</div>
+			<div class="tongjicon">
+				<img th:src="@{/mobile/images/index_21.jpg}" alt="">
+				<span>今日签到人数</span>
+				<rem  th:text="${sigCount}">452</rem>
 			</div>
 		</div>
-		<div class="guangao">
+		<div class="guangao" style="height: 118px;">
 			<a	th:if="${adv3.advImg!=null}" th:href="${adv3.url}" target="_blank"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" th:data-url="${adv3.url}" alt="" class="btn1"></a>
 		 	<a th:if="${adv3.advImg==null}"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" alt="" class="btn1" th:data-url="${adv3.url}"> </a>
 		</div>
@@ -183,7 +188,7 @@
 		<div class="m-modal" >
 		<div class="m-modal-dialog" style="width: 80%">
 			<div class="m-top">
-				<span class="m-modal-close">X</span>
+				<span class="m-modal-close"style="height: 38px;width: 38px;font-size: 31px;text-align: center; margin-top: 3px; line-height: 34px;">X</span>
 			</div>
 			<div class="m-middle" style="width: 80%">
 			    <form action="" id="signupForm">
@@ -194,25 +199,25 @@
 			    <input type="hidden" placeholder="" class="input1" id="sort" name="sort">
 			    <input type="hidden" placeholder="" class="input1" name="regionCode" id="regionCode">
 			    	<label>
-						<span>广告展示位置</span>
+						<span>展示位置</span>
 						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
 					</label>
 					<label>
-						<span>广告投放天数</span>
+						<span>投放天数</span>
 						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
 					</label>
 					<label>
-						<span>广告链接地址</span>
+						<span>链接地址</span>
 						<input type="text" placeholder="http://" name="advUrl" class="input1">
 					</label>
 					<label style="width: 80%">
-						<span>上传广告图</span>
+						<span>上传图片</span>
 						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
 						<input type="hidden" id="imgStr" name="advImg">
 						<input type="file" name="file" style="display: none;" id ="file">
 					</label>
 					<label>
-						<span>广告价格</span>
+						<span>总价格</span>
 						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
 					</label>
 					<label>
