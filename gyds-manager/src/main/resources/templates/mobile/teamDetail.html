@@ -271,9 +271,9 @@
 		        	'id': teamId
 		        },
 		        success : function(result) {
-		        	var status = result.code;
+		        	var code = result.code;
 		        	var url = result.url;
-		        	console.log(status)
+		        	var msg=result.msg;
 		        	if (code == 1) {
 		        		alert(msg);
 		        	} else if (code == 2){
