@@ -110,7 +110,7 @@ public class PersionController extends BaseController{
 		params.put("userId", user.getUserId());
 		List<TeamDO> TeamDO = teamDao.list(params);
 		if(!CollectionUtils.isEmpty(TeamDO)) {
-			if(TeamDO.get(0).getIsAuth()==2) {
+			if(TeamDO.get(0).getIsAuth()!=null&&TeamDO.get(0).getIsAuth()==2) {
 				model.addAttribute("isAuth", 2);
 			}
 		}

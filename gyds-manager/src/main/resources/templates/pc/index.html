@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>公益打赏</title>
+		<title th:each="area,i:${areaList}" th:if="${i.index==0&&areaId!=0}" th:text="${area.regionName+'-智慧公益'}"></title>
+		<title th:if="${areaId==0}" >智慧公益</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/lunbo.css}"/>
 		<link th:href="@{/css/layui.css}" rel="stylesheet">
@@ -109,7 +110,7 @@
 					<img th:src="@{/pc/images/index_21.jpg}" alt="">
 					<div class="gps_txt1-1">
 						<span th:text="${sigCount}">123</span>
-						<p>今日签到人数</p>
+						<p>今日签到</p>
 					</div>
 				</div>
 				

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title th:text="${team.teamName+'-智慧公益'}"></title>
 		<meta name="viewport" content="width=750">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
@@ -30,7 +30,7 @@
 		    text-align: center;
 		    color: #fff;
 		    right: 13px;
-		    bottom: 20px;
+		    bottom: 100px;
 		    border-radius: 50%;
 			}
 			.rutuanbtn a{
@@ -44,7 +44,7 @@
 			<div class="login">
 				<img src="images/logo.png" alt="">
 			</div>
-			<div class="header-center">
+			<!-- <div class="header-center">
 				<select style="width: 135px;
 				height: 30px;
 				-webkit-appearance: none;
@@ -54,11 +54,11 @@
 					 <option th:each="area: ${areaList}" th:value="${area.regionCode}"
 						th:text="${area.regionName}"></option>
 				</select> 
-			</div>
-			<div class="header-loginimg">
-				<img src="images/mylogin.jpg" alt="">
-			</div>
-			<p th:text="${team.teamName}" style="display:inline; color: red;font-size: 25px; float: right; margin-top: 30px; width: 175px;" ></p>
+			</div> -->
+			<!-- <div class="header-loginimg">
+				<img th:src="@{/mobile/images/mylogin.jpg}" alt="">
+			</div> -->
+			<p th:text="${team.teamName}" style="display:inline; color: red;font-size: 27px; float: left; margin-top: 37px; width: 350px;margin-left: 45px;" ></p>
 		</header>
 		<div class="nav">
 			<a href="/">网站首页</a>
@@ -83,23 +83,8 @@
 		  <div class="pagination"></div>
 		</div>
 		<!-- 结束 -->
-		<div class="tongji">
-			<input type="hidden" th:value="${teamId}" id="teamId"/>
-			<input type="hidden" th:value="${nameId}" id="nameId"/>
-			<div class="tongji1">
-				<div class="tongjitxt">
-					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
-				</div>
-				<ul>
-					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}" th:text="${#strings.abbreviate(newInfo.title,25)}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
-				</ul>
-				
-			</div>
-		</div>
-		<div class="guanggao">
-			<a	th:if="${adv2.advImg!=null}" th:href="${adv2.url}" target="_blank"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" th:data-url="${adv2.url}" alt="" class="btn1"></a>
-			<a  th:if="${adv2.advImg==null}"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" alt="" class="btn1" th:data-url="${adv2.url}"> </a>
-		</div>
+		
+		
 		<!-- 志愿服务数据统计 -->
 		<div class="tongji">
 			<div class="tongjitxt" style="margin-bottom:37px;">
@@ -107,7 +92,7 @@
 			</div>
 			<div class="tongjicon">
 				<img src="images/index_17.jpg" alt="">
-				<span>实名志愿者总数</span>
+				<span>实名志愿者数</span>
 				<rem th:text="${voluntCount}"></rem>
 			</div>
 			<!-- <div class="tongjicon">
@@ -117,12 +102,12 @@
 			</div> -->
 			<div class="tongjicon">
 				<img src="images/index_24.jpg" alt="">
-				<span>发布活动者次数</span>
+				<span>活动数</span>
 				<rem th:text="${actCount}"></rem>
 			</div>
 			<div class="tongjicon">
 				<img src="images/index_26.jpg" alt="">
-				<span>发布资讯数量</span>
+				<span>资讯数</span>
 				<rem th:text="${newCount}"></rem>
 			</div>
 			<div class="tongjicon">
@@ -144,8 +129,28 @@
 			<div class="rutuanbtn"  th:if="${status} eq '3'">
 				<a href="javaScript:;">您已是本团成员</a>
 			</div>
-			
 		</div>
+		
+		
+		<div class="guanggao">
+			<a	th:if="${adv2.advImg!=null}" th:href="${adv2.url}" target="_blank"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" th:data-url="${adv2.url}" alt="" class="btn1"></a>
+			<a  th:if="${adv2.advImg==null}"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" alt="" class="btn1" th:data-url="${adv2.url}"> </a>
+		</div>
+		
+		<div class="tongji">
+			<input type="hidden" th:value="${teamId}" id="teamId"/>
+			<input type="hidden" th:value="${nameId}" id="nameId"/>
+			<div class="tongji1">
+				<div class="tongjitxt">
+					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
+				</div>
+				<ul>
+					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}" th:text="${#strings.abbreviate(newInfo.title,25)}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
+				</ul>
+				
+			</div>
+		</div>
+		
 		<div class="guangao" style="height: 118px;">
 			<a	th:if="${adv3.advImg!=null}" th:href="${adv3.url}" target="_blank"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" th:data-url="${adv3.url}" alt="" class="btn1"></a>
 		 	<a th:if="${adv3.advImg==null}"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" alt="" class="btn1" th:data-url="${adv3.url}"> </a>
@@ -153,7 +158,7 @@
 		<!-- 活动报名 -->
 		<div class="baoming">
 			<div class="tongjitxt" style="width:95%;">
-				<i></i>活动报名<span><img src="images/xuanze.jpg" alt=""></span>
+				<i></i>活动报名<span><!-- <img th:src="@{/mobile/images/xuanze.jpg}" alt=""> --></span>
 			</div>
 			<div class="baomingcen">
 				<div th:each="act: ${actList}">

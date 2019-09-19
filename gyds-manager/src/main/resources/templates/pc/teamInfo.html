@@ -28,7 +28,10 @@
 		<div class="cwmx">
 			<h4>我的团队</h4>
 			<div th:if="${authSta}!=null">
-			<a id="renzheng" href="javaScript:;" th:if="${authSta}==3" class="anniiu btn1">认证</a></div>
+			<a id="renzheng" href="javaScript:;" th:if="${authSta}==3" class="anniiu btn1">认证</a>
+			<a id="renzheng" href="javaScript:;" th:if="${authSta}==1" class="anniiu">已提交</a>
+			<a id="renzheng" href="javaScript:;" th:if="${team.isAuth}==2" class="anniiu btn1">已认证</a></div>
+			<p th:if="${team.isAuth}==2" th:text="${'认证到期: '+  #dates.format(team.authEntTime, 'yyyy-MM-dd HH:mm:ss')}" style="color: red;margin-left: 750px;"></p>
 			<div th:if="${authSta}==null">
 			<a id="renzheng" href="javaScript:;"  class="anniiu btn1">认证</a></div>
 		</div>

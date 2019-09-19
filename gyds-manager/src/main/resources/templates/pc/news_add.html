@@ -29,12 +29,12 @@
 							<input type="hidden" id="imgStr" name="titleImg">
 							<input type="file" name="file" style="display: none;" id ="file">
 					</label>
-					<label>
+					<!-- <label>
 						<span>简介</span>
 						 <textarea name="introduction" style="width:700px;height:50px;float: right; resize: none;" >
 							 
 						 </textarea>
-					</label>
+					</label> -->
 					<label>
 						<span>详情</span>
 						<textarea name="content" id="deitor" style="width:700px;height:380px;float: right; resize: none;"></textarea>
@@ -163,9 +163,9 @@ var ue = UE.getEditor('deitor',{
 				source : {
 					required : true
 				},
-				introduction : {
+				/* introduction : {
 					required : true
-				},
+				}, */
 				content : {
 					content : true
 				}
@@ -180,9 +180,9 @@ var ue = UE.getEditor('deitor',{
 				source : {
 					required : icon + "<span style='color:red'>请填写新闻来源</span>",
 				},
-				introduction : {
+				/* introduction : {
 					required : icon + "<span style='color:red'>请输入资讯简介</span>",
-				},
+				}, */
 				content : {
 					required : icon + "<span style='color:red'>新闻内容不能为空</span>",
 				}

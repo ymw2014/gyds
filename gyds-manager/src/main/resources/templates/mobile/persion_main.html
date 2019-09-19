@@ -207,20 +207,20 @@
 				   </div>
 				   <div class="m-middletxt1">
 				   		<ul id="cashOut">
-							<li><a href="#">2元</a></li>
 							<li><a href="#">10元</a></li>
 							<li><a href="#">66元</a></li>
+							<li><a href="#">88元</a></li>
 							<li><a href="#">300元</a></li>
 							<li><a href="#">200元</a></li>
 							<li><input id="cash" type="text" style="height: 81px;width:100%;
-    								border: none;text-align: center; color:#dc1333" placeholder="自定义 (单位元)" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></li>
+    								border: none;text-align: center; color:#dc1333" placeholder="自定义 (单位元)" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]+/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]+/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></li>
 						</ul>
 				   </div>
 				   <div class="m-middletxt2">
 					  <span>提 现</span>
 				   </div>
 				   
-				   <p th:text=" '最低提现1元,提现金额超过50将收取手续费，手续费利率为:' +  ${withdrawalFee}" style="text-align: center;margin-top: 18px;font-size: 20px;color: red;"></p>
+				   <p th:text=" '最低提现10元,手续费利率为:' +  ${withdrawalFee}" style="text-align: center;margin-top: 18px;font-size: 20px;color: red;"></p>
 				</div>
 			</div>
 		</div>
@@ -292,11 +292,13 @@
 		};
 		$(".m-modal1").css("display","none")
 		var orderNum = createOrder(cashOut)
-		if (orderNum != '-1') {
-			alert("订单创建成功")
-		} else {
-			alert("订单创建失败")
-		}
+		 if(orderNum == '-1'){
+				alert("订单创建失败")
+			} else if(orderNum == '-2'){
+				alert("提现金额不得低于10元")
+			}else if(orderNum != '-1'){
+				alert("订单创建成功")
+			}
 	})
 	$(".m-modal-close").click(function(){
 			history.go(0);
@@ -403,8 +405,11 @@
 				success : function(r) {
 					if (r.code == 0) {
 						orderNum = r.msg;
-					} else
+					} else if(r.code == -1){
 						orderNum =-1;
+					}else if(r.code == -2){
+						orderNum =-2;
+					}
 					}
 			});
 			return orderNum;

@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title th:each="area,i:${areaList}" th:if="${i.index==0&&areaId!=0}" th:text="${area.regionName+'-智慧公益'}"></title>
+		<title th:if="${areaId==0}" >智慧公益</title>
 		<meta name="viewport" content="width=750">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
@@ -69,23 +70,9 @@
 		  <div class="pagination"></div>
 		</div>
 		<!-- 结束 -->
-		<div class="tongji">
-			<div class="tongji1">
-				<div class="tongjitxt">
-					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
-				</div>
-				<ul>
-					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}" th:text="${#strings.abbreviate(newInfo.title,25)}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
-				</ul>
-				
-			</div>
-		</div>
-		<div class="guanggao">
-			 <a	th:if="${adv2.advImg!=null}" th:href="${adv2.url}" target="_blank"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" th:data-url="${adv2.url}" alt="" class="btn1"></a>
-			<a  th:if="${adv2.advImg==null}"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" alt="" class="btn1" th:data-url="${adv2.url}"> </a>
-			<!-- <a href=""><img  th:src="${adv2.advImg==''}?'/pc/images/tp2.jpg':${adv2.advImg}" alt=""> </a> -->
-			<!-- <img src="images/tp2.jpg" alt=""> -->
-		</div>
+		
+		
+		
 		<!-- 志愿服务数据统计 -->
 		<div class="tongji">
 			<div class="tongjitxt" style="margin-bottom:37px;">
@@ -113,10 +100,31 @@
 			</div>
 			<div class="tongjicon">
 				<img th:src="@{/mobile/images/index_21.jpg}" alt="">
-				<span>今日签到人数</span>
+				<span>今日签到</span>
 				<rem  th:text="${sigCount}">452</rem>
 			</div>
 		</div>
+		
+		<div class="guanggao">
+			 <a	th:if="${adv2.advImg!=null}" th:href="${adv2.url}" target="_blank"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" th:data-url="${adv2.url}" alt="" class="btn1"></a>
+			<a  th:if="${adv2.advImg==null}"><img  th:src="${adv2.advImg==null}?'/pc/images/tp2.jpg':${adv2.advImg}" alt="" class="btn1" th:data-url="${adv2.url}"> </a>
+			<!-- <a href=""><img  th:src="${adv2.advImg==''}?'/pc/images/tp2.jpg':${adv2.advImg}" alt=""> </a> -->
+			<!-- <img src="images/tp2.jpg" alt=""> -->
+		</div>
+		
+		<div class="tongji">
+			<div class="tongji1">
+				<div class="tongjitxt">
+					<i></i>咨询动态 <span><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}"><img th:src="@{/mobile/images/xuanze.jpg}" alt=""></a></span>
+				</div>
+				<ul>
+					<li th:each="newInfo,iterStat: ${newList}"><span th:text="${iterStat.count}"></span><a th:href="@{/pc/news/info(id=${newInfo.id},areaId=${areaId})}" th:text="${#strings.abbreviate(newInfo.title,25)}"> <img th:src="#{newInfo.titleImg}" alt=""></a><rem th:text="${#dates.format(newInfo.publicTime, 'MM-dd ')}"></rem></li>
+				</ul>
+				
+			</div>
+		</div>
+		
+		
 		<div class="guangao" style="height: 118px;">
 			<a	th:if="${adv3.advImg!=null}" th:href="${adv3.url}" target="_blank"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" th:data-url="${adv3.url}" alt="" class="btn1"></a>
 		 	<a th:if="${adv3.advImg==null}"><img  th:src="${adv3.advImg==null}?'/pc/images/tp2.jpg':${adv3.advImg}" alt="" class="btn1" th:data-url="${adv3.url}"> </a>

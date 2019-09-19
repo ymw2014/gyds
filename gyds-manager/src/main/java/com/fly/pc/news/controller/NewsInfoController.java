@@ -85,13 +85,15 @@ public class NewsInfoController extends BaseController {
 	private IndexService indexService;
 
 	@RequestMapping("/info")
-	public String newInfo(@RequestParam Integer id, @RequestParam Integer areaId,Model model) {
+	public String newInfo(@RequestParam Integer id, @RequestParam Long areaId, Long teamId,Model model) {
 		InfoDO info = infoService.get(id);
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
-		
+		if(teamId!=null) {
+			areaId=teamId;
+		}
 		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
@@ -666,11 +668,15 @@ public class NewsInfoController extends BaseController {
 	}
 
 	@RequestMapping("/infoList")
-	public String newInfoList(@RequestParam Long areaId, @RequestParam Integer flag, Model model) {
+	public String newInfoList(@RequestParam Long areaId, @RequestParam Integer flag,Long teamId, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
+		
+		if(teamId!=null) {
+			areaId=teamId;
+		}
 		
 		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);

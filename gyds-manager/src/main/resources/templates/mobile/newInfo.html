@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title th:text="${info.title+'-'+team.teamName+'-智慧公益'}"></title>
 		<meta name="viewport" content="width=750">
 			<link th:href="@{https://fonts.googleapis.com/css?family=Lato}" rel="stylesheet">
 		<meta name="viewport" content="width=device-width">
@@ -246,14 +246,14 @@
 			<a href="#">查看更多资讯</a>
 		</div>
 		<div th:replace="mobile/include :: footer"></div>
-		<div class="pl">
+		<!-- <div class="pl">
 			<div>
 				<input type="text" placeholder="随便说点什么...">
 				<a href=""><img th:src="@{/mobile/images/hdxq_27.jpg}" alt=""><span></span></a>
 				<a href=""><img th:src="@{/mobile/images/pinglun.png}" alt=""><span></span></a>
-				<!-- <a href="javaScript:shareFriend();"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""><span></span></a> -->
+				<a href="javaScript:shareFriend();"><img th:src="@{/mobile/images/zhuanfa.png}" alt=""><span></span></a>
 			</div>
-		</div>
+		</div> -->
 		<div class="m-modal5">
 		<div class="m-modal-dialog5" style="width: 80%">
 			<div class="m-top">

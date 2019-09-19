@@ -123,7 +123,7 @@ public class PcVolunteerController {
 	 * @return
 	 */
 	@RequestMapping("volunteerDetail")
-	public String volunteerDetail(@RequestParam Map<String,Object> params, @RequestParam Integer areaId, @RequestParam Integer id, Model model) {
+	public String volunteerDetail(@RequestParam Map<String,Object> params, @RequestParam Long areaId, @RequestParam Integer id, Model model) {
 		UserDO user = ShiroUtils.getUser();
 		params.clear();
 		

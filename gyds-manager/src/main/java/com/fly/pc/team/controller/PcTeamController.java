@@ -192,6 +192,7 @@ public class PcTeamController {
 		model.addAttribute("adv4", dataList.get(3));
 		model.addAttribute("adv5", dataList.get(4));
 		model.addAttribute("adv6", dataList.get(5));
+		model.addAttribute("areaId", areaId);
 		return "pc/teamDetail";
 	}
 	

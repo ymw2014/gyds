@@ -123,7 +123,7 @@ public class PcActivityController extends BaseController{
 	}
 	
 	@RequestMapping("activityDetail")
-	public String join(Integer id, HttpServletRequest request, @RequestParam Integer areaId,
+	public String join(Integer id, HttpServletRequest request, @RequestParam Long areaId,
 			Model model) {
 		model.addAttribute("areaId", areaId);
 		ActivityDO activityDO = activityService.get(id);
