@@ -58,24 +58,49 @@ public class AdvController extends BaseController{
 		r.put("positionNum",position);
 		r.put("regionCode",regionCode);
 		r.put("sort",sort);
+		String pos="";
+		switch (region.getRegionLevel()) {
+			case 0:
+				pos="本平台";
+			break;
+			case 1:
+				pos="本省";	
+				break;
+			case 2:
+				pos="本市";
+				break;
+			case 3:
+				pos="本县";
+				break;
+			case 4:
+				pos="本街道办";
+				break;
+			case 5:
+				pos="本团";
+				break;
+
+		default:
+			break;
+		}
+		
 		switch (position) {
 		case 1:
-			r.put("positionName", "首页/咨询列表页");
+			r.put("positionName", "首页/咨询列表页("+pos+")");
 			break;
 		case 3:
-			r.put("positionName", "咨询详情页");
+			r.put("positionName", "咨询详情页("+pos+")");
 			break;
 		case 4:
-			r.put("positionName", "活动报名页");
+			r.put("positionName", "活动报名页("+pos+")");
 			break;
 		case 5:
-			r.put("positionName", "签到页");
+			r.put("positionName", "签到页("+pos+")");
 			break;
 		case 6:
-			r.put("positionName", "志愿者详情页");		
+			r.put("positionName", "志愿者详情页("+pos+")");		
 			break;
 		case 7:
-			r.put("positionName", "团队详情页");		
+			r.put("positionName", "团队详情页("+pos+")");		
 			break;
 		default:
 			break;
