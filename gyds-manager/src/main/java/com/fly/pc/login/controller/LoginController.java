@@ -1,9 +1,12 @@
 package com.fly.pc.login.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -30,6 +33,8 @@ import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.system.service.MenuService;
 import com.fly.system.utils.MD5Utils;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.dao.TeamDao;
+import com.fly.team.domain.TeamDO;
 import com.fly.utils.Constant;
 import com.fly.utils.R;
 import com.fly.wx.utils.EasyTypeToken;
@@ -47,6 +52,9 @@ public class LoginController extends BaseController {
 	MenuService menuService;
 	@Autowired
 	FileService fileService;
+	@Autowired
+	private TeamDao teamDao;
+	
 	@GetMapping({ "/admin"})
 	String welcome(Model model) {
 
@@ -61,6 +69,15 @@ public class LoginController extends BaseController {
 		UserDO userDO=getUser();
 		model.addAttribute("menus", menus);
 		model.addAttribute("name", userDO.getName());
+		
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("userId", userDO.getUserId());
+		List<TeamDO> TeamDO = teamDao.list(params);
+		if(!CollectionUtils.isEmpty(TeamDO)) {
+			if(TeamDO.get(0).getIsAuth()==2) {
+				model.addAttribute("isAuth", 2);
+			}
+		}
 		FileDO fileDO = fileService.get(userDO.getPicId());
 		if(fileDO!=null&&fileDO.getUrl()!=null){
 			if(fileService.isExist(fileDO.getUrl())){

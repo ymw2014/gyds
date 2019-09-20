@@ -30,6 +30,10 @@ import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.index.utils.ShowPosition;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
+import com.fly.proxybusi.dao.ProxybusiDao;
+import com.fly.proxybusi.domain.ProxybusiDO;
+import com.fly.proxybusi.service.ProxybusiService;
+import com.fly.signin.dao.SigninDao;
 import com.fly.sys.domain.SetupDO;
 import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
@@ -57,9 +61,12 @@ public class IndexController {
 	private VolunteerService volunteerService;
 	@Autowired
 	private IndexService indexService;
-	
+	@Autowired
+	private ProxybusiDao ProxybusiDao;
 	@Autowired
 	private SetupService setupService;
+	@Autowired
+	private SigninDao signinDao;
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	
@@ -79,6 +86,10 @@ public class IndexController {
 		}else {
 			areaId=0L;
 			params.put("parentRegionCode",0);
+		}
+		ProxybusiDO proxybusi = ProxybusiDao.getByRegion(areaId);
+		if(proxybusi!=null) {
+			model.addAttribute("proxybusi", proxybusi.getRegImg());
 		}
 		params.put("regionType",1);
 		List<RegionDO> areaList1 = regionService.list(params);
@@ -113,6 +124,20 @@ public class IndexController {
 		params.put("ids", ids);
 		List<ActivityDO> actList = activityService.list(params);//活动
 		model.addAttribute("actList", actList);//团队活动
+		params.clear();
+		
+		params.put("ids", ids);
+		Integer newCount = infoService.count(params);
+		Integer actCount = activityService.count(params);
+		params.put("starteTime", DateUtils.weeHours(new Date(), 0));
+		params.put("endTime", DateUtils.weeHours(new Date(), 1));
+		Integer sigCount = signinDao.count(params);
+		Integer teamCount = teamService.count(params);
+		model.addAttribute("newCount", newCount);//发布新闻总数
+		model.addAttribute("actCount", actCount);//发布活动总数
+		model.addAttribute("sigCount", sigCount);//qiandao
+		model.addAttribute("teamCount", teamCount);//qiandao
+		
 		params.clear();
 		params.put("isVo",1);//
 		params.put("offset", 0);

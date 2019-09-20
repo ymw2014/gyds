@@ -25,6 +25,7 @@ import com.fly.news.service.InfoService;
 import com.fly.pc.utils.PageUtils;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
+import com.fly.signin.dao.SigninDao;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
@@ -61,7 +62,8 @@ public class PcTeamController {
 	private UserDao userDao;
 	@Autowired
 	private ProxybusiService proxybusiService;
-	
+	@Autowired
+	private SigninDao signinDao;
 	
 	@RequestMapping("teamList")
 	public String list(@RequestParam Map<String,Object> params, Model model, HttpServletRequest request) {
@@ -141,10 +143,17 @@ public class PcTeamController {
 		Integer count = volunteerService.count(params);
 		Integer newCount = infoService.count(params);
 		Integer actCount = activityService.count(params);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("starteTime", DateUtils.weeHours(new Date(), 0));
+		map.put("endTime", DateUtils.weeHours(new Date(), 1));
+		map.put("teamId", teamId);
+		Integer sigCount = signinDao.count(map);
+		
 		model.addAttribute("voluntList", voluntList);//志愿者
 		model.addAttribute("voluntCount", count);//本团志愿者总数
 		model.addAttribute("newCount", newCount);//本团发布新闻总数
 		model.addAttribute("actCount", actCount);//本团发布活动总数
+		model.addAttribute("sigCount", sigCount);//本团发布活动总数
 		params.clear();
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
@@ -183,6 +192,7 @@ public class PcTeamController {
 		model.addAttribute("adv4", dataList.get(3));
 		model.addAttribute("adv5", dataList.get(4));
 		model.addAttribute("adv6", dataList.get(5));
+		model.addAttribute("areaId", areaId);
 		return "pc/teamDetail";
 	}
 	

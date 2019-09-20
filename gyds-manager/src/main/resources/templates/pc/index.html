@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>公益打赏</title>
+		<title th:each="area,i:${areaList}" th:if="${i.index==0&&areaId!=0}" th:text="${area.regionName+'-智慧公益'}"></title>
+		<title th:if="${areaId==0}" >智慧公益</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/lunbo.css}"/>
 		<link th:href="@{/css/layui.css}" rel="stylesheet">
@@ -69,11 +70,49 @@
 				<h3><i></i>数据统计</h3>
 				<a href="#">更多+</a>
 			</div>
-			<div class="gps_img">
-				
+			<div class="gps_img" th:if="${proxybusi==null}">
+			</div>
+			<div class="gps_img" th:if="${proxybusi!=null}">
+			<img th:src="${proxybusi}" style="height: 580px;width: 820px;">
 			</div>
 			<div class="gps_txt">
 				
+				<div class="gps_txt1">
+					<img th:src="@{/pc/images/index_17.jpg}" alt="">
+					<div class="gps_txt1-1">
+						<span th:text="${voluntCount}"></span>
+						<p>实名志愿者数</p>
+					</div>
+				</div>
+				
+				<div class="gps_txt1">
+					<img th:src="@{/pc/images/index_24.jpg}" alt="">
+					<div class="gps_txt1-1">
+						<span th:text="${actCount}">123</span>
+						<p>活动数</p>
+					</div>
+				</div>
+				<div class="gps_txt1">
+					<img th:src="@{/pc/images/index_26.jpg}" alt="">
+					<div class="gps_txt1-1">
+						<span th:text="${newCount}">123</span>
+						<p>资讯数</p>
+					</div>
+				</div>
+				<div class="gps_txt1">
+					<img th:src="@{/pc/images/index_21.jpg}" alt="">
+					<div class="gps_txt1-1">
+						<span th:text="${teamCount}"> 123</span>
+						<p>团队数</p>
+					</div>
+				</div>
+				<div class="gps_txt1">
+					<img th:src="@{/pc/images/index_21.jpg}" alt="">
+					<div class="gps_txt1-1">
+						<span th:text="${sigCount}">123</span>
+						<p>今日签到</p>
+					</div>
+				</div>
 				
 			</div>	
 		</div>
@@ -161,25 +200,25 @@
 			    <input type="hidden" placeholder="" class="input1" id="sort" name="sort">
 			    <input type="hidden" placeholder="" class="input1" name="regionCode" id="regionCode">
 			    	<label>
-						<span>广告展示位置</span>
+						<span>展示位置</span>
 						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
 					</label>
 					<label>
-						<span>广告投放天数</span>
+						<span>投放天数</span>
 						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
 					</label>
 					<label>
-						<span>广告链接地址</span>
+						<span>链接地址</span>
 						<input type="text" placeholder="http://" name="advUrl" class="input1">
 					</label>
 					<label>
-						<span>上传广告图</span>
+						<span>上传图片</span>
 						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
 						<input type="hidden" id="imgStr" name="advImg">
 						<input type="file" name="file" style="display: none;" id ="file">
 					</label>
 					<label>
-						<span>广告价格</span>
+						<span>总价格</span>
 						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
 					</label>
 					<label>

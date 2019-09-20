@@ -38,6 +38,11 @@ public class CashoutController {
 	@RequestMapping("/createOrder")
 	@ResponseBody
 	public R createOrder(String fee) {
+		if(Integer.valueOf(fee)<10) {
+			R r = new R();
+			r.put("code", -2);
+			return r;
+		}
 		R r = PayOrderService.createOrder(fee, OrderType.TI_XIAN);
 		return r;
 	}

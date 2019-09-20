@@ -95,4 +95,103 @@ public interface ScreenDao {
 	 * @return
 	 */
 	List<Map<String, Object>> getSexCount(Map<String,Object> map);
+	
+	/**
+	 * 统计年龄
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getAgeCount(Map<String,Object> map);
+	
+	
+	/**
+	 * 统计年龄参加活动次数
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getAgeAndActCount(Map<String,Object> map);
+	
+	/**
+	 * 总活动数
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getActCount(Map<String,Object> map);
+	
+	/**
+	 * 签到次数
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getPointsCount(Map<String,Object> map);
+	
+	List<Map<String, Object>> getSigninCount(Map<String,Object> map);
+	/**
+	   *  实名成员数
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getVolCount(Map<String,Object> map);
+	
+	/**
+	   *   按日期统计签到人数
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getPoinCount(Map<String,Object> map);
+	
+	/**
+	 * 代理商统计
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getProCount(Map<String,Object> map);
+	
+	/**
+	 * 区域统计
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getCuxCount(Map<String,Object> map);
+	
+	/**
+	   *  人数统计
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getUserCount(Map<String,Object> map);
+	
+	/**
+	 * 签到概况
+	 * @param map
+	 */
+	List<Map<String, Object>> getsigMon(Map<String,Object> map);
+	
+	/**
+	 * 参与活动次数排行
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getactOrder(Map<String,Object> map);
+	
+	/**
+	 * 月签到排名
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getsigOrder(Map<String,Object> map);
+	
+	/**
+	 * 今年评论量
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getCommMon(Map<String,Object> map);
+	
+	/**
+	 * 今年转发量
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getDyMon(Map<String,Object> map);
 }

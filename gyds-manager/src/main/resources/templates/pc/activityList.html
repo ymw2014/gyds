@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="css/activity.css">
 		<link rel="stylesheet" href="css/fenye.css">
 		<script type="text/javascript" src="js/fenye.js"></script>
-		<title>活动报名</title>
+		<title>活动报名-智慧公益</title>
 	</head>
 	<body>
 		<!-- 头部 -->
@@ -74,8 +74,11 @@
 </html>
 <script th:src="@{/pc/js/common.js}"></script>
 <script>
+function _area(){
+	console.log($("#area").val());
+	window.location.href = "/?areaId="+$("#area").val();
+}
    $(function(){
-	   $("#area").hide();
     var i=0;
     $(".butnn").click(function(){
         i++;

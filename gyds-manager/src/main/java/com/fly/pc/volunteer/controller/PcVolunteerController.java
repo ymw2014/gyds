@@ -123,9 +123,13 @@ public class PcVolunteerController {
 	 * @return
 	 */
 	@RequestMapping("volunteerDetail")
-	public String volunteerDetail(@RequestParam Map<String,Object> params, @RequestParam Integer areaId, @RequestParam Integer id, Model model) {
+	public String volunteerDetail(@RequestParam Map<String,Object> params, @RequestParam Long areaId, @RequestParam Integer id, Model model) {
 		UserDO user = ShiroUtils.getUser();
 		params.clear();
+		
+		List<TypeTitleDO> list2 = indexService.getFooterCenter();
+		model.addAttribute("centerList", list2);
+		
 		params.put("id", id);
 		VolunteerDO vo = volunteerService.get(id);
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
@@ -201,7 +205,7 @@ public class PcVolunteerController {
 		model.addAttribute("sharesList",shares);//转发
 		model.addAttribute("likesList",likes);//点赞
 		model.addAttribute("collectList",collect);//收藏
-		params.put("parentRegionCode", 0);
+		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);

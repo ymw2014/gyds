@@ -3,38 +3,37 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="style.css"/>
-		<script src="js/jquery-3.1.1.js"></script>
-		<script src="js/echarts.min.js"></script>
-		<script src="js/china.js"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}"/>
+		<script th:src="@{/js/jquery-3.1.1.js}"></script>
+		<script th:src="@{/js/echarts.min.js}"></script>
+		<script th:src="@{/js/china.js}"></script>
 	</head>
 	<body>
 		<!-- 头部 -->
 	  <header>
 		  <div class="header1">
 			  <div class="headerLeft">
-				  <img src="images/left.png" alt="">
+				  <img th:src="@{/images/left.png}" alt="">
 			  </div>
 			  <div class="headerCenter">
 			  		<p>益联 · 智慧公益大数据平台</p>
 			  </div>
 			  <div class="headerRight">
-				  <img src="images/right.png" alt="">
+				  <img th:src="@{/images/right.png}" alt="">
 			  </div>
 			  <div class="headerdeta">
-				  <p>2019/8/19	 19:30</p>
+				  <p>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}]]</p>
 			  </div>
 		  </div>
 	  </header>
 	  <div class="zhuti">
 		  <div class="zhutiLeft">
 			  <div class="zhutiLeft1">
-				  <img src="images/landian_03.png" alt="">
+				  <img th:src="@{/images/landian_03.png}" alt="">
 				  <p>成员概况</p>
 			  </div>
 			  <div class="zhutiLeft2">
-			  	<p>男性:<span style="color:#edfc00;">123456789</span><span style="color:#20edfc;">(45%)</span></p>
-				<p>女性:<span style="color:#edfc00;">987654321</span><span style="color:#20edfc;">(55%)</span></p>
+			  <p th:each="sex :${sexCount}" th:utext="${sex.name==0}?'男:<span style='+'color:#edfc00;'+'>'+${sex.c}+'</span><span style='+'color:#20edfc;'+'>('+${sex.ratioSex}+')</span>':'女:<span style='+'color:#edfc00;'+'>'+${sex.c}+'</span><span style='+'color:#20edfc;'+'>('+${sex.ratioSex}+')</span>'"></p>
 			  </div>
 			  <div class="zhutiLeft3" id="zhutiLeft3" style="height:200px;">
 			  	
@@ -43,21 +42,13 @@
 				   <div>
 					   <p>年龄区间</p>
 					   <ul>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+					   <li th:each="age : ${ageCount}" th:utext="${age.name}+'<span class='+'span11'+'>'+${age.value}+'</span> <span class='+'span22'+'>'+${age.ratio}+'</span>'"></li>
 					   </ul>
 				   </div>
 				   <div>
 					  <p class="zhp">参与活动次数</p>
 					  <ul>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>25岁 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li th:each="ageAct : ${ageActCount}" th:utext="${ageAct.name}+'<span class='+'span11'+'>'+${ageAct.value}+'</span> <span class='+'span22'+'>'+${ageAct.ratio}+'</span>'"></li>
 					  </ul>
 					 
 				   </div>
@@ -69,21 +60,17 @@
 				   <div>
 					   <p>志愿者等级</p>
 					   <ul>
-						   <li>一星志愿者 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>二星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>三星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>四星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>五星志愿者<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+						   <li>一星志愿者 <span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>二星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>三星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>四星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>五星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
 					   </ul>
 				   </div>
 				   <div>
 					  <p >签到次数</p>
 					  <ul>
-						   <li>1000次以上<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>365~1000次<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>201~365次<span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>31~200次 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
-						   <li>0~30次 <span class="span11">123456人</span> <span class="span22">(35%)</span></li>
+					   <li th:each="pointsCount : ${pointsCountList}" th:utext="${pointsCount.name}+'<span class='+'span11'+'>'+${pointsCount.value}+'人</span> <span class='+'span22'+'>'+${pointsCount.ratio}+'</span>'"></li>
 					  </ul>
 				   </div>
 			  </div>
@@ -93,44 +80,41 @@
 		  </div>
 		  <div class="zhutiCenter">
 			  <div class="ZCl">
-				  <img src="images/leftmei_03.png" alt="">
+				  <img th:src="@{/images/leftmei_03.png}" alt="">
 			  </div>
 			  <div class="ZCr" style="text-align: right;">
-				  <img src="images/rightmei_03.png" alt="">
+				  <img th:src="@{/images/rightmei_03.png}" alt="">
 			  </div>
 			  <div class="aqz1">
-				  <span>兰考县</span>
+				  <span th:text="${name}"></span>
 			  </div>
-			  <div class="aqz aqzx">
+			  <div class="aqz">
 				 <ul class="ssqq ssqq11" style="margin-top:100px;">
 					  <li>
-						  <p>123456789</p>
-						  <span>团队入驻数</span>
+						  <p th:text="${volCount}"></p>
+						  <span>实名志愿者</span>
 					  </li>
 					  <li>
-						  <p>123456789</p>
-						  <span>实名成员数</span>
+						  <p th:text="${poinCount}"></p>
+						  <span>今日签到</span>
 					  </li>
 				 </ul> 
 				 <ul class="ssqq ssqq22" style="margin-top:100px;">
 					  <li>
-						  <p>123456789</p>
-						  <span>团队入驻数</span>
+						  <p th:text="${publicActCount}"></p>
+						  <span>活动发布量</span>
 					  </li>
 					  <li>
-						  <p>123456789</p>
-						  <span>实名成员数</span>
+						  <p th:text="${newsCounts}"></p>
+						  <span>咨询发布量</span>
 					  </li>
-				 </ul>
-				 <div class="logoin">
-					 <img src="images/logo_03.png" alt="">
-				 </div>
+				 </ul> 
 			  </div>
 		  </div>
 		  <div class="zhutiRight">
 		  	<div class="zhutiLeft1">
-			  <img src="images/landian_03.png" alt="">
-			  <p>签到概况</p>
+			  <img th:src="@{/images/landian_03.png}" alt="">
+			  <p>组织概况</p>
 	        </div>
 		    <div class="zhutiRight1">
 				<div id="mind" class="mind">	
@@ -138,138 +122,47 @@
 				<div class="zhutiRight1-1">
 					<div>
 						<p style="text-align: left;">上个月入驻量</p>
-						<p style="color:#edfc00;">8726</p>
+						<p style="color:#edfc00;text-align:center;line-height:30px;"  th:text="${creTeam.value}"></p>
 					</div>
 					<div>
 						<p style="text-align: left;">本月入驻量</p>
-						<p style="color:#edfc00;">8726</p>
+						<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creTeam1.value}"></p>
 					</div>
 					<div>
 						<p style="text-align: left;">增长率</p>
-						<p style="color:#ff0000;">(123)</p>
+						<p style="color:#ff0000;line-height:30px;" th:text="${creRatio}"></p>
 					</div>
 				</div>
 			</div>
 			<div class="zhutiLeft1" style="border-top:1px solid #20effe;">
-			  <img src="images/landian_03.png" alt="">
+			  <img th:src="@{/images/landian_03.png}" alt="">
 			  <p>排行榜</p>
 			</div>
 			<div class="zhutiRight2">
 				<div>
-					<span>年度参与次数</span>
+					<span>实名志愿者数</span>
 					<div class="paiming">
 						<span>排名</span>
-						<span>姓名</span>
-						<span>次数</span>
+						<span>团队名称</span>
+						<span>数量</span>
 					</div>
-					<ul>
-						<li>1</li>
-						<li>王洋洋</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>2</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>3</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>4</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>2</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>3</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>4</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>2</li>
-						<li>赵曼</li>
-						<li>31</li>
+					<ul th:each="teamVo,i : ${teamVo}">
+						<li th:text="${i.count}"></li>
+						<li th:text="${teamVo.name}"></li>
+						<li th:text="${teamVo.value}"></li>
 					</ul>
 				</div>
 				<div>
-					<span>月签到排名</span>
+					<span>活动发布量</span>
 					<div class="paiming">
 						<span>排名</span>
-						<span>姓名</span>
-						<span>次数</span>
+						<span>团队名称</span>
+						<span>数量</span>
 					</div>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
-					</ul>
-					<ul>
-						<li>1</li>
-						<li>赵曼</li>
-						<li>31</li>
+					<ul th:each="teamNews,i : ${teamNews}">
+						<li th:text="${i.count}">1</li>
+						<li th:text="${teamNews.name}"></li>
+						<li th:text="${teamNews.value}"></li>
 					</ul>
 				</div>
 			</div>
@@ -284,38 +177,41 @@
 					</div>
 					<div class="zhutiRight1-1 huodong2">
 						<div>
-							<p style="text-align: left;">上个月入驻量</p>
-							<p style="color:#edfc00;">8726</p>
+							<p style="text-align: left;">上个月发布量</p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creAct.value}"></p>
 						</div>
 						<div>
-							<p style="text-align: left;">本月入驻量</p>
-							<p style="color:#edfc00;">8726</p>
+							<p style="text-align: left;">本月发布量</p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${creAct1.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">增长率</p>
-							<p style="color:#ff0000;">(123)</p>
+							<p style="color:#ff0000;line-height:30px;" th:text="${actRatio}"></p>
 						</div>
 					</div>
 				</div>
 		  		<div class="zhutiFooter2">
 					<div class="huodong">
 						<span>资讯发布</span>
+						<div class="huo1"><span></span>	转发量</div>
+						<div class="huo2"><span></span> 评论量</div>
+						<div class="huo3"><span></span> 发布量</div>
 					</div>
 					<div class="huodon1" id="mind2">
 					
 					</div>
 					<div class="zhutiRight1-1 huodong2">
 						<div>
-							<p style="text-align: left;">上个月入驻量</p>
-							<p style="color:#edfc00;">8726</p>
+							<p style="text-align: left;">上个月发布量</p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${newsCount.value}"></p>
 						</div>
 						<div>
-							<p style="text-align: left;">本月入驻量</p>
-							<p style="color:#edfc00;">8726</p>
+							<p style="text-align: left;">本月发布量</p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${newsCount1.value}"></p>
 						</div>
 						<div>
 							<p style="text-align: left;">增长率</p>
-							<p style="color:#ff0000;">(123)</p>
+							<p style="color:#ff0000;line-height:30px;" th:text="${newsRatio}"></p>
 						</div>
 					</div>
 				</div>
@@ -324,14 +220,7 @@
 						<span>实时动态信息</span>
 					</div>
 					<ul>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
-						<li><span>赵曼</span>[2019.8.13-15:23:20]通过审核成为了志愿者；</li>
+						<li><span>提示:</span>暂未开放；</li>
 					</ul>
 				</div>	  
 		  </div> 
@@ -340,232 +229,286 @@
 </html>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-         var myChart = echarts.init(document.getElementById('zhutiLeft3'));
-		 var myChart1 = echarts.init(document.getElementById('zhutiLeft5'));
-		 var myChart2 = echarts.init(document.getElementById('zhutiLeft6'));
-		 var mind = echarts.init(document.getElementById('mind'));
-		 var mind1 = echarts.init(document.getElementById('mind1'));
-		 var mind2 = echarts.init(document.getElementById('mind2'));
-        // 指定图表的配置项和数据
-        var  option = {
-			title : {
-				subtext: '政治面貌',
-				x:'center',
-				y:'80',
-			},
-			textStyle:{
-					
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			series : [
-				{
-					name: '访问来源',
-					type: 'pie',
-                    radius:  ['50%', '70%'],
-					data:[
-						{value:335, name:'直接访问'},
-						{value:310, name:'邮件营销'},
-						{value:234, name:'联盟广告'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'}
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				}
-			]
-		};
-        myChart.setOption(option);
-		
-		var  option1 = {
-			title : {
-				subtext: '学历状态',
-				x:'center',
-				y:'80',
-			},
-			textStyle:{
-					
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			series : [
-				{
-					name: '访问来源',
-					type: 'pie',
-		            radius:  ['50%', '70%'],
-					data:[
-						{value:335, name:'直接访问'},
-						{value:310, name:'邮件营销'},
-						{value:234, name:'联盟广告'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'}
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				}
-			]
-		};
-		myChart1.setOption(option1);
-		
-		var  option2 = {
-			title : {
-				subtext: '从业状态',
-				x:'center',
-				y:'80',
-			},
-			textStyle:{
-					
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			series : [
-				{
-					name: '访问来源',
-					type: 'pie',
-		            radius:  ['50%', '70%'],
-					data:[
-						{value:335, name:'直接访问'},
-						{value:310, name:'邮件营销'},
-						{value:234, name:'联盟广告'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'}
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				}
-			]
-		};
-		myChart2.setOption(option2);
-		
-		
-		
-		var  option4 = {
-			xAxis: {
-							type: 'category',
-							data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月',"8月","9月","10月","11月","12月"]
+$().ready(function(){
+	lod();
+	var myVar = setInterval(lod, 1000*10);
+	var myVar1 = setInterval(re, 1000*60*60);
+})
+function re(){
+	history.go(0);
+        }
+function lod(){        
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/ProPoliticsSurvey',
+				success : function(res) {
+					 // 指定图表的配置项和数据
+			        var  option = {
+						title : {
+							subtext: '政治面貌',
+							x:'center',
+							y:'80',
 						},
 						textStyle:{
-							color:"#fff",
-						    fontSize:12
+								
 						},
-						  legend: {
-						    data:['邮件营销','联盟广告']
+						tooltip : {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
 						},
-						grid: {
-							left: '1%',
-							right: '4%',
-							bottom: '1%',
-							top:"6%",
-							containLabel: true
-						},
-						yAxis: {
-							type: 'value'
-						},
-						series: [{
-							data: [2000, 3600, 4200, 3800, 5200, 6700, 8000,2000, 3600, 4200, 3800, 5200, 6700, 8000],
-							type: 'line'
-						}]
-			};
-		mind.setOption(option4);
-		
-		var  option5 = {
-			textStyle:{
-					
-			},
-			tooltip : {
-				trigger: 'item',
-				formatter: "{a} <br/>{b} : {c} ({d}%)"
-			},
-			series : [
-				{
-					name: '访问来源',
-					type: 'pie',
-		            radius : '55%',
-		            center: ['50%', '60%'],
-					data:[
-						{value:335, name:'直接访问'},
-						{value:310, name:'邮件营销'},
-						{value:234, name:'联盟广告'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'},
-						{value:135, name:'视频广告'},
-						{value:548, name:'搜索引擎'}
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
+						series : [
+							{
+								name: '访问来源',
+								type: 'pie',
+			                    radius:  ['50%', '70%'],
+								data:res,
+								label: {
+					                normal: {
+					                    formatter: '{b} : {c} ({d}%)',
+					                }
+					            },
+								itemStyle: {
+									emphasis: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
+									}
+								}
+							}
+						]
+					};
+			        var myChart = echarts.init(document.getElementById('zhutiLeft3'));
+			        myChart.setOption(option);
 				}
-			]
-		};
-		mind1.setOption(option5);
+		 });
+		
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/ProEducationSurvey',
+				success : function(res) {
+					var  option1 = {
+							title : {
+								subtext: '学历状态',
+								x:'center',
+								y:'80',
+							},
+							textStyle:{
+									
+							},
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							series : [
+								{
+									name: '访问来源',
+									type: 'pie',
+						            radius:  ['50%', '70%'],
+									data:res,
+									label: {
+						                normal: {
+						                    formatter: '{b} : {c} ({d}%)',
+						                }
+						            },
+									itemStyle: {
+										emphasis: {
+											shadowBlur: 10,
+											shadowOffsetX: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									}
+								}
+							]
+						};
+						var myChart1 = echarts.init(document.getElementById('zhutiLeft5'));
+						myChart1.setOption(option1);
+				}
+		 });
+		
+		 
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/ProPostSurvey',
+				success : function(res) {
+					var  option2 = {
+							title : {
+								subtext: '从业状态',
+								x:'center',
+								y:'80',
+							},
+							textStyle:{
+									
+							},
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							series : [
+								{
+									name: '访问来源',
+									type: 'pie',
+						            radius:  ['50%', '70%'],
+									data:res,
+									label: {
+						                normal: {
+						                    formatter: '{b} : {c} ({d}%)',
+						                }
+						            },
+									itemStyle: {
+										emphasis: {
+											shadowBlur: 10,
+											shadowOffsetX: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									}
+								}
+							]
+						};
+					var myChart2 = echarts.init(document.getElementById('zhutiLeft6'));
+						myChart2.setOption(option2);
+				}
+		 });
 		
 		
-		var option6 = {
-			xAxis: {
-				type: 'category',
-				data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月',"8月","9月","10月","11月","12月"]
-			},
-			textStyle:{
-				color:"#fff",
-			    fontSize:12
-			},
-			  legend: {
-			    data:['邮件营销','联盟广告']
-			},
-			grid: {
-				left: '1%',
-				right: '4%',
-				bottom: '1%',
-				top:"6%",
-				containLabel: true
-			},
-			yAxis: {
-				type: 'value'
-			},
-			series: [{
-				data: [2000, 3600, 4200, 3800, 5200, 6700, 8000,2000, 3600, 4200, 3800, 5200, 6700, 8000],
-				type: 'line'
-			},{
-				data: [2000, 3800, 4200, 9900, 5200, 6700, 8000,2000, 2000, 4200, 3800, 5200, 6700, 8000],
-				type: 'line'
-			},]
-};
-		mind2.setOption(option6);
+		
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/ProOrgSurvey',
+				success : function(res) {
+					var  option4 = {
+							textStyle:{
+									
+							},
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							series : [
+								{
+									name: '访问来源',
+									type: 'pie',
+						            radius : '55%',
+				                    center: ['50%', '60%'],
+									data:res,
+									label: {
+						                normal: {
+						                    formatter: '{b} : {c} ({d}%)',
+						                }
+						            },
+									itemStyle: {
+										emphasis: {
+											shadowBlur: 10,
+											shadowOffsetX: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									}
+								}
+							]
+						};
+					var mind = echarts.init(document.getElementById('mind'));
+						mind.setOption(option4);
+				}
+		 });
+		
+		
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/ProActTypeScreen',
+				success : function(res) {
+					var  option5 = {
+							textStyle:{
+									
+							},
+							tooltip : {
+								trigger: 'item',
+								formatter: "{a} <br/>{b} : {c} ({d}%)"
+							},
+							series : [
+								{
+									name: '访问来源',
+									type: 'pie',
+						            radius : '55%',
+						            center: ['50%', '60%'],
+									data:res,
+									label: {
+						                normal: {
+						                    formatter: '{b} : {c} ({d}%)',
+						                }
+						            },
+									itemStyle: {
+										emphasis: {
+											shadowBlur: 10,
+											shadowOffsetX: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									}
+								}
+							]
+						};
+					var mind1 = echarts.init(document.getElementById('mind1'));
+						mind1.setOption(option5);
+				}
+		 });
+		
+		
+		 $.ajax({
+				type : 'POST',
+				data : {},
+				async: true,
+				url : '/pc/screen/NewsMon',
+				success : function(res) {
+					var option6 = {
+							xAxis: {
+								type: 'category',
+								data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月',"8月","9月","10月","11月","12月"]
+							},
+							textStyle:{
+								color:"#fff",
+							    fontSize:12
+							},
+							  legend: {
+							    data:['邮件营销','联盟广告']
+							},
+							grid: {
+								left: '1%',
+								right: '4%',
+								bottom: '1%',
+								top:"6%",
+								containLabel: true
+							},
+							yAxis: {
+								type: 'value'
+							},
+							series: [{
+								name :'评论',
+								color: '#42a0ae',
+								data: res.list,
+								type: 'line'
+							},{
+								name:'发布',
+								color: '#e7696c',
+								data: res.newList1,
+								type: 'line'
+							},{
+								name:'转发',
+								color: '#999e41',
+								data: res.list2,
+								type: 'line'
+							},]
+				};
+						 var mind2 = echarts.init(document.getElementById('mind2'));
+						mind2.setOption(option6);
+				}
+		 });
+}
 </script>

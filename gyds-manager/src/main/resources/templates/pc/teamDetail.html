@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>公益打赏</title>
+		<title th:text="${team.teamName+'-智慧公益'}"></title>
 		<link rel="stylesheet" type="text/css" href="css/index.css"/>
 		<link rel="stylesheet" type="text/css" href="css/lunbo.css"/>
 		<link rel="stylesheet" th:href="@{/pc/css/jquery.my-modal.1.1.css}">
@@ -53,7 +53,7 @@
 				<datalist id="sexlist">
 					<option th:each="area: ${areaList}" th:value="${area.regionName}"></option>
 				</datalist> -->
-				<p th:text="${team.teamName}" style="font-weight: 700; color: red" ></p>
+				<p th:text="${team.teamName}" style="font-weight: 700; color: red;font-size: 18px; margin-top: 8px;" ></p>
 			</div>
 			<div class="header-img">
 				<img th:src="@{/pc/images/gongyi.png}" alt="">
@@ -97,10 +97,10 @@
 		<div>
 			<ul>
 				<li><a href="/">网站首页</a></li>
-				<li><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a></li>
-				<li><a th:href="@{/pc/activityList(areaId=${areaId})}">活动报名</a></li>
-				<li><a th:href="@{/pc/volunteerList(areaId=${areaId})}">志愿者</a></li>
-				<li><a th:href="@{/pc/teamList(areaId=${areaId})}">团队展示</a></li>
+				<li><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0,teamId=${teamId})}">活动动态</a></li>
+				<li><a th:href="@{/pc/activityList(areaId=${teamId})}">活动报名</a></li>
+				<li><a th:href="@{/pc/volunteerList(areaId=${teamId})}">志愿者</a></li>
+				<li><a th:href="@{/pc/teamDetail(teamId=${teamId},areaId=0)}">团队首页</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -155,16 +155,16 @@
 			</div>
 			<div class="gps_img1">
 				<div id="container1" >
-						<div class="lun1" >
-							<img th:each="newInfo: ${newList}" th:src="${newInfo.titleImg}" alt="">
+						<div>
+							<img  style="width:100%;" th:src="${team.teamImg}" alt="">
 						</div>
 					  <button class="left1"></button>
 					  <button class="right1"></button>
-					  <div class="bo1">
+					 <!--  <div class="bo1">
 						 <ul class="list1">
 							  <li th:each="newInfo: ${newList}"class="select"></li>
 						 </ul> 
-					  </div>
+					  </div> -->
 				 </div>
 			</div>
 			<input type="hidden" th:value="${teamId}" id="teamId"/>
@@ -184,7 +184,7 @@
 					<img src="images/index_17.jpg" alt="">
 					<div class="gps_txt1-1">
 						<span th:text="${voluntCount}"></span>
-						<p>实名志愿者总数</p>
+						<p>实名志愿者数</p>
 					</div>
 				</div>
 				<!-- <div class="gps_txt1">
@@ -198,14 +198,21 @@
 					<img src="images/index_24.jpg" alt="">
 					<div class="gps_txt1-1">
 						<span th:text="${actCount}"></span>
-						<p>发布活动者次数</p>
+						<p>活动数</p>
 					</div>
 				</div>
 				<div class="gps_txt1">
 					<img src="images/index_26.jpg" alt="">
 					<div class="gps_txt1-1">
 						<span th:text="${newCount}"></span>
-						<p>发布资讯数量</p>
+						<p>资讯数</p>
+					</div>
+				</div>
+				<div class="gps_txt1">
+					<img src="images/index_21.jpg" alt="">
+					<div class="gps_txt1-1">
+						<span th:text="${sigCount}"></span>
+						<p>今日签到</p>
 					</div>
 				</div>
 				
@@ -274,25 +281,25 @@
 			    <input type="hidden" placeholder="" class="input1" id="sort" name="sort">
 			    <input type="hidden" placeholder="" class="input1" name="regionCode" id="regionCode">
 			    	<label>
-						<span>广告展示位置</span>
+						<span>展示位置</span>
 						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
 					</label>
 					<label>
-						<span>广告投放天数</span>
+						<span>投放天数</span>
 						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
 					</label>
 					<label>
-						<span>广告链接地址</span>
+						<span>链接地址</span>
 						<input type="text" placeholder="http://" name="advUrl" class="input1">
 					</label>
 					<label>
-						<span>上传广告图</span>
+						<span>上传图片</span>
 						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
 						<input type="hidden" id="imgStr" name="advImg">
 						<input type="file" name="file" style="display: none;" id ="file">
 					</label>
 					<label>
-						<span>广告价格</span>
+						<span>总价格</span>
 						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
 					</label>
 					<label>
@@ -306,7 +313,11 @@
 <script th:src="@{/pc/js/jquery.my-modal.1.1.js}"></script>
 <script th:src="@{/pc/js/common.js}"></script>
 <script>
-$("#area").hide();
+function _area(){
+	console.log($("#area").val());
+	window.location.href = "/?areaId="+$("#area").val();
+}
+
 function teamApply() {
 	var teamId = $("#teamId").val();
  	$.ajax({

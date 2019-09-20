@@ -5,7 +5,7 @@
 	list-style: none;
 }
 body{
-	background:#08579b;
+	 background: linear-gradient(180deg, #075599,#002e6a);
 }
 header{
 	width: 100%;	
@@ -68,6 +68,28 @@ header{
 	 border-bottom:2px solid #20effe;
 	 color:#fff;
 }
+.huo1,.huo2,.huo3{
+	float: right;
+	margin-left:10px;
+	font-size: 12px;
+}
+.huo1>span,.huo2>span,.huo3>span{
+	width:18px;
+	height:18px;
+	display: block;
+	float: left;
+	margin-top:12px;
+	margin-right:5px;
+}
+.huo1>span{
+	background:#999e41;
+}
+.huo2>span{
+	background:#42a0ae;
+}
+.huo3>span{
+	background:#e7696c;
+}
 .zhutiLeft1 img{
 	float: left;
 	width: 10px;
@@ -99,7 +121,7 @@ header{
 	width: 50%;
 	height:200px;
 	float: left;
-	background:url(images/xiafang.png) no-repeat left;
+	background:url(../images/xiafang.png) no-repeat left;
 	background-size:90% 90%;
 	background-position:10px 10px;	
 }
@@ -267,7 +289,7 @@ header{
     width: 136px;
     height: 60px;
 	margin-left:10px;
-	background:url(images/fangpian.png) no-repeat;
+	background:url(../images/fangpian.png) no-repeat;
 	background-size:100% 100%;
 }
 .ssqq li>p{
@@ -318,20 +340,20 @@ header{
 .aqz{
 	width:100%;
 	height:618px;
-	background:url(images/sssss_02.png) no-repeat;
+	background:url(../images/sssss_02.png) no-repeat;
 	background-size:100% 100%;
 	float: left;
 }
 .aqz1{
 	width:100%;
 	height:56px;
-	background:url(images/sssss_01.png) no-repeat;
+	background:url(../images/sssss_01.png) no-repeat;
 	background-size:100% 100%;
 	float: left;
 	text-align: center;
     line-height:56px;
 	color:#ffb55e;
-	font-size:22px;
+	font-size:28px;
 }
 .aqzx{
 	position: relative;

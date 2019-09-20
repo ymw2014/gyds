@@ -267,6 +267,17 @@
 						<span style="margin-left: -147px;color:red">代理保证金</span>
 						<input type="text" readonly="readonly" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
 					</label>
+					
+					<label style="overflow: hidden;"> <span>地区图片</span>
+				<div>
+					<img th:src="@{/pc/images/gahgha_03.png}" id="regImg1" alt=""
+						class="sfz1">
+					<p>地区图片</p>
+					<input id="regImg" name="regImg" type="hidden" /> <input
+						type="file" name="file" style="display: none;" id="file4">
+				</div>
+					</label> 
+					
 					<label>
 						<span>代理地区</span>
 						<select class="juzhu" onchange="pronv2()" id="pron2" name="pronvice">

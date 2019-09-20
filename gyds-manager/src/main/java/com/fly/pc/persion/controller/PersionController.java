@@ -43,6 +43,8 @@ import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.MD5Utils;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.dao.TeamDao;
+import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.JSONUtils;
 import com.fly.utils.R;
@@ -79,6 +81,8 @@ public class PersionController extends BaseController{
 	private TypeService typeService;
 	@Autowired
 	UserDao userMapper;
+	@Autowired
+	TeamDao teamDao;
 	
 	@ResponseBody
 	@RequestMapping("/pc/binding")
@@ -102,6 +106,14 @@ public class PersionController extends BaseController{
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter (Model model) {
 		UserDO user = ShiroUtils.getUser();
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("userId", user.getUserId());
+		List<TeamDO> TeamDO = teamDao.list(params);
+		if(!CollectionUtils.isEmpty(TeamDO)) {
+			if(TeamDO.get(0).getIsAuth()!=null&&TeamDO.get(0).getIsAuth()==2) {
+				model.addAttribute("isAuth", 2);
+			}
+		}
 		if(user==null) {
 			return "redirect:/admin";
 		}
@@ -410,12 +422,7 @@ public class PersionController extends BaseController{
 				e.printStackTrace();
 			}
 			PublicUtils.IdNOToAge(name.getCardNo());
-			if(name.getCardFrontImg()==null||name.getCardFrontImg()=="") {
-				return R.error("身份证正面图不能为空");
-			}
-			if(name.getCardBackImg()==null||name.getCardBackImg()=="") {
-				return R.error("身份证正面图不能为空");
-			}
+			
 			name.setCreateTime(new Date());
 			name.setStatus(1);
 			if(nameDao.save(name)>0) {

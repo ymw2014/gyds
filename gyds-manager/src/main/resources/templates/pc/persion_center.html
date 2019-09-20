@@ -129,14 +129,14 @@
 				</dt>
 
 				<dt>
-					<a href="/pc/voApply" data-index="1" target="iframe0">志愿者申请</a>
+					<a href="/pc/voApply" data-index="1" target="iframe0">志愿者</a>
 				</dt>
 
 				<dt>
-					<a href="/pc/regTeam/createTeam" data-index="1" target="iframe0">申请建团</a>
+					<a href="/pc/regTeam/createTeam" data-index="1" target="iframe0">团队管理</a>
 				</dt>
 				<dt>
-					<a href="/pc/proxybusi/show" data-index="3" target="iframe0">申请代理商</a>
+					<a href="/pc/proxybusi/show" data-index="3" target="iframe0">服务枢纽</a>
 				</dt>
 
 
@@ -144,7 +144,18 @@
 					<a href="/pc/checkin/show" shiro:hasPermission="qiandao:qiandao:qiandao" data-index="1s" target="iframe0">我的签到</a>
 				</dt>
 				<dt>
-					<a href="/pc/basics" data-index="1s" target="iframe0">基本资料修改</a>
+					<a href="/pc/basics" data-index="1s" target="iframe0">基本资料</a>
+				</dt>
+				
+				<dt>
+					<a href="/pc/screen/queryScreen" data-index="1s" shiro:hasPermission="zhihui:pingmu:quanguo" >智慧大屏</a>
+				</dt>
+				<dt>
+					<a href="/pc/screen/queryProScreen" data-index="1s"  shiro:hasPermission="zhihui:pingmu:daili" >智慧大屏</a>
+				</dt>
+				
+				<dt th:if="${isAuth==2}">
+					<a href="/pc/screen/queryTeamScreen" data-index="1s"  >智慧大屏</a>
 				</dt>
 				<!-- <dt>基本设置</dt>
 				<dd>账户安全</dd>

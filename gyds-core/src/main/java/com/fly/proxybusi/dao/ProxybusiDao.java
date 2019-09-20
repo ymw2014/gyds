@@ -31,5 +31,7 @@ public interface ProxybusiDao {
 	int batchRemove(Long[] ids);
 	
 	ProxybusiDO getByUserId(Long id);
+	
+	ProxybusiDO getByRegion(Long id);
 }
 

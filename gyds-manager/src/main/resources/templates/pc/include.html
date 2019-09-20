@@ -116,10 +116,11 @@
 		<div>
 			<ul>
 				<li><a href="/">网站首页</a></li>
-				<li><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a></li>
+				<li><a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">活动动态</a></li>
 				<li><a th:href="@{/pc/activityList(areaId=${areaId})}">活动报名</a></li>
 				<li><a th:href="@{/pc/volunteerList(areaId=${areaId})}">志愿者</a></li>
-				<li><a th:href="@{/pc/teamList(areaId=${areaId})}">团队展示</a></li>
+ 				<li th:if="${areaId!=null && #strings.length(areaId)< 10}"><a th:href="@{/pc/teamList(areaId=${areaId})}">团队展示</a></li>
+				<li th:if="${areaId!=null && #strings.length(areaId) > 9}"><a th:href="@{/pc/teamDetail(teamId=${areaId},areaId=0)}">团队首页</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -138,7 +139,7 @@
 				<figcaption>微信公众号</figcaption>
 			</figure>
 		</div>
-		<div class="foter">
+		<!-- <div class="foter">
 			<h4>
 				<img th:src="@{/pc/images/xian_03.jpg}" alt="">&nbsp;&nbsp;友情链接&nbsp;&nbsp;<img
 					th:src="@{/pc/images/xian_03.jpg}" alt="">
@@ -157,7 +158,7 @@
 				<li><a href="">网易公益</a></li>
 				<li><a href="">网易公益</a></li>
 			</ul>
-		</div>
+		</div> -->
 	</footer>
 	<!-- 备案 -->
 	<div class="beian">

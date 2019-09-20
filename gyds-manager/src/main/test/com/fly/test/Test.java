@@ -1,9 +1,14 @@
 package com.fly.test;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.alibaba.druid.sql.visitor.functions.Nil;
+import com.fly.count.utils.NumberUtils;
+import com.fly.utils.DateUtils;
 
 public class Test {
 
@@ -52,21 +57,9 @@ public class Test {
 		 * DAY_OF_MONTH)); Date strDateTo = calendar.getTime();
 		 * System.out.println(DateUtils.format(strDateTo));
 		 */
-		Map<String, Object> map = new HashMap<String, Object>();
-    	String firstDay,lastDay;
-    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-    	//获取前年的第一天
-    	Calendar cal_1=Calendar.getInstance();//获取当前日期
-    	cal_1.add(Calendar.YEAR, 0);
-    	cal_1.set(Calendar.DAY_OF_YEAR,1);//设置为1号,当前日期既为本月第一天
-    	firstDay = format.format(cal_1.getTime());
-    	map.put("starteTime",firstDay);
-    	//获取前年的最后一天
-    	Calendar cale = Calendar.getInstance();
-    	lastDay = format.format(cale.getTime());
-    	map.put("endTime", lastDay);
-    	System.out.println(firstDay);
-    	System.out.println(lastDay);
+		
+		/* NumberUtils.getRatio(0,1); */
+		System.out.println(DateUtils.IdNOToAge("410182199402160339"));
 	}
 
 }

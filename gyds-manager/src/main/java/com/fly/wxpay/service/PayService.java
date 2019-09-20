@@ -118,7 +118,7 @@ public class PayService {
 		String wxUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers"; //获取退款的api接口
     	try {
     		BigDecimal orderPrice = new BigDecimal(amount + "");
-    		if (amount > 5000) {
+    		if (amount > 1000) {
     			SetupDO setupDO = setupService.get(1);
     			BigDecimal toltal = new BigDecimal(amount  + "");
     			BigDecimal withdrawalFee = new BigDecimal(setupDO.getWithdrawalFee() + "");

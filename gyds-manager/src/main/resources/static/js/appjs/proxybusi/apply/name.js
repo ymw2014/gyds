@@ -114,6 +114,15 @@ function load() {
 									
 								}
 								},
+								{
+									field : 'regImg', 
+									title : '地区图片' ,
+									formatter : function(value, row, index) {
+										
+										return '<img src="' + value + '"  onmousemove="showBigPic(this,this.src)"  onmouseout="closeimg()" style="width:47px;">';
+									
+								}
+								},
 																{
 									field : 'sex', 
 									title : '性别' ,

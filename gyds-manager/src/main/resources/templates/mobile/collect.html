@@ -27,10 +27,10 @@
 		<div class="guanzhu">
 			<div style="display:block;">
 				 <div class="guanzhu1" th:each="team: ${teamList}">
-					<!-- <a th:href="@{/pc/teamDetail(teamId=${team.id})}"> -->
-					<img th:src="${team.team_title_img}" alt="">
+					 <a th:href="@{/pc/teamDetail(teamId=${team.news_id},areaId=0)}"> 
+					<img th:src="${team.team_title_img}" alt=""></a>
 					<div>
-						<h4 th:text="${#strings.abbreviate(team.team_name,18)}"></h4>
+						<a style="text-decoration:none; color:#333;"  th:href="@{/pc/teamDetail(teamId=${team.news_id},areaId=0)}"> <h4 th:text="${#strings.abbreviate(team.team_name,18)}"></h4></a>
 						<ul>
 							<li>团队类型<span th:text="${team.type_name}"></span></li>
 							<li>所在地区<span th:text="${team.region_name}"></span></li>
@@ -46,7 +46,7 @@
 				<div class="guanzhu2" th:each="act: ${actList}">
 					<a th:href="@{/pc/activityDetail(id=${act.news_id},areaId=0)}"><img th:src="${act.act_title_img}" alt=""></a>
 					<div>
-						<h4 th:text="${#strings.abbreviate(act.act_title,18)}"></h4>
+						<a style="text-decoration:none; color:#333;" th:href="@{/pc/activityDetail(id=${act.news_id},areaId=0)}"><h4 th:text="${#strings.abbreviate(act.act_title,18)}"></h4></a>
 						<ul>
 							<li th:text=" ${'发布时间:'  + #dates.format(act.create_time, 'yyyy-MM-dd HH:mm:ss')}"></li>
 							<li th:text=" ${'截止时间:'  +#dates.format(act.end_time, 'yyyy-MM-dd HH:mm:ss')}"></li>
@@ -91,7 +91,7 @@
 			</div> -->
 			<div>
 				<div class="guanzhu4" th:each="vo: ${voList}">
-					<a th:href="@{/pc/volunteerDetail(id=${vo.id})}"><img th:src="${vo.head_img}" alt=""></a>
+					<a th:href="@{/pc/volunteerDetail(id=${vo.id},areaId=${areaId})}"><img th:src="${vo.head_img}" alt=""></a>
 					<div>
 						<h4 th:text="${vo.volunteer_name}"><!-- <img src="images/wan_vip_03.png" alt=""> --></h4>
 						<p th:text="${'个人签名:' + vo.remark}"></p>

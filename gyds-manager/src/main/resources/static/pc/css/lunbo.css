@@ -65,7 +65,7 @@
 			width:765px;
 			height: 394px;
 			position: relative;
-			overflow: hidden;
+			/* overflow: hidden; */
             background: #fff;
 		}
 			.lun1{

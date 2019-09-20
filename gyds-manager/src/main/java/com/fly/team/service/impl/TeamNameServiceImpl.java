@@ -197,16 +197,16 @@ public class TeamNameServiceImpl extends BaseService implements TeamNameService 
 			proxy.setCreateTime(new Date());
 			proxy.setUserId(user.getUserId());
 			proxy.setLevel(Integer.parseInt(proxyMap.get("regionLevel").toString()));
-			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("1")) {
+			if(proxyMap.get("regionLevel")!=null&&proxy.getProxyRegion()==null&&proxyMap.get("regionLevel").toString().equals("1")&&proxy.getProxyRegion()!=null) {
 				proxy.setProxyRegion(Long.parseLong(proxyMap.get("pronvice").toString()));
 			}
-			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("2")) {
+			if(proxyMap.get("regionLevel")!=null&&proxy.getProxyRegion()==null&&proxyMap.get("regionLevel").toString().equals("2")&&proxy.getProxyRegion()!=null) {
 				proxy.setProxyRegion(Long.parseLong(proxyMap.get("city").toString()));
 			}
-			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("3")) {
+			if(proxyMap.get("regionLevel")!=null&&proxy.getProxyRegion()==null&&proxyMap.get("regionLevel").toString().equals("3")&&proxy.getProxyRegion()!=null) {
 				proxy.setProxyRegion(Long.parseLong(proxyMap.get("country").toString()));
 			}
-			if(proxyMap.get("regionLevel")!=null&&proxyMap.get("regionLevel").toString().equals("4")) {
+			if(proxyMap.get("regionLevel")!=null&&proxy.getProxyRegion()==null&&proxyMap.get("regionLevel").toString().equals("4")) {
 				proxy.setProxyRegion(Long.parseLong(proxyMap.get("street").toString()));
 			}
 			if(user.getIsIdentification()==null||user.getIsIdentification()!=1) {

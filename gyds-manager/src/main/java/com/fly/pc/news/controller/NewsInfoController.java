@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fly.adv.domain.AdvertisementDO;
 import com.fly.base.BaseService;
 import com.fly.common.controller.BaseController;
+import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
+import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
 import com.fly.index.utils.OrderType;
 import com.fly.news.dao.CommentDao;
@@ -83,9 +85,20 @@ public class NewsInfoController extends BaseController {
 	private IndexService indexService;
 
 	@RequestMapping("/info")
-	public String newInfo(@RequestParam Integer id, @RequestParam Integer areaId,Model model) {
+	public String newInfo(@RequestParam Integer id, @RequestParam Long areaId, Long teamId,Model model) {
 		InfoDO info = infoService.get(id);
 		Map<String, Object> params = new HashMap<String, Object>();
+		
+		List<TypeTitleDO> list2 = indexService.getFooterCenter();
+		model.addAttribute("centerList", list2);
+		if(teamId!=null) {
+			areaId=teamId;
+		}
+		params.put("parentRegionCode", areaId);
+		params.put("regionType",1);
+		List<RegionDO> areaList = regionService.list(params);
+		model.addAttribute("areaList", areaList);
+		
 		// 团队置顶排序
 		params.put("status", 1);
 		params.put("isDel", 0);
@@ -201,7 +214,8 @@ public class NewsInfoController extends BaseController {
 		params.put("limit", 10);
 		params.put("sort", "create_time desc");
 		List<CommentDO> comm = commentDao.list(params);
-
+		
+		
 		// 评论人数
 		model.addAttribute("commCount", comm.size());
 		// 评论默认时间排序
@@ -228,8 +242,10 @@ public class NewsInfoController extends BaseController {
 	@RequestMapping("/queryCommList")
 	@ResponseBody
 	public List<CommentDO> queryCommList(@RequestParam Map<String, Object> para, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		para.put("sort", "create_time desc");
-		List<CommentDO> comm = commentDao.list(para);
+		map = new PageUtils(para);
+		List<CommentDO> comm = commentDao.list(map);
 		return comm;
 		
 	}
@@ -652,8 +668,21 @@ public class NewsInfoController extends BaseController {
 	}
 
 	@RequestMapping("/infoList")
-	public String newInfoList(@RequestParam Long areaId, @RequestParam Integer flag, Model model) {
+	public String newInfoList(@RequestParam Long areaId, @RequestParam Integer flag,Long teamId, Model model) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		
+		List<TypeTitleDO> list2 = indexService.getFooterCenter();
+		model.addAttribute("centerList", list2);
+		
+		if(teamId!=null) {
+			areaId=teamId;
+		}
+		
+		params.put("parentRegionCode", areaId);
+		params.put("regionType",1);
+		List<RegionDO> areaList = regionService.list(params);
+		model.addAttribute("areaList", areaList);
+		
 		// 查询列表数据
 		params.put("pids", areaId);
 		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));

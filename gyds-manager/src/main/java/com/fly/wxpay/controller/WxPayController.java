@@ -68,6 +68,11 @@ public class WxPayController extends BaseController {
 	@ResponseBody
 	public R createOrder(@RequestParam Map<String, Object> param) {
 		String fee = param.get("data").toString();
+		if(Integer.valueOf(fee)<10) {
+			R r = new R();
+			r.put("code", -2);
+			return r;
+		}
 		R r = PayOrderService.createOrder(fee, OrderType.ZHI_CHU);
 		return r;
 	}

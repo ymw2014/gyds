@@ -174,7 +174,7 @@ public class DateUtils {
     public static Map<String, Object> firstLastDay1() {
     	Map<String, Object> map = new HashMap<String, Object>();
     	String firstDay,lastDay;
-    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	//获取前月的第一天
     	Calendar cal_1=Calendar.getInstance();//获取当前日期
     	cal_1.add(Calendar.MONTH, 0);
@@ -194,7 +194,7 @@ public class DateUtils {
     public static Map<String, Object> firstLastYearDay() {
     	Map<String, Object> map = new HashMap<String, Object>();
     	String firstDay,lastDay;
-    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	//获取前年的第一天
     	Calendar cal_1=Calendar.getInstance();//获取当前日期
     	cal_1.add(Calendar.YEAR, -1);
@@ -215,7 +215,7 @@ public class DateUtils {
     public static Map<String, Object> firstLastYearDay1() {
     	Map<String, Object> map = new HashMap<String, Object>();
     	String firstDay,lastDay;
-    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	//获取前年的第一天
     	Calendar cal_1=Calendar.getInstance();//获取当前日期
     	cal_1.add(Calendar.YEAR, 0);
@@ -229,5 +229,26 @@ public class DateUtils {
     	return map;
     }
     
+    /**
+              *     根据身份证号判断年龄
+     * @param IdNO
+     * @return
+     */
+    public static int IdNOToAge(String IdNO){
+        int leh = IdNO.length();
+        String dates="";
+        if (leh == 18) {
+            int se = Integer.valueOf(IdNO.substring(leh - 1)) % 2;
+            dates = IdNO.substring(6, 10);
+            SimpleDateFormat df = new SimpleDateFormat("yyyy");
+            String year=df.format(new Date());
+            int u=Integer.parseInt(year)-Integer.parseInt(dates);
+            return u;
+        }else{
+            dates = IdNO.substring(6, 8);
+            return Integer.parseInt(dates);
+        }
+
+    }
 
 }
