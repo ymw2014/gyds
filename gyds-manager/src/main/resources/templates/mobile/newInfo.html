@@ -202,8 +202,13 @@
 			</div>
 			<script type="text/javascript" th:src="@{/pc/js/js1.js}"></script>
 		<div class="gyimg">
-			<a th:each="act: ${advList}" class="btn5" th:href="${act.advImg!=null?act.url:'javascript:;'}" th:target="${act.advImg!=null?'_blank':''}">
-				<img th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+			<a th:each="act,stat: ${advList}" class="btn5" th:href="${act.advImg!=null?act.url:'javascript:;'}" th:target="${act.advImg!=null?'_blank':''}">
+				<img th:if="${stat.count==1}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_03.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+				<img th:if="${stat.count==2}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_06.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+				<img th:if="${stat.count==3}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+				<img th:if="${stat.count==4}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_12.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+				<img th:if="${stat.count==5}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_15.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
+				<img th:if="${stat.count==6}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_03.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
 			</a>
 		</div>
 		<div class="listpl-2">

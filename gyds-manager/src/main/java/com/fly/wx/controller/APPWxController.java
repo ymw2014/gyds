@@ -97,7 +97,7 @@ public class APPWxController {
     					user.setNikeName(String.valueOf(json.get("nickname")));
     					user.setOpenId(String.valueOf(json.get("openid")));
     					user.setHeadImg(String.valueOf(json.get("headimgurl")));
-    					user.setSex(Integer.valueOf(String.valueOf(json.get("sex"))));
+    					//user.setSex(Integer.valueOf(String.valueOf(json.get("sex"))));
     					user.setStatus(1);
     					user.setCity(String.valueOf(json.get("city")));
     					user.setProvince(String.valueOf(json.get("province")));
@@ -224,7 +224,7 @@ public class APPWxController {
 			user.setNikeName(wxMpuser.getNickname());
 			user.setOpenId(jsonObject.getString("openId"));
 			user.setHeadImg(jsonObject.getString("headImgUrl"));
-			user.setSex(wxMpuser.getSex());
+			//user.setSex(wxMpuser.getSex());
 			user.setStatus(1);
 			user.setCity(wxMpuser.getCity());
 			user.setProvince(wxMpuser.getProvince());

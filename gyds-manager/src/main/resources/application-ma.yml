@@ -4,7 +4,7 @@ logging:
   level:
     root: info
     com.palmble: debug
-    com.palmble.**.dao: debug
+    com.fly.**.dao: debug
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

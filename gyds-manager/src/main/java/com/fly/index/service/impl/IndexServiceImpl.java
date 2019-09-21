@@ -273,7 +273,7 @@ public class IndexServiceImpl implements IndexService{
 			dataList.add(adv);
 		}
 		
-		RegionDO province = regionDao.get(area.getParentRegionCode());//获取省
+		RegionDO province = regionDao.get(city.getParentRegionCode());//获取省
 		params.put("regionCode", province.getRegionCode());
 		List<AdvertisementDO> provinceAdvList = advertisementDao.list(params);//获取省广告
 		
