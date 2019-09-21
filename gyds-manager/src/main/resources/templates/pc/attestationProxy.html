@@ -331,7 +331,7 @@
 	
 	$().ready(function() {
 		$("#save").on('click', function() {
-			$("#signupForm").submit();
+			$("#proxybusi").submit();
 		});
 	})
 	$().ready(function() {
@@ -392,6 +392,53 @@
 									required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
 								}
 							}
-						})
+						});
+		$("#proxybusi")
+		.validate(
+				{
+					rules : {
+						name : {
+							required : true
+						},
+						proxyTelephone : {
+							required : true,
+							isMobile : true
+						},
+						regionLevel : {
+							required : true
+						},
+						regImg : {
+							required : true,
+						},
+						proxyAddr : {
+							required : true
+						},
+						street : {
+							required : true,
+							isSelect : true
+						}
+					},
+					messages : {
+						name : {
+							required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+						},
+						proxyTelephone : {
+							required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+							isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+						},
+						regionLevel : {
+							required : "<span style='color:red;margin-left:10px;'>请选择代理级别</span>"
+						},
+						regImg : {
+							required : "<span style='color:red;margin-left:10px;'>请选择图片</span>",
+						},
+						proxyAddr : {
+							required : "<span style='color:red;margin-left:10px;'>请输入地址</span>"
+						},
+						street : {
+							required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
+						},
+					}
+				})
 	}
 </script>
