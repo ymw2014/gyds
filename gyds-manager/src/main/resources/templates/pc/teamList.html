@@ -17,6 +17,7 @@
 			<figure th:each="team : ${teamList}">
 				<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamTitleImg}" alt=""></a>
 				<figcaption th:text="${team.teamName}"></figcaption>
+				<p th:text="${team.level.levelname}" style="color: #c01b25;font-size: 14px;"></p>
 			</figure>
 		</div>
 		<!-- 底部 -->

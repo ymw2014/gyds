@@ -194,4 +194,16 @@ public interface ScreenDao {
 	 * @return
 	 */
 	List<Map<String, Object>> getDyMon(Map<String,Object> map);
+	
+	/**
+	 * 获取等级
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> getLevel(Map<String,Object> map);
+	
+	/**
+	  *   获取志愿者
+	 */
+	Map<String, Object> getVol(Map<String,Object> map);
 }

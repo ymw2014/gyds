@@ -37,11 +37,7 @@
 					<div class="header2-2-1"><span th:text=" '昵称:' + ${volunteer.volunteerName}"></span> <span><img th:src="@{/mobile/images/nv.png}" alt=""></span> <span th:text=" 'ID:' + ${volunteer.volunteerNumber}"></span></div>
 					<div class="header2-2-2">
 						<span>志愿者等级 </span>
-						<img th:src="@{/mobile/images/xing.png}" alt="">
-						<img th:src="@{/mobile/images/xing.png}" alt="">
-						<img th:src="@{/mobile/images/xing.png}" alt="">
-						<img th:src="@{/mobile/images/xing.png}" alt="">
-						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img th:if="${le!=null}" th:each="i:${#numbers.sequence(1,le.level)}" th:src="${le.url}" alt="">
 					</div>
 					<a th:if="${volunteer.teamId!=null}" th:href="@{/pc/teamDetail(teamId=${volunteer.teamId},areaId=${areaId})}"><div class="header2-2-3"   th:text=" '所属团队:' + ${volunteer.teamName}"></div></a>
 				</div>

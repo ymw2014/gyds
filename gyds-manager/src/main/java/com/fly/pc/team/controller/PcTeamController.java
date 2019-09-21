@@ -20,6 +20,8 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
+import com.fly.level.dao.LevelDao;
+import com.fly.level.domain.LevelDO;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
 import com.fly.pc.utils.PageUtils;
@@ -64,6 +66,9 @@ public class PcTeamController {
 	private ProxybusiService proxybusiService;
 	@Autowired
 	private SigninDao signinDao;
+	@Autowired
+	private LevelDao levelDao;
+	
 	
 	@RequestMapping("teamList")
 	public String list(@RequestParam Map<String,Object> params, Model model, HttpServletRequest request) {
@@ -79,6 +84,17 @@ public class PcTeamController {
 		params.put("limit", 10);
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
+		params.clear();
+		for (TeamDO teamDO : teamList) {
+			params.put("type", 2);
+			params.put("integral", teamDO.getIntegral());
+			List<LevelDO> leList = levelDao.queryIntegral(params);
+			if(!leList.isEmpty()) {
+				teamDO.setLevel(leList.get(0));
+			}else {
+				teamDO.setLevel(null);
+			}
+		}
 		params.clear();
 		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);

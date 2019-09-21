@@ -4,19 +4,19 @@
 <mapper namespace="com.fly.team.dao.TeamDao">
 
 	<select id="get" resultType="com.fly.team.domain.TeamDO">
-		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.team_introduce,t.reg_code,r.region_name,t.status,t.remark,t.addres,t.detailed_addr,t.is_auth,t.auth_ent_time from team t left join team_type tt on t.team_type = tt.id left join 
+		select t.id,t.team_name,t.colonel_name,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.team_introduce,t.reg_code,r.region_name,t.status,t.remark,t.addres,t.detailed_addr,t.is_auth,t.auth_ent_time,t.integral from team t left join team_type tt on t.team_type = tt.id left join 
 		cux_region r on t.reg_code = r.region_code
 		where
 		t.id = #{value}
 	</select>
 	<select id="getByTeamCode" resultType="com.fly.team.domain.TeamDO">
-		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code`,`status`,`remark`,team_introduce,addres,detailed_addr from team 
+		select `id`,`team_name`,`colonel_name`,`user_id`,`team_type`,`team_code`,`team_title_img`,`team_img`,`reg_code`,`status`,`remark`,team_introduce,addres,detailed_addr,integral from team 
 		where
 		id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.team.domain.TeamDO">
-		select t.id,t.team_name teamName,t.colonel_name,colonel_tel,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.addres ,mem.`name` as teamName,t.is_auth,t.auth_ent_time
+		select t.id,t.team_name teamName,t.colonel_name,colonel_tel,t.user_id,t.team_type,tt.type_name,t.team_code,t.team_title_img,t.team_img,t.reg_code,r.region_name,t.status,t.remark,t.team_introduce,t.addres ,mem.`name` as teamName,t.is_auth,t.auth_ent_time,t.integral
 		from team t left join team_type tt on t.team_type = tt.id 
 		left join cux_region r on t.reg_code = r.region_code
 		left join sys_user mem on mem.user_id=t.user_id

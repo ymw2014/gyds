@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.count.utils.NumberUtils;
+import com.fly.level.dao.LevelDao;
+import com.fly.level.domain.LevelDO;
 import com.fly.screen.dao.ScreenDao;
 import com.fly.system.service.RegionService;
+import com.fly.team.domain.TeamDO;
 import com.fly.utils.DateUtils;
 
 @Controller
@@ -25,6 +28,8 @@ public class ScreenController {
 	private ScreenDao screen;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private LevelDao levelDao;
 	
 	@RequestMapping("/queryScreen")
 	public String OrgSurvey(Model model){
@@ -45,8 +50,56 @@ public class ScreenController {
 		}
 		//计算男女比例
 		Map<String, Object> userCount = screen.getUserCount(map);
+		if(sexCount.size()<2) {
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			Object sex = sexCount.get(0).get("name");
+			if(sex.equals(0)) {
+				map2.put("name", 1);
+				map2.put("c", 0);
+				sexCount.add(map2);
+			}
+			if(sex.equals(1)) {
+				map2.put("name", 0);
+				map2.put("c", 0);
+				sexCount.add(map2);
+			}
+		}
 		sexCount.get(0).put("ratioSex", NumberUtils.getPercent(sexCount.get(0).get("c"),userCount.get("value")));
 		sexCount.get(1).put("ratioSex", NumberUtils.getPercent(sexCount.get(1).get("c"),userCount.get("value")));
+		
+		
+		//等级
+		List<Map<String, Object>> leList = new ArrayList<Map<String,Object>>();
+		map.put("type",1);
+		map.put("level",1);
+		Map<String, Object> vol = screen.getLevel(map);
+		leList.add(vol);
+		
+		map.put("type",1);
+		map.put("level",2);
+		vol = new HashMap<String, Object>();
+		vol = screen.getLevel(map);
+		leList.add(vol);
+		
+		map.put("type",1);
+		map.put("level",3);
+		vol = new HashMap<String, Object>();
+		 vol = screen.getLevel(map);
+		leList.add(vol);
+		
+		map.put("type",1);
+		map.put("level",4);
+		vol = new HashMap<String, Object>();
+		 vol = screen.getLevel(map);
+		leList.add(vol);
+		
+		map.put("type",1);
+		map.put("level",5);
+		vol = new HashMap<String, Object>();
+		 vol = screen.getLevel(map);
+		leList.add(vol);
+		
+		model.addAttribute("leList", leList);
 		
 		List<Map<String, Object>> ageList = new ArrayList<Map<String,Object>>();
 		map.put("star", 0);

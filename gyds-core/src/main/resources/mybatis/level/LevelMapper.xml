@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.level.dao.LevelDao">
+
+	<select id="get" resultType="com.fly.level.domain.LevelDO">
+		select `id`,`level`,`levelName`,`sta_integral`,`end_integral`,`type`,`crate_time`,`url` from level where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.level.domain.LevelDO">
+		select `id`,`level`,`levelName`,`sta_integral`,`end_integral`,`type`,`crate_time`,`url` from level
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="levelname != null and levelname != ''"> and levelName = #{levelname} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="crateTime != null and crateTime != ''"> and crate_time = #{crateTime} </if>
+		  		  <if test="staIntegral != null and staIntegral != ''"> and sta_integral = #{staIntegral} </if>
+		  		  <if test="endIntegral != null and endIntegral != ''"> and end_integral = #{endIntegral} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from level
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="levelname != null and levelname != ''"> and levelName = #{levelname} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="crateTime != null and crateTime != ''"> and crate_time = #{crateTime} </if>
+		  		  <if test="staIntegral != null and staIntegral != ''"> and sta_integral = #{staIntegral} </if>
+		  		  <if test="endIntegral != null and endIntegral != ''"> and end_integral = #{endIntegral} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.level.domain.LevelDO" useGeneratedKeys="true" keyProperty="id">
+		insert into level
+		(
+			`level`, 
+			`levelName`, 
+			`type`, 
+			`crate_time`,
+			`url`,
+			`sta_integral`,
+			`end_integral`
+		)
+		values
+		(
+			#{level}, 
+			#{levelname}, 
+			#{type}, 
+			#{crateTime},
+			#{url},
+			#{staIntegral},
+			#{endIntegral}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.level.domain.LevelDO">
+		update level 
+		<set>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="levelname != null">`levelName` = #{levelname}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="crateTime != null">`crate_time` = #{crateTime},</if>
+			<if test="url != null">`url` = #{url},</if>
+			<if test="staIntegral != null ">  sta_integral = #{staIntegral} ,</if>
+		  	<if test="endIntegral != null ">  end_integral = #{endIntegral} </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from level where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from level where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+
+	<select id="queryIntegral" resultType="com.fly.level.domain.LevelDO">
+		select `id`,`level`,`levelName`,`sta_integral`,`end_integral`,`type`,`crate_time`,`url` from level
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="levelname != null and levelname != ''"> and levelName = #{levelname} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="crateTime != null and crateTime != ''"> and crate_time = #{crateTime} </if>
+		  		  <if test="integral != null and integral != ''"> and sta_integral &lt;= #{integral} </if>
+		  		  <if test="integral != null and integral != ''"> and end_integral &gt;= #{integral} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+</mapper>

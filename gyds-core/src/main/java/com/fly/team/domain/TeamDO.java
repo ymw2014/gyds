@@ -3,6 +3,8 @@ package com.fly.team.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fly.level.domain.LevelDO;
+
 
 
 /**
@@ -57,7 +59,15 @@ public class TeamDO implements Serializable {
 	private Date authEntTime;
 	//创建时间
 	private Date createTime;
+	//等级
+	private LevelDO level;
 	
+	public LevelDO getLevel() {
+		return level;
+	}
+	public void setLevel(LevelDO level) {
+		this.level = level;
+	}
 	public Date getCreateTime() {
 		return createTime;
 	}

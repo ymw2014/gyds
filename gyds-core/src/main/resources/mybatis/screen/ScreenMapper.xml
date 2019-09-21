@@ -338,4 +338,22 @@
 	GROUP BY s.user_id ORDER BY value
 	</select>
 	
+	<select id="getLevel" resultType="java.util.Map">
+	SELECT COUNT(*) value,(SELECT levelName from level where type=#{type} and level = #{level}) name from volunteer 
+	<where> 
+	and integral &gt;= (SELECT sta_integral from level where type=#{type} and level = #{level})
+	and integral &lt;= (SELECT end_integral from level where type=#{type} and level = #{level})
+	<if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+	</where>
+	</select>
+	<select id="getVol" resultType="java.util.Map">
+	select count(*) value from volunteer
+	<where>
+	<if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		 </if>
+	</where>
+	</select>
 </mapper>

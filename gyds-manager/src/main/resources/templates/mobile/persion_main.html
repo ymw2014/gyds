@@ -65,13 +65,9 @@
 				</div>
 				<div class="header2-2" style="margin-top:13px;">
 					<div class="header2-2-1"><span th:text="${user.name == null}?'姓名:' + ${user.nikeName}:'姓名:' + ${user.name}"></span> <span><img th:src="@{/mobile/images/nv.png}" alt=""></span> <span th:text="${'ID:'+user.userId}"></span></div>
-					<div class="header2-2-2">
+					<div class="header2-2-2" th:if="${le!=null}">
 						<span>志愿者等级 </span>
-						<img th:src="@{/mobile/images/xing.png}" alt="">
-						<img th:src="@{/mobile/images/xing.png}" alt="">
-						<img th:src="@{/mobile/images/xing.png}" alt="">
-						<img th:src="@{/mobile/images/xing.png}" alt="">
-						<img th:src="@{/mobile/images/xing.png}" alt="">
+						<img  th:each="i:${#numbers.sequence(1,le.level)}" th:src="${le.url}" alt=""> 
 					</div>
 					<a th:if="${team!=null}" th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><div class="header2-2-3"  th:text="${'所属团队:'+team.teamName}"></div></a>
 				</div>

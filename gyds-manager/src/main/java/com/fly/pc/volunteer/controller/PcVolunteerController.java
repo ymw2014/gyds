@@ -32,6 +32,8 @@ import com.fly.guestlog.domain.GuestlogDO;
 import com.fly.guestlog.service.GuestlogService;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
+import com.fly.level.dao.LevelDao;
+import com.fly.level.domain.LevelDO;
 import com.fly.news.domain.CommentDO;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.domain.InfoDO;
@@ -71,6 +73,8 @@ public class PcVolunteerController {
 	private PhotoService PhotoService;
 	@Autowired
 	private IndexService indexService;
+	@Autowired
+	private LevelDao levelDao;
 
 	@RequestMapping("volunteerList")
 	public String volunteer(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -210,6 +214,16 @@ public class PcVolunteerController {
 		List<RegionDO> areaList = regionService.list(params);
 		model.addAttribute("areaList", areaList);
 		model.addAttribute("areaId", areaId);
+		
+		params.clear();
+		params.put("type", 1);
+		params.putIfAbsent("integral", voluntList.get(0).get("integral"));
+		List<LevelDO> le = levelDao.queryIntegral(params);
+		if(le.isEmpty()) {
+			model.addAttribute("le",null);	
+		}else {
+			model.addAttribute("le",le.get(0));
+		}
 		return "pc/volunteerDetail";
 	}
 	

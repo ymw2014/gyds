@@ -63,11 +63,11 @@
 				   <div>
 					   <p>志愿者等级</p>
 					   <ul>
-						   <li>一星志愿者 <span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
-						   <li>二星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li th:each="level : ${leList}" th:utext="${level.name}+'<span class='+'span11'+'>'+${level.value}+'</span> <span class='+'span22'+'></span>'"></li>
+						  <!--  <li>二星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
 						   <li>三星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
 						   <li>四星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
-						   <li>五星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li>
+						   <li>五星志愿者<span class="span11">暂未开放</span> <span class="span22">(100%)</span></li> -->
 					   </ul>
 				   </div>
 				   <div>

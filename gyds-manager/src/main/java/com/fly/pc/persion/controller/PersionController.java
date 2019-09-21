@@ -31,6 +31,8 @@ import com.fly.common.controller.BaseController;
 import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
+import com.fly.level.dao.LevelDao;
+import com.fly.level.domain.LevelDO;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
@@ -83,6 +85,8 @@ public class PersionController extends BaseController{
 	UserDao userMapper;
 	@Autowired
 	TeamDao teamDao;
+	@Autowired
+	private LevelDao levelDao;
 	
 	@ResponseBody
 	@RequestMapping("/pc/binding")
@@ -138,9 +142,19 @@ public class PersionController extends BaseController{
 		params.put("userId", user.getUserId());
 		List<Map<String, Object>> voluntList = voService.voluntList(params);
 		if(voluntList.size()==0||voluntList.get(0).get("teamId")==null) {
-			model.addAttribute("team",null);	
+			model.addAttribute("team",null);
+			model.addAttribute("le",null);	
 		}else {
 			model.addAttribute("team",teamService.get(Long.parseLong(voluntList.get(0).get("teamId")+"")));
+			params.clear();
+			params.put("type", 1);
+			params.putIfAbsent("integral", voluntList.get(0).get("integral"));
+			List<LevelDO> le = levelDao.queryIntegral(params);
+			if(le.isEmpty()) {
+				model.addAttribute("le",null);	
+			}else {
+				model.addAttribute("le",le.get(0));
+			}
 		}
 		return "pc/persion_main";
 	}

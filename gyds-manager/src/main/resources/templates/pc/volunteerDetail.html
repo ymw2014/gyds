@@ -35,10 +35,8 @@
 					</div>
 					<div class="volxx">
 						<ul>
-							<li>等级 <span>
-							<img src="images/gqwg.png" alt="">
-							<img src="images/gqwg.png" alt="">
-							<img src="images/gqwg.png" alt="">
+							<li>等级 <span th:if="${le!=null}">
+							<img th:each="i:${#numbers.sequence(1,le.level)}" th:src="${le.url}" alt="">
 							</span>
 							</li>
 							<li>ID <span th:text="${volunteer.volunteerNumber}"></span></li>
