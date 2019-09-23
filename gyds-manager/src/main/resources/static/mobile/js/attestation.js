@@ -51,7 +51,7 @@ $("#downTeam").on('click', function() {
 		var uploadInst = upload.render({
 			elem : '#file', //绑定元素
 			url : '/common/sysFile/upload', //上传接口
-			size : 1000,
+			size : 10000,
 			accept : 'file',
 			done : function(r) {
 				var fileName = r.fileName;
@@ -67,7 +67,7 @@ $("#downTeam").on('click', function() {
 		var uploadInst = upload.render({
 			elem : '#file1', //绑定元素
 			url : '/common/sysFile/upload', //上传接口
-			size : 1000,
+			size : 10000,
 			accept : 'file',
 			done : function(r) {
 				var fileName = r.fileName;
@@ -295,7 +295,7 @@ $("#downTeam").on('click', function() {
 		var uploadInst = upload.render({
 			elem : '#file2', //绑定元素
 			url : '/common/sysFile/upload', //上传接口
-			size : 1000,
+			size : 10000,
 			accept : 'file',
 			done : function(r) {
 				var fileName = r.fileName;
@@ -313,7 +313,7 @@ $("#downTeam").on('click', function() {
 		var uploadInst = upload.render({
 			elem : '#file3', //绑定元素
 			url : '/common/sysFile/upload', //上传接口
-			size : 1000,
+			size : 10000,
 			accept : 'file',
 			done : function(r) {
 				var fileName = r.fileName;
@@ -342,7 +342,7 @@ $("#downTeam").on('click', function() {
 								.render({
 									elem : '#imgUpload_imgs', //绑定元素
 									url : '/common/sysFile/upload', //上传接口
-									size : 1000,
+									size : 10000,
 									accept : 'file',
 									done : function(r) {
 										var fileName = r.fileName;

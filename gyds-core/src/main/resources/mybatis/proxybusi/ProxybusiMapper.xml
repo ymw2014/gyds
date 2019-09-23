@@ -4,7 +4,7 @@
 <mapper namespace="com.fly.proxybusi.dao.ProxybusiDao">
 
 	<select id="get" resultType="com.fly.proxybusi.domain.ProxybusiDO">
-		select proxy_telephone, proxy_region,`id`,`name`,`status`,`level`,`audit_time`,`create_time`,`audit_status`,`region_level`,`user_id`,`audit_result`,`audit_opinion`, proxy_addr from proxybusi where id = #{value}
+		select proxy_telephone, proxy_region,`id`,`name`,`status`,`level`,`audit_time`,`create_time`,`audit_status`,`region_level`,`user_id`,`audit_result`,`audit_opinion`, proxy_addr,reg_img from proxybusi where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.proxybusi.domain.ProxybusiDO">
@@ -116,7 +116,8 @@
 			<if test="auditOpinion != null">`audit_opinion` = #{auditOpinion},</if>
 			<if test="proxyAddr != null">`proxy_addr` = #{proxyAddr},</if>
 			<if test="proxyTelephone != null and proxyTelephone != ''">  proxy_telephone = #{proxyTelephone}, </if>
-		  	<if test="proxyRegion != null and proxyRegion != ''">  proxy_region = #{proxyRegion} </if>
+		  	<if test="proxyRegion != null and proxyRegion != ''">  proxy_region = #{proxyRegion}, </if>
+		  	<if test="regImg != null">`reg_img` = #{regImg},</if>
 		</set>
 		where id = #{id}
 	</update>

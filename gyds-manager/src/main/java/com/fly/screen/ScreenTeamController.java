@@ -327,7 +327,7 @@ public class ScreenTeamController {
 		
 		
 		//获取上个月创建团队第一天到最后一天
-		map = DateUtils.firstLastDay();
+		map.putAll(DateUtils.firstLastDay());  
 		Map<String, Object> poCount = screen.getPoinCount(map);
 		//获取上个月发布活动第一天到最后一天
 		Map<String, Object> creAct = screen.getPublicActivitySurvey(map);
@@ -335,7 +335,7 @@ public class ScreenTeamController {
 		Map<String, Object> newsMon = screen.getPublicNewsCount(map);
 		
 		
-		map = DateUtils.firstLastDay1();
+		map.putAll(DateUtils.firstLastDay1());
 		
 		//获取本个月创建团队第一天到当前时间
 		Map<String, Object> poCount1 = screen.getPoinCount(map);
@@ -349,7 +349,7 @@ public class ScreenTeamController {
 		
 		
 		//获取本年初~目前
-		map = DateUtils.firstLastYearDay1();
+		map.putAll(DateUtils.firstLastYearDay1());
 		List<Map<String, Object>> actOrder = screen.getactOrder(map);
 		//年初~目前年度参与次数
 		model.addAttribute("actOrder", actOrder);
@@ -441,7 +441,7 @@ public class ScreenTeamController {
 		
 		Map<String, Object> outMap = new HashMap<String, Object>();
 		//获取 今年第一天与最后一天
-		map=DateUtils.firstLastYearDay1();
+		map.putAll(DateUtils.firstLastYearDay1());
 		List<Map<String, Object>> sigsMon = screen.getsigMon(map);
 		List<Integer> list = new ArrayList<Integer>();
 		int o = 0;
@@ -477,7 +477,7 @@ public class ScreenTeamController {
 		
 		Map<String, Object> outMap = new HashMap<String, Object>();
 		//获取 今年第一天与最后一天
-		map=DateUtils.firstLastYearDay1();
+		map.putAll(DateUtils.firstLastYearDay1());
 		List<Map<String, Object>> newsMon1 = screen.getPublicNewsMon(map);
 		List<Map<String, Object>> commMon = screen.getCommMon(map);
 		List<Map<String, Object>> dyMon = screen.getDyMon(map);

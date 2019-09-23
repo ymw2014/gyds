@@ -28,6 +28,7 @@ import com.fly.pc.utils.PageUtils;
 import com.fly.proxybusi.domain.ProxybusiDO;
 import com.fly.proxybusi.service.ProxybusiService;
 import com.fly.signin.dao.SigninDao;
+import com.fly.sys.service.SetupService;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
@@ -68,6 +69,9 @@ public class PcTeamController {
 	private SigninDao signinDao;
 	@Autowired
 	private LevelDao levelDao;
+	@Autowired
+	private SetupService setupService;
+
 	
 	
 	@RequestMapping("teamList")
@@ -103,6 +107,7 @@ public class PcTeamController {
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
 		model.addAttribute("areaId", areaId);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return "pc/teamList";
 	}
 	
@@ -208,7 +213,8 @@ public class PcTeamController {
 		model.addAttribute("adv4", dataList.get(3));
 		model.addAttribute("adv5", dataList.get(4));
 		model.addAttribute("adv6", dataList.get(5));
-		model.addAttribute("areaId", teamId);
+		model.addAttribute("areaId", areaId);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return "pc/teamDetail";
 	}
 	

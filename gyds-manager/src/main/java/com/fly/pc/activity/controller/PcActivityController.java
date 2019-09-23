@@ -39,6 +39,7 @@ import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.service.DynamicService;
 import com.fly.pc.news.controller.BaseDynamicController;
+import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
@@ -66,6 +67,8 @@ public class PcActivityController extends BaseController{
 	private UserService userService;
 	@Autowired
 	private IndexService indexService;
+	@Autowired
+	private SetupService setupService;
 
 	@RequestMapping("activityList")
 	public String list(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -96,6 +99,7 @@ public class PcActivityController extends BaseController{
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
 		model.addAttribute("areaId", areaId);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return "pc/activityList";
 	}
 	
@@ -158,6 +162,7 @@ public class PcActivityController extends BaseController{
 				info.put("time", list.get(i).getCreateTimeStr());
 				infoList.add(info);
 			}
+			model.addAttribute("title",setupService.get(1).getTitle());
 			model.addAttribute("volunteerList", infoList);
 		}
 		

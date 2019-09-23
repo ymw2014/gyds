@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title th:each="area,i:${areaList}" th:if="${i.index==0&&areaId!=0}" th:text="${area.regionName+'-智慧公益'}"></title>
-		<title th:if="${areaId==0}" >智慧公益</title>
+		<title th:each="area,i:${areaList}" th:if="${i.index==0&&areaId!=0}" th:text="${area.regionName+'-'+title}"></title>
+		<title th:if="${areaId==0}" th:text="${title}"></title>
 		<meta name="viewport" content="width=750">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">

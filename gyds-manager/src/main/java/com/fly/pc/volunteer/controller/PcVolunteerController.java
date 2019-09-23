@@ -43,6 +43,7 @@ import com.fly.news.service.InfoService;
 import com.fly.pc.utils.PageUtils;
 import com.fly.photo.domain.PhotoDO;
 import com.fly.photo.service.PhotoService;
+import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
@@ -75,6 +76,8 @@ public class PcVolunteerController {
 	private IndexService indexService;
 	@Autowired
 	private LevelDao levelDao;
+	@Autowired
+	private SetupService setupService;
 
 	@RequestMapping("volunteerList")
 	public String volunteer(@RequestParam Map<String,Object> params, HttpServletRequest request, 
@@ -102,6 +105,7 @@ public class PcVolunteerController {
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
 		model.addAttribute("areaId", areaId);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return "pc/volunteerList";
 	}
 	
@@ -201,6 +205,7 @@ public class PcVolunteerController {
 			
 		model.addAttribute("commentList",newComment);//评论信息
 		model.addAttribute("volunteer",voluntList.get(0));//志愿者信息
+		model.addAttribute("title",setupService.get(1).getTitle());
 		params.clear();
 		
 		List<Map<String, Object>> shares = getInfo(0, Long.valueOf(voluntList.get(0).get("userId").toString()));

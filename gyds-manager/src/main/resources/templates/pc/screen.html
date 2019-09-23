@@ -22,7 +22,7 @@
 				  <img th:src="@{/images/right.png}" alt="">
 			  </div>
 			  <div class="headerdeta">
-				  <p>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}]]</p>
+				  <p  id="time"></p>
 			  </div>
 		  </div>
 	  </header>
@@ -114,7 +114,7 @@
 				 <button id="back" style="display: none;">返回全国</button>
 				 <div id="china-map"></div>
 			  </div>
-			  <div class="ditudaxiass">
+			  <div class="ditudaxiass" style="margin-top: 340px;">
 				  <div class="zhutiLeft1">
 					  <img th:src="@{/images/landian_03.png}" alt="">
 					  <p>智慧公益渠道概况</p>
@@ -756,4 +756,21 @@ function lod(){
     }
 
     
+    function setTime(){
+        var dt=new Date();
+        var arr_week=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+        var strWeek=arr_week[dt.getDay()];
+        var strHour=dt.getHours();
+        var strMinutes=dt.getMinutes();
+        var strSeconds=dt.getSeconds();
+        if (strMinutes<10) strMinutes="0"+strMinutes;
+        if (strSeconds<10) strSeconds="0"+strSeconds;
+        var strYear=dt.getFullYear()+"年";
+        var strMonth=(dt.getMonth()+1)+"月";
+        var strDay=dt.getDate()+"日";
+        <!--var strTime=strHour+":"+strMinutes+":"+strSeconds;-->
+        strTime=strHour+":"+strMinutes+":"+strSeconds;
+        time.innerHTML=strYear+strMonth+strDay+" "+strTime+"  "+strWeek;
+       }
+    setInterval("setTime()",1000);
   </script>

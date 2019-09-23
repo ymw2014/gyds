@@ -473,6 +473,9 @@ public class PersionController extends BaseController{
 		if(voList==null||voList.size()==0) {
 			return R.error("未找到志愿者信息");
 		}
+		if(newInfo.getTitleImg()==null||newInfo.getTitleImg()=="") {
+			return R.error("请上传封面图");
+		}
 		newInfo.setIsDel(0);
 		newInfo.setIsTop(0);
 		newInfo.setNumberOfShares(0);

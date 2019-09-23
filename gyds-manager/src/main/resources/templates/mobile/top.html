@@ -38,7 +38,9 @@
 								</div>
 							</div>
 							<div class="col-sm-8 col-sm-offset-3" id="sub">
-								<button type="submit" class="btn btn-primary" onclick="saveTop()">提交</button>
+								<button type="button" class="btn btn-primary" onclick="saveTop()">提交</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="btn" onclick="quit()">取消</button>
 							</div>
 						</div>
 					</form>
@@ -55,17 +57,20 @@
 				url : "/pc/news/topInfo",
 				data : $('#signupForm').serialize(),// 你的formid
 				dataType: "json",
-				async: false,
+				//async: false,
 				error : function(request) {
 					parent.layer.alert("置顶申请失败");
 				},
 				success : function(data) {
-					if (data.code == -1) {
-						parent.layer.alert(data.msg)
-						return;
-					}
-					console.log(data);
-					if (data.code == 0) {
+					if (data.msg == -1) {
+						layer.confirm('置顶失败！您的余额不足,是否跳转充值页面？', {
+							  btn: ['是','否'] //按钮
+							}, function(){
+								parent.window.location.href  = "/pc/persion_main";
+							})
+						//parent.layer.alert(data.msg)
+						//return;
+					}else if (data.code == 0) {
 						console.log(000);
 						parent.layer.msg("置顶申请成功");
 						///history.go(0);
@@ -113,6 +118,11 @@
 						}
 					});
 		    }
+		
+		function quit(){
+			var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+			parent.layer.close(index);
+		}
 	</script>
 </body>
 
