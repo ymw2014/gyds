@@ -64,57 +64,77 @@
 			position:relative;
 		}
 		.name{
-			position:absolute;
-			left: 76px;
-            top: 190px;
-			font-size:30px;
+			position: absolute;
+		    left: 204px;
+		    top: 190px;
+		    font-size: 20px;
 		}
 		.xingbie{
-			position:absolute;
-			left: 331px;
-			top: 190px;
-			font-size:30px;
+			position: absolute;
+		    left: 365px;
+		    top: 190px;
+		    font-size: 20px;
 		}
 		.zhenghaoma{
-			position:absolute;
-			left: 76px;
-			top: 300px;
-			font-size:30px;
+			    position: absolute;
+			    left: 207px;
+			    top: 249px;
+			    font-size: 20px;
 		}
 		.fwhm{
 			position:absolute;
-			left: 76px;
-			bottom:20px;
-			font-size:18px;
+			 left: 39px;
+			    bottom: 20px;
+			    font-size: 20px;
 		}
 		.jz{
 			position:absolute;
 			left:370px;
 			bottom:20px;
-			font-size:18px;
+			font-size: 20px;
 		}
 		.img4{
-			position:absolute;
-			right:36px;
-			width: 103px;
-			height: 100px;
-			bottom:38px;
-			font-size:18px;
+			position: absolute;
+		    right: 52px;
+		    width: 103px;
+		    height: 100px;
+		    bottom: 51px;
+		    font-size: 18px;
 		}
 		.img5{
-			position:absolute;
-			right:18px;
-			width: 140px;
-			height: 170px;
-			bottom:186px;
-			font-size:18px;
+			    position: absolute;
+			    right: 46px;
+			    width: 140px;
+			    height: 170px;
+			    bottom: 170px;
+			    font-size: 18px;
 		}
 		.zhizhi{
-			position:absolute;
-			    left: 189px;
-                top: 277px;
-			font-size:18px;
+			    position: absolute;
+			    left: 37px;
+			    font-size: 18px;
+			    bottom: 20px;
 		}
+	    .tuanming{
+	    position: absolute;
+	    left: 202px;
+	    bottom: 88px;
+	    font-size: 20px;
+	    }
+        .azs{
+        position: absolute;
+	    width: 144px !important;
+	    height: 144px !important;
+	    left: 50%;
+	    margin-left: -44px;
+	    top: 50%;
+	    margin-top: -60px;
+        }
+	    .zhengmian1 img{
+	       width:100%;
+	       height:100%;
+	    }
+	    .azs
 	</style>
 	<body>
 	<div class="header">
@@ -129,18 +149,20 @@
 		</div>
 	</div>
 	<div class="zhengmian">
-		<img th:src="@{/mobile/images/tmzyzez_03.jpg}" alt="">
+		<img th:src="@{/mobile/images/tupiN.jpg}" alt="" style='width: 100%;height: 100%;'>
 		<span class="name" th:text="${vo.name}"></span>
 		<span class="xingbie" th:text="${vo.sex==0?'男':'女'}"></span>
 		<span class="zhenghaoma" th:text="${vo.volunteer_number}"></span>
+		<span class="tuanming">测试团名</span>	
 		<span class="fwhm">志愿服务咨询热线:400-003-5125</span>
 		<span class="jz">监制:志愿汇</span>
-		<img th:src="@{/mobile/images/liasi_03.jpg}" alt="没切图片 大小调好了 这是放二维码的" class="img4">
+		<img th:src="@{/mobile/images/tupiN.jpg}" alt="没切图片 大小调好了 这是放二维码的" class="img4">
 		<img th:src="${vo.head_img}" alt="" class="img5">
 	</div>
 	<div class="zhengmian1">
 		<img th:src="@{/mobile/images/tmzyzez_07.jpg}" alt="">
-		<p class="zhizhi">志愿服务咨询热线：400-003-5125</p>
+        <p class="zhizhi">志愿服务咨询热线：400-003-5125</p>
+		<img th:src="@{/mobile/images/tmzyzez_07.jpg}"  class="azs">
 	</div>
 	</body>
 </html>
