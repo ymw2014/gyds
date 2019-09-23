@@ -255,7 +255,13 @@ public class PersionController extends BaseController{
 				model.addAttribute("message", "您还不是志愿者!!!");
 				return "pc/message";
 		}else {
-			 vo = voService.getVoInfo(userId);
+			vo = voService.getVoInfo(userId);
+			if(vo!=null) {
+				SetupDO setup = setupService.get(1);
+				model.addAttribute("setup",setup);
+				TeamDO team = teamDao.get(Long.parseLong(vo.get("team_id").toString()));
+				model.addAttribute("team", team);
+			}
 			model.addAttribute("vo", vo);
 			return "pc/vo_zhengjian";
 
