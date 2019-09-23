@@ -55,7 +55,9 @@
 									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}">200</li>
-								<li>成功</li>
+								<li th:if="${order.examineStatus ==1}">成功</li>
+								<li th:if="${order.examineStatus ==2}">待处理</li>
+								<li th:if="${order.examineStatus ==3}" style="color: red;">失败</li>
 							</ul>
 							<div class="zanwijili" th:if="${allList==''}">
 								暂无记录
@@ -86,7 +88,9 @@
 									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}">200</li>
-								<li>成功</li>
+								<li th:if="${order.examineStatus ==1}">成功</li>
+								<li th:if="${order.examineStatus ==2}">待处理</li>
+								<li th:if="${order.examineStatus ==3}" style="color: red;">失败</li>
 							</ul>
 							<div class="zanwijili" th:if="${czList==''}">
 								暂无记录
@@ -111,7 +115,9 @@
 									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}">200</li>
-								<li>成功</li>
+								<li th:if="${order.examineStatus ==1}">成功</li>
+								<li th:if="${order.examineStatus ==2}">待处理</li>
+								<li th:if="${order.examineStatus ==3}" style="color: red;">失败</li>
 							</ul>
 							<div class="zanwijili" th:if="${txList==''}">
 								暂无记录
@@ -136,7 +142,9 @@
 									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}">200</li>
-								<li>成功</li>
+								<li th:if="${order.examineStatus ==1}">成功</li>
+								<li th:if="${order.examineStatus ==2}">待处理</li>
+								<li th:if="${order.examineStatus ==3}" style="color: red;">失败</li>
 							</ul>
 							<div class="zanwijili" th:if="${dsList==''}">
 								暂无记录
@@ -161,7 +169,9 @@
 									<p th:case="'12'">建团返佣 </p>
 								</li>
 								<li th:text="${order.price}"></li>
-								<li>成功</li>
+								<li th:if="${order.examineStatus ==1}">成功</li>
+								<li th:if="${order.examineStatus ==2}">待处理</li>
+								<li th:if="${order.examineStatus ==3}" style="color: red;">失败</li>
 							</ul>
 							<div class="zanwijili" th:if="${hbList==''}">
 								暂无记录

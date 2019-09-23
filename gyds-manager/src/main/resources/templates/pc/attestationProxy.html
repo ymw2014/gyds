@@ -249,26 +249,26 @@
 				   <input type="hidden" th:value="${setupDO.agencyBail}"  id="ag">
 				   
 				   <label>
-						<span>代理商名称</span>
+						<span>枢纽联系人</span>
 						<input type="text" id="name"  name="name">
 					</label>
 					<label>
-						<span>代理电话</span>
+						<span>枢纽电话</span>
 						<input type="text" id="proxyTelephone"  name="proxyTelephone">
 					</label>
 					<label>
-						<span>代理级别</span>
+						<span>枢纽级别</span>
 						<input type="radio" style="width:20px;" value="1" name="regionLevel" checked="checked"/>省
 						<input type="radio" style="width:20px;margin-left: 20px" value="2" name="regionLevel" />市
 						<input type="radio" style="width:20px;margin-left: 20px" value="3" name="regionLevel" />县
 						<input type="radio" style="width:20px;margin-left: 20px" value="4" name="regionLevel" />办事处
 					</label>
 					<label>
-						<span style="margin-left: -147px;color:red">代理保证金</span>
+						<span style="margin-left: -147px;color:red">枢纽订金</span>
 						<input type="text" readonly="readonly" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
 					</label>
 					
-					<label style="overflow: hidden;"> <span>地区图片</span>
+					<label style="overflow: hidden;"> <span>枢纽地区</span>
 				<div>
 					<img th:src="@{/pc/images/gahgha_03.png}" id="regImg1" alt=""
 						class="sfz1">
@@ -279,7 +279,7 @@
 					</label> 
 					
 					<label>
-						<span>代理地区</span>
+						<span>枢纽地区</span>
 						<select class="juzhu" onchange="pronv2()" id="pron2" name="pronvice">
 							<option value ="">省</option>
 							<option th:each=" area : ${areaList}" th:value ="${area.regionCode}" th:text="${area.regionName}" ></option>
@@ -295,7 +295,7 @@
 						</select>
 					</label>
 					<label>
-						<span>代理详细地址</span>
+						<span>详细地址</span>
 						<input type="text" id="proxyAddr" name="proxyAddr">
 					</label>
 					<label th:if="${type} eq '3'" class="xiayiye"> <input type="button" id="upProxy" value="上页"></label>

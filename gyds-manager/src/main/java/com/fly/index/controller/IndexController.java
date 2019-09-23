@@ -129,6 +129,7 @@ public class IndexController {
 		params.put("ids", ids);
 		Integer newCount = infoService.count(params);
 		Integer actCount = activityService.count(params);
+		Integer count = volunteerService.count(params);
 		params.put("starteTime", DateUtils.weeHours(new Date(), 0));
 		params.put("endTime", DateUtils.weeHours(new Date(), 1));
 		Integer sigCount = signinDao.count(params);
@@ -136,7 +137,8 @@ public class IndexController {
 		model.addAttribute("newCount", newCount);//发布新闻总数
 		model.addAttribute("actCount", actCount);//发布活动总数
 		model.addAttribute("sigCount", sigCount);//qiandao
-		model.addAttribute("teamCount", teamCount);//qiandao
+		model.addAttribute("teamCount", teamCount);//tuandui
+		model.addAttribute("voluntCount", count);//志愿者
 		
 		params.clear();
 		params.put("isVo",1);//
@@ -144,9 +146,7 @@ public class IndexController {
 		params.put("limit", 16);
 		params.put("ids", ids);
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
-		int count = volunteerService.count(null);
 		model.addAttribute("voluntList", voluntList);//志愿者
-		model.addAttribute("voluntCount", count);
 		params.clear();
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
@@ -158,6 +158,7 @@ public class IndexController {
 		model.addAttribute("adv4", dataList.get(3));
 		model.addAttribute("adv5", dataList.get(4));
 		model.addAttribute("adv6", dataList.get(5));
+		model.addAttribute("title",setupService.get(1).getTitle());
 		String isMoblie = "pc/index";
 		if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {//判断是否为手机
 			isMoblie= "mobile/index";

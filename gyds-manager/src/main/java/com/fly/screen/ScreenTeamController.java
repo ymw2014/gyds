@@ -327,7 +327,7 @@ public class ScreenTeamController {
 		
 		
 		//获取上个月创建团队第一天到最后一天
-		map = DateUtils.firstLastDay();
+		map.putAll(DateUtils.firstLastDay());  
 		Map<String, Object> poCount = screen.getPoinCount(map);
 		//获取上个月发布活动第一天到最后一天
 		Map<String, Object> creAct = screen.getPublicActivitySurvey(map);
@@ -335,7 +335,7 @@ public class ScreenTeamController {
 		Map<String, Object> newsMon = screen.getPublicNewsCount(map);
 		
 		
-		map = DateUtils.firstLastDay1();
+		map.putAll(DateUtils.firstLastDay1());
 		
 		//获取本个月创建团队第一天到当前时间
 		Map<String, Object> poCount1 = screen.getPoinCount(map);
@@ -349,7 +349,7 @@ public class ScreenTeamController {
 		
 		
 		//获取本年初~目前
-		map = DateUtils.firstLastYearDay1();
+		map.putAll(DateUtils.firstLastYearDay1());
 		List<Map<String, Object>> actOrder = screen.getactOrder(map);
 		//年初~目前年度参与次数
 		model.addAttribute("actOrder", actOrder);

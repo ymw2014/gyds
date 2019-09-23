@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title th:text="${info.title+'-'+team.teamName+'-智慧公益'}"></title>
+<title th:text="${info.title+'-'+team.teamName+'-'+title}"></title>
 <link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}" />
 <script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
 <link rel="stylesheet" th:href="@{/pc/css/activity.css}">
@@ -103,7 +103,7 @@
 				<p>
 					<span
 						th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"></span>&nbsp;
-					<span th:text="'来  源 : '+${info.source}"></span>&nbsp; <span
+					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><span th:text="'来  源 : '+${team.teamName}"></span></a>&nbsp; <span
 						th:text="'作  者 : '+${info.author}"></span>
 				</p>
 			</div>

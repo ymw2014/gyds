@@ -6,7 +6,7 @@
 		<script src="js/jquery-3.1.1.js"></script>
 		<link rel="stylesheet" href="css/activity.css">
 		<link rel="stylesheet" href="css/Volunteer.css">
-		<title>志愿者-智慧公益</title>
+		<title th:text="${'志愿者-'+title}"></title>
 	</head>
 	<body>
 	    <!-- 头部 -->
@@ -61,7 +61,8 @@
 				<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 				<figcaption>
 					<span th:text="${volunt.volunteerName}"></span>
-					<a th:href="@{/pc/teamDetail(teamId=${volunt.teamId},areaId=${areaId})}"><p th:text="'团队：'    +  ${volunt.teamName}" ></p></a>
+					<a th:if="${areaId!=null && #strings.length(areaId)< 10}" th:href="@{/pc/teamDetail(teamId=${volunt.teamId},areaId=${areaId})}"><p th:text="'团队：'    +  ${volunt.teamName}" ></p></a>
+					<a th:if="${areaId!=null && #strings.length(areaId)> 9}" th:href="@{/pc/teamDetail(teamId=${volunt.teamId},areaId=0)}"><p th:text="'团队：'    +  ${volunt.teamName}" ></p></a>
 				</figcaption>
 			</figure>
 		</div>

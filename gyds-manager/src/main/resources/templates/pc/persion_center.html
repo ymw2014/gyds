@@ -51,7 +51,7 @@
 		<div class="header_top">
 
 			<div style="cursor: pointer;">
-				<img id="home" src="images/post_03.jpg" alt="">
+				<img id="logo"  alt="">
 			</div>
 
 			<!-- 头部导航 -->
@@ -129,7 +129,7 @@
 				</dt>
 
 				<dt>
-					<a href="/pc/voApply" data-index="1" target="iframe0">志愿者</a>
+					<a href="/pc/voApply" data-index="1" target="iframe0">志愿服务证</a>
 				</dt>
 
 				<dt>
@@ -198,7 +198,41 @@
 							.nextUntil('dt', 'dd').slideToggle();
 				}
 			})
-	$("#home").click(function() {
+	$("#logo").click(function() {
 		window.location.href = "/";
 	})
+	
+	
+	$(function(){
+	$.ajax({
+		cache : true,
+		type : "GET",
+		url : "/setup",
+		async : true,
+		error : function(request) {
+			alert("Connection error");
+		},
+		success : function(data) {
+			console.log(data);
+			if (data.code == 0) {
+				$("#logo").attr("src",data.sucess.logo);
+				$("#preparation_no").text(data.sucess.preparationNo);
+				$("#copyright_into").text(data.sucess.copyrightInto);
+				$("#official_account_img").attr("src",data.sucess.officialAccountImg);
+				if(data.sucess.userName==undefined||data.sucess.userName==null){
+					$("#login_ok").hide();//no_login
+					$("#no_login").show();//
+				}else{
+					$("#login_ok").show();
+					$("#no_login").hide();
+					$("#headImg").attr("src",data.sucess.head_img);
+					$("#userName").text(data.sucess.name);
+				}
+			} else {
+				
+			}
+
+		}
+	});
+})
 </script>

@@ -236,6 +236,7 @@ public class NewsInfoController extends BaseController {
 		model.addAttribute("info", info);
 		//区域
 		model.addAttribute("areaId", areaId);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return "pc/newInfo";
 	}
 	
@@ -706,6 +707,7 @@ public class NewsInfoController extends BaseController {
 		params.clear();
 		List<AdvertisementDO> dataList = indexService.getIndexAdvList(areaId,Dictionary.AdvPosition.NEWS_LIST,params);//获取首页广告
 		model.addAttribute("advList", dataList);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return "pc/newsList";
 	}
 	
@@ -729,6 +731,7 @@ public class NewsInfoController extends BaseController {
 		}
 		// 查询列表数据
 		List<InfoDO> infoList = infoService.list(page);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return infoList;
 	}
 

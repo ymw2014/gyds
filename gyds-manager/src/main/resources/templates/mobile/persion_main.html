@@ -97,20 +97,20 @@
 		</div>
 		<!-- 功能 -->
 		<div class="gongneng">
-			<figure>
-				<a href="/pc/getFinancial"><img th:src="@{/mobile/images/caiwu.png}" alt=""></a>
+			<figure shiro:hasPermission="caiwu:caiwu:list" >
+				<a href="/pc/getFinancial" ><img th:src="@{/mobile/images/caiwu.png}" alt=""></a>
 				<figcaption>
 					财务中心
 				</figcaption>
 			</figure>
-			<figure>
-				<a href="/pc/newAdd"><img th:src="@{/mobile/images/xinwen.png}" alt=""></a>
+			<figure shiro:hasPermission="xinwen:xinwen:fabu">
+				<a href="/pc/newAdd" ><img th:src="@{/mobile/images/xinwen.png}" alt=""></a>
 				<figcaption>
 					新闻发布
 				</figcaption>
 			</figure>
-			<figure>
-				<a href="/pc/activityAdd"><img th:src="@{/mobile/images/guang.png}" alt=""></a>
+			<figure shiro:hasPermission="huodong:huodong:fabu">
+				<a href="/pc/activityAdd" ><img th:src="@{/mobile/images/guang.png}" alt=""></a>
 				<figcaption>
 					活动发布
 				</figcaption>
@@ -128,13 +128,13 @@
 				</figcaption>
 			</figure>
 			<figure>
-				<a href="/pc/regTeam/createTeam"><img th:src="@{/mobile/images/chuangjian.png}" alt=""></a>
+				<a href="/pc/regTeam/createTeam" ><img th:src="@{/mobile/images/chuangjian.png}" alt=""></a>
 				<figcaption>
 					申请建团
 				</figcaption>
 			</figure>
-			<figure>
-				<a href="/pc/checkin/show"><img th:src="@{/mobile/images/qiandao.png}" alt=""></a>
+			<figure shiro:hasPermission="qiandao:qiandao:qiandao">
+				<a href="/pc/checkin/show"  ><img th:src="@{/mobile/images/qiandao.png}" alt=""></a>
 				<figcaption>
 					我要签到
 				</figcaption>
@@ -142,13 +142,13 @@
 			<figure>
 				<a href="/pc/voApply"><img th:src="@{/mobile/images/xiangce.png}" alt=""></a>
 				<figcaption>
-					志愿者电子证
+					志愿服务证
 				</figcaption>
 			</figure>
 			<figure>
 				<a href="/pc/proxybusi/show"><img th:src="@{/mobile/images/dianzi.png}" alt=""></a>
 				<figcaption>
-					代理商申请
+					服务枢纽
 				</figcaption>
 			</figure>
 			<figure>

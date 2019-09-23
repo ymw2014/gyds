@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title th:text="${team.teamName+'-智慧公益'}"></title>
+		<title th:text="${team.teamName+'-'+title}"></title>
 		<meta name="viewport" content="width=750">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
@@ -42,7 +42,7 @@
 	<body> 
 		<header>
 			<div class="login">
-				<img src="images/logo.png" alt="">
+				<img id = "logo" style="width: 100%;" alt="">
 			</div>
 			<!-- <div class="header-center">
 				<select style="width: 135px;
@@ -61,11 +61,11 @@
 			<p th:text="${team.teamName}" style="display:inline; color: red;font-size: 27px; float: left; margin-top: 37px; width: 350px;margin-left: 45px;" ></p>
 		</header>
 		<div class="nav">
-			<a href="/">网站首页</a>
-			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">咨询动态</a>
-			<a th:href="@{/pc/activityList(areaId=${areaId})}">活动报名</a>
-			<a th:href="@{/pc/volunteerList(areaId=${areaId})}">志愿者</a>
-			<a th:href="@{/pc/teamList(areaId=${areaId})}">团队展示</a>
+			<a href="/">首页</a>
+			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0,teamId=${teamId})}">动态</a>
+			<a th:href="@{/pc/activityList(areaId=${teamId})}">活动</a>
+			<a th:href="@{/pc/volunteerList(areaId=${teamId})}">成员</a>
+			<a th:href="@{/pc/teamDetail(teamId=${teamId},areaId=0)}">团队</a>
 		</div>
 		<div class="guanggao">
 			<a	th:if="${adv1.advImg!=null}" th:href="${adv1.url}" target="_blank"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" th:data-url="${adv1.url}" alt="" class="btn1"></a>
@@ -435,4 +435,38 @@
 	  			}
 	  		})
 	  	}	  
+	  	
+	  	$(function(){
+	  		$.ajax({
+	  			cache : true,
+	  			type : "GET",
+	  			url : "/setup",
+	  			async : true,
+	  			error : function(request) {
+	  				alert("Connection error");
+	  			},
+	  			success : function(data) {
+	  				console.log(data);
+	  				if (data.code == 0) {
+	  					$("#logo").attr("src",data.sucess.logo);
+	  					$("#preparation_no").text(data.sucess.preparationNo);
+	  					$("#copyright_into").text(data.sucess.copyrightInto);
+	  					$("#official_account_img").attr("src",data.sucess.officialAccountImg);
+	  					if(data.sucess.userName==undefined||data.sucess.userName==null){
+	  						$("#login_ok").hide();//no_login
+	  						$("#no_login").show();//
+	  					}else{
+	  						$("#login_ok").show();
+	  						$("#no_login").hide();
+	  						$("#headImg").attr("src",data.sucess.head_img);
+	  						$("#userName").text(data.sucess.name);
+	  					}
+	  				} else {
+	  					
+	  				}
+
+	  			}
+	  		});
+	  	})
+
 </script>

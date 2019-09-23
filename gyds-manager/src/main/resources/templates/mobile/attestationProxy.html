@@ -316,15 +316,15 @@
 					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
 				    <input type="hidden" th:value="${setupDO.agencyBail}"  id="ag">
 				   <label>
-						<span>代理商名称</span>
+						<span>枢纽联系人</span>
 						<input type="text" id="name"  name="name">
 					</label>
 					<label>
-						<span>代理电话</span>
+						<span>枢纽电话</span>
 						<input type="text" id="proxyTelephone"  name="proxyTelephone">
 					</label>
 					<label>
-						<span>代理级别</span>
+						<span>枢纽级别</span>
 						<input type="radio" style="width:20px;float: left;margin-top:40px;" value="1" name="regionLevel" checked="checked"/>
 						<span style="width:auto;margin:0px;">省</span>
 						<input type="radio" style="width:20px;margin-left: 20px;float: left;    margin-top: 39px;" value="2" name="regionLevel" />
@@ -335,11 +335,11 @@
 						<span style="width:auto;margin:0px;">办事处</span>
 					</label>
 					<label>
-						<span style="margin-left:0px;color:red">代理保证金</span>
+						<span style="margin-left:0px;color:red">枢纽订金</span>
 						<input type="text" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
 					</label>
 					<label>
-						<span>代理地区</span>
+						<span>枢纽地区</span>
 						<select class="juzhu" onchange="pronv2()" id="pron2" name="pronvice">
 							<option value ="">省</option>
 							<option th:each=" area : ${areaList}" th:value ="${area.regionCode}" th:text="${area.regionName}" ></option>
@@ -355,7 +355,7 @@
 						</select>
 					</label>
 					<label>
-						<span style="width:200px">代理详细地址</span>
+						<span style="width:200px">详细地址</span>
 						<input type="text" id="proxyAddr" name="proxyAddr" style="width:490px">
 					</label>
 					<label th:if="${type} eq '3'" class='tijiao'> <input type="button" id="upProxy" value="上页"></label>

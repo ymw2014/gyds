@@ -35,9 +35,14 @@ public class ScreenProController {
 	public String OrgProSurvey(Model model){
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserDO user = ShiroUtils.getUser();
+		Long id = 0l;
 		if(user!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
-			Long id = proxybusi.getProxyRegion();
+			if(proxybusi==null&&user.getIsManage()==1) {
+				id = user.getDeptId();
+			}else {
+				id = proxybusi.getProxyRegion();
+			}
 			model.addAttribute("name", regionService.get(id).getRegionName());
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
@@ -317,7 +322,7 @@ public class ScreenProController {
 		
 		
 		//获取上个月创建团队第一天到最后一天
-		map = DateUtils.firstLastDay();
+		map.putAll(DateUtils.firstLastDay());
 		Map<String, Object> creTeam = screen.getCreateTeamSurvey(map);
 		//获取上个月发布活动第一天到最后一天
 		Map<String, Object> creAct = screen.getPublicActivitySurvey(map);
@@ -325,7 +330,7 @@ public class ScreenProController {
 		Map<String, Object> newsMon = screen.getPublicNewsCount(map);
 		
 		
-		map = DateUtils.firstLastDay1();
+		map.putAll(DateUtils.firstLastDay1());
 		
 		//获取本个月创建团队第一天到当前时间
 		Map<String, Object> creTeam1 = screen.getCreateTeamSurvey(map);
@@ -372,9 +377,14 @@ public class ScreenProController {
 	public List<Map<String, Object>> queryProActTypeScreen(){
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserDO user = ShiroUtils.getUser();
+		Long id =0l;
 		if(user!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
-			Long id = proxybusi.getProxyRegion();
+			if(proxybusi==null&&user.getIsManage()==1) {
+				id = user.getDeptId();
+			}else {
+				id = proxybusi.getProxyRegion();
+			}
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
 		}
@@ -391,9 +401,14 @@ public class ScreenProController {
 	public List<Map<String, Object>> queryProScreen(){
 		Map<String, Object> map = new HashMap<String, Object>();
 		UserDO user = ShiroUtils.getUser();
+		Long id = 0l;
 		if(user!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
-			Long id = proxybusi.getProxyRegion();
+			if(proxybusi==null&&user.getIsManage()==1) {
+				id = user.getDeptId();
+			}else {
+				id = proxybusi.getProxyRegion();
+			}
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
 		}
@@ -411,16 +426,21 @@ public class ScreenProController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		UserDO user = ShiroUtils.getUser();
+		Long id = 0l;
 		if(user!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
-			Long id = proxybusi.getProxyRegion();
+			if(proxybusi==null&&user.getIsManage()==1) {
+				id = user.getDeptId();
+			}else {
+				id = proxybusi.getProxyRegion();
+			}
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
 		}
 		
 		Map<String, Object> outMap = new HashMap<String, Object>();
 		//获取 今年第一天与最后一天
-		map=DateUtils.firstLastYearDay1();
+		map.putAll(DateUtils.firstLastYearDay1());
 		List<Map<String, Object>> newsMon1 = screen.getPublicNewsMon(map);
 		List<Map<String, Object>> commMon = screen.getCommMon(map);
 		List<Map<String, Object>> dyMon = screen.getDyMon(map);
@@ -482,9 +502,14 @@ public class ScreenProController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		UserDO user = ShiroUtils.getUser();
+		Long id = 0l;
 		if(user!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
-			Long id = proxybusi.getProxyRegion();
+			if(proxybusi==null&&user.getIsManage()==1) {
+				id = user.getDeptId();
+			}else {
+				id = proxybusi.getProxyRegion();
+			}
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
 		}
@@ -501,11 +526,15 @@ public class ScreenProController {
 	@ResponseBody
 	public List<Map<String, Object>> queryProEducationSurvey(){
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		UserDO user = ShiroUtils.getUser();
+		Long id = 0l;
 		if(user!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
-			Long id = proxybusi.getProxyRegion();
+			if(proxybusi==null&&user.getIsManage()==1) {
+				id = user.getDeptId();
+			}else {
+				id = proxybusi.getProxyRegion();
+			}
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
 		}
@@ -522,11 +551,15 @@ public class ScreenProController {
 	@ResponseBody
 	public List<Map<String, Object>> queryProPostSurvey(){
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		UserDO user = ShiroUtils.getUser();
+		Long id = 0l;
 		if(user!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
-			Long id = proxybusi.getProxyRegion();
+			if(proxybusi==null&&user.getIsManage()==1) {
+				id = user.getDeptId();
+			}else {
+				id = proxybusi.getProxyRegion();
+			}
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
 		}
@@ -543,11 +576,15 @@ public class ScreenProController {
 	@ResponseBody
 	public Map<String, Object> queryProAgeSurvey(){
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		UserDO user = ShiroUtils.getUser();
+		Long id = 0l;
 		if(user!=null) {
 			ProxybusiDO proxybusi = proxybusiDao.getByUserId(user.getUserId());
-			Long id = proxybusi.getProxyRegion();
+			if(proxybusi==null&&user.getIsManage()==1) {
+				id = user.getDeptId();
+			}else {
+				id = proxybusi.getProxyRegion();
+			}
 			String ids = regionService.getTeamAndAreaByUserRole(id);
 			map.put("ids",ids);
 		}
