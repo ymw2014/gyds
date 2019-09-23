@@ -441,7 +441,7 @@ public class ScreenTeamController {
 		
 		Map<String, Object> outMap = new HashMap<String, Object>();
 		//获取 今年第一天与最后一天
-		map=DateUtils.firstLastYearDay1();
+		map.putAll(DateUtils.firstLastYearDay1());
 		List<Map<String, Object>> sigsMon = screen.getsigMon(map);
 		List<Integer> list = new ArrayList<Integer>();
 		int o = 0;
@@ -477,7 +477,7 @@ public class ScreenTeamController {
 		
 		Map<String, Object> outMap = new HashMap<String, Object>();
 		//获取 今年第一天与最后一天
-		map=DateUtils.firstLastYearDay1();
+		map.putAll(DateUtils.firstLastYearDay1());
 		List<Map<String, Object>> newsMon1 = screen.getPublicNewsMon(map);
 		List<Map<String, Object>> commMon = screen.getCommMon(map);
 		List<Map<String, Object>> dyMon = screen.getDyMon(map);
