@@ -37,9 +37,10 @@
 		</div>
 		<div class="header_cent">
 			<ul>	
-				<li>
+				<a th:href="@{/pc/teamDetail(teamId=${activity.teamId},areaId=${areaId})}"><li>
+				
 				<img th:src="@{/mobile/images/hdxq_09.jpg}" alt=""><span th:text="${activity.teamName}"></span>
-				</li>
+				</li></a>
 				<li>
 				<img th:src="@{/mobile/images/hdxq_09.jpg}" alt=""><span th:text="${activity.typeName}"></span>
 				</li>

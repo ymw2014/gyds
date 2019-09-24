@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.bouncycastle.crypto.tls.UserMappingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,14 +34,14 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
-import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.news.domain.DynamicDO;
 import com.fly.news.service.DynamicService;
-import com.fly.pc.news.controller.BaseDynamicController;
 import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.domain.TeamDO;
+import com.fly.team.service.TeamService;
 import com.fly.utils.DateUtils;
 import com.fly.utils.Dictionary;
 import com.fly.utils.R;
@@ -52,7 +51,8 @@ import com.fly.volunteer.service.VolunteerService;
 @Controller
 @RequestMapping("/pc/")
 public class PcActivityController extends BaseController{
-	
+	@Autowired
+	private TeamService teamService;
 	@Autowired
 	private RegionService regionService;
 	@Autowired
@@ -77,6 +77,10 @@ public class PcActivityController extends BaseController{
 		String areaId = request.getParameter("areaId");
 		if (StringUtils.isEmpty(areaId)) {
 			areaId = "0";
+		}
+		if(areaId.length()>9) {
+			TeamDO team = teamService.get(Long.valueOf(areaId));
+			model.addAttribute("team", team);
 		}
 		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);

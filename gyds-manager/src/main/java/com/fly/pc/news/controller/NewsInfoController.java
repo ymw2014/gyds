@@ -677,6 +677,8 @@ public class NewsInfoController extends BaseController {
 		
 		if(teamId!=null) {
 			areaId=teamId;
+			TeamDO team = teamService.get(teamId);
+			model.addAttribute("team", team);
 		}
 		
 		params.put("parentRegionCode", areaId);

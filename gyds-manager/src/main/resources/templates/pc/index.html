@@ -173,7 +173,7 @@
 		<div class="tuanduiImg">
 			<div th:each="team: ${teamList}">
 				<figure>
-					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamTitleImg}" alt=""></a>
+					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamImg}" alt=""></a>
 					<figcaption><p th:text="${team.teamName}"></p></figcaption>
 				</figure>
 			</div>

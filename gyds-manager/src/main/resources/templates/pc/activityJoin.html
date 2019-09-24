@@ -41,7 +41,7 @@
 					<div class="conBox2-2">
 						<div class="conBox2-2-1">
 							<ul>
-								<li th:text="'主办单位: ' +${activity.teamName}"></li>
+								<a th:href="@{/pc/teamDetail(teamId=${activity.teamId},areaId=${areaId})}"><li th:text="'主办单位: ' +${activity.teamName}"></li></a>
 								<li th:text="'活动类型: '+${activity.typeName}"></li>
 								<li th:text=" '活动地点：' + ${activity.actAddr}"></li>
 								<li th:text=" '报名时间：' + ${activity.startTimeStr} + '~' + ${activity.endTimeStr}"></li>

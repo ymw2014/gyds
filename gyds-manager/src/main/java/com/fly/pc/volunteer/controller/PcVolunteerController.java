@@ -45,8 +45,9 @@ import com.fly.photo.domain.PhotoDO;
 import com.fly.photo.service.PhotoService;
 import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
-import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
+import com.fly.team.domain.TeamDO;
+import com.fly.team.service.TeamService;
 import com.fly.utils.Dictionary;
 import com.fly.volunteer.domain.VolunteerDO;
 import com.fly.volunteer.service.VolunteerService;
@@ -55,7 +56,8 @@ import com.fly.volunteer.service.VolunteerService;
 @Controller
 @RequestMapping("/pc/")
 public class PcVolunteerController {
-	
+	@Autowired
+	private TeamService teamService;
 	@Autowired
 	private RegionService regionService;
 	@Autowired
@@ -86,6 +88,10 @@ public class PcVolunteerController {
 		String areaId = request.getParameter("areaId");
 		if (StringUtils.isEmpty(areaId)) {
 			areaId = "0";
+		}
+		if(areaId.length()>9) {
+			TeamDO team = teamService.get(Long.valueOf(areaId));
+			model.addAttribute("team", team);
 		}
 		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);
