@@ -677,10 +677,11 @@ public class NewsInfoController extends BaseController {
 		
 		if(teamId!=null) {
 			areaId=teamId;
-			TeamDO team = teamService.get(teamId);
+		}
+		if(areaId.toString().length()>9) {
+			TeamDO team = teamService.get(areaId);
 			model.addAttribute("team", team);
 		}
-		
 		params.put("parentRegionCode", areaId);
 		params.put("regionType",1);
 		List<RegionDO> areaList = regionService.list(params);
