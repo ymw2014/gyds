@@ -25,7 +25,7 @@ import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 
 public class MyDispetherFilter extends AccessControlFilter  {
 	private static final Logger log= LoggerFactory.getLogger(MyDispetherFilter.class);
-	private String backUrl="http://zhgy.61966.com/auth/callback";
+	private String backUrl="http://www.48936.com/auth/callback";
 	private StringBuffer sb=new StringBuffer();
 	@Autowired
     WxMpService wxMpService;

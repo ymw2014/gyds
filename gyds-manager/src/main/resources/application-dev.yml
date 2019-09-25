@@ -9,10 +9,10 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://122.114.82.200:3306/gyds?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://122.114.65.151:3306/yi48936lian?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
     #url: jdbc:mysql://192.168.124.101:3306/gyds?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
-    username: root
-    password: qweasdzxc123
+    username: yi48936lian
+    password: yi48936lian2019
     initialSize: 10
     minIdle: 10
     maxActive: 30
@@ -64,7 +64,7 @@ wx:
   appid: wx561ae40290380b04
   secret: 2b01a7d96a1e34d3cecf80be87852d53
   token: omJNpZEhZeHj1ZxFECKkP48B5VFbk1HP 
-  backUrl: http://zhgy.61966.com/auth/callback
+  backUrl: http://www.48936.com/auth/callback
   
   
   
