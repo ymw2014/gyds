@@ -113,19 +113,25 @@
 	position: absolute;
     top: 108px;
     left: 137px;
-    font-size: 15px;
+        font-size: 12px;
+    font-weight: 600;
+    color: #231816;
 }
 .zyzxb{
 	position: absolute;
     top: 108px;
     left: 244px;
-    font-size: 15px;
+        font-size: 12px;
+    font-weight: 600;
+    color: #231816;
 }
 .zyzbh{
 	position: absolute;
     top: 143px;
-    left: 130px;
-    font-size: 15px;
+    left: 136px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #231816;
 }
 .touxing{
 	width: 82px;
@@ -145,20 +151,26 @@
 	position: absolute;
     bottom: 10px;
     left: 142px;
-    font-size: 14px;
+        font-size: 12px;
+    font-weight: 600;
+    color: #231816;
 }
 .zyzfjz{
 	position: absolute;
     bottom: 10px;
     right: 329px;
-    font-size: 14px;
+        font-size: 12px;
+    font-weight: 600;
+    color: #231816;
 }
 
 .tuanmie{
     position: absolute;
-    bottom: 48px;
-    left: 132px;
-    font-size: 14px;
+    bottom: 53px;
+    left: 135px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #231816;
 }
 .img4{
     width: 60px;
