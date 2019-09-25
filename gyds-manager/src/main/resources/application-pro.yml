@@ -1,5 +1,5 @@
 filedo:
-  uploadPath: D:/var/uploaded_files/
+  uploadPath: /var/uploaded_files/
 logging:
   level:
     root: info
@@ -9,11 +9,10 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    #url: jdbc:mysql://122.114.82.200:3306/gyds?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
-    url: jdbc:mysql://192.168.124.142:3306/gyds?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
-    #url: jdbc:mysql://192.168.124.77:3306/gyds?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://122.114.82.200:3306/gyds?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false    
+    #url: jdbc:mysql://192.168.124.101:3306/gyds?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
-    password: root
+    password: qweasdzxc123
     initialSize: 10
     minIdle: 10
     maxActive: 30
@@ -53,22 +52,24 @@ spring:
           # 连接池最大阻塞等待时间（使用负值表示没有限制）
           max-wait: -1
       database: 6
-wx:
-  appid: wx4334431741b35429
-  secret: 2c2f47e624eed7043be7cc55f1fbb428
-  backUrl: http://r6h7zn.natappfree.cc/auth/callback
+
   
 wechat:
   open:
-    componentAppId: "wx8f042090d19f8ee0"
-    componentSecret: "755d16e3110aa06a3dd34d2f5c597ce2"
-    componentToken: ""
-    componentAesKey: ""  
-    
-    
-    
+    componentAppId: wx8f042090d19f8ee0
+    componentSecret: 5d77193a6f39799d6892d94bcd7e3471
+    componentToken: 
+    componentAesKey: 
+wx:
+  appid: wx561ae40290380b04
+  secret: 2b01a7d96a1e34d3cecf80be87852d53
+  token: omJNpZEhZeHj1ZxFECKkP48B5VFbk1HP 
+  backUrl: http://www.48936.com/auth/callback
+  
+  
+  
 wxpay:
   appid: wx561ae40290380b04
   secret: 2b01a7d96a1e34d3cecf80be87852d53
   mch_id: 1309497501
-  key: fenlegou20160226fenlegou20160226
+  key: fenlegou20160226fenlegou20160226  

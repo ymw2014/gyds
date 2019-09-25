@@ -29,6 +29,9 @@ public class DateUtils {
 	public static String format(Date date) {
 		return format(date, DATE_PATTERN);
 	}
+	public static String format1(Date date) {
+		return format(date, DATE_TIME_PATTERN);
+	}
 	public static Date parse(String date) {
 		return parse(date, DATE_PATTERN);
 	}

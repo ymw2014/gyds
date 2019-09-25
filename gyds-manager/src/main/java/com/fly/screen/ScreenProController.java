@@ -57,6 +57,15 @@ public class ScreenProController {
 		Map<String, Object> userCount = screen.getUserCount(map);
 		if(sexCount.size()<2) {
 			Map<String, Object> map2 = new HashMap<String, Object>();
+			if(sexCount.isEmpty()) {
+				map2.put("name", 1);
+				map2.put("c", 0);
+				sexCount.add(map2);
+				map2 = new HashMap<String, Object>();
+				map2.put("name", 0);
+				map2.put("c", 0);
+				sexCount.add(map2);
+			}else {
 			Object sex = sexCount.get(0).get("name");
 			if(sex.equals(0)) {
 				map2.put("name", 1);
@@ -67,6 +76,7 @@ public class ScreenProController {
 				map2.put("name", 0);
 				map2.put("c", 0);
 				sexCount.add(map2);
+			}
 			}
 		}
 		sexCount.get(0).put("ratioSex", NumberUtils.getPercent(sexCount.get(0).get("c"),userCount.get("value")));
@@ -243,8 +253,8 @@ public class ScreenProController {
 		Map<String, Object> newsCount = screen.getPublicNewsCount(map);
 		Date star = DateUtils.weeHours(new Date(),0);
 		Date end = DateUtils.weeHours(new Date(),1);
-		map.put("starteTime",DateUtils.format(star));
-		map.put("endTime",DateUtils.format(end));
+		map.put("starteTime",DateUtils.format1(star));
+		map.put("endTime",DateUtils.format1(end));
 		//今日签到
 		Map<String, Object> poinCount = screen.getPoinCount(map);
 		

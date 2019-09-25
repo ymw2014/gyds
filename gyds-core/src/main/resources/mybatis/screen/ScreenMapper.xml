@@ -148,7 +148,7 @@
 	</select>
 	
 	<select id="getPoliticsSurvey" resultType="java.util.Map">
-		SELECT  u.political_status name,COUNT(*) value  from sys_user u left join volunteer v on u.user_id = v. user_id
+		SELECT  u.political_status name,COUNT(*) value  from sys_user u inner join volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
@@ -157,7 +157,7 @@
 		GROUP BY political_status
 	</select>
 	<select id="getEducationSurvey" resultType="java.util.Map">
-		SELECT  u.education name,COUNT(*) value  from sys_user u left join volunteer v on u.user_id = v. user_id
+		SELECT  u.education name,COUNT(*) value  from sys_user u inner join volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
@@ -166,7 +166,7 @@
 		GROUP BY education
 	</select>
 	<select id="getPostSurvey" resultType="java.util.Map">
-		SELECT  u.post name,COUNT(*) value  from sys_user u left join volunteer v on u.user_id = v. user_id
+		SELECT  u.post name,COUNT(*) value  from sys_user u inner join volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
@@ -175,7 +175,7 @@
 		GROUP BY post
 	</select>
 	<select id="getSexCount" resultType="java.util.Map">
-		SELECT  u.sex name,COUNT(*) c  from sys_user u left join volunteer v on u.user_id = v. user_id
+		SELECT  u.sex name,COUNT(*) c  from sys_user u inner join volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
@@ -185,7 +185,7 @@
 	</select>
 	
 	<select id="getAgeCount" resultType="java.util.Map">
-		SELECT COUNT(*) value from sys_user u LEFT JOIN volunteer v on u.user_id = v.user_id 
+		SELECT COUNT(*) value from sys_user u inner JOIN volunteer v on u.user_id = v.user_id 
 		<where>
 		 			and age BETWEEN #{star} AND #{end}
 		<if test="ids != null">
@@ -195,7 +195,7 @@
 	</select>
 	
 	<select id="getAgeAndActCount" resultType="java.util.Map">
-		SELECT COUNT(a.user_id) value,a.user_id name from sys_user u LEFT JOIN act_apply a on u.user_id = a.user_id LEFT JOIN volunteer v on u.user_id = v.user_id 
+		SELECT COUNT(a.user_id) value,a.user_id name from sys_user u LEFT JOIN act_apply a on u.user_id = a.user_id inner JOIN volunteer v on u.user_id = v.user_id 
 		<where>
 		<if test="ids != null">
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
@@ -251,13 +251,13 @@
 	</select>
 	
 	<select id="getPoinCount" resultType="java.util.Map">
-		SELECT count(*) value from points p left join volunteer v on p.member_id = v.user_id
+		SELECT count(*) value from signin p left join volunteer v on p.user_id = v.user_id
 		<where>
 		<if test="starteTime != null">
-		and p.create_time &gt;= #{starteTime}
+		and p.sigin_time &gt;= #{starteTime}
 		</if>
 		<if test="endTime != null">
-		and p.create_time &lt;= #{endTime}
+		and p.sigin_time &lt;= #{endTime}
 		</if>
 		<if test="ids != null">
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
@@ -282,7 +282,7 @@
 		</where>
 	</select>
 	<select id="getUserCount" resultType="java.util.Map">
-		SELECT count(*) value from sys_user u LEFT JOIN volunteer v on u.user_id = v. user_id
+		SELECT count(*) value from sys_user u inner JOIN volunteer v on u.user_id = v. user_id
 		<where>
 		<if test="ids != null">
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
@@ -319,7 +319,7 @@
 		         	and left(v.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 	</where>
-	GROUP BY a.user_id ORDER BY value
+	GROUP BY a.user_id ORDER BY value desc
 	</select>
 	
 	<select id="getsigOrder" resultType="java.util.Map">
@@ -335,7 +335,7 @@
 		         	and left(s.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 	</where>
-	GROUP BY s.user_id ORDER BY value
+	GROUP BY s.user_id ORDER BY value DESC
 	</select>
 	
 	<select id="getLevel" resultType="java.util.Map">
