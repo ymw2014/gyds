@@ -157,16 +157,18 @@ public class WxPayController extends BaseController {
 	        			orderDO.setExamineStatus(1);
 	        			int update = orderService.update(orderDO);
 	        			if (update > 0) {
-	        				UserDO userDO = userService.get(orderDO.getUserId());
-	        				logger.info("获取用户信息:    {}",userDO.toString());
-	        				BigDecimal account = userDO.getAccount();
-	        				if (account == null) {
-	        					account = new BigDecimal(0);
+	        				if(orderDO.getExpIncType()==1) {
+	        					UserDO userDO = userService.get(orderDO.getUserId());
+		        				logger.info("获取用户信息:    {}",userDO.toString());
+		        				BigDecimal account = userDO.getAccount();
+		        				if (account == null) {
+		        					account = new BigDecimal(0);
+		        				}
+		        				BigDecimal add = account.add(orderDO.getPrice());
+		        				userDO.setAccount(add);
+		        				userService.update(userDO);
+		        				logger.info("订单状态修改成功");
 	        				}
-	        				BigDecimal add = account.add(orderDO.getPrice());
-	        				userDO.setAccount(add);
-	        				userService.update(userDO);
-	        				logger.info("订单状态修改成功");
 	        			}else {
 	        				 logger.info("订单状态修改失败");
 	        			}
@@ -251,7 +253,7 @@ public class WxPayController extends BaseController {
 		WXPay wxpay = new WXPay(config);
 		String code_url = "";
 		paramMap.put("body", body); // 商品描述
-		paramMap.put("notify_url", "http://zhgy.61966.com/wxpay/callback"); // 支付成功后，回调地址
+		paramMap.put("notify_url", "http://www.48936.com/wxpay/callback"); // 支付成功后，回调地址
 		paramMap.put("out_trade_no", out_trade_no); // 商户订单号
 		paramMap.put("spbill_create_ip", this.localIp()); // 本机的Ip
 		paramMap.put("total_fee", total_fee  + ""); // 金额必须为整数 单位为分
@@ -271,7 +273,7 @@ public class WxPayController extends BaseController {
 	 * 获取ip地址
 	 * @return
 	 */
-	private String localIp() {
+	public String localIp() {
 		String ip = null;
 		Enumeration allNetInterfaces;
 		try {

@@ -479,19 +479,22 @@
 	}
 	//红包提交
 	 function redPacket(){
+		 var payFee = $('#price').val();
+		 if (payFee == '') {
+				alert("请选择充值金额或输入充值金额");
+				return;
+		}
 		 var teamId = $('#teamId').val();
 		 var para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val(),"teamId":teamId};
 		  $.ajax({
 				type : "POST",
-				url : "/pc/news/redPacket",
+				url : "/pc/news/redPacketApp",
 				data : para,
-				error : function(request) {
-					layer.msg('发红包失败！您扣除的：'+ $('#price').val() +'元 已原路退回您的账户');
-				},
 				success : function(data) {
 					if (data.code == 0) {
-						alert("发红包成功");
-						history.go(0);
+						$(".m-modal-dialog3").css("display","none")
+						pay(payFee,para,3);
+						//history.go(0);
 					} else {
 						if(data.msg == -1){
 						//layer.msg('发红包失败！您的余额不足');
@@ -501,7 +504,7 @@
 								window.location.href = "/pc/persion_main";
 							})
 						}else if(data.msg == 0){
-						layer.msg('发红包失败！您的：'+ $('#price').val() +'元 已原路退回您的账户');
+						layer.msg('发红包失败!');
 						}else if(data.msg == 2){
 							layer.confirm('您未登录请问是否跳转登录页面？', {
 								  btn: ['是','否'] //按钮
@@ -659,47 +662,18 @@
 	
 	//打赏提交
 	function giveReward(){
+		
  		var som = $('#givePrice').val();
  		var teamId = $('#teamId').val();
+ 		var payFee = $('#givePrice').val();
+		 if (payFee == '') {
+				alert("请选择打赏的金额");
+				return;
+		}
 		var para= {};
 			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som,"teamId":teamId};
-			  $.ajax({
-					type : "POST",
-					url : "/pc/news/reward",
-					data : para,
-					error : function(request) {
-						layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
-					},
-					success : function(data) {
-						if (data.code == 0) {
-							alert("打赏成功");
-							history.go(0);
-						} else {
-							if(data.msg == -1){
-							//layer.msg('打赏失败！您的余额不足');
-							layer.confirm('打赏失败！您的余额不足,是否跳转充值页面？', {
-								  btn: ['是','否'] //按钮
-								}, function(){
-									window.location.href = "/pc/persion_main";
-								})
-							}else if(data.msg == 0){
-							layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
-							}else if(data.msg == 2){
-								layer.confirm('您未登录请问是否跳转登录页面？', {
-									  btn: ['是','否'] //按钮
-									}, function(){
-										window.location.href = "/admin";
-									}, function(){
-									  layer.msg('打赏是需要登陆的', {
-									    time: 20000, //20s后自动关闭
-									    btn: ['知道了']
-									  });
-									});
-							}
-						}
-
-					}
-				});
+			  $(".m-modal1-dialog1").css("display","none")
+				pay(payFee,para,2);
 	};
 	
 	function attention(){
@@ -997,5 +971,131 @@
 	$(".m-modal1,.m-modal-close,.m-btn-cancel").on("click", function(event) {
 		$('.m-modal').hide();
 			});
+	</script>
+	
+	
+	<script type="text/javascript">
+		var appId = '';
+		var paySign = '';
+		var timeStamp = '';
+		var nonceStr = '';
+		var packageStr = '';
+		var signType = '';
+		var orderNum = '';
+		function pay(blance,para,type) {
+			$.ajax({
+	            type:"post",
+	            url: "/pc/news/pay",
+	            dataType:"json",
+	            data : {'totalFee': (blance * 100)
+	            	,'orderType':type},
+	            ontentType : "application/x-www-form-urlencoded",
+	            success:function(result) {
+	                console.log(result);
+	                var data  = result;
+                    appId = data.appId;
+                    paySign = data.paySign;
+                    timeStamp = data.timeStamp;
+                    nonceStr = data.nonceStr;
+                    packageStr = data.package;
+                    signType = data.signType;
+                    orderNum = data.orderNum
+                    callpay(para,type);
+	            }
+	        });
+	    }
+
+		function onBridgeReady(para,type){
+	        WeixinJSBridge.invoke(
+	            'getBrandWCPayRequest', {
+	                "appId":appId,     //公众号名称，由商户传入
+	                "timeStamp":timeStamp, //时间戳，自1970年以来的秒数
+	                "nonceStr":nonceStr , //随机串
+	                "package":packageStr,  //预支付交易会话标识
+	                "signType":signType,     //微信签名方式
+	                "paySign":paySign        //微信签名
+	            },
+	            function(res){
+	                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+	                    alert('支付成功');
+	                    if(type==2){
+	                    	$.ajax({
+	        					type : "POST",
+	        					url : "/pc/news/reward",
+	        					data : para,
+	        					success : function(data) {
+	        						if (data.code == 0) {
+	        							alert("打赏成功");
+	        							history.go(0);
+	        						}
+	        					}
+	        				});
+	                    }
+						if(type==3){
+							 $.ajax({
+									type : "POST",
+									url : "/pc/news/redPacket",
+									data : para,
+									success : function(data) {
+										if (data.code == 0) {
+											alert('操作成功');
+											history.go(0);
+										} 
+
+									}
+								});                  	
+	                    }
+	                }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+	                    alert('支付取消');
+	                    history.go(0);
+	                }else if(res.err_msg == "get_brand_wcpay_request:fail" ){
+	                    alert('支付失败');
+	                    history.go(0);
+	                } //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+	            }
+	        );
+	    }
+	    function callpay(para,type){
+	        if (typeof WeixinJSBridge == "undefined"){
+	            if( document.addEventListener ){
+	                document.addEventListener('WeixinJSBridgeReady', onBridgeReady(para,type), false);
+	            }else if (document.attachEvent){
+	                document.attachEvent('WeixinJSBridgeReady', onBridgeReady(para,type));
+	                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady(para,type));
+	            }
+	        }else{
+	            onBridgeReady(para,type);
+	        }
+	    }
+	    
+		function createOrder(fee){
+			var orderNum = '';
+			$.ajax({
+				type : "POST",
+				url : "/cashout/createOrder",
+				data : {'fee': fee},
+				async:false,
+				success : function(r) {
+					if (r.code == 0) {
+						orderNum = r.msg;
+					} else if(r.code == -1){
+						orderNum =-1;
+					}else if(r.code == -2){
+						orderNum =-2;
+					}
+					}
+			});
+			return orderNum;
+		}
+		function isNullOrBalance(fee){
+			if (fee == '') {
+				alert("请选择充值金额或输入充值金额");
+				return true;
+			}
+			if((fee * 100) > ($('#ccount').val() * 100)) {
+				alert("余额不足");
+				return true;
+			}
+		}
 	</script>
 </html>

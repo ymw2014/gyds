@@ -28,52 +28,62 @@
 <script th:src="@{/js/validate.js}"></script>
 <script th:src="@{/js/qrCode.js}"></script>
 
-<style>
- .addred{
-  color:#fff !important;
+<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.2.js}"></script>
+<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.2.css}">
 
- }
- #reward li{
- color:#dc1333;
- }
- .m-middletxt3 button {
-	width:168px;
-	height:40px;
-	border:none;
-	text-align:center;
-	line-height:40px;
-	background:red;
+<style>
+.addred {
+	color: #fff !important;
+}
+
+#reward li {
+	color: #dc1333;
+}
+
+.m-middletxt3 button {
+	width: 168px;
+	height: 40px;
+	border: none;
+	text-align: center;
+	line-height: 40px;
+	background: red;
 	outline: none;
-	color:#fff;
+	color: #fff;
 }
-.xqfenxing{
-    position: relative;
+
+.xqfenxing {
+	position: relative;
 }
-#qrcode{
-    position: absolute;
-    margin-left: 124px;
-    margin-top: -133px;
+
+#qrcode {
+	position: absolute;
+	margin-left: 124px;
+	margin-top: -133px;
 }
-#qrcode img{
-    padding:10px;
-    background:#fff;
+
+#qrcode img {
+	padding: 10px;
+	background: #fff;
 }
-#rate{
-    text-align: center;
-    position: absolute;
-    bottom: 15px;
-    width: 100%;
-    color: #feb5ae;
-    font-size:14px;
+
+#rate {
+	text-align: center;
+	position: absolute;
+	bottom: 15px;
+	width: 100%;
+	color: #feb5ae;
+	font-size: 14px;
 }
-.zidong{
-    position: absolute;
-    right: 20px;
-    top: 2px;
-    color: #ef472a;
+
+.zidong {
+	position: absolute;
+	right: 20px;
+	top: 2px;
+	color: #ef472a;
 }
-#redCount{
-    position: relative;
+
+#redCount {
+	position: relative;
 }
 </style>
 </head>
@@ -97,13 +107,14 @@
 				<!-- <p>您所在的位置：首页>青少年马术教学试骑体验</p> -->
 			</div>
 			<div class="listcontLH">
-				<input type="hidden" id="infoId" th:value="${info.id}">
-				<input type="hidden" id="areaId" th:value="${areaId}">
+				<input type="hidden" id="infoId" th:value="${info.id}"> <input
+					type="hidden" id="areaId" th:value="${areaId}">
 				<h4 th:text="${info.title}"></h4>
 				<p>
 					<span
 						th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"></span>&nbsp;
-					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><span th:text="'来  源 : '+${team.teamName}"></span></a>&nbsp; <span
+					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><span
+						th:text="'来  源 : '+${team.teamName}"></span></a>&nbsp; <span
 						th:text="'作  者 : '+${info.author}"></span>
 				</p>
 			</div>
@@ -118,52 +129,73 @@
 			</div>
 		</div>
 		<!-- 右1 -->
-		<div style="float: right;overflow: hidden;width: 277px;">
-		     <div class="listcontR">
-			<div class="xqrightTop" style="width: 254px;">
-				<img th:src="@{${team.teamTitleImg}}" alt=""> <span
-					th:text="${team.teamName}"></span> <input type="hidden"
-					th:value="${team.id}" id="teamId">
-				<div th:if=" ${is_attention} eq '0'">
-					<a href="javascript:;"><p id="guanzhu">求关注</p></a>
+		<div style="float: right; overflow: hidden; width: 277px;">
+			<div class="listcontR">
+				<div class="xqrightTop" style="width: 254px;">
+					<img th:src="@{${team.teamTitleImg}}" alt=""> <span
+						th:text="${team.teamName}"></span> <input type="hidden"
+						th:value="${team.id}" id="teamId">
+					<div th:if=" ${is_attention} eq '0'">
+						<a href="javascript:;"><p id="guanzhu">求关注</p></a>
+					</div>
+					<div th:if=" ${is_attention} eq '2'">
+						<a href="javascript:;" onclick="attention()"><p id="guanzhu">求关注</p></a>
+					</div>
+					<div th:if=" ${is_attention} eq '1'">
+						<a><p id="guanzhu">已关注</p></a>
+					</div>
 				</div>
-				<div th:if=" ${is_attention} eq '2'">
-					<a href="javascript:;" onclick="attention()"><p id="guanzhu">求关注</p></a>
-				</div>
-				<div th:if=" ${is_attention} eq '1'">
-					<a><p id="guanzhu">已关注</p></a>
+				<ul>
+					<li th:each="news:${newsList}">·<a
+						th:text="${#strings.abbreviate(news.title,18)}"
+						th:href="@{/pc/news/info/(id=${news.id},areaId=${areaId})}"></a></li>
+
+				</ul>
+			</div>
+			<div class="listcontRI">
+				<a th:each="act,stat: ${advList}"
+					th:href="${act.advImg!=null?act.url:'javascript:;'}"
+					th:target="${act.advImg!=null?'_blank':''}"> <img
+					th:if="${stat.count==1}"
+					th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_03.jpg'}"
+					th:class="${act.advImg!=null?'':'btn5'}"
+					th:data-url="${act.advImg!=null?'':act.url}" alt=""> <img
+					th:if="${stat.count==2}"
+					th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_06.jpg'}"
+					th:class="${act.advImg!=null?'':'btn5'}"
+					th:data-url="${act.advImg!=null?'':act.url}" alt=""> <img
+					th:if="${stat.count==3}"
+					th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}"
+					th:class="${act.advImg!=null?'':'btn5'}"
+					th:data-url="${act.advImg!=null?'':act.url}" alt=""> <img
+					th:if="${stat.count==4}"
+					th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_12.jpg'}"
+					th:class="${act.advImg!=null?'':'btn5'}"
+					th:data-url="${act.advImg!=null?'':act.url}" alt=""> <img
+					th:if="${stat.count==5}"
+					th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_15.jpg'}"
+					th:class="${act.advImg!=null?'':'btn5'}"
+					th:data-url="${act.advImg!=null?'':act.url}" alt=""> <img
+					th:if="${stat.count==6}"
+					th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_03.jpg'}"
+					th:class="${act.advImg!=null?'':'btn5'}"
+					th:data-url="${act.advImg!=null?'':act.url}" alt="">
+				</a>
+				<!-- 右侧排名 -->
+				<div class="listcontpm">
+					<div class="zixunbut">
+						<h3>推荐</h3>
+						<ul>
+							<li th:each="newsTop,iterStat:${newsTop}"><i
+								th:text="${iterStat.count}"></i><a
+								th:href="@{/pc/news/info(id=${newsTop.id},areaId=${areaId})}"
+								th:text="${#strings.abbreviate(newsTop.title,19)}"></a></li>
+
+						</ul>
+					</div>
 				</div>
 			</div>
-			<ul>
-				<li th:each="news:${newsList}">·<a th:text="${#strings.abbreviate(news.title,18)}" 
-					th:href="@{/pc/news/info/(id=${news.id},areaId=${areaId})}"></a></li>
 
-			</ul>
-		</div>
-		<div class="listcontRI">
-			<a th:each="act,stat: ${advList}"  th:href="${act.advImg!=null?act.url:'javascript:;'}" th:target="${act.advImg!=null?'_blank':''}">
-				<img th:if="${stat.count==1}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_03.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
-				<img th:if="${stat.count==2}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_06.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
-				<img th:if="${stat.count==3}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_09.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
-				<img th:if="${stat.count==4}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_12.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
-				<img th:if="${stat.count==5}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_15.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
-				<img th:if="${stat.count==6}" th:src="${act.advImg!=null?act.advImg:'/pc/images/zyz_03.jpg'}" th:class="${act.advImg!=null?'':'btn5'}" th:data-url="${act.advImg!=null?'':act.url}" alt="">
-			</a>
-			<!-- 右侧排名 -->
-			<div class="listcontpm">
-				<div class="zixunbut">
-					<h3>推荐</h3>
-					<ul>
-						<li th:each="newsTop,iterStat:${newsTop}"><i
-							th:text="${iterStat.count}"></i><a
-							th:href="@{/pc/news/info(id=${newsTop.id},areaId=${areaId})}"
-							th:text="${#strings.abbreviate(newsTop.title,19)}"></a></li>
-
-					</ul>
-				</div>
-			</div>
-		</div>
-		
 		</div>
 		<!-- 右侧排名 -->
 
@@ -171,7 +203,7 @@
 		<!-- 左2 -->
 		<div class="listcontL1">
 			<div class="listcontL1-1 btn2" th:onclick="reward()">
-				<img th:src="@{/pc/images/dashang.png}" alt="" >打赏
+				<img th:src="@{/pc/images/dashang.png}" alt="">打赏
 			</div>
 			<div class="listcontL1-2">
 				<p th:text="${'已有'+reCountUser+'人打赏'}"></p>
@@ -187,22 +219,36 @@
 					<span class="m-modal1-close">X</span>
 				</div>
 				<div class="m-middle2">
-				   <div class="m-middletxt">
-					   <img th:src="@{/pc/images/touxiang 82.png}" id="touxiang">
-				   </div>
-				   <div class="m-middletxt2">
-				   		<ul id="reward">
-							
+					<div class="m-middletxt">
+						<img th:src="@{/pc/images/touxiang 82.png}" id="touxiang">
+					</div>
+					<div class="m-middletxt2">
+						<ul id="reward">
+
 						</ul>
+					</div>
+					<div class="m-middletxt3">
+						<input type="hidden" id="givePrice">
+						<button onclick="giveReward()">提交</button>
+					</div>
+				</div>
+			</div>
+			<div class="m-modal1-dialog m-modal1-dialog1 adddd1">
+				<div class="m-top">
+					<span class="m-modal1-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt2-1">
+				       <p id="blance1"></p>
+					   <img id="codeUrl1" src="" alt="">
 				   </div>
-				   <div class="m-middletxt3">
-				   <input type="hidden"  id="givePrice">
-					   <button onclick="giveReward()">提交</button>
+				   <div class="m-middletxt3-1">
+					   <img th:src="@{/pc/images/zasfaff.png}" alt="">
 				   </div>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- 看红包 -->
 		<div id="modal" class="modal modal__bg" role="dialog"
 			aria-hidden="true" style="background: rgba(0, 0, 0, 0.9);">
@@ -212,18 +258,14 @@
 						<div class="hbtop"></div>
 						<div style="width: 600px; background: #fff; height: 260px;">
 							<div class="hbcen">
-								<div class="hbcen1" id ="user">
-								</div>
+								<div class="hbcen1" id="user"></div>
 							</div>
 						</div>
 						<div style="width: 100%; line-height: 40px; background: #ebebeb;"
-							id="redCount">
-						</div>
-						
+							id="redCount"></div>
+
 					</div>
-					<div class="lingqu" id="redList">
-						
-					</div>
+					<div class="lingqu" id="redList"></div>
 
 					<a href="" class="modal__close demo-close"> <svg class=""
 							viewBox="0 0 24 24">
@@ -264,39 +306,55 @@
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
 			</div> -->
 			<div th:if=" ${isRed} eq '1'">
-				<img class="modal__trigger" onclick="queryRed()" data-modal="#modal" id="queryRed"
-					th:src="@{/pc/images/listcc_08.png}"
+				<img class="modal__trigger" onclick="queryRed()" data-modal="#modal"
+					id="queryRed" th:src="@{/pc/images/listcc_08.png}"
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">发放中
 			</div>
 			<div th:if=" ${isRed} eq '2'">
-				<img class="modal__trigger btn1" data_type="1" th:src="@{/pc/images/listcc_07.jpg}"
-					 onclick="redNew()"
+				<img class="modal__trigger btn1" data_type="1"
+					th:src="@{/pc/images/listcc_07.jpg}" onclick="redNew()"
 					style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1)">未发放
 			</div>
 		</div>
 		<script th:src="@{/pc/js/js1.js}"></script>
 		<!-- 发红包 -->
 		<div class="m-modal">
-				<div class="m-modal-dialog m-modal-dialog3">
-					<div class="m-top">
-						<span class="m-modal-close">X</span>
+			<div class="m-modal-dialog m-modal-dialog3">
+				<div class="m-top">
+					<span class="m-modal-close">X</span>
+				</div>
+				<div class="m-middle3">
+					<p id="sum"></p>
+					<input type="text" placeholder="红包个数不能大于红包总额的2倍!!!" id="number">
+				</div>
+				<div class="m-middle4">
+					<ul id="red">
+
+					</ul>
+				</div>
+				<a href="javascript:;">
+					<div class="m-middle5" onclick="redPacket()">
+						<input type="hidden" id="price">
 					</div>
-					<div class="m-middle3">
-					  <p id="sum"></p>
-					  <input type="text" placeholder="红包个数不能大于红包总额的2倍!!!" id="number">
-					</div>
-					<div class="m-middle4">
-					    <ul id="red">
-							
-						</ul>
-					</div>
-					<a href="javascript:;" ><div class="m-middle5" onclick="redPacket()">
-					<input type="hidden"  id="price">
-					</div></a>
+				</a>
 				<p id="rate"></p>
+			</div>
+			<div class="m-modal-dialog m-modal-dialog5 adddd">
+				<div class="m-top">
+					<span class="m-modal-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt2-1">
+				       <p id="blance"></p>
+					   <img id="codeUrl" src="" alt="">
+				   </div>
+				   <div class="m-middletxt3-1">
+					   <img th:src="@{/pc/images/zasfaff.png}" alt="">
+				   </div>
 				</div>
 			</div>
-		
+		</div>
+
 		<!-- 左3 评论 -->
 		<div class="listpl">
 			<div class="listpl-1">
@@ -346,39 +404,32 @@
 				<span class="m-modal3-close">X</span>
 			</div>
 			<div class="m-middle">
-			    <form action="" id="signupForm">
-			    <input type="hidden" placeholder="" class="input1" id="url">
-			    <input type="hidden" placeholder="" class="input1" id="price">
-			    <input type="hidden" placeholder="" class="input1" name="positionNum" id="positionNum">
-			    <input type="hidden" placeholder="" class="input1" id="regionName">
-			    <input type="hidden" placeholder="" class="input1" id="sort" name="sort">
-			    <input type="hidden" placeholder="" class="input1" name="regionCode" id="regionCode">
-			    	<label>
-						<span>展示位置</span>
-						<input type="text" placeholder="" readonly="readonly" id="positionName" class="input1">
+				<form action="" id="signupForm">
+					<input type="hidden" placeholder="" class="input1" id="url">
+					<input type="hidden" placeholder="" class="input1" id="price">
+					<input type="hidden" placeholder="" class="input1"
+						name="positionNum" id="positionNum"> <input type="hidden"
+						placeholder="" class="input1" id="regionName"> <input
+						type="hidden" placeholder="" class="input1" id="sort" name="sort">
+					<input type="hidden" placeholder="" class="input1"
+						name="regionCode" id="regionCode"> <label> <span>展示位置</span>
+						<input type="text" placeholder="" readonly="readonly"
+						id="positionName" class="input1">
+					</label> <label> <span>投放天数</span> <input type="text"
+						oninput="clearNoNum1(this)" onmouseout="jisuan()" id="showDay"
+						name="showDay" placeholder="投放天数" class="input1">
+					</label> <label> <span>链接地址</span> <input type="text"
+						placeholder="http://" name="advUrl" class="input1">
+					</label> <label> <span>上传图片</span> <img
+						th:src="@{/pc/images/gahgha_03.png}" id="img" alt=""> <input
+						type="hidden" id="imgStr" name="advImg"> <input
+						type="file" name="file" style="display: none;" id="file">
+					</label> <label> <span>总价格</span> <span
+						style="color: #ff0101; font-size: 28px;" id="jiage">0元</span>
+					</label> <label> <input type="button" id="save" value="确认购买"
+						class="input3">
 					</label>
-					<label>
-						<span>投放天数</span>
-						<input type="text" oninput="clearNoNum1(this)" onmouseout="jisuan()"  id="showDay"  name="showDay" placeholder="投放天数" class="input1">
-					</label>
-					<label>
-						<span>链接地址</span>
-						<input type="text" placeholder="http://" name="advUrl" class="input1">
-					</label>
-					<label>
-						<span>上传图片</span>
-						<img th:src="@{/pc/images/gahgha_03.png}" id="img" alt="">
-						<input type="hidden" id="imgStr" name="advImg">
-						<input type="file" name="file" style="display: none;" id ="file">
-					</label>
-					<label>
-						<span>总价格</span>
-						<span style="color:#ff0101;font-size:28px;" id="jiage">0元</span>
-					</label>
-					<label>
-						<input type="button" id="save" value="确认购买" class="input3">
-					</label>
-			    </form>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -389,99 +440,119 @@
 <script th:src="@{/pc/js/common.js}"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
-function _area(){
-	console.log($("#area").val());
-	window.location.href = "/?areaId="+$("#area").val();
-}
-
-function queryRed(){
-	para={"newsId":$('#infoId').val()};
-	$.ajax({
-		type : "POST",
-		url : "/pc/news/queryRed",
-		data : para,
-		error : function(request) {
-			alert("查询红包异常");
-		},
-		success : function(data) {
-			if (data.code == 0) {
-				var img = data.userRed.head_img;
-				if(img==null&&img==''){
-					img = '/pc/images/touxiang5.png'
-				}
-				var text = data.userRed.price;
-				var user = '';
-				var count = '';
-				var redList = '';
-				user +='<img src="'+img+'" id="headImg">';
-				user +='<p style="font-size: 20px; line-height: 30px;">打赏门户的红包</p>';
-				user +='<p style="color: #b8b8b8; font-size: 16px; line-height: 40px;">恭喜发财，大吉大利</p>';
-				user +='<span><rem style="font-size:36px; color:#ef472a;"';
-				user +='id="userRed">'+text+'</rem>元</span>';
-				$("#user").empty();
-				$('#user').append(user);
-				count += '<p style="margin-left: 10px;">已领取'+data.redSize+'/'+data.Packet.count+'个,共'+data.Packet.money+'元</p>';
-				count += '<p class="zidong">30秒后红包自动到账</p>';
-				$("#redCount").empty();
-				$('#redCount').append(count);
-				$('#redList').empty();
-				$.each(data.listRed, function(i, item){ 
-					 redList += '<div class="hblq"> <div class="hblq1">';
-					 redList += '<img src="'+item.head_img+'" alt="">'	;			
-					 redList += '<div>';			
-					 redList += '<span>'+item.name+'</span>';					
-					 redList += '<p>'+item.get_time+'</p>';					
-					 redList += '</div>';				
-					 redList += '<p>'+item.price+'元</p>';		
-					 redList += '</div>';	
-					 redList += '</div>';
-					   }); 
-					 $('#redList').append(redList);
-			}else{
-				
-			}
-
-		}
-	});
-}
-$().ready(function(){
-	var isRed = $('#isRed').val();
-	var isGetRed = $('#isGetRed').val();
-	//满足两个条件 1:有红包 2:未领取过
-	if(isRed==1&&isGetRed==2){
-		var myVar = setTimeout(vieRed, 1000*30);
+	function _area() {
+		console.log($("#area").val());
+		window.location.href = "/?areaId=" + $("#area").val();
 	}
-})
 
-function vieRed(){
-	para={"newsId":$('#infoId').val(),"orderType":1,"expIncType":3};
-	$.ajax({
-		type : "POST",
-		url : "/pc/news/vieRed",
-		data : para,
-		async : true,
-		error : function(request) {
-			alert("抢红包异常");
-		},
-		success : function(data) {
-			if (data.code == 0) {
-				queryRed();
-				$('#queryRed').click();
-			} else if(data.msg == 1){
-				alert('红包抢完啦!');
-			}else if(data.msg == 2){
-				alert('抢红包失败!');
-			}else if(data.msg == 4){
-				alert('已领取红包!');
-			}
+	function queryRed() {
+		para = {
+			"newsId" : $('#infoId').val()
+		};
+		$
+				.ajax({
+					type : "POST",
+					url : "/pc/news/queryRed",
+					data : para,
+					error : function(request) {
+						alert("查询红包异常");
+					},
+					success : function(data) {
+						if (data.code == 0) {
+							var img = data.userRed.head_img;
+							if (img == null && img == '') {
+								img = '/pc/images/touxiang5.png'
+							}
+							var text = data.userRed.price;
+							var user = '';
+							var count = '';
+							var redList = '';
+							user += '<img src="'+img+'" id="headImg">';
+							user += '<p style="font-size: 20px; line-height: 30px;">打赏门户的红包</p>';
+							user += '<p style="color: #b8b8b8; font-size: 16px; line-height: 40px;">恭喜发财，大吉大利</p>';
+							user += '<span><rem style="font-size:36px; color:#ef472a;"';
+				user +='id="userRed">'
+									+ text + '</rem>元</span>';
+							$("#user").empty();
+							$('#user').append(user);
+							count += '<p style="margin-left: 10px;">已领取'
+									+ data.redSize + '/' + data.Packet.count
+									+ '个,共' + data.Packet.money + '元</p>';
+							count += '<p class="zidong">30秒后红包自动到账</p>';
+							$("#redCount").empty();
+							$('#redCount').append(count);
+							$('#redList').empty();
+							$
+									.each(
+											data.listRed,
+											function(i, item) {
+												redList += '<div class="hblq"> <div class="hblq1">';
+												redList += '<img src="'+item.head_img+'" alt="">';
+												redList += '<div>';
+												redList += '<span>' + item.name
+														+ '</span>';
+												redList += '<p>'
+														+ item.get_time
+														+ '</p>';
+												redList += '</div>';
+												redList += '<p>' + item.price
+														+ '元</p>';
+												redList += '</div>';
+												redList += '</div>';
+											});
+							$('#redList').append(redList);
+						} else {
 
+						}
+
+					}
+				});
+	}
+	$().ready(function() {
+		var isRed = $('#isRed').val();
+		var isGetRed = $('#isGetRed').val();
+		//满足两个条件 1:有红包 2:未领取过
+		if (isRed == 1 && isGetRed == 2) {
+			var myVar = setTimeout(vieRed, 1000 * 30);
 		}
-	});
-	
-}
+	})
 
-	function share(reType){
-		para={"newsId":$('#infoId').val(),"trType":reType};
+	function vieRed() {
+		para = {
+			"newsId" : $('#infoId').val(),
+			"orderType" : 1,
+			"expIncType" : 3
+		};
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/vieRed",
+			data : para,
+			async : true,
+			error : function(request) {
+				alert("抢红包异常");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					queryRed();
+					$('#queryRed').click();
+				} else if (data.msg == 1) {
+					alert('红包抢完啦!');
+				} else if (data.msg == 2) {
+					alert('抢红包失败!');
+				} else if (data.msg == 4) {
+					alert('已领取红包!');
+				}
+
+			}
+		});
+
+	}
+
+	function share(reType) {
+		para = {
+			"newsId" : $('#infoId').val(),
+			"trType" : reType
+		};
 		$.ajax({
 			cache : true,
 			type : "GET",
@@ -495,19 +566,21 @@ function vieRed(){
 				if (data.code == 0) {
 					alert("分享成功");
 					history.go(0);
-				} else if(data.code == 2){
+				} else if (data.code == 2) {
 					alert(data.msg);
-				}else if(data.code == 3){
+				} else if (data.code == 3) {
 					alert(data.msg);
-				}else{
+				} else {
 					alert(data.msg);
 				}
 
 			}
 		});
 	}
-	function like(){
-		para={"newsId":$('#infoId').val()};
+	function like() {
+		para = {
+			"newsId" : $('#infoId').val()
+		};
 		$.ajax({
 			cache : true,
 			type : "GET",
@@ -518,64 +591,91 @@ function vieRed(){
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					$("#like").attr("src","/pc/images/listzz_04.jpg");
+					$("#like").attr("src", "/pc/images/listzz_04.jpg");
 					history.go(0);
-				} else if(data.code == 2){
+				} else if (data.code == 2) {
 					alert(data.msg);
 					history.go(0);
-				}else {
+				} else {
 					parent.layer.alert(data.msg)
 				}
 
 			}
 		});
 	}
- 	function giveReward(){
- 		var som = $('#givePrice').val();
- 		var teamId = $('#teamId').val();
-		var para= {};
-			  para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":2,"price":som,"teamId":teamId};
-			  $.ajax({
-					type : "POST",
-					url : "/pc/news/reward",
-					data : para,
-					error : function(request) {
-						layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
-					},
-					success : function(data) {
-						if (data.code == 0) {
-							alert("打赏成功");
-							history.go(0);
-						} else {
-							if(data.msg == -1){
-							//layer.msg('打赏失败！您的余额不足');
-							layer.confirm('打赏失败！您的余额不足,是否跳转充值页面？', {
-								  btn: ['是','否'] //按钮
-								}, function(){
-									window.location.href = "/pc/personalCenter";
-								})
-							}else if(data.msg == 0){
-							layer.msg('打赏失败！您打赏的：'+ som +'元 已原路退回您的账户');
-							}else if(data.msg == 2){
-								layer.confirm('您未登录请问是否跳转登录页面？', {
-									  btn: ['是','否'] //按钮
-									}, function(){
-										window.location.href = "/admin";
-									}, function(){
-									  layer.msg('打赏是需要登陆的', {
-									    time: 20000, //20s后自动关闭
-									    btn: ['知道了']
-									  });
-									});
-							}
-						}
+	function giveReward() {
+		$(".m-modal1-dialog1").css("display","none")
+		$(".adddd1").show();
+		var som = $('#givePrice').val();
+		$('#blance1').text("付款金额 " +som + "元");
+		var som = $('#givePrice').val();
+		var teamId = $('#teamId').val();
+		var para = {};
+		para = {
+			"newsId" : $('#infoId').val(),
+			"orderType" : 2,
+			"expIncType" : 2,
+			"price" : som,
+			"teamId" : teamId
+		};
+		var orderNum = createOrder(som,2);
+		console.log(orderNum);
+		if (orderNum != '-1') {
+			$('#codeUrl1').attr("src","http://www.48936.com/wxpay/pay?data=" + (som * 100) + "&orderNum=" + orderNum);
+			timer = setInterval(function () {
+					var msg = queryOrder(orderNum)
+					if (msg == '1') {
+						window.clearInterval(timer);
+						history.go(0);
 
+						 $.ajax({
+							type : "POST",
+							url : "/pc/news/reward",
+							data : para,
+							error : function(request) {
+								layer.msg('打赏失败！您打赏的：' + som + '元 已原路退回您的账户');
+							},
+							success : function(data) {
+								if (data.code == 0) {
+									alert("打赏成功");
+									history.go(0);
+								} else {
+									if (data.msg == -1) {
+										//layer.msg('打赏失败！您的余额不足');
+										layer.confirm('打赏失败！您的余额不足,是否跳转充值页面？', {
+											btn : [ '是', '否' ]
+										//按钮
+										}, function() {
+											window.location.href = "/pc/personalCenter";
+										})
+									} else if (data.msg == 0) {
+										layer.msg('打赏失败！您打赏的：' + som + '元 已原路退回您的账户');
+									} else if (data.msg == 2) {
+										layer.confirm('您未登录请问是否跳转登录页面？', {
+											btn : [ '是', '否' ]
+										//按钮
+										}, function() {
+											window.location.href = "/admin";
+										}, function() {
+											layer.msg('打赏是需要登陆的', {
+												time : 20000, //20s后自动关闭
+												btn : [ '知道了' ]
+											});
+										});
+									}
+								}
+
+							}
+						}); 
 					}
-				});
-	} 
-	
-	function reward(){
-		var para='';
+				},500);
+		} else {
+			layer.msg("未知错误");
+		}
+	}
+
+	function reward() {
+		var para = '';
 		$.ajax({
 			type : "POST",
 			url : "/pc/news/rewardList",
@@ -587,13 +687,14 @@ function vieRed(){
 				if (data.code == 0) {
 					var reward = '';
 					var touxiang = data.user.headImg;
-					$('#touxiang').attr('src',touxiang);
-					$.each(data.listPrice, function(i, item){
-						reward += '<li><a href="#">'+item.price+'</a>元</li>';
+					$('#touxiang').attr('src', touxiang);
+					$.each(data.listPrice, function(i, item) {
+						reward += '<li><a href="#">' + item.price
+								+ '</a>元</li>';
 					});
 					$("#reward").empty();
 					$('#reward').append(reward);
-				}else{
+				} else {
 					var url = data.url;
 					window.location.href = url;
 				}
@@ -601,9 +702,8 @@ function vieRed(){
 			}
 		});
 	}
-	
-	
-	function topNew(){
+
+	function topNew() {
 		var id = $('#infoId').val();
 		layer.open({
 			type : 2,
@@ -613,10 +713,12 @@ function vieRed(){
 			area : [ '340px', '420px' ],
 			content : '/pc/news/top/' + id // iframe的url
 		});
-	
+
 	}
-	function redNew(){
-		var para={"newsId":$('#infoId').val()};
+	function redNew() {
+		var para = {
+			"newsId" : $('#infoId').val()
+		};
 		$.ajax({
 			type : "POST",
 			url : "/pc/news/red",
@@ -630,21 +732,21 @@ function vieRed(){
 					var sum = '';
 					var rate = '';
 					var account = data.user.account;
-						sum += '您的余额剩余<span>'+account+'</span>元';
-						$("#sum").empty();
-						$('#sum').append(sum);
-						rate += '<p>手续费为:金额*'+data.rate+'=扣除费用</p>';
-						$("#rate").empty();
-						$('#rate').append(rate);
-					$.each(data.listPrice, function(i, item){
+					sum += '您的余额剩余<span>' + account + '</span>元';
+					$("#sum").empty();
+					$('#sum').append(sum);
+					rate += '<p>手续费为:金额*' + data.rate + '=扣除费用</p>';
+					$("#rate").empty();
+					$('#rate').append(rate);
+					$.each(data.listPrice, function(i, item) {
 						red += '<li>';
-						red += '<p id="mony">'+item.price+'</p>元</br>';
+						red += '<p id="mony">' + item.price + '</p>元</br>';
 						//red += '<p class="sx">手续费'+item.rate+'元</p>';
 						red += '</li>';
 					});
 					$("#red").empty();
 					$('#red').append(red);
-				}else{
+				} else {
 					var url = data.url;
 					window.location.href = url;
 				}
@@ -652,82 +754,110 @@ function vieRed(){
 			}
 		});
 	}
-	
-	 function redPacket(){
-		 var teamId = $('#teamId').val();
-		 var para={"newsId":$('#infoId').val(),"orderType":2,"expIncType":3,"price":$('#price').val(),"number":$('#number').val(),"teamId":teamId};
-		  $.ajax({
-				type : "POST",
-				url : "/pc/news/redPacket",
-				data : para,
-				error : function(request) {
-					layer.msg('发红包失败！您扣除的：'+ $('#price').val() +'元 已原路退回您的账户');
-				},
-				success : function(data) {
-					if (data.code == 0) {
-						alert("发红包成功");
-						history.go(0);
-					} else {
-						if(data.msg == -1){
-						//layer.msg('发红包失败！您的余额不足');
-						layer.confirm('发红包失败！您的余额不足,是否跳转充值页面？', {
-							  btn: ['是','否'] //按钮
-							}, function(){
-								window.location.href = "/pc/personalCenter";
-							})
-						}else if(data.msg == 0){
-						layer.msg('发红包失败！您的：'+ $('#price').val() +'元 已原路退回您的账户');
-						}else if(data.msg == 2){
-							layer.confirm('您未登录请问是否跳转登录页面？', {
-								  btn: ['是','否'] //按钮
-								}, function(){
-									window.location.href = "/admin";
-								}, function(){
-								  layer.msg('发红包是需要登陆的', {
-								    time: 20000, //20s后自动关闭
-								    btn: ['知道了']
-								  });
-								});
-						}else if(data.msg == 3){
-							alert('红包数量不得大于红包总额的2倍');
-						}
-					}
 
-				}
-			});
-}
-	function comment(){
-		var comment={};
-		comment={"criticismContent":$('#comm').val(),"newsId":$('#infoId').val()};
+	function redPacket() {
+		$(".m-modal-dialog3").css("display","none")
+		$(".adddd").css("display", "block");
+		var teamId = $('#teamId').val();
+		var payFee = $('#price').val();
+		$('#blance').text("付款金额 " +payFee + "元");
+		var para = {
+			"newsId" : $('#infoId').val(),
+			"orderType" : 2,
+			"expIncType" : 3,
+			"price" : $('#price').val(),
+			"number" : $('#number').val(),
+			"teamId" : teamId
+		};
+		var orderNum = createOrder(payFee,3);
+		if (orderNum != '-1') {
+			$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (payFee * 100) + "&orderNum=" + orderNum);
+			timer = setInterval(function () {
+					var msg = queryOrder(orderNum)
+					console.log(msg);
+					if (msg == '1') {
+						window.clearInterval(timer);
+						$.ajax({
+							type : "POST",
+							url : "/pc/news/redPacket",
+							data : para,
+							error : function(request) {
+								layer.msg('发红包失败！您扣除的：'+ $('#price').val() +'元 已原路退回您的账户余额');
+							},
+							success : function(data) {
+								if (data.code == 0) {
+									alert("发红包成功");
+									history.go(0);
+								} else {
+									if(data.msg == -1){
+									//layer.msg('发红包失败！您的余额不足');
+									layer.confirm('发红包失败！您的余额不足,是否跳转充值页面？', {
+										  btn: ['是','否'] //按钮
+										}, function(){
+											window.location.href = "/pc/personalCenter";
+										})
+									}else if(data.msg == 0){
+									layer.msg('发红包失败！您的：'+ $('#price').val() +'元 已原路退回您的账户');
+									}else if(data.msg == 2){
+										layer.confirm('您未登录请问是否跳转登录页面？', {
+											  btn: ['是','否'] //按钮
+											}, function(){
+												window.location.href = "/admin";
+											}, function(){
+											  layer.msg('发红包是需要登陆的', {
+											    time: 20000, //20s后自动关闭
+											    btn: ['知道了']
+											  });
+											});
+									}else if(data.msg == 3){
+										alert('红包数量不得大于红包总额的2倍');
+									}
+								}
+
+							}
+						});
+					}
+				},500);
+		} else {
+			layer.msg("未知错误");
+		}
+	}
+	function comment() {
+		var comment = {};
+		comment = {
+			"criticismContent" : $('#comm').val(),
+			"newsId" : $('#infoId').val()
+		};
 		$.ajax({
 			type : "POST",
 			url : "/pc/news/comment",
 			data : comment,
-			dataType:"json",
+			dataType : "json",
 			error : function(request) {
-				 layer.msg("请求失败");
+				layer.msg("请求失败");
 			},
 			success : function(data) {
 				if (data.code == 0) {
-						alert("发表成功");
-						history.go(0);
-				} else if(data.code == 2){
+					alert("发表成功");
+					history.go(0);
+				} else if (data.code == 2) {
 					alert(data.msg);
 					history.go(0);
-				}else {
-					if(data.msg==0){
+				} else {
+					if (data.msg == 0) {
 						layer.confirm('您未登录请问是否跳转登录页面？', {
-							  btn: ['是','否'] //按钮
-							}, function(){
-								window.location.href = "/admin";
-							}, function(){
-							  layer.msg('发言是需要登陆的', {
-							    time: 20000, //20s后自动关闭
-							    btn: ['知道了']
-							  });
+							btn : [ '是', '否' ]
+						//按钮
+						}, function() {
+							window.location.href = "/admin";
+						}, function() {
+							layer.msg('发言是需要登陆的', {
+								time : 20000, //20s后自动关闭
+								btn : [ '知道了' ]
 							});
-					
-					}else if(data.code == 1){
+						});
+
+					} else if (data.code == 1) {
 						layer.msg("发表失败");
 					}
 				}
@@ -735,9 +865,11 @@ function vieRed(){
 			}
 		});
 	}
-	function attention(){
+	function attention() {
 		var teamId = $('#teamId').val();
-		var para = {"teamId":teamId};
+		var para = {
+			"teamId" : teamId
+		};
 		$.ajax({
 			type : "POST",
 			url : "/pc/news/attention",
@@ -751,59 +883,58 @@ function vieRed(){
 					history.go(0);
 				} else if (data.code == 1) {
 					window.location.href = "/admin";
-				} else{
+				} else {
 					parent.layer.alert(data.msg)
 				}
 
 			}
 		});
 	}
-	
-	function login(){
-				window.location.href = "/admin";
+
+	function login() {
+		window.location.href = "/admin";
 	}
 	var flag = true;
-	function wxshare(type){
+	function wxshare(type) {
 		if (flag) {
-			 flag = false;
-			var url=window.location.href;
+			flag = false;
+			var url = window.location.href;
 			console.log(url);
 			//new QRCode(document.getElementById('qrcode'), 'http://www.baidu.com');
-			  // 设置参数方式
-			  var qrcode = new QRCode('qrcode', {
-			    text: url,
-			    width: 150,
-			    height: 150,
-			    colorDark : '#000000',
-			    colorLight : '#ffffff',
-			   correctLevel : QRCode.CorrectLevel.H
-			 });
-			 // 使用 
-			 qrcode.makeCode(url);
+			// 设置参数方式
+			var qrcode = new QRCode('qrcode', {
+				text : url,
+				width : 150,
+				height : 150,
+				colorDark : '#000000',
+				colorLight : '#ffffff',
+				correctLevel : QRCode.CorrectLevel.H
+			});
+			// 使用 
+			qrcode.makeCode(url);
 		} else {
 			$('#qrcode').empty()
 			flag = true;
 		}
-		 //APIqrcode.clear();
-		
+		//APIqrcode.clear();
+
 	}
 	//发红包
 	var m1 = new MyModal.modal(function() {
 		alert("你点击了确定");
 	});
-	
+
 	$('.btn1').on("click", function() {
 		m1.show();
 	});
-	
-	$("#red").on("click","li",function(){
+
+	$("#red").on("click", "li", function() {
 		$(this).addClass("qian").siblings("li").removeClass("qian");
 		var a = $(this).children("#mony").text();
 		$("#price").val(a);
 	})
 	//结束
-	
-	
+
 	//打赏
 	var m2 = new MyModal1.modal(function() {
 		alert("你点击了确定");
@@ -811,138 +942,184 @@ function vieRed(){
 	$('.btn2').on("click", function() {
 		m2.show();
 	});
-	$("#reward").on("click","li",function(){
+	$("#reward").on("click", "li", function() {
 		$(this).addClass("addred").siblings("li").removeClass("addred");
 		var a = $(this).children("a").text();
 		$("#givePrice").val(a);
 	})
-	
+	//创建订单
+	function createOrder(fee,orderType){
+		var orderNum = '';
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/createOrder",
+			data : {'data': fee,
+					'orderType':orderType},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					orderNum = r.msg;
+				} else if(r.code == -1){
+					orderNum =-1;
+				}else if(r.code == -2){
+					orderNum =-2;
+				}
+				}
+		});
+		return orderNum;
+	}
+	//查询订单支付状态
+	function queryOrder(orderNum){
+		var stauts = '';
+		$.ajax({
+			type : "POST",
+			url : "/wxpay/queryOrder",
+			data : {'orderNum': orderNum},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					stauts = r.msg;
+				} else if(r.code == -1){
+					stauts =-1;
+				}else if(r.code == -2){
+					stauts =-2;
+				}
+				}
+		});
+		return stauts;
+	}
+
 	//广告
 	var m5 = new MyModal3.modal(function() {
 	});
 	$('.btn5').on("click", function() {
-		var url=$(this).attr("data-url");
+		var url = $(this).attr("data-url");
 		$("#url").val(url);
-		 $.get(url, function(result){
-			 console.log(result);
-			 if(result.code==-0){
-				 $("#price").val(result.price);
-				 $("#positionNum").val(result.positionNum);
-				 $("#regionName").val(result.regionName);
-				 $("#positionName").val(result.positionName);
-				 $("#regionCode").val(result.regionCode);
-				 $("#sort").val(result.sort);
-				 m5.show();
-			 }
-			 if(result.code==-1){
-				 window.location.href = result.url;
-			 }
-			 if(result.code==500){
-				 layer.msg(result.msg);
-			 }
+		$.get(url, function(result) {
+			console.log(result);
+			if (result.code == -0) {
+				$("#price").val(result.price);
+				$("#positionNum").val(result.positionNum);
+				$("#regionName").val(result.regionName);
+				$("#positionName").val(result.positionName);
+				$("#regionCode").val(result.regionCode);
+				$("#sort").val(result.sort);
+				m5.show();
+			}
+			if (result.code == -1) {
+				window.location.href = result.url;
+			}
+			if (result.code == 500) {
+				layer.msg(result.msg);
+			}
 		});
 	});
-	
-	layui.use('upload', function() {
-	    var upload = layui.upload;
 
-	    //执行实例
-	    var uploadInst = upload.render({
-	        elem : '#file', //绑定元素
-	        url : '/common/sysFile/upload', //上传接口
-	        size : 1000,
-	        accept : 'file',
-	        done : function(r) {
-	            var fileName = r.fileName;
-	             $("#imgStr").val(fileName);
-	     	     $("#img").attr("src",fileName);
-	        },
-	        error : function(r) {
-	            //layer.msg(r.msg);
-	        }
-	    });
-	    
+	layui.use('upload', function() {
+		var upload = layui.upload;
+
+		//执行实例
+		var uploadInst = upload.render({
+			elem : '#file', //绑定元素
+			url : '/common/sysFile/upload', //上传接口
+			size : 1000,
+			accept : 'file',
+			done : function(r) {
+				var fileName = r.fileName;
+				$("#imgStr").val(fileName);
+				$("#img").attr("src", fileName);
+			},
+			error : function(r) {
+				//layer.msg(r.msg);
+			}
+		});
+
 	});
 
-	$().ready(function(){
+	$().ready(function() {
 		$("#save").on('click', function() {
 			console.log(123);
 			$("#signupForm").submit();
 		});
 	})
 
-	function jisuan(){
-		var day=$("#showDay").val();
+	function jisuan() {
+		var day = $("#showDay").val();
 		var price = $("#price").val();
-		var allPrice=day*price;
+		var allPrice = day * price;
 		console.log(allPrice);
-		$("#jiage").text(allPrice+"元");
+		$("#jiage").text(allPrice + "元");
 	}
 
-
 	function save() {
-			$.ajax({
-				type : "POST",
-				url : "/pc/advSubmit",
-				data : $('#signupForm').serialize(),
-				success : function(r) {
-					if (r.code == 0) {
-						layer.msg(r.msg);
-						 $(".m-modal3,.m-modal3-close,.m-btn-cancel").hide();
-					} else {
-						layer.msg(r.msg);
-					}
-				},
-			});
-		}
-		
-		$().ready(function() {
-			validateRule();
-		});
-
-		$.validator.setDefaults({
-			submitHandler : function() {
-				save();
-			}
-		});
-		function validateRule() {
-
-			var icon = " ";
-			$("#signupForm").validate({
-				rules : {
-					positionName : {
-						required : true
-					},
-					showDay : {
-						required : true
-					},
-					advUrl : {
-						required : true
-					},
-					advImg : {
-						content : true
-					}
-				},
-				messages : {
-					positionName : {
-						required : icon + "<span style='color:red'>展示位置不能为空</span>",
-					},
-					showDay : {
-						required : icon + "<span style='color:red'>投放天数不能为空</span>",
-					},
-					advUrl : {
-						required : icon + "<span style='color:red'>广告链接不能为空</span>",
-					},
-					advImg : {
-						required : icon + "<span style='color:red'>广告图片不能为空</span>",
-					}
+		$.ajax({
+			type : "POST",
+			url : "/pc/advSubmit",
+			data : $('#signupForm').serialize(),
+			success : function(r) {
+				if (r.code == 0) {
+					layer.msg(r.msg);
+					$(".m-modal3,.m-modal3-close,.m-btn-cancel").hide();
+				} else {
+					layer.msg(r.msg);
 				}
-			})
+			},
+		});
+	}
+
+	$().ready(function() {
+		validateRule();
+	});
+
+	$.validator.setDefaults({
+		submitHandler : function() {
+			save();
 		}
+	});
+	function validateRule() {
+
+		var icon = " ";
+		$("#signupForm")
+				.validate(
+						{
+							rules : {
+								positionName : {
+									required : true
+								},
+								showDay : {
+									required : true
+								},
+								advUrl : {
+									required : true
+								},
+								advImg : {
+									content : true
+								}
+							},
+							messages : {
+								positionName : {
+									required : icon
+											+ "<span style='color:red'>展示位置不能为空</span>",
+								},
+								showDay : {
+									required : icon
+											+ "<span style='color:red'>投放天数不能为空</span>",
+								},
+								advUrl : {
+									required : icon
+											+ "<span style='color:red'>广告链接不能为空</span>",
+								},
+								advImg : {
+									required : icon
+											+ "<span style='color:red'>广告图片不能为空</span>",
+								}
+							}
+						})
+	}
 	//结束
-	
+
 	$(".m-modal1,.m-modal1-close,.m-btn-cancel").on("click", function(event) {
 		$('.m-modal1').hide();
-			});
-	</script>
+	});
+</script>
 </html>

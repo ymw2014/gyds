@@ -34,9 +34,15 @@ import com.fly.volunteer.dao.VolunteerDao;
 import com.fly.volunteer.domain.VolunteerDO;
 
 import java.math.BigDecimal;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,12 +50,15 @@ import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openxmlformats.schemas.officeDocument.x2006.docPropsVTypes.DecimalDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
 @Controller
 public class BaseController {
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -83,6 +92,31 @@ public class BaseController {
 	@Autowired
 	private TeamTypeDao typeDao;
 
+	
+	/**
+	 * 获取ip地址
+	 * @return
+	 */
+	public String localIp() {
+		String ip = null;
+		Enumeration allNetInterfaces;
+		try {
+			allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+			while (allNetInterfaces.hasMoreElements()) {
+				NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+				List<InterfaceAddress> InterfaceAddress = netInterface.getInterfaceAddresses();
+				for (InterfaceAddress add : InterfaceAddress) {
+					InetAddress Ip = add.getAddress();
+					if (Ip != null && Ip instanceof Inet4Address) {
+						ip = Ip.getHostAddress();
+					}
+				}
+			}
+		} catch (SocketException e) {
+			logger.warn("获取本机Ip失败:异常信息:" + e.getMessage());
+		}
+		return ip;
+	}
 
 
 	/**
@@ -713,6 +747,8 @@ public class BaseController {
 			}
 			return i;
 		}
+		
+		
 	/**
 	 * 获取用户对象
 	 * @return

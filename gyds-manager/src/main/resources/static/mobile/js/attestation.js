@@ -149,9 +149,8 @@ $("#downTeam").on('click', function() {
 	function streetDist() {
 		$("#street").val($("#jiedao").find("option:selected").text());
 	};
-	 
-	
 	$.validator.setDefaults({
+		ignore:":hidden:not(select)",
 		submitHandler : function() {
 			save();
 		}

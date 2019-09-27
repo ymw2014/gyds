@@ -1,169 +1,190 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<meta name="viewport" content="width=750">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="viewport" content="width=750">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
 <!-- 		<head th:replace="mobile/include :: head"></head>
- -->		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
-		<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
-		<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
-		<link th:href="@{/css/layui.css}" rel="stylesheet">
-		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
-		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
-		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
-		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
-		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
-		<script th:src="@{/js/plugins/layer/layer.js}"></script>
-		<script th:src="@{/js/layui.js}"></script>
-		<script th:src="@{/js/validate.js}"></script>
-		<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
-		<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
-		<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
-		<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
-		<style>
-			.remover{
-				width: 27px;
-				height:30px;
-				position:absolute;
-				right:30px;
-				bottom:7px;
-			}
-			.biaotiyy{
-				width:95%;
-				margin-left:2.5%;
-				margin-top:30px;
-			}
-			.biaotiyy label>span{
-				line-height:92px;
-				width:150px;
-				display:inline-block;
-				float: left;
-				font-size:30px;
-				margin-right:18px;
-				color:#b8b8b8;
-			}
-			.biaotiyy label{
-				display: block;
-				overflow: hidden;
-				border-bottom: 1px solid #f4f4f4;
-			}
-			.biaotiyy input{
-				line-height:92px;
-				width:535px;
-				display:inline-block;
-				float: right;
-				border:none;
-				outline:none;
-				font-size:30px;
-				color:#333;
-			}
-			.fang{
-				float: left;
-				border:1px dashed #bdbdbd;
-				padding: 10px;
-			}
-			.mstp{
-				width: 100%;
-				overflow: hidden;
-			}
-			.mstp>span{
-				line-height: 92px;
-				display: inline-block;
-				float: left;
-				width:150px;
-				font-size: 30px;
-				margin-right: 18px;
-				color: #b8b8b8;
-			}
-			.mstp>div{
-				float: left;
-				width:413px;
-			}
-			.mstp>div>div{
-				width: 411px;
-				height: 258px;
-				float: left;
-				position: relative;
-			}
-			.mstp>div>div>img{
-				width: 389px;
-				height: 250px; 
-			}
-			.tijiao{
-				width: 100%;
-				height:80px;
-				margin:10px 0px;
-			}
-			.tijiao>input{
-				width: 100%;
-				height:80px;
-			    line-height:80px;
-				background:#ff0000;
-				color:#fff;
-			}
-			.zfsdf{
-				background:url(images/sjxl_03.jpg) no-repeat;
-				 background-position:right;
-				 background-size:24px 15px;
-			}
-			.aad select{
-				width:500px;
-				line-height:92px;
-				height:92px;
-				font-size:30px;
-				border:none;
-			    background: #fff;
-				
-			}
-			.xingbie input{
-			    width:30px !important;
-			    height:30px !important;
-			    float: left!important;
-			    margin-top:30px;
-			}
-			.lianxi select{
-			      height:86px;
-			      font-size:30px;
-			      width:150px;
-			      border:none;
-			       background: #fff;
-			}
-			.xiaye{
-			     text-align: center;
-			     margin:10px 0px;
-			}
-			.xiaye input{
-			   float:none;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="mygz">
-			<div class="alendar"> 
-				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
-				<span>团队申请</span>
-			</div>
+ -->
+<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
+<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
+<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
+<link th:href="@{/css/layui.css}" rel="stylesheet">
+<script th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+<script th:src="@{/js/validate.js}"></script>
+<script th:src="@{/js/plugins/layer/layer.js}"></script>
+<script th:src="@{/js/layui.js}"></script>
+<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+<script
+	src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
+<style>
+.remover {
+	width: 27px;
+	height: 30px;
+	position: absolute;
+	right: 30px;
+	bottom: 7px;
+}
+
+.biaotiyy {
+	width: 95%;
+	margin-left: 2.5%;
+	margin-top: 30px;
+}
+
+.biaotiyy label>span {
+	line-height: 92px;
+	width: 150px;
+	display: inline-block;
+	float: left;
+	font-size: 30px;
+	margin-right: 18px;
+	color: #b8b8b8;
+}
+
+.biaotiyy label {
+	display: block;
+	overflow: hidden;
+	border-bottom: 1px solid #f4f4f4;
+}
+
+.biaotiyy input {
+	line-height: 92px;
+	width: 535px;
+	display: inline-block;
+	float: right;
+	border: none;
+	outline: none;
+	font-size: 30px;
+	color: #333;
+}
+
+.fang {
+	float: left;
+	border: 1px dashed #bdbdbd;
+	padding: 10px;
+}
+
+.mstp {
+	width: 100%;
+	overflow: hidden;
+}
+
+.mstp>span {
+	line-height: 92px;
+	display: inline-block;
+	float: left;
+	width: 150px;
+	font-size: 30px;
+	margin-right: 18px;
+	color: #b8b8b8;
+}
+
+.mstp>div {
+	float: left;
+	width: 413px;
+}
+
+.mstp>div>div {
+	width: 411px;
+	height: 258px;
+	float: left;
+	position: relative;
+}
+
+.mstp>div>div>img {
+	width: 389px;
+	height: 250px;
+}
+
+.tijiao {
+	width: 100%;
+	height: 80px;
+	margin: 10px 0px;
+}
+
+.tijiao>input {
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+	background: #ff0000;
+	color: #fff;
+}
+
+.zfsdf {
+	background: url(images/sjxl_03.jpg) no-repeat;
+	background-position: right;
+	background-size: 24px 15px;
+}
+
+.aad select {
+	width: 500px;
+	line-height: 92px;
+	height: 92px;
+	font-size: 30px;
+	border: none;
+	background: #fff;
+}
+
+.xingbie input {
+	width: 30px !important;
+	height: 30px !important;
+	float: left !important;
+	margin-top: 30px;
+}
+
+.lianxi select {
+	height: 86px;
+	font-size: 30px;
+	width: 150px;
+	border: none;
+	background: #fff;
+}
+
+.xiaye {
+	text-align: center;
+	margin: 10px 0px;
+}
+
+.xiaye input {
+	float: none;
+}
+</style>
+</head>
+<body>
+	<div class="mygz">
+		<div class="alendar">
+			<a href="javascript:history.back(-1)"><img
+				th:src="@{/mobile/images/qianwnag.png}" alt=""></a> <span>团队申请</span>
 		</div>
-		<div class="biaotiyy">
-			
-			<form id="signupForm">
-			<input type="hidden" name="teamId" th:value="${teamId}"> 
-			<input type="hidden" name="type" th:value="${type}" id="type"> 
-			<input type="hidden" name="text" id="text">
-			
-			 <div style="margin: 0 auto;width: 260px;height:200px;overflow: hidden;text-align: center;">
-				<img th:src="@{/pc/images/xiugaiziliao_03.jpg}" alt="" class="sctp2" id="img1" style="width:160px;height:160px;border-radius: 50%;">
-				<p style="font-size: 20px;">上传个人形象照片</p>	
-				<input id="imgUrl1" name="cardBackImg" type="hidden"  />
-				<input type="file" name="file" id="file1" class="sctp22" style="display: none;">
-			 </div>
-			
-			<label>
-				<span>真实姓名</span> <input name="name" type="text">
-			</label> 
-			<label class="aad"> <span>政治面貌</span> <select name="politicalStatus">
+	</div>
+	<div class="biaotiyy">
+
+		<form id="signupForm">
+			<input type="hidden" name="teamId" th:value="${teamId}"> <input
+				type="hidden" name="type" th:value="${type}" id="type"> <input
+				type="hidden" name="text" id="text">
+
+			<div
+				style="margin: 0 auto; width: 260px; height: 200px; overflow: hidden; text-align: center;">
+				<img th:src="@{/pc/images/xiugaiziliao_03.jpg}" alt="" class="sctp2"
+					id="img1" style="width: 160px; height: 160px; border-radius: 50%;">
+				<p style="font-size: 20px;">上传个人形象照片</p>
+				<input id="imgUrl1" name="cardBackImg" type="hidden" /> <input
+					type="file" name="file" id="file1" class="sctp22"
+					style="display: none;">
+			</div>
+
+			<label> <span>真实姓名</span> <input name="name" type="text">
+			</label> <label class="aad"> <span>政治面貌</span> <select
+				name="politicalStatus">
 					<option selected="selected">-请选择-</option>
 					<option value="中共党员">中共党员</option>
 					<option value="中共预备党员">中共预备党员</option>
@@ -239,8 +260,7 @@
 					<option value="珞巴族">珞巴族</option>
 					<option value="基诺族">基诺族</option>
 			</select>
-			</label> 
-			<label class="aad"> <span>最高学历</span> <select name="nation">
+			</label> <label class="aad"> <span>最高学历</span> <select name="nation">
 					<option selected="selected">-请选择-</option>
 					<option value="小学">小学</option>
 					<option value="初中">初中</option>
@@ -253,8 +273,7 @@
 					<option value="博士研究生">博士研究生</option>
 					<option value="其他">其他</option>
 			</select>
-			</label>
-			<label class="aad"> <span>从业状态</span> <select name="nation">
+			</label> <label class="aad"> <span>从业状态</span> <select name="nation">
 					<option selected="selected">-请选择-</option>
 					<option value="国家公务员">国家公务员</option>
 					<option value="专业技术人员">专业技术人员</option>
@@ -270,58 +289,53 @@
 					<option value="退离休人员">退离休人员</option>
 					<option value="其他">其他</option>
 			</select>
+			</label> <label> <span>身份证号</span> <input name="cardNo" type="text">
 			</label>
-			
-			<label> <span>身份证号</span> <input name="cardNo" type="text">
-			</label>
-			   <div class="mstp">
-				   <span>上传身份证</span>
-				   <div>
-					   <div>
-						   <img th:src="@{/pc/images/shenfenzheng_01.jpg}" alt="" class="sctp1" id="img">
-						   <input id="imgUrl" name="cardFrontImg" type="hidden" />
-						   <input type="file" name="file" id ="file" class="sctp11" style="display: none;">
-					   </div>
-					  
-				   </div>
-			   </div>
-			   <label> <span>邮箱地址</span> <input name="email" type="text">
-			</label> 
-			<label class="xingbie">
-				<span>性别</span>
-				<input type="radio" name="sex"value="0" class="xingbie"><span>男 </span>
-				<input type="radio" name="sex"value="1" class="xingbie"><span>女 </span>
-			</label> 
-			<label> <span>手机号码</span> <input name="mobile" type="text">
-			</label> 
-			<label class="lianxi"> <span>联系地址</span> 
-			<input name="province" id="province" type="hidden"> 
-			<select class="juzhu" id="pron" onchange="pronv()">
-			<option value="">省</option>
-			<option th:each="area:${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
-			</select> <input name="city" id="city" type="hidden"> 
-			<select class="juzhu" id="cityId" onchange="cityQuery()">
+			<div class="mstp">
+				<span>上传身份证</span>
+				<div>
+					<div>
+						<img th:src="@{/pc/images/shenfenzheng_01.jpg}" alt=""
+							class="sctp1" id="img"> <input id="imgUrl"
+							name="cardFrontImg" type="hidden" /> <input type="file"
+							name="file" id="file" class="sctp11" style="display: none;">
+					</div>
+
+				</div>
+			</div>
+			<label> <span>邮箱地址</span> <input name="email" type="text">
+			</label> <label class="xingbie"> <span>性别</span> <input type="radio"
+				name="sex" value="0" class="xingbie"><span>男 </span> <input
+				type="radio" name="sex" value="1" class="xingbie"><span>女
+			</span>
+			</label> <label> <span>手机号码</span> <input name="mobile" type="text">
+			</label> <label class="lianxi"> <span>联系地址</span> <input
+				name="province" id="province" type="hidden"> <select
+				class="juzhu" id="pron" onchange="pronv()">
+					<option value="">省</option>
+					<option th:each="area:${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+			</select> <input name="city" id="city" type="hidden"> <select
+				class="juzhu" id="cityId" onchange="cityQuery()">
 					<option value="">市</option>
-			</select> <input name="district" id="district" type="hidden"> 
-			<select id="xian" onchange="streetQuery()" class="juzhu">
+			</select> <input name="district" id="district" type="hidden"> <select
+				id="xian" onchange="streetQuery()" class="juzhu">
 					<option value="">区/县</option>
-			</select> <input name="street" id="street" type="hidden"> 
-			<select id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
+			</select> <input name="street" id="street" type="hidden"> <select
+				id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
 					<option value="">街道</option>
 			</select>
 			</label> <label> <span>详细地址</span> <input name="address" type="text">
-			</label> 
-			 <label th:if="${type} eq '2'" class="tijiao"> <input type="button" id="downTeam" value="下页"></label>
-			</form>
-			
-			<form id="creatTeam"  style="display: none;">
+			</label> <label th:if="${type} eq '2'" class="tijiao"> <input
+				type="button" id="downTeam" value="下页"></label>
+		</form>
+
+		<form id="creatTeam" style="display: none;">
 			<label> <span>团队名称</span> <input type="text" name="teamName">
-			</label> 
-			<label> <span>负责人电话</span> <input type="text"
+			</label> <label> <span>负责人电话</span> <input type="text"
 				name="colonelTel">
-			</label>
-			 <label class="lianxi"> <span>团队地址</span> <select class="juzhu" id="pro1"
-				onchange="byPro()">
+			</label> <label class="lianxi"> <span>团队地址</span> <select
+				class="juzhu" id="pro1" onchange="byPro()">
 					<option value="">省</option>
 					<option th:each="area:${areaList}" th:value="${area.regionCode}"
 						th:text="${area.regionName}"></option>
@@ -332,29 +346,19 @@
 			</select> <select class="juzhu" id="street1" name="regCode">
 					<option value="">街道</option>
 			</select> <input type="hidden" id="addres" name="addres">
-			</label> 
-			<label> <span>详细地址</span> <input type="text"
+			</label> <label> <span>详细地址</span> <input type="text"
 				name="colonelTel">
-			</label>
-			
-			
-			<label id="logo"> <span>团队logo</span> <img
-				th:src="@{/pc/images/tianjiua_03.jpg}"  class="tdlogo"
-				id="img2" style="height: 65px; width: 65px" >
-				<input type="hidden" name="teamTitleImg" id="imgStr"> <input
-				type="file" name="file" style="display: none;" id="file2">
-			</label>
-			
-			<label> <span id="demo2">团队照片</span>
-				
-				<img
-				th:src="@{/pc/images/tianjiua_03.jpg}"  class="tdlogo"
-				 style="height: 65px; width: 65px" id="img0">
-				<input type="hidden" id="imgStr0" name="teamImg"> <input
-				type="file" name="file" style="display: none;" id="file3">
-				<span id="progress_imgs">
-				
-				<!-- <div>
+			</label> <label id="logo"> <span>团队logo</span> <img
+				th:src="@{/pc/images/tianjiua_03.jpg}" class="tdlogo" id="img2"
+				style="height: 65px; width: 65px"> <input type="hidden"
+				name="teamTitleImg" id="imgStr"> <input type="file"
+				name="file" style="display: none;" id="file2">
+			</label> <label> <span id="demo2">团队照片</span> <img
+				th:src="@{/pc/images/tianjiua_03.jpg}" class="tdlogo"
+				style="height: 65px; width: 65px" id="img0"> <input
+				type="hidden" id="imgStr0" name="teamImg"> <input
+				type="file" name="file" style="display: none;" id="file3"> <span
+				id="progress_imgs"> <!-- <div>
 					<div id="imgsbox_imgs" style="display: inline;"
 						class="imgsbox tdlogo1"></div>
 					<img th:src="@{/pc/images/tianjiua_03.jpg}" alt="" class="tdlogo1"
@@ -362,41 +366,41 @@
 						type="hidden" id="imgStr0" name="teamImg"> <input
 						type="file" class="tuanduilogo1" id="imgUpload_imgs" name="file"
 						style="display: none;" multiple> <span id="progress_imgs"></span>
-				</div> -->
-			</label> 
-			
-			
-			<label> <span>团队简介</span> <textarea name="teamIntroduce"
-					id="" cols="30" rows="10" style="width:500px; margin-left: 10px;">
+				</div> --></label> <label> <span>团队简介</span> <textarea
+					name="teamIntroduce" id="" cols="30" rows="10"
+					style="width: 500px; margin-left: 10px;">
 						 </textarea>
-			</label> <label class="aad"> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"
-				name="teamType" id="teamType">
-				<option value="0">请选择</option>
+			</label> <label class="aad"> <span>项目服务</span> <select class="xmfw"
+				onchange="queryCost()" name="teamType" id="teamType">
+					<option value="0">请选择</option>
 					<option th:each="type:${teamType}" th:value="${type.id}"
 						th:text="${type.typeName}"></option>
 			</select>
+			</label> <label> <span>费用</span> <input id="price" value="0">
+			</label> <label th:if="${type} eq '2'" class="tijiao"> <input
+				type="button" id="upTeam" value="上页">
 			</label>
-			<label> <span>费用</span> 
-					<input id ="price" value="0">
-			</label>
-			<label th:if="${type} eq '2'" class="tijiao"> <input type="button" id="upTeam" value="上页">
-			</label>  
 			<div class="tijiao">
-				   <input type="button" id="save" value="立即发布">
-			   </div>
+				<input type="button" id="save" value="立即发布">
+			</div>
 		</form>
-			
+
 		<div class="tijiaohou" id="message" style="display: none">
 			<img th:src="@{/pc/images/hsusus_03.jpg}" alt="">
 			<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
 		</div>
-		</div>
-		
-		
-	</body>
+	</div>
+
+
+</body>
 </html>
 <script type="text/javascript" src="/mobile/js/attestation.js"></script>
 <script>
+$.validator.setDefaults({
+	submitHandler : function() {
+		save();
+	}
+});
 	$(".sctp1").click(function(){
 		$(".sctp11").click();
 	})
@@ -416,10 +420,23 @@
 
 	function validateRule() {
 		var icon = "<i class='fa fa-times-circle' ></i> ";
-		$("#signupForm").validate(
+		$("#signupForm")
+				.validate(
 						{
 							rules : {
 								name : {
+									required : true
+								},
+								politicalStatus : {
+									required : true
+								},
+								nation : {
+									required : true
+								},
+								education : {
+									required : true
+								},
+								post : {
 									required : true
 								},
 								mobile : {
@@ -435,7 +452,7 @@
 								},
 								email : {
 									required : true
-								},//district
+								},
 								sex : {
 									required : true
 								},
@@ -446,6 +463,18 @@
 							messages : {
 								name : {
 									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+								},
+								politicalStatus : {
+									required : "<span style='color:red;margin-left:10px;'>请选择政治面貌</span>"
+								},
+								nation : {
+									required : "<span style='color:red;margin-left:10px;'>请选择民族</span>"
+								},
+								education : {
+									required : "<span style='color:red;margin-left:10px;'>请选择学历</span>"
+								},
+								post : {
+									required : "<span style='color:red;margin-left:10px;'>请选择职位</span>"
 								},
 								mobile : {
 									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
@@ -468,10 +497,63 @@
 									required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
 								}
 							}
-						})
+						});
+		$("#creatTeam").validate(
+				{
+					rules : {
+						teamName : {
+							required : true
+						},
+						colonelTel : {
+							required : true,
+							isMobile : true
+						},
+						regCode : {
+							required : true
+						},
+						addres :{
+							required : true
+						},
+						teamTitleImg : {
+							required : true,
+						},
+						teamIntroduce : {
+							required : true
+						},
+						teamType : {
+							required : true,
+							isSelect : true
+						}
+					},
+					messages : {
+						teamName : {
+							required : "<span style='color:red;margin-left:10px;'>请输入名称</span>"
+						},
+						colonelTel : {
+							required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+							isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+						},
+						regCode : {
+							required : "<span style='color:red;margin-left:10px;'>请输入详细地址</span>"
+						},
+						addres : {
+							required : "<span style='color:red;margin-left:10px;'>请输入地址</span>",
+						},
+						teamTitleImg : {
+							required : "<span style='color:red;margin-left:10px;'>请上传团队封面图</span>"
+						},
+						teamIntroduce : {
+							required : "<span style='color:red;margin-left:10px;'>简介不能为空</span>"
+						},
+						teamType : {
+							required : "<span style='color:red;margin-left:10px;'>请选择类型</span>",
+							isSelect : "<span style='color:red;margin-left:10px;'>请选择类型</span>"
+						}
+					}
+				})
 	}
     </script>
-	
+
 
 
 

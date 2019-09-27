@@ -1,166 +1,188 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<meta name="viewport" content="width=750">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="viewport" content="width=750">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
 <!-- 		<head th:replace="mobile/include :: head"></head>
- -->		<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
-		<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
-		<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
-		<link th:href="@{/css/layui.css}" rel="stylesheet">
-		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
-		<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
-		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
-		<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
-		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
-		<script th:src="@{/js/plugins/layer/layer.js}"></script>
-		<script th:src="@{/js/layui.js}"></script>
-		<script th:src="@{/js/validate.js}"></script>
-		<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
-		<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
-		<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
-		<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
-		<style>
-			.remover{
-				width: 27px;
-				height:30px;
-				position:absolute;
-				right:30px;
-				bottom:7px;
-			}
-			.biaotiyy{
-				width:95%;
-				margin-left:2.5%;
-				margin-top:30px;
-			}
-			.biaotiyy label>span{
-				line-height:92px;
-				width:150px;
-				display:inline-block;
-				float: left;
-				font-size:30px;
-				margin-right:18px;
-				color:#b8b8b8;
-			}
-			.biaotiyy label{
-				display: block;
-				overflow: hidden;
-				border-bottom: 1px solid #f4f4f4;
-			}
-			.biaotiyy input{
-				line-height:92px;
-				width:535px;
-				display:inline-block;
-				float: right;
-				border:none;
-				outline:none;
-				font-size:30px;
-				color:#333;
-			}
-			.fang{
-				float: left;
-				border:1px dashed #bdbdbd;
-				padding: 10px;
-			}
-			.mstp{
-				width: 100%;
-				overflow: hidden;
-			}
-			.mstp>span{
-				line-height: 92px;
-				display: inline-block;
-				float: left;
-				width:150px;
-				font-size: 30px;
-				margin-right: 18px;
-				color: #b8b8b8;
-			}
-			.mstp>div{
-				float: left;
-				width:413px;
-			}
-			.mstp>div>div{
-				width: 411px;
-				height: 258px;
-				float: left;
-				position: relative;
-			}
-			.mstp>div>div>img{
-				width: 389px;
-				height: 250px; 
-			}
-			.tijiao{
-				width: 100%;
-				height:80px;
-				margin:10px 0px;
-			}
-			.tijiao>input{
-				width: 100%;
-				height:80px;
-			    line-height:80px;
-				background:#ff0000;
-				color:#fff;
-				
-			}
-			.zfsdf{
-				background:url(images/sjxl_03.jpg) no-repeat;
-				 background-position:right;
-				 background-size:24px 15px;
-			}
-			.biaotiyy select{
-			width: 533px;
-		    height: 85px;
-		    border: none;
-		    background: #fff;
-		    font-size: 22px;
-			}
-			.xingbie input {
-    width: 30px !important;
-    height: 30px !important;
-    float: left!important;
-    margin-top: 30px;
-       border:none !important;
-   background:#fff !important;
+ -->
+<link rel="stylesheet" th:href="@{/mobile/css/wodeguanzhu.css}">
+<link rel="stylesheet" th:href="@{/mobile/css/sanjiliandong.css}">
+<link rel="stylesheet" th:href="@{/jqueryFileUpload/style.css}">
+<link th:href="@{/css/layui.css}" rel="stylesheet">
+<script type="text/javascript"
+	th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/mobile/js/jquery-3.1.1.js}"></script>
+<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+<script th:src="@{/js/plugins/layer/layer.js}"></script>
+<script th:src="@{/js/layui.js}"></script>
+<script th:src="@{/js/validate.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.ui.widget.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
+<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
+<script
+	src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
+<style>
+.remover {
+	width: 27px;
+	height: 30px;
+	position: absolute;
+	right: 30px;
+	bottom: 7px;
 }
-.diqu select{
-   width:167px !important;
-   background:#fff;
+
+.biaotiyy {
+	width: 95%;
+	margin-left: 2.5%;
+	margin-top: 30px;
 }
-.diqu select:last-child(1){
-   width:438px !important;
+
+.biaotiyy label>span {
+	line-height: 92px;
+	width: 150px;
+	display: inline-block;
+	float: left;
+	font-size: 30px;
+	margin-right: 18px;
+	color: #b8b8b8;
 }
-.juzhu{
-  float: right !important;
+
+.biaotiyy label {
+	display: block;
+	overflow: hidden;
+	border-bottom: 1px solid #f4f4f4;
 }
-		</style>
-	</head>
-	<body>
-		<div class="mygz">
-			<div class="alendar"> 
-				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
-				<span>代理申请商</span>
-			</div>
+
+.biaotiyy input {
+	line-height: 92px;
+	width: 535px;
+	display: inline-block;
+	float: right;
+	border: none;
+	outline: none;
+	font-size: 30px;
+	color: #333;
+}
+
+.fang {
+	float: left;
+	border: 1px dashed #bdbdbd;
+	padding: 10px;
+}
+
+.mstp {
+	width: 100%;
+	overflow: hidden;
+}
+
+.mstp>span {
+	line-height: 92px;
+	display: inline-block;
+	float: left;
+	width: 150px;
+	font-size: 30px;
+	margin-right: 18px;
+	color: #b8b8b8;
+}
+
+.mstp>div {
+	float: left;
+	width: 413px;
+}
+
+.mstp>div>div {
+	width: 411px;
+	height: 258px;
+	float: left;
+	position: relative;
+}
+
+.mstp>div>div>img {
+	width: 389px;
+	height: 250px;
+}
+
+.tijiao {
+	width: 100%;
+	height: 80px;
+	margin: 10px 0px;
+}
+
+.tijiao>input {
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+	background: #ff0000;
+	color: #fff;
+}
+
+.zfsdf {
+	background: url(images/sjxl_03.jpg) no-repeat;
+	background-position: right;
+	background-size: 24px 15px;
+}
+
+.biaotiyy select {
+	width: 533px;
+	height: 85px;
+	border: none;
+	background: #fff;
+	font-size: 22px;
+}
+
+.xingbie input {
+	width: 30px !important;
+	height: 30px !important;
+	float: left !important;
+	margin-top: 30px;
+	border: none !important;
+	background: #fff !important;
+}
+
+.diqu select {
+	width: 167px !important;
+	background: #fff;
+}
+
+.diqu select:last-child(1) {
+	width: 438px !important;
+}
+
+.juzhu {
+	float: left !important;
+}
+</style>
+</head>
+<body>
+	<div class="mygz">
+		<div class="alendar">
+			<a href="javascript:history.back(-1)"><img
+				th:src="@{/mobile/images/qianwnag.png}" alt=""></a> <span>代理申请商</span>
 		</div>
-		<div class="biaotiyy">
-			<form id="signupForm">
-			<input type="hidden" name="teamId" th:value="${teamId}"> 
-			<input type="hidden" name="type" th:value="${type}" id="type"> 
-			<input type="hidden" name="text" id="text">
-			
-			  <div style="margin: 0 auto;width: 260px;height:200px;overflow: hidden;text-align: center;">
-				<img th:src="@{/pc/images/xiugaiziliao_03.jpg}" alt="" class="sctp2" id="img1" style="width:160px;height:160px;border-radius: 50%;">
-				<p style="font-size: 20px;">上传个人形象照片</p>	
-				<input id="imgUrl1" name="cardBackImg" type="hidden" />
-				<input type="file" name="file" id="file1" class="sctp22" style="display: none;">
-			  </div>
-			
-			
-			<label>
-				<span>真实姓名</span> <input name="name" type="text">
-			</label> 
-			<label> <span>政治面貌</span> <select name="politicalStatus">
+	</div>
+	<div class="biaotiyy">
+		<form id="signupForm">
+			<input type="hidden" required="required"  name="teamId" th:value="${teamId}"> <input
+				type="hidden" name="type" th:value="${type}" id="type"> <input
+				type="hidden" name="text" id="text">
+
+			<div
+				style="margin: 0 auto; width: 260px; height: 200px; overflow: hidden; text-align: center;">
+				<img th:src="@{/pc/images/xiugaiziliao_03.jpg}" alt="" class="sctp2"
+					id="img1" style="width: 160px; height: 160px; border-radius: 50%;">
+				<p style="font-size: 20px;">上传个人形象照片</p>
+				<input id="imgUrl1" required="required"  name="cardBackImg" type="hidden" /> <input
+					type="file" name="file" id="file1" class="sctp22"
+					style="display: none;">
+			</div>
+
+
+			<label> <span>真实姓名</span> <input name="name" required="required"  type="text">
+			</label> <label> <span>政治面貌</span> <select name="politicalStatus" required="required" >
 					<option selected="selected">-请选择-</option>
 					<option value="中共党员">中共党员</option>
 					<option value="中共预备党员">中共预备党员</option>
@@ -236,8 +258,7 @@
 					<option value="珞巴族">珞巴族</option>
 					<option value="基诺族">基诺族</option>
 			</select>
-			</label> 
-			<label> <span>最高学历</span> <select name="nation">
+			</label> <label> <span>最高学历</span> <select name="nation" required="required" >
 					<option selected="selected">-请选择-</option>
 					<option value="小学">小学</option>
 					<option value="初中">初中</option>
@@ -250,8 +271,7 @@
 					<option value="博士研究生">博士研究生</option>
 					<option value="其他">其他</option>
 			</select>
-			</label>
-			<label> <span>从业状态</span> <select name="nation">
+			</label> <label> <span>从业状态</span> <select name="nation">
 					<option selected="selected">-请选择-</option>
 					<option value="国家公务员">国家公务员</option>
 					<option value="专业技术人员">专业技术人员</option>
@@ -267,108 +287,99 @@
 					<option value="退离休人员">退离休人员</option>
 					<option value="其他">其他</option>
 			</select>
+			</label> <label> <span>身份证号</span> <input name="cardNo" type="text" required="required" >
 			</label>
-			
-			<label> <span>身份证号</span> <input name="cardNo" type="text">
-			</label>
-			   <div class="mstp">
-				   <span>上传身份证</span>
-				   <div>
-					   <div>
-						   <img th:src="@{/pc/images/shenfenzheng_01.jpg}" alt="" class="sctp1" id="img">
-						   <input id="imgUrl" name="cardFrontImg" type="hidden" />
-						   <input type="file" name="file" id ="file" class="sctp11" style="display: none;">
-					   </div>
-					 
-				   </div>
-			   </div>
-			   <label> <span>邮箱地址</span> <input name="email" type="text">
-			</label> 
-			<label class="xingbie">
-				<span>性别</span>
-				<input type="radio" name="sex"value="0" class="xingbie"><span>男 </span>
-				<input type="radio" name="sex"value="1" class="xingbie"><span>女 </span>
-			</label> 
-			<label> <span>手机号码</span> <input name="mobile" type="text">
-			</label> 
-			<label class="diqu"> <span>联系地址</span> 
-			<input name="province" id="province" type="hidden"> 
-			<select class="juzhu" id="pron" onchange="pronv()">
-			<option value="">省</option>
-			<option th:each="area:${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
-			</select> <input name="city" id="city" type="hidden"> 
-			<select class="juzhu" id="cityId" onchange="cityQuery()">
+			<div class="mstp">
+				<span>上传身份证</span>
+				<div>
+					<div>
+						<img th:src="@{/pc/images/shenfenzheng_01.jpg}" alt=""
+							class="sctp1" id="img"> <input id="imgUrl"
+							name="cardFrontImg" type="hidden" /> <input type="file"
+							name="file" id="file" class="sctp11"  style="display: none;">
+					</div>
+
+				</div>
+			</div>
+			<label> <span>邮箱地址</span> <input name="email" required="required"  type="text">
+			</label> <label class="xingbie"> <span>性别</span> <input type="radio"
+				name="sex" value="0" class="xingbie"><span>男 </span> <input
+				type="radio" name="sex" value="1" class="xingbie"><span>女
+			</span>
+			</label> <label> <span>手机号码</span> <input name="mobile" required="required"  type="text">
+			</label> <label class="diqu"> <span>联系地址</span> <input
+				name="province" id="province" type="hidden"> <select
+				class="juzhu" id="pron" onchange="pronv()">
+					<option value="">省</option>
+					<option th:each="area:${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+			</select> <input name="city" id="city" type="hidden"> <select
+				class="juzhu" id="cityId" onchange="cityQuery()">
 					<option value="">市</option>
-			</select> <input name="district" id="district" type="hidden"> 
-			<select id="xian" onchange="streetQuery()" class="juzhu">
+			</select> <input name="district" id="district" type="hidden"> <select
+				id="xian" onchange="streetQuery()" class="juzhu">
 					<option value="">区/县</option>
-			</select> <input name="street" id="street" type="hidden"> 
-			<select id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
+			</select> <input name="street" id="street" type="hidden"> <select
+				id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
 					<option value="">街道</option>
 			</select>
 			</label> <label> <span>详细地址</span> <input name="address" type="text">
-			</label> 
-			 <label th:if="${type} eq '3'" class='tijiao'><input type="button" id="downProxy" value="下页"></label>
-			</form>
-			<form  class="biaodanyy" id="proxybusi" style="display: none;">
-					<input type="hidden"  th:value="${setupDO.cityBail}" id="ct">
-					<input type="hidden"  th:value="${setupDO.areaBail}" id="ar">
-					<input type="hidden" th:value="${setupDO.provincialBail}"  id="pr">
-				    <input type="hidden" th:value="${setupDO.agencyBail}"  id="ag">
-				   <label>
-						<span>枢纽联系人</span>
-						<input type="text" id="name"  name="name">
-					</label>
-					<label>
-						<span>枢纽电话</span>
-						<input type="text" id="proxyTelephone"  name="proxyTelephone">
-					</label>
-					<label>
-						<span>枢纽级别</span>
-						<input type="radio" style="width:20px;float: left;margin-top:40px;" value="1" name="regionLevel" checked="checked"/>
-						<span style="width:auto;margin:0px;">省</span>
-						<input type="radio" style="width:20px;margin-left: 20px;float: left;    margin-top: 39px;" value="2" name="regionLevel" />
-						<span style="width:auto;margin:0px;">市</span>
-						<input type="radio" style="width:20px;margin-left: 20px;float: left;    margin-top: 39px;" value="3" name="regionLevel" />
-						<span style="width:auto;margin:0px;">县</span>
-						<input type="radio" style="width:20px;margin-left: 20px;float: left;    margin-top: 39px;" value="4" name="regionLevel" />
-						<span style="width:auto;margin:0px;">办事处</span>
-					</label>
-					<label>
-						<span style="margin-left:0px;color:red">枢纽订金</span>
-						<input type="text" th:value="${setupDO.provincialBail}"  id="bail" style="color:red">
-					</label>
-					<label>
-						<span>枢纽地区</span>
-						<select class="juzhu" onchange="pronv2()" id="pron2" name="pronvice">
-							<option value ="">省</option>
-							<option th:each=" area : ${areaList}" th:value ="${area.regionCode}" th:text="${area.regionName}" ></option>
-						</select>
-						<select class="juzhu" onchange="cityQuery2()" id="cityId2" name="city">
-							<option value ="">市</option>
-						</select>
-						<select class="juzhu" onchange="streetQuery2()" name="country" id="count">
-							<option value ="">区/县</option>
-						</select>
-						<select id="jiedao2"   class="juzhu" name="street">
-							<option value="">街道</option>
-						</select>
-					</label>
-					<label>
-						<span style="width:200px">详细地址</span>
-						<input type="text" id="proxyAddr" name="proxyAddr" style="width:490px">
-					</label>
-					<label th:if="${type} eq '3'" class='tijiao'> <input type="button" id="upProxy" value="上页"></label>
-					<label class='tijiao'> <input type="button" id="save" value="提交申请">
+			</label> <label th:if="${type} eq '3'" class='tijiao'><input
+				type="button" id="downProxy" value="下页"></label>
+		</form>
+		<form class="biaodanyy" id="proxybusi" style="display: none;">
+			<input type="hidden" th:value="${setupDO.cityBail}" id="ct">
+			<input type="hidden" th:value="${setupDO.areaBail}" id="ar">
+			<input type="hidden" th:value="${setupDO.provincialBail}" id="pr">
+			<input type="hidden" th:value="${setupDO.agencyBail}" id="ag">
+			<label> <span>枢纽联系人</span> <input type="text" id="name"
+				name="name">
+			</label> <label> <span>枢纽电话</span> <input type="text"
+				id="proxyTelephone" name="proxyTelephone">
+			</label> <label> <span>枢纽级别</span> <input type="radio"
+				style="width: 20px; float: left; margin-top: 40px;" value="1"
+				name="regionLevel" checked="checked" /> <span
+				style="width: auto; margin: 0px;">省</span> <input type="radio"
+				style="width: 20px; margin-left: 20px; float: left; margin-top: 39px;"
+				value="2" name="regionLevel" /> <span
+				style="width: auto; margin: 0px;">市</span> <input type="radio"
+				style="width: 20px; margin-left: 20px; float: left; margin-top: 39px;"
+				value="3" name="regionLevel" /> <span
+				style="width: auto; margin: 0px;">县</span> <input type="radio"
+				style="width: 20px; margin-left: 20px; float: left; margin-top: 39px;"
+				value="4" name="regionLevel" /> <span
+				style="width: auto; margin: 0px;">办事处</span>
+			</label> <label> <span style="margin-left: 0px; color: red">枢纽订金</span>
+				<input type="text" th:value="${setupDO.provincialBail}" id="bail"
+				style="color: red">
+			</label> <label> <span>枢纽地区</span> <select class="juzhu"
+				onchange="pronv2()" id="pron2" name="pronvice">
+					<option value="">省</option>
+					<option th:each=" area : ${areaList}" th:value="${area.regionCode}"
+						th:text="${area.regionName}"></option>
+			</select> <select class="juzhu" onchange="cityQuery2()" id="cityId2"
+				name="city">
+					<option value="">市</option>
+			</select> <select class="juzhu" onchange="streetQuery2()" name="country"
+				id="count">
+					<option value="">区/县</option>
+			</select> <select id="jiedao2" class="juzhu" name="street">
+					<option value="">街道</option>
+			</select>
+			</label> <label> <span style="width: 200px">详细地址</span> <input
+				type="text" id="proxyAddr" name="proxyAddr" style="width: 490px">
+			</label> <label th:if="${type} eq '3'" class='tijiao'> <input
+				type="button" id="upProxy" value="上页"></label> <label class='tijiao'>
+				<input type="button" id="save" value="提交申请">
 			</label>
-				</form>
-			
+		</form>
+
 		<div class="tijiaohou" id="message" style="display: none">
 			<img th:src="@{/pc/images/hsusus_03.jpg}" alt="">
 			<p>如果通过审核，我们将在3个工作内通过电话与您沟通，请保持手机畅通，谢谢！</p>
 		</div>
-		</div>
-	</body>
+	</div>
+</body>
 </html>
 <script type="text/javascript" src="/mobile/js/attestation.js"></script>
 <script>
@@ -391,7 +402,8 @@
 
 	function validateRule() {
 		var icon = "<i class='fa fa-times-circle' ></i> ";
-		$("#signupForm").validate(
+		$("#signupForm")
+				.validate(
 						{
 							rules : {
 								name : {
@@ -443,10 +455,57 @@
 									required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
 								}
 							}
-						})
+						});
+		$("#proxybusi")
+		.validate(
+				{
+					rules : {
+						name : {
+							required : true
+						},
+						proxyTelephone : {
+							required : true,
+							isMobile : true
+						},
+						regionLevel : {
+							required : true
+						},
+						regImg : {
+							required : true,
+						},
+						proxyAddr : {
+							required : true
+						},
+						street : {
+							required : true,
+							isSelect : true
+						}
+					},
+					messages : {
+						name : {
+							required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+						},
+						proxyTelephone : {
+							required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
+							isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+						},
+						regionLevel : {
+							required : "<span style='color:red;margin-left:10px;'>请选择代理级别</span>"
+						},
+						regImg : {
+							required : "<span style='color:red;margin-left:10px;'>请选择图片</span>",
+						},
+						proxyAddr : {
+							required : "<span style='color:red;margin-left:10px;'>请输入地址</span>"
+						},
+						street : {
+							required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
+						},
+					}
+				})
 	}
     </script>
-	
+
 
 
 

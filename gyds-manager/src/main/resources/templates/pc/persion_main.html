@@ -322,7 +322,7 @@ function pay(){
 		$('#blance').text("充值金额 " +payFee + "元");
 		var orderNum = createOrder(payFee);
 		if (orderNum != '-1') {
-			$('#codeUrl').attr("src","http://zhgy.61966.com/wxpay/pay?data=" + (payFee * 100) + "&orderNum=" + orderNum);
+			$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (payFee * 100) + "&orderNum=" + orderNum);
 			timer = setInterval(function () {
 					var msg = queryOrder(orderNum)
 					if (msg == '1') {

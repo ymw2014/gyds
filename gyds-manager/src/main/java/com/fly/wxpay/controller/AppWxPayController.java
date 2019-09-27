@@ -56,6 +56,7 @@ public class AppWxPayController extends BaseController{
 	@RequestMapping("/pay")
 	@ResponseBody
 	public Map<String, String> pay(Integer totalFee) throws Exception {
+		logger.info("微信支付开始****************************************");
         try {
         	IWxPayConfig config = new IWxPayConfig();
         	WXPay wxpay = new WXPay(config);
@@ -68,7 +69,7 @@ public class AppWxPayController extends BaseController{
         	data.put("total_fee", totalFee+ ""); // 订单金额, 单位分
         	data.put("spbill_create_ip", localIp()); // 下单ip
         	data.put("openid", userDO.getOpenId()); // 微信公众号统一标示openid
-        	data.put("notify_url", "http://zhgy.61966.com/app/wxpay/callback"); // 订单结果通知, 微信主动回调此接口
+        	data.put("notify_url", "http://www.48936.com/app/wxpay/callback"); // 订单结果通知, 微信主动回调此接口
         	data.put("trade_type", "JSAPI"); // 固定填写
         	JSONObject dataInfo = new JSONObject();
         	dataInfo.put("data", data);
@@ -84,6 +85,7 @@ public class AppWxPayController extends BaseController{
         		return prepayId;
         	}
         }catch(Exception e) {
+        	e.printStackTrace();
         	logger.info("支付异常 :  {}", e.getMessage());
         }
         
@@ -158,7 +160,7 @@ public class AppWxPayController extends BaseController{
 	 * 获取ip地址
 	 * @return
 	 */
-	private String localIp() {
+	public String localIp() {
 		String ip = null;
 		Enumeration allNetInterfaces;
 		try {

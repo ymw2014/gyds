@@ -2,12 +2,15 @@ package com.fly.pc.news.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.poi.ss.formula.functions.Rate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fly.adv.domain.AdvertisementDO;
 import com.fly.base.BaseService;
 import com.fly.common.controller.BaseController;
@@ -41,22 +45,30 @@ import com.fly.news.domain.PriceDO;
 import com.fly.news.domain.RewardInfoDO;
 import com.fly.news.domain.TopDO;
 import com.fly.news.service.InfoService;
+import com.fly.order.domain.OrderDO;
+import com.fly.order.service.OrderService;
 import com.fly.pc.utils.PageUtils;
 import com.fly.sys.domain.SetupDO;
 import com.fly.sys.service.SetupService;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.RegionService;
+import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
 import com.fly.utils.Dictionary;
 import com.fly.utils.R;
+import com.fly.wxpay.service.IWxPayConfig;
+import com.fly.wxpay.service.PayService;
+import com.github.wxpay.sdk.WXPay;
+import com.github.wxpay.sdk.WXPayUtil;
 
 import me.chanjar.weixin.mp.api.WxMpService;
 
 @Controller
 @RequestMapping("/pc/news/")
 public class NewsInfoController extends BaseController {
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private InfoService infoService;
 	@Autowired
@@ -80,9 +92,13 @@ public class NewsInfoController extends BaseController {
 	@Autowired
 	private RedDao redDao;
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private BaseService baseService;
 	@Autowired
 	private IndexService indexService;
+	@Autowired
+	private OrderService orderService;
 
 	@RequestMapping("/info")
 	public String newInfo(@RequestParam Integer id, @RequestParam Long areaId, Long teamId,Model model) {
@@ -335,15 +351,9 @@ public class NewsInfoController extends BaseController {
 		R r = new R();
 		Integer i = null;
 		Boolean flag =false;
-		i = deductMoney(params);
-		if (i == 1) {
-			// 产生订单
-			if (creadOrder(params) > 0) {
-				// 记录+1
-				if (dynamic(params, 3) == 1) {
-					flag = true;
-				}
-			}
+		// 记录+1
+		if (dynamic(params, 3) == 1) {
+			flag = true;
 		}
 		if(flag) {
 			BigDecimal price = new BigDecimal(params.get("price").toString());
@@ -354,6 +364,7 @@ public class NewsInfoController extends BaseController {
 			return r.error(i+"");
 		}
 	}
+	
 
 	// 红包
 	// return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
@@ -378,16 +389,10 @@ public class NewsInfoController extends BaseController {
 			}
 			BigDecimal rate = setup.getRedPacketExtract();
 			params.put("price", rate.multiply(price).add(price));
-			i = deductMoney(params);
-			if (i == 1) {
-				// 产生订单
-				if(creadOrder(params)>0) {
-					params.put("price", price);
-					//创建红包
-					if (creatRed(params) > 0) {
-						flag = true;
-					}
-				}
+			params.put("price", price);
+			//创建红包
+			if (creatRed(params) > 0) {
+				flag = true;
 			}
 			//获取需进行分佣的金额
 			BigDecimal commissionPrice = price.multiply(setup.getRedPacketExtract());
@@ -400,6 +405,24 @@ public class NewsInfoController extends BaseController {
 			return r.error(i+"");
 		}
 	}
+	
+	
+		@RequestMapping(value = "/redPacketApp", method = RequestMethod.POST)
+		@ResponseBody
+		public R redPacketApp(@RequestParam Map<String, Object> params) {
+			if (params.get("price") != null && params.get("price") != "" && params.get("number") != null
+					&& params.get("number") != "") {
+				BigDecimal number = new BigDecimal(params.get("number").toString());
+				BigDecimal price = new BigDecimal(params.get("price").toString());
+				//红包最大倍数
+				BigDecimal priceMax = price.multiply(new BigDecimal(2));
+				//结果 :-1 小于,0 等于,1 大于
+				if(number.compareTo(priceMax)==1) {
+					return R.error("3");
+				}
+			}
+			return R.ok();
+		}
 	
 	// 红包
 		@RequestMapping(value="/red", method = RequestMethod.POST)
@@ -790,6 +813,126 @@ public class NewsInfoController extends BaseController {
 		}
 
 	}
+	
+	/**
+     * 创建订单
+ * @param param
+ * @return
+ */
+@RequestMapping("/createOrder")
+@ResponseBody
+public R createOrder(@RequestParam Map<String, Object> param) {
+	String fee = param.get("data").toString();
+	Integer expIncType = Integer.valueOf(param.get("orderType").toString());
+	
+	R r = createOrder(fee, expIncType);
+	return r;
+}
+
+/**
+ * 创建订单
+ * @param fee 金额
+ * @param expIncType 
+ * @return
+ */
+public R createOrder(String fee, Integer expIncType) {
+	OrderDO order = new OrderDO();
+	order.setCashOutType(1);
+	order.setExamineStatus(2);
+	order.setExpIncType(expIncType);
+	order.setOrderNumber(new Date().getTime() + "");
+	order.setOrderType(2);
+	new BigDecimal(fee);
+	order.setPrice(new BigDecimal(fee).divide(new BigDecimal("100")));
+	order.setUserId(ShiroUtils.getUserId());
+	order.setBusinessTime(new Date());
+	order.setIsDel(0);
+	Integer orderNum = 0;
+	R r = new R();
+	try {
+		if(orderService.save(order)>0){
+			orderNum = order.getId();
+		}
+		if (orderNum > 0) {
+			OrderDO orderDO = orderService.get(orderNum);
+			r.put("code", 0);
+			r.put("msg", orderDO.getOrderNumber());
+			return r;
+		}
+	}catch(Exception e) {
+		e.printStackTrace();
+		r.put("code", -1);
+		r.put("msg", "未知错误");
+	}
+	return r;
+}
+
+/**
+ * 组装参数 同意下单
+* @param totalFee 充值金额
+* @return
+* @throws Exception
+*/
+@RequestMapping("/pay")
+@ResponseBody
+public Map<String, String> pay(Integer totalFee,Integer orderType) throws Exception {
+try {
+	IWxPayConfig config = new IWxPayConfig();
+	WXPay wxpay = new WXPay(config);
+	UserDO user = ShiroUtils.getUser();
+	Map<String, String> data = new HashMap<String, String>();
+	String orderNum = createOrder(totalFee+ "",orderType).get("msg").toString();
+	UserDO userDO = userService.get(user.getUserId());
+	data.put("body", "在线支付");//商品描述
+	data.put("out_trade_no", orderNum); // 订单唯一编号, 不允许重复
+	data.put("total_fee", totalFee+ ""); // 订单金额, 单位分
+	data.put("spbill_create_ip", localIp()); // 下单ip
+	data.put("openid", userDO.getOpenId()); // 微信公众号统一标示openid
+	data.put("notify_url", "http://www.48936.com/app/wxpay/callback"); // 订单结果通知, 微信主动回调此接口
+	data.put("trade_type", "JSAPI"); // 固定填写
+	JSONObject dataInfo = new JSONObject();
+	dataInfo.put("data", data);
+	logger.info("user 信息:  " + userDO.getOpenId());
+	logger.info("appPay 参数 :  " + dataInfo.toString());
+	Map<String, String> resp = wxpay.unifiedOrder(data);
+	dataInfo.put("resp", resp);
+	logger.info("appPay 返回信息 :  " + resp);
+	logger.info("appPay 支付订单号 :  {}", orderNum);
+	if ("SUCCESS".equals(resp.get("result_code") ) &&  "SUCCESS".equals(resp.get("return_code"))){//result_code=SUCCESS, mch_id=1309497501, return_code=SUCCESS
+		Map<String, String> prepayId = getPrepayId(config,resp.get("prepay_id"));
+		prepayId.put("orderNum", orderNum);
+		return prepayId;
+	}
+}catch(Exception e) {
+	e.printStackTrace();
+	logger.info("支付异常 :  {}", e.getMessage());
+}
+
+return null;
+}
+
+/**
+ * 再次生成签名，
+ * @param config 微信配置参数
+ * @param prepayId 
+ * @return
+ * @throws Exception
+ */
+public Map<String,String> getPrepayId(IWxPayConfig config,String prepayId) throws Exception {
+	String timeStamp = new Long(System.currentTimeMillis()/1000).toString();
+    // 创建返回值
+    //组装二次签名
+    Map<String, String> resultMap = new HashMap<String, String>();
+    resultMap.put("appId", config.getAppID());
+    resultMap.put("timeStamp", timeStamp);
+    resultMap.put("nonceStr", WXPayUtil.generateNonceStr());
+    resultMap.put("package", "prepay_id=" + prepayId);
+    resultMap.put("signType", "MD5");
+    // 生成签名
+    String paySign = WXPayUtil.generateSignature(resultMap, config.getKey());
+    resultMap.put("paySign", paySign);
+    return resultMap;
+}
 	
 	
 	
