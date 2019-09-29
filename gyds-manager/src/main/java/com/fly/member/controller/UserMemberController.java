@@ -35,7 +35,7 @@ public class UserMemberController {
     	log.info("***************************微信自动登录回调方法");
     	log.info("appwxlogController ==> redUrl: 回调链接"  +redUrl);
         WxMpUser wxMpUser = null;
-        redUrl=redUrl.replace("|", "&");
+        redUrl=redUrl.replace("wangyanke", "&");
         try {
             WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(code);
             wxMpUser = wxMpService.oauth2getUserInfo(wxMpOAuth2AccessToken, null);

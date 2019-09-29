@@ -27,6 +27,15 @@
 <script
 	src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
 <style>
+
+ select{
+		     appearance:none; 
+		    -moz-appearance:none; 
+		    -webkit-appearance:none;
+		     background: url("/mobile/images/sjxl_03.jpg") no-repeat scroll right center transparent !important;
+		     background-size: 35px 20px !important;
+		     padding-right: 14px;
+            }
 .remover {
 	width: 27px;
 	height: 30px;
@@ -155,6 +164,14 @@
 .juzhu {
 	float: left !important;
 }
+
+.diqu select{
+			      height:86px;
+			      font-size:30px;
+			          width: 495px;
+			      border:none;
+			       background: #fff;
+			}
 </style>
 </head>
 <body>
@@ -307,23 +324,44 @@
 				type="radio" name="sex" value="1" class="xingbie"><span>女
 			</span>
 			</label> <label> <span>手机号码</span> <input name="mobile" required="required"  type="text">
-			</label> <label class="diqu"> <span>联系地址</span> <input
-				name="province" id="province" type="hidden"> <select
+			</label> 
+			<label class="diqu"> <span>省:</span> 
+				<input name="province" id="province" type="hidden">
+				 <select
 				class="juzhu" id="pron" onchange="pronv()">
 					<option value="">省</option>
 					<option th:each="area:${areaList}" th:value="${area.regionCode}"
 						th:text="${area.regionName}"></option>
-			</select> <input name="city" id="city" type="hidden"> <select
+				</select> 
+			</label> 
+			
+			<label class="diqu"> <span>市:</span> 
+				<input name="city" id="city" type="hidden"> <select
 				class="juzhu" id="cityId" onchange="cityQuery()">
 					<option value="">市</option>
-			</select> <input name="district" id="district" type="hidden"> <select
-				id="xian" onchange="streetQuery()" class="juzhu">
+				</select> 
+				<input name="district" id="district" type="hidden"> 
+			</label>
+			<label class="diqu"> <span>县:</span> 
+				<input name="district" id="district" type="hidden"> 
+				<select
+					id="xian" onchange="streetQuery()" class="juzhu">
 					<option value="">区/县</option>
-			</select> <input name="street" id="street" type="hidden"> <select
+				</select> 
+				<input name="street" id="street" type="hidden"> 
+			</label>
+			
+			<label class="diqu"> <span>街道:</span> 
+				<input name="street" id="street" type="hidden"> 
+				<select
 				id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
 					<option value="">街道</option>
-			</select>
-			</label> <label> <span>详细地址</span> <input name="address" type="text">
+				</select>
+			</label>
+			
+			
+			
+			<label> <span>详细地址</span> <input name="address" type="text">
 			</label> <label th:if="${type} eq '3'" class='tijiao'><input
 				type="button" id="downProxy" value="下页"></label>
 		</form>
@@ -352,21 +390,36 @@
 			</label> <label> <span style="margin-left: 0px; color: red">枢纽订金</span>
 				<input type="text" th:value="${setupDO.provincialBail}" id="bail"
 				style="color: red">
-			</label> <label> <span>枢纽地区</span> <select class="juzhu"
-				onchange="pronv2()" id="pron2" name="pronvice">
+			</label> 
+			<label> <span>枢纽省</span> 
+				<select class="juzhu"	onchange="pronv2()" id="pron2" name="pronvice">
 					<option value="">省</option>
 					<option th:each=" area : ${areaList}" th:value="${area.regionCode}"
 						th:text="${area.regionName}"></option>
-			</select> <select class="juzhu" onchange="cityQuery2()" id="cityId2"
+				</select> 
+			</label>
+			
+			<label> <span>枢纽市:</span> 
+				<select class="juzhu" onchange="cityQuery2()" id="cityId2"
 				name="city">
 					<option value="">市</option>
-			</select> <select class="juzhu" onchange="streetQuery2()" name="country"
+				</select> 
+			</label> 
+			<label> <span>枢纽县:</span> 
+				<select class="juzhu" onchange="streetQuery2()" name="country"
 				id="count">
 					<option value="">区/县</option>
-			</select> <select id="jiedao2" class="juzhu" name="street">
+				</select> 
+				
+			</label>
+			<label> <span>枢纽街道:</span> 
+				<select id="jiedao2" class="juzhu" name="street">
 					<option value="">街道</option>
-			</select>
-			</label> <label> <span style="width: 200px">详细地址</span> <input
+				</select>
+			</label> 
+			
+			
+			<label> <span style="width: 200px">详细地址</span> <input
 				type="text" id="proxyAddr" name="proxyAddr" style="width: 490px">
 			</label> <label th:if="${type} eq '3'" class='tijiao'> <input
 				type="button" id="upProxy" value="上页"></label> <label class='tijiao'>
@@ -392,7 +445,7 @@
    
 	 $().ready(function() {
 			$("#save").on('click', function() {
-				$("#signupForm").submit();
+				$("#proxybusi").submit();
 			});
 		});
 	
@@ -483,7 +536,7 @@
 					},
 					messages : {
 						name : {
-							required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+							required : "<span style='color:red;margin-left:10px;position: absolute;margin-top: 30px;'>请输入姓名</span>"
 						},
 						proxyTelephone : {
 							required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",

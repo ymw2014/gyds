@@ -88,7 +88,7 @@ public class MyDispetherFilter extends AccessControlFilter  {
                    path=path+sb.toString().replaceFirst("&","?");
                    sb.setLength(0);
                }
-               path=path.replace("&", "|");
+               path=path.replace("&", "wangyanke");
                log.info("++++++++++++++++++++++++++url=============="+path);
                try {
                    String url=backUrl+"?redUrl="+path;

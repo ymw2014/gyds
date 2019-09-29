@@ -25,6 +25,15 @@
 <script
 	src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
 <style>
+
+ select{
+		     appearance:none; 
+		    -moz-appearance:none; 
+		    -webkit-appearance:none;
+		     background: url("/mobile/images/sjxl_03.jpg") no-repeat scroll right center transparent !important;
+		     background-size: 35px 20px !important;
+		     padding-right: 14px;
+            }
 .remover {
 	width: 27px;
 	height: 30px;
@@ -140,13 +149,13 @@
 	margin-top: 30px;
 }
 
-.lianxi select {
-	height: 86px;
-	font-size: 30px;
-	width: 150px;
-	border: none;
-	background: #fff;
-}
+.lianxi select{
+			      height:86px;
+			      font-size:30px;
+			          width: 495px;
+			      border:none;
+			       background: #fff;
+			}
 
 .xiaye {
 	text-align: center;
@@ -309,23 +318,38 @@
 				type="radio" name="sex" value="1" class="xingbie"><span>女
 			</span>
 			</label> <label> <span>手机号码</span> <input name="mobile" type="text">
-			</label> <label class="lianxi"> <span>联系地址</span> <input
-				name="province" id="province" type="hidden"> <select
-				class="juzhu" id="pron" onchange="pronv()">
-					<option value="">省</option>
-					<option th:each="area:${areaList}" th:value="${area.regionCode}"
-						th:text="${area.regionName}"></option>
-			</select> <input name="city" id="city" type="hidden"> <select
-				class="juzhu" id="cityId" onchange="cityQuery()">
-					<option value="">市</option>
-			</select> <input name="district" id="district" type="hidden"> <select
-				id="xian" onchange="streetQuery()" class="juzhu">
-					<option value="">区/县</option>
-			</select> <input name="street" id="street" type="hidden"> <select
-				id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
-					<option value="">街道</option>
-			</select>
-			</label> <label> <span>详细地址</span> <input name="address" type="text">
+			</label> 
+			<label class="lianxi"> <span>省:</span> 
+				<input
+					name="province" id="province" type="hidden"> <select
+					class="juzhu" id="pron" onchange="pronv()">
+						<option value="">省</option>
+						<option th:each="area:${areaList}" th:value="${area.regionCode}"
+							th:text="${area.regionName}"></option>
+				</select> 
+			</label> 
+			
+			<label class="lianxi"> <span>市:</span> 
+				<input name="city" id="city" type="hidden"> <select
+					class="juzhu" id="cityId" onchange="cityQuery()">
+						<option value="">市</option>
+				</select> 
+			</label>
+			
+			<label class="lianxi"> <span>县:</span> 
+				<input name="district" id="district" type="hidden"> <select
+					id="xian" onchange="streetQuery()" class="juzhu">
+						<option value="">区/县</option>
+				</select> 
+			</label>
+			
+			<label class="lianxi"> <span>街道办</span> 
+				<input name="street" id="street" type="hidden"> <select
+					id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
+						<option value="">街道</option>
+				</select>
+			</label>
+			<label> <span>详细地址</span> <input name="address" type="text">
 			</label> <label th:if="${type} eq '2'" class="tijiao"> <input
 				type="button" id="downTeam" value="下页"></label>
 		</form>
@@ -334,19 +358,32 @@
 			<label> <span>团队名称</span> <input type="text" name="teamName">
 			</label> <label> <span>负责人电话</span> <input type="text"
 				name="colonelTel">
-			</label> <label class="lianxi"> <span>团队地址</span> <select
-				class="juzhu" id="pro1" onchange="byPro()">
-					<option value="">省</option>
-					<option th:each="area:${areaList}" th:value="${area.regionCode}"
-						th:text="${area.regionName}"></option>
-			</select> <select class="juzhu" id="city1" onchange="byCity()">
-					<option value="">市</option>
-			</select> <select class="juzhu" id="area1" onchange="byStreet()">
-					<option value="">区/县</option>
-			</select> <select class="juzhu" id="street1" name="regCode">
-					<option value="">街道</option>
-			</select> <input type="hidden" id="addres" name="addres">
-			</label> <label> <span>详细地址</span> <input type="text"
+			</label> 
+			<label class="lianxi"> <span>省:</span> 
+				<select
+					class="juzhu" id="pro1" onchange="byPro()">
+						<option value="">省</option>
+						<option th:each="area:${areaList}" th:value="${area.regionCode}"
+							th:text="${area.regionName}"></option>
+				</select> 
+			</label> 
+			<label class="lianxi"> <span>市:</span> 
+				<select class="juzhu" id="city1" onchange="byCity()">
+						<option value="">市</option>
+				</select> 
+			</label>
+			<label class="lianxi"> <span>县:</span> 
+				<select class="juzhu" id="area1" onchange="byStreet()">
+						<option value="">区/县</option>
+				</select> 
+			</label>
+			<label class="lianxi"> <span>街道:</span> 
+				<select class="juzhu" id="street1" name="regCode">
+						<option value="">街道</option>
+				</select> 
+				<input type="hidden" id="addres" name="addres">
+			</label>
+			<label> <span>详细地址</span> <input type="text"
 				name="colonelTel">
 			</label> <label id="logo"> <span>团队logo</span> <img
 				th:src="@{/pc/images/tianjiua_03.jpg}" class="tdlogo" id="img2"
@@ -370,7 +407,7 @@
 					name="teamIntroduce" id="" cols="30" rows="10"
 					style="width: 500px; margin-left: 10px;">
 						 </textarea>
-			</label> <label class="aad"> <span>项目服务</span> <select class="xmfw"
+			</label> <label class="aad" style="margin-top:10px;"> <span>项目服务</span> <select class="xmfw"
 				onchange="queryCost()" name="teamType" id="teamType">
 					<option value="0">请选择</option>
 					<option th:each="type:${teamType}" th:value="${type.id}"
@@ -419,7 +456,7 @@ $.validator.setDefaults({
 	});
 
 	function validateRule() {
-		var icon = "<i class='fa fa-times-circle' ></i> ";
+		var icon = "<i class='fa fa-times-circle' ></i></br> ";
 		$("#signupForm")
 				.validate(
 						{
@@ -462,39 +499,39 @@ $.validator.setDefaults({
 							},
 							messages : {
 								name : {
-									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+									required : "<sapn style='color:red;margin-left:10px;'>请输入姓名</sapn>"
 								},
 								politicalStatus : {
-									required : "<span style='color:red;margin-left:10px;'>请选择政治面貌</span>"
+									required : "<sapn style='color:red;margin-left:10px;'>请选择政治面貌</sapn>"
 								},
 								nation : {
-									required : "<span style='color:red;margin-left:10px;'>请选择民族</span>"
+									required : "<font style='color:red;margin-left:10px;'>请选择民族</font>"
 								},
 								education : {
-									required : "<span style='color:red;margin-left:10px;'>请选择学历</span>"
+									required : "<font style='color:red;margin-left:10px;'>请选择学历</font>"
 								},
 								post : {
-									required : "<span style='color:red;margin-left:10px;'>请选择职位</span>"
+									required : "<font style='color:red;margin-left:10px;'>请选择职位</font>"
 								},
 								mobile : {
-									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
-									isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+									required : "<font style='color:red;margin-left:10px;'>请输入手机号</font>",
+									isMobile : "<font style='color:red;margin-left:10px;'>请输入正确的手机号</font>"
 								},
 								liveAddress : {
-									required : "<span style='color:red;margin-left:10px;'>请输入详细地址</span>"
+									required : "<font style='color:red;margin-left:10px;'>请输入详细地址</font>"
 								},
 								cardNo : {
-									required : "<span style='color:red;margin-left:10px;'>请输入身份证</span>",
-									isIdCardNo : "<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
+									required : "<font style='color:red;margin-left:10px;'>请输入身份证</font>",
+									isIdCardNo : "<font style='color:red;margin-left:10px;'>请输入正确的身份证号</font>"
 								},
 								email : {
-									required : "<span style='color:red;margin-left:10px;'>请输入邮箱地址</span>"
+									required : "<font style='color:red;margin-left:10px;'>请输入邮箱地址</font>"
 								},
 								sex : {
-									required : "<span style='color:red;margin-left:10px;'>性别不能为空</span>"
+									required : "<font style='color:red;margin-left:10px;'>性别不能为空</font>"
 								},
 								district : {
-									required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
+									required : "<font style='color:red;margin-left:10px;'>请选择地区</font>"
 								}
 							}
 						});
@@ -506,7 +543,7 @@ $.validator.setDefaults({
 						},
 						colonelTel : {
 							required : true,
-							isMobile : true
+							isMobile : false
 						},
 						regCode : {
 							required : true
@@ -527,27 +564,27 @@ $.validator.setDefaults({
 					},
 					messages : {
 						teamName : {
-							required : "<span style='color:red;margin-left:10px;'>请输入名称</span>"
+							required : "<font class='vali' style='color:red;margin-left:10px;position: absolute;z-index: 999;margin-top: 67px;font-size: 27px;'>请输入名称 !</font>"
 						},
 						colonelTel : {
-							required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
-							isMobile : "<span style='color:red;margin-left:10px;'>请输入正确的手机号</span>"
+							required : "<font class='vali' style='color:red;margin-left:10px;position: absolute;z-index: 999;margin-top: 67px;font-size: 27px;'>请输入手机号 !</font>",
+							isMobile : "<font class='vali' style='color:red;margin-left:10px;position: absolute;z-index: 999;margin-top: 67px;font-size: 27px;'>请输入正确的手机号 !</font>"
 						},
 						regCode : {
-							required : "<span style='color:red;margin-left:10px;'>请输入详细地址</span>"
+							required : "<font class='vali' style='color:red;margin-left:177px;position: absolute;z-index: 999;margin-top: 67px;font-size: 27px;'>请输入详细地址 !</font>"
 						},
 						addres : {
-							required : "<span style='color:red;margin-left:10px;'>请输入地址</span>",
+							required : "<font class='vali' style='color:red;margin-left:177px;position: absolute;z-index: 999;margin-top: 67px;font-size: 27px;'>请输入地址 !</span>",
 						},
 						teamTitleImg : {
-							required : "<span style='color:red;margin-left:10px;'>请上传团队封面图</span>"
+							required : "<font class='vali' style='color:red;margin-left:177px;position: absolute;z-index: 999;margin-top: 67px;font-size: 27px;'>请上传团队封面图 !</font>"
 						},
 						teamIntroduce : {
-							required : "<span style='color:red;margin-left:10px;'>简介不能为空</span>"
+							required : "<font class='vali' style='color:red;margin-left:177px;position: absolute;z-index: 999;margin-top:10px;font-size: 27px;'>简介不能为空 !</font>"
 						},
 						teamType : {
-							required : "<span style='color:red;margin-left:10px;'>请选择类型</span>",
-							isSelect : "<span style='color:red;margin-left:10px;'>请选择类型</span>"
+							required : "<font class='vali' style='color:red;margin-left:177px;position: absolute;z-index: 999;margin-top: 67px;font-size: 27px;'>请选择类型 !</font>",
+							isSelect : "<font class='vali' style='color:red;margin-left:177px;position: absolute;z-index: 999;margin-top: 67px;font-size: 27px;'>请选择类型 !</font>"
 						}
 					}
 				})
