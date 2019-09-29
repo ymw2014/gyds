@@ -23,6 +23,14 @@
 		<script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
 		<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
 		<style>
+		     select{
+		     appearance:none; 
+		    -moz-appearance:none; 
+		    -webkit-appearance:none;
+		     background: url("/mobile/images/sjxl_03.jpg") no-repeat scroll right center transparent !important;
+		     background-size: 35px 20px !important;
+		     padding-right: 14px;
+            }
 			.remover{
 				width: 27px;
 				height:30px;
@@ -125,7 +133,7 @@
 			.lianxi select{
 			      height:86px;
 			      font-size:30px;
-			      width:150px;
+			          width: 495px;
 			      border:none;
 			       background: #fff;
 			}
@@ -286,21 +294,32 @@
 			<label> <span>手机号码</span> <input name="mobile" type="text">
 			</label> 
 			<label  class="lianxi"> <span>联系地址</span> 
-			<input name="province" id="province" type="hidden"> 
-			<select class="juzhu" id="pron" onchange="pronv()">
-			<option value="">省</option>
-			<option th:each="area:${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
-			</select> <input name="city" id="city" type="hidden"> 
-			<select class="juzhu" id="cityId" onchange="cityQuery()">
+				<input name="province" id="province" type="hidden">
+				<select class="juzhu" id="pron" onchange="pronv()">
+					<option value="">省</option>
+					<option th:each="area:${areaList}" th:value="${area.regionCode}" th:text="${area.regionName}"></option>
+				</select> 
+			</label> 
+			<label  class="lianxi"> <span>市:</span> 
+				<input name="city" id="city" type="hidden"> 
+				<select class="juzhu" id="cityId" onchange="cityQuery()">
 					<option value="">市</option>
-			</select> <input name="district" id="district" type="hidden"> 
-			<select id="xian" onchange="streetQuery()" class="juzhu">
+				</select> 
+			</label>
+			<label  class="lianxi"> <span>县:</span> 
+				<input name="district" id="district" type="hidden"> 
+				<select id="xian" onchange="streetQuery()" class="juzhu">
 					<option value="">区/县</option>
-			</select> <input name="street" id="street" type="hidden"> 
-			<select id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
+				</select>
+			</label> 
+			<label  class="lianxi"> <span>街道:</span> 
+				<input name="street" id="street" type="hidden"> 
+				<select id="jiedao" name="regionCode" onchange="streetDist()" class="juzhu">
 					<option value="">街道</option>
-			</select>
-			</label> <label> <span>详细地址</span> <input name="address" type="text">
+				</select>
+			</label> 
+			
+			<label> <span>详细地址</span> <input name="address" type="text">
 			</label> 
 			   <div class="tijiao">
 				   <input type="button" id="save" value="立即发布">
@@ -370,7 +389,7 @@
 							},
 							messages : {
 								name : {
-									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+									required : "<span style='color:red;margin-left:10px;position: absolute; margin-top: 46px;'>请输入姓名</span>"
 								},
 								mobile : {
 									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
@@ -384,10 +403,10 @@
 									isIdCardNo : "<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
 								},
 								email : {
-									required : "<span style='color:red;margin-left:10px;'>请输入邮箱地址</span>"
+									required : "<span style='color:red;margin-left:10px;position: absolute;margin-top: 46px;width:225px'>请输入邮箱地址</span>"
 								},
 								sex : {
-									required : "<span style='color:red;margin-left:10px;'>性别不能为空</span>"
+									required : ""
 								},
 								district : {
 									required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
