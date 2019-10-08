@@ -254,10 +254,10 @@ public class PcActivityController extends BaseController{
 			return dataInfo.toString();
 		}
 		VolunteerDO vol = volunteerService.getVo(user.getUserId());
-		if(!vol.getTeamId().equals(activityDO.getTeamId())) {
+		/*if(!vol.getTeamId().equals(activityDO.getTeamId())) {
 			dataInfo.put("status", "4");//还不是本团成员
 			return dataInfo.toString();
-		}
+		}*/
 		int status = 0;
 		Integer num = activityDO.getNumberOfApplicants();
 		try {
