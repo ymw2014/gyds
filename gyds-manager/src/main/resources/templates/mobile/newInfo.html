@@ -84,7 +84,7 @@
 			<a th:if=" ${is_attention} eq '2'" href="javascript:;" id="guanzhu" onclick="attention()">+关注</a>
 			<a th:if=" ${is_attention} eq '1'"  id="guanzhu" >已关注</a>
 			</div>
-			<div class="gycent2" th:utext="${info.content}">
+			<div class="gycent2" id="info" th:utext="${info.content}">
 			</div>
 			<div class="gycent3">
 				<span>有您的支持是我们最大的动力</span>
@@ -308,6 +308,7 @@
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script th:src="@{/mobile/js/jquery.my-modal.2.1.js}"></script>
 	<script type="text/javascript">
+	//console.log($('#info').text())
 	var m5 = new MyModal5.modal(function() {
 	});
 	$('.btn5').on("click", function() {
@@ -833,7 +834,7 @@
 					  //分享到朋友
 					  wx.onMenuShareAppMessage({
 						  title: $('#titleNew').val(), // 分享标题
-						  desc: '一起来参加', // 分享描述
+						  desc: $('#info').text(),//'一起来参加', // 分享描述
 						  link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 						  imgUrl: $('#titleImg').val(), // 分享图标
 						  type: '', // 分享类型,music、video或link，不填默认为link

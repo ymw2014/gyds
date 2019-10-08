@@ -118,6 +118,7 @@
 				<label style="margin-top:30px;">
 						<span style="float: left;">封面</span>
 						<img src="images/gahgha_03.png"  height="200" width="500" alt="" id="img">
+						<input type="hidden" id="img1" name="titleImg">
 						<input type="file" name="file" style="display: none;" id ="file" required="required">
 				</label>
 				<label>
@@ -129,15 +130,24 @@
 				</label>
 			   
 			   <div class="tijiao">
-				   <input type="submit" id="save" onclick="save()" value="立即发布">
+				   <input type="button" id="save"  value="立即发布">
 			   </div>
 			</form>
+			<div style="background:#fff;display: none"  id="info">
+					<div class="tijiaohou">
+						<img src="/pc/images/hsusus_03.jpg" alt="">
+						<p>已提交，请耐心等待后台审核，谢谢配合！</p>
+						<a href="/pc/persion_main">完成</a>
+					</div>
+				</div>
 		</div>
 	</body>
 	 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
 	<script type="text/javascript" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-	
+	 <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+	 <script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+	 <script th:src="@{/js/validate.js}"></script>
 	<script type="text/javascript">
 	
 	var ue = UE.getEditor('deitor',{
@@ -171,7 +181,7 @@
                 accept : 'file',
                 done : function(r) {
                     var fileName = r.fileName;
-                     $("#img").val(fileName);
+                     $("#img1").val(fileName);
              	     $("#img").attr("src",fileName);
                 },
                 error : function(r) {
@@ -189,28 +199,60 @@
 			data : $('#signupForm').serialize(),
 			success : function(r) {
 				if (r.code == 0) {
-					var index = layer.load(1, {
-						shade : [ 0.1, '#fff' ]
-					//0.1透明度的白色背景
-					});
-					window.location.href = r.url;
-				} else if (r.status == 500) {
-					layer.msg(r.message);
-					self.find(".check-tips").text(r.message);
-					//刷新验证码
-					$(".reloadverify").click();
+					$("#signupForm").hide();
+					$("#info").show();
 				} else {
-					layer.msg(r.msg);
-					self.find(".check-tips").text(r.msg);
-					//刷新验证码
-					$(".reloadverify").click();
+					layer.msg(r.msg)
 				}
 			},
 		});
 	}
 	
 </script>
+<script type="text/javascript">
+$().ready(function(){
+	$("#save").on('click', function() {
+		$("#signupForm").submit();
+	});
+})
+$().ready(function() {
+	validateRule();
+});
 
+$.validator.setDefaults({
+	submitHandler : function() {
+		save();
+	}
+});
+function validateRule() {
+
+	var icon = "<i class='fa fa-times-circle'></i> ";
+	$("#signupForm").validate({
+		rules : {
+			title : {
+				required : true
+			},
+			author : {
+				required : true
+			},
+			content : {
+				content : true
+			}
+		},
+		messages : {
+			title : {
+				required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>标题不能为空 !</span>",
+			},
+			author : {
+				required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>请输入新闻作者 !</span>",
+			},
+			content : {
+				required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>新闻内容不能为空 !</span>",
+			}
+		}
+	})
+}
+</script>
 
 	
 </html>

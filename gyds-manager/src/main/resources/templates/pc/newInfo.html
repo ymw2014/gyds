@@ -109,7 +109,7 @@
 			<div class="listcontLH">
 				<input type="hidden" id="infoId" th:value="${info.id}"> <input
 					type="hidden" id="areaId" th:value="${areaId}">
-				<h4 th:text="${info.title}"></h4>
+				<h4 th:text="${#strings.abbreviate(info.title,31)}"></h4>
 				<p>
 					<span
 						th:text="${#dates.format(info.publicTime, 'yyyy-MM-dd hh:mm')}"></span>&nbsp;
@@ -392,12 +392,7 @@
 	</div>
 	<div th:replace="pc/include :: footer"></div>
 	<!-- 备案 -->
-	<div class="beian">
-		<div class="beian1">
-			<span style="float: left;">©公益打赏平台 版权所有</span> <span
-				style="float: right;">京ICP备12048184号 技术支持：景安网络</span>
-		</div>
-	</div>
+	
 	<div class="m-modal3">
 		<div class="m-modal3-dialog">
 			<div class="m-top">

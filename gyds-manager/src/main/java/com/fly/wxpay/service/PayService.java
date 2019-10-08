@@ -56,6 +56,9 @@ public class PayService {
 		order.setExamineStatus(2);
 		order.setExpIncType(expIncType);
 		order.setOrderNumber(new Date().getTime() + "");
+		if(expIncType==1) {
+			order.setOrderType(1);
+		}
 		order.setOrderType(2);
 		order.setPrice(new BigDecimal(fee));
 		order.setUserId(ShiroUtils.getUserId());

@@ -30,7 +30,7 @@
 					    <label>
 							<span>头像</span>
 							<img th:src="${user.headImg}" alt="" id="img">
-							<input type="hidden" name="headImg" id="imgStr"> 
+							<input type="hidden" name="headImg" th:value="${user.headImg}" id="imgStr"> 
 							<input type="file" name="file" style="display: none;" id ="file">
 						</label>
 					</div>

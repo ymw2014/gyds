@@ -70,7 +70,24 @@ public class NameDO implements Serializable {
 	private Integer orderId;
 	//
 	private String headImg;
+	//学历
+	private String education;
 	
+	//职业
+	private String post;
+	
+	public String getEducation() {
+		return education;
+	}
+	public void setEducation(String education) {
+		this.education = education;
+	}
+	public String getPost() {
+		return post;
+	}
+	public void setPost(String post) {
+		this.post = post;
+	}
 	public String getHeadImg() {
 		return headImg;
 	}

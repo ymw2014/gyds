@@ -21,6 +21,7 @@ import com.fly.index.service.IndexService;
 import com.fly.signin.dao.SigninDao;
 import com.fly.signin.domain.SigninDO;
 import com.fly.signin.service.SigninService;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
@@ -47,6 +48,8 @@ public class CheckinController {
 	private VolunteerDao volunteerDao;
 	@Autowired
 	private SigninDao signinDao;
+	@Autowired
+	private RegionService regionService;
 	
 	@RequestMapping("show")
 	public String show(Model model) {
@@ -62,6 +65,8 @@ public class CheckinController {
 		TeamDO team = teamdao.get(vo.getTeamId());
 		model.addAttribute("team",team);
 		Map<String, Object> map = new HashMap<String, Object>();
+		String ids = regionService.getTeamAndAreaByUserRole(team.getId());
+		map.put("ids",ids);
 		Integer voCount = volunteerDao.count(map);
 		model.addAttribute("voCount",voCount);
 		map.put("starteTime", DateUtils.weeHours(new Date(), 0));

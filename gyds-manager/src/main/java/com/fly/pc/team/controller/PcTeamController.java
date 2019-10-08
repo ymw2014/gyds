@@ -162,7 +162,10 @@ public class PcTeamController {
 		params.clear();
 		params.put("teamId", teamId);
 		Integer count = volunteerService.count(params);
+		params.put("status", 1);
 		Integer newCount = infoService.count(params);
+		params.put("examineStatus", 1);
+		params.put("status", null);
 		Integer actCount = activityService.count(params);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("starteTime", DateUtils.weeHours(new Date(), 0));

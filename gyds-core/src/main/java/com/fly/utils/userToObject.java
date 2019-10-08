@@ -29,6 +29,8 @@ public class userToObject {
 		name.setStreet(user.getStreet());
 		name.setTeamId(id);
 		name.setUserId(user.getUserId());
+		name.setPost(user.getPost());
+		name.setEducation(user.getEducation());
 		return name;
 	}
 	/***
@@ -54,9 +56,10 @@ public class userToObject {
 		user.setProvince(name.getProvince());
 		user.setRegionCode(name.getRegionCode());
 		user.setSex(name.getSex());
+		user.setPost(name.getPost());
+		user.setEducation(name.getEducation());
 		user.setIsIdentification(1);
-		name.setStreet(name.getStreet());
-		name.setUserId(name.getUserId());
+		user.setStreet(name.getStreet());
 		return user;
 	}
 }

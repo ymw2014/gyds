@@ -64,7 +64,7 @@
 					<div th:text="${user.isIdentification==1?'已实名':'未实名'}"></div>
 				</div>
 				<div class="header2-2" style="margin-top:13px;">
-					<div class="header2-2-1"><span th:text="${user.name == null}?'姓名:' + ${user.nikeName}:'姓名:' + ${user.name}"></span> <span><img th:src="@{/mobile/images/nv.png}" alt=""></span> <span th:text="${'ID:'+user.userId}"></span></div>
+					<div class="header2-2-1"><span th:text="${user.name == null}?'姓名:' + ${user.nikeName}:'姓名:' + ${user.name}"></span> <span><img th:src="@{/mobile/images/nv1.png}" th:if="${user.sex==1}" style="width: 25px;margin-top: 10px;"><img th:src="@{/mobile/images/nv.png}" th:if="${user.sex==0}" style="width: 25px;margin-top: 10px;"></span> <span th:text="${'ID:'+user.userId}"></span></div>
 					<div class="header2-2-2" th:if="${le!=null}">
 						<span>志愿者等级 </span>
 						<img  th:each="i:${#numbers.sequence(1,le.level)}" th:src="${le.url}" alt=""> 

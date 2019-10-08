@@ -16,8 +16,8 @@
 		<div class="team" id ="team">
 			<figure th:each="team : ${teamList}">
 				<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamImg}" alt=""></a>
-				<figcaption th:text="${team.teamName}"></figcaption>
-				<p th:text="${team.level.levelname}" style="color: #c01b25;font-size: 14px;"></p>
+				<figcaption th:text="${#strings.abbreviate(team.teamName,14)}"></figcaption>
+				<p th:if="${team.level!=null}" th:text="${team.level.levelname}" style="color: #c01b25;font-size: 14px;"></p>
 			</figure>
 		</div>
 		<!-- 底部 -->

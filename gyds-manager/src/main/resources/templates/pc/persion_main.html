@@ -320,7 +320,7 @@ function pay(){
 		$(".m-modal-dialog1").css("display","none")
 		$(".adddd").css("display","block")
 		$('#blance').text("充值金额 " +payFee + "元");
-		var orderNum = createOrder(payFee);
+		var orderNum = createOrder1(payFee);
 		if (orderNum != '-1') {
 			$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (payFee * 100) + "&orderNum=" + orderNum);
 			timer = setInterval(function () {
@@ -363,8 +363,8 @@ function pay(){
 			$(".adddd").css("display","none")
 			window.clearInterval(timer);//清除定时器
 	})
-	
-	function createOrder(fee){
+	//充值
+	function createOrder1(fee){
 		var orderNum = '';
 		$.ajax({
 			type : "POST",
@@ -402,7 +402,7 @@ function pay(){
 		});
 		return stauts;
 	}
-	
+	//提现
 	function createOrder(fee){
 		var orderNum = '';
 		$.ajax({

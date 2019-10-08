@@ -38,7 +38,7 @@
 				<div th:each="team : ${teamList}">
 					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamImg}" alt=""></a>
 					<p th:text="${#strings.abbreviate(team.teamName,10)}" style="text-align: center;line-height: 30px;"></p>
-					<p th:text="${team.level.levelname}" style="color: #c01b25;font-size: 14px;text-align: center;"></p>
+					<p th:if="${team.level==null}" th:text="${team.level.levelname}" style="color: #c01b25;font-size: 14px;text-align: center;"></p>
 				</div>
 			</div>
 		</div>

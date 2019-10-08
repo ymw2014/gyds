@@ -11,7 +11,7 @@
 		select `id`,`region_code`,`position_num`,`sort`,`price`,`create_time` from setup_adv_price
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="regionCode != null and regionCode != ''"> and region_code = #{regionCode} </if>
+		  		  <if test="regionCode != null"> and region_code = #{regionCode} </if>
 		  		  <if test="positionNum != null and positionNum != ''"> and position_num = #{positionNum} </if>
 		  		  <if test="sort != null and sort != ''"> and sort = #{sort} </if>
 		  		  <if test="price != null and price != ''"> and price = #{price} </if>

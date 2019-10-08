@@ -181,7 +181,7 @@ function edit(id) {
 		title : '编辑',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '90%', '90%' ],
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
@@ -257,7 +257,7 @@ function resetPwd(id) {
 		title : '审核',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '90%', '90%' ],
 		content : prefix + '/audit/' + id // iframe的url
 	});
 }
@@ -268,7 +268,7 @@ function auditUser(id) {
 		title : '审核报名人员',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '620px' ],
+		area : [ '90%', '90%' ],
 		content : '/actApply/apply/auditList/'+ id // iframe的url
 	});
 

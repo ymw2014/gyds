@@ -12,6 +12,14 @@
 		<script th:src="@{/js/layui.js}"></script>
 		<script src="/js/plugins/layer/laydate/laydate.js"></script>
 		<style>
+		select{
+		     appearance:none; 
+		    -moz-appearance:none; 
+		    -webkit-appearance:none;
+		     background: url("/mobile/images/sjxl_03.jpg") no-repeat scroll right center transparent !important;
+		         background-size: 26px 13px  !important;
+		     padding-right: 14px;
+            }
 			.remover{
 				width: 27px;
 				height:30px;
@@ -33,7 +41,7 @@
 				color:#b8b8b8;
 			}
 			.biaotiyy label{
-				display: block;
+				 display: block;
 				overflow: hidden;
 				border-bottom: 1px solid #f4f4f4;
 			}
@@ -173,22 +181,21 @@
 					</label>
 					<label>
 						<span>活动简介</span>
-						 <textarea name="actIntro" style="width: 518px;height: 200px;float: right;resize: none;margin-top: 20px;" >
-							 
-						 </textarea>
+						 <textarea name="actIntro" style="width: 518px;height: 200px;float: right;resize: none;margin-top: 20px;" ></textarea>
 					</label>
 					<label>
 						<span>活动详情</span>
 						<textarea name="actContent" id="deitor" style="width: 520px;z-index: 999;float: right; resize: none;"></textarea>
 					</label>
 					<label class="huodong">
-						<input type="submit" id="save" onclick="save()" value="活动发布" style="background:#ff0000;height:68px;color:#fff;border: none;margin:30px 0px 0px 30px;border-radius:3px;line-height: 68px;">
+						<input type="button"  id="save"  value="活动发布" style="background:#ff0000;height:68px;color:#fff;border: none;margin:30px 0px 0px 30px;border-radius:3px;line-height: 68px;">
 					</label>
 				</form>
 				<div style="background:#fff;display: none"  id="info">
 					<div class="tijiaohou">
 						<img src="/pc/images/hsusus_03.jpg" alt="">
 						<p>活动已提交，请耐心等待后台审核，谢谢配合！</p>
+						<a href="/pc/persion_main">完成</a>
 					</div>
 				</div>
 			</div>
@@ -275,7 +282,7 @@ var ue = UE.getEditor('deitor',{
 			url : "/pc/activity/publish",
 			data : $('#signupForm').serialize(),
 			success : function(r) {
-				if (data.code == 0) {
+				if (r.code == 0) {
 					$("#signupForm").hide();
 					$("#info").show();
 				} else {
@@ -285,22 +292,23 @@ var ue = UE.getEditor('deitor',{
 		});
 	}
 	
-	/* $().ready(function() {
+	 $().ready(function() {
 		validateRule();
 	});
- */
-	/* $.validator.setDefaults({
+
+	$.validator.setDefaults({
 		submitHandler : function() {
 			save();
 		}
-	}); */
-	/* function validateRule() {
+	}); 
+	 function validateRule() {
 
 		var icon = "<i class='fa fa-times-circle'></i> ";
 		$("#signupForm").validate({
 			rules : {
 				actTitle : {
 					required : true
+					
 				},
 				actAddr : {
 					required : true
@@ -336,38 +344,38 @@ var ue = UE.getEditor('deitor',{
 			},
 			messages : {
 				actTitle : {
-					required : icon + "<span style='color:red'>活动名称不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>活动名称不能为空</span>",
 				},
 				actAddr : {
-					required : icon + "<span style='color:red'>活动地点不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>活动地点不能为空</span>",
 				},
 				actTypeId : {
-					required : icon + "<span style='color:red'>活动类型不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>活动类型不能为空</span>",
 				},
 				actType : {
-					required : icon + "<span style='color:red'>付费类型不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>付费类型不能为空</span>",
 				},
 				actPrice : {
-					required : icon + "<span style='color:red'>活动费用不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>活动费用不能为空</span>",
 				},
 				
 				activiStartTime : {
-					required : icon + "<span style='color:red'>活动开始时间不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;    margin-left: -587px;font-size: 26px;'>活动开始时间不能为空</span>",
 				},
 				activiEndTime : {
-					required : icon + "<span style='color:red'>活动结束时间不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;    margin-left: -587px;font-size: 26px;'>活动结束时间不能为空</span>",
 				},
 				startTime : {
-					required : icon + "<span style='color:red'>报名开始时间不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;    margin-left: -587px;font-size: 26px;'>报名开始时间不能为空</span>",
 				},
 				endTime : {
-					required : icon + "<span style='color:red'>报名结束时间不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;    margin-left: -587px;font-size: 26px;'>报名结束时间不能为空</span>",
 				},
 				actIntro : {
-					required : icon + "<span style='color:red'>活动简介不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>活动简介不能为空</span>",
 				},
 				actContent : {
-					required : icon + "<span style='color:red'>活动详情不能为空</span>",
+					required : icon + "<span style='color:red;position: absolute;margin-top: 44px;margin-left: -623px;font-size: 26px;'>活动详情不能为空</span>",
 				}
 			},
 			errorPlacement: function (error, element) { //指定錯誤信息位置
@@ -379,5 +387,5 @@ var ue = UE.getEditor('deitor',{
 	            }
 	        }
 		})
-	} */
+	} 
 </script>

@@ -134,7 +134,7 @@ function edit(id) {
 		title : '详情',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '90%', '90%' ],
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
@@ -145,7 +145,7 @@ function listVolunteer(id) {
 		title : '成员列表',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '720px' ],
+		area : [ '90%', '90%' ],
 		content : prefix +'/listVolunteer/' + id // iframe的url
 	});
 }
@@ -178,7 +178,7 @@ function audit(id) {
 		title : '入团申请列表',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '90%', '90%' ],
 		content : prefix + '/audit/' + id // iframe的url
 	});
 	
@@ -189,7 +189,7 @@ function applyMember(id) {
 		title : '入团申请列表',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '1000px', '620px' ],
+		area : [ '90%', '90%' ],
 		content : '/team/apply/applyMember/' + id // iframe的url
 	});
 	

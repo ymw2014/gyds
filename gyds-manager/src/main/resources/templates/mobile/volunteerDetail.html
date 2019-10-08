@@ -34,7 +34,7 @@
 					<div th:if="${isReal} eq '1'">已实名</div>
 				</div>
 				<div class="header2-2" style="margin-top:13px;">
-					<div class="header2-2-1"><span th:text=" '昵称:' + ${volunteer.volunteerName}"></span> <span><img th:src="@{/mobile/images/nv.png}" alt=""></span> <span th:text=" 'ID:' + ${volunteer.volunteerNumber}"></span></div>
+					<div class="header2-2-1"><span th:text=" '昵称:' + ${volunteer.volunteerName}"></span> <span><img th:src="@{/mobile/images/nv1.png}" th:if="${volunteer.sex==1}" style="width: 25px;margin-top: 10px;"><img th:src="@{/mobile/images/nv.png}" th:if="${volunteer.sex==0}" style="width: 25px;margin-top: 10px;"></span> <span th:text=" 'ID:' + ${volunteer.volunteerNumber}"></span></div>
 					<div class="header2-2-2">
 						<span>志愿者等级 </span>
 						<img th:if="${le!=null}" th:src="${le.url}" alt="">
@@ -97,10 +97,12 @@
 				<div class="header5-1">
 					<p style="line-height:60px; font-size:20px;" th:text="${#dates.format(dynamic.createTime,'yyyy-MM-dd hh:mm')}"></p>
 					<div>
+						<a th:href="@{/pc/news/info(id=${dynamic.newsId},areaId=${areaId})}">
 						<p style="font-size:30px;color: black;" th:text="${dynamic.title}"></p>
 						<div class="header5-1-1">
 							<a href="#"><img th:src="${dynamic.img}"alt=""></a>
 						</div>
+						</a>
 					</div>
 					<div class="header5-2">
 						<p>

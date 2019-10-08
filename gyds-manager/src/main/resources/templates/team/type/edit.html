@@ -11,27 +11,26 @@
 						<form class="form-horizontal m-t" id="signupForm">
 						<input id="id" name="id" th:value="${type.id}"  type="hidden">
 							<div class="form-group">	
-								<label class="col-sm-3 control-label">：</label>
+								<label class="col-sm-3 control-label">类型名称：</label>
 								<div class="col-sm-8">
 									<input id="typeName" name="typeName" th:value="${type.typeName}" class="form-control" type="text">
 								</div>
 							</div>
 														<div class="form-group">	
-								<label class="col-sm-3 control-label">是否收费0：否 1：是：</label>
+								<label class="col-sm-3 control-label">是否收费：</label>
 								<div class="col-sm-8">
-									<input id="isCharge" name="isCharge" th:value="${type.isCharge}" class="form-control" type="text">
+								<label class="radio-inline"> 
+								<input type="radio" id="isCharge" name="isCharge" value="0" th:attr ="checked=${0 == type.isCharge?true:false}"/> 否
+								</label> 
+								<label class="radio-inline"> 
+								<input type="radio" name="isCharge" id="isCharge" value="1" th:attr ="checked=${1 == type.isCharge?true:false}"/> 是
+								</label> 
 								</div>
 							</div>
 														<div class="form-group">	
-								<label class="col-sm-3 control-label">：</label>
+								<label class="col-sm-3 control-label">类型金额：</label>
 								<div class="col-sm-8">
 									<input id="price" name="price" th:value="${type.price}" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">创建时间：</label>
-								<div class="col-sm-8">
-									<input id="createTime" name="createTime" th:value="${type.createTime}" class="form-control" type="text">
 								</div>
 							</div>
 																					<div class="form-group">

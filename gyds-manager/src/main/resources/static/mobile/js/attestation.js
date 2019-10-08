@@ -24,8 +24,23 @@ function queryCost(){
 
 
 $("#downTeam").on('click', function() {
+	var cardBackImg = $('input[name=cardBackImg]').val();
+	var name = $('input[name=name]').val();
+	var politicalStatus = $('#politicalStatus option:selected').text();
+	var nation = $('#nation option:selected').text();
+	var education = $('#education option:selected').text();
+	var post = $('#post option:selected').text();
+	var cardNo = $('input[name=cardNo]').val();
+	var cardFrontImg = $('input[name=cardFrontImg]').val();
+	var email = $('input[name=email]').val();
+	var mobile = $('input[name=mobile]').val();
+	var address = $('input[name=address]').val();
+	if(cardBackImg!=''&name!=''&politicalStatus!=''&nation!=''&education!=''&post!=''&cardNo!=''&cardFrontImg!=''&email!=''&mobile!=''&address!=''){
 		$('#creatTeam').show();
 		$('#signupForm').hide();
+	}else{
+		alert("请补全完整信息");
+	}
 	});
 	
 	$("#upTeam").on('click', function() {
@@ -35,8 +50,23 @@ $("#downTeam").on('click', function() {
 	
 	
 	$("#downProxy").on('click', function() {
-		$('#proxybusi').show();
-		$('#signupForm').hide();
+		var cardBackImg = $('input[name=cardBackImg]').val();
+		var name = $('input[name=name]').val();
+		var politicalStatus = $('#politicalStatus option:selected').text();
+		var nation = $('#nation option:selected').text();
+		var education = $('#education option:selected').text();
+		var post = $('#post option:selected').text();
+		var cardNo = $('input[name=cardNo]').val();
+		var cardFrontImg = $('input[name=cardFrontImg]').val();
+		var email = $('input[name=email]').val();
+		var mobile = $('input[name=mobile]').val();
+		var address = $('input[name=address]').val();
+		if(cardBackImg!=''&name!=''&politicalStatus!=''&nation!=''&education!=''&post!=''&cardNo!=''&cardFrontImg!=''&email!=''&mobile!=''&address!=''){
+			$('#proxybusi').show();
+			$('#signupForm').hide();
+		}else{
+			alert("请补全完整信息");
+		}
 	});
 	
 	$("#upProxy").on('click', function() {

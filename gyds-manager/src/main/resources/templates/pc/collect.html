@@ -19,7 +19,7 @@
 				<div class="yy-gz" style="margin-top:20px;display: block;">
 					<div class="yymytd" th:each="team: ${teamList}">
 						<div class="yy-mytd1">
-							<a th:href="'/pc/teamDetail?teamId=' + ${team.news_id}+'&areaId=0'" target="_Parent"><img src="images/mytdlogo.jpg" alt=""></a>
+							<a th:href="'/pc/teamDetail?teamId=' + ${team.news_id}+'&areaId=0'" target="_Parent"><img th:src="${team.team_title_img}" alt=""></a>
 						</div>
 						<div class="yy-mytd2">
 							<h4 th:text="${team.team_name}">郑州志愿者联盟</h4>

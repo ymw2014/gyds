@@ -29,7 +29,7 @@
 						<span>已实名</span>
 					</div>
 					<div class="volname">
-						<span style="font-size:22px;" th:text="${volunteer.volunteerName}"></span> <img src="images/xingbie2_03.png">
+						<span style="font-size:22px;" th:text="${volunteer.volunteerName}"></span> <img th:if="${volunteer.sex==0}" th:src="@{/pc/images/xingbie2_04.png}" style="width: 20px;margin-bottom:6px"><img th:if="${volunteer.sex==1}" style="width: 20px;margin-bottom:6px" th:src="@{/pc/images/xingbie2_03.png}">
 						<br>
 						<span style="font-size:16px;line-height:40px;color:#7a7a7a;" th:text="${volunteer.province} + ' ' + ${volunteer.city}"></span><img src="images/zy1_03.png" alt="">
 					</div>
@@ -40,7 +40,7 @@
 							</span>
 							</li>
 							<li>ID <span th:text="${volunteer.volunteerNumber}"></span></li>
-							<li>所属团队 <span th:text="${volunteer.teamName}"></span></li>
+							<li>所属团队 <a th:href="@{/pc/teamDetail(teamId=${volunteer.teamId},areaId=${areaId})}"><span th:text="${volunteer.teamName}"></span></a></li>
 							<li>参与活动次数 <span th:text="${volunteer.actNumber}"></span></li>
 							<li>点击量 <span th:text="${volunteer.clickNumber}"></span></li>
 							<li>评价量 <span th:text="${volunteer.commentNumber}"></span></li>
@@ -76,12 +76,14 @@
 										<p th:text="${comment.createTimeStr}"></p>
 									</div>
 								</div>
+								<a th:href="@{/pc/news/info(id=${comment.newsId},areaId=${areaId})}" style="cursor:pointer">
 								<div class="voltext">
 									<p th:text="${comment.title}"></p>
 								</div>
 								<div class="voltextimg">
 									<img th:src="${comment.titleImg}" alt="" style="width: 146px;height: 108px;"><a href=""></a></img>
 								</div>
+								</a>
 								<div class="pinglun">
 								</span>
 									<ul>
@@ -102,12 +104,14 @@
 										<p th:text="${#dates.format(dynamic.createTime, 'yyyy-MM-dd HH:mm:ss')}"></p>
 									</div>
 								</div>
+								<a th:href="@{/pc/news/info(id=${dynamic.newsId},areaId=${areaId})}" style="cursor:pointer">
 								<div class="voltext">
 									<p th:text="${dynamic.title}"></p>
 								</div>
 								<div class="voltextimg">
 									<img th:src="${dynamic.img}" alt="" style="width: 146px;height: 108px;"><a href=""></a></img>
 								</div>
+								</a>
 								<div class="pinglun">
 									<ul>
 										<li th:if=" ${dynamic.actType  eq '2' && dynamic.collectStatus eq '1'}"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/pc/images/gongyitubiao_03.jpg}" alt="">&nbsp;收藏</li>
@@ -130,12 +134,22 @@
 										<p th:text="${#dates.format(dynamic.createTime, 'yyyy-MM-dd HH:mm:ss')}"></p>
 									</div>
 								</div>
+								<a  th:if="${dynamic.actType == 2}" th:href="@{/pc/activityDetail(id=${dynamic.newsId},areaId=${areaId})}">
 								<div class="voltext">
 									<p th:text="${dynamic.title}"></p>
 								</div>
 								<div class="voltextimg">
 									<img th:src="${dynamic.img}" alt="" style="width: 146px;height: 108px;"><a href=""></a></img>
 								</div>
+								</a>
+								<!-- <a  th:if="${dynamic.actType == 3}" th:href="@{/pc/volunteerDetail(id=${dynamic.newsId},areaId=${areaId})}">
+								<div class="voltext">
+									<p th:text="${dynamic.title}"></p>
+								</div>
+								<div class="voltextimg">
+									<img th:src="${dynamic.img}" alt="" style="width: 146px;height: 108px;"><a href=""></a></img>
+								</div>
+								</a> -->
 								<div class="pinglun">
 									<ul>
 										<li th:if="${dynamic.collectStatus} eq '1'"  th:onclick="'collection('+${dynamic.newsId}+',5, 2)'" style="cursor:pointer"><img th:src="@{/pc/images/gongyitubiao_03.jpg}" alt="" >&nbsp;收藏</li>
@@ -154,12 +168,14 @@
 										<p th:text="${#dates.format(dynamic.createTime, 'yyyy-MM-dd HH:mm:ss')}"></p>
 									</div>
 								</div>
+								<a th:href="@{/pc/news/info(id=${dynamic.newsId},areaId=${areaId})}" style="cursor:pointer">
 								<div class="voltext">
 									<p th:text="${dynamic.title}"></p>
 								</div>
 								<div class="voltextimg">
 									<img th:src="${dynamic.img}" alt="" style="width: 146px;height: 108px;"><a href=""></a></img>
 								</div>
+								</a>
 								<div class="pinglun">
 									<ul>
 										<li><a th:href="@{/pc/news/info(id=${dynamic.newsId},areaId=${areaId})}" style="cursor:pointer"><img th:src="@{/pc/images/zhuanfa.jpg}" alt="">&nbsp;转发</a></li>

@@ -15,8 +15,8 @@
 		  		  <if test="levelname != null and levelname != ''"> and levelName = #{levelname} </if>
 		  		  <if test="type != null and type != ''"> and type = #{type} </if>
 		  		  <if test="crateTime != null and crateTime != ''"> and crate_time = #{crateTime} </if>
-		  		  <if test="staIntegral != null and staIntegral != ''"> and sta_integral = #{staIntegral} </if>
-		  		  <if test="endIntegral != null and endIntegral != ''"> and end_integral = #{endIntegral} </if>
+		  		  <if test="staIntegral != null"> and sta_integral = #{staIntegral} </if>
+		  		  <if test="endIntegral != null"> and end_integral = #{endIntegral} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -39,8 +39,8 @@
 		  		  <if test="levelname != null and levelname != ''"> and levelName = #{levelname} </if>
 		  		  <if test="type != null and type != ''"> and type = #{type} </if>
 		  		  <if test="crateTime != null and crateTime != ''"> and crate_time = #{crateTime} </if>
-		  		  <if test="staIntegral != null and staIntegral != ''"> and sta_integral = #{staIntegral} </if>
-		  		  <if test="endIntegral != null and endIntegral != ''"> and end_integral = #{endIntegral} </if>
+		  		  <if test="staIntegral != null"> and sta_integral = #{staIntegral} </if>
+		  		  <if test="endIntegral != null"> and end_integral = #{endIntegral} </if>
 		  		</where>
 	</select>
 	 
@@ -101,8 +101,8 @@
 		  		  <if test="levelname != null and levelname != ''"> and levelName = #{levelname} </if>
 		  		  <if test="type != null and type != ''"> and type = #{type} </if>
 		  		  <if test="crateTime != null and crateTime != ''"> and crate_time = #{crateTime} </if>
-		  		  <if test="integral != null and integral != ''"> and sta_integral &lt;= #{integral} </if>
-		  		  <if test="integral != null and integral != ''"> and end_integral &gt;= #{integral} </if>
+		  		  <if test="integral != null"> and sta_integral &lt;= #{integral} </if>
+		  		  <if test="integral != null"> and end_integral &gt;= #{integral} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

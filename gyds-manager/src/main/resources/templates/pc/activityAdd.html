@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
+<style>
+.boxRight>iframe{
+   height: 1490px !important;
+}
+</style>
 	<head th:replace="pc/include :: head"></head>
-	<div class="boxRight" style="background:#fff;width: 1006px;height: 1382px;margin-top:0;">
+	<div class="boxRight" style="background:#fff;width: 1006px;margin-top:0;">
 				<div class="cwmx">
 					<h4>活动发布</h4>
 					<span th:if="${status == '1'}" th:text="${message}" style="color:green"></span>
@@ -72,7 +77,7 @@
 						<span>活动详情</span>
 						<textarea name="actContent" id="deitor" style="width:700px;height:380px;float: right; resize: none;"></textarea>
 					</label>
-					<label>
+					<label style="text-align: center;">
 						<input type="button" id="save" value="活动发布" style="background:#ff0000;height:42px;color:#fff;border: none;margin:30px 0px 0px 30px;border-radius:3px ;">
 					</label>
 				</form>

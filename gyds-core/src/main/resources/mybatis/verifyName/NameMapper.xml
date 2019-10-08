@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.verifyName.dao.NameDao">
 
 	<select id="get" resultType="com.fly.verifyName.domain.NameDO">
-		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code`,`order_id` from verify_name where id = #{value}
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code`,`order_id`,`post`,`education` from verify_name where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.verifyName.domain.NameDO">
-		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code`,`order_id` from verify_name
+		select `id`,`user_id`,`team_id`,`name`,`email`,`mobile`,`create_time`,`sex`,`birth`,`political_status`,`address`,`province`,`city`,`district`,`street`,`status`,`card_no`,`card_front_img`,`card_back_img`,`nation`,`type`,`text`,`region_code`,`order_id`,`post`,`education` from verify_name
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
@@ -86,7 +86,7 @@
 		  		</where>
 	</select>
 	 <select id="list2" resultType="com.fly.verifyName.domain.NameDO">
-		select v.`id`,v.`user_id`,v.`team_id`,v.`name`,v.`email`,v.`mobile`,v.`create_time`,v.`sex`,v.`birth`,v.`political_status`,v.`address`,v.`province`,v.`city`,v.`district`,v.`street`,v.`status`,v.`card_no`,v.`card_front_img`,v.`card_back_img`,v.`nation`,v.`type`,v.`text`,v.`region_code`,v.`order_id`,s.head_img from verify_name v left join sys_user s on v.user_id = s.user_id
+		select v.`id`,v.`user_id`,v.`team_id`,v.`name`,v.`email`,v.`mobile`,v.`create_time`,v.`sex`,v.`birth`,v.`political_status`,v.`address`,v.`province`,v.`city`,v.`district`,v.`street`,v.`status`,v.`card_no`,v.`card_front_img`,v.`card_back_img`,v.`nation`,v.`type`,v.`text`,v.`region_code`,v.`order_id`,s.head_img,v.`post`,v.`education` from verify_name v left join sys_user s on v.user_id = s.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and v.id = #{id} </if>
 		  		  <if test="userId != null and userId != ''"> and v.user_id = #{userId} </if>
@@ -155,7 +155,9 @@
 			`type`, 
 			`text`,
 			`region_code`,
-			`order_id`
+			`order_id`,
+			`post`,
+			`education`
 		)
 		values
 		(
@@ -182,7 +184,9 @@
 			#{type}, 
 			#{text},
 			#{regionCode},
-			#{orderId}
+			#{orderId},
+			#{post},
+			#{education}
 		)
 	</insert>
 	 
@@ -211,7 +215,9 @@
 			<if test="type != null">`type` = #{type}, </if>
 			<if test="text!=null">`text` = #{text},</if>
 			<if test="regionCode != null">`region_code` = #{regionCode},</if>
-			<if test="orderId != null">`order_id` = #{orderId}</if>
+			<if test="orderId != null">`order_id` = #{orderId},</if>
+			<if test="post != null">`post` = #{post},</if>
+			<if test="education != null">`education` = #{education}</if>
 		</set>
 		where id = #{id}
 	</update>

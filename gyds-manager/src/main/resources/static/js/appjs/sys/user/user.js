@@ -106,7 +106,7 @@ function add() {
 		title : '增加用户',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '90%', '90%' ],
 		content : prefix + '/add'
 	});
 }
@@ -137,7 +137,7 @@ function edit(id) {
 		title : '用户修改',
 		maxmin : true,
 		shadeClose : false,
-		area : [ '800px', '520px' ],
+		area : [ '90%', '90%' ],
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }
@@ -147,7 +147,7 @@ function resetPwd(id) {
 		title : '重置密码',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '400px', '260px' ],
+		area : [ '90%', '90%' ],
 		content : prefix + '/resetPwd/' + id // iframe的url
 	});
 }

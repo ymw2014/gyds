@@ -120,7 +120,7 @@ function edit(id) {
 		title : '详情',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '100%', '100%' ],
 		content : prefix + '/edit/' + id // iframe的url
 	});
 }

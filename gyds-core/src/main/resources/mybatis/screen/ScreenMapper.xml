@@ -24,6 +24,7 @@
 	<select id="getNewsByTeamSurvey" resultType="java.util.Map">
 		SELECT t.team_name name,COUNT(*) value from new_info n INNER  JOIN team t on n.team_id=t.id 
 		<where>
+		n.status = 1
 		<if test="ids != null">
 		         	and left(n.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
@@ -48,6 +49,7 @@
 	<select id="getPublicNewsSurvey" resultType="java.util.Map">
 		SELECT count(*) value from new_info 
 		<where>
+		status = 1
 		<if test="starteTime != null">
 		and create_time &gt;= #{starteTime}
 		</if>
@@ -63,6 +65,7 @@
 	<select id="getPublicNewsMon" resultType="java.util.Map">
 		SELECT count(*) value,MONTH(create_time) name from new_info 
 		<where>
+		status = 1
 		<if test="starteTime != null">
 		and create_time &gt;= #{starteTime}
 		</if>
@@ -111,6 +114,7 @@
 	<select id="getPublicNewsCount" resultType="java.util.Map">
 		SELECT count(*) value from new_info 
 		<where>
+		status = 1
 		<if test="starteTime != null">
 		and create_time &gt;= #{starteTime}
 		</if>
@@ -126,6 +130,7 @@
 	<select id="getPublicActTypeSurvey" resultType="java.util.Map">
 		SELECT count(*) value, t.type_name name from activity a left join act_type t on a.act_type_id = t.id
 		<where>
+		a.examine_status = 1
 		 <if test="ids != null">
 		         	and left(a.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
@@ -135,6 +140,7 @@
 	<select id="getPublicActivitySurvey" resultType="java.util.Map">
 		SELECT count(*) value from activity 
 		<where>
+		examine_status = 1
 		<if test="starteTime != null">
 		and create_time &gt;= #{starteTime}
 		</if>
@@ -300,7 +306,7 @@
 		and sigin_time &lt;= #{endTime}
 		</if>
 		<if test="ids != null">
-		         	and left(sigin_time,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		 </if>
 		</where>
 		 GROUP BY MONTH(sigin_time)

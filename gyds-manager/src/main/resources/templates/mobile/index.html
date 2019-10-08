@@ -184,6 +184,7 @@
 			<ul th:each="cente: ${centerList}">
 				<h4 th:text="${cente.helpTitle}"></h4>
 				<li th:each="center: ${cente.center}"><a th:href="${center.url}"  th:text="${center.content}"></a></li>
+			
 			</ul>
 		</div>
 		<!-- 备案 -->
