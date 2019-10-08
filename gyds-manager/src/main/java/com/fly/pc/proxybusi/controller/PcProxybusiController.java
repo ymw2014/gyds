@@ -142,6 +142,9 @@ public class PcProxybusiController extends BaseController{
 	@Transactional
 	@RequestMapping("/save")
 	public synchronized R save(ProxybusiDO proxybusiDO, String pronvice, String city, String country, String street,String client, String proxyArea) {
+		if(proxybusiDO.getRegImg()==null||proxybusiDO.getRegImg()=="") {
+			return R.error("区域图片不能为空");
+		}
 		Integer i = 0;
 		SetupDO setupDO = setupService.get(1);
 		String errMsg = "账号余额不足，请充值";

@@ -180,6 +180,12 @@ public class PersionTeamController extends BaseController{
 		String flag = "0";
 		Long regCode = null;
 		UserDO user = ShiroUtils.getUser();
+		if(team.getTeamImg()==null||team.getTeamImg()=="") {
+			return R.error("请上传团队图片");
+		}
+		if(team.getTeamTitleImg()==null||team.getTeamTitleImg()=="") {
+			return R.error("请上传团队logo");
+		}
 		if(user!=null) {
 			user.getUserId();
 			user = userDao.get(user.getUserId());
