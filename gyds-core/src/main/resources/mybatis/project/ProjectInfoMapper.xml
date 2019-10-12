@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.project.dao.ProjectInfoDao">
+
+	<select id="get" resultType="com.fly.project.domain.ProjectInfoDO">
+		select i.`id`,i.`project_name`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name` from project_info i left join project_type t on i.project_type = t.id  where i.id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.project.domain.ProjectInfoDO">
+		select i.`id`,i.`project_name`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name` from project_info i left join project_type t on i.project_type = t.id
+        <where>  
+		  		  <if test="id != null and id != ''"> and i.id = #{id} </if>
+		  		  <if test="projectName != null and projectName != ''"> and i.project_name = #{projectName} </if>
+		  		  <if test="projectType != null and projectType != ''"> and i.project_type = #{projectType} </if>
+		  		  <if test="logo != null and logo != ''"> and i.logo = #{logo} </if>
+		  		  <if test="tickets != null and tickets != ''"> and i.tickets = #{tickets} </if>
+		  		  <if test="intro != null and intro != ''"> and i.intro = #{intro} </if>
+		  		  <if test="createTime != null and createTime != ''"> and i.create_time = #{createTime} </if>
+		  		  <if test="status != null and status != ''"> and i.status = #{status} </if>
+		  		  <if test="order != null and order != ''"> and i.order = #{order} </if>
+		  		  <if test="teamCount != null and teamCount != ''"> and i.team_count = #{teamCount} </if>
+		  		  <if test="shareCount != null and shareCount != ''"> and i.share_count = #{shareCount} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by i.id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from project_info
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="projectName != null and projectName != ''"> and project_name = #{projectName} </if>
+		  		  <if test="projectType != null and projectType != ''"> and project_type = #{projectType} </if>
+		  		  <if test="logo != null and logo != ''"> and logo = #{logo} </if>
+		  		  <if test="tickets != null and tickets != ''"> and tickets = #{tickets} </if>
+		  		  <if test="intro != null and intro != ''"> and intro = #{intro} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="order != null and order != ''"> and order = #{order} </if>
+		  		  <if test="teamCount != null and teamCount != ''"> and team_count = #{teamCount} </if>
+		  		  <if test="shareCount != null and shareCount != ''"> and share_count = #{shareCount} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.project.domain.ProjectInfoDO" useGeneratedKeys="true" keyProperty="id">
+		insert into project_info
+		(
+			`project_name`, 
+			`project_type`, 
+			`logo`, 
+			`tickets`, 
+			`intro`, 
+			`create_time`, 
+			`status`, 
+			`order`
+		)
+		values
+		(
+			#{projectName}, 
+			#{projectType}, 
+			#{logo}, 
+			#{tickets}, 
+			#{intro}, 
+			#{createTime}, 
+			#{status}, 
+			#{order}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.project.domain.ProjectInfoDO">
+		update project_info 
+		<set>
+			<if test="projectName != null">`project_name` = #{projectName}, </if>
+			<if test="projectType != null">`project_type` = #{projectType}, </if>
+			<if test="logo != null">`logo` = #{logo}, </if>
+			<if test="tickets != null">`tickets` = #{tickets}, </if>
+			<if test="intro != null">`intro` = #{intro}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="order != null">`order` = #{order}, </if>
+			<if test="teamCount != null">`team_count` = #{teamCount}, </if>
+			<if test="shareCount != null">`share_count` = #{shareCount}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from project_info where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from project_info where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

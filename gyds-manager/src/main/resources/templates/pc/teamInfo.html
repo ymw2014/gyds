@@ -12,6 +12,8 @@
 <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
 		<script th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
 		<script th:src="@{/js/validate.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.2.js}"></script>
+<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.2.css}">
 <style>
 .yy-gz {
 	display: none;
@@ -30,7 +32,8 @@
 			<div th:if="${authSta}!=null">
 			<a id="renzheng" href="javaScript:;" th:if="${authSta}==3" class="anniiu btn1">认证</a>
 			<a id="renzheng" href="javaScript:;" th:if="${authSta}==1" class="anniiu">已提交</a>
-			<a id="renzheng" href="javaScript:;" th:if="${team.isAuth}==2" class="anniiu btn1">已认证</a></div>
+			<a id="renzheng" href="javaScript:;" th:if="${team.isAuth}==2" class="anniiu">已认证</a>
+			<a id="renzheng" href="javaScript:;" th:if="${team.isAuth}==1" class="anniiu btn1">认证</a></div>
 			<p th:if="${team.isAuth}==2" th:text="${'认证到期: '+  #dates.format(team.authEntTime, 'yyyy-MM-dd HH:mm:ss')}" style="color: red;margin-left: 750px;"></p>
 			<div th:if="${authSta}==null">
 			<a id="renzheng" href="javaScript:;"  class="anniiu btn1">认证</a></div>
@@ -63,6 +66,8 @@
 			<div class="m-middle" >
 			    <form  id="signupForm">
 			    	<input type="hidden" name="teamId" th:value="${team.id}">
+			    	<input type="hidden" id="price" th:value="${price}">
+			    	<input type="hidden" name="order" id="order">
 			    	<label>
 						<span>联系人电话</span>
 						<input type="text"  id="tel" name="tel" class="input1">
@@ -95,6 +100,21 @@
 			    </form>
 			</div>
 		</div>
+		
+		<div class="m-modal-dialog m-modal-dialog adddd">
+				<div class="m-top">
+					<span class="m-modal-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt2-1">
+				       <p id="blance"></p>
+					   <img id="codeUrl" src="" alt="">
+				   </div>
+				   <div class="m-middletxt3-1">
+					   <img th:src="@{/pc/images/zasfaff.png}" alt="">
+				   </div>
+				</div>
+			</div>
 	</div>
 	<!-- 备案 -->
 	<div class="beian">
@@ -164,7 +184,25 @@ $().ready(function(){
 
 	$.validator.setDefaults({
 		submitHandler : function() {
-			save();
+			
+			 var price = $('#price').val();
+	     	 $('#blance').text("付款金额 " +price + "元");
+			$(".m-modal-dialog").css("display","none")
+			$(".adddd").show();
+	     	    var orderNum = createOrder(price,9);
+	   			if (orderNum != '-1') {
+	   			$('#order').val(orderNum);
+	   			$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (price * 100) + "&orderNum=" + orderNum);
+	   			timer = setInterval(function () {
+	   					var msg = queryOrder(orderNum)
+	   					if (msg == '1') {
+	   						window.clearInterval(timer);
+	   						history.go(0);
+	   						save();
+	   					}
+	   			},500);
+	   			}
+			
 		}
 	});
 	function validateRule() {
@@ -200,6 +238,48 @@ $().ready(function(){
 				}
 			}
 		})
+	}
+	
+	//创建订单
+	function createOrder(fee,orderType){
+		var orderNum = '';
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/createOrder",
+			data : {'data': fee,
+					'orderType':orderType},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					orderNum = r.msg;
+				} else if(r.code == -1){
+					orderNum =-1;
+				}else if(r.code == -2){
+					orderNum =-2;
+				}
+				}
+		});
+		return orderNum;
+	}
+	//查询订单支付状态
+	function queryOrder(orderNum){
+		var stauts = '';
+		$.ajax({
+			type : "POST",
+			url : "/wxpay/queryOrder",
+			data : {'orderNum': orderNum},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					stauts = r.msg;
+				} else if(r.code == -1){
+					stauts =-1;
+				}else if(r.code == -2){
+					stauts =-2;
+				}
+				}
+		});
+		return stauts;
 	}
 </script>
 </html>

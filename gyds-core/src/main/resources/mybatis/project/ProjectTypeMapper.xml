@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.project.dao.ProjectTypeDao">
+
+	<select id="get" resultType="com.fly.project.domain.ProjectTypeDO">
+		select `id`,`project_type_name`,`create_time`,`is_pay`,`cost` from project_type where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.project.domain.ProjectTypeDO">
+		select `id`,`project_type_name`,`create_time`,`is_pay`,`cost` from project_type
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="projectTypeName != null and projectTypeName != ''"> and project_type_name = #{projectTypeName} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="isPay != null and isPay != ''"> and is_pay = #{isPay} </if>
+		  		  <if test="cost != null and cost != ''"> and cost = #{cost} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from project_type
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="projectTypeName != null and projectTypeName != ''"> and project_type_name = #{projectTypeName} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="isPay != null and isPay != ''"> and is_pay = #{isPay} </if>
+		  		  <if test="cost != null and cost != ''"> and cost = #{cost} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.project.domain.ProjectTypeDO" useGeneratedKeys="true" keyProperty="id">
+		insert into project_type
+		(
+			`project_type_name`, 
+			`create_time`, 
+			`is_pay`, 
+			`cost`
+		)
+		values
+		(
+			#{projectTypeName}, 
+			#{createTime}, 
+			#{isPay}, 
+			#{cost}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.project.domain.ProjectTypeDO">
+		update project_type 
+		<set>
+			<if test="projectTypeName != null">`project_type_name` = #{projectTypeName}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="isPay != null">`is_pay` = #{isPay}, </if>
+			<if test="cost != null">`cost` = #{cost}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from project_type where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from project_type where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,5 +1,5 @@
 
-var prefix = "/team/team"
+var prefix = "/project/type"
 $(function() {
 	load();
 });
@@ -9,7 +9,7 @@ function load() {
 			.bootstrapTable(
 					{
 						method : 'get', // 服务器数据的请求方式 get or post
-						url : prefix + "/listVol", // 服务器数据的加载地址
+						url : prefix + "/list", // 服务器数据的加载地址
 					//	showRefresh : true,
 					//	showToggle : true,
 					//	showColumns : true,
@@ -32,12 +32,9 @@ function load() {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
-								offset:params.offset,
-								volunteerName:$('#searchName').val(),
-					            telephone:$('#searchPhone').val(),
-					            startEntTeamTime:$('#startTime').val(),
-					            endEntTeamTime:$('#endTime').val(),
-					            teamId:$('#teamId').val()
+								offset:params.offset
+					           // name:$('#searchName').val(),
+					           // username:$('#searchName').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -50,103 +47,50 @@ function load() {
 								{
 									checkbox : true
 								},
-																/*{
-									field : 'id', 
-									title : '自增编号' 
-								},*/
-								{
-									field : 'volunteerName', 
-									title : '志愿者名称' 
-								},
-								{
-									field : 'headImg', 
-									title : '头像' ,
-									formatter : function(value, row, index) {
-										
-										return '<img src="' + value + '"  style="width:47px;">';
-									
-									}
-								},/*
 																{
-									field : 'memId', 
-									title : '' 
-								},*/
-																{
-									field : 'teamName', 
-									title : '所属团队名称' 
+									field : 'projectTypeName', 
+									title : '项目类型名称' 
 								},
 																{
-									field : 'liveAddress', 
-									title : '家庭住址' 
+									field : 'createTime', 
+									title : '创建时间' 
 								},
 																{
-									field : 'mobile', 
-									title : '电话' 
-								},
-																{
-									field : 'sex', 
-									title : '性别' ,
-									formatter : function(value, row, index) {
-										if (value == '1') {
-											return '女'
-										} 
-										return '男';
+									field : 'isPay', 
+									title : '是否付费',
+									formatter: function (value, index){
+										if (value == 1) {
+											return '付费';
+										}
+										if (value == 2) {
+											return '免费';
+										}
 									}
 								},
 																{
-									field : 'volunteerNumber', 
-									title : '志愿者编号' 
+									field : 'cost', 
+									title : '费用' 
 								},
 																{
-									field : 'cardNo', 
-									title : '身份证号' 
-								},
-																{
-									field : 'level', 
-									title : '志愿者等级' 
-								},
-
-								{
-									field : 'province', 
-									title : '省' 
-								},
-																{
-									field : 'city', 
-									title : '市' 
-								},
-																{
-									field : 'district', 
-									title : '县' 
-								},
-								{
-									field : 'street', 
-									title : '街道' 
-								},
-								{
-									field : 'createTime',
-									title : '入团时间'
-								},
-								{
 									title : '操作',
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
-										var e = '<a class="btn btn-primary btn-sm '+s_info_h+'" href="#" mce_href="#" title="详情" onclick="Info('
+										var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
 												+ row.id
-												+ ')"><i class="fa fa-edit"></i></a> ';
-										var q ='<a class="btn btn-success btn-sm"'+s_quitTeam_h+' href="#" title=""  mce_href="#" ><span class="" onclick="quitTeam('+row.id+')">请离</span></a>'
-										return e + q;
+												+ '\')"><i class="fa fa-edit"></i></a> ';
+										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
+												+ row.id
+												+ '\')"><i class="fa fa-remove"></i></a> ';
+										var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
+												+ row.id
+												+ '\')"><i class="fa fa-key"></i></a> ';
+										return e + d ;
 									}
 								} ]
 					});
 }
 function reLoad() {
-	var startTime = $('#startTime').val()
-	var endTime = $('#endTime').val()
-	if (startTime > endTime) {
-		layer.msg("开始时间不能大于结束时间");
-		return;
-	}
 	$('#exampleTable').bootstrapTable('refresh');
 }
 function add() {
@@ -159,23 +103,22 @@ function add() {
 		content : prefix + '/add' // iframe的url
 	});
 }
-function Info(id) {
+function edit(id) {
 	layer.open({
 		type : 2,
-		title : '详情',
+		title : '编辑',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '90%', '90%' ],
-		content : prefix + '/info/' + id // iframe的url
+		area : [ '800px', '520px' ],
+		content : prefix + '/edit/' + id // iframe的url
 	});
 }
-
-function quitTeam(id) {
-	layer.confirm('确定要请离团队？', {
+function remove(id) {
+	layer.confirm('确定要删除选中的记录？', {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({
-			url : prefix+"/quitTeam",
+			url : prefix+"/remove",
 			type : "post",
 			data : {
 				'id' : id
@@ -190,6 +133,9 @@ function quitTeam(id) {
 			}
 		});
 	})
+}
+
+function resetPwd(id) {
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组

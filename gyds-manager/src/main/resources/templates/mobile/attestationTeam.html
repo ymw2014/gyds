@@ -435,7 +435,30 @@
 <script>
 $.validator.setDefaults({
 	submitHandler : function() {
-		save();
+		var type = $('#type').val();
+		if(type==2){
+			if($('input[name=teamTitleImg]').val()==null||$('input[name=teamTitleImg]').val()=="") {
+				 return alert("团队logo不能为空");
+			}
+			if($('input[name=teamImg]').val()==null||$('input[name=teamImg]').val()=="") {
+				return alert("团队照片不能为空");
+			}
+			if($('input[name=cardFrontImg]').val()==null||$('input[name=cardFrontImg]').val()=="") {
+				return  alert("身份证正面不能为空");
+			}
+			if($('input[name=cardBackImg]').val()==null||$('input[name=cardBackImg]').val()=="") {
+				return alert("个人形象照不能为空");
+			}
+			var para = {};
+			var price = queryCost();
+			if(price==0||price==null){
+				save();
+			}else{
+				pay(price,para,7);
+			}
+		}else{
+			save();
+		}
 	}
 });
 	$(".sctp1").click(function(){
@@ -590,7 +613,78 @@ $.validator.setDefaults({
 				})
 	}
     </script>
+<script type="text/javascript">
+		var appId = '';
+		var paySign = '';
+		var timeStamp = '';
+		var nonceStr = '';
+		var packageStr = '';
+		var signType = '';
+		var orderNum = '';
+		function pay(blance,para,type) {
+			$.ajax({
+	            type:"post",
+	            url: "/pc/news/pay",
+	            dataType:"json",
+	            data : {'totalFee': blance
+	            	,'orderType':type},
+	            ontentType : "application/x-www-form-urlencoded",
+	            success:function(result) {
+	                console.log(result);
+	                var data  = result;
+                    appId = data.appId;
+                    paySign = data.paySign;
+                    timeStamp = data.timeStamp;
+                    nonceStr = data.nonceStr;
+                    packageStr = data.package;
+                    signType = data.signType;
+                    orderNum = data.orderNum
+                    callpay(para,type);
+	            }
+	        });
+	    }
 
+		function onBridgeReady(para,type){
+	        WeixinJSBridge.invoke(
+	            'getBrandWCPayRequest', {
+	                "appId":appId,     //公众号名称，由商户传入
+	                "timeStamp":timeStamp, //时间戳，自1970年以来的秒数
+	                "nonceStr":nonceStr , //随机串
+	                "package":packageStr,  //预支付交易会话标识
+	                "signType":signType,     //微信签名方式
+	                "paySign":paySign        //微信签名
+	            },
+	            function(res){
+	                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+	                    alert('支付成功');
+	                    if(type==7){
+	                    	save();
+	                    }
+						
+	                }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+	                    alert('支付取消');
+	                    history.go(0);
+	                }else if(res.err_msg == "get_brand_wcpay_request:fail" ){
+	                    alert('支付失败');
+	                    history.go(0);
+	                } //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+	            }
+	        );
+	    }
+	    function callpay(para,type){
+	        if (typeof WeixinJSBridge == "undefined"){
+	            if( document.addEventListener ){
+	                document.addEventListener('WeixinJSBridgeReady', onBridgeReady(para,type), false);
+	            }else if (document.attachEvent){
+	                document.attachEvent('WeixinJSBridgeReady', onBridgeReady(para,type));
+	                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady(para,type));
+	            }
+	        }else{
+	            onBridgeReady(para,type);
+	        }
+	    }
+	    
+	</script>
 
 
 

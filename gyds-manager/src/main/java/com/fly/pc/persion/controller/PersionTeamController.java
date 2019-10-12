@@ -249,27 +249,27 @@ public class PersionTeamController extends BaseController{
 	@Transactional
 	public R savaTeam(AutheDO authe) {
 		R r = new R();
-		Map<String, Object> params = new HashMap<String, Object>();
-		Integer i = null;
+		//Map<String, Object> params = new HashMap<String, Object>();
+		//Integer i = null;
 		BigDecimal price = setupService.get(1).getAuthPrice();
-		params.put("price", price);
+		/*params.put("price", price);
 		i = deductMoney(params);
 		if (i == 1) {
 			params.put("orderType","2");
 			params.put("exp_inc_Type", "9");
 			params.put("price", price);
 			// 产生订单
-			i = creadOrder(params);
-			if (i > 0) {
+			i = creadOrder(params);*/
+		//	if (i > 0) {
 				authe.setCreateTime(new Date());
-				authe.setOrder(i);
+				//authe.setOrder(i);
 				authe.setPrice(price);
 				authe.setStatus(1);
 				AutheService.save(authe);
-			}
-		}else {
-			return r.error("余额不足,请充值");
-		}
+		//	}
+		/*
+		 * }else { return r.error("余额不足,请充值"); }
+		 */
 		return r.ok();
 
 	}

@@ -843,7 +843,7 @@ public R createOrder(String fee, Integer expIncType) {
 	order.setOrderNumber(new Date().getTime() + "");
 	order.setOrderType(2);
 	new BigDecimal(fee);
-	order.setPrice(new BigDecimal(fee).divide(new BigDecimal("100")));
+	order.setPrice(new BigDecimal(fee));
 	order.setUserId(ShiroUtils.getUserId());
 	order.setBusinessTime(new Date());
 	order.setIsDel(0);
@@ -885,7 +885,7 @@ try {
 	UserDO userDO = userService.get(user.getUserId());
 	data.put("body", "在线支付");//商品描述
 	data.put("out_trade_no", orderNum); // 订单唯一编号, 不允许重复
-	data.put("total_fee", totalFee+ ""); // 订单金额, 单位分
+	data.put("total_fee", totalFee*100+ ""); // 订单金额, 单位分
 	data.put("spbill_create_ip", localIp()); // 下单ip
 	data.put("openid", userDO.getOpenId()); // 微信公众号统一标示openid
 	data.put("notify_url", "http://www.48936.com/app/wxpay/callback"); // 订单结果通知, 微信主动回调此接口

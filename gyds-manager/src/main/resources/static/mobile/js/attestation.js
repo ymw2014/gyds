@@ -2,24 +2,25 @@
 function queryCost(){
 		var id = $("#teamType option:selected").val();
 		var para ={"id":id};
+		var price = '';
 		$.ajax({
 			type : "POST",
 			url : "/pc/regTeam/queryCost",
 			data : para,
+			async:false,
 			error : function(request) {
 				parent.layer.alert("Connection error");
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					var price = data.price==null?0:data.price;
+					 price = data.price==null?0:data.price;
 					$("#price").attr("value", price);
 				} else {
 					parent.layer.alert(data.msg)
 				}
 			}
 		});
-		
-		
+		return price;
 	}
 
 
@@ -182,7 +183,30 @@ $("#downTeam").on('click', function() {
 	$.validator.setDefaults({
 		ignore:":hidden:not(select)",
 		submitHandler : function() {
-			save();
+			/*var type = $('#type').val();
+			if(type==2){
+				if($('input[name=teamTitleImg]').val()==null||$('input[name=teamTitleImg]').val()=="") {
+					 return alert("团队logo不能为空");
+				}
+				if($('input[name=teamImg]').val()==null||$('input[name=teamImg]').val()=="") {
+					return alert("团队照片不能为空");
+				}
+				if($('input[name=cardFrontImg]').val()==null||$('input[name=cardFrontImg]').val()=="") {
+					return  alert("身份证正面不能为空");
+				}
+				if($('input[name=cardBackImg]').val()==null||$('input[name=cardBackImg]').val()=="") {
+					return alert("个人形象照不能为空");
+				}
+				
+				var price = queryCost();
+				if(price==0||price==null){
+					save();
+				}else{
+					pay(price,para,7);
+				}
+			}else{*/
+				save();
+			//}
 		}
 	});
 

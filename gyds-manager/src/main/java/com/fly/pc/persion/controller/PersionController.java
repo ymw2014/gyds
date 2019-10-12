@@ -339,7 +339,17 @@ public class PersionController extends BaseController{
 		}
 		//1:入团申请2:建团申请3:代理商入驻
 		if("2".equals(name.getType().toString())) {
-			R r = countCost(Integer.valueOf(map.get("teamType").toString()));
+			
+			/*
+			 * if(map.get("teamTitleImg")==null||map.get("teamTitleImg")=="") { return
+			 * R.error("团队logo不能为空"); } if(map.get("teamImg")==null||map.get("teamImg")=="")
+			 * { return R.error("团队照片不能为空"); }
+			 * if(map.get("cardFrontImg")==null||map.get("cardFrontImg")=="") { return
+			 * R.error("身份证正面不能为空"); }
+			 * if(map.get("cardBackImg")==null||map.get("cardBackImg")=="") { return
+			 * R.error("个人形象照不能为空"); }
+			 */
+			/*R r = countCost(Integer.valueOf(map.get("teamType").toString()));
 			if(r.get("price")!=null&&r.get("price").toString()!="0") {
 				i = deductMoney(r);//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 				if(i==1) {
@@ -353,9 +363,9 @@ public class PersionController extends BaseController{
 				}else {
 					return R.error(errMsg);
 				}
-			}else {
+			}else {*/
 				flag="1";
-			}
+			//}
 		}
 		//1:入团申请2:建团申请3:代理商入驻
 		if("3".equals(name.getType().toString())) {
@@ -585,6 +595,14 @@ public class PersionController extends BaseController{
 			return R.ok();
 		}
 		return R.error();
+	}
+	
+	@RequestMapping("/pc/publishProject")
+	public String publishProject(Model model) {
+		UserDO user= ShiroUtils.getUser();
+		user = userService.get(user.getUserId());
+		model.addAttribute("user", user);
+		return "pc/basics";
 	}
 	
 	

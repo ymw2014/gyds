@@ -2,23 +2,25 @@
 function queryCost(){
 		var id = $("#teamType option:selected").val();
 		var para ={"id":id};
+		var price = '';
 		$.ajax({
 			type : "POST",
 			url : "/pc/regTeam/queryCost",
 			data : para,
+			async:false,
 			error : function(request) {
 				parent.layer.alert("Connection error");
 			},
 			success : function(data) {
 				if (data.code == 0) {
-					var price = data.price==null?0:data.price;
+					 price = data.price==null?0:data.price;
 					$("#price").attr("value", price);
 				} else {
 					parent.layer.alert(data.msg)
 				}
 			}
 		});
-		
+		return price;
 		
 	}
 layui.use('upload', function() {
@@ -165,11 +167,54 @@ $("#downTeam").on('click', function() {
 	function streetDist() {
 		$("#street").val($("#jiedao").find("option:selected").text());
 	}
+	
+	var m1 = new MyModal.modal(function() {
+		alert("你点击了确定");
+	});
+	$('.btn1').on("click", function() {
+		m1.show();
+	});
 
 	$.validator.setDefaults({
 		ignore:":hidden:not(select)",
 		submitHandler : function() {
-			save();
+			var type = $('#type').val();
+			if(type==2){
+				if($('input[name=teamTitleImg]').val()==null||$('input[name=teamTitleImg]').val()=="") {
+					 return alert("团队logo不能为空");
+				}
+				if($('input[name=teamImg]').val()==null||$('input[name=teamImg]').val()=="") {
+					return alert("团队照片不能为空");
+				}
+				if($('input[name=cardFrontImg]').val()==null||$('input[name=cardFrontImg]').val()=="") {
+					return  alert("身份证正面不能为空");
+				}
+				if($('input[name=cardBackImg]').val()==null||$('input[name=cardBackImg]').val()=="") {
+					return alert("个人形象照不能为空");
+				}
+				
+				var price = queryCost();
+				$('#blance').text("付款金额 " +price + "元");
+				if(price==0||price==null){
+					save();
+				}else{
+					$(".adddd").show();
+					var orderNum = createOrder(price,7);
+					if (orderNum != '-1') {
+						$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (price * 100) + "&orderNum=" + orderNum);
+						timer = setInterval(function () {
+							var msg = queryOrder(orderNum)
+							if (msg == '1') {
+								window.clearInterval(timer);
+								save();
+								history.go(0);
+							}
+						},500);
+					}
+				}
+			}else{
+				save();
+			}
 		}
 	});
 
@@ -478,3 +523,49 @@ $("#downTeam").on('click', function() {
 	        $.post(deleteurl,{path:$(_self).parent().find('img').attr('src')});
 	    }
 	}
+	
+	
+	//创建订单
+	function createOrder(fee,orderType){
+		var orderNum = '';
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/createOrder",
+			data : {'data': fee,
+					'orderType':orderType},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					orderNum = r.msg;
+				} else if(r.code == -1){
+					orderNum =-1;
+				}else if(r.code == -2){
+					orderNum =-2;
+				}
+				}
+		});
+		return orderNum;
+	}
+	//查询订单支付状态
+	function queryOrder(orderNum){
+		var stauts = '';
+		$.ajax({
+			type : "POST",
+			url : "/wxpay/queryOrder",
+			data : {'orderNum': orderNum},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					stauts = r.msg;
+				} else if(r.code == -1){
+					stauts =-1;
+				}else if(r.code == -2){
+					stauts =-2;
+				}
+				}
+		});
+		return stauts;
+	}
+	$(".m-modal,.m-modal-close,.m-btn-cancel").on("click", function(event) {
+		$('.m-modal').hide();
+	});
