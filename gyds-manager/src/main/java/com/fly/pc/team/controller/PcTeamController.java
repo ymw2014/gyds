@@ -20,6 +20,7 @@ import com.fly.domain.RegionDO;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
+import com.fly.index.utils.JudgeIsMoblieUtil;
 import com.fly.level.dao.LevelDao;
 import com.fly.level.domain.LevelDO;
 import com.fly.news.domain.InfoDO;
@@ -86,6 +87,10 @@ public class PcTeamController {
 		params.put("ids", ids);
 		params.put("offset", 0);
 		params.put("limit", 10);
+		if(JudgeIsMoblieUtil.judgeIsMoblie(request)) {
+			params.put("offset", 0);
+			params.put("limit", 20);
+		}
 		List<TeamDO> teamList = teamService.list(params);
 		model.addAttribute("teamList", teamList);//团队
 		params.clear();

@@ -133,7 +133,7 @@
 					申请建团
 				</figcaption>
 			</figure>
-			<figure shiro:hasPermission="qiandao:qiandao:qiandao">
+			<figure th:if="${isVo==1}">
 				<a href="/pc/checkin/show"  ><img th:src="@{/mobile/images/qiandao.png}" alt=""></a>
 				<figcaption>
 					我要签到

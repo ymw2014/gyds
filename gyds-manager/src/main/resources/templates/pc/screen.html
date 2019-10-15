@@ -186,9 +186,9 @@
 						<span>团队名称</span>
 						<span>数量</span>
 					</div>
-					<ul th:each="teamVo,i : ${teamVo}">
+					<ul th:each="teamVo,i : ${teamVo}" th:if="${i.count<11}">
 						<li th:text="${i.count}"></li>
-						<li th:text="${teamVo.name}"></li>
+						<li th:text="${#strings.abbreviate(teamVo.name,12)}"></li>
 						<li th:text="${teamVo.value}"></li>
 					</ul>
 					
@@ -200,9 +200,9 @@
 						<span>团队名称</span>
 						<span>数量</span>
 					</div>
-					<ul th:each="teamNews,i : ${teamNews}">
+					<ul th:each="teamNews,i : ${teamNews}" th:if="${i.count<11}">
 						<li th:text="${i.count}">1</li>
-						<li th:text="${teamNews.name}"></li>
+						<li th:text="${#strings.abbreviate(teamNews.name,12)}"></li>
 						<li th:text="${teamNews.value}"></li>
 					</ul>
 					
