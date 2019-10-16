@@ -140,8 +140,8 @@
 				</dt>
 
 
-				<dt>
-					<a href="/pc/checkin/show" shiro:hasPermission="qiandao:qiandao:qiandao" data-index="1s" target="iframe0">我的签到</a>
+				<dt th:if="${isVo==1}">
+					<a href="/pc/checkin/show"  data-index="1s" target="iframe0">我的签到</a>
 				</dt>
 				<dt>
 					<a href="/pc/basics" data-index="1s" target="iframe0">基本资料</a>

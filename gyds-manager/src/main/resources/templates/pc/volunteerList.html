@@ -61,8 +61,8 @@
 				<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 				<figcaption>
 					<span th:text="${volunt.volunteerName}"></span>
-					<a th:if="${areaId!=null && #strings.length(areaId)< 10}" th:href="@{/pc/teamDetail(teamId=${volunt.teamId},areaId=${areaId})}"><p th:text="'团队：'    +  ${volunt.teamName}" ></p></a>
-					<a th:if="${areaId!=null && #strings.length(areaId)> 9}" th:href="@{/pc/teamDetail(teamId=${volunt.teamId},areaId=0)}"><p th:text="'团队：'    +  ${volunt.teamName}" ></p></a>
+					<a th:if="${areaId!=null && #strings.length(areaId)< 10}" th:href="@{/pc/teamDetail(teamId=${volunt.teamId},areaId=${areaId})}"><p th:text="${volunt.teamName}" ></p></a>
+					<a th:if="${areaId!=null && #strings.length(areaId)> 9}" th:href="@{/pc/teamDetail(teamId=${volunt.teamId},areaId=0)}"><p th:text="${volunt.teamName}" ></p></a>
 				</figcaption>
 			</figure>
 		</div>
@@ -183,14 +183,20 @@ function getQueryString(name){
 
 function info(value) {
 	var html = '';
+	var areaId = $('#areaId').val();
+	console.log(areaId+"sdsdgsd");
 	$.each(value, function (n, value) {
 		html += '<figure>' + 
 					'<a href="/pc/volunteerDetail?id='+value.id+'"><img src=" ' + value.headImg + '" alt=""></a>' +
 			    		'<figcaption>' +
-							'<span>'+ value.volunteerName + '</span>' +
-							'<p>团队：'+ value.teamName + '</p>' +
-						'</figcaption>' +
-				'</figure>';
+							'<span>'+ value.volunteerName + '</span>' ;
+							if(areaId!=null &&areaId.length< 10){
+								html += '<a href="/pc/teamDetail(teamId='+value.teamId+',areaId='+areaId+')"><p>'+ value.teamName + '</p></a>' ;
+							}else{
+								html += '<a  href="@{/pc/teamDetail(teamId='+value.teamId+',areaId=0)}"><p>'+ value.teamName + '</p></a>' ;
+							}
+							html += '</figcaption>' ;
+							html += '</figure>';
 	})
 	return html;
 }
@@ -231,7 +237,11 @@ if(list.length>0) {
 	html+="<a href='/pc/volunteerDetail?id="+item.id+"&areaId="+areaId+"><img src="+item.headImg+"></a>";
 	html+="<figcaption>";
 	html+="<span>"+item.volunteerName+"</span>";
-	html+="<p>团队:"+item.teamName+"</p>";
+	if(areaId!=null &&areaId.length< 10){
+		html += '<a href="/pc/teamDetail(teamId='+item.teamId+',areaId='+areaId+')"><p>团队：'+ item.teamName + '</p></a>' ;
+	}else{
+		html += '<a  href="@{/pc/teamDetail(teamId='+item.teamId+',areaId=0)}"><p>团队：'+ item.teamName + '</p></a>' ;
+	}
 	html+="</figcaption>";
 	html+="</figure>";
     })

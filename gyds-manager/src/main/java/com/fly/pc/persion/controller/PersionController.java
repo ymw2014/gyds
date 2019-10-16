@@ -2,29 +2,23 @@ package com.fly.pc.persion.controller;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.bouncycastle.crypto.tls.UserMappingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.activity.domain.ActivityDO;
 import com.fly.activity.domain.ApplyDO;
 import com.fly.activity.domain.TypeDO;
-import com.fly.activity.service.ActivityService;
 import com.fly.activity.service.ApplyService;
 import com.fly.activity.service.TypeService;
 import com.fly.common.controller.BaseController;
@@ -87,11 +81,11 @@ public class PersionController extends BaseController{
 	TeamDao teamDao;
 	@Autowired
 	private LevelDao levelDao;
-	
+
 	@ResponseBody
 	@RequestMapping("/pc/binding")
 	public R binding(UserDO user,Model model) {
-		
+
 		Map<String, Object> map=new HashMap<>();
 		map.put("username", user.getUsername());
 		List<UserDO> userList = userService.list(map);
@@ -105,11 +99,14 @@ public class PersionController extends BaseController{
 		}
 		return R.error();
 	}
-	
+
 
 	@RequestMapping("/pc/personalCenter")
 	public String getPersionCenter (Model model) {
 		UserDO user = ShiroUtils.getUser();
+		if(user==null) {
+			return "redirect:/admin";
+		}
 		Map<String,Object> params = new HashMap<String, Object>();
 		params.put("userId", user.getUserId());
 		List<TeamDO> TeamDO = teamDao.list(params);
@@ -118,8 +115,8 @@ public class PersionController extends BaseController{
 				model.addAttribute("isAuth", 2);
 			}
 		}
-		if(user==null) {
-			return "redirect:/admin";
+		if(voService.isVo(user.getUserId())) {
+			model.addAttribute("isVo", 1);
 		}
 		return "pc/persion_center";
 	}
@@ -140,6 +137,9 @@ public class PersionController extends BaseController{
 		Map<String, Object> params=new HashMap<String, Object>(16);
 		model.addAttribute("user", user);
 		params.put("userId", user.getUserId());
+		if(voService.isVo(user.getUserId())) {
+			model.addAttribute("isVo", 1);
+		}
 		List<Map<String, Object>> voluntList = voService.voluntList(params);
 		if(voluntList.size()==0||voluntList.get(0).get("teamId")==null) {
 			model.addAttribute("team",null);
@@ -198,7 +198,7 @@ public class PersionController extends BaseController{
 		model.addAttribute("actList", actList);
 		model.addAttribute("newList", newList);
 		model.addAttribute("voList", voList);
-		
+
 		model.addAttribute("teamSize", teamList.size());
 		model.addAttribute("actLSize", actList.size());
 		model.addAttribute("newSize", newList.size());
@@ -252,8 +252,8 @@ public class PersionController extends BaseController{
 		Long userId = user.getUserId();
 		boolean flag = voService.isVo(userId);
 		if(!flag) {
-				model.addAttribute("message", "您还不是志愿者!!!");
-				return "pc/message";
+			model.addAttribute("message", "您还不是志愿者!!!");
+			return "pc/message";
 		}else {
 			vo = voService.getVoInfo(userId);
 			if(vo!=null) {
@@ -334,38 +334,40 @@ public class PersionController extends BaseController{
 		UserDO user = getUser();
 		name.setUserId(user.getUserId());
 		Map<String, Object> map = JSONUtils.jsonToMap(name.getText());
+		if(name.getCardBackImg()==null) {
+			return R.error("个人形象照不能为空"); 
+		}
+		if(name.getRegionCode()==null) {
+			return R.error("请选择联系地址"); 
+		}
+		if(name.getAddress()==null||name.getAddress()=="") {
+			return R.error("详细地址不能为空"); 
+		}
+		
 		if("1".equals(name.getType().toString())) {
+			if(name.getCardBackImg()==null) {
+				return R.error("个人形象照不能为空"); 
+			}
+			if(name.getRegionCode()==null) {
+				return R.error("请选择区域"); 
+			}
 			flag="1";
 		}
 		//1:入团申请2:建团申请3:代理商入驻
 		if("2".equals(name.getType().toString())) {
-			
-			/*
-			 * if(map.get("teamTitleImg")==null||map.get("teamTitleImg")=="") { return
-			 * R.error("团队logo不能为空"); } if(map.get("teamImg")==null||map.get("teamImg")=="")
-			 * { return R.error("团队照片不能为空"); }
-			 * if(map.get("cardFrontImg")==null||map.get("cardFrontImg")=="") { return
-			 * R.error("身份证正面不能为空"); }
-			 * if(map.get("cardBackImg")==null||map.get("cardBackImg")=="") { return
-			 * R.error("个人形象照不能为空"); }
-			 */
-			/*R r = countCost(Integer.valueOf(map.get("teamType").toString()));
-			if(r.get("price")!=null&&r.get("price").toString()!="0") {
-				i = deductMoney(r);//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
-				if(i==1) {
-					r.put("orderType", OrderType.ZHI_CHU);
-					r.put("expIncType", OrderType.JIAN_TUAN);
-					i = creadOrder(r);//return 订单号
-					if(i>0) {
-						flag="1";
-						name.setOrderId(i);
-					}
-				}else {
-					return R.error(errMsg);
+			if(map.get("teamTitleImg")==null||map.get("teamTitleImg")=="") { 
+				return
+					R.error("团队logo不能为空"); 
+				} 
+			if(map.get("teamImg")==null||map.get("teamImg")=="")
+				{ 
+				return R.error("团队照片不能为空"); 
 				}
-			}else {*/
-				flag="1";
-			//}
+			if(name.getCardFrontImg()==null||name.getCardFrontImg()=="") { 
+				return
+					R.error("身份证正面不能为空"); 
+				}
+			flag="1";
 		}
 		//1:入团申请2:建团申请3:代理商入驻
 		if("3".equals(name.getType().toString())) {
@@ -452,7 +454,7 @@ public class PersionController extends BaseController{
 				e.printStackTrace();
 			}
 			PublicUtils.IdNOToAge(name.getCardNo());
-			
+
 			name.setCreateTime(new Date());
 			name.setStatus(1);
 			if(nameDao.save(name)>0) {
@@ -504,7 +506,7 @@ public class PersionController extends BaseController{
 		return R.error();
 
 	}
-	
+
 	@RequestMapping("/pc/activityAdd")
 	public String activityAdd(Model model) {
 		UserDO user = ShiroUtils.getUser();
@@ -564,7 +566,7 @@ public class PersionController extends BaseController{
 		model.addAttribute("joinTeam3",list4);
 		return "pc/myJoinTeam";
 	}
-	
+
 	/*
 	 * @RequestMapping(value = "/pc/withdraw/{id}", method = RequestMethod.GET)
 	 * public String withdraw(@PathVariable("id") Long id, Model model) { UserDO
@@ -579,7 +581,7 @@ public class PersionController extends BaseController{
 	 * HashMap<String,Object>(); SetupDO setup = setupService.get(1); if
 	 * (setup!=null) { } return listPrice; }
 	 */
-	
+
 	@RequestMapping("/pc/basics")
 	public String basics(Model model) {
 		UserDO user= ShiroUtils.getUser();
@@ -587,7 +589,7 @@ public class PersionController extends BaseController{
 		model.addAttribute("user", user);
 		return "pc/basics";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/pc/savabasics")
 	public R savaBasics(UserDO user) {
@@ -596,7 +598,7 @@ public class PersionController extends BaseController{
 		}
 		return R.error();
 	}
-	
+
 	@RequestMapping("/pc/publishProject")
 	public String publishProject(Model model) {
 		UserDO user= ShiroUtils.getUser();
@@ -604,8 +606,8 @@ public class PersionController extends BaseController{
 		model.addAttribute("user", user);
 		return "pc/basics";
 	}
-	
-	
-	
-	
+
+
+
+
 }
