@@ -66,7 +66,7 @@ function load() {
 								},
 																{
 									field : 'tickets', 
-									title : '参加费用' 
+									title : '承接费用' 
 								},
 																/*{
 									field : 'intro', 

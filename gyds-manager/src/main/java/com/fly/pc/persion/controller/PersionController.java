@@ -334,7 +334,7 @@ public class PersionController extends BaseController{
 		UserDO user = getUser();
 		name.setUserId(user.getUserId());
 		Map<String, Object> map = JSONUtils.jsonToMap(name.getText());
-		if(name.getCardBackImg()==null) {
+		if(name.getCardBackImg()==null||name.getCardBackImg()=="") {
 			return R.error("个人形象照不能为空"); 
 		}
 		if(name.getRegionCode()==null) {

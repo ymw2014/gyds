@@ -171,7 +171,7 @@
 			<a href="/pc/teamList">更多+</a>
 		</div>
 		<div class="tuanduiImg">
-			<div th:each="team: ${teamList}">
+			<div th:each="team,i: ${teamList}" th:if="${i.index lt 10}">
 				<figure>
 					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamImg}" alt=""></a>
 					<figcaption><p th:text="${team.teamName}"></p></figcaption>

@@ -28,6 +28,7 @@ import com.fly.ueditor.define.ActionMap;
  */
 public final class ConfigManager {
     private String path="/web/gyds/config.json";
+    //private String path="E:/web/gyds/config.json";
 	//private String path="E:/project/config.json";
 	private final String rootPath;
 	private final String originalPath;

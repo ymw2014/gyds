@@ -366,6 +366,18 @@
 								name : {
 									required : true
 								},
+								politicalStatus : {
+									required : true
+								},
+								nation : {
+									required : true
+								},
+								education : {
+									required : true
+								},
+								post : {
+									required : true
+								},
 								mobile : {
 									required : true,
 									isMobile : true
@@ -379,17 +391,32 @@
 								},
 								email : {
 									required : true
-								},//district
+								},
 								sex : {
 									required : true
 								},
 								district : {
 									required : true
+								},
+								address : {
+									required : true
 								}
 							},
 							messages : {
 								name : {
-									required : "<span style='color:red;margin-left:10px;position: absolute; margin-top: 46px;'>请输入姓名</span>"
+									required : "<span style='color:red;margin-left:10px;'>请输入姓名</span>"
+								},
+								politicalStatus : {
+									required : "<span style='color:red;margin-left:10px;'>请选择政治面貌</span>"
+								},
+								nation : {
+									required : "<span style='color:red;margin-left:10px;'>请选择民族</span>"
+								},
+								education : {
+									required : "<span style='color:red;margin-left:10px;'>请选择学历</span>"
+								},
+								post : {
+									required : "<span style='color:red;margin-left:10px;'>请选择职位</span>"
 								},
 								mobile : {
 									required : "<span style='color:red;margin-left:10px;'>请输入手机号</span>",
@@ -403,13 +430,16 @@
 									isIdCardNo : "<span style='color:red;margin-left:10px;'>请输入正确的身份证号</span>"
 								},
 								email : {
-									required : "<span style='color:red;margin-left:10px;position: absolute;margin-top: 46px;width:225px'>请输入邮箱地址</span>"
+									required : "<span style='color:red;margin-left:10px;'>请输入邮箱地址</span>"
 								},
 								sex : {
-									required : ""
+									required : "<span style='color:red;margin-left:10px;'>性别不能为空</span>"
 								},
 								district : {
 									required : "<span style='color:red;margin-left:10px;'>请选择地区</span>"
+								},
+								address : {
+									required : "<span style='color:red;margin-left:10px;'>详细地址不能为空</span>"
 								}
 							}
 						})

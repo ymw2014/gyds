@@ -35,7 +35,7 @@ public class AutheDO implements Serializable {
 	//状态 1: 未审核 2:已审核 3:拒绝
 	private Integer status;
 	//订单
-	private Integer order;
+	private Long order;
 	//团队名称
 	private String teamName;
 	
@@ -156,11 +156,12 @@ public class AutheDO implements Serializable {
 	/**
 	 * 设置：订单
 	 */
-	public Integer getOrder() {
+	public Long getOrder() {
 		return order;
 	}
-	public void setOrder(Integer order) {
+	public void setOrder(Long order) {
 		this.order = order;
 	}
+	
 	
 }

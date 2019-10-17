@@ -135,7 +135,7 @@
 				<i></i>活动报名<span><a href="/pc/activityList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="baomingcen">
-				<div th:each="act:${actList}">
+				<div th:each="act,i:${actList}" th:if="${i.index lt 6}">
 					<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}"><img th:src="${act.actTitleImg}" alt=""></a>
 					<span th:text="${act.actTitle}"></span>
 					<p th:text="${act.actIntro}"></p>
@@ -155,7 +155,7 @@
 				<i></i>志愿者<span><a href="/pc/volunteerList"><img src="../mobile/images/xuanze.jpg" alt=""></a></span>
 			</div>
 			<div class="zhiyuanCen">
-				<div th:each="volunt: ${voluntList}" >
+				<div th:each="volunt,i: ${voluntList}" th:if="${i.index lt 15}">
 					<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 					<p th:text="${volunt.volunteerName}"></p>
 				</div>
@@ -170,7 +170,7 @@
 				<i></i>团队展示<span><a href="/pc/teamList"><img src="../mobile/images/xuanze.jpg" alt="" style="height: 7px;"></a></span>
 			</div>
 			<div class="tuanduiCen" >
-				<figure th:each="team: ${teamList}">
+				<figure th:each="team,i: ${teamList}" th:if="${i.index lt 9}">
 					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamImg}" alt=""></a>
 					<figcaption th:text="${team.teamName}"></figcaption>
 				</figure>

@@ -7,6 +7,8 @@
 <script th:src="@{/jqueryFileUpload/jquery.iframe-transport.js}"></script>
 <script th:src="@{/jqueryFileUpload/jquery.fileupload.js}"></script>
 <script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
+<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.1.js}"></script>
+			<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.1.css}">
 <style>
 .yy-gz {
 	display: none;
@@ -96,7 +98,7 @@
 			<label>
 				<span>真实姓名</span> <input name="name" type="text">
 			</label> 
-			<label> <span>政治面貌</span> <select name="politicalStatus">
+			<label> <span>政治面貌</span> <select name="politicalStatus" id="politicalStatus">
 					<option selected="selected">-请选择-</option>
 					<option value="中共党员">中共党员</option>
 					<option value="中共预备党员">中共预备党员</option>
@@ -112,7 +114,7 @@
 					<option value="无党派人士">无党派人士</option>
 					<option value="群众">群众</option>
 			</select>
-			</label> <label> <span>民族</span> <select name="nation">
+			</label> <label> <span>民族</span> <select name="nation" id="nation">
 					<option selected="selected">-请选择-</option>
 					<option value="汉族">汉族</option>
 					<option value="蒙古族">蒙古族</option>
@@ -173,7 +175,7 @@
 					<option value="基诺族">基诺族</option>
 			</select>
 			</label> 
-			<label> <span>最高学历</span> <select name="education">
+			<label> <span>最高学历</span> <select name="education" id="education">
 					<option selected="selected">-请选择-</option>
 					<option value="小学">小学</option>
 					<option value="初中">初中</option>
@@ -187,7 +189,7 @@
 					<option value="其他">其他</option>
 			</select>
 			</label>
-			<label> <span>从业状态</span> <select name="post">
+			<label> <span>从业状态</span> <select name="post" id="post">
 					<option selected="selected">-请选择-</option>
 					<option value="国家公务员">国家公务员</option>
 					<option value="专业技术人员">专业技术人员</option>

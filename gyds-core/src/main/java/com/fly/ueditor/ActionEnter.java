@@ -30,7 +30,7 @@ public class ActionEnter {
 		
 		this.request = request;
 		this.rootPath = rootPath;
-		this.actionType = request.getParameter( "action" );
+		this.actionType = request.getParameter( "Action" );
 		this.contextPath = request.getContextPath();
 		this.configManager = ConfigManager.getInstance( this.rootPath, this.contextPath, request.getRequestURI() );
 		
