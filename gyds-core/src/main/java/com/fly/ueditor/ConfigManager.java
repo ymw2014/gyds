@@ -163,7 +163,7 @@ public final class ConfigManager {
 	
 	private void initEnv () throws FileNotFoundException, IOException {
 		
-		File file = new File(this.contextPath);
+		File file = new File( this.originalPath );
 		
 		if ( !file.isAbsolute() ) {
 			file = new File( file.getAbsolutePath() );
@@ -171,7 +171,7 @@ public final class ConfigManager {
 		
 		this.parentPath = file.getParent();
 		
-		String configContent = this.readFile(path);
+		String configContent = this.readFile( path);
 		
 		try{
 			JSONObject jsonConfig = new JSONObject( configContent );
