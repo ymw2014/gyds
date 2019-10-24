@@ -25,6 +25,27 @@ public class Constant {
     
     //
     
-
+    public static class Project{
+    	/**
+    	 * 未登录
+    	 */
+    	public static int WEI_DENG_LU = 0;
+    	/**
+    	 * 可以承接
+    	 */
+    	public static int CHENG_JIE = 1;
+    	/**
+    	 * 以承接
+    	 */
+    	public static int YI_CHENG_JIE = 2;
+    	/**
+    	 * 不是团战不能承接
+    	 */
+    	public static int FEI_TUAN_ZHANG = 3;
+    	/**
+    	 * 未认证
+    	 */
+    	public static int WEI_REN_ZHENG = 4;
+    }
     
 }

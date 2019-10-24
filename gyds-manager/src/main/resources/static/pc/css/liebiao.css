@@ -1,0 +1,175 @@
+.page-product-index {
+    background: #fff;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+.page-container .banner {
+    overflow: hidden;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.page-container .banner img {
+    max-width: 100%;
+    width: 100%;
+}
+.page-container .banner img {
+    max-width: unset;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+.page-product-index .page {
+    overflow: unset;
+    padding-bottom: 20px;
+}
+.page {
+    width: 1200px;
+    margin: 20px auto;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.page-product-index .page {
+    overflow: unset;
+    padding-bottom: 20px;
+}
+.page {
+    width: 1200px;
+    margin: 20px auto;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+html, body, .page {
+    position: relative;
+    min-height: 100%;
+}
+.page-product-index .page .product-tab {
+    margin-top: 40px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 30px;
+}
+.page-product-index .page .product-tab .tab-item {
+    font-size: 16px;
+    color: #666;
+    height: 50px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+.page-product-index .page .product-list {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -26px;
+    margin-bottom: 20px;
+}
+.page-container .page-product-index .page .product-list .list-item {
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.page-product-index .page .product-list .list-item {
+    transition: all 0.3s;
+    width: 280px;
+    height: 320px;
+    box-sizing: border-box;
+    border: 1px solid #e6e6e6;
+    padding: 10px 15px;
+    margin-bottom: 30px;
+    margin-right: 26px;
+}
+a {
+    color: unset;
+}
+.pagination a {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: top;
+    color: #999;
+    margin: 0 10px;
+}
+.page-product-index .page .product-list .list-item .img-box img {
+    transition: all 0.3s;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+.page-product-index .page .product-list .list-item .title {
+    padding: 20px 0;
+    color: #333;
+    font-size: 16px;
+    height: 84px;
+    box-sizing: border-box;
+}
+.page-product-index .page .product-list .list-item .desc {
+    color: #999;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.pagination a {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: top;
+    color: #999;
+    margin: 0 10px;
+}
+.pagination a.on {
+    color: #b81c26;
+    border-bottom: 1px solid #b81c26;
+}
+
+.pagination a {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: top;
+    color: #999;
+    margin: 0 10px;
+}
+.pagination {
+    text-align: center;
+}
+.page-product-index .page .product-tab .tab-item.active {
+    background: #b81c26;
+    color: #fff;
+}
+.img-box img{
+	width: 100%;
+	    height: 180px;
+}    

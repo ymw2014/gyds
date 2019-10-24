@@ -1,9 +1,9 @@
 package com.fly.project.service;
 
-import com.fly.project.domain.ProjectInfoDO;
-
 import java.util.List;
 import java.util.Map;
+
+import com.fly.project.domain.ProjectInfoDO;
 
 /**
  * 项目详情
@@ -27,4 +27,7 @@ public interface ProjectInfoService {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	List<ProjectInfoDO> proInfoList(Map<String, Object> map);
+	
 }

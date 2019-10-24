@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.project.dao.ProjectInfoDao">
 
 	<select id="get" resultType="com.fly.project.domain.ProjectInfoDO">
-		select i.`id`,i.`project_name`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name` from project_info i left join project_type t on i.project_type = t.id  where i.id = #{value}
+		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name` from project_info i left join project_type t on i.project_type = t.id  where i.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.project.domain.ProjectInfoDO">
-		select i.`id`,i.`project_name`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name` from project_info i left join project_type t on i.project_type = t.id
+		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name` from project_info i left join project_type t on i.project_type = t.id
         <where>  
 		  		  <if test="id != null and id != ''"> and i.id = #{id} </if>
 		  		  <if test="projectName != null and projectName != ''"> and i.project_name = #{projectName} </if>
@@ -21,6 +21,7 @@
 		  		  <if test="order != null and order != ''"> and i.order = #{order} </if>
 		  		  <if test="teamCount != null and teamCount != ''"> and i.team_count = #{teamCount} </if>
 		  		  <if test="shareCount != null and shareCount != ''"> and i.share_count = #{shareCount} </if>
+		  		  <if test="teamId != null and teamId != ''"> and i.team_id = #{teamId} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -49,6 +50,7 @@
 		  		  <if test="order != null and order != ''"> and order = #{order} </if>
 		  		  <if test="teamCount != null and teamCount != ''"> and team_count = #{teamCount} </if>
 		  		  <if test="shareCount != null and shareCount != ''"> and share_count = #{shareCount} </if>
+		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
 		  		</where>
 	</select>
 	 
@@ -62,7 +64,8 @@
 			`intro`, 
 			`create_time`, 
 			`status`, 
-			`order`
+			`order`,
+			`team_id`
 		)
 		values
 		(
@@ -73,7 +76,8 @@
 			#{intro}, 
 			#{createTime}, 
 			#{status}, 
-			#{order}
+			#{order},
+			#{teamId}
 		)
 	</insert>
 	 
@@ -90,6 +94,7 @@
 			<if test="order != null">`order` = #{order}, </if>
 			<if test="teamCount != null">`team_count` = #{teamCount}, </if>
 			<if test="shareCount != null">`share_count` = #{shareCount}</if>
+			<if test="teamId != null">`team_id` = #{teamId}</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -104,5 +109,26 @@
 			#{id}
 		</foreach>
 	</delete>
-
+	
+	<select id="proInfoList" resultType="com.fly.project.domain.ProjectInfoDO">
+		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name`,te.team_name from project_info i left join project_type t on i.project_type = t.id  left join team te on i.team_id = te.id 
+        <where>  
+		  		  <if test="id != null and id != ''"> and i.id = #{id} </if>
+		  		  <if test="projectName != null and projectName != ''"> and i.project_name = #{projectName} </if>
+		  		  <if test="projectType != null and projectType != ''"> and i.project_type = #{projectType} </if>
+		  		  <if test="logo != null and logo != ''"> and i.logo = #{logo} </if>
+		  		  <if test="tickets != null and tickets != ''"> and i.tickets = #{tickets} </if>
+		  		  <if test="intro != null and intro != ''"> and i.intro = #{intro} </if>
+		  		  <if test="createTime != null and createTime != ''"> and i.create_time = #{createTime} </if>
+		  		  <if test="status != null and status != ''"> and i.status = #{status} </if>
+		  		  <if test="order != null and order != ''"> and i.order = #{order} </if>
+		  		  <if test="teamCount != null and teamCount != ''"> and i.team_count = #{teamCount} </if>
+		  		  <if test="shareCount != null and shareCount != ''"> and i.share_count = #{shareCount} </if>
+		  		  <if test="teamId != null and teamId != ''"> and i.team_id = #{teamId} </if>
+		  		</where>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
 </mapper>

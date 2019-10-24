@@ -2,6 +2,7 @@ package com.fly.pc.persion.controller;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,8 @@ import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
+import com.fly.project.domain.ProjectInfoDO;
+import com.fly.project.service.ProjectInfoService;
 import com.fly.sys.domain.SetupDO;
 import com.fly.sys.service.SetupService;
 import com.fly.system.dao.UserDao;
@@ -81,6 +84,8 @@ public class PersionController extends BaseController{
 	TeamDao teamDao;
 	@Autowired
 	private LevelDao levelDao;
+	@Autowired
+	private ProjectInfoService projectInfoService;
 
 	@ResponseBody
 	@RequestMapping("/pc/binding")
@@ -343,7 +348,7 @@ public class PersionController extends BaseController{
 		if(name.getAddress()==null||name.getAddress()=="") {
 			return R.error("详细地址不能为空"); 
 		}
-		
+
 		if("1".equals(name.getType().toString())) {
 			if(name.getCardBackImg()==null) {
 				return R.error("个人形象照不能为空"); 
@@ -357,16 +362,16 @@ public class PersionController extends BaseController{
 		if("2".equals(name.getType().toString())) {
 			if(map.get("teamTitleImg")==null||map.get("teamTitleImg")=="") { 
 				return
-					R.error("团队logo不能为空"); 
-				} 
+						R.error("团队logo不能为空"); 
+			} 
 			if(map.get("teamImg")==null||map.get("teamImg")=="")
-				{ 
+			{ 
 				return R.error("团队照片不能为空"); 
-				}
+			}
 			if(name.getCardFrontImg()==null||name.getCardFrontImg()=="") { 
 				return
-					R.error("身份证正面不能为空"); 
-				}
+						R.error("身份证正面不能为空"); 
+			}
 			flag="1";
 		}
 		//1:入团申请2:建团申请3:代理商入驻
@@ -467,6 +472,29 @@ public class PersionController extends BaseController{
 
 	@RequestMapping("/pc/newAdd")
 	public String newsAdd(Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> listMap = new ArrayList<Map<String,Object>>();
+		Map<String, Object> type = new HashMap<String, Object>();
+		Long userId = ShiroUtils.getUserId();
+		Map<String, Object> volMap = voService.getVoInfo(userId);
+		if(volMap!=null) {
+			Object teamId = volMap.get("team_id");
+			if(teamId!=null) {
+				map.put("teamId", teamId);
+				map.put("status", 2);
+				List<ProjectInfoDO> proList = projectInfoService.list(map);
+				if(!proList.isEmpty()) {
+					for (ProjectInfoDO projectInfoDO : proList) {
+						type.put("id", projectInfoDO.getId());
+						type.put("name", projectInfoDO.getProjectName());
+						listMap.add(type);
+						//1:有承接项目 
+						//model.addAttribute("isPro", 1);
+					}
+				}
+			}
+		}
+		model.addAttribute("listMap", listMap);
 		return "pc/news_add";
 	}
 	@RequestMapping("/pc/new/message")
@@ -509,8 +537,30 @@ public class PersionController extends BaseController{
 
 	@RequestMapping("/pc/activityAdd")
 	public String activityAdd(Model model) {
-		UserDO user = ShiroUtils.getUser();
 		List<TypeDO> list = typeService.list(null);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> listMap = new ArrayList<Map<String,Object>>();
+		Map<String, Object> type = new HashMap<String, Object>();
+		Long userId = ShiroUtils.getUserId();
+		Map<String, Object> volMap = voService.getVoInfo(userId);
+		if(volMap!=null) {
+			Object teamId = volMap.get("team_id");
+			if(teamId!=null) {
+				map.put("teamId", teamId);
+				map.put("status", 2);
+				List<ProjectInfoDO> proList = projectInfoService.list(map);
+				if(!proList.isEmpty()) {
+					for (ProjectInfoDO projectInfoDO : proList) {
+						type.put("id", projectInfoDO.getId());
+						type.put("name", projectInfoDO.getProjectName());
+						listMap.add(type);
+					}
+				}
+			}
+		}
+		model.addAttribute("listMap", listMap);
+		
 		/*
 		 * Map<String,Object> params = new HashMap<String, Object>();
 		 * params.put("memberId", user.getUserId()); List<ActivityDO> activi =

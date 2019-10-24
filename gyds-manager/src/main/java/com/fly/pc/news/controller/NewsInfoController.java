@@ -388,7 +388,7 @@ public class NewsInfoController extends BaseController {
 				return r.error("3");
 			}
 			BigDecimal rate = setup.getRedPacketExtract();
-			params.put("price", rate.multiply(price).add(price));
+			//params.put("price", rate.multiply(price).add(price));
 			params.put("price", price);
 			//创建红包
 			if (creatRed(params) > 0) {

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/liebiao.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}"/>
+		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+	</head>
+	<body>
+	<!-- 头部 -->
+	<div th:replace="pc/include :: header"></div>
+	
+		<div class="page-product-index">
+        <div class="banner">
+            <img src="" alt="">
+        </div>
+        <div class="page">
+            <div class="product-tab">
+                <a href="javascript:;" class="tab-item" th:each="proType : ${proTypeList}" th:text="${proType.projectTypeName}" th:onclick="'javascript:queryType('+${proType.id}+')'"></a>
+				<a href="" class="tab-item active">全部产品</a>
+            </div>
+            <div class="product-list">
+                <a th:href="@{/pc/queryProById(areaId=${areaId},id=${proInfo.id})}" class="list-item" th:each="proInfo : ${proInfoList}">
+                        <div class="img-box"><img th:src="${proInfo.logo}" alt=""></div>
+                        <div class="title" th:text="${proInfo.projectName}"></div>
+                        <div class="desc" th:text="${proInfo.teamName}"></div>
+                    </a>            </div>
+            <ul class="pagination pagination-sm">
+				 <a class="btn disabled prev" title="" href="javascript:;">
+					<img src="" alt="">
+				 </a><!---->	
+				  <a class="on" href="">1</a>
+				  <a class="" th:href="@{/pc/Home/Product/index.html?page=2}">2</a>
+				  <a class="" th:href="@{/pc/Home/Product/index.html?page=3}">3</a>
+				  <a class="" th:href="@{/pc/Home/Product/index.html?page=4}">4</a>
+				  <a class="" th:href="@{/pc/Home/Product/index.html?page=5}">5</a>
+				  <a class="btn  next" title="" th:href="@{/pc/Home/Product/index.html?page=2}">
+					  <img src="" alt="">
+				  </a>
+            </ul>
+<!--<span>共50条数据</span>-->        </div>
+    </div>
+    <!-- 底部 -->
+	<div th:replace="pc/include :: footer"></div>
+	
+	</body>
+	
+	<script th:src="@{/pc/js/common.js}"></script>
+	<script type="text/javascript">
+	 $('.product-tab a').click(function(){
+		 console.log("1")
+		 $(this).addClass("active").siblings('a').removeClass("active");
+	 })
+	 
+	 
+	  function queryType(type){
+		 $.ajax({
+				type : "POST",
+				url : "/pc/queryProByType?type="+type+"",
+				success : function(r) {
+					var b = '';
+					$.each(r.platformList, function(i, item) {
+					b += '<a href="" class="list-item"> <div class="img-box"><img src="'+item.logo+'" alt=""></div> <div class="title">'+item.projectName+'</div> <div class="desc" >'+item.teamName+'</div> </a>'
+					});
+					$('.product-list').empty();
+					$('.product-list').append(b);
+					
+				}
+			})
+
+	}
+	</script>
+</html>

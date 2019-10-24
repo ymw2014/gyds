@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/public.css}"/>
+		<script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.1.js}"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/pc/css/index.css}"/>
+			<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.1.css}">
+	</head>
+	<body>
+	<!-- 头部 -->
+	<div th:replace="pc/include :: header"></div>
+		<!-- 主体 -->
+		<div class="public">
+			<!-- 所在位置 -->
+			<!-- <div class="public-abtton" >
+				<p>您所在的位置><a href="/">首页</a> > <a href="">公益产品 </a>> <a href="" th:text="${proInfo.projectName}">河流守望者行动网络</a></p>
+			</div> -->
+			<!-- 左侧主体 -->
+			<div class="public-left">
+				<div class="public-left1">
+					<h4>品牌发起机构</h4>
+					<div class="public-left1-1">
+						<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}">
+							<img th:src="${team.teamTitleImg}" alt="">
+						</a>
+						<p th:text="${team.teamName}"></p>
+						<ul>
+							<li th:text="${'联系人：' + team.colonelName}">联系人：王某某</li>
+							<li th:text="${'电话：' +  team.colonelTel}">电话：15838338566</li>
+							<li th:text="${'网址：' + team.colonelTel}">网址：www.haogongyi.org.cn</li>
+							<li th:text="${'地区：' + team.addres}">地区：河南省郑州市</li>
+						</ul>
+					</div>
+				</div>
+				<div class="public-left2">
+					<h4>优质产品推荐 </h4>
+					<div class="public-left2-1">
+						<a th:href="@{/pc/queryProById(areaId=${areaId},id=${pro.id})}" th:each="pro:${rePro}">
+							<img th:src="${pro.logo}" alt="">
+							<p th:text="${pro.projectName}">安全号列车—儿童安全社区共创计划</p>
+							<span th:text="${pro.tickets}">免费</span>
+						</a>
+						
+					</div>
+				</div>
+			</div>
+			<input type="hidden" id="id" th:value="${proInfo.id}">
+			<input type="hidden" id="order" value="">
+			<!-- 右侧主体 -->
+			<div class="public-right">
+				<div class="public-right1">
+					<img th:src="${proInfo.logo}" alt="">
+					<p th:text="${proInfo.projectName}"></p>
+					<ul>
+						<li><img th:src="@{/pc/images/diandian_03.png}" alt="" th:text="${proInfo.projectTypeName}"></li>
+						<li style="color:#9e2946;"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${proInfo.tickets}"></li>
+					</ul>
+					<a href="/login" th:if="${isPro}==0">点击承接</a>
+					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay('+${proInfo.tickets}+')'" class="btn1">点击承接</a>
+					<a href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接</a>
+					<a href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>
+					<a href="javascript:;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>
+				</div>
+				<div class="public-right2">
+					<ul>
+						<li class="artin">项目介绍</li>
+						<li>承接机构</li>
+						<li>活动中心</li>
+						<li>咨询报道</li>
+					</ul>
+				</div>
+				<div class="public-right3">
+					<div class="public-right3-1" style="display:block;">
+<!-- 						<h5>产品介绍</h5>
+ -->						<p th:utext="${proInfo.intro}"></p>
+						
+					</div>
+					<div class="public-right3-2">
+						<ul>
+							<li th:each="team:${teamList}">
+								<a th:href="@{/pc/teamDetail(teamId=${team.teamId},areaId=${areaId})}" th:text="${team.teamName}"></a>
+							</li>
+						</ul>
+					</div>
+					<div class="public-right3-3">
+							<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}" th:each="act:${actList}">
+								<figure>
+									<img th:src="${act.actTitleImg}" alt="">
+									<figcaption>
+										<p th:text="${act.actTitle}">夏令营招募|2019潮人学院带你星辰大海</p>
+										<div>
+											<p th:text="${act.actType}==0?'免费':${'¥'+act.actPrice}">¥99</p>
+										    <span th:text="${act.numberOfApplicants + '人报名'}"></span>
+										</div>
+									</figcaption>
+								</figure>
+							</a>
+							
+					</div>
+					<div class="public-right3-4">
+						<ul>
+							<li th:each="news:${newsList}"><a th:href="@{/pc/news/info(id=${news.id},areaId=${areaId})}"><span th:utext="${'['+news.teamName+']'+'&nbsp;<span>'+news.title+'</span>'}"></span></a><span th:text="${#dates.format(news.publicTime, 'yyyy-MM-dd')}"></span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 主体结束 -->
+		<div class="m-modal">
+		<div class="m-modal-dialog m-modal-dialog adddd">
+				<div class="m-top">
+					<span class="m-modal-close">X</span>
+				</div>
+				<div class="m-middle2">
+				   <div class="m-middletxt2-1">
+				       <p id="blance"></p>
+					   <img id="codeUrl" src="" alt="">
+				   </div>
+				   <div class="m-middletxt3-1">
+					   <img th:src="@{/pc/images/zasfaff.png}" alt="">
+				   </div>
+				</div>
+			</div>
+			</div>
+			
+			<!-- 底部 -->
+	<div th:replace="pc/include :: footer"></div>
+	</body>
+	<script th:src="@{/pc/js/common.js}"></script>
+	<script type="text/javascript">
+	var m1 = new MyModal.modal(function() {
+	});
+	$('.btn1').on("click", function() {
+	m1.show();
+	});
+	function pay(tickets){
+		if(tickets==0){
+			sava();
+		}else{
+			 $('#blance').text("付款金额 " +tickets + "元");
+				$(".m-modal-dialog").css("display","none")
+				$(".adddd").show();
+			var orderNum = createOrder(tickets,12);
+			if (orderNum != '-1') {
+				$('#order').val(orderNum);
+				$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (tickets * 100) + "&orderNum=" + orderNum);
+				timer = setInterval(function () {
+						var msg = queryOrder(orderNum)
+						if (msg == '1') {
+							sava();
+							history.go(0);
+						}
+					},500);
+			} else {
+				layer.msg("未知错误");
+			}
+		}
+	}
+	function sava(){
+		var id = $('#id').val();
+		var order = $('#order').val();
+		if(orderNum==null){
+			orderNum = 0
+		}
+		$.ajax({
+			type : "POST",
+			url : "/pc/savaPro?id="+id+"&order="+order,
+			success : function(r) {
+				if (r.code == 0) {
+					layer.msg(r.msg);
+					$(".m-modal3,.m-modal3-close,.m-btn-cancel").hide();
+				} else {
+					layer.msg(r.msg);
+				}
+			},
+		});
+	}
+	
+	//创建订单
+	function createOrder(fee,orderType){
+		var orderNum = '';
+		$.ajax({
+			type : "POST",
+			url : "/pc/news/createOrder",
+			data : {'data': fee,
+					'orderType':orderType},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					orderNum = r.msg;
+				} else if(r.code == -1){
+					orderNum =-1;
+				}else if(r.code == -2){
+					orderNum =-2;
+				}
+				}
+		});
+		return orderNum;
+	}
+	//查询订单支付状态
+	function queryOrder(orderNum){
+		var stauts = '';
+		$.ajax({
+			type : "POST",
+			url : "/wxpay/queryOrder",
+			data : {'orderNum': orderNum},
+			async:false,
+			success : function(r) {
+				if (r.code == 0) {
+					stauts = r.msg;
+				} else if(r.code == -1){
+					stauts =-1;
+				}else if(r.code == -2){
+					stauts =-2;
+				}
+				}
+		});
+		return stauts;
+	}
+	
+	$(".m-modal,.m-modal-close,.m-btn-cancel").on("click", function(event) {
+		$('.m-modal').hide();
+	});
+	</script>
+</html>
+<script>
+	$(".public-right2 li").click(function(){
+		var index=$(this).index();
+		console.log(index);
+		$(this).addClass("artin").siblings("li").removeClass("artin");
+		$(".public-right3>div").hide().eq($(this).index()).show()
+	})
+	
+</script>
+

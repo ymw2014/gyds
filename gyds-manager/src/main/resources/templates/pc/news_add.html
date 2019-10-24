@@ -19,6 +19,13 @@
 						<span>作者</span>
 						<input name="author" type="text">
 					</label>
+					<label th:if="${#lists.size(listMap)} gt 0">
+						<span>承接项目</span>
+						<select style="width: 385px" name="projectId">
+							<option value="0">--请选择--</option>
+							<option th:each="map:${listMap}" th:text="${map.name}" th:value="${map.id}"></option>
+						</select>
+					</label>
 					<!-- <label>
 						<span>来源</span>
 						<input name="source" type="text">

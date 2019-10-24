@@ -161,6 +161,7 @@ function statusQuery(status) {
 function info(obj) {
 	var html = '';
 	$.each(obj, function (n, value) {
+		var areaId = $('#areaId').val();
 		var actype = '';
 		if (value.actType == 0) {
 			actype = '免费';
@@ -168,7 +169,7 @@ function info(obj) {
 			actype = '收费';
 		}
 		html += '<figure>' + 
-					'<a href="/pc/activityDetail?id='+value.id+'"><img src=" ' + value.actTitleImg + '" alt=""></a>' +
+					'<a href="/pc/activityDetail?id='+value.id+'&areaId='+areaId+'"><img src=" ' + value.actTitleImg + '" alt=""></a>' +
 			    		'<figcaption>' +
 							'<p>'+ value.actTitle + '</p>' +
 							'<p style="font-size:14px; color:#676767;">'+ value.actIntro +'</p>' +

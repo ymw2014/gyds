@@ -10,11 +10,11 @@
 		n.payment_duration,n.payment_top,n.red_peper_id,n.red_peper,
 		DATE_FORMAT(n.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr,
 		n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,n.introduction,
-		n.content,n.author,n.title,n.id,n.top_region from new_info n left join team t on n.team_id = t.id where n.id = #{value}
+		n.content,n.author,n.title,n.id,n.top_region,n.`project_id` from new_info n left join team t on n.team_id = t.id where n.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.news.domain.InfoDO">
-		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_id,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,t.team_title_img,n.introduction,n.content,n.author,n.title,n.id,n.top_region from new_info n left join team t on n.team_id = t.id
+		select n.is_del,n.is_red_peper,n.is_top,n.type,n.number_of_shares,n.criticism_of_count,n.number_of_likes,n.level,n.reward_max,n.reward_num_of_people,n.reward_count,n.reward_price,n.pyment_end_time,n.pyment_start_time,n.payment_criterion,n.payment_duration,n.payment_top,n.red_peper_id,n.red_peper,n.create_time,n.title_img,n.source,n.public_time,n.status,n.team_id,t.team_name,t.team_title_img,n.introduction,n.content,n.author,n.title,n.id,n.top_region,n.`project_id` from new_info n left join team t on n.team_id = t.id
         <where>  
 		  		  <if test="isDel != null and isDel != ''"> and n.is_del = #{isDel} </if>
 		  		  <if test="isRedPeper != null"> and n.is_red_peper = #{isRedPeper} </if>
@@ -48,6 +48,7 @@
  				  <if test="startTime != null and startTime != ''"> AND n.create_time &gt;= #{startTime}</if>
 				  <if test="endTime != null and endTime != ''">AND n.create_time &lt;= #{endTime}</if>
 				  <if test="topRegion != null and topRegion != ''">AND n.top_region = #{topRegion}</if>
+				  <if test="projectId != null and projectId != ''">AND n.project_id = #{projectId}</if>
 				 <if test="ids != null">
 		         	and left(n.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		          </if>
@@ -100,6 +101,7 @@
 		  		 <if test="startTime != null and startTime != ''"> AND create_time &gt;= #{startTime}</if>
 				  <if test="endTime != null and endTime != ''">AND create_time &lt;= #{endTime}</if>
 				  <if test="topRegion != null and topRegion != ''">AND top_region = #{topRegion}</if>
+				   <if test="projectId != null and projectId != ''">AND project_id = #{projectId}</if>
 				  <if test="ids != null">
 		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		          </if>
@@ -131,7 +133,8 @@
 			`content`, 
 			`author`, 
 			`title`,
-			`top_region`
+			`top_region`,
+			`project_id`
 		)
 		values
 		(
@@ -157,7 +160,8 @@
 			#{content}, 
 			#{author}, 
 			#{title},
-			#{topRegion}
+			#{topRegion},
+			#{projectId}
 		)
 	</insert>
 	 
@@ -194,6 +198,7 @@
 			<if test="author != null">`author` = #{author}, </if>
 			<if test="title != null">`title` = #{title}, </if>
 			<if test="topRegion != null">`top_region` = #{topRegion},</if>
+			<if test="projectId != null">`project_id` = #{projectId},</if>
 		</set>
 		where id = #{id}
 	</update>

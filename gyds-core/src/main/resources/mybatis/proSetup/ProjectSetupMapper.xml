@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fly.proSetup.dao.ProjectSetupDao">
+
+	<select id="get" resultType="com.fly.proSetup.domain.ProjectSetupDO">
+		select `id`,`team_extract`,`agency_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract` from project_setup where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.fly.proSetup.domain.ProjectSetupDO">
+		select `id`,`team_extract`,`agency_extract`,`area_extract`,`city_extract`,`province_extract`,`head_extract` from project_setup
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="teamExtract != null and teamExtract != ''"> and team_extract = #{teamExtract} </if>
+		  		  <if test="agencyExtract != null and agencyExtract != ''"> and agency_extract = #{agencyExtract} </if>
+		  		  <if test="areaExtract != null and areaExtract != ''"> and area_extract = #{areaExtract} </if>
+		  		  <if test="cityExtract != null and cityExtract != ''"> and city_extract = #{cityExtract} </if>
+		  		  <if test="provinceExtract != null and provinceExtract != ''"> and province_extract = #{provinceExtract} </if>
+		  		  <if test="headExtract != null and headExtract != ''"> and head_extract = #{headExtract} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from project_setup
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="teamExtract != null and teamExtract != ''"> and team_extract = #{teamExtract} </if>
+		  		  <if test="agencyExtract != null and agencyExtract != ''"> and agency_extract = #{agencyExtract} </if>
+		  		  <if test="areaExtract != null and areaExtract != ''"> and area_extract = #{areaExtract} </if>
+		  		  <if test="cityExtract != null and cityExtract != ''"> and city_extract = #{cityExtract} </if>
+		  		  <if test="provinceExtract != null and provinceExtract != ''"> and province_extract = #{provinceExtract} </if>
+		  		  <if test="headExtract != null and headExtract != ''"> and head_extract = #{headExtract} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.fly.proSetup.domain.ProjectSetupDO">
+		insert into project_setup
+		(
+			`id`, 
+			`team_extract`, 
+			`agency_extract`, 
+			`area_extract`, 
+			`city_extract`, 
+			`province_extract`, 
+			`head_extract`
+		)
+		values
+		(
+			#{id}, 
+			#{teamExtract}, 
+			#{agencyExtract}, 
+			#{areaExtract}, 
+			#{cityExtract}, 
+			#{provinceExtract}, 
+			#{headExtract}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.fly.proSetup.domain.ProjectSetupDO">
+		update project_setup 
+		<set>
+			<if test="teamExtract != null">`team_extract` = #{teamExtract}, </if>
+			<if test="agencyExtract != null">`agency_extract` = #{agencyExtract}, </if>
+			<if test="areaExtract != null">`area_extract` = #{areaExtract}, </if>
+			<if test="cityExtract != null">`city_extract` = #{cityExtract}, </if>
+			<if test="provinceExtract != null">`province_extract` = #{provinceExtract}, </if>
+			<if test="headExtract != null">`head_extract` = #{headExtract}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from project_setup where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from project_setup where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

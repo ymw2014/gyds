@@ -11,13 +11,13 @@
 		DATE_FORMAT(a.start_time,'%Y-%m-%d %H') startTimeStr,
 		DATE_FORMAT(a.end_time,'%Y-%m-%d %H') endTimeStr,
 		a.activi_start_time, a.activi_end_time,
-		a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal,a.activi_start_time,a.activi_end_time from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id left join team m on a.team_id = m.id where a.id = #{value}
+		a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal,a.activi_start_time,a.activi_end_time,a.`project_id` from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id left join team m on a.team_id = m.id where a.id = #{value}
 	</select>
 
 		<!-- DATE_FORMAT(a.start_time,'%Y-%m-%d %H:%i:%s') startTimeStr,
 		DATE_FORMAT(a.end_time,'%Y-%m-%d %H:%i:%s') endTimeStr, -->
 	<select id="list" resultType="com.fly.activity.domain.ActivityDO">
-        select a.id,a.act_intro,a.activi_start_time, a.activi_end_time,act_addr,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
+        select a.id,a.act_intro,a.activi_start_time, a.activi_end_time,act_addr,a.act_title,a.act_content,a.member_id,a.status,a.examine_status,u.name,a.act_price,a.act_title_img,a.act_type_id,t.type_name,a.start_time,a.end_time,a.create_time,a.ticket_count,a.act_type,a.restrictions,a.number_of_shares,a.number_of_collection,a.number_of_previews,a.number_of_applicants,a.applicants_num_max,a.reason_for_refusal,a.`project_id` from activity a left join act_type t on a.act_type_id=t.id left join sys_user u on a.member_id = u.user_id
         <where>  
 		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
 		  		  <if test="actIntro != null and actIntro != ''"> and a.act_intro = #{actIntro} </if>
@@ -43,6 +43,7 @@
 		  		  <if test="activiStartTime != null and activiStartTime != ''"> and a.activi_start_time = #{activiStartTime} </if>
 		  		  <if test="activiEndTime != null and activiEndTime != ''"> and a.activi_end_time = #{activiEndTime} </if>
 		  		  <if test="memberId != null and memberId != ''"> and a.member_id = #{memberId} </if>
+		  		  <if test="projectId != null and projectId != ''"> and a.project_id = #{projectId} </if>
 		  		  <if test="ids != null">
 		         	and left(a.team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		          </if>
@@ -86,6 +87,7 @@
 		  		  <if test="activiEndTime != null and activiEndTime != ''"> and activi_end_time = #{activiEndTime} </if>
 		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
 		  		  <if test="memberId != null and memberId != ''"> and member_id = #{memberId} </if>
+		  		  <if test="projectId != null and projectId != ''"> and project_id = #{projectId} </if>
 		  		 <if test="ids != null">
 		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
 		          </if>
@@ -114,7 +116,8 @@
 			team_id,
 			activi_start_time,
 			activi_end_time,
-			act_addr
+			act_addr,
+			`project_id`
 		)
 		values
 		(	
@@ -137,7 +140,8 @@
 			#{teamId},
 			#{activiStartTime},
 			#{activiEndTime},
-			#{actAddr}
+			#{actAddr},
+			#{projectId}
 		)
 	</insert>
 	 
@@ -166,7 +170,8 @@
 			<if test="reasonForRefusal != null">`reason_for_refusal` = #{reasonForRefusal},</if>
 			<if test="activiStartTime != null"> activi_start_time = #{activiStartTime}, </if>
   		    <if test="activiEndTime != null"> activi_end_time = #{activiEndTime}, </if>
-  		    <if test="teamId != null "> team_id = #{teamId} </if>
+  		    <if test="teamId != null "> team_id = #{teamId}, </if>
+  		    <if test="projectId != null"> project_id = #{projectId} </if>
 		</set>
 		where id = #{id}
 	</update>
@@ -232,6 +237,7 @@
 		  		  <if test="reasonForRefusal != null and reasonForRefusal != ''"> and reason_for_refusal = #{reasonForRefusal} </if>
 		  		  <if test="activiStartTime != null and activiStartTime != ''"> and activi_start_time &lt;= #{activiStartTime} </if>
 		  		  <if test="activiEndTime != null and activiEndTime != ''"> and activi_end_time &lt;= #{activiEndTime} </if>
+		  		  <if test="projectId != null and projectId !=''"> and project_id = #{projectId} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">

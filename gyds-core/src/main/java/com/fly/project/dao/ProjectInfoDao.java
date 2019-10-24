@@ -29,4 +29,7 @@ public interface ProjectInfoDao {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	List<ProjectInfoDO> proInfoList(Map<String,Object> map);
+	
 }

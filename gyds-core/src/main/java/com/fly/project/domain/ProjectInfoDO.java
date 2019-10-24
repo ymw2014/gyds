@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fly.team.domain.TeamDO;
+
 
 
 /**
@@ -22,6 +24,8 @@ public class ProjectInfoDO implements Serializable {
 	private String projectName;
 	//项目类型
 	private Long projectType;
+	//团队id
+	private Long teamId;
 	//项目LOGO
 	private String logo;
 	//参加费用
@@ -43,8 +47,21 @@ public class ProjectInfoDO implements Serializable {
 	
 	private BigDecimal cost;
 	
+	private String teamName;
 	
 	
+	public Long getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(Long teamId) {
+		this.teamId = teamId;
+	}
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 	public BigDecimal getCost() {
 		return cost;
 	}

@@ -1,10 +1,10 @@
 package com.fly.project.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fly.project.dao.ProjectInfoDao;
 import com.fly.project.domain.ProjectInfoDO;
@@ -51,5 +51,12 @@ public class ProjectInfoServiceImpl implements ProjectInfoService {
 	public int batchRemove(Long[] ids){
 		return projectInfoDao.batchRemove(ids);
 	}
+
+	@Override
+	public List<ProjectInfoDO> proInfoList(Map<String, Object> map) {
+		return projectInfoDao.proInfoList(map);
+	}
+
+		
 	
 }

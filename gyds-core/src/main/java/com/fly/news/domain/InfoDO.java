@@ -85,7 +85,14 @@ public class InfoDO implements Serializable {
 	private Long id;
 	//置顶区域
 	private Long topRegion;
+	private Long projectId;
 	
+	public Long getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
 	private String createTimeStr;
 	
 	public String getTeamTitleImg() {
