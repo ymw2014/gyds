@@ -184,23 +184,6 @@ public class FileController extends BaseController {
 	@ResponseBody
 	@PostMapping("/upload")
 	R upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-		/*if ("test".equals(getUsername())) {
-			return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-		}
-		String fileName = file.getOriginalFilename();
-		fileName = FileUtil.renameToUUID(fileName);
-		FileDO sysFile = new FileDO(FileType.fileType(fileName), "/files/" + fileName, new Date());
-		try {
-			FileUtil.uploadFile(file.getBytes(), bootdoConfig.getUploadPath(), fileName);
-		} catch (Exception e) {
-			return R.error();
-		}
-
-		if (sysFileService.save(sysFile) > 0) {
-			return R.ok().put("fileName",sysFile.getUrl()).put("id",sysFile.getId());
-		}
-		return R.error();*/
-		
 		 logger.info("============>文件上传");
 	        try {
 	            if(null != file){
@@ -229,6 +212,38 @@ public class FileController extends BaseController {
 	        }
 			return R.error();
 	        
+	}
+	
+	@ResponseBody
+	@PostMapping("/ueditorUpload")
+	String ueditorUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+		 logger.info("============>文件上传");
+	        try {
+	            if(null != file){
+	                String filename = file.getOriginalFilename();
+	                if(!"".equals(filename.trim())){
+	                    File newFile = new File(filename);
+	                    FileOutputStream os = new FileOutputStream(newFile);
+	                    os.write(file.getBytes());
+	                    os.close();
+	                    os.flush();
+//	                    file.transferTo(newFile);
+	                    //上传到OSS
+	                    String uploadUrl = AliyunOSSUtil.upload(newFile);
+
+	                    //上传图片的时候图片会保留在本地项目
+	                    File file1 = new File("");
+	                    String s = file1.getAbsolutePath();
+	                    DeleteFileUtil.delete(s + "\\" + filename);
+	                    logger.info("上传图片路径"+uploadUrl);
+	                    //return "上传成功";
+	                    return ConstantProperties.JAVA4ALL_FILE_URL+"/"+uploadUrl;
+	                }
+	            }
+	        }catch (Exception ex){
+	            ex.printStackTrace();
+	        }
+	        return  null;
 	}
 
 	@ResponseBody

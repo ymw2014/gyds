@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +58,7 @@ import com.fly.volunteer.service.VolunteerService;
 @Controller
 @RequestMapping("/pc/")
 public class PcVolunteerController {
+	private Logger log=LoggerFactory.getLogger(PcVolunteerController.class);
 	@Autowired
 	private TeamService teamService;
 	@Autowired
@@ -118,6 +121,7 @@ public class PcVolunteerController {
 	@RequestMapping("queryVolunteerList")
 	@ResponseBody
 	public List<Map<String,Object>> volunteerList(@RequestParam Map<String,Object> params){
+		log.debug("传入参数为params:{}", params);
 		params.put("pids", params.get("areaId"));
 		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(params.get("areaId").toString()));
 		PageUtils page = new PageUtils(params);

@@ -13,6 +13,7 @@
 	<body>
 		<div class="header_txt">
 			<div class="headerleft">
+				<input type="hidden" th:value="${areaId}" id="areaId">
 				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 			</div>
 			<div class="headercent">志愿者展示</div>
@@ -135,10 +136,10 @@ if(list.length>0) {
 //console.log(JSON.parse(res));
     //追加数据
    $.each(res, function(i, item){ 
-	html+="<figure>";
-	html+="<a href='/pc/volunteerDetail?id="+item.id+"&areaId="+areaId+"><img src="+item.headImg+"></a>";
-	html+="<figcaption>"+item.volunteerName+"</figcaption>";
-	html+="</figure>";
+	html+='<figure>';
+	html+='<a href="/pc/volunteerDetail?id='+item.id+'&areaId='+areaId+'"><img src='+item.headImg+'></a>';
+	html+='<figcaption>'+item.volunteerName+'</figcaption>';
+	html+='</figure>';
     })
     $listrow.append(html);//数据追加到list
     var imgWidth=$('.list_flex_son_img').width();

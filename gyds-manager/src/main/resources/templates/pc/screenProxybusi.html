@@ -162,7 +162,7 @@
 					</div>
 					<ul th:each="teamNews,i : ${teamNews}" th:if="${i.count<11}">
 						<li th:text="${i.count}">1</li>
-						<li th:text="${#strings.abbreviate(teamVo.name,12)}"></li>
+						<li th:text="${#strings.abbreviate(teamNews.name,12)}"></li>
 						<li th:text="${teamNews.value}"></li>
 					</ul>
 				</div>
