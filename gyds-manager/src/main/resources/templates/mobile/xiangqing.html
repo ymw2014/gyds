@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=750">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<title></title>
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<meta name="renderer" content="webkit" />
+		<!-- 百度禁止转码 -->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<!-- 设置状态栏背景颜色 -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- 忽略页面中的数字识别为电话 -->
+		<meta name="format-detection" content="telephone=no">
+		<!-- 强制数字不能转为电话 -->
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="icon" th:href="@{/mobile/img/hgyImg/favicon.ico}">
+		<!--swiper v4.0-->
+		<link rel="stylesheet" th:href="@{/mobile/css/style-3c3f7f779e.css}">
+		<link rel="stylesheet" th:href="@{/mobile/css/index.css}">
+		<script th:src="@{/mobile/js/jquery.min.js}"></script>
+		<!--swiper v4.0-->
+		<script th:src="@{/mobile/js/app-31d4450328.js}"></script>
+		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
+		<link rel="stylesheet" th:href="@{/mobile/css/huodong.css}">
+		<meta name="__hash__" content="56cd4ee1d18972da40aad5fb5ec45d36_4893385ec0d866c32766e3c96d34524d" />
+	</head>
+	<style>
+	   .footer{
+	          margin-bottom:0px !important;
+	   }
+	</style>
+	<body>
+		<div class="header_txt">
+			<div class="headerleft">
+				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
+			</div>
+			<input type="hidden" th:value="${areaId}" id="areaId">
+			<div class="headercent">团队展示</div>
+		</div>
+		<div class="container page-container">
+			
+			<!--产品详情-->
+			<div class="page page-product-detail">
+				<!--机构信息-->
+				<div class="org-info">
+					<div class="img">
+						<img th:src="${proInfo.logo}">
+					</div>
+					<div class="content">
+						<h4 class="title" th:text="${proInfo.projectName}">
+							 </h4>
+						<ul class="icon-desc-list">
+							<li>
+								<i class="icon-eye"></i>
+								<span th:text="${proInfo.projectTypeName}"></span>
+							</li>
+						</ul>
+						<ul class="icon-desc-list">
+							<li>
+								<i class="icon-eye"></i>
+								<span style="color:#9e2946;" th:text="${proInfo.tickets}"></span>
+							</li>
+						</ul>
+						<!-- 承接按钮 -->
+				    <a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="/login" th:if="${isPro}==0">点击承接</a>
+					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:sub('+${proInfo.tickets}+',1)'" class="btn1" style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;">点击承接<span>(年)</span></a><a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:sub('+${proInfo.perpetual}+',2)'" class="btn1" style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;">点击承接<span>(永久)</span></a>
+					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接</a>
+					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>
+					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>
+					</div>
+				</div>
+				<div class="row bar"></div>
+
+				<!--选项卡-->
+				<div class="tab-pannel default">
+					<ul class="tab-title-list">
+						<li class="active">
+							<a href="javascript:;">
+								产品介绍
+							</a>
+						</li>
+						<li>
+							<a href="javascript:;">
+								承接机构
+							</a>
+						</li>
+						<li>
+							<a href="javascript:;">
+								活动中心
+							</a>
+						</li>
+						<li>
+							<a href="javascript:;">
+								咨询报道
+							</a>
+						</li>
+					</ul>
+					<ul class="tab-content-list">
+						<!--产品介绍-->
+						<div th:utext="${proInfo.intro}"></div>
+						<!--产品展示-->
+						<li class="hidden product-show">
+							<ul class="org-list">
+							    <li th:each="team:${teamList}">
+								<a th:href="@{/pc/teamDetail(teamId=${team.teamId},areaId=${areaId})}" th:text="${team.teamName}"></a>
+							</li>
+								
+							</ul>
+
+						</li>
+						<!--示范机构-->
+						<li class="demon-org hidden">
+							<ul class="product-list pic-list">
+							<li>
+									<a th:href="@{/pc/activityDetail(id=${act.id},areaId=${areaId})}" th:each="act:${actList}" class="pic-list-item" data-id="25">
+										<div class="img">
+											<img th:src="${act.actTitleImg}">
+										</div>
+										<h4 class="title" th:text="${act.actTitle}">
+											</h4>
+									</a>
+								</li>
+							</ul>
+							<div class="load-more org-more default">加载更多</div>
+						</li>
+						<!--媒体报导-->
+						<li class="media-report hidden">
+							<ul class="org-list">
+							 <li th:each="news:${newsList}">
+									<a th:href="@{/pc/news/info(id=${news.id},areaId=${areaId})}" th:utext="${'['+news.teamName+']'+'&nbsp;<span>'+news.title+'</span>'}"> </a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="row bar"></div>
+
+				<!--品牌发起机构-->
+				<div class="brand-init-org">
+					<div class="title-default">
+						<h4>
+							品牌发起机构
+						</h4>
+					</div>
+					<ul class="article-list init-org">
+						<li style="border-bottom: 0;">
+							<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}">
+								<div class="img">
+									<img th:src="${team.teamTitleImg}">
+								</div>
+								<div class="content">
+									<h4 class="title">
+										<span th:text="${team.teamName}">
+											北京尚善公益基金会 </span>
+									</h4>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="row bar"></div>
+				<!--联系我们-->
+				<div class="contact-us">
+					<div class="title-default">
+						<h4>
+							联系我们
+						</h4>
+					</div>
+					<ul class="icon-desc-list contact-list">
+						<li>
+							<i class="icon-wechat"></i>
+							<span th:text="${'联系人：' + team.colonelName}"></span>
+						</li>
+						<li>
+							<i class="icon-url"></i>
+							<a th:href="${proInfo.url}"><span th:text="${'网址：' + proInfo.url}"><span></a>
+						</li>
+					</ul>
+				</div>
+				<div class="page-end"></div>
+			</div>
+			<div class="popup-mask hidden"></div>
+			<div th:replace="mobile/include :: footer"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	function sub(tickets,flag){
+		if(tickets==0){
+			sava(flag);
+		}else{
+			var para = {};
+			pay(tickets,para,15,flag);
+		}
+	}
+	
+	function sava(flag){
+		var id = $('#id').val();
+		var order = $('#order').val();
+		if(order==""||order==null){
+			orderNum = 0
+		}
+		$.ajax({
+			type : "POST",
+			url : "/pc/savaPro?id="+id+"&order="+order+"&duration="+flag,
+			success : function(r) {
+				if (r.code == 0) {
+					alert(r.msg);
+					history.go(0);
+				} else {
+					alert(r.msg);
+				}
+			},
+		});
+	};
+	
+	
+		var appId = '';
+		var paySign = '';
+		var timeStamp = '';
+		var nonceStr = '';
+		var packageStr = '';
+		var signType = '';
+		var orderNum = '';
+		function pay(blance,para,type,flag) {
+			$.ajax({
+	            type:"post",
+	            url: "/pc/news/pay",
+	            dataType:"json",
+	            data : {'totalFee': blance
+	            	,'orderType':type},
+	            ontentType : "application/x-www-form-urlencoded",
+	            success:function(result) {
+	                console.log(result);
+	                var data  = result;
+                    appId = data.appId;
+                    paySign = data.paySign;
+                    timeStamp = data.timeStamp;
+                    nonceStr = data.nonceStr;
+                    packageStr = data.package;
+                    signType = data.signType;
+                    orderNum = data.orderNum
+                    callpay(para,type,flag);
+	            }
+	        });
+	    }
+
+		function onBridgeReady(para,type){
+	        WeixinJSBridge.invoke(
+	            'getBrandWCPayRequest', {
+	                "appId":appId,     //公众号名称，由商户传入
+	                "timeStamp":timeStamp, //时间戳，自1970年以来的秒数
+	                "nonceStr":nonceStr , //随机串
+	                "package":packageStr,  //预支付交易会话标识
+	                "signType":signType,     //微信签名方式
+	                "paySign":paySign        //微信签名
+	            },
+	            function(res){
+	                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+	                    alert('支付成功');
+	                    if(type==7){
+	                    	save(flag);
+	                    }
+						
+	                }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+	                    alert('支付取消');
+	                    history.go(0);
+	                }else if(res.err_msg == "get_brand_wcpay_request:fail" ){
+	                    alert('支付失败');
+	                    history.go(0);
+	                } //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+	            }
+	        );
+	    }
+	    function callpay(para,type){
+	        if (typeof WeixinJSBridge == "undefined"){
+	            if( document.addEventListener ){
+	                document.addEventListener('WeixinJSBridgeReady', onBridgeReady(para,type,flag), false);
+	            }else if (document.attachEvent){
+	                document.attachEvent('WeixinJSBridgeReady', onBridgeReady(para,type));
+	                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady(para,type));
+	            }
+	        }else{
+	            onBridgeReady(para,type);
+	        }
+	    }
+	    
+	</script>
+</html>

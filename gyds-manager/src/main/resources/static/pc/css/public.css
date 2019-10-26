@@ -140,12 +140,18 @@ body{
 .public-right1 a{
 	display:block;
 	color:#fff;
-	width: 180px;height: 42px;
-	line-height: 42px;
+	width: 103px;
+    height: 29px;
+    line-height: 29px;
 	float: left;
 	background: #e60012;
 	text-align: center;
 	margin-top: 6px;
+	font-size:14px;
+	border-radius:3px;
+}
+.public-right1 a>span{
+	font-size:14px;
 }
 .public-right2{
 	margin-top:20px;

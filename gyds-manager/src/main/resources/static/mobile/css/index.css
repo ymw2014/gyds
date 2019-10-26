@@ -60,10 +60,11 @@ input::-webkit-calendar-picker-indicator{
 	height: 75px;
 	background:#c11b25;
 	overflow: hidden;
+	overflow-x: scroll !important;
 }
 .nav a{
 	display: block;
-	width: 20%;
+	width:150px;
 	height: 73px;
 	float: left;
 	line-height:72px;

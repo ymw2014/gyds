@@ -32,7 +32,23 @@ public class ProjectDO implements Serializable {
 	
 	private String projectName;
 	
+	private Integer duration;
 	
+	private Date endTime;
+	
+	
+	public Date getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+	public Integer getDuration() {
+		return duration;
+	}
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
 	public String getTeamName() {
 		return teamName;
 	}

@@ -9,7 +9,7 @@
 				<div class="ibox-body">
 					<div class="fixed-table-toolbar">
 						<div class="columns pull-left">
-						<input type="hidden" th:value="${id}" id="id">
+						<input type="hidden" th:value="${type}" id="type">
 						<input type="hidden" th:value="${status}" id="status">
 						
 							<button shiro:hasPermission="project:project:add" type="button" class="btn  btn-primary" onclick="add()">

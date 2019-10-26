@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title th:text="${'团队展示-'+title}"></title>
+		<title th:text="${'项目展示-'+title}"></title>
 		<meta name="viewport" content="width=750">
 		<script type="text/javascript" th:src="@{/mobile/js/jquery-1.10.1.min.js}"></script>
 		<script type="text/javascript" th:src="@{/mobile/js/mobile-util.js}"></script>
@@ -16,7 +16,7 @@
 				<a href="javascript:history.back(-1)"><img th:src="@{/mobile/images/qianwnag.png}" alt=""></a>
 			</div>
 			<input type="hidden" th:value="${areaId}" id="areaId">
-			<div class="headercent">团队展示</div>
+			<div class="headercent">项目展示</div>
 			<!-- <div class="headerright">
 				<img src="images/dian.png" alt="">
 				<img src="images/dian.png" alt="">
@@ -28,18 +28,18 @@
 			<div>活动状态</div> -->
 			<div>
 				<select onchange="query()" id ="code">
-					<option value="">地区</option>
-						<option th:each="area : ${areaList}" th:value="${area.regionCode}"
-							 th:text="${area.regionName}"></option>
+					<option value="">类型</option>
+						<option th:each="proType : ${proTypeList}" th:value="${proType.id}"
+							th:text="${proType.projectTypeName}"></option>
 				</select>
 			</div>
 		</div>
 		<div class="tuandui">
 			<div class="tuandui1" id="neirong">
-				<div th:each="team : ${teamList}">
-					<a th:href="@{/pc/teamDetail(teamId=${team.id},areaId=${areaId})}"><img th:src="${team.teamImg}" alt=""></a>
-					<p th:text="${#strings.abbreviate(team.teamName,10)}" style="text-align: center;line-height: 30px;"></p>
-					<p th:if="${team.level!=null}" th:text="${team.level.levelname}" style="color: #c01b25;font-size: 14px;text-align: center;"></p>
+				<div th:each="proInfo : ${proInfoList}">
+					<a th:href="@{/pc/queryProById(areaId=${areaId},id=${proInfo.id})}"><img th:src="${proInfo.logo}" alt=""></a>
+					<p th:text="${#strings.abbreviate(proInfo.projectName,10)}" style="text-align: center;line-height: 30px;"></p>
+					<p th:text="${#strings.abbreviate(proInfo.teamName,10)}" style="color: #c01b25;font-size: 14px;text-align: center;"></p>
 				</div>
 			</div>
 		</div>
@@ -51,16 +51,14 @@
 </html>
 <script>
 function query() {
-	var regionCode = $("#code").val();
+	var code = $("#code").val();
+	var areaId = $('#areaId').val();
 	 $.ajax({
          type : "POST",
          dataType: "json",
-         url : "/pc/team/query",
-         data : {
-         	'areaId': regionCode,
-         },
+         url : "/pc/queryProByType?type="+code,
          success : function(result) {
-         	var actList = result.teamList;
+         	var actList = result;
          	$("#neirong").html('');
          	var html = info(actList);
          	$("#neirong").append(html);
@@ -73,12 +71,10 @@ function info(obj) {
 	var areaId = $('#areaId').val();
 	$.each(obj, function (n, value) {
 		html += '<div>' + 
-					'<a href="/pc/teamDetail?teamId='+value.id+'&areaId='+areaId+'"><img src=" ' + value.teamTitleImg + '" alt=""></a>' +
-					'<p>'+ value.teamName +'</p>';
-					if(value.level!=null){
-						html +='<p style="color: #c01b25;font-size: 14px;text-align: center;">'+value.level.levelname+'</p>';
-					};
-					html +=	'</div>';
+					'<a href="/pc/queryProById?areaId='+areaId+'&id='+value.id+'"><img src="'+value.logo+'" alt=""></a>' +
+					'<p>'+ value.teamName +'</p>' +
+					'<p  style="color: #c01b25;font-size: 14px;text-align: center;">'+value.teamName+'</p>'+
+				'</div>';
 				
 	})
 	return html;
@@ -86,7 +82,7 @@ function info(obj) {
 
 //分页加载
 
-$().ready(function(){
+/* $().ready(function(){
 var areaId = $('#areaId').val();
 console.log(areaId);
 var hasMore;
@@ -105,7 +101,7 @@ page=page+1;//每次拉到底部page加1
 //console.log(page)
 hasMore=false;
 $.ajax({
-url:"/pc/queryTeamList?areaId="+areaId+"",
+url:"/pc/queryProList?type=",
 type:"post",
 data:{page:page},//请求页数
 success:function(res){
@@ -163,7 +159,7 @@ if (hasMore) {
 }, 1000);
 }
  
-});
+}); */
 
 
 </script>

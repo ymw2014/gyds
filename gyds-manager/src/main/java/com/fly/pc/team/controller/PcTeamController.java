@@ -238,6 +238,16 @@ public class PcTeamController {
 		params.put("ids", ids);
 		params.put("auditStatus",1);
 		List<TeamDO> teamList = teamService.list(params);
+		for (TeamDO teamDO : teamList) {
+			params.put("type", 2);
+			params.put("integral", teamDO.getIntegral());
+			List<LevelDO> leList = levelDao.queryIntegral(params);
+			if(!leList.isEmpty()) {
+				teamDO.setLevel(leList.get(0));
+			}else {
+				teamDO.setLevel(null);
+			}
+		}
 		JSONObject dataInfo = new JSONObject();
 		dataInfo.put("teamList", teamList);
 		return dataInfo.toString();

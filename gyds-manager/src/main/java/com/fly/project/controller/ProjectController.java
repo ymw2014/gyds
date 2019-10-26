@@ -1,5 +1,6 @@
 package com.fly.project.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class ProjectController {
 	@GetMapping()
 	@RequiresPermissions("project:project:project")
 	String Project(Long id,Integer status,Model model){
-			model.addAttribute("id", id);
+			model.addAttribute("type", id);
 			model.addAttribute("status", status);
 	    return "project/project/project";
 	}
@@ -126,6 +127,12 @@ public class ProjectController {
 	public R examine(Long id,Integer status) {
 		ProjectDO project = projectService.get(id);
 		project.setStatus(status);
+		Integer flag = project.getDuration();
+		if(flag==1) {
+			Calendar c = Calendar.getInstance();
+			c.add(Calendar.DAY_OF_MONTH, 366);
+			project.setEndTime(c.getTime());
+		}
 		if(projectService.update(project)>0) {
 			return R.ok();
 		}
