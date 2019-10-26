@@ -3,60 +3,97 @@
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
-	<div class="wrapper wrapper-content ">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="ibox float-e-margins">
-					<div class="ibox-content">
-						<form class="form-horizontal m-t" id="signupForm">
-						<input id="id" name="id" th:value="${projectSetup.id}"  type="hidden">
-							<div class="form-group">	
-								<label class="col-sm-3 control-label">团队分佣比例：</label>
-								<div class="col-sm-8">
-									<input id="teamExtract" name="teamExtract" th:value="${projectSetup.teamExtract}" class="form-control" type="text">
-								</div>
+	<div style="padding: 10px;">
+	<div class="tabs-container">
+			<div class="tabs-container">
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">项目发布分佣</a></li>
+					<li class=""><a data-toggle="tab" href="#tab-2"	aria-expanded="false">项目参与分佣</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<form class="form-horizontal m-t" id="signupForm">
+									<input id="id" name="id" th:value="${projectSetup1.id}"  type="hidden">
+									<!-- <div class="form-group">	
+										<label class="col-sm-3 control-label">团队分佣比例：</label>
+										<div class="col-sm-8">
+											<input id="teamExtract" name="teamExtract" th:value="${projectSetup1.teamExtract}" class="form-control" type="text">
+										</div>
+									</div> -->
+									<div class="form-group">	
+										<label class="control-label">街道办代理分佣比例：</label>
+											<input id="agencyExtract" name="agencyExtract" th:value="${projectSetup1.agencyExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class="control-label">县级分佣比例：</label>
+											<input id="areaExtract" name="areaExtract" th:value="${projectSetup1.areaExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class="control-label">市级分佣比例：</label>
+											<input id="cityExtract" name="cityExtract" th:value="${projectSetup1.cityExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class="control-label">省级分佣比例：</label>
+											<input id="provinceExtract" name="provinceExtract" th:value="${projectSetup1.provinceExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class="control-label">平台分佣比例：</label>
+											<input id="headExtract" name="headExtract" th:value="${projectSetup1.headExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">
+										<div class="col-sm-8 col-sm-offset-3">
+											<button type="button" th:onclick="'javascript:update('+${projectSetup1.id}+')'"    class="btn btn-primary">提交</button>
+										</div>
+									</div>
+								</form>
+								
 							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">街道办代理分佣比例：</label>
-								<div class="col-sm-8">
-									<input id="agencyExtract" name="agencyExtract" th:value="${projectSetup.agencyExtract}" class="form-control" type="text">
-								</div>
+						</div>
+					</div>
+					<div id="tab-2" class="tab-pane">
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<form class="form-horizontal m-t" id="signupForm1">
+									<input id="id" name="id" th:value="${projectSetup2.id}"  type="hidden">
+									<div class="form-group">	
+										<label class="control-label">团队分佣比例：</label>
+											<input id="teamExtract" name="teamExtract" th:value="${projectSetup2.teamExtract}" class="form-control  input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class="control-label">街道办代理分佣比例：</label>
+											<input id="agencyExtract" name="agencyExtract" th:value="${projectSetup2.agencyExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class="control-label">县级分佣比例：</label>
+											<input id="areaExtract" name="areaExtract" th:value="${projectSetup2.areaExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class=" control-label">市级分佣比例：</label>
+											<input id="cityExtract" name="cityExtract" th:value="${projectSetup2.cityExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class="col-sm-3 control-label">省级分佣比例：</label>
+											<input id="provinceExtract" name="provinceExtract" th:value="${projectSetup2.provinceExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">	
+										<label class="col-sm-3 control-label">平台分佣比例：</label>
+											<input id="headExtract" name="headExtract" th:value="${projectSetup2.headExtract}" class="form-control input-sm" type="text">
+									</div>
+									<div class="form-group">
+										<div class="col-sm-8 col-sm-offset-3">
+											<button type="button"  th:onclick="'javascript:update('+${projectSetup2.id}+')'" class="btn btn-primary">提交</button>
+										</div>
+									</div>
+								</form>
 							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">县级分佣比例：</label>
-								<div class="col-sm-8">
-									<input id="areaExtract" name="areaExtract" th:value="${projectSetup.areaExtract}" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">市级分佣比例：</label>
-								<div class="col-sm-8">
-									<input id="cityExtract" name="cityExtract" th:value="${projectSetup.cityExtract}" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">省级分佣比例：</label>
-								<div class="col-sm-8">
-									<input id="provinceExtract" name="provinceExtract" th:value="${projectSetup.provinceExtract}" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">平台分佣比例：</label>
-								<div class="col-sm-8">
-									<input id="headExtract" name="headExtract" th:value="${projectSetup.headExtract}" class="form-control" type="text">
-								</div>
-							</div>
-																					<div class="form-group">
-								<div class="col-sm-8 col-sm-offset-3">
-									<button type="submit" class="btn btn-primary">提交</button>
-								</div>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
 	</div>
-	</div>
+</div>
 	<div th:include="include::footer"></div>
 	<script type="text/javascript" src="/js/appjs/proSetup/projectSetup/edit.js">
 	</script>

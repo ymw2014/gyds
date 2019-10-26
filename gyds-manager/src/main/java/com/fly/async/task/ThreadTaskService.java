@@ -117,7 +117,7 @@ public class ThreadTaskService {
 					logger.info("区域编号"+regionCode+"***************此地区暂无代理商,不生成分佣");
 				}
 			} catch (Exception e) {
-				logger.info("文章资讯县代理分佣失败:用户编号"+proList.get(0).getUserId());
+				logger.info("代理分佣失败:用户编号"+proList.get(0).getUserId());
 				e.printStackTrace();
 			}
 		}
@@ -329,7 +329,19 @@ public class ThreadTaskService {
 				break;	
 			case 12:
 				order.setExpIncType(OrderType.JIAN_TUAN_FAN_YONG);
-				break;	
+				break;
+			case 13:
+				order.setExpIncType(OrderType.TUAN_DUI_REN_ZHENG);
+				break;
+			case 14:
+				order.setExpIncType(OrderType.FA_BU_XIANG_MU);
+				break;
+			case 15:
+				order.setExpIncType(OrderType.JIA_RU_XIANG_MU);
+				break;
+			case 16:
+				order.setExpIncType(OrderType.XIANG_MU_FEN_YONG);
+				break;
 			default:
 				break;
 			}
@@ -398,6 +410,18 @@ public class ThreadTaskService {
 				break;
 			case 12:
 				remake.append("本次操作：<font style='color:green'>建团返佣</font>\n");
+				break;
+			case 13:
+				remake.append("本次操作：<font style='color:green'>团队认证</font>\n");
+				break;
+			case 14:
+				remake.append("本次操作：<font style='color:green'>发布项目</font>\n");
+				break;
+			case 15:
+				remake.append("本次操作：<font style='color:green'>加入项目</font>\n");
+				break;
+			case 16:
+				remake.append("本次操作：<font style='color:green'>项目分佣</font>\n");
 				break;
 			default:
 				break;

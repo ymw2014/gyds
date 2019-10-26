@@ -1,4 +1,4 @@
-$().ready(function() {
+/*$().ready(function() {
 	validateRule();
 });
 
@@ -6,7 +6,7 @@ $.validator.setDefaults({
 	submitHandler : function() {
 		save();
 	}
-});
+});*/
 function save() {
 	$.ajax({
 		cache : true,

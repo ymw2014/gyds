@@ -39,14 +39,10 @@ public class ProjectSetupController {
 	@GetMapping()
 	@RequiresPermissions("proSetup:projectSetup:projectSetup")
 	String ProjectSetup(Model model){
-		ProjectSetupDO setup;
-		List<ProjectSetupDO> list = projectSetupService.list(new HashMap<String,Object>(16));
-		if (list!=null) {
-			setup = list.get(0);
-		}else {
-			setup=new ProjectSetupDO();
-		}
-		model.addAttribute("projectSetup", setup);
+		ProjectSetupDO projectSetup1 = projectSetupService.get(2);
+		ProjectSetupDO projectSetup2 = projectSetupService.get(1);
+		model.addAttribute("projectSetup1", projectSetup1);
+		model.addAttribute("projectSetup2", projectSetup2);
 	    return "proSetup/projectSetup/edit";
 	}
 	
@@ -71,8 +67,10 @@ public class ProjectSetupController {
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("proSetup:projectSetup:edit")
 	String edit(@PathVariable("id") Integer id,Model model){
-		ProjectSetupDO projectSetup = projectSetupService.get(id);
-		model.addAttribute("projectSetup", projectSetup);
+		ProjectSetupDO projectSetup1 = projectSetupService.get(1);
+		ProjectSetupDO projectSetup2 = projectSetupService.get(2);
+		model.addAttribute("projectSetup1", projectSetup1);
+		model.addAttribute("projectSetup2", projectSetup2);
 	    return "proSetup/projectSetup/edit";
 	}
 	
