@@ -45,12 +45,15 @@
 				</div>
 			</div>
 		</header>
-		<div class="nav">
-			<a href="/">首页</a>
-			<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">动态</a>
-			<a th:href="@{/pc/activityList(areaId=${areaId})}">活动</a>
-			<a th:href="@{/pc/volunteerList(areaId=${areaId})}">成员</a>
-			<a th:href="@{/pc/teamList(areaId=${areaId})}">团队</a>
+		<div style="width:750px;overflow:hidden;overflow-x: scroll;">
+			<div class="nav" style="width:900px">
+				<a href="/">首页</a>
+				<a th:href="@{/pc/news/infoList(areaId=${areaId},flag=0)}">动态</a>
+				<a th:href="@{/pc/activityList(areaId=${areaId})}">活动</a>
+				<a th:href="@{/pc/volunteerList(areaId=${areaId})}">成员</a>
+				<a th:href="@{/pc/teamList(areaId=${areaId})}">团队</a>
+				<a th:href="@{/pc/proList(areaId=${areaId})}">项目</a>
+			</div>
 		</div>
 		<div class="guanggao">
 			<!-- <a href="${adv1.url==null}?'/"><img  th:src="${adv1.advImg==null}?'/pc/images/tp2.jpg':${adv1.advImg}" alt=""> </a> -->

@@ -19,6 +19,7 @@
 				<p>您所在的位置><a href="/">首页</a> > <a href="">公益产品 </a>> <a href="" th:text="${proInfo.projectName}">河流守望者行动网络</a></p>
 			</div> -->
 			<!-- 左侧主体 -->
+			<input type="hidden" th:value="${proInfo.url}" id="url">
 			<div class="public-left">
 				<div class="public-left1">
 					<h4>品牌发起机构</h4>
@@ -28,10 +29,10 @@
 						</a>
 						<p th:text="${team.teamName}"></p>
 						<ul>
-							<li th:text="${'联系人：' + team.colonelName}">联系人：王某某</li>
-							<li th:text="${'电话：' +  team.colonelTel}">电话：15838338566</li>
-							<li th:text="${'网址：' + team.colonelTel}">网址：www.haogongyi.org.cn</li>
-							<li th:text="${'地区：' + team.addres}">地区：河南省郑州市</li>
+							<li th:text="${'联系人：' + team.colonelName}"></li>
+							<li th:text="${'电话：' +  team.colonelTel}"></li>
+							<li th:text="${'网址：' + proInfo.url}" onclick="url()"></li>
+							<li th:text="${'地区：' + team.addres}"></li>
 						</ul>
 					</div>
 				</div>
@@ -56,11 +57,12 @@
 					<p th:text="${proInfo.projectName}"></p>
 					<ul>
 						<li><img th:src="@{/pc/images/diandian_03.png}" alt="" th:text="${proInfo.projectTypeName}"></li>
-						<li style="color:#9e2946;"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${proInfo.tickets}"></li>
+						<li style="color:#9e2946;"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'年:'+proInfo.tickets}"></li>
+						<li style="color:#9e2946;"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'永久:'+proInfo.perpetual}"></li>
 					</ul>
 					<a href="/login" th:if="${isPro}==0">点击承接</a>
-					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay('+${proInfo.tickets}+')'" class="btn1">点击承接</a>
-					<a href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接</a>
+					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay('+${proInfo.tickets}+',1)'" class="btn1">点击承接<span>(年)</span></a><a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay('+${proInfo.perpetual}+',2)'" class="btn1">点击承接<span>(永久)</span></a>
+					<a href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接 </a>
 					<a href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>
 					<a href="javascript:;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>
 				</div>
@@ -136,44 +138,44 @@
 	$('.btn1').on("click", function() {
 	m1.show();
 	});
-	function pay(tickets){
+	function pay(tickets,flag){
 		if(tickets==0){
-			sava();
+			sava(flag);
 		}else{
 			 $('#blance').text("付款金额 " +tickets + "元");
 				$(".m-modal-dialog").css("display","none")
 				$(".adddd").show();
-			var orderNum = createOrder(tickets,12);
+			var orderNum = createOrder(tickets,15);
 			if (orderNum != '-1') {
 				$('#order').val(orderNum);
 				$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (tickets * 100) + "&orderNum=" + orderNum);
 				timer = setInterval(function () {
 						var msg = queryOrder(orderNum)
 						if (msg == '1') {
-							sava();
-							history.go(0);
+							sava(flag);
 						}
 					},500);
 			} else {
-				layer.msg("未知错误");
+				alert("未知错误");
 			}
 		}
 	}
-	function sava(){
+	function sava(flag){
 		var id = $('#id').val();
 		var order = $('#order').val();
-		if(orderNum==null){
+		if(order==""||order==null){
 			orderNum = 0
 		}
 		$.ajax({
 			type : "POST",
-			url : "/pc/savaPro?id="+id+"&order="+order,
+			url : "/pc/savaPro?id="+id+"&order="+order+"&flag="+flag,
 			success : function(r) {
 				if (r.code == 0) {
-					layer.msg(r.msg);
+					alert(r.msg);
 					$(".m-modal3,.m-modal3-close,.m-btn-cancel").hide();
+					history.go(0);
 				} else {
-					layer.msg(r.msg);
+					alert(r.msg);
 				}
 			},
 		});
@@ -234,5 +236,9 @@
 		$(".public-right3>div").hide().eq($(this).index()).show()
 	})
 	
+	function url(){
+		var url = $('#url').val();
+		window.location.href = url;
+	}
 </script>
 

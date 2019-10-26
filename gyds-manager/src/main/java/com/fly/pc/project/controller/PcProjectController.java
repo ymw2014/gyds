@@ -1,5 +1,6 @@
 package com.fly.pc.project.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.activity.domain.ActivityDO;
@@ -18,12 +20,14 @@ import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
+import com.fly.pc.utils.PageUtils;
 import com.fly.project.domain.ProjectDO;
 import com.fly.project.domain.ProjectInfoDO;
 import com.fly.project.domain.ProjectTypeDO;
 import com.fly.project.service.ProjectInfoService;
 import com.fly.project.service.ProjectService;
 import com.fly.project.service.ProjectTypeService;
+import com.fly.sys.service.SetupService;
 import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
@@ -48,11 +52,10 @@ public class PcProjectController {
 	@Autowired
 	private ActivityService activityService;
 	@Autowired
-	private UserService userService;
+	private SetupService setupService;
 	
 	@RequestMapping("/pc/proList")
-	public String projectList(Long areaId,Model model) {
-		Map<String, Object> para = new HashMap<String, Object>();
+	public String projectList(Long areaId,Map<String, Object> para,Model model) {
 		List<ProjectTypeDO> proTypeList = ProjectTypeService.list(para);
 		List<ProjectInfoDO> proInfoList = projectInfoService.proInfoList(para);
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
@@ -60,6 +63,7 @@ public class PcProjectController {
 		model.addAttribute("proTypeList", proTypeList);
 		model.addAttribute("proInfoList", proInfoList);
 		model.addAttribute("areaId", areaId);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return "pc/liebiao";
 	}
 	
@@ -129,12 +133,13 @@ public class PcProjectController {
 		model.addAttribute("teamList",teamList);
 		model.addAttribute("newsList",newsList);
 		model.addAttribute("actList",actList);
+		model.addAttribute("title",setupService.get(1).getTitle());
 		return "pc/xiangqing";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/pc/savaPro")
-	public R savaPro(Long id,Integer order){
+	public R savaPro(Long id,Integer order,Integer flag){
 		Map<String, Object> map = new HashMap<String, Object>();
 		Long userId = ShiroUtils.getUserId();
 		map.put("userId", userId);
@@ -149,7 +154,19 @@ public class PcProjectController {
 		project.setStatus(1);
 		project.setTeamId(teamId);
 		project.setOrder(order);
+		project.setDuration(flag);
 		projectService.save(project);
-		return R.ok();
+		return R.ok("已提交,请等待审核,勿重复提交");
+	}
+	
+	@RequestMapping("/pc/queryProList")
+	@ResponseBody
+	public List<ProjectInfoDO> queryProList(@RequestParam Map<String, Object> para,Integer type, Model model) {
+		PageUtils page = new PageUtils(para);
+		page.put("status", 1);
+		page.put("isDel", 0);
+		// 查询列表数据
+		List<ProjectInfoDO> proInfoList = projectInfoService.proInfoList(para);
+		return proInfoList;
 	}
 }

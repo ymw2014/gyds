@@ -49,7 +49,31 @@ public class ProjectInfoDO implements Serializable {
 	
 	private String teamName;
 	
+	private String url;
 	
+	private BigDecimal perpetual;
+	
+	private Date endTime;
+	
+	
+	public BigDecimal getPerpetual() {
+		return perpetual;
+	}
+	public void setPerpetual(BigDecimal perpetual) {
+		this.perpetual = perpetual;
+	}
+	public Date getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public Long getTeamId() {
 		return teamId;
 	}

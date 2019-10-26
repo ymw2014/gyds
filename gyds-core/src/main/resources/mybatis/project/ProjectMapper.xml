@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.project.dao.ProjectDao">
 
 	<select id="get" resultType="com.fly.project.domain.ProjectDO">
-		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id where a.id = #{value}
+		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name`,a.`duration`,a.`end_time` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id where a.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.project.domain.ProjectDO">
-		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id
+		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name`,a.`duration`,a.`end_time` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id
         <where>  
 		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
 		  		  <if test="projectId != null and projectId != ''"> and a.project_id = #{projectId} </if>
@@ -49,7 +49,9 @@
 			`team_id`, 
 			`status`, 
 			`order`, 
-			`create_time`
+			`create_time`,
+			`duration`,
+			`end_time`
 		)
 		values
 		(
@@ -57,7 +59,9 @@
 			#{teamId}, 
 			#{status}, 
 			#{order}, 
-			#{createTime}
+			#{createTime},
+			#{duration},
+			#{endTime}
 		)
 	</insert>
 	 
@@ -69,6 +73,8 @@
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="order != null">`order` = #{order}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}</if>
+			<if test="duration != null">`duration` = #{duration}</if>
+			<if test="endTime != null">`end_time` = #{endTime}</if>
 		</set>
 		where id = #{id}
 	</update>

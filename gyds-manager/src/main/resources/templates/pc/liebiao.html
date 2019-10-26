@@ -26,10 +26,10 @@
                         <div class="title" th:text="${proInfo.projectName}"></div>
                         <div class="desc" th:text="${proInfo.teamName}"></div>
                     </a>            </div>
-            <ul class="pagination pagination-sm">
+           <!--  <ul class="pagination pagination-sm">
 				 <a class="btn disabled prev" title="" href="javascript:;">
 					<img src="" alt="">
-				 </a><!---->	
+				 </a>	
 				  <a class="on" href="">1</a>
 				  <a class="" th:href="@{/pc/Home/Product/index.html?page=2}">2</a>
 				  <a class="" th:href="@{/pc/Home/Product/index.html?page=3}">3</a>
@@ -38,7 +38,7 @@
 				  <a class="btn  next" title="" th:href="@{/pc/Home/Product/index.html?page=2}">
 					  <img src="" alt="">
 				  </a>
-            </ul>
+            </ul> -->
 <!--<span>共50条数据</span>-->        </div>
     </div>
     <!-- 底部 -->
@@ -60,7 +60,7 @@
 				url : "/pc/queryProByType?type="+type+"",
 				success : function(r) {
 					var b = '';
-					$.each(r.platformList, function(i, item) {
+					$.each(r, function(i, item) {
 					b += '<a href="" class="list-item"> <div class="img-box"><img src="'+item.logo+'" alt=""></div> <div class="title">'+item.projectName+'</div> <div class="desc" >'+item.teamName+'</div> </a>'
 					});
 					$('.product-list').empty();

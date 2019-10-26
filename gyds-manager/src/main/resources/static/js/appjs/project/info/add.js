@@ -10,7 +10,7 @@ $.validator.setDefaults({
 		if(cost==0){
 			save();
 		}else{
-		var orderNum = createOrder(cost,11);
+		var orderNum = createOrder(cost,14);
 		if (orderNum != '-1') {
 			$('#order').val(orderNum);
 			layer.open({
