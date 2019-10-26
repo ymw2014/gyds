@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.base.BaseService;
+import com.fly.order.domain.OrderDO;
+import com.fly.order.service.OrderService;
 import com.fly.project.domain.ProjectDO;
 import com.fly.project.domain.ProjectInfoDO;
 import com.fly.project.service.ProjectService;
@@ -36,6 +40,11 @@ import com.fly.utils.R;
 public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private BaseService baseService;
+	@Autowired
+	private OrderService orderService;
 	
 	@GetMapping()
 	@RequiresPermissions("project:project:project")
@@ -120,7 +129,7 @@ public class ProjectController {
 		return R.ok();
 	}
 	
-	
+	@Transactional
 	@ResponseBody
 	@RequestMapping("/examine")
 	@RequiresPermissions("project:info:auth")
@@ -133,7 +142,12 @@ public class ProjectController {
 			c.add(Calendar.DAY_OF_MONTH, 366);
 			project.setEndTime(c.getTime());
 		}
+		
 		if(projectService.update(project)>0) {
+			OrderDO order = orderService.get(project.getOrder());
+			if(order!=null) {
+				baseService.productOfDomestic(order.getExpIncType(), order.getPrice(), project.getProjectId());
+			}
 			return R.ok();
 		}
 		return R.error();

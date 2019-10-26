@@ -434,7 +434,7 @@ public class BaseService {
 	 * @param newId 资讯ID
 	 */
 	public void productOfDomestic(Integer expIncType,BigDecimal price,Long productId) {
-		logger.info("文章资讯生成分佣开始****************************************************************************");
+		logger.info("项目分佣开始****************************************************************************");
 		ProjectInfoDO info =  projectInfoDao.get(productId);
 		ProjectSetupDO setup = expIncType.equals(OrderType.JIA_RU_XIANG_MU)? projectSetupDao.get(1):projectSetupDao.get(2);
 		setup.getHeadExtract();//平台分佣比例
