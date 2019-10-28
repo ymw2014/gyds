@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.project.dao.ProjectDao">
 
 	<select id="get" resultType="com.fly.project.domain.ProjectDO">
-		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name`,a.`duration`,a.`end_time` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id where a.id = #{value}
+		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name`,a.`duration`,a.`end_time`,i.`logo`,i.`team_count`,a.`is_due`,i.`tickets` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id where a.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.project.domain.ProjectDO">
-		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name`,a.`duration`,a.`end_time` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id
+		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name`,a.`duration`,a.`end_time`,i.`logo`,i.`team_count`,a.`is_due`,i.`tickets` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id
         <where>  
 		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
 		  		  <if test="projectId != null and projectId != ''"> and a.project_id = #{projectId} </if>
@@ -16,6 +16,7 @@
 		  		  <if test="status != null and status != ''"> and a.status = #{status} </if>
 		  		  <if test="order != null and order != ''"> and a.order = #{order} </if>
 		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
+		  		  <if test="isDue != null and isDue != ''"> and a.is_due = #{isDue} </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -39,6 +40,7 @@
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="order != null and order != ''"> and order = #{order} </if>
 		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="isDue != null and isDue != ''"> and is_due = #{isDue} </if>
 		  		</where>
 	</select>
 	 
@@ -51,7 +53,8 @@
 			`order`, 
 			`create_time`,
 			`duration`,
-			`end_time`
+			`end_time`,
+			`is_due`
 		)
 		values
 		(
@@ -61,7 +64,8 @@
 			#{order}, 
 			#{createTime},
 			#{duration},
-			#{endTime}
+			#{endTime},
+			#{isDue}
 		)
 	</insert>
 	 
@@ -72,9 +76,10 @@
 			<if test="teamId != null">`team_id` = #{teamId}, </if>
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="order != null">`order` = #{order}, </if>
-			<if test="createTime != null">`create_time` = #{createTime}</if>
-			<if test="duration != null">`duration` = #{duration}</if>
-			<if test="endTime != null">`end_time` = #{endTime}</if>
+			<if test="createTime != null">`create_time` = #{createTime},</if>
+			<if test="duration != null">`duration` = #{duration},</if>
+			<if test="endTime != null">`end_time` = #{endTime},</if>
+			<if test="isDue != null">`is_due` = #{isDue} </if>
 		</set>
 		where id = #{id}
 	</update>
@@ -90,6 +95,13 @@
 		</foreach>
 	</delete>
 	
-	
+	<select id="endTimePro" resultType="com.fly.project.domain.ProjectDO">
+		select a.`id`,a.`project_id`,a.`team_id`,a.`status`,a.`order`,a.`create_time`,t.`team_name`,i.`project_name`,a.`duration`,a.`end_time`,i.`logo`,i.`team_count`,a.`is_due` from app_project a left join project_info i on a.project_id = i.id left join team t on a.team_id = t.id
+        <where>  
+        	<if test="endTime != null and endTime != ''">and a.end_time &lt;= #{endTime} </if>
+		  		</where>
+        
+		
+	</select>
 
 </mapper>

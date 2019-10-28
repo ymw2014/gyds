@@ -51,5 +51,10 @@ public class ProjectServiceImpl implements ProjectService {
 	public int batchRemove(Long[] ids){
 		return projectDao.batchRemove(ids);
 	}
+
+	@Override
+	public List<ProjectDO> endTimePro(Map<String, Object> map) {
+		return projectDao.endTimePro(map);
+	}
 	
 }

@@ -1,7 +1,10 @@
 package com.fly.project.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
+
+import io.swagger.models.auth.In;
 
 
 
@@ -36,7 +39,39 @@ public class ProjectDO implements Serializable {
 	
 	private Date endTime;
 	
+	private String logo;
 	
+	private Integer teamCount;
+	
+	private Integer isDue;
+	
+	private BigDecimal tickets;
+	
+	
+	public BigDecimal getTickets() {
+		return tickets;
+	}
+	public void setTickets(BigDecimal tickets) {
+		this.tickets = tickets;
+	}
+	public Integer getIsDue() {
+		return isDue;
+	}
+	public void setIsDue(Integer isDue) {
+		this.isDue = isDue;
+	}
+	public Integer getTeamCount() {
+		return teamCount;
+	}
+	public void setTeamCount(Integer teamCount) {
+		this.teamCount = teamCount;
+	}
+	public String getLogo() {
+		return logo;
+	}
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
 	public Date getEndTime() {
 		return endTime;
 	}

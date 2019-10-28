@@ -78,7 +78,7 @@
 			<if test="year != null">`year` = #{year}, </if>
 			<if test="month != null">`month` = #{month}, </if>
 			<if test="day != null">`day` = #{day}, </if>
-			<if test="userId != null">`user_id` = #{userId}</if>
+			<if test="userId != null">`user_id` = #{userId},</if>
 			<if test="teamId != null">`team_id` = #{teamId}</if>
 		</set>
 		where id = #{id}

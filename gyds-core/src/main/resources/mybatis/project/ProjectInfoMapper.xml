@@ -97,8 +97,8 @@
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="order != null">`order` = #{order}, </if>
 			<if test="teamCount != null">`team_count` = #{teamCount}, </if>
-			<if test="shareCount != null">`share_count` = #{shareCount}</if>
-			<if test="teamId != null">`team_id` = #{teamId}</if>
+			<if test="shareCount != null">`share_count` = #{shareCount},</if>
+			<if test="teamId != null">`team_id` = #{teamId},</if>
 			<if test="perpetual != null">`perpetual` = #{perpetual}</if>
 		</set>
 		where id = #{id}

@@ -132,6 +132,7 @@ public class ProjectController {
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.DAY_OF_MONTH, 366);
 			project.setEndTime(c.getTime());
+			project.setIsDue(1);
 		}
 		if(projectService.update(project)>0) {
 			return R.ok();

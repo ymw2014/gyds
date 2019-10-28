@@ -65,7 +65,7 @@
 			<if test="projectTypeName != null">`project_type_name` = #{projectTypeName}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="isPay != null">`is_pay` = #{isPay}, </if>
-			<if test="cost != null">`cost` = #{cost}</if>
+			<if test="cost != null">`cost` = #{cost},</if>
 			<if test="url != null">`url` = #{url}</if>
 		</set>
 		where id = #{id}
