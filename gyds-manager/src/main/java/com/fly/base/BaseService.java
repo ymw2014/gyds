@@ -15,6 +15,12 @@ import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
 import com.fly.news.dao.InfoDao;
 import com.fly.news.domain.InfoDO;
+import com.fly.proSetup.dao.ProjectSetupDao;
+import com.fly.proSetup.domain.ProjectSetupDO;
+import com.fly.project.dao.ProjectDao;
+import com.fly.project.dao.ProjectInfoDao;
+import com.fly.project.domain.ProjectDO;
+import com.fly.project.domain.ProjectInfoDO;
 import com.fly.sys.dao.SetupDao;
 import com.fly.sys.domain.SetupDO;
 import com.fly.system.dao.UserDao;
@@ -43,7 +49,10 @@ public class BaseService {
 	private ThreadTaskService threadTaskService;
 	@Autowired
 	private WxMpService wxMpService;
-	
+	@Autowired
+	private ProjectInfoDao projectInfoDao;
+	@Autowired
+	private ProjectSetupDao projectSetupDao;
 	/**
 	   *       更新账户余额
 	 * @param userId 用户编号
@@ -414,6 +423,53 @@ public class BaseService {
 			}
 		}
 	}
+	
+	
+	/**
+	 * 	项目分佣
+	 * 	团队创建项目或团队参与项目分佣方法
+	 * 	团队创建分佣调用
+	 * @param type 分佣类型（红包,打赏）
+	 * @param price 参与分佣的金额
+	 * @param newId 资讯ID
+	 */
+	public void productOfDomestic(Integer expIncType,BigDecimal price,Long productId) {
+		logger.info("项目分佣开始****************************************************************************");
+		ProjectInfoDO info =  projectInfoDao.get(productId);
+		ProjectSetupDO setup = expIncType.equals(OrderType.JIA_RU_XIANG_MU)? projectSetupDao.get(1):projectSetupDao.get(2);
+		setup.getHeadExtract();//平台分佣比例
+		setup.getProvinceExtract();//省分佣比例
+		setup.getCityExtract();//市代理分佣比例
+		setup.getAreaExtract();//县代理分佣比例
+		setup.getAgencyExtract();//街道办分佣比例
+		setup.getTeamExtract();//团队分佣比例
+		String remake="";
+		TeamDO team = teamDao.get(info.getTeamId());
+		RegionDO teamRegion = regionService.get(team.getId());//团队
+		RegionDO agencyRegion = regionService.get(teamRegion.getParentRegionCode());//街道办
+		if(expIncType.equals(OrderType.JIA_RU_XIANG_MU)) {//发布项目
+			BigDecimal fanyong=price.multiply(setup.getTeamExtract());
+			increaseMoney(team.getUserId(),fanyong);
+			remake=threadTaskService.getRemake(team.getUserId(),fanyong,expIncType,OrderType.SHOU_RU,OrderType.CommissionType.TUAN_DUI_FEN_YONG);
+			threadTaskService.createOrder(team.getUserId(), fanyong, expIncType, OrderType.SHOU_RU, remake);
+		}
+		BigDecimal agencyFanyong=price.multiply(setup.getAgencyExtract());
+		threadTaskService.agencyDomestic(agencyRegion.getRegionCode(),expIncType, agencyFanyong);
+		//获取街道办上级
+		RegionDO areaRegion = regionService.get(agencyRegion.getParentRegionCode());//县级代理
+		BigDecimal areaFanyong=price.multiply(setup.getAreaExtract());
+		threadTaskService.agencyDomestic(areaRegion.getRegionCode(),expIncType, areaFanyong);
+		//获取县代理上级
+		RegionDO cityRegion = regionService.get(areaRegion.getParentRegionCode());//市级代理
+		BigDecimal cityFanyong=price.multiply(setup.getCityExtract());
+		threadTaskService.agencyDomestic(cityRegion.getRegionCode(),expIncType, cityFanyong);
+		//获取市代理上级(省代理)
+		RegionDO ProvincRegion = regionService.get(cityRegion.getParentRegionCode());//省级代理
+		BigDecimal provincFanyong=price.multiply(setup.getProvinceExtract());
+		threadTaskService.agencyDomestic(ProvincRegion.getRegionCode(),expIncType, provincFanyong);
+		logger.info("项目分佣结束****************************************************************************");
+	}
+	
 	
 	public String createQrcode(String str) {
 		logger.debug("调用微信接口获取永久带参二维码");

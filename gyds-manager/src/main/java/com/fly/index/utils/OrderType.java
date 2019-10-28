@@ -64,6 +64,25 @@ public class OrderType {
 	 */
 	public static final Integer JIAN_TUAN_FAN_YONG =12;
 	
+	/**
+	 * 	团队认证
+	 */
+	public static final Integer TUAN_DUI_REN_ZHENG =13;
+	
+	/**
+	 * 	发布项目
+	 */
+	public static final Integer FA_BU_XIANG_MU =14;
+	/***
+	 * 	加入项目
+	 */
+	public static final Integer JIA_RU_XIANG_MU =15;
+	
+	/***
+	 * 	项目分佣
+	 */
+	public static final Integer XIANG_MU_FEN_YONG =16;
+	
 	public static class CommissionType{
         //    1:团队返佣 2:街道办返佣 3:县代理分佣 4.市代理分佣 5.省代理分佣
         public static final String TUAN_DUI_FEN_YONG="团队分佣";

@@ -7,12 +7,21 @@ $.validator.setDefaults({
 		update();
 	}
 });
-function update() {
+function update(id) {
+	console.log(id);
+	var data;
+	if(id==2){
+		data=$('#signupForm').serialize()
+	}
+	if(id==1){
+		data=$('#signupForm1').serialize()
+	}
+	console.log(data);
 	$.ajax({
 		cache : true,
 		type : "POST",
 		url : "/proSetup/projectSetup/update",
-		data : $('#signupForm').serialize(),// 你的formid
+		data : data,// 你的formid
 		async : false,
 		error : function(request) {
 			parent.layer.alert("Connection error");

@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.base.BaseService;
+import com.fly.order.domain.OrderDO;
+import com.fly.order.service.OrderService;
 import com.fly.project.domain.ProjectInfoDO;
 import com.fly.project.domain.ProjectTypeDO;
 import com.fly.project.service.ProjectInfoService;
@@ -42,7 +45,10 @@ public class ProjectInfoController {
 	private ProjectInfoService projectInfoService;
 	@Autowired
 	private ProjectTypeService ProjectTypeService;
-	
+	@Autowired
+	private BaseService baseService;
+	@Autowired
+	private OrderService orderService;
 	@GetMapping()
 	@RequiresPermissions("project:info:info")
 	String Info(){
@@ -137,6 +143,10 @@ public class ProjectInfoController {
 		ProjectInfoDO info = projectInfoService.get(id);
 		info.setStatus(status);
 		if(projectInfoService.update(info)>0) {
+			OrderDO order = orderService.get(info.getOrder());
+			if(order!=null) {
+				baseService.productOfDomestic(order.getExpIncType(), order.getPrice(),info.getId());
+			}
 			return R.ok();
 		}
 		return R.error();
