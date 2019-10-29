@@ -65,6 +65,7 @@
 					<a href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接 </a>
 					<a href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>
 					<a href="javascript:;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>
+					<a href="javascript:;" th:if="${isPro}==5" th:onclick="'javascript:pay('+${proInfo.tickets}+',1)'" class="btn1">已过期</a>
 				</div>
 				<div class="public-right2">
 					<ul>

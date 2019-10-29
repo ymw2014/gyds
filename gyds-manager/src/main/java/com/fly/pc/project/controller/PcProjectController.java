@@ -91,10 +91,17 @@ public class PcProjectController {
 					map.put("teamId",teamId);
 					map.put("projectId",id);
 					map.put("status",2);
-					map.put("isDue",1);
 					List<ProjectDO> isPro = projectService.list(map);
 					if(!isPro.isEmpty()) {
 						model.addAttribute("isPro", Constant.Project.YI_CHENG_JIE);
+						map.put("teamId",teamId);
+						map.put("projectId",id);
+						map.put("status",2);
+						map.put("isDue",1);
+						isPro = projectService.list(map);
+						if(!isPro.isEmpty()) {
+							model.addAttribute("isPro", Constant.Project.YI_GUO_QI);
+						}
 					}
 				}else {
 					model.addAttribute("isPro", Constant.Project.WEI_REN_ZHENG);

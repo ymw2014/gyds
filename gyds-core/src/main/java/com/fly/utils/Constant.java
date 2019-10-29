@@ -46,6 +46,10 @@ public class Constant {
     	 * 未认证
     	 */
     	public static int WEI_REN_ZHENG = 4;
+    	/**
+    	 * 已过期
+    	 */
+    	public static int YI_GUO_QI = 5;
     }
     
 }

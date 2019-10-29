@@ -670,18 +670,24 @@ public class PersionController extends BaseController{
 		List<ProjectDO> proList = new ArrayList<ProjectDO>();
 		List<ProjectInfoDO> puProList = new ArrayList<ProjectInfoDO>();
 		UserDO user= ShiroUtils.getUser();
-		TeamDO team = teamDao.getByUserId(user.getUserId());
 		params.put("status", "2");
-		if(team==null) {
-			Map<String, Object> volMap = voService.getVoInfo(user.getUserId());
-			params.put("teamId", volMap.get("team_id"));
+		if(user.getUserId()==1) {
 			proList = projectService.list(params);
 			puProList = projectInfoService.list(params);
 		}else {
-			params.put("teamId", team.getId());
-			proList = projectService.list(params);
-			puProList = projectInfoService.list(params);
+			TeamDO team = teamDao.getByUserId(user.getUserId());
+			if(team==null) {
+				Map<String, Object> volMap = voService.getVoInfo(user.getUserId());
+				params.put("teamId", volMap.get("team_id"));
+				proList = projectService.list(params);
+				puProList = projectInfoService.list(params);
+			}else {
+				params.put("teamId", team.getId());
+				proList = projectService.list(params);
+				puProList = projectInfoService.list(params);
+			}
 		}
+		
 		model.addAttribute("proList", proList);
 		model.addAttribute("puProList", puProList);
 		return "pc/myProject";

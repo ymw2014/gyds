@@ -30,7 +30,8 @@
 									<!-- <li>类型<span th:text="${pro.projectTypeName}"></span></li> -->
 									<li>申请时间 <span th:text=" ${#dates.format(pro.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
 									<li>团队数 <span th:text="${pro.teamCount}"></span></li>
-									<li>到期时间 <span th:text="${pro.endTime==null}?'永久':${#dates.format(pro.endTime, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+									<li th:if="${pro.duration==1}">到期时间 <span th:text="${#dates.format(pro.endTime, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+									<li th:if="${pro.duration==2}">到期时间 <span>永久</span></li>
 								</ul>
 							</div>
 							 <p style="padding-top:30px;font-size: 25px;color: red;" th:if="${pro.isDue}==2" th:onclick="'javascript:pay('+${pro.tickets}+')'" class="btn1">续费</p>
