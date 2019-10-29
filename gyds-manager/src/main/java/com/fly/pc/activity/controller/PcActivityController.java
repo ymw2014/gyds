@@ -290,7 +290,7 @@ public class PcActivityController extends BaseController{
 				 * if (num++ > activityDO.getApplicantsNumMax()) { dataInfo.put("status",
 				 * "4");//报名人数已满 return dataInfo.toString(); }
 				 */
-				if(activityDO.getActType()==1) {
+				/*if(activityDO.getActType()==1) {
 					Map<String, Object> map = new HashMap<String, Object>();
 					price = activityDO.getActPrice();
 					map.put("price", price);
@@ -304,7 +304,7 @@ public class PcActivityController extends BaseController{
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return dataInfo.toString();
 					}
-				}
+				}*/
 				
 				ApplyDO apply = new ApplyDO();
 				apply.setActId(actId);

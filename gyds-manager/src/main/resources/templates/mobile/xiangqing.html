@@ -261,7 +261,7 @@
 	            function(res){
 	                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
 	                    alert('支付成功');
-	                    if(type==7){
+	                    if(type==15){
 	                    	save(flag);
 	                    }
 						
@@ -280,11 +280,11 @@
 	            if( document.addEventListener ){
 	                document.addEventListener('WeixinJSBridgeReady', onBridgeReady(para,type,flag), false);
 	            }else if (document.attachEvent){
-	                document.attachEvent('WeixinJSBridgeReady', onBridgeReady(para,type));
-	                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady(para,type));
+	                document.attachEvent('WeixinJSBridgeReady', onBridgeReady(para,type,flag));
+	                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady(para,type,flag));
 	            }
 	        }else{
-	            onBridgeReady(para,type);
+	            onBridgeReady(para,type,flag);
 	        }
 	    }
 	    
