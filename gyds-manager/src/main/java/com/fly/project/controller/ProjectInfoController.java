@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,9 @@ import com.fly.project.domain.ProjectInfoDO;
 import com.fly.project.domain.ProjectTypeDO;
 import com.fly.project.service.ProjectInfoService;
 import com.fly.project.service.ProjectTypeService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
+import com.fly.team.service.TeamService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -49,6 +52,9 @@ public class ProjectInfoController {
 	private BaseService baseService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired 
+	private TeamService teamService;
+	
 	@GetMapping()
 	@RequiresPermissions("project:info:info")
 	String Info(){
@@ -70,6 +76,15 @@ public class ProjectInfoController {
 	@GetMapping("/add")
 	@RequiresPermissions("project:info:add")
 	String add(Model model){
+		Map<String, Object> params=new HashMap<>();
+		params.put("userId", ShiroUtils.getUserId());
+		List<TeamDO> list = teamService.list(params);
+		if(!list.isEmpty()) {
+			TeamDO team = list.get(0);
+			model.addAttribute("teamId", team.getId());
+		}else {
+			model.addAttribute("teamId", -1);
+		}
 		List<ProjectTypeDO> type = ProjectTypeService.list(null);
 		model.addAttribute("type", type);
 	    return "project/info/add";
@@ -96,6 +111,9 @@ public class ProjectInfoController {
 		info.setStatus(1);
 		//BigDecimal cost = info.getCost();
 		//int i = cost.compareTo(new BigDecimal(0));
+		if(info.getTeamId()==-1) {
+			return R.error("您不是团长,不能发起项目");
+		}
 		if(projectInfoService.save(info)>0){
 			return R.ok();
 		}
@@ -136,6 +154,7 @@ public class ProjectInfoController {
 		return R.ok();
 	}
 	
+	@Transactional
 	@ResponseBody
 	@RequestMapping("/examine")
 	@RequiresPermissions("project:info:auth")

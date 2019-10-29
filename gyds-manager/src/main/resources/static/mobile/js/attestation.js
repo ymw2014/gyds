@@ -27,10 +27,10 @@ function queryCost(){
 $("#downTeam").on('click', function() {
 	var cardBackImg = $('input[name=cardBackImg]').val();
 	var name = $('input[name=name]').val();
-	var politicalStatus = $('#politicalStatus option:selected').text();
-	var nation = $('#nation option:selected').text();
-	var education = $('#education option:selected').text();
-	var post = $('#post option:selected').text();
+	var politicalStatus = $('#politicalStatus option:selected').val();
+	var nation = $('#nation option:selected').val();
+	var education = $('#education option:selected').val();
+	var post = $('#post option:selected').val();
 	var cardNo = $('input[name=cardNo]').val();
 	var cardFrontImg = $('input[name=cardFrontImg]').val();
 	var email = $('input[name=email]').val();
@@ -53,10 +53,10 @@ $("#downTeam").on('click', function() {
 	$("#downProxy").on('click', function() {
 		var cardBackImg = $('input[name=cardBackImg]').val();
 		var name = $('input[name=name]').val();
-		var politicalStatus = $('#politicalStatus option:selected').text();
-		var nation = $('#nation option:selected').text();
-		var education = $('#education option:selected').text();
-		var post = $('#post option:selected').text();
+		var politicalStatus = $('#politicalStatus option:selected').val();
+		var nation = $('#nation option:selected').val();
+		var education = $('#education option:selected').val();
+		var post = $('#post option:selected').val();
 		var cardNo = $('input[name=cardNo]').val();
 		var cardFrontImg = $('input[name=cardFrontImg]').val();
 		var email = $('input[name=email]').val();
@@ -226,6 +226,8 @@ $("#downTeam").on('click', function() {
 			 jsonStr = JSON.stringify($('#proxybusi').serializeJSON());
 		}
 		$('#text').val(jsonStr);
+		console.log($('#signupForm').serialize());
+		return false;
 		$.ajax({
 			type : "POST",
 			url : "/pc/realName",

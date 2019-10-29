@@ -15,9 +15,9 @@ var MyModal1 = (function() {
 			$(".m-modal1").find('*').on("click", function(event) {
 				event.stopPropagation(); //阻止事件冒泡
 			});
-//			$(".m-modal1,.m-modal1-close,.m-btn-cancel").on("click", function(event) {
-//				that.hide();
-//			});
+			$(".m-modal1,.m-modal1-close,.m-btn-cancel").on("click", function(event) {
+				that.hide();
+			});
 			$(".m-btn-sure").on("click", function(event) {
 				that.fn();
 				that.hide();

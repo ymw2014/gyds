@@ -25,7 +25,7 @@ $.validator.setDefaults({
 			timer = setInterval(function () {
 					var msg = queryOrder(orderNum)
 					if (msg == '1') {
-						sava();
+						save();
 					}
 				},500);
 		} else {
