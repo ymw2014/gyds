@@ -27,4 +27,6 @@ public interface ProjectService {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	List<ProjectDO> endTimePro(Map<String,Object> map);
 }

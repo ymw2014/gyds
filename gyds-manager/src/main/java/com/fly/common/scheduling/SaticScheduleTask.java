@@ -18,6 +18,8 @@ import com.fly.adv.dao.AdvertisementDao;
 import com.fly.adv.domain.AdvertisementDO;
 import com.fly.news.dao.InfoDao;
 import com.fly.news.domain.InfoDO;
+import com.fly.project.domain.ProjectDO;
+import com.fly.project.service.ProjectService;
 import com.fly.team.dao.TeamDao;
 import com.fly.team.domain.TeamDO;
 import com.fly.utils.DateUtils;
@@ -35,6 +37,8 @@ public class SaticScheduleTask {
 	private AdvertisementDao advertisementDao;
 	@Autowired
 	private ActivityDao activityDao;
+	@Autowired
+	private ProjectService projectService;
 	
 	 //3.添加定时任务
     @Scheduled(cron = "0 0 * * * ?")
@@ -89,5 +93,18 @@ public class SaticScheduleTask {
         	activityDao.update(activityDO);
         	System.out.println("执行定时任务查询活动时间");
 		}
+        params.clear();
+        
+        params.put("status", "2");
+        params.put("isDue", "2");
+        params.put("endTime", DateUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        List<ProjectDO> proList = projectService.endTimePro(params);
+        for (ProjectDO projectDO : proList) {
+        	projectDO.setIsDue(2);
+        	projectService.update(projectDO);
+        	System.out.println("执行定时任务查询活动时间");
+		}
+
     }
+    
 }

@@ -33,8 +33,11 @@ import com.fly.news.service.DynamicService;
 import com.fly.news.service.InfoService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
+import com.fly.project.dao.ProjectDao;
+import com.fly.project.domain.ProjectDO;
 import com.fly.project.domain.ProjectInfoDO;
 import com.fly.project.service.ProjectInfoService;
+import com.fly.project.service.ProjectService;
 import com.fly.sys.domain.SetupDO;
 import com.fly.sys.service.SetupService;
 import com.fly.system.dao.UserDao;
@@ -86,7 +89,9 @@ public class PersionController extends BaseController{
 	private LevelDao levelDao;
 	@Autowired
 	private ProjectInfoService projectInfoService;
-
+	@Autowired
+	private ProjectService projectService;
+	
 	@ResponseBody
 	@RequestMapping("/pc/binding")
 	public R binding(UserDO user,Model model) {
@@ -482,9 +487,10 @@ public class PersionController extends BaseController{
 			if(teamId!=null) {
 				map.put("teamId", teamId);
 				map.put("status", 2);
-				List<ProjectInfoDO> proList = projectInfoService.list(map);
+				map.put("isDue", 1);
+				List<ProjectDO> proList = projectService.list(map);
 				if(!proList.isEmpty()) {
-					for (ProjectInfoDO projectInfoDO : proList) {
+					for (ProjectDO projectInfoDO : proList) {
 						type.put("id", projectInfoDO.getId());
 						type.put("name", projectInfoDO.getProjectName());
 						listMap.add(type);
@@ -549,9 +555,10 @@ public class PersionController extends BaseController{
 			if(teamId!=null) {
 				map.put("teamId", teamId);
 				map.put("status", 2);
-				List<ProjectInfoDO> proList = projectInfoService.list(map);
+				map.put("isDue", 1);
+				List<ProjectDO> proList = projectService.list(map);
 				if(!proList.isEmpty()) {
-					for (ProjectInfoDO projectInfoDO : proList) {
+					for (ProjectDO projectInfoDO : proList) {
 						type.put("id", projectInfoDO.getId());
 						type.put("name", projectInfoDO.getProjectName());
 						listMap.add(type);
@@ -657,7 +664,28 @@ public class PersionController extends BaseController{
 		return "pc/basics";
 	}
 
-
+	@RequestMapping("/pc/myProject")
+	public String myProject(Model model) {
+		Map<String, Object> params=new HashMap<>(16);
+		List<ProjectDO> proList = new ArrayList<ProjectDO>();
+		List<ProjectInfoDO> puProList = new ArrayList<ProjectInfoDO>();
+		UserDO user= ShiroUtils.getUser();
+		TeamDO team = teamDao.getByUserId(user.getUserId());
+		params.put("status", "2");
+		if(team==null) {
+			Map<String, Object> volMap = voService.getVoInfo(user.getUserId());
+			params.put("teamId", volMap.get("team_id"));
+			proList = projectService.list(params);
+			puProList = projectInfoService.list(params);
+		}else {
+			params.put("teamId", team.getId());
+			proList = projectService.list(params);
+			puProList = projectInfoService.list(params);
+		}
+		model.addAttribute("proList", proList);
+		model.addAttribute("puProList", puProList);
+		return "pc/myProject";
+	}
 
 
 }

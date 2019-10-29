@@ -91,6 +91,7 @@ public class PcProjectController {
 					map.put("teamId",teamId);
 					map.put("projectId",id);
 					map.put("status",2);
+					map.put("isDue",1);
 					List<ProjectDO> isPro = projectService.list(map);
 					if(!isPro.isEmpty()) {
 						model.addAttribute("isPro", Constant.Project.YI_CHENG_JIE);
@@ -168,5 +169,19 @@ public class PcProjectController {
 		// 查询列表数据
 		List<ProjectInfoDO> proInfoList = projectInfoService.proInfoList(para);
 		return proInfoList;
+	}
+	
+	@RequestMapping("/pc/proDue")
+	@ResponseBody
+	public R proDue(Map<String, Object> para,Long id) {
+		ProjectDO projectDO = projectService.get(id);
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, 366);
+		projectDO.setEndTime(c.getTime());
+		projectDO.setIsDue(1);
+		if(projectService.update(projectDO)>0) {
+			return R.ok();
+		}
+		return R.error();
 	}
 }
