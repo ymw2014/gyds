@@ -56,6 +56,7 @@ public class ProjectInfoDO implements Serializable {
 	private Date endTime;
 	
 	
+	
 	public BigDecimal getPerpetual() {
 		return perpetual;
 	}

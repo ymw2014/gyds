@@ -57,6 +57,10 @@ public class ProjectInfoServiceImpl implements ProjectInfoService {
 		return projectInfoDao.proInfoList(map);
 	}
 
-		
+	@Override
+	public int updateCount(ProjectInfoDO info) {
+		return projectInfoDao.updateCount(info);
+	}
+
 	
 }

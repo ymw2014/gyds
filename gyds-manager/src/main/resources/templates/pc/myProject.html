@@ -2,10 +2,8 @@
 <html>
 	<head th:replace="pc/include :: head">
 	<link rel="stylesheet" href="css/fenye.css">
-	
 	    <script th:src="@{/pc/js/jquery-3.1.1.js}"></script>
 		<script type="text/javascript" src="js/fenye.js"></script>
-		
 	</head>
 	<body>
 		<div class="boxRight" style="background:#fff;margin-top:0;">
@@ -25,6 +23,7 @@
 						</div>
 						<div class="yy-mytd2">
 							<h4 th:text="${pro.projectName}"></h4>
+							<a href="javaScript:;" th:onclick="'javaScript:quit('+${pro.id}+')'" class="tuichu">退出</a>
 							<div>
 								<ul>
 									<!-- <li>类型<span th:text="${pro.projectTypeName}"></span></li> -->
@@ -72,9 +71,27 @@
 			</div>
 		</div>
 	</body>
+	<style type="text/css">
+		.tuichu{
+			display: block !important;
+			width:134px !important;
+			height: 44px !important;
+			background:#c11b25 !important;
+			color:#f9f7f8 !important;
+			position: absolute !important;
+			margin-top:0 !important;
+			right:48px;
+			text-align: center;
+			line-height:44px;
+			border-radius:3px;
+		}
+		</style>
 	<link rel="stylesheet" th:href="@{/mobile/css/jquery.my-modal.1.1.css}">
 	<script type="text/javascript" th:src="@{/mobile/js/jquery.my-modal.1.1.js}"></script>
 	<script type="text/javascript">
+	webHeight = $('html').height();
+	$(".J_iframe",parent.document).css("height",webHeight+'px')
+	
 	var m1 = new MyModal.modal(function(){
 	});
 	$('.btn1').on("click", function() {
@@ -169,6 +186,28 @@
 	$(".m-modal,.m-modal-close,.m-btn-cancel").on("click", function(event) {
 		$('.m-modal').hide();
 	});
+	
+	function quit(id) {
+		layer.confirm('确定要退出项目？', {
+			btn : [ '确定', '取消' ]
+		}, function() {
+			$.ajax({
+				url : "/pc/quitProject",
+				type : "post",
+				data : {
+					'id' : id
+				},
+				success : function(r) {
+					if (r.code==0) {
+						layer.msg(r.msg);
+						reLoad();
+					}else{
+						layer.msg(r.msg);
+					}
+				}
+			});
+		})
+	}
 	</script>
 </html>
 <script>

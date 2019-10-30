@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +26,9 @@ import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.project.domain.ProjectDO;
 import com.fly.project.domain.ProjectInfoDO;
+import com.fly.project.service.ProjectInfoService;
 import com.fly.project.service.ProjectService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -39,7 +43,8 @@ import com.fly.utils.R;
  
 @Controller
 @RequestMapping("/project/project")
-public class ProjectController {
+public class ProjectController{
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private ProjectService projectService;
 	
@@ -47,6 +52,8 @@ public class ProjectController {
 	private BaseService baseService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private ProjectInfoService projectInfoService;
 	
 	@GetMapping()
 	@RequiresPermissions("project:project:project")
@@ -138,17 +145,41 @@ public class ProjectController {
 	public R examine(Long id,Integer status) {
 		ProjectDO project = projectService.get(id);
 		project.setStatus(status);
-		Integer flag = project.getDuration();
-		if(flag==1) {
-			Calendar c = Calendar.getInstance();
-			c.add(Calendar.DAY_OF_MONTH, 366);
-			project.setEndTime(c.getTime());
-			project.setIsDue(1);
+		if(status==2) {
+			Integer flag = project.getDuration();
+			if(flag==1) {
+				Calendar c = Calendar.getInstance();
+				c.add(Calendar.DAY_OF_MONTH, 366);
+				project.setEndTime(c.getTime());
+				project.setIsDue(1);
+			}
+			ProjectInfoDO projectInfoDO = new ProjectInfoDO();
+			projectInfoDO.setTeamCount(1);
+			projectInfoDO.setId(project.getProjectId());
+			projectInfoService.updateCount(projectInfoDO);
+		}
+		if(status==3) {//拒绝申请
+			if(project.getOrder()!=null) {
+				OrderDO order = orderService.get(project.getOrder());
+				boolean flag = baseService.increaseMoney(order.getUserId(),order.getPrice());//资金回滚入用户账户
+				if(flag) {
+					order.setExamineStatus(3);
+					order.setExamineUser(ShiroUtils.getUserId());
+					orderService.update(order);
+				}else {
+					logger.info("项目审核失败,失败原因:用户编号:"+order.getUserId()+"资金回滚失败,手动事务处理");
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				}
+			}
+			if(projectService.update(project)>0) {
+				return R.ok();
+			}
+			return R.error();
 		}
 		
 		if(projectService.update(project)>0) {
 			Map<String,Object> params=new HashMap<String, Object>();
-			params.put("orderNumber", project.getOrder());
+			params.put("id", project.getOrder());
 			List<OrderDO> orderList = orderService.list(params);
 			if(orderList.isEmpty()) {
 				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

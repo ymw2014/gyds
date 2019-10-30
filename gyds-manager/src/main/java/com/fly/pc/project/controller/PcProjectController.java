@@ -57,6 +57,7 @@ public class PcProjectController {
 	@RequestMapping("/pc/proList")
 	public String projectList(Long areaId,Map<String, Object> para,Model model) {
 		List<ProjectTypeDO> proTypeList = ProjectTypeService.list(para);
+		para.put("status", 2);
 		List<ProjectInfoDO> proInfoList = projectInfoService.proInfoList(para);
 		List<TypeTitleDO> list2 = indexService.getFooterCenter();
 		model.addAttribute("centerList", list2);
@@ -97,7 +98,7 @@ public class PcProjectController {
 						map.put("teamId",teamId);
 						map.put("projectId",id);
 						map.put("status",2);
-						map.put("isDue",1);
+						map.put("isDue",2);
 						isPro = projectService.list(map);
 						if(!isPro.isEmpty()) {
 							model.addAttribute("isPro", Constant.Project.YI_GUO_QI);
@@ -124,6 +125,7 @@ public class PcProjectController {
 		map.clear();
 		map.put("projectId",id);
 		map.put("status",2);
+		map.put("isDue",1);
 		List<ProjectDO> teamList= projectService.list(map);
 		map.put("status",1);
 		List<InfoDO> newsList = infoService.list(map);
