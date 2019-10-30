@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface OrderService {
 	
-	OrderDO get(Integer id);
+	OrderDO get(Long id);
 	
 	List<OrderDO> list(Map<String, Object> map);
 	

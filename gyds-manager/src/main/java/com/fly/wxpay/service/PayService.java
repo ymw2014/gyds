@@ -64,7 +64,7 @@ public class PayService {
 		order.setUserId(ShiroUtils.getUserId());
 		order.setBusinessTime(new Date());
 		order.setIsDel(0);
-		Integer orderNum = 0;
+		Long orderNum = 0L;
 		R r = new R();
 		try {
 			if(orderService.save(order)>0){
@@ -90,14 +90,13 @@ public class PayService {
 	 * @param orderNum 订单号
 	 * @return
 	 */
-	public R queryOrder(String orderNum) {
-		Map<String,Object> pararm = new HashMap<String, Object>();
-		pararm.put("orderNumber",orderNum);
+	public R queryOrder(Long orderNum) {
+		
 		R r = new R();
 		try {
-			List<OrderDO> list = orderService.list(pararm);
-			if (!CollectionUtils.isEmpty(list)) {
-				Integer examineStatus = list.get(0).getExamineStatus();
+			OrderDO order = orderService.get(orderNum);
+			if (order!=null) {
+				Integer examineStatus = order.getExamineStatus();
 				r.put("code", 0);
 				r.put("msg", examineStatus);
 				return r;

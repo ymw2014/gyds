@@ -17,7 +17,7 @@ public class OrderDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//自增编号
-	private Integer id;
+	private Long id;
 	//订单编号
 	private String orderNumber;
 	//用户编号
@@ -85,13 +85,13 @@ public class OrderDO implements Serializable {
 	/**
 	 * 设置：自增编号
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**
 	 * 获取：自增编号
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 	/**

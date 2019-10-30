@@ -153,7 +153,7 @@ public class OrderController {
 
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("order:order:edit")
-	String edit(@PathVariable("id") Integer id,Model model){
+	String edit(@PathVariable("id") Long id,Model model){
 		OrderDO order = orderService.get(id);
 		model.addAttribute("order", order);
 	    return "order/order/edit";
@@ -177,7 +177,7 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("order:order:audit")
-	public R update( OrderDO order,Integer id, Integer examineStatus){
+	public R update( OrderDO order,Long id, Integer examineStatus){
 		OrderDO orderNew = orderService.get(id);
 		orderNew.setExamineUser(ShiroUtils.getUserId());
 		orderNew.setExamineStatus(examineStatus);

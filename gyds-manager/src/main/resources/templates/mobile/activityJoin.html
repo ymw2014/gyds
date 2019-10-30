@@ -198,16 +198,17 @@ function collection(actId, type, newtype) {
 
 function apply(type) {
 	var price = $("#_actprice").val();
+	price=Math.trunc(price);
 	if(type==2){
 		if(price>0){
 			var para = {};
 			pay(price,para,8)
 		}else{
-			save(type);
+			submitApp(type);
 		}
 	}
 	if(type==1){
-		save(type);
+		submitApp(type);
 	}
 }
 	var appId = '';
@@ -253,7 +254,7 @@ function apply(type) {
                 if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                     alert('支付成功');
                     if(orderType==8){
-                    	save(2);
+                    	submitApp(2);
                     }
 					
                 }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
@@ -281,7 +282,7 @@ function apply(type) {
 
 
 
-function save(type){
+function submitApp(type){
 	
 	$.ajax({
         type : "POST",

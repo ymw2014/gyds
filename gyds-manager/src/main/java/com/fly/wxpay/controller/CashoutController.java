@@ -52,7 +52,7 @@ public class CashoutController {
 	
 	@RequestMapping("/queryOrder")
 	@ResponseBody
-	public R queryOrder(String orderNum) {
+	public R queryOrder(Long orderNum) {
 		return PayOrderService.queryOrder(orderNum);
 	}
 	

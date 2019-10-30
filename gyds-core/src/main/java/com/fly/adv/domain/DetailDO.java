@@ -23,7 +23,7 @@ public class DetailDO implements Serializable {
 	//广告位置
 	private Integer positionNum;
 	//订单ID
-	private Integer  orderId;
+	private Long  orderId;
 	//发布区域
 	private Long regionCode;
 	//区域名称
@@ -191,10 +191,10 @@ public class DetailDO implements Serializable {
 	public void setSort(Integer sort) {
 		this.sort = sort;
 	}
-	public Integer getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(Integer orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 	public String getRegionName() {

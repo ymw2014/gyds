@@ -338,7 +338,7 @@ public class PersionController extends BaseController{
 	@RequestMapping("/pc/realName")
 	@Transactional
 	public R realName(NameDO name,Model model) {
-		Integer i = 0;
+		Long i = 0L;
 		String flag = "0";
 		String errMsg = "账号余额不足，请充值";
 		UserDO user = getUser();

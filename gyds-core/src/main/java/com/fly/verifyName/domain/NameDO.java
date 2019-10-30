@@ -67,7 +67,7 @@ public class NameDO implements Serializable {
 	//
 	private Integer regionCode;
 	//
-	private Integer orderId;
+	private Long orderId;
 	//
 	private String headImg;
 	//学历
@@ -94,10 +94,10 @@ public class NameDO implements Serializable {
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
 	}
-	public Integer getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(Integer orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 	public Integer getRegionCode() {

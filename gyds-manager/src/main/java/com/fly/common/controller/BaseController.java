@@ -340,8 +340,8 @@ public class BaseController {
 		return parCode;
 	}
 	//创建订单
-	public Integer creadOrder(Map<String,Object> params) {
-		Integer i =-1;
+	public Long creadOrder(Map<String,Object> params) {
+		Long i =-1L;
 		OrderDO order = new OrderDO();
 		String userId =null;
 		userId = String.valueOf(params.get("userId"));
@@ -498,8 +498,8 @@ public class BaseController {
 			return i;
 		}
 	//return 0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
-	public synchronized Integer deductMoney(Map<String,Object> params) {
-		Integer i = 2;
+	public synchronized Long deductMoney(Map<String,Object> params) {
+		Long i = 2L;
 		Long userId = null; 
 		UserDO user = null; 
 		try {
@@ -513,19 +513,21 @@ public class BaseController {
 			BigDecimal account = user.getAccount();
 			if(account!=null&&price!=null) {
 				//结果 :-1 小于,0 等于,1 大于
-				i =account.compareTo(price);
-				if(-1==i) {
-					return i;
+				Integer m =account.compareTo(price);
+				if(-1==m) {
+					return -1L;
 				}else {
 					BigDecimal account1 = account.subtract(price);
 					UserDO u = new UserDO();
 					u.setUserId(user.getUserId());
 					u.setAccount(account1);
-					return userMapper.update(u);
+					if(userMapper.update(u)>0) {
+						return 1L;
+					}
 				}
 
 			}else {
-				return i=-1;
+				return i=-1L;
 			}
 		}
 
@@ -732,8 +734,8 @@ public class BaseController {
 		return price;
 	}
 	//return 0:扣款失败  1表示扣款成功 
-		public synchronized Integer addMoney(Map<String,Object> params) {
-			Integer i = 0;
+		public synchronized Long addMoney(Map<String,Object> params) {
+			Long i = 0L;
 			UserDO user = null; 
 			user = userMapper.get(Long.valueOf(params.get("userId").toString()));
 			if(user!=null) {
@@ -743,7 +745,9 @@ public class BaseController {
 						UserDO u = new UserDO();
 						u.setUserId(user.getUserId());
 						u.setAccount(sum);
-						return userMapper.update(u);
+						if(userMapper.update(u)>0) {
+							return 1L;
+						}
 			}
 			return i;
 		}

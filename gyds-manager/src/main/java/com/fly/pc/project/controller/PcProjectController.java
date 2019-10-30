@@ -147,7 +147,7 @@ public class PcProjectController {
 	
 	@ResponseBody
 	@RequestMapping("/pc/savaPro")
-	public R savaPro(Long id,Integer order,Integer flag){
+	public R savaPro(Long id,Long order,Integer flag){
 		Map<String, Object> map = new HashMap<String, Object>();
 		Long userId = ShiroUtils.getUserId();
 		map.put("userId", userId);

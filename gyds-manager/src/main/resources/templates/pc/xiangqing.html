@@ -153,6 +153,7 @@
 				timer = setInterval(function () {
 						var msg = queryOrder(orderNum)
 						if (msg == '1') {
+							window.clearInterval(timer);
 							sava(flag);
 						}
 					},500);

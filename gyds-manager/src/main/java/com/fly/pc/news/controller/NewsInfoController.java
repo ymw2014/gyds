@@ -348,6 +348,7 @@ public class NewsInfoController extends BaseController {
 	@ResponseBody
 	@Transactional
 	public R reward(@RequestParam Map<String, Object> params) {
+		
 		R r = new R();
 		Integer i = null;
 		Boolean flag =false;
@@ -540,7 +541,7 @@ public class NewsInfoController extends BaseController {
 				}
 				params.put("price", price);
 				params.put("userId", userId);
-				Integer i = creadOrder(params);
+				Long i = creadOrder(params);
 				if(i>0) {
 					i = addMoney(params);
 					if(i==1) {
@@ -616,13 +617,13 @@ public class NewsInfoController extends BaseController {
 		Map<String,Object> count = new HashMap<String,Object>();
 		count = count(params.get("topCount").toString(),params.get("topReg").toString());
 		count.put("price", count.get("count"));
-		Integer i = deductMoney(count);
+		Long i = deductMoney(count);
 		if(i==1) {
 			params.put("orderType", 2);
 			params.put("examineStatus", 2);
 			params.put("expIncType", 5);
 			params.put("price", count.get("price"));
-			Integer orderNuber = creadOrder(params);
+			Long orderNuber = creadOrder(params);
 			if (orderNuber > 0) {
 				top.setOrdernumber(orderNuber);
 				top.setNewsId(Integer.parseInt(params.get("newsId").toString()));
@@ -847,18 +848,16 @@ public R createOrder(String fee, Integer expIncType) {
 	order.setUserId(ShiroUtils.getUserId());
 	order.setBusinessTime(new Date());
 	order.setIsDel(0);
-	Integer orderNum = 0;
+	Long orderNum = 0L;
 	R r = new R();
 	try {
 		if(orderService.save(order)>0){
 			orderNum = order.getId();
-		}
-		if (orderNum > 0) {
-			OrderDO orderDO = orderService.get(orderNum);
 			r.put("code", 0);
-			r.put("msg", orderDO.getOrderNumber());
+			r.put("msg", orderNum);
 			return r;
 		}
+		
 	}catch(Exception e) {
 		e.printStackTrace();
 		r.put("code", -1);

@@ -2,6 +2,7 @@ package com.fly.project.controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -145,7 +147,14 @@ public class ProjectController {
 		}
 		
 		if(projectService.update(project)>0) {
-			OrderDO order = orderService.get(project.getOrder());
+			Map<String,Object> params=new HashMap<String, Object>();
+			params.put("orderNumber", project.getOrder());
+			List<OrderDO> orderList = orderService.list(params);
+			if(orderList.isEmpty()) {
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				return R.error("订单获取失败");
+			}
+			OrderDO order = orderList.get(0);
 			if(order!=null) {
 				baseService.productOfDomestic(order.getExpIncType(), order.getPrice(), project.getProjectId());
 			}
