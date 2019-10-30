@@ -109,19 +109,18 @@ public class ApplyController extends BaseController{
 		Long id = apply.getId();
 		ApplyDO app = applyService.get(id);
 		ActivityDO activityDO = activityService.get(Integer.parseInt(app.getActId().toString()));
-		UserDO teamUser = userService.get(teamService.get(activityDO.getTeamId()).getUserId());//团长信息
+		UserDO teamUser = userService.getUser(teamService.get(activityDO.getTeamId()).getUserId());//团长信息
 		BigDecimal teamAccount =  teamUser.getAccount();
 		BigDecimal price = activityDO.getActPrice();
 		if(apply.getStatus()==2){
 			Map<String, Object> map = new HashMap<String, Object>();
 			teamUser.setAccount(teamAccount.subtract(price));
-			UserDO user = userService.get(Long.parseLong(app.getUserId().toString()));//活动报名人用户信息
+			UserDO user = userService.getUser(Long.parseLong(app.getUserId().toString()));//活动报名人用户信息
 			BigDecimal account =  user.getAccount();
 			account = account.add(price);
 			user.setAccount(account);
-			Integer i = userService.update(user);
+			Integer i = userService.updatePersonal(user);
 			if(i==1) {
-				
 				map.put("price", price);
 				map.put("orderType", 2);
 				map.put("expIncType", 8);
@@ -131,10 +130,11 @@ public class ApplyController extends BaseController{
 		}
 		if(apply.getStatus()==1) {
 			teamUser.setAccount(teamAccount.add(price));
-			userService.update(teamUser);
+			userService.updatePersonal(teamUser);
 		}
-		apply.setExamine(new Date());
-		applyService.update(apply);
+		app.setStatus(apply.getStatus());
+		app.setExamine(new Date());
+		applyService.update(app);
 		return R.ok();
 	}
 	

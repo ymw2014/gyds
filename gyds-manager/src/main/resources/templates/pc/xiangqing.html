@@ -55,21 +55,25 @@
 				<div class="public-right1">
 					<img th:src="${proInfo.logo}" alt="">
 					<p th:text="${proInfo.projectName}"></p>
+						<input type="hidden" th:value="${proInfo.tickets}" id="tickets">
+						<input type="hidden" th:value="${proInfo.perpetual}" id="perpetual">
 					<ul>
 						<li><img th:src="@{/pc/images/diandian_03.png}" alt="" th:text="${proInfo.projectTypeName}"></li>
 						<label>
-						  <li style="color:#9e2946;" class="lsi"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'年:'+proInfo.tickets}"> <div class="imgzxc"></div><input type="radio" name="danxiuan" style="display:none;"></li> 
+						  <li style="color:#9e2946;" class="lsi">
+						  	<img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'年:'+proInfo.tickets}"> <div class="imgzxc"></div><input type="radio" name="danxiuan" value="1" style="display:none;">
+						  </li> 
 						</label>
 						<label>
-						<li style="color:#9e2946;" class="lsi"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'永久:'+proInfo.perpetual}"><div class="imgzxc"></div><input type="radio" name="danxiuan" style="display:none;"></li>
+						<li style="color:#9e2946;" class="lsi"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'永久:'+proInfo.perpetual}"><div class="imgzxc1"></div><input type="radio" checked="checked"  name="danxiuan" value="2" style="display:none;"></li>
 					    </label>
 					</ul>
 					<div style="width: 50%;overflow: hidden;float: right;"><a href="/login" th:if="${isPro}==0">点击承接</a></div>
-					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay('+${proInfo.tickets}+',1)'" class="btn1">点击承接<span>(年)</span></a><a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay('+${proInfo.perpetual}+',2)'" class="btn1">点击承接<span>(永久)</span></a>
+					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay()'" class="btn1">点击承接<span>(年)</span></a>
 					<a href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接 </a>
 					<a href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>
 					<a href="javascript:;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>
-					<a href="javascript:;" th:if="${isPro}==5" th:onclick="'javascript:pay('+${proInfo.tickets}+',1)'" class="btn1">已过期</a>
+					<a href="javascript:;" th:if="${isPro}==5" th:onclick="javascript:alert('您的项目承接已过期,请到个人中心进行承接续费')" class="btn1">已过期</a>
 				</div>
 				<div class="public-right2">
 					<ul>
@@ -141,9 +145,11 @@
 	var m1 = new MyModal.modal(function() {
 	});
 	$('.btn1').on("click", function() {
-	m1.show();
+	
 	});
-	function pay(tickets,flag){
+	function pay(){
+		var flag=$("input[name='danxiuan']:checked").val();
+		var tickets=flag==1?$("#tickets").val():$("#perpetual").val();
 		if(tickets==0){
 			sava(flag);
 		}else{
@@ -248,6 +254,7 @@
 			$(this).parent("li").parent("label").siblings().find("div").removeClass("imgzxc1").addClass("imgzxc");
 		} else if ($(this).hasClass("imgzxc1")) {
 			$(this).removeClass("imgzxc1")
+			//$(this).find("input[type='radio']").attr("checked","checked");
 			$(this).addClass("imgzxc")
 		}
     });

@@ -246,7 +246,7 @@ public class PcActivityController extends BaseController{
 					BigDecimal account =  user.getAccount();
 					account = account.add(price);
 					user.setAccount(account);
-					i = userService.update(user);
+					i = userService.updatePersonal(user);
 					if(i==1) {
 						map.put("price", price);
 						map.put("orderType", 2);
