@@ -62,8 +62,18 @@
 						<ul class="icon-desc-list">
 							<li>
 								<i class="icon-eye"></i>
+								<label class="lsi">
 								<span style="color:#9e2946;" th:text="${'年:'+proInfo.tickets}"></span>
+								<div class="imgzxc" style="margin-left:40px;"></div>
+								<input type="radio" name="danxiuan" style="display:none;">
+								</label>
+							</li>
+							<li>
+							  <label class="lsi">
 								<span style="color:#9e2946;" th:text="${'永久:'+proInfo.perpetual}"></span>
+								<div class="imgzxc" style="margin-left:18px;"></div>
+								<input type="radio" name="danxiuan" style="display:none;">
+							  </label>
 							</li>
 						</ul>
 						<!-- 承接按钮 -->
@@ -142,7 +152,7 @@
 				<div class="row bar"></div>
 
 				<!--品牌发起机构-->
-				<div class="brand-init-org">
+				<div class="brand-init-org" style="width: 95%;margin: 0 auto;">
 					<div class="title-default">
 						<h4>
 							品牌发起机构
@@ -166,7 +176,7 @@
 				</div>
 				<div class="row bar"></div>
 				<!--联系我们-->
-				<div class="contact-us">
+				<div class="contact-us" style="width: 95%;margin: 0 auto;">
 					<div class="title-default">
 						<h4>
 							联系我们
@@ -291,6 +301,16 @@
 	            onBridgeReady(para,type,flag);
 	        }
 	    }
+	    $('.lsi div').click(function () {
+			if ($(this).hasClass("imgzxc")) {
+				$(this).removeClass("imgzxc")
+				$(this).addClass("imgzxc1")
+				$(this).parent("label").parent("li").siblings().find("div").removeClass("imgzxc1").addClass("imgzxc");
+			} else if ($(this).hasClass("imgzxc1")) {
+				$(this).removeClass("imgzxc1")
+				$(this).addClass("imgzxc"); 
+			}
+	    });
 	    
 	</script>
 </html>
