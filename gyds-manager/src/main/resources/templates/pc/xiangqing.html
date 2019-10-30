@@ -57,10 +57,14 @@
 					<p th:text="${proInfo.projectName}"></p>
 					<ul>
 						<li><img th:src="@{/pc/images/diandian_03.png}" alt="" th:text="${proInfo.projectTypeName}"></li>
-						<li style="color:#9e2946;"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'年:'+proInfo.tickets}"></li>
-						<li style="color:#9e2946;"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'永久:'+proInfo.perpetual}"></li>
+						<label>
+						  <li style="color:#9e2946;" class="lsi"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'年:'+proInfo.tickets}"> <div class="imgzxc"></div><input type="radio" name="danxiuan" style="display:none;"></li> 
+						</label>
+						<label>
+						<li style="color:#9e2946;" class="lsi"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'永久:'+proInfo.perpetual}"><div class="imgzxc"></div><input type="radio" name="danxiuan" style="display:none;"></li>
+					    </label>
 					</ul>
-					<a href="/login" th:if="${isPro}==0">点击承接</a>
+					<div style="width: 50%;overflow: hidden;float: right;"><a href="/login" th:if="${isPro}==0">点击承接</a></div>
 					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay('+${proInfo.tickets}+',1)'" class="btn1">点击承接<span>(年)</span></a><a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay('+${proInfo.perpetual}+',2)'" class="btn1">点击承接<span>(永久)</span></a>
 					<a href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接 </a>
 					<a href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>
@@ -236,7 +240,17 @@
 		console.log(index);
 		$(this).addClass("artin").siblings("li").removeClass("artin");
 		$(".public-right3>div").hide().eq($(this).index()).show()
-	})
+	});
+	$('.lsi div').click(function () {
+		if ($(this).hasClass("imgzxc")) {
+			$(this).removeClass("imgzxc")
+			$(this).addClass("imgzxc1")
+			$(this).parent("li").parent("label").siblings().find("div").removeClass("imgzxc1").addClass("imgzxc");
+		} else if ($(this).hasClass("imgzxc1")) {
+			$(this).removeClass("imgzxc1")
+			$(this).addClass("imgzxc")
+		}
+    });
 	
 	function url(){
 		var url = $('#url').val();

@@ -133,6 +133,7 @@ body{
 }
 .public-right1 ul{
 	margin-top:30px;
+	float: left;
 }
 .public-right1 li{
 	line-height:46px;
