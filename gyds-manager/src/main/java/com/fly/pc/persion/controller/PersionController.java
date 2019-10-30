@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -693,5 +695,19 @@ public class PersionController extends BaseController{
 		return "pc/myProject";
 	}
 
+	/**
+	 * 删除
+	 */
+	@PostMapping("/pc/quitProject")
+	@ResponseBody
+	public R remove(Long id){
+		if(projectService.remove(id)>0){
+			ProjectInfoDO info = new ProjectInfoDO();
+			info.setTeamCount(-1);
+			projectInfoService.updateCount(info);
+		return R.ok();
+		}
+		return R.error();
+	}
 
 }
