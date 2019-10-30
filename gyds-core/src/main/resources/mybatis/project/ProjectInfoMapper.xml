@@ -4,11 +4,11 @@
 <mapper namespace="com.fly.project.dao.ProjectInfoDao">
 
 	<select id="get" resultType="com.fly.project.domain.ProjectInfoDO">
-		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name`,t.`url`,i.`perpetual`,i.`end_time` from project_info i left join project_type t on i.project_type = t.id  where i.id = #{value}
+		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name`,i.`perpetual`,i.`end_time`,i.`url` from project_info i left join project_type t on i.project_type = t.id  where i.id = #{value}
 	</select>
 
 	<select id="list" resultType="com.fly.project.domain.ProjectInfoDO">
-		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name`,i.`perpetual`,i.`end_time` from project_info i left join project_type t on i.project_type = t.id
+		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name`,i.`perpetual`,i.`end_time`,i.`url` from project_info i left join project_type t on i.project_type = t.id
         <where>  
 		  		  <if test="id != null and id != ''"> and i.id = #{id} </if>
 		  		  <if test="projectName != null and projectName != ''"> and i.project_name = #{projectName} </if>
@@ -22,6 +22,9 @@
 		  		  <if test="teamCount != null and teamCount != ''"> and i.team_count = #{teamCount} </if>
 		  		  <if test="shareCount != null and shareCount != ''"> and i.share_count = #{shareCount} </if>
 		  		  <if test="teamId != null and teamId != ''"> and i.team_id = #{teamId} </if>
+		  		  <if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		</if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -51,6 +54,9 @@
 		  		  <if test="teamCount != null and teamCount != ''"> and team_count = #{teamCount} </if>
 		  		  <if test="shareCount != null and shareCount != ''"> and share_count = #{shareCount} </if>
 		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
+		  		  <if test="ids != null">
+		         	and left(team_id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		</if>
 		  		</where>
 	</select>
 	 
@@ -67,7 +73,8 @@
 			`order`,
 			`team_id`,
 			`perpetual`,
-			`end_time`
+			`end_time`,
+			`url`
 		)
 		values
 		(
@@ -81,7 +88,8 @@
 			#{order},
 			#{teamId},
 			#{perpetual},
-			#{endTime}
+			#{endTime},
+			#{url}
 		)
 	</insert>
 	 
@@ -99,7 +107,8 @@
 			<if test="teamCount != null">`team_count` = #{teamCount}, </if>
 			<if test="shareCount != null">`share_count` = #{shareCount},</if>
 			<if test="teamId != null">`team_id` = #{teamId},</if>
-			<if test="perpetual != null">`perpetual` = #{perpetual}</if>
+			<if test="perpetual != null">`perpetual` = #{perpetual},</if>
+			<if test="url != null">`url` = #{url}</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -116,7 +125,7 @@
 	</delete>
 	
 	<select id="proInfoList" resultType="com.fly.project.domain.ProjectInfoDO">
-		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name`,te.team_name,i.`perpetual`,i.`end_time` from project_info i left join project_type t on i.project_type = t.id  left join team te on i.team_id = te.id 
+		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name`,te.team_name,i.`perpetual`,i.`end_time`,i.`url` from project_info i left join project_type t on i.project_type = t.id  left join team te on i.team_id = te.id 
         <where>  
 		  		  <if test="id != null and id != ''"> and i.id = #{id} </if>
 		  		  <if test="projectName != null and projectName != ''"> and i.project_name = #{projectName} </if>
@@ -135,5 +144,15 @@
 			limit #{offset}, #{limit}
 		</if>
 	</select>
+	
+	<update id="updateCount" parameterType="com.fly.project.domain.ProjectInfoDO">
+		update project_info 
+		<set>
+			<if test="teamCount == 1">`team_count` = team_count+1 </if>
+			<if test="teamCount == -1">`team_count` = team_count-1 </if>
+		</set>
+		where id = #{id}
+	</update>
+	
 	
 </mapper>

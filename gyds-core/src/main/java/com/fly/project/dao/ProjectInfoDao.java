@@ -32,4 +32,6 @@ public interface ProjectInfoDao {
 	
 	List<ProjectInfoDO> proInfoList(Map<String,Object> map);
 	
+	int updateCount(ProjectInfoDO info);
+	
 }

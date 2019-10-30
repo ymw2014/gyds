@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +28,7 @@ import com.fly.project.domain.ProjectInfoDO;
 import com.fly.project.domain.ProjectTypeDO;
 import com.fly.project.service.ProjectInfoService;
 import com.fly.project.service.ProjectTypeService;
+import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.TeamService;
@@ -43,7 +47,8 @@ import com.fly.verifyName.domain.NameDO;
  
 @Controller
 @RequestMapping("/project/info")
-public class ProjectInfoController {
+public class ProjectInfoController{
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private ProjectInfoService projectInfoService;
 	@Autowired
@@ -54,6 +59,8 @@ public class ProjectInfoController {
 	private OrderService orderService;
 	@Autowired 
 	private TeamService teamService;
+	@Autowired
+	private RegionService regionService;
 	
 	@GetMapping()
 	@RequiresPermissions("project:info:info")
@@ -65,6 +72,8 @@ public class ProjectInfoController {
 	@GetMapping("/list")
 	@RequiresPermissions("project:info:info")
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		String ids = regionService.getTeamAndAreaByUserRole(ShiroUtils.getUser().getDeptId());
+		params.put("ids", ids);
 		//查询列表数据
         Query query = new Query(params);
 		List<ProjectInfoDO> infoList = projectInfoService.list(query);
@@ -138,6 +147,9 @@ public class ProjectInfoController {
 	@RequiresPermissions("project:info:remove")
 	public R remove( Long id){
 		if(projectInfoService.remove(id)>0){
+			ProjectInfoDO info = new ProjectInfoDO();
+			info.setTeamCount(-1);
+			projectInfoService.updateCount(info);
 		return R.ok();
 		}
 		return R.error();
@@ -161,14 +173,35 @@ public class ProjectInfoController {
 	public R examine(Long id,Integer status) {
 		ProjectInfoDO info = projectInfoService.get(id);
 		info.setStatus(status);
-		if(projectInfoService.update(info)>0) {
-			OrderDO order = orderService.get(info.getOrder());
-			if(order!=null) {
-				baseService.productOfDomestic(order.getExpIncType(), order.getPrice(),info.getId());
+		if(status==2) {
+			if(projectInfoService.update(info)>0) {
+				OrderDO order = orderService.get(info.getOrder());
+				if(order!=null) {
+					baseService.productOfDomestic(order.getExpIncType(), order.getPrice(),info.getId());
+				}
+				return R.ok();
 			}
-			return R.ok();
+			return R.error();
 		}
-		return R.error();
+		if(status==3) {//拒绝申请
+			if(info.getOrder()!=null) {
+				OrderDO order = orderService.get(info.getOrder());
+				boolean flag = baseService.increaseMoney(order.getUserId(),order.getPrice());//资金回滚入用户账户
+				if(flag) {
+					order.setExamineStatus(3);
+					order.setExamineUser(ShiroUtils.getUserId());
+					orderService.update(order);
+				}else {
+					logger.info("项目审核失败,失败原因:用户编号:"+order.getUserId()+"资金回滚失败,手动事务处理");
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				}
+			}
+			if(projectInfoService.update(info)>0) {
+				return R.ok();
+			}
+			return R.error();
+		}
+		return null;
 	}
 	
 }
