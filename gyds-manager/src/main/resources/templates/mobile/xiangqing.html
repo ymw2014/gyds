@@ -275,7 +275,7 @@
 	            }
 	        );
 	    }
-	    function callpay(para,type){
+	    function callpay(para,type,flag){
 	        if (typeof WeixinJSBridge == "undefined"){
 	            if( document.addEventListener ){
 	                document.addEventListener('WeixinJSBridgeReady', onBridgeReady(para,type,flag), false);
