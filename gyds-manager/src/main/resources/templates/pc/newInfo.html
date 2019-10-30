@@ -435,6 +435,7 @@
 <script th:src="@{/pc/js/common.js}"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
+	var _shou_xu_fei;
 	function _area() {
 		console.log($("#area").val());
 		window.location.href = "/?areaId=" + $("#area").val();
@@ -741,6 +742,7 @@
 					});
 					$("#red").empty();
 					$('#red').append(red);
+					_shou_xu_fei=data.rate;
 				} else {
 					var url = data.url;
 					window.location.href = url;
@@ -755,7 +757,7 @@
 		$(".adddd").css("display", "block");
 		var teamId = $('#teamId').val();
 		var payFee = $('#price').val();
-		$('#blance').text("付款金额 " +payFee + "元");
+		
 		var para = {
 			"newsId" : $('#infoId').val(),
 			"orderType" : 2,
@@ -764,9 +766,13 @@
 			"number" : $('#number').val(),
 			"teamId" : teamId
 		};
+		var fee=_shou_xu_fei*payFee;
+		payFee=Number(payFee)+Number(fee);
 		var orderNum = createOrder(payFee,3);
+		$('#blance').text("付款金额 " +payFee + "元");
 		if (orderNum != '-1') {
-			$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (payFee * 100) + "&orderNum=" + orderNum);
+			$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + parseInt(payFee*100) + "&orderNum=" + orderNum);
+			return false;
 			timer = setInterval(function () {
 					var msg = queryOrder(orderNum)
 					console.log(msg);

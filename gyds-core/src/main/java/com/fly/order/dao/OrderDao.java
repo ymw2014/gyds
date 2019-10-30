@@ -16,7 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface OrderDao {
 
-	OrderDO get(Integer id);
+	OrderDO get(Long id);
 	
 	List<OrderDO> list(Map<String,Object> map);
 	

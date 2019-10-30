@@ -82,7 +82,7 @@ public class WxPayController extends BaseController {
 	 */
 	@RequestMapping("/queryOrder")
 	@ResponseBody
-	public R queryOrder(String orderNum) {
+	public R queryOrder(Long orderNum) {
 		return PayOrderService.queryOrder(orderNum);
 	} 
 	
@@ -148,7 +148,7 @@ public class WxPayController extends BaseController {
 	        		orderNum = result.get("out_trade_no");//获取订单号
 	        		logger.info("pc  callback() orderNumber {}", orderNum);
 	        		Map<String,Object> pararm = new HashMap<String, Object>();
-	        		pararm.put("orderNumber",orderNum);
+	        		pararm.put("id",orderNum);
 	        		List<OrderDO> list = orderService.list(pararm);
 	        		if (!CollectionUtils.isEmpty(list)) {
 	        			OrderDO orderDO = list.get(0);

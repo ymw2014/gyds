@@ -145,7 +145,7 @@ public class PcProxybusiController extends BaseController{
 		if(proxybusiDO.getRegImg()==null||proxybusiDO.getRegImg()=="") {
 			return R.error("区域图片不能为空");
 		}
-		Integer i = 0;
+		Long i = 0L;
 		SetupDO setupDO = setupService.get(1);
 		String errMsg = "账号余额不足，请充值";
 		UserDO user = ShiroUtils.getUser();

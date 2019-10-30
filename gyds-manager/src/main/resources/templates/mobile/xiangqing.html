@@ -66,11 +66,12 @@
 							</li>
 						</ul>
 						<!-- 承接按钮 -->
-				    <a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="/login" th:if="${isPro}==0">点击承接</a>
-					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:sub('+${proInfo.tickets}+',1)'" class="btn1" style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;">点击承接<span>(年)</span></a><a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:sub('+${proInfo.perpetual}+',2)'" class="btn1" style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;">点击承接<span>(永久)</span></a>
+				    <a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="/login" th:if="${isPro}==0">点击承接</a>&nbsp;&nbsp;&nbsp;
+					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:sub('+${proInfo.tickets}+',1)'" class="btn1" style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;">点击承接<span>(年)</span></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:sub('+${proInfo.perpetual}+',2)'" class="btn1" style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;">点击承接<span>(永久)</span></a>
 					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接</a>
-					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>
-					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>
+					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>&nbsp;&nbsp;&nbsp;
+					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>&nbsp;&nbsp;&nbsp;
+					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="javascript:;" th:if="${isPro}==5" th:onclick="'javascript:sub('+${proInfo.tickets}+',1)'">已过期&nbsp;&nbsp;&nbsp;</a>
 					</div>
 				</div>
 				<div class="row bar"></div>
@@ -188,7 +189,9 @@
 		</div>
 	</body>
 	<script type="text/javascript">
+	
 	function sub(tickets,flag){
+		tickets=Math.trunc(tickets);
 		if(tickets==0){
 			sava(flag);
 		}else{

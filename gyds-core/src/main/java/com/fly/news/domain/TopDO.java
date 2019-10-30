@@ -31,7 +31,7 @@ public class TopDO implements Serializable {
 	//置顶状态1:通过 2:拒绝
 	private Integer status;
 	//订单号
-	private Integer ordernumber;
+	private Long ordernumber;
 	//制定天数
 	private Integer topDay;
 	//置顶区域
@@ -130,13 +130,13 @@ public class TopDO implements Serializable {
 	/**
 	 * 设置：订单号
 	 */
-	public void setOrdernumber(Integer ordernumber) {
+	public void setOrdernumber(Long ordernumber) {
 		this.ordernumber = ordernumber;
 	}
 	/**
 	 * 获取：订单号
 	 */
-	public Integer getOrdernumber() {
+	public Long getOrdernumber() {
 		return ordernumber;
 	}
 	/**

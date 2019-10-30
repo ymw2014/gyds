@@ -109,7 +109,7 @@ public class AppWxPayController extends BaseController{
 		params.put("cashUpType", 1);
 		params.put("cashOutType", 1);
 		params.put("price", divide);
-		Integer orderNum = creadOrder(params);
+		Long orderNum = creadOrder(params);
 		R r = new R();
 		if (orderNum > 0) {
 			OrderDO orderDO = orderService.get(orderNum);

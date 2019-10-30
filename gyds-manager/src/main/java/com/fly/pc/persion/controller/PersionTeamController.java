@@ -176,7 +176,7 @@ public class PersionTeamController extends BaseController{
 	@PostMapping("/savaTeam")
 	@ResponseBody
 	public R savaTeam(TeamDO team,String reg) {
-		Integer i = 0 ;
+		Long i = 0L ;
 		String flag = "0";
 		Long regCode = null;
 		UserDO user = ShiroUtils.getUser();

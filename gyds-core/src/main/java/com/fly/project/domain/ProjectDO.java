@@ -27,7 +27,7 @@ public class ProjectDO implements Serializable {
 	//1:申请中 2:通过 3:拒绝
 	private Integer status;
 	//订单
-	private Integer order;
+	private Long order;
 	//
 	private Date createTime;
 	
@@ -147,13 +147,13 @@ public class ProjectDO implements Serializable {
 	/**
 	 * 设置：订单
 	 */
-	public void setOrder(Integer order) {
+	public void setOrder(Long order) {
 		this.order = order;
 	}
 	/**
 	 * 获取：订单
 	 */
-	public Integer getOrder() {
+	public Long getOrder() {
 		return order;
 	}
 	/**

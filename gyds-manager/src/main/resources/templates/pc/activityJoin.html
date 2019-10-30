@@ -247,23 +247,24 @@ function _area(){
 					timer = setInterval(function () {
 							var msg = queryOrder(orderNum)
 							if (msg == '1') {
-								sava(type,actId,applyId);
+								window.clearInterval(timer);
+								submitApp(type,actId,applyId);
 							}
 						},500);
 				} else {
 					alert("未知错误");
 				}
 			}else{
-				sava(type,actId,applyId);
+				submitApp(type,actId,applyId);
 			}
 		}
 		if(type==1){
-			sava(type,actId,applyId);
+			submitApp(type,actId,applyId);
 		}
 		
 	}
 	
-	function save(type,actId,applyId){
+	function submitApp(type,actId,applyId){
 		$.ajax({
             type : "POST",
             dataType: "json",

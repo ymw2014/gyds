@@ -137,7 +137,7 @@ public class AdvController extends BaseController{
 			BigDecimal dayPrice = advList.get(detail.getSort()).getPrice();
 			BigDecimal allPrice = dayPrice.multiply(new BigDecimal(detail.getShowDay()));
 			params.put("price", allPrice);
-			Integer sourcce=deductMoney(params);
+			Long sourcce=deductMoney(params);
 			if(sourcce==0) {//0:扣款失败 -1表示余额不足 1表示扣款成功 2表示无此用户
 				return R.error("扣款失败");
 			}
@@ -152,7 +152,7 @@ public class AdvController extends BaseController{
 			detail.setStatus(0);
 			detail.setCreateTime(new Date());
 			String remake = threadTaskService.getRemake(ShiroUtils.getUserId(), allPrice, OrderType.ZHI_CHU,OrderType.GUANG_GAO_GOU_MAI, "广告购买");
-			Integer orderId = threadTaskService.createOrder(ShiroUtils.getUserId(), allPrice, OrderType.GUANG_GAO_GOU_MAI, OrderType.ZHI_CHU, remake);
+			Long orderId = threadTaskService.createOrder(ShiroUtils.getUserId(), allPrice, OrderType.GUANG_GAO_GOU_MAI, OrderType.ZHI_CHU, remake);
 			detail.setOrderId(orderId);
 			if(detailService.save(detail)>0) {
 				return R.ok();
