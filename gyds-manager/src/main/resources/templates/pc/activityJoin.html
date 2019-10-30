@@ -228,39 +228,83 @@ function _area(){
 	var m2 = new MyModal1.modal(function() {
 		alert("你点击了确定");
 	});
-	$('.btn2').on("click", function() {
-		m2.show();
-	});
 	
 	function apply(type,actId,applyId) {
-		m2.show();
+		
 		//return false;
 		var price = $("#_actprice").val();
+		$.ajax({
+            type : "POST",
+            dataType: "json",
+            url : "/pc/activity/applyValidate",
+            data : {
+            	'type': type,
+            	'actId': actId,
+            	'applyId': applyId
+            },
+            beforeSend: function(){
+            	$("#baoming").attr("onclick","");
+           },
+            success : function(result) {
+            	var status = result.status;
+            	var url = result.url;
+            	console.log(status)
+            	if (status == 1) {
+            		m2.show();
+            		if(type==2){//报名
+            			if(price>0){
+            				$('#blance').text("付款金额 " +price + "元");
+            				var orderNum = createOrder(price,8);
+            				if (orderNum != '-1') {
+            					$('#order').val(orderNum);
+            					$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (price * 100) + "&orderNum=" + orderNum);
+            					timer = setInterval(function () {
+            							var msg = queryOrder(orderNum)
+            							if (msg == '1') {
+            								window.clearInterval(timer);
+            								submitApp(type,actId,applyId);
+            							}
+            						},500);
+            				} else {
+            					alert("未知错误");
+            				}
+            			}else{
+            				submitApp(type,actId,applyId);
+            			}
+            		}
+            		if(type==1){
+            			submitApp(type,actId,applyId);
+            		}
+            		
+            	} else if (status == 2){
+            		layer.confirm('您未登录请问是否跳转登录页面？', {
+						  btn: ['是','否'] //按钮
+						}, function(){
+							window.location.href = "/admin";
+						}, function(){
+						});
+            	} else if (status == 3){
+            		alert("您还不是志愿者，请先申请志愿者");
+            		window.location.href=url;
+            	} else if (status == 4){
+            		alert("报名失败，您不是本团成员");
+            		window.location.href=url;
+            	} else if (status == 6){
+            		alert("报名失败，扣费失败请确余额");
+            		window.location.href=url;
+            	} else if (status == 9){
+            		alert("报名失败，活动进行中");
+            		window.location.href=url;
+            	}else if (status == 10){
+            		alert("报名失败，活动以结束");
+            		window.location.href=url;
+            	}else{
+            		alert("操作失败");
+            		window.location.href=url;
+            	}
+            }
+        });
 		
-		if(type==2){//报名
-			if(price>0){
-				$('#blance').text("付款金额 " +price + "元");
-				var orderNum = createOrder(price,8);
-				if (orderNum != '-1') {
-					$('#order').val(orderNum);
-					$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (price * 100) + "&orderNum=" + orderNum);
-					timer = setInterval(function () {
-							var msg = queryOrder(orderNum)
-							if (msg == '1') {
-								window.clearInterval(timer);
-								submitApp(type,actId,applyId);
-							}
-						},500);
-				} else {
-					alert("未知错误");
-				}
-			}else{
-				submitApp(type,actId,applyId);
-			}
-		}
-		if(type==1){
-			submitApp(type,actId,applyId);
-		}
 		
 	}
 	
