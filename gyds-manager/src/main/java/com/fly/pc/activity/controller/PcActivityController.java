@@ -234,35 +234,13 @@ public class PcActivityController extends BaseController{
 		BigDecimal price = null;
 		Integer i = null ; 
 		ActivityDO activityDO = activityService.get(actId.intValue());
-		if(activityDO.getStatus()==2) {
-			dataInfo.put("status", "9");//活动进行中
-			return dataInfo.toString();
-		}
-		if(activityDO.getStatus()==3) {
-			dataInfo.put("status", "10");//活动已结束
-			return dataInfo.toString();
-		}
-		if (user == null) {
-			dataInfo.put("status", "2");//还没登录
-			return dataInfo.toString();
-		}
-		user = userService.get(user.getUserId());
-		boolean flag = volunteerService.isVo(user.getUserId());
-		if (!flag) {
-			dataInfo.put("status", "3");//还不是志愿者
-			dataInfo.put("url", "/pc/attestation?teamId="+activityDO.getTeamId()+"&type="+"1");
-			return dataInfo.toString();
-		}
-		VolunteerDO vol = volunteerService.getVo(user.getUserId());
-		/*if(!vol.getTeamId().equals(activityDO.getTeamId())) {
-			dataInfo.put("status", "4");//还不是本团成员
-			return dataInfo.toString();
-		}*/
 		int status = 0;
 		Integer num = activityDO.getNumberOfApplicants();
 		try {
 			if (type == 1) {
 				if(activityDO.getActType()==1) {
+					/*UserDO teamUser = userService.get(teamService.get(activityDO.getTeamId()).getUserId());//团长信息
+					teamUser.setAccount(teamUser.getAccount().subtract(price));*/
 					Map<String, Object> map = new HashMap<String, Object>();
 					price = activityDO.getActPrice();
 					BigDecimal account =  user.getAccount();
@@ -286,26 +264,6 @@ public class PcActivityController extends BaseController{
 				activityService.update(activityDO);
 				dataInfo.put("applyId", -1);//
 			} else {
-				/*
-				 * if (num++ > activityDO.getApplicantsNumMax()) { dataInfo.put("status",
-				 * "4");//报名人数已满 return dataInfo.toString(); }
-				 */
-				/*if(activityDO.getActType()==1) {
-					Map<String, Object> map = new HashMap<String, Object>();
-					price = activityDO.getActPrice();
-					map.put("price", price);
-					i = deductMoney(map);
-					if(i==1) {
-						map.put("orderType", 2);
-						map.put("expIncType", 8);
-						creadOrder(map);
-					}else {
-						dataInfo.put("status", "6");//扣费失败
-						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-						return dataInfo.toString();
-					}
-				}*/
-				
 				ApplyDO apply = new ApplyDO();
 				apply.setActId(actId);
 				apply.setCreateTime(new Date());
@@ -326,6 +284,44 @@ public class PcActivityController extends BaseController{
 			e.printStackTrace();
 		}
 		dataInfo.put("status", status);//
+		return dataInfo.toString();
+	}
+	
+	
+	/**
+	 *  活动报名验证
+	 * @param type 1：取消报名 2：报名申请
+	 * @param actId 活动编号
+	 * @param applyId 活动报名编号
+	 * @return
+	 */
+	@ResponseBody
+	@Transactional
+	@RequestMapping("activity/applyValidate")
+	public String applyValidate(Integer type, Long actId, Long applyId) {
+		JSONObject dataInfo = new JSONObject();
+		UserDO user = ShiroUtils.getUser();
+		ActivityDO activityDO = activityService.get(actId.intValue());
+		if(activityDO.getStatus()==2) {
+			dataInfo.put("status", "9");//活动进行中
+			return dataInfo.toString();
+		}
+		if(activityDO.getStatus()==3) {
+			dataInfo.put("status", "10");//活动已结束
+			return dataInfo.toString();
+		}
+		if (user == null) {
+			dataInfo.put("status", "2");//还没登录
+			return dataInfo.toString();
+		}
+		user = userService.get(user.getUserId());
+		boolean flag = volunteerService.isVo(user.getUserId());
+		if (!flag) {
+			dataInfo.put("status", "3");//还不是志愿者
+			dataInfo.put("url", "/pc/attestation?teamId="+activityDO.getTeamId()+"&type="+"1");
+			return dataInfo.toString();
+		}
+		dataInfo.put("status", "1");
 		return dataInfo.toString();
 	}
 	

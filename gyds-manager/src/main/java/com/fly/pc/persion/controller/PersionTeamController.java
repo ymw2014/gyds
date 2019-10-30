@@ -137,7 +137,8 @@ public class PersionTeamController extends BaseController{
 			return "pc/message";
 		}
 		List<TypeDO> type = typeDao.list1();
-		model.addAttribute("type", type);
+		model.addAttribute("teamType", type);
+		model.addAttribute("type", 2);
 		params.put("regionType",1);
 		params.put("parentRegionCode",0);
 		List<RegionDO> areaList = regionService.list(params);

@@ -25,6 +25,7 @@ import com.fly.common.controller.BaseController;
 import com.fly.domain.UserDO;
 import com.fly.system.dao.UserDao;
 import com.fly.system.service.UserService;
+import com.fly.team.service.TeamService;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
 import com.fly.utils.R;
@@ -47,7 +48,8 @@ public class ApplyController extends BaseController{
 	private ActivityService activityService;
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private TeamService teamService;
 	@GetMapping()
 	@RequiresPermissions("actApply:apply:apply")
 	String Apply(){
@@ -106,21 +108,30 @@ public class ApplyController extends BaseController{
 	public R update( ApplyDO apply){
 		Long id = apply.getId();
 		ApplyDO app = applyService.get(id);
+		ActivityDO activityDO = activityService.get(Integer.parseInt(app.getActId().toString()));
+		UserDO teamUser = userService.get(teamService.get(activityDO.getTeamId()).getUserId());//团长信息
+		BigDecimal teamAccount =  teamUser.getAccount();
+		BigDecimal price = activityDO.getActPrice();
 		if(apply.getStatus()==2){
 			Map<String, Object> map = new HashMap<String, Object>();
-			ActivityDO activityDO = activityService.get(Integer.parseInt(app.getActId().toString()));
-			BigDecimal price = activityDO.getActPrice();
-			UserDO user = userService.get(Long.parseLong(app.getUserId().toString()));
+			teamUser.setAccount(teamAccount.subtract(price));
+			UserDO user = userService.get(Long.parseLong(app.getUserId().toString()));//活动报名人用户信息
 			BigDecimal account =  user.getAccount();
 			account = account.add(price);
 			user.setAccount(account);
 			Integer i = userService.update(user);
 			if(i==1) {
+				
 				map.put("price", price);
 				map.put("orderType", 2);
 				map.put("expIncType", 8);
+				map.put("userId", user.getUserId());
 				creadOrder(map);
 			}
+		}
+		if(apply.getStatus()==1) {
+			teamUser.setAccount(teamAccount.add(price));
+			userService.update(teamUser);
 		}
 		apply.setExamine(new Date());
 		applyService.update(apply);

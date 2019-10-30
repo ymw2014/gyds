@@ -226,8 +226,6 @@ $("#downTeam").on('click', function() {
 			 jsonStr = JSON.stringify($('#proxybusi').serializeJSON());
 		}
 		$('#text').val(jsonStr);
-		console.log($('#signupForm').serialize());
-		return false;
 		$.ajax({
 			type : "POST",
 			url : "/pc/realName",
