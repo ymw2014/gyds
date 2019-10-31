@@ -28,7 +28,7 @@
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
-                order by ${sort} ${order}
+                order by ${sort} ${order1}
             </when>
 			<otherwise>
                 order by i.id desc

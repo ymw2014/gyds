@@ -137,7 +137,7 @@ if(list.length>0) {
     //追加数据
    $.each(res, function(i, item){ 
 	html+='<figure>';
-	html+='<a href="/pc/volunteerDetail?id='+item.id+'&areaId='+areaId+'"><img src='+item.headImg+'></a>';
+	html+='<a href="/pc/volunteerDetail?id='+item.id+'&areaId='+areaId+'"><img src="'+item.headImg+'"></a>';
 	html+='<figcaption>'+item.volunteerName+'</figcaption>';
 	html+='</figure>';
     })

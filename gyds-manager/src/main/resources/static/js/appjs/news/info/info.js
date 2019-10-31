@@ -103,10 +103,10 @@ function load() {
 									field : 'rewardPrice', 
 									title : '打赏总金额' 
 								},
-																{
+							/*									{
 									field : 'paymentDuration', 
 									title : '置顶时长' 
-								},
+								},*/
 														{
 									field : 'createTime', 
 									title : '创建日期' 
@@ -144,7 +144,7 @@ function load() {
 											
 										}
 										if(row.status == 1){
-											var e= '<a class="btn btn-success btn-sm"'+s_status_h+' href="#" title=""  mce_href="#" ><span class="" onclick="status('+row.id+',0)">发布</span></a>'
+											var e= '<a class="btn btn-success btn-sm"'+s_status_h+' href="#" title=""  mce_href="#" ><span class="" onclick="status('+row.id+',0)">已发布</span></a>'
 										}
 										
 										var k = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''

@@ -162,7 +162,7 @@ public class PcTeamController {
 		params.clear();
 		params.put("teamId", teamId);
 		params.put("offset", 0);
-		params.put("limit", 10);
+		params.put("limit", 16);
 		List<Map<String,Object>> voluntList = volunteerService.voluntList(params);
 		params.clear();
 		params.put("teamId", teamId);

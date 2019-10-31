@@ -21,6 +21,7 @@
 				<a href="" class="tab-item active">全部产品</a>
             </div>
             <div class="product-list">
+            	<input type="hidden" id="area" value="${areaId}">
                 <a th:href="@{/pc/queryProById(areaId=${areaId},id=${proInfo.id})}" class="list-item" th:each="proInfo : ${proInfoList}">
                         <div class="img-box"><img th:src="${proInfo.logo}" alt=""></div>
                         <div class="title" th:text="${proInfo.projectName}"></div>
@@ -55,13 +56,14 @@
 	 
 	 
 	  function queryType(type){
+		 var areaId=$("#area").val();
 		 $.ajax({
 				type : "POST",
 				url : "/pc/queryProByType?type="+type+"",
 				success : function(r) {
 					var b = '';
 					$.each(r, function(i, item) {
-					b += '<a href="" class="list-item"> <div class="img-box"><img src="'+item.logo+'" alt=""></div> <div class="title">'+item.projectName+'</div> <div class="desc" >'+item.teamName+'</div> </a>'
+					b += '<a href="/pc/queryProById?areaId='+areaId+'&id='+item.id+'" class="list-item"> <div class="img-box"><img src="'+item.logo+'" alt=""></div> <div class="title">'+item.projectName+'</div> <div class="desc" >'+item.teamName+'</div> </a>'
 					});
 					$('.product-list').empty();
 					$('.product-list').append(b);

@@ -50,6 +50,10 @@ public class Constant {
     	 * 已过期
     	 */
     	public static int YI_GUO_QI = 5;
+    	/**
+    	 * 待审核
+    	 */
+    	public static int DAI_SHEN_HE = 6;
     }
     
 }

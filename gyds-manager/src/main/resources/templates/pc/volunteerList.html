@@ -193,7 +193,7 @@ function info(value) {
 							if(areaId!=null &&areaId.length< 10){
 								html += '<a href="/pc/teamDetail(teamId='+value.teamId+',areaId='+areaId+')"><p>'+ value.teamName + '</p></a>' ;
 							}else{
-								html += '<a  href="@{/pc/teamDetail(teamId='+value.teamId+',areaId=0)}"><p>'+ value.teamName + '</p></a>' ;
+								html += '<a  href="/pc/teamDetail(teamId='+value.teamId+',areaId=0)"><p>'+ value.teamName + '</p></a>' ;
 							}
 							html += '</figcaption>' ;
 							html += '</figure>';
@@ -234,13 +234,13 @@ if(list.length>0) {
     //追加数据
    $.each(res, function(i, item){ 
    	html+="<figure>";
-	html+="<a href='/pc/volunteerDetail?id="+item.id+"&areaId="+areaId+"><img src="+item.headImg+"></a>";
+	html+="<a href='/pc/volunteerDetail?id="+item.id+"&areaId="+areaId+"'><img src="+item.headImg+"></a>";
 	html+="<figcaption>";
 	html+="<span>"+item.volunteerName+"</span>";
 	if(areaId!=null &&areaId.length< 10){
 		html += '<a href="/pc/teamDetail(teamId='+item.teamId+',areaId='+areaId+')"><p>团队：'+ item.teamName + '</p></a>' ;
 	}else{
-		html += '<a  href="@{/pc/teamDetail(teamId='+item.teamId+',areaId=0)}"><p>团队：'+ item.teamName + '</p></a>' ;
+		html += '<a  href="/pc/teamDetail(teamId='+item.teamId+',areaId=0)"><p>团队：'+ item.teamName + '</p></a>' ;
 	}
 	html+="</figcaption>";
 	html+="</figure>";

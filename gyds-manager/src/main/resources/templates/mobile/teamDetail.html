@@ -181,7 +181,7 @@
 				<i></i>志愿者<span><img src="images/xuanze.jpg" alt=""></span>
 			</div>
 			<div class="zhiyuanCen">
-				<div th:each="volunt: ${voluntList}">
+				<div th:each="volunt,i: ${voluntList}" th:if="${i.index lt 9}">
 					<a th:href="@{/pc/volunteerDetail(id=${volunt.id},areaId=${areaId})}"><img th:src="${volunt.headImg}" alt=""></a>
 					<p th:text="${volunt.volunteerName}"></p>
 				</div>

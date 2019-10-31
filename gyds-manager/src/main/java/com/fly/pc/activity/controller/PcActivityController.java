@@ -244,8 +244,7 @@ public class PcActivityController extends BaseController{
 					Map<String, Object> map = new HashMap<String, Object>();
 					price = activityDO.getActPrice();
 					BigDecimal account =  user.getAccount();
-					account = account.add(price);
-					user.setAccount(account);
+					user.setAccount(account.add(price));
 					i = userService.updatePersonal(user);
 					if(i==1) {
 						map.put("price", price);

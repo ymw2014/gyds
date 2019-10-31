@@ -153,6 +153,12 @@ public class ProjectController{
 				project.setEndTime(c.getTime());
 				project.setIsDue(1);
 			}
+			if(flag==2) {
+				Calendar c = Calendar.getInstance();
+				c.add(Calendar.DAY_OF_MONTH, 999999);
+				project.setEndTime(c.getTime());
+				project.setIsDue(1);
+			}
 			ProjectInfoDO projectInfoDO = new ProjectInfoDO();
 			projectInfoDO.setTeamCount(1);
 			projectInfoDO.setId(project.getProjectId());

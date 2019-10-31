@@ -68,19 +68,21 @@
 						<li style="color:#9e2946;" class="lsi"><img th:src="@{/pc/images/diandian_07.png}" alt="" th:text="${'永久:'+proInfo.perpetual}"><div class="imgzxc1"></div><input type="radio" checked="checked"  name="danxiuan" value="2" style="display:none;"></li>
 					    </label>
 					</ul>
-					<div style="width: 50%;overflow: hidden;float: right;"><a href="/login" th:if="${isPro}==0">点击承接</a></div>
-					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:pay()'" class="btn1">点击承接<span>(年)</span></a>
+					<div style="width: 50%;overflow: hidden;float: right;">
+					<a href="/login" th:if="${isPro}==0">点击承接</a></div>
+					<a href="javascript:;" th:if="${isPro}==1" onclick="pay()" class="btn1">点击承接</a>
 					<a href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接 </a>
 					<a href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>
 					<a href="javascript:;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>
 					<a href="javascript:;" th:if="${isPro}==5" th:onclick="javascript:alert('您的项目承接已过期,请到个人中心进行承接续费')" class="btn1">已过期</a>
+					<a href="javascript:;" th:if="${isPro}==6" th:onclick="javascript:alert('您的参与申请正在审核')" class="btn1">待审核</a>
 				</div>
 				<div class="public-right2">
 					<ul>
 						<li class="artin">项目介绍</li>
 						<li>承接机构</li>
 						<li>活动中心</li>
-						<li>咨询报道</li>
+						<li>资讯报道</li>
 					</ul>
 				</div>
 				<div class="public-right3">
@@ -153,6 +155,7 @@
 		if(tickets==0){
 			sava(flag);
 		}else{
+			 m1.show();
 			 $('#blance').text("付款金额 " +tickets + "元");
 				$(".m-modal-dialog").css("display","none")
 				$(".adddd").show();

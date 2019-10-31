@@ -91,6 +91,11 @@ public class PcProjectController {
 				if(isAuth!=1) {
 					map.put("teamId",teamId);
 					map.put("projectId",id);
+					map.put("status",1);
+					List<ProjectDO> isPro0 = projectService.list(map);
+					if(!isPro0.isEmpty()) {
+						model.addAttribute("isPro", Constant.Project.DAI_SHEN_HE);
+					}
 					map.put("status",2);
 					List<ProjectDO> isPro = projectService.list(map);
 					if(!isPro.isEmpty()) {

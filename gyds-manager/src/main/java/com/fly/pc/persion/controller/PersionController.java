@@ -493,7 +493,7 @@ public class PersionController extends BaseController{
 				List<ProjectDO> proList = projectService.list(map);
 				if(!proList.isEmpty()) {
 					for (ProjectDO projectInfoDO : proList) {
-						type.put("id", projectInfoDO.getId());
+						type.put("id", projectInfoDO.getProjectId());
 						type.put("name", projectInfoDO.getProjectName());
 						listMap.add(type);
 						//1:有承接项目 
@@ -561,7 +561,7 @@ public class PersionController extends BaseController{
 				List<ProjectDO> proList = projectService.list(map);
 				if(!proList.isEmpty()) {
 					for (ProjectDO projectInfoDO : proList) {
-						type.put("id", projectInfoDO.getId());
+						type.put("id", projectInfoDO.getProjectId());
 						type.put("name", projectInfoDO.getProjectName());
 						listMap.add(type);
 					}
