@@ -117,3 +117,23 @@
 	margin-top:30px;
 	margin-bottom:46px;
 }
+.imgzxc{
+	width:20px;
+	height:20px;
+	background:url(../images/dianxuan1.png) no-repeat;
+	float: left;
+    background-size: 100% 100%;
+    float: right;
+    margin-top:3px;
+    margin-left: 10px;
+}
+.imgzxc1{
+	width:20px;
+	height:20px;
+	background:url(../images/dianxuan2.png) no-repeat;
+	float: left;
+    background-size: 100% 100%;
+    float: right;
+    margin-top:3px;
+    margin-left: 10px;
+}
