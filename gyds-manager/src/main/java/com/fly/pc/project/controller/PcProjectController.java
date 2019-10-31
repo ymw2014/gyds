@@ -123,7 +123,7 @@ public class PcProjectController {
 		ProjectInfoDO proInfo = projectInfoService.get(id);
 		Long teamId=proInfo.getTeamId();
 		TeamDO team = teamService.get(teamId);
-		map.put("sort", "team_count");
+		map.put("sort", "i.team_count");
 		map.put("order1", "desc");
 		List<ProjectInfoDO> rePro = projectInfoService.list(map);
 		
