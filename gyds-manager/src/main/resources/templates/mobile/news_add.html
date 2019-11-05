@@ -77,6 +77,14 @@
 				color:#fff;
 				border-radius:50%;
 			}
+			.lxh{
+			  width: 539px;
+			    height: 90px;
+			    border: none;
+			    outline: none;
+			    font-size: 20px;
+			    background:#fff;
+			}
 			.tijiao{
 				width: 100%;
 				height:80px;
@@ -109,7 +117,7 @@
 				</label>
 				<label th:if="${#lists.size(listMap)} gt 0">
 						<span>承接项目</span>
-						<select style="width: 385px" name="projectId">
+						<select name="projectId" class="lxh">
 							<option value="0">--请选择--</option>
 							<option th:each="map:${listMap}" th:text="${map.name}" th:value="${map.id}"></option>
 						</select>

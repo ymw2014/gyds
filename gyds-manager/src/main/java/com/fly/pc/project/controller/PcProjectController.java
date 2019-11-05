@@ -18,6 +18,8 @@ import com.fly.activity.service.ActivityService;
 import com.fly.domain.UserDO;
 import com.fly.helpCenter.domain.TypeTitleDO;
 import com.fly.index.service.IndexService;
+import com.fly.level.domain.LevelDO;
+import com.fly.level.service.LevelService;
 import com.fly.news.domain.InfoDO;
 import com.fly.news.service.InfoService;
 import com.fly.pc.utils.PageUtils;
@@ -53,6 +55,8 @@ public class PcProjectController {
 	private ActivityService activityService;
 	@Autowired
 	private SetupService setupService;
+	@Autowired
+	private LevelService levelService;
 	
 	@RequestMapping("/pc/proList")
 	public String projectList(Long areaId,Map<String, Object> para,Model model) {
@@ -198,4 +202,36 @@ public class PcProjectController {
 		}
 		return R.error();
 	}
+	
+	@RequestMapping("/pc/project/receiveValidate")
+	@ResponseBody
+	public R receiveValidate() {
+		Long userId = ShiroUtils.getUserId();
+		Map<String,Object> map=new HashMap<>();
+		map.put("userId", userId);
+		List<TeamDO> userTeam = teamService.list(map);
+		if(userTeam.isEmpty()) {
+			return R.error("抱歉,您不是团长");
+		}
+		map.clear();
+		map.put("type", 2);
+		map.put("integral", userTeam.get(0).getIntegral());
+		List<LevelDO> list = levelService.queryIntegral(map);
+		map.clear();
+		map.put("teamId", userTeam.get(0).getId());
+		map.put("status", 2);
+		map.put("isDue", 1);
+		int count= projectService.list(map)==null?0:projectService.list(map).size();
+		if(!list.isEmpty()) {
+			int specLevel =levelService.queryIntegral(map).get(0).getReceiveNum();
+			if(count>=specLevel) {
+				return R.error("您的团队最多可承接"+levelService.queryIntegral(map).get(0).getPublishNum()+"个项目");
+			}
+		}else {
+			return R.error("平台未定义团队承接项目数量标准");
+		}
+		return R.ok();
+	}
+	
+	
 }

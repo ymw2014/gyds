@@ -152,28 +152,45 @@
 	function pay(){
 		var flag=$("input[name='danxiuan']:checked").val();
 		var tickets=flag==1?$("#tickets").val():$("#perpetual").val();
-		if(tickets==0){
-			sava(flag);
-		}else{
-			 m1.show();
-			 $('#blance').text("付款金额 " +tickets + "元");
-				$(".m-modal-dialog").css("display","none")
-				$(".adddd").show();
-			var orderNum = createOrder(tickets,15);
-			if (orderNum != '-1') {
-				$('#order').val(orderNum);
-				$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (tickets * 100) + "&orderNum=" + orderNum);
-				timer = setInterval(function () {
-						var msg = queryOrder(orderNum)
-						if (msg == '1') {
-							window.clearInterval(timer);
-							sava(flag);
+		var id = $('#id').val();
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/pc/project/receiveValidate",
+			async : false,
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					if(tickets==0){
+						sava(flag);
+					}else{
+						 m1.show();
+						 $('#blance').text("付款金额 " +tickets + "元");
+							$(".m-modal-dialog").css("display","none")
+							$(".adddd").show();
+						var orderNum = createOrder(tickets,15);
+						if (orderNum != '-1') {
+							$('#order').val(orderNum);
+							$('#codeUrl').attr("src","http://www.48936.com/wxpay/pay?data=" + (tickets * 100) + "&orderNum=" + orderNum);
+							timer = setInterval(function () {
+									var msg = queryOrder(orderNum)
+									if (msg == '1') {
+										window.clearInterval(timer);
+										sava(flag);
+									}
+								},500);
+						} else {
+							alert("未知错误");
 						}
-					},500);
-			} else {
-				alert("未知错误");
+					}
+				} else {
+					alert(data.msg)
+				}
 			}
-		}
+		});
+		
 	}
 	function sava(flag){
 		var id = $('#id').val();

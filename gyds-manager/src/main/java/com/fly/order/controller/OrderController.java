@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.system.service.RegionService;
+import com.fly.system.service.UserService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.PageUtils;
 import com.fly.utils.Query;
@@ -43,6 +45,9 @@ public class OrderController {
 	private PayService payService;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private UserService userService;
+	
 	//充值
 	@GetMapping("/CashUp")
 	@RequiresPermissions("order:order:orderCashUp")
@@ -186,6 +191,15 @@ public class OrderController {
 			Integer price = orderPrice.multiply(new BigDecimal("100")).intValue();
 			payService.cashout(price, orderNew);
 		}
+		if (examineStatus == 3) {
+			UserDO user = userService.getUser(orderNew.getUserId());
+			BigDecimal orderPrice =orderNew.getPrice();
+			BigDecimal account = user.getAccount();
+			BigDecimal add = account.add(orderPrice);
+			user.setAccount(add);
+			userService.updatePersonal(user);
+		}
+		
 		orderService.update(orderNew);
 		return R.ok();
 	}

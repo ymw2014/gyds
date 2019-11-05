@@ -1,5 +1,6 @@
 package com.fly.project.dao;
 
+import com.fly.project.domain.ProjectDO;
 import com.fly.project.domain.ProjectInfoDO;
 
 import java.util.List;
@@ -29,6 +30,8 @@ public interface ProjectInfoDao {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	List<ProjectInfoDO> queryList(Map<String,Object> map);
 	
 	List<ProjectInfoDO> proInfoList(Map<String,Object> map);
 	

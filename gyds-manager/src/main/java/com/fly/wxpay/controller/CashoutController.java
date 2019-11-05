@@ -1,5 +1,6 @@
 package com.fly.wxpay.controller;
 
+import java.math.BigDecimal;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -15,9 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.domain.UserDO;
 import com.fly.index.utils.OrderType;
 import com.fly.order.service.OrderService;
 import com.fly.system.service.UserService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.utils.R;
 import com.fly.wxpay.service.PayService;
 
@@ -38,10 +41,23 @@ public class CashoutController {
 	@RequestMapping("/createOrder")
 	@ResponseBody
 	public R createOrder(String fee) {
+		UserDO user = userService.getUser(ShiroUtils.getUserId());
+		
 		if(Integer.valueOf(fee)<10) {
 			R r = new R();
 			r.put("code", -2);
 			return r;
+		}
+		BigDecimal account = user.getAccount();
+		BigDecimal price = new BigDecimal(fee);
+		Integer m =account.compareTo(price);
+		if(-1==m) {
+			return R.error("余额不足");
+		}else {
+			 logger.info("获取用户信息:    {}",user.toString());
+			 BigDecimal add = account.subtract(price);
+			 user.setAccount(add);
+			 userService.updatePersonal(user);
 		}
 		R r = PayOrderService.createOrder(fee, OrderType.TI_XIAN);
 		return r;

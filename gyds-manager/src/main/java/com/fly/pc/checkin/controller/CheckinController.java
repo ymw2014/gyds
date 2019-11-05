@@ -10,6 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,8 @@ import com.fly.index.service.IndexService;
 import com.fly.signin.dao.SigninDao;
 import com.fly.signin.domain.SigninDO;
 import com.fly.signin.service.SigninService;
+import com.fly.sys.domain.SetupDO;
+import com.fly.sys.service.SetupService;
 import com.fly.system.service.RegionService;
 import com.fly.system.utils.ShiroUtils;
 import com.fly.team.dao.TeamDao;
@@ -50,6 +53,8 @@ public class CheckinController {
 	private SigninDao signinDao;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private SetupService setupService;
 	
 	@RequestMapping("show")
 	public String show(Model model) {
@@ -58,11 +63,12 @@ public class CheckinController {
 			model.addAttribute("message", "您还不是团队成员!!!");
 			return "pc/message";
 		}
-		if(vo.getTeamId() == null ) {
+		if(vo.getTeamId() == null ||vo.getTeamId()==-1) {
 			model.addAttribute("message", "您还不是团队成员!!!");
 			return "pc/message";
 		}
 		TeamDO team = teamdao.get(vo.getTeamId());
+		
 		model.addAttribute("team",team);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String ids = regionService.getTeamAndAreaByUserRole(team.getId());
@@ -119,11 +125,13 @@ public class CheckinController {
 	 * @param signinDo
 	 * @return
 	 */
+	@Transactional
 	@ResponseBody
 	@RequestMapping("/do")
 	public R signin(SigninDO signinDo) {
 		UserDO user = ShiroUtils.getUser();
 		boolean flag = volunteerService.isVo(user.getUserId());
+		
 		if (!flag) {
 			return R.error("您还不是志愿者，请先申请为志愿者");
 		}
@@ -137,6 +145,15 @@ public class CheckinController {
 		signinDo.setSiginTime(new Date());
 		signinDo.setTeamId(Long.valueOf(voluntList.get(0).get("teamId").toString()));
 		if (signinService.save(signinDo) > 0) {
+			VolunteerDO vo = volunteerService.getVo(user.getUserId());
+			SetupDO setup = setupService.list(new HashMap<String, Object>(16)).get(0);
+			Integer voJifen=vo.getIntegral()+setup.getPunchTheClockIntegral();
+			vo.setIntegral(voJifen);//志愿者签到增加积分
+			volunteerService.update(vo);
+			TeamDO team = teamdao.get(vo.getTeamId());
+			Integer teamJifen=team.getIntegral()+setup.getPunchTheClockIntegral();
+			team.setIntegral(teamJifen);//志愿者所属团队增加积分
+			teamdao.update(team);
 			return R.ok();
 		}
 		return R.error();

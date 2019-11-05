@@ -156,8 +156,8 @@ public class PayService {
     				 if (!CollectionUtils.isEmpty(list)) {
     					 OrderDO orderDO = list.get(0);
     					 orderDO.setExamineStatus(1);
-    					 int update = orderService.update(orderDO);
-    					 if (update > 0) {
+    					 orderService.update(orderDO);
+    					/* if (update > 0) {
     						 UserDO userDO = userService.get(orderDO.getUserId());
     						 logger.info("获取用户信息:    {}",userDO.toString());
     						 BigDecimal account = userDO.getAccount();
@@ -170,7 +170,7 @@ public class PayService {
     						 logger.info("订单状态修改成功");
     					 }else {
     						 logger.info("订单状态修改失败");
-    					 }
+    					 }*/
     				 }else {
     					 logger.info("订单状查询失败");
     				 }

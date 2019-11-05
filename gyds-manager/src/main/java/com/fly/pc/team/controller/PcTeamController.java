@@ -280,6 +280,16 @@ public class PcTeamController {
 				r.put("url", "/pc/attestation?teamId="+id+"&type="+"1");
 				return r;
 			}
+			params.clear();
+			params.put("userId", user.getUserId());
+			params.put("teamId",id);
+			params.put("type",1);
+			params.put("status", 1);
+			NameDO validatename = nameDao.applyStatus(params);
+			if(validatename!=null) {
+				//1:已申请
+				return R.error("你已经提交过入团申请,请勿重复提交");
+			}
 			VolunteerDO volunteer = volunteerService.getVo(user.getUserId());
 			if(volunteer.getTeamId()==null||volunteer.getTeamId()==-1) {
 				user = userDao.get(user.getUserId());

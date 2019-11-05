@@ -62,5 +62,11 @@ public class ProjectInfoServiceImpl implements ProjectInfoService {
 		return projectInfoDao.updateCount(info);
 	}
 
+	@Override
+	public List<ProjectInfoDO> queryList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return projectInfoDao.queryList(map);
+	}
+
 	
 }
