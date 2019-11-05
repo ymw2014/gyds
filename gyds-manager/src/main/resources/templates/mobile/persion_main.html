@@ -81,7 +81,7 @@
 				<p>账户总额(元)</p>
 			</div>
 			<div class="conter1">
-				<span th:text="${platformIntegral}">162.87</span>
+				<span th:text="${voIntegral}">162.87</span>
 				<p>平台积分</p>
 			</div>
 			
@@ -299,7 +299,7 @@
 			} else if(orderNum == '-2'){
 				alert("提现金额不得低于10元")
 			}else if(orderNum != '-1'){
-				alert("订单创建成功")
+				awindow.location.reload();
 			}
 	})
 	$(".m-modal-close").click(function(){

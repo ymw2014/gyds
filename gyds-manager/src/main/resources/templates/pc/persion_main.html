@@ -142,8 +142,8 @@
 						<p>余额</p>
 					</div>
 					<div>
-						<span th:text="${platformIntegral}"></span>
-						<p>平台积分</p>
+						<span th:text="${voIntegral}"></span>
+						<p>积分</p>
 					</div>
 				</div>
 				<div class="qiana">
@@ -351,7 +351,7 @@ function pay(){
 		} else if(orderNum == '-2'){
 			alert("提现金额不得低于10元")
 		}else if(orderNum != '-1'){
-			alert("订单创建成功")
+			window.location.reload();
 		}
 	})
 	

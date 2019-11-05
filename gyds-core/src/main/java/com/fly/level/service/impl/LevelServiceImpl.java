@@ -51,5 +51,10 @@ public class LevelServiceImpl implements LevelService {
 	public int batchRemove(Long[] ids){
 		return levelDao.batchRemove(ids);
 	}
+
+	@Override
+	public List<LevelDO> queryIntegral(Map<String, Object> map) {
+		return levelDao.queryIntegral(map);
+	}
 	
 }

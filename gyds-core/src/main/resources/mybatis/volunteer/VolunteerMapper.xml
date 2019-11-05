@@ -150,6 +150,7 @@
 			<if test="commentNumber != null">`comment_number` = #{commentNumber}, </if>
 			<if test="clickNumber != null">`click_number` = #{clickNumber}, </if>
 			<if test="actNumber != null">`act_number` = #{actNumber}, </if>
+			<if test="integral != null">`integral` = #{integral}, </if>
 			<if test="level != null">`level` = #{level}, </if>
 			<if test="remake != null">`remake` = #{remake},</if>
 		</set>

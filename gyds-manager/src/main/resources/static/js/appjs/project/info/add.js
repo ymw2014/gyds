@@ -5,34 +5,51 @@ $().ready(function() {
 
 $.validator.setDefaults({
 	submitHandler : function() {
-		console.log(0);
-		var cost = $('#cost').val();
-		if(cost==0){
-			save();
-		}else{
-		var orderNum = createOrder(cost,14);
-		if (orderNum != '-1') {
-			$('#order').val(orderNum);
-			layer.open({
-				type : 2,
-				title : '扫码支付',
-				maxmin : true,
-				shadeClose : false, // 点击遮罩关闭层
-				load : true,
-				area : [ '430px', '430px' ],
-				content : 'http://www.48936.com/wxpay/pay?data=' + (cost * 100) + '&orderNum=' + orderNum // iframe的url
-			});
-			timer = setInterval(function () {
-					var msg = queryOrder(orderNum)
-					if (msg == '1') {
-						window.clearInterval(timer);
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/project/info/validate",
+			data : $('#signupForm').serialize(),// 你的formid
+			async : false,
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					console.log(0);
+					var cost = $('#cost').val();
+					if(cost==0){
 						save();
+					}else{
+						var orderNum = createOrder(cost,14);
+						if (orderNum != '-1') {
+							$('#order').val(orderNum);
+							layer.open({
+								type : 2,
+								title : '扫码支付',
+								maxmin : true,
+								shadeClose : false, // 点击遮罩关闭层
+								load : true,
+								area : [ '430px', '430px' ],
+								content : 'http://www.48936.com/wxpay/pay?data=' + (cost * 100) + '&orderNum=' + orderNum // iframe的url
+							});
+							timer = setInterval(function () {
+									var msg = queryOrder(orderNum)
+									if (msg == '1') {
+										window.clearInterval(timer);
+										save();
+									}
+								},500);
+						} else {
+							layer.msg("未知错误");
+						}
 					}
-				},500);
-		} else {
-			layer.msg("未知错误");
-		}
-		}
+				} else {
+					parent.layer.alert(data.msg)
+				}
+
+			}
+		});
 	}
 });
 function save() {

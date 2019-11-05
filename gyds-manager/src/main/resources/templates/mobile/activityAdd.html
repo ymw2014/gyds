@@ -144,6 +144,10 @@
 					<label th:if="${#lists.size(listMap)} gt 0">
 						<span>承接项目</span>
 						<select name="projectId" class="lxh">
+<<<<<<< HEAD
+=======
+							<option value="0">--请选择--</option>
+>>>>>>> 8738df40c20c2979a45671b78ddeacc368f0082a
 							<option th:each="map:${listMap}" th:text="${map.name}" th:value="${map.id}"></option>
 						</select>
 					</label>

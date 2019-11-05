@@ -145,6 +145,14 @@
 		</if>
 	</select>
 	
+	<select id="queryList" resultType="com.fly.project.domain.ProjectInfoDO">
+		select i.`id`,i.`project_name`,i.`team_id`,i.`project_type`,i.`logo`,i.`tickets`,i.`intro`,i.`create_time`,i.`status`,i.`order`,i.`team_count`,i.`share_count`,t.`project_type_name`,te.team_name,i.`perpetual`,i.`end_time`,i.`url` from project_info i left join project_type t on i.project_type = t.id  left join team te on i.team_id = te.id 
+        <where>  
+  		  <if test="teamId != null and teamId != ''"> and i.team_id = #{teamId} </if>
+  		  AND i.status!=3
+  		</where>
+	</select>
+	
 	<update id="updateCount" parameterType="com.fly.project.domain.ProjectInfoDO">
 		update project_info 
 		<set>

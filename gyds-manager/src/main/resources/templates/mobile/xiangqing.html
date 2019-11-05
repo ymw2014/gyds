@@ -42,7 +42,8 @@
 			<div class="headercent">团队展示</div>
 		</div>
 		<div class="container page-container">
-			
+			<input type="hidden" id="id" th:value="${proInfo.id}">
+			<input type="hidden" id="order" value="">
 			<!--产品详情-->
 			<div class="page page-product-detail">
 				<!--机构信息-->
@@ -80,7 +81,7 @@
 						<input type="hidden" th:value="${proInfo.tickets}" id="tickets">
 						<input type="hidden" th:value="${proInfo.perpetual}" id="perpetual">
 				    <a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="/login" th:if="${isPro}==0">点击承接</a>&nbsp;&nbsp;&nbsp;
-					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:sub()'" class="btn1" style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;">点击承接<span>(年)</span></a>
+					<a href="javascript:;" th:if="${isPro}==1" th:onclick="'javascript:sub()'" class="btn1" style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;">点击承接</a>
 					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="javascript:;" th:if="${isPro}==2" th:onclick="javascript:;">已承接</a>
 					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" href="javascript:;" th:if="${isPro}==3" th:onclick="javascript:alert('抱歉,您不是团长或者您未创建团队')">点击承接</a>&nbsp;&nbsp;&nbsp;
 					<a style="display: block;height: 40px;line-height: 40px;font-size: 24px;padding: 0px 10px;background: red;color: #fff;border-radius: 3px;" th:if="${isPro}==4" th:onclick="javascript:alert('未认证')">点击承接</a>&nbsp;&nbsp;&nbsp;
@@ -205,29 +206,42 @@
 	<script type="text/javascript">
 	
 	function sub(){
-		tickets=Math.trunc(tickets);
 		var flag=$("input[name='danxiuan']:checked").val();
 		var tickets=flag==1?$("#tickets").val():$("#perpetual").val();
-		tickets=Math.trunc(tickets);
-		console.log(flag);
-		console.log(tickets);
-		if(tickets==0){
-			sava(flag);
-		}else{
-			var para = {};
-			pay(tickets,para,15,flag);
-		}
+		
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/pc/project/receiveValidate",
+			async : false,
+			error : function(request) {
+				parent.layer.alert("Connection error");
+			},
+			success : function(data) {
+				if (data.code == 0) {
+					tickets=Math.trunc(tickets);		
+					if(tickets==0){
+						sava(flag);
+					}else{
+						var para = {};
+						pay(tickets,para,15,flag);
+					}
+				} else {
+					alert(data.msg)
+				}
+			}
+		});
 	}
 	
 	function sava(flag){
 		var id = $('#id').val();
-		var order = $('#order').val();
-		if(order==""||order==null){
+		var orderNum = $('#order').val();
+		if(orderNum==""||orderNum==null){
 			orderNum = 0
 		}
 		$.ajax({
 			type : "POST",
-			url : "/pc/savaPro?id="+id+"&order="+order+"&duration="+flag,
+			url : "/pc/savaPro?id="+id+"&order="+orderNum+"&flag="+flag,
 			success : function(r) {
 				if (r.code == 0) {
 					alert(r.msg);
@@ -265,12 +279,13 @@
                     packageStr = data.package;
                     signType = data.signType;
                     orderNum = data.orderNum
+                    $('#order').val(orderNum);
                     callpay(para,type,flag);
 	            }
 	        });
 	    }
 
-		function onBridgeReady(para,type){
+		function onBridgeReady(para,type,flag){
 	        WeixinJSBridge.invoke(
 	            'getBrandWCPayRequest', {
 	                "appId":appId,     //公众号名称，由商户传入
@@ -282,7 +297,6 @@
 	            },
 	            function(res){
 	                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-	                    alert('支付成功');
 	                    if(type==15){
 	                    	sava(flag);
 	                    }

@@ -142,7 +142,7 @@ public class PersionController extends BaseController{
 	String main(Model model) {
 		SetupDO setupDO = setupService.get(1);
 		Long userId = ShiroUtils.getUserId();
-		UserDO user =  userService.get(userId);
+		UserDO user =  userService.getUser(userId);
 		model.addAttribute("ccount", user.getAccount());//余额
 		model.addAttribute("platformIntegral", user.getPlatformIntegral());//平台积分
 		model.addAttribute("withdrawalFee", setupDO.getWithdrawalFee());//提现手续费
@@ -151,6 +151,8 @@ public class PersionController extends BaseController{
 		params.put("userId", user.getUserId());
 		if(voService.isVo(user.getUserId())) {
 			model.addAttribute("isVo", 1);
+			Integer voIntegral = voService.getVo(userId).getIntegral()==null?0:voService.getVo(userId).getIntegral();
+			model.addAttribute("voIntegral", voIntegral);
 		}
 		List<Map<String, Object>> voluntList = voService.voluntList(params);
 		if(voluntList.size()==0||voluntList.get(0).get("teamId")==null) {
@@ -272,7 +274,7 @@ public class PersionController extends BaseController{
 				SetupDO setup = setupService.get(1);
 				model.addAttribute("setup",setup);
 				TeamDO team = teamDao.get(Long.parseLong(vo.get("team_id").toString()));
-				model.addAttribute("team", team);
+				model.addAttribute("team", team==null?new TeamDO():team);
 			}
 			model.addAttribute("vo", vo);
 			return "pc/vo_zhengjian";
@@ -481,7 +483,6 @@ public class PersionController extends BaseController{
 	public String newsAdd(Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> listMap = new ArrayList<Map<String,Object>>();
-		Map<String, Object> type = new HashMap<String, Object>();
 		Long userId = ShiroUtils.getUserId();
 		Map<String, Object> volMap = voService.getVoInfo(userId);
 		if(volMap!=null) {
@@ -493,6 +494,7 @@ public class PersionController extends BaseController{
 				List<ProjectDO> proList = projectService.list(map);
 				if(!proList.isEmpty()) {
 					for (ProjectDO projectInfoDO : proList) {
+						Map<String, Object> type = new HashMap<String, Object>();
 						type.put("id", projectInfoDO.getProjectId());
 						type.put("name", projectInfoDO.getProjectName());
 						listMap.add(type);
@@ -549,7 +551,7 @@ public class PersionController extends BaseController{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> listMap = new ArrayList<Map<String,Object>>();
-		Map<String, Object> type = new HashMap<String, Object>();
+		
 		Long userId = ShiroUtils.getUserId();
 		Map<String, Object> volMap = voService.getVoInfo(userId);
 		if(volMap!=null) {
@@ -561,6 +563,7 @@ public class PersionController extends BaseController{
 				List<ProjectDO> proList = projectService.list(map);
 				if(!proList.isEmpty()) {
 					for (ProjectDO projectInfoDO : proList) {
+						Map<String, Object> type = new HashMap<String, Object>();
 						type.put("id", projectInfoDO.getProjectId());
 						type.put("name", projectInfoDO.getProjectName());
 						listMap.add(type);

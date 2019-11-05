@@ -28,8 +28,12 @@ public interface ProjectInfoService {
 	
 	int batchRemove(Long[] ids);
 	
+	List<ProjectInfoDO> queryList(Map<String,Object> map);
+	
 	List<ProjectInfoDO> proInfoList(Map<String, Object> map);
 	
 	int  updateCount(ProjectInfoDO info);
+	
+	
 	
 }

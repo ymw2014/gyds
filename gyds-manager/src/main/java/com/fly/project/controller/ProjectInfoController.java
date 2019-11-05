@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.base.BaseService;
+import com.fly.level.domain.LevelDO;
+import com.fly.level.service.LevelService;
 import com.fly.order.domain.OrderDO;
 import com.fly.order.service.OrderService;
 import com.fly.project.domain.ProjectInfoDO;
@@ -61,6 +63,8 @@ public class ProjectInfoController{
 	private TeamService teamService;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private LevelService levelService;
 	
 	@GetMapping()
 	@RequiresPermissions("project:info:info")
@@ -128,6 +132,38 @@ public class ProjectInfoController{
 		}
 		return R.error();
 	}
+	
+	@ResponseBody
+	@PostMapping("/validate")
+	public R validate(ProjectInfoDO info){
+		ShiroUtils.getUserId();
+		//BigDecimal cost = info.getCost();
+		//int i = cost.compareTo(new BigDecimal(0));
+		if(info.getTeamId()==-1) {
+			return R.error("您不是团长,不能发起项目");
+		}
+		Map<String,Object> map=new HashMap<>();
+		map.put("teamId", info.getTeamId());
+		int count = projectInfoService.queryList(map)==null?0:projectInfoService.queryList(map).size();
+		map.clear();
+		TeamDO team = teamService.get(info.getTeamId());
+		map.put("type", 2);
+		map.put("integral", team.getIntegral());
+		List<LevelDO> list = levelService.queryIntegral(map);
+		if(!list.isEmpty()) {
+			int specLevel =levelService.queryIntegral(map).get(0).getPublishNum();
+			if(count>=specLevel) {
+				return R.error("您的团队最多可发布"+levelService.queryIntegral(map).get(0).getPublishNum()+"个项目");
+			}
+		}else {
+			return R.error("平台未定义团队发布项目数量标准");
+		}
+		
+		return R.ok();
+	}
+	
+	
+	
 	/**
 	 * 修改
 	 */

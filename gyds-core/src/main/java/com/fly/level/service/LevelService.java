@@ -27,4 +27,6 @@ public interface LevelService {
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+	
+	List<LevelDO> queryIntegral(Map<String,Object> map);
 }

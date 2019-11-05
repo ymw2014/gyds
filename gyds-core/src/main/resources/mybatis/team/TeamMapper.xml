@@ -142,6 +142,7 @@
 			<if test="remark != null">`remark` = #{remark},</if>
 			<if test="colonelTel != null">`colonel_tel` = #{colonelTel},</if>
 			<if test="teamIntroduce != null">`team_introduce` = #{teamIntroduce},</if>
+			<if test="integral != null">`integral` = #{integral}, </if>
 			<if test="addres != null">`addres` = #{addres},</if>
 			<if test="detailedAddr != null">`detailed_addr` = #{detailedAddr},</if>
 			<if test="isAuth != null">is_auth = #{isAuth},</if>

@@ -27,6 +27,10 @@ public class LevelDO implements Serializable {
 	private Long endIntegral;
 	//1:志愿者 2:团队
 	private Integer type;
+	//发布项目数量
+	private Integer publishNum;
+	//承接项目数量
+	private Integer receiveNum;
 	//创建时间
 	private Date crateTime;
 	//url
@@ -111,4 +115,18 @@ public class LevelDO implements Serializable {
 	public Date getCrateTime() {
 		return crateTime;
 	}
+	public Integer getPublishNum() {
+		return publishNum;
+	}
+	public void setPublishNum(Integer publishNum) {
+		this.publishNum = publishNum;
+	}
+	public Integer getReceiveNum() {
+		return receiveNum;
+	}
+	public void setReceiveNum(Integer receiveNum) {
+		this.receiveNum = receiveNum;
+	}
+	
+	
 }

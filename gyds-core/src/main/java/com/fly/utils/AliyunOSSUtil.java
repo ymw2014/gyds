@@ -50,8 +50,9 @@ public class AliyunOSSUtil {
                 createBucketRequest.setCannedACL(CannedAccessControlList.PublicRead);
                 ossClient.createBucket(createBucketRequest);
             }
+            String fileName =file.getName();
             //创建文件路径
-            String fileUrl = fileHost+"/"+(dateStr + "/" + file.getName());
+            String fileUrl = fileHost+"/"+(dateStr + "/" + FileUtil.renameToUUID(fileName));
             //上传文件
             PutObjectResult result = ossClient.putObject(new PutObjectRequest(bucketName, fileUrl, file));
             //设置权限 这里是公开读
