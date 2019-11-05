@@ -88,6 +88,14 @@
 				background:#ff0000;
 				color:#fff;
 			}
+			.lxh{
+			  width: 539px;
+			    height: 90px;
+			    border: none;
+			    outline: none;
+			    font-size: 20px;
+			    background:#fff;
+			}
 		</style>
 	</head>
 	<body>
@@ -107,9 +115,9 @@
 					<span>作者</span>
 					<input type="text" name="author" required="required" autocomplete="off">
 				</label>
-				<label th:if="${#lists.size(listMap)} gt 0">
+				<label th:if="${#lists.size(listMap)} gt 0" >
 						<span>承接项目</span>
-						<select style="width: 385px" name="projectId">
+						<select style="width: 385px" name="projectId" class="lxh">
 							<option value="0">--请选择--</option>
 							<option th:each="map:${listMap}" th:text="${map.name}" th:value="${map.id}"></option>
 						</select>

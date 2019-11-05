@@ -143,7 +143,7 @@
 					
 					<label th:if="${#lists.size(listMap)} gt 0">
 						<span>承接项目</span>
-						<select name="projectId" >
+						<select name="projectId" class="lxh">
 							<option th:each="map:${listMap}" th:text="${map.name}" th:value="${map.id}"></option>
 						</select>
 					</label>
