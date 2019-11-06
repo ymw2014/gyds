@@ -145,6 +145,7 @@ public class ProjectController{
 	public R examine(Long id,Integer status) {
 		ProjectDO project = projectService.get(id);
 		project.setStatus(status);
+		OrderDO order = orderService.get(project.getOrder());
 		if(status==2) {
 			Integer flag = project.getDuration();
 			if(flag==1) {
@@ -163,10 +164,13 @@ public class ProjectController{
 			projectInfoDO.setTeamCount(1);
 			projectInfoDO.setId(project.getProjectId());
 			projectInfoService.updateCount(projectInfoDO);
+			if(projectService.update(project)>0) {
+				baseService.productOfDomestic(order.getExpIncType(), order.getPrice(), project.getProjectId());
+				return R.ok();
+			}
 		}
 		if(status==3) {//拒绝申请
-			if(project.getOrder()!=null) {
-				OrderDO order = orderService.get(project.getOrder());
+			if(project.getOrder()!=null&&project.getOrder()!=0) {
 				boolean flag = baseService.increaseMoney(order.getUserId(),order.getPrice());//资金回滚入用户账户
 				if(flag) {
 					order.setExamineStatus(3);
@@ -180,22 +184,6 @@ public class ProjectController{
 			if(projectService.update(project)>0) {
 				return R.ok();
 			}
-			return R.error();
-		}
-		
-		if(projectService.update(project)>0) {
-			Map<String,Object> params=new HashMap<String, Object>();
-			params.put("id", project.getOrder());
-			List<OrderDO> orderList = orderService.list(params);
-			if(orderList.isEmpty()) {
-				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-				return R.error("订单获取失败");
-			}
-			OrderDO order = orderList.get(0);
-			if(order!=null) {
-				baseService.productOfDomestic(order.getExpIncType(), order.getPrice(), project.getProjectId());
-			}
-			return R.ok();
 		}
 		return R.error();
 	}

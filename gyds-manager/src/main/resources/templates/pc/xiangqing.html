@@ -198,6 +198,7 @@
 		if(order==""||order==null){
 			orderNum = 0
 		}
+		console.log(order);
 		$.ajax({
 			type : "POST",
 			url : "/pc/savaPro?id="+id+"&order="+order+"&flag="+flag,

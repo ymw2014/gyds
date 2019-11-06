@@ -67,7 +67,6 @@ if(list.length>0) {
 //console.log(JSON.parse(res));
     //追加数据
    $.each(res.teamList, function(i, item){ 
-	console.log(item);
 	html += '<figure>';
 	html += '<a href="/pc/teamDetail?teamId='+item.id+'&areaId='+areaId+'"><img src="'+item.teamTitleImg+'"></a>';
 	if(item.teamName.length>12){
@@ -75,7 +74,12 @@ if(list.length>0) {
 	}else{
 		html += '<figcaption>'+item.teamName+'</figcaption>';
 	}
-	html += '<p style="color: #c01b25; font-size: 14px;">一星团队</p>';
+	console.log(item.level);
+	if(item.level!=null){
+		html += '<p style="color: #c01b25; font-size: 14px;">'+item.level.levelname+'</p>';
+	}else{
+		html += '<p style="color: #c01b25; font-size: 14px;">一星团队</p>';
+	}
 	html += '</figure>';
     })
     $listrow.append(html);//数据追加到list

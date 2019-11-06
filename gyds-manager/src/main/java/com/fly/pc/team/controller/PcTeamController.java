@@ -129,6 +129,16 @@ public class PcTeamController {
 		String ids = regionService.getTeamAndAreaByUserRole(Long.valueOf(areaId));
 		page.put("ids", ids);
 		List<TeamDO> teamList = teamService.list(page);
+		for (TeamDO teamDO : teamList) {
+			params.put("type", 2);
+			params.put("integral", teamDO.getIntegral());
+			List<LevelDO> leList = levelDao.queryIntegral(params);
+			if(!leList.isEmpty()) {
+				teamDO.setLevel(leList.get(0));
+			}else {
+				teamDO.setLevel(null);
+			}
+		}
 		r.put("code","0");
 		r.put("teamList",teamList);
 		return r;

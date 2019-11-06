@@ -125,8 +125,14 @@
 			   $.each(res.teamList, function(i, item){ 
 				html +='<div th:each="team : ${teamList}">'+
 				'<a href="/pc/teamDetail?teamId='+item.id+'&areaId='+areaId+'"><img src='+item.teamTitleImg+' alt=""></a>'+
-				'<p  style="text-align: center;line-height: 30px;">'+item.teamName+'</p>'+
-				'</div>';
+				'<p  style="text-align: center;line-height: 30px;">'+item.teamName.substring(0,10)+'</p>';
+				if(item.level!=null){
+					html +='<p style="color: #c01b25; font-size: 14px; text-align: center;">'+item.level.levelname+'</p>'
+				}else{
+					html +='<p style="color: #c01b25; font-size: 14px; text-align: center;">一星团队</p>'
+				}
+				
+				html +='</div>';
 			    })
 			    $listrow.append(html);//数据追加到list
 			    var imgWidth=$('.list_flex_son_img').width();
