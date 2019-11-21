@@ -21,7 +21,7 @@
 								<label class="col-sm-3 control-label">项目类型：</label>
 								<div class="col-sm-8">								
 									<select id="projectType" name="projectType" class="form-control" onchange="queryCost()">
-											<option value="0">请选择</option>
+											<option value="">请选择</option>
 											<option th:each="type:${type}" th:value="${type.id}" th:text="${type.projectTypeName}"></option>
 									</select>
 										<span style="color: red;">发布项目需支付:<span id="cost1" >0</span>元	</span>	

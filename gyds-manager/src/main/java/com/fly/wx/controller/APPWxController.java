@@ -2,6 +2,7 @@ package com.fly.wx.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,6 +100,7 @@ public class APPWxController {
     					user.setHeadImg(String.valueOf(json.get("headimgurl")));
     					//user.setSex(Integer.valueOf(String.valueOf(json.get("sex"))));
     					user.setStatus(1);
+    					user.setGmtCreate(new Date());
     					user.setCity(String.valueOf(json.get("city")));
     					user.setProvince(String.valueOf(json.get("province")));
     					if(userService.saveUser(user)>0) {
@@ -106,7 +108,6 @@ public class APPWxController {
     					}else {
     						log.info("appwxlogController ==> resultJson:  用户保存失败" );
     						return json.toJSONString();
-    						
     					}
     					Subject subject = SecurityUtils.getSubject();
     					EasyTypeToken token = new EasyTypeToken(user.getUsername());
@@ -226,6 +227,7 @@ public class APPWxController {
 			user.setHeadImg(jsonObject.getString("headImgUrl"));
 			//user.setSex(wxMpuser.getSex());
 			user.setStatus(1);
+			user.setGmtCreate(new Date());
 			user.setCity(wxMpuser.getCity());
 			user.setProvince(wxMpuser.getProvince());
 			if(userService.saveUser(user)>0) {

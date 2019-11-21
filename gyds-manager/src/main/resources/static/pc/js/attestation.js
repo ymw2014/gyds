@@ -269,14 +269,20 @@ $("#downTeam").on('click', function() {
 			type : "POST",
 			url : "/pc/realName",
 			data : $('#signupForm').serialize(),
+			 beforSend:function(){ 
+		         // 禁用按钮防止重复提交
+		        $("#save").attr({ disabled: "disabled" });
+		    }, 
 			success : function(r) {
 				if (r.code == 0) {
+					$("#save").attr({ disabled: "disabled" });
 					$("#signupForm").hide();
 					$("#proxybusi").hide();
 					$("#creatTeam").hide();
 					$("#message").show();
 				} else {
 					layer.msg(r.msg);
+					$("#save").attr({ disabled: "disabled" });
 					$(".reloadverify").click();
 				}
 			},

@@ -20,6 +20,9 @@
 		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
 		  		  <if test="status != null and status != ''"> and a.status = #{status} </if>
 		  		  <if test="order != null and order != ''"> and a.order = #{order} </if>
+		  		  <if test="ids != null">
+		         	and left(a.id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -35,18 +38,21 @@
 	</select>
 	
  	<select id="count" resultType="int">
-		select count(*) from authe
+		select count(*) from authe a left join team t on a.team_id = t.id
 		 <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="tel != null and tel != ''"> and tel = #{tel} </if>
-		  		  <if test="name != null and name != ''"> and name = #{name} </if>
-		  		  <if test="parentDept != null and parentDept != ''"> and parent_dept = #{parentDept} </if>
-		  		  <if test="official != null and official != ''"> and official = #{official} </if>
-		  		  <if test="price != null and price != ''"> and price = #{price} </if>
-		  		  <if test="teamId != null and teamId != ''"> and team_id = #{teamId} </if>
-		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
-		  		  <if test="status != null and status != ''"> and status = #{status} </if>
-		  		  <if test="order != null and order != ''"> and order = #{order} </if>
+		  		  <if test="id != null and id != ''"> and a.id = #{id} </if>
+		  		  <if test="tel != null and tel != ''"> and a.tel = #{tel} </if>
+		  		  <if test="name != null and name != ''"> and a.name = #{name} </if>
+		  		  <if test="parentDept != null and parentDept != ''"> and a.parent_dept = #{parentDept} </if>
+		  		  <if test="official != null and official != ''"> and a.official = #{official} </if>
+		  		  <if test="price != null and price != ''"> and a.price = #{price} </if>
+		  		  <if test="teamId != null and teamId != ''"> and a.team_id = #{teamId} </if>
+		  		  <if test="createTime != null and createTime != ''"> and a.create_time = #{createTime} </if>
+		  		  <if test="status != null and status != ''"> and a.status = #{status} </if>
+		  		  <if test="order != null and order != ''"> and a.order = #{order} </if>
+		  		  <if test="ids != null">
+		         	and left(a.id,CHAR_LENGTH(#{ids})) LIKE CONCAT('%',#{ids},'%')  
+		          </if>
 		  		</where>
 	</select>
 	 

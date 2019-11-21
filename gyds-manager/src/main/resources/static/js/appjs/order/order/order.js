@@ -150,10 +150,10 @@ function load() {
 									field : 'id',
 									align : 'center',
 									formatter : function(value, row, index) {
-										if (row.examineStatus == 2&&row.expIncType!=1) {
+										/*if (row.examineStatus == 2&&row.expIncType!=1) {
 											return '<a class="label label-success '+s_audit_h+'" onclick="audit('+row.id+',1)" >通过</a>&nbsp;&nbsp'+
 											'<a class="label label-danger '+s_audit_h+'" onclick="audit('+row.id+',3)" >拒绝</a>';
-										}
+										}*/
 										if (row.examineStatus == 1) {
 											return '<span style="color:green;">已完成</span>';
 										}

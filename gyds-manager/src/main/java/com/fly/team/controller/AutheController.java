@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.system.service.RegionService;
+import com.fly.system.utils.ShiroUtils;
 import com.fly.team.domain.AutheDO;
 import com.fly.team.domain.TeamDO;
 import com.fly.team.service.AutheService;
@@ -38,6 +40,8 @@ public class AutheController {
 	private AutheService autheService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private RegionService regionService;
 	
 	@GetMapping()
 	@RequiresPermissions("team:authe:authe")
@@ -49,6 +53,9 @@ public class AutheController {
 	@GetMapping("/list")
 	@RequiresPermissions("team:authe:authe")
 	public PageUtils list(@RequestParam Map<String, Object> params){
+		params.put("pids", ShiroUtils.getUser().getDeptId());
+		String ids = regionService.getTeamAndAreaByUserRole(ShiroUtils.getUser().getDeptId());
+		params.put("ids", ids);
 		//查询列表数据
         Query query = new Query(params);
 		List<AutheDO> autheList = autheService.list(query);

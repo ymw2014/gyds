@@ -366,6 +366,17 @@ public class PersionController extends BaseController{
 				return R.error("请选择区域"); 
 			}
 			flag="1";
+			Map<String, Object> params=new HashMap<>(16);
+			params.clear();
+			params.put("userId", user.getUserId());
+			params.put("teamId",name.getTeamId());
+			params.put("type",1);
+			params.put("status", 1);
+			NameDO validatename = nameDao.applyStatus(params);
+			if(validatename!=null) {
+				//1:已申请
+				return R.error("你已经提交过入团申请,请勿重复提交");
+			}
 		}
 		//1:入团申请2:建团申请3:代理商入驻
 		if("2".equals(name.getType().toString())) {

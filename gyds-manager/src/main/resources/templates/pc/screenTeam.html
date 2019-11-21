@@ -116,7 +116,7 @@
 					  </li>
 					  <li>
 						  <p th:text="${newsCounts}"></p>
-						  <span>咨询发布量</span>
+						  <span>资讯发布量</span>
 					  </li>
 				 </ul>
 				 <div class="logoin" style="width: 213px;height: 213px;background:url(/images/logo_03.png) no-repeat;background-size:100% 100%;">
@@ -159,7 +159,7 @@
 						<span>姓名</span>
 						<span>次数</span>
 					</div>
-					<ul th:each="actor,i : ${actOrder}">
+					<ul th:each="actor,i : ${actOrder}" th:if="${i.count<11}">
 						<li th:text="${i.count}"></li>
 						<li th:text="${actor.name}"></li>
 						<li th:text="${actor.value}"></li>
@@ -173,7 +173,7 @@
 						<span>姓名</span>
 						<span>次数</span>
 					</div>
-					<ul th:each="sig,i : ${sigOrder}">
+					<ul th:each="sig,i : ${sigOrder}" th:if="${i.count<11}">
 						<li th:text="${i.count}"></li>
 						<li th:text="${sig.name}"></li>
 						<li th:text="${sig.value}"></li>
@@ -207,8 +207,6 @@
 		  		<div class="zhutiFooter2">
 					<div class="huodong">
 						<span>资讯发布</span>
-						<div class="huo1"><span></span>	转发量</div>
-						<div class="huo2"><span></span> 评论量</div>
 						<div class="huo3"><span></span> 发布量</div>
 					</div>
 					<div class="huodon1" id="mind2">
@@ -231,11 +229,27 @@
 				</div>
 		  		<div class="zhutiFooter3">
 					<div class="huodong">
-						<span>实时动态信息</span>
+						<span>资讯指数</span>
+						<div class="huo1"><span></span>	转发量</div>
+						<div class="huo2"><span></span> 评论量</div>
 					</div>
-					<ul>
-						<li><span>提示:</span>暂未开放；</li>
-					</ul>
+					<div class="huodon2" style=" height: 228px;width: 100%;" id="mind3">
+					
+					</div>
+					<!-- <div class="zhutiRight1-1 huodong2">
+						<div>
+							<p style="text-align: left;">上个月发布量</p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${newsCount.value}"></p>
+						</div>
+						<div>
+							<p style="text-align: left;">本月发布量</p>
+							<p style="color:#edfc00;text-align:center;line-height:30px;" th:text="${newsCount1.value}"></p>
+						</div>
+						<div>
+							<p style="text-align: left;">增长率</p>
+							<p style="color:#ff0000;line-height:30px;" th:text="${newsRatio}"></p>
+						</div>
+					</div> -->
 				</div>	  
 		  </div> 
 	  </div>
@@ -501,15 +515,50 @@ function lod(){
 							yAxis: {
 								type: 'value'
 							},
-							series: [{
+							series: [/* {
 								name :'评论',
 								color: '#42a0ae',
 								data: res.list,
 								type: 'line'
-							},{
+							}, */{
 								name:'发布',
 								color: '#e7696c',
 								data: res.newList1,
+								type: 'line'
+							},/* {
+								name:'转发',
+								color: '#999e41',
+								data: res.list2,
+								type: 'line'
+							}, */]
+				};
+					var option66 = {
+							xAxis: {
+								type: 'category',
+								data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月',"8月","9月","10月","11月","12月"]
+							},
+							textStyle:{
+								color:"#fff",
+							    fontSize:12
+							},
+							 legend: {
+							    data:['发布量','转发量']
+							},
+							
+							grid: {
+								left: '1%',
+								right: '4%',
+								bottom: '1%',
+								top:"6%",
+								containLabel: true
+							},
+							yAxis: {
+								type: 'value'
+							},
+							series: [{
+								name :'评论',
+								color: '#42a0ae',
+								data: res.list,
 								type: 'line'
 							},{
 								name:'转发',
@@ -519,7 +568,9 @@ function lod(){
 							},]
 				};
 						 var mind2 = echarts.init(document.getElementById('mind2'));
+						 var mind3 = echarts.init(document.getElementById('mind3'));
 						mind2.setOption(option6);
+						mind3.setOption(option66);
 				}
 		 });
 }

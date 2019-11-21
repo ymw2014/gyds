@@ -141,7 +141,7 @@ public class ProjectController{
 	@Transactional
 	@ResponseBody
 	@RequestMapping("/examine")
-	@RequiresPermissions("project:info:auth")
+	@RequiresPermissions("project:project:auth")
 	public R examine(Long id,Integer status) {
 		ProjectDO project = projectService.get(id);
 		project.setStatus(status);
@@ -165,8 +165,12 @@ public class ProjectController{
 			projectInfoDO.setId(project.getProjectId());
 			projectInfoService.updateCount(projectInfoDO);
 			if(projectService.update(project)>0) {
-				baseService.productOfDomestic(order.getExpIncType(), order.getPrice(), project.getProjectId());
-				return R.ok();
+				if(project.getOrder()!=null&&project.getOrder()!=0) {
+					baseService.productOfDomestic(order.getExpIncType(), order.getPrice(), project.getProjectId());
+					return R.ok();
+				}else {
+					return R.ok();
+				}
 			}
 		}
 		if(status==3) {//拒绝申请

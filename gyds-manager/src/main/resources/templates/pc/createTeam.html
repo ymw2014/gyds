@@ -79,7 +79,7 @@
 						 </textarea>
 			</label> <label> <span>项目服务</span> <select class="xmfw" onchange="queryCost()"
 				name="teamType" id ="teamType">
-					<option th:each="type:${type}" th:value="${type.id}"
+					<option th:each="type:${teamType}" th:value="${type.id}"
 						th:text="${type.typeName}"></option>
 			</select>
 			</label> 

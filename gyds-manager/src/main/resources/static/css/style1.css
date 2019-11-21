@@ -11,7 +11,7 @@ header{
 	width: 100%;	
 }
 .header1{
-	width:1700px;
+	width:1900px;
 	height:80px;
 	margin: 0 auto;
 	display:flex;
@@ -51,19 +51,19 @@ header{
 	color:#20ebfb;
 }
 .zhuti{
-	width:1700px;
+	width:1900px;
 	margin: 0 auto;
 	overflow: hidden;
 }
 .zhutiLeft{
-	width:450px;
+	width:550px;
 	float: left;
 	box-sizing: border-box;
 	border:2px solid #20effe;
 }
 .zhutiLeft1{
 	 width:100%;
-	 font-size:16px;
+	 font-size:18px;
 	 line-height:30px;
 	 border-bottom:2px solid #20effe;
 	 color:#fff;
@@ -130,7 +130,7 @@ header{
     margin-top: 18px;
     margin-left: 95px;
     color: #fff;
-		font-size:14px;
+		font-size:18px;
 }
 .zhp{
 	margin-left: 85px !important;
@@ -222,7 +222,7 @@ header{
 	border-top:1px solid #3172ad;
 }
 .zhutiFooter{
-	width: 1220px;
+	width: 1320px;
 	margin-left:25px;
 	float: left;
 	height: 310px;
@@ -245,11 +245,11 @@ header{
 	width:100%;
 	line-height:40px;
 	color:#fff;
-	font-size:16px;
+	font-size:18px;
 	border-bottom:1px solid #2563a7;	
 }
 .huodon1{
-	height: 150px;
+	height: 160px;
 	width: 100%;
 }
 .huodong2>div{
@@ -379,7 +379,8 @@ header{
 }
 
 .zhutiRight{
-	width:450px;
+	width:550px;
+	height:660px;
 	float: left;
 	box-sizing: border-box;
 	border:2px solid #20effe;

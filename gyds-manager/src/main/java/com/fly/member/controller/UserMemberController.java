@@ -1,6 +1,7 @@
 package com.fly.member.controller;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,16 +62,26 @@ public class UserMemberController {
 			return "redirect:"+redUrl;
 		}else {//新用户登录
 			UserDO user=new UserDO();
-			user.setUsername(wxMpUser.getNickname());
 			user.setIsIdentification(0);
 			user.setIsManage(0);
 			user.setIsBinding(0);
 			user.setAccount(new BigDecimal(0));
-			user.setNikeName(wxMpUser.getNickname());
+			map.clear();
+			map.put("username",wxMpUser.getNickname());
+			List<UserDO> validateList=memberUserService.list(map);
+			long num = System.currentTimeMillis();
+			if(!validateList.isEmpty()) {
+				user.setUsername(wxMpUser.getNickname()+num);
+				user.setNikeName(wxMpUser.getNickname()+num);
+			}else {
+				user.setUsername(wxMpUser.getNickname());
+				user.setNikeName(wxMpUser.getNickname());
+			}
 			user.setOpenId(wxMpUser.getOpenId());
 			user.setHeadImg(wxMpUser.getHeadImgUrl());
 			//user.setSex(wxMpUser.getSex());
 			user.setStatus(1);
+			user.setGmtCreate(new Date());
 			user.setCity(wxMpUser.getCity());
 			user.setProvince(wxMpUser.getProvince());
 			if(memberUserService.saveUser(user)>0) {
