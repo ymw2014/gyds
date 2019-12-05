@@ -19,7 +19,7 @@
 					<div class="yymytd" th:each="pro: ${proList}">
 					<input type="hidden" id="id" th:value="${pro.id}">
 						<div class="yy-mytd1">
-							<a href="#" target="_Parent"><img th:src="${pro.logo}"></a>
+							<a th:href="${'/pc/queryProById?areaId=0&id='+pro.projectId}" target="_Parent"><img th:src="${pro.logo}"></a>
 						</div>
 						<div class="yy-mytd2">
 							<h4 th:text="${pro.projectName}"></h4>
